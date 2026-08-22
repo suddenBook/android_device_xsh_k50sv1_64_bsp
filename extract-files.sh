@@ -21,6 +21,25 @@ fi
 # shellcheck source=/dev/null
 source "${HELPER}"
 
+# Keep MTK's Wi-Fi HAL ABI without colliding with the AOSP library that uses
+# the same filename. The replacement SONAME is exactly the same length, so the
+# ELF dynamic string table layout is unchanged.
+function blob_fixup() {
+    case "$1" in
+        vendor/bin/hw/android.hardware.wifi@1.0-service-lazy-mediatek)
+            local match_count
+            match_count=$(LC_ALL=C grep -ao 'libwifi-hal\.so' "$2" | wc -l)
+            if [[ "${match_count}" -ne 1 ]]; then
+                echo "Unexpected libwifi-hal dependency count: ${match_count}" >&2
+                return 1
+            fi
+            LC_ALL=C perl -0pi -e \
+                's/libwifi-hal\.so/libmtk-wifi.so/g' "$2"
+            LC_ALL=C grep -aq 'libmtk-wifi\.so' "$2"
+            ;;
+    esac
+}
+
 CLEAN_VENDOR=true
 SECTION=
 KANG=

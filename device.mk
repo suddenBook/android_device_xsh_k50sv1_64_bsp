@@ -34,6 +34,7 @@ PRODUCT_PACKAGES += \
     libeffectsconfig.vendor \
     libkeystore-engine-wifi-hidl \
     libkeystore-wifi-hidl \
+    libvisualizer \
     power.default
 
 # full_base_telephony installs the CTS handheld core file, which falsely
