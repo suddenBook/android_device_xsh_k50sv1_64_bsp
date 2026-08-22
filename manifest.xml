@@ -41,6 +41,12 @@
         <fqname>@2.0::IAllocator/default</fqname>
     </hal>
     <hal format="hidl">
+        <name>android.hardware.gnss</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.1::IGnss/default</fqname>
+        <fqname>@2.0::IGnss/default</fqname>
+    </hal>
+    <hal format="hidl">
         <name>android.hardware.graphics.composer</name>
         <transport>hwbinder</transport>
         <fqname>@2.1::IComposer/default</fqname>
@@ -119,5 +125,27 @@
         <name>vendor.mediatek.hardware.camera.ccap</name>
         <transport>hwbinder</transport>
         <fqname>@1.0::ICCAPControl/internal/0</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.mediatek.hardware.lbs</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.0::ILbs/AgpsDebugInterface</fqname>
+        <fqname>@1.0::ILbs/AgpsInterface</fqname>
+        <fqname>@1.0::ILbs/mtk_agps2framework</fqname>
+        <fqname>@1.0::ILbs/mtk_debugService2mnld</fqname>
+        <fqname>@1.0::ILbs/mtk_framework2agps</fqname>
+        <fqname>@1.0::ILbs/mtk_lbs_log_v2s</fqname>
+        <fqname>@1.0::ILbs/mtk_lppe_socket_agps</fqname>
+        <fqname>@1.0::ILbs/mtk_lppe_socket_bt</fqname>
+        <fqname>@1.0::ILbs/mtk_lppe_socket_ipaddr</fqname>
+        <fqname>@1.0::ILbs/mtk_lppe_socket_lbs</fqname>
+        <fqname>@1.0::ILbs/mtk_lppe_socket_network</fqname>
+        <fqname>@1.0::ILbs/mtk_lppe_socket_sensor</fqname>
+        <fqname>@1.0::ILbs/mtk_lppe_socket_wlan</fqname>
+        <fqname>@1.0::ILbs/mtk_meta2mnld</fqname>
+        <fqname>@1.0::ILbs/mtk_mnld2debugService</fqname>
+        <fqname>@1.0::ILbs/mtk_mnld2mtklogger</fqname>
+        <fqname>@1.0::ILbs/mtk_mnld2nlputils</fqname>
+        <fqname>@1.0::ILbs/mtk_mtklogger2mnld</fqname>
     </hal>
 </manifest>

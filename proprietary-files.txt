@@ -383,3 +383,21 @@ vendor/lib64/libnvram_sec.so
 vendor/lib64/libwifi-hal.so
 vendor/lib64/vendor.mediatek.hardware.wifi.supplicant@2.0.so
 vendor/lib64/vendor.mediatek.hardware.wifi.supplicant@2.1.so
+
+# GNSS / LBS (64-bit HIDL with 32-bit helpers)
+vendor/bin/hw/android.hardware.gnss@2.0-service-mediatek
+vendor/bin/lbs_hidl_service
+vendor/bin/mnld
+vendor/bin/mtk_agpsd
+vendor/etc/agps_profiles_conf2.xml
+vendor/etc/init/android.hardware.gnss@2.0-service-mediatek.rc
+vendor/etc/init/lbs_hidl_service.rc
+vendor/etc/init/mtk_agpsd_p.rc
+vendor/lib/libDR.so
+vendor/lib/libgeofence.so
+vendor/lib/libmnl.so
+vendor/lib64/hw/android.hardware.gnss@2.0-impl-mediatek.so
+vendor/lib64/hw/flp.default.so
+vendor/lib64/hw/gps.default.so
+vendor/lib64/lbs_hidl_service-impl.so
+vendor/lib64/vendor.mediatek.hardware.lbs@1.0.so
