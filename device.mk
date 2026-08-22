@@ -67,11 +67,22 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=adb
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    persist.radio.multisim.config=dsds \
     ro.frp.pst=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/frp \
-    ro.sf.lcd_density=320
+    ro.sf.lcd_density=320 \
+    ro.telephony.default_network=9,9,9,9 \
+    ro.telephony.sim.count=2
 
 PRODUCT_VENDOR_PROPERTIES += \
     persist.vendor.connsys.coredump.mode=0 \
+    ro.vendor.md_apps.load_gencfg=GEN91_USER \
+    ro.vendor.md_apps.load_type=user \
+    ro.vendor.md_apps.load_verno=MOLY.LR11.W1630.MD.MP.V191.4 \
+    ro.vendor.md_apps.support=1 \
     ro.vendor.mediatek.platform=MT6755 \
+    ro.vendor.mtk_protocol1_rat_config=Lf/Lt/W/T/G \
     ro.vendor.mtk_f2fs_enable=0 \
+    ro.vendor.mtk_ril_mode=c6m_3rild \
+    ro.vendor.mtk_rild_read_imsi=1 \
+    ro.vendor.radio.max.multisim=dsds \
     ro.vendor.wlan.gen=gen2
