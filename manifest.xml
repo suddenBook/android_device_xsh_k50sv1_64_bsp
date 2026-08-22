@@ -77,6 +77,12 @@
         <fqname>@1.0::IMemtrack/default</fqname>
     </hal>
     <hal format="hidl">
+        <name>android.hardware.media.omx</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.0::IOmx/default</fqname>
+        <fqname>@1.0::IOmxStore/default</fqname>
+    </hal>
+    <hal format="hidl">
         <name>android.hardware.power</name>
         <transport>hwbinder</transport>
         <fqname>@1.0::IPower/default</fqname>
@@ -189,6 +195,11 @@
         <fqname>@1.9::IMtkRadioEx/mtkSe2</fqname>
         <fqname>@1.9::IMtkRadioEx/mtkSlot1</fqname>
         <fqname>@1.9::IMtkRadioEx/mtkSlot2</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.mediatek.hardware.mtkcodecservice</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.1::IMtkCodecService/default</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.mediatek.hardware.netdagent</name>
