@@ -40,14 +40,7 @@ PRODUCT_PACKAGES += \
     libvisualizer \
     power.default
 
-# full_base_telephony installs the CTS handheld core file, which falsely
-# requires a compass. Replace it with the verified device-specific contract.
-PRODUCT_COPY_FILES := $(filter-out \
-    %:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml, \
-    $(PRODUCT_COPY_FILES))
-
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/permissions/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml \
     $(LOCAL_PATH)/configs/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
     $(LOCAL_PATH)/configs/mtk_bt_fw.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/bluetooth/mtk_bt_fw.conf \
     $(LOCAL_PATH)/configs/mtk_bt_stack.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/bluetooth/mtk_bt_stack.conf \

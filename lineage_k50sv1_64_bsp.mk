@@ -1,4 +1,10 @@
 # 64-bit primary userspace with a 32-bit compatibility runtime.
+# Product copy rules keep the first source for a duplicate destination. Add
+# the verified no-compass handheld contract before inherited common products
+# contribute AOSP's generic version.
+PRODUCT_COPY_FILES += \
+    device/xsh/k50sv1_64_bsp/permissions/handheld_core_hardware.xml:vendor/etc/permissions/handheld_core_hardware.xml
+
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 
 # Full telephony base, then the device-specific truthful feature contract.
