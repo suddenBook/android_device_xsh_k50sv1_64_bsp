@@ -25,7 +25,8 @@ BOARD_SYSTEMSDK_VERSIONS := 28
 # Kernel and boot image
 TARGET_KERNEL_ARCH := arm64
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
-DEVICE_PREBUILT_DTBIMAGE := $(DEVICE_PATH)/prebuilt/dtb
+BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilt/dtb
 
 BOARD_KERNEL_BASE := 0x40000000
 BOARD_KERNEL_PAGESIZE := 2048
@@ -36,11 +37,10 @@ BOARD_MKBOOTIMG_ARGS += \
     --ramdisk_offset 0x05000000 \
     --second_offset 0x00f00000 \
     --tags_offset 0x04000000 \
-    --dtb_offset 0x04000000 \
-    --dtb $(DEVICE_PREBUILT_DTBIMAGE)
+    --dtb_offset 0x04000000
 
-# DEVICE_PREBUILT_DTBIMAGE is the exact Stock Android DT table. Do not also set
-# BOARD_INCLUDE_DTB_IN_BOOTIMG, which would supply a second DTB argument.
+# prebuilt/dtb contains one file: the exact Stock Android DT table container.
+# Q concatenates that single input to PRODUCT_OUT/dtb.img and supplies --dtb.
 
 # Recovery
 BOARD_USES_RECOVERY_AS_BOOT := false

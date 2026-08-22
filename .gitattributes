@@ -1,5 +1,5 @@
 prebuilt/kernel -diff
-prebuilt/dtb -diff
+prebuilt/dtb/*.dtb -diff
 prebuilt/recovery_dtbo -diff
 *.bin -diff
 *.dtb -diff
