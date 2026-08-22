@@ -482,10 +482,10 @@ vendor/lib64/vendor.mediatek.hardware.netdagent@1.0.so
 vendor/lib64/vendor.mediatek.hardware.nvram@1.0.so
 vendor/lib64/vendor.mediatek.hardware.nvram@1.1.so
 
-# Media OMX / MTK codec service (active Stock services are 32-bit)
-vendor/bin/hw/android.hardware.media.omx@1.0-service
+# Media OMX / MTK codec service (active Stock codec service is 32-bit).
+# Use Lineage's source-built standard OMX service wrapper to avoid colliding
+# with the platform module; retain only the MTK implementation and codecs.
 vendor/bin/hw/vendor.mediatek.hardware.mtkcodecservice@1.1-service
-vendor/etc/init/android.hardware.media.omx@1.0-service.rc
 vendor/etc/init/vendor.mediatek.hardware.mtkcodecservice@1.1-service.rc
 vendor/etc/media_codecs.xml
 vendor/etc/media_codecs_mediatek_audio.xml
