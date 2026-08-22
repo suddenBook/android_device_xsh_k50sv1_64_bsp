@@ -47,11 +47,3 @@
 # Power/watchdog and MTK GPIO used by radio
 /dev/RT_Monitor  0660  system  system
 /dev/mtgpio      0600  radio   root
-
-# Notification LEDs
-/sys/class/leds/green  delay_on   0664  system  system
-/sys/class/leds/green  delay_off  0664  system  system
-/sys/class/leds/red    delay_on   0664  system  system
-/sys/class/leds/red    delay_off  0664  system  system
-/sys/class/leds/blue   delay_on   0664  system  system
-/sys/class/leds/blue   delay_off  0664  system  system
