@@ -37,6 +37,17 @@ function blob_fixup() {
                 's/libwifi-hal\.so/libmtk-wifi.so/g' "$2"
             LC_ALL=C grep -aq 'libmtk-wifi\.so' "$2"
             ;;
+        vendor/lib64/libmtk-wifi.so)
+            local match_count
+            match_count=$(LC_ALL=C grep -ao 'libwifi-hal\.so' "$2" | wc -l)
+            if [[ "${match_count}" -ne 1 ]]; then
+                echo "Unexpected libwifi-hal SONAME count: ${match_count}" >&2
+                return 1
+            fi
+            LC_ALL=C perl -0pi -e \
+                's/libwifi-hal\.so/libmtk-wifi.so/g' "$2"
+            LC_ALL=C grep -aq 'libmtk-wifi\.so' "$2"
+            ;;
     esac
 }
 
