@@ -10,11 +10,15 @@
 # - EngineerMode/ATCI/factory test/logging packages unless a measured runtime
 #   dependency proves they are required
 # - Stock fstab, assembled VINTF, generated/precompiled SELinux policy
+#
+# A leading '-' packages a blob as a preferred prebuilt module instead of a
+# raw PRODUCT_COPY_FILES entry. Use it where Stock intentionally ships an
+# MTK/vendor variant at the same path as an AOSP module.
 
 # Graphics / Mali
 vendor/bin/hw/vendor.mediatek.hardware.gpu@1.0-service
 vendor/etc/init/vendor.mediatek.hardware.gpu@1.0-service.rc
-vendor/lib/hw/android.hardware.graphics.mapper@2.0-impl.so
+-vendor/lib/hw/android.hardware.graphics.mapper@2.0-impl.so
 vendor/lib/hw/gralloc.mt6755.so
 vendor/lib/egl/libGLES_mali.so
 vendor/lib/libdpframework.so
@@ -34,9 +38,9 @@ vendor/lib/vendor.mediatek.hardware.mms@1.3.so
 vendor/lib/vendor.mediatek.hardware.mms@1.4.so
 vendor/lib/vendor.mediatek.hardware.mms@1.5.so
 vendor/lib/vendor.mediatek.hardware.pq@2.0.so
-vendor/lib64/hw/android.hardware.graphics.allocator@2.0-impl.so
-vendor/lib64/hw/android.hardware.graphics.composer@2.1-impl.so
-vendor/lib64/hw/android.hardware.graphics.mapper@2.0-impl.so
+-vendor/lib64/hw/android.hardware.graphics.allocator@2.0-impl.so
+-vendor/lib64/hw/android.hardware.graphics.composer@2.1-impl.so
+-vendor/lib64/hw/android.hardware.graphics.mapper@2.0-impl.so
 vendor/lib64/hw/gralloc.mt6755.so
 vendor/lib64/hw/hwcomposer.mt6755.so
 vendor/lib64/egl/libGLES_mali.so
@@ -45,8 +49,8 @@ vendor/lib64/libged.so
 vendor/lib64/libgpu_aux.so
 vendor/lib64/libgpud.so
 vendor/lib64/libgralloc_extra.so
-vendor/lib64/libhwc2on1adapter.so
-vendor/lib64/libhwc2onfbadapter.so
+-vendor/lib64/libhwc2on1adapter.so
+-vendor/lib64/libhwc2onfbadapter.so
 vendor/lib64/libion_mtk.so
 vendor/lib64/libion_ulit.so
 vendor/lib64/libladder.so
@@ -83,7 +87,7 @@ vendor/lib64/libksensor.so
 vendor/lib64/hw/lights.mt6755.so
 vendor/lib64/hw/memtrack.mt6755.so
 vendor/lib64/hw/thermal.mt6755.so
-vendor/lib64/hw/vibrator.default.so
+-vendor/lib64/hw/vibrator.default.so
 
 # Thermal and fuel gauge
 vendor/bin/fuelgauged
@@ -150,15 +154,15 @@ vendor/lib/modules/fmradio_drv.ko
 vendor/bin/hw/android.hardware.audio@5.0-service-mediatek
 vendor/etc/init/android.hardware.audio@5.0-service-mediatek.rc
 vendor/lib/hw/android.hardware.audio@5.0-impl-mediatek.so
-vendor/lib/hw/android.hardware.audio.effect@5.0-impl.so
+-vendor/lib/hw/android.hardware.audio.effect@5.0-impl.so
 vendor/lib/hw/audio.primary.mt6755.so
-vendor/lib/hw/audio.bluetooth.default.so
-vendor/lib/hw/audio.r_submix.default.so
-vendor/lib/hw/audio.usb.default.so
-vendor/lib/android.hardware.audio.common-util.so
-vendor/lib/android.hardware.audio.common@5.0-util.so
+-vendor/lib/hw/audio.bluetooth.default.so
+-vendor/lib/hw/audio.r_submix.default.so
+-vendor/lib/hw/audio.usb.default.so
+-vendor/lib/android.hardware.audio.common-util.so
+-vendor/lib/android.hardware.audio.common@5.0-util.so
 vendor/lib/vendor.mediatek.hardware.audio@5.1.so
-vendor/lib/libalsautils.so
+-vendor/lib/libalsautils.so
 vendor/lib/libaudio_param_parser-vnd.so
 vendor/lib/libaudiocompensationfilter_vendor.so
 vendor/lib/libaudiocomponentengine_vendor.so
@@ -172,24 +176,24 @@ vendor/lib/libblisrc32_vendor.so
 vendor/lib/libbluetooth_audio_session_mediatek.so
 vendor/lib/libbluetooth_mtk_pure.so
 vendor/lib/libcvsd_mtk.so
-vendor/lib/libeffects.so
-vendor/lib/libeffectsconfig.so
+-vendor/lib/libeffects.so
+-vendor/lib/libeffectsconfig.so
 vendor/lib/libmsbc_mtk.so
-vendor/lib/libnbaio_mono.so
+-vendor/lib/libnbaio_mono.so
 vendor/lib/libspeech_enh_lib.so
 vendor/lib/libspeechparser_vendor.so
-vendor/lib/libtinycompress.so
-vendor/lib/libtinyxml.so
-vendor/lib/libwebrtc_audio_preprocessing.so
+-vendor/lib/libtinycompress.so
+-vendor/lib/libtinyxml.so
+-vendor/lib/libwebrtc_audio_preprocessing.so
 vendor/lib/vendor.mediatek.hardware.mtkpower@1.0.so
 vendor/lib/vendor.mediatek.hardware.power@2.0.so
-vendor/lib/soundfx/libaudiopreprocessing.so
-vendor/lib/soundfx/libbundlewrapper.so
-vendor/lib/soundfx/libdownmix.so
-vendor/lib/soundfx/libdynproc.so
-vendor/lib/soundfx/libeffectproxy.so
-vendor/lib/soundfx/libldnhncr.so
-vendor/lib/soundfx/libreverbwrapper.so
+-vendor/lib/soundfx/libaudiopreprocessing.so
+-vendor/lib/soundfx/libbundlewrapper.so
+-vendor/lib/soundfx/libdownmix.so
+-vendor/lib/soundfx/libdynproc.so
+-vendor/lib/soundfx/libeffectproxy.so
+-vendor/lib/soundfx/libldnhncr.so
+-vendor/lib/soundfx/libreverbwrapper.so
 vendor/lib/soundfx/libvisualizer.so
 vendor/etc/a2dp_audio_policy_configuration.xml
 vendor/etc/a2dp_in_audio_policy_configuration.xml
@@ -357,7 +361,7 @@ vendor/lib/libnvram.so
 vendor/lib/libnvram_platform.so
 vendor/lib/libnvram_sec.so
 vendor/lib/libnvramagentclient.so
-vendor/lib/libsensorndkbridge.so
+-vendor/lib/libsensorndkbridge.so
 vendor/lib/vendor.mediatek.hardware.camera.ccap@1.0.so
 vendor/lib/vendor.mediatek.hardware.camera.device@1.1.so
 vendor/lib/vendor.mediatek.hardware.power@1.1.so
@@ -387,8 +391,8 @@ vendor/lib64/hw/android.hardware.bluetooth.audio@2.0-impl-mediatek.so
 vendor/lib64/libbluetooth_audio_session_mediatek.so
 vendor/lib64/libbt-vendor.so
 vendor/lib64/libbluetooth_mtk.so
-vendor/lib64/libkeystore-engine-wifi-hidl.so
-vendor/lib64/libkeystore-wifi-hidl.so
+-vendor/lib64/libkeystore-engine-wifi-hidl.so
+-vendor/lib64/libkeystore-wifi-hidl.so
 vendor/lib64/libnvram.so
 vendor/lib64/libnvram_platform.so
 vendor/lib64/libnvram_sec.so
@@ -463,7 +467,7 @@ vendor/lib64/libratconfig.so
 vendor/lib64/librilmtk.so
 vendor/lib64/librilproxy.so
 vendor/lib64/librilproxyutils.so
-vendor/lib64/librilutils.so
+-vendor/lib64/librilutils.so
 vendor/lib64/libsysenv.so
 vendor/lib64/mtk-ril.so
 vendor/lib64/mtk-rilproxy.so
