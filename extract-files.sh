@@ -60,4 +60,12 @@ setup_vendor "${DEVICE}" "${VENDOR}" "${LINEAGE_ROOT}" false "${CLEAN_VENDOR}"
 
 extract "${MY_DIR}/proprietary-files.txt" "${SRC}" ${KANG} --section "${SECTION}"
 
+PROPRIETARY_ROOT="${LINEAGE_ROOT}/vendor/${VENDOR}/${DEVICE}/proprietary"
+(
+    cd "${PROPRIETARY_ROOT}"
+    find . -type f ! -name SHA256SUMS -print0 \
+        | sort -z \
+        | xargs -0 sha256sum >SHA256SUMS
+)
+
 "${MY_DIR}/setup-makefiles.sh"
