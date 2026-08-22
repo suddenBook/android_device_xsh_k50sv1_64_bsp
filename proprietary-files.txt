@@ -11,13 +11,15 @@
 #   dependency proves they are required
 # - Stock fstab, assembled VINTF, generated/precompiled SELinux policy
 #
-# A leading '-' packages a blob as a preferred prebuilt module instead of a
-# raw PRODUCT_COPY_FILES entry. Use it where Stock intentionally ships an
-# MTK/vendor variant at the same path as an AOSP module.
+# A leading '-' packages a Stock library as a preferred prebuilt module. For
+# modules that also exist in AOSP, keep every real Stock 32/64 variant so the
+# replacement satisfies Soong's complete architecture contract.
 
 # Graphics / Mali
 vendor/bin/hw/vendor.mediatek.hardware.gpu@1.0-service
 vendor/etc/init/vendor.mediatek.hardware.gpu@1.0-service.rc
+-vendor/lib/hw/android.hardware.graphics.allocator@2.0-impl.so
+-vendor/lib/hw/android.hardware.graphics.composer@2.1-impl.so
 -vendor/lib/hw/android.hardware.graphics.mapper@2.0-impl.so
 vendor/lib/hw/gralloc.mt6755.so
 vendor/lib/egl/libGLES_mali.so
@@ -28,6 +30,8 @@ vendor/lib/libgpud.so
 vendor/lib/libgralloc_extra.so
 vendor/lib/libion_mtk.so
 vendor/lib/libion_ulit.so
+-vendor/lib/libhwc2on1adapter.so
+-vendor/lib/libhwc2onfbadapter.so
 vendor/lib/libladder.so
 vendor/lib/libpq_prot.so
 vendor/lib/vendor.mediatek.hardware.gpu@1.0.so
@@ -84,6 +88,7 @@ vendor/lib64/libaedv.so
 vendor/lib64/libksensor.so
 
 # Legacy light, memtrack, thermal and vibrator implementations
+-vendor/lib/hw/vibrator.default.so
 vendor/lib64/hw/lights.mt6755.so
 vendor/lib64/hw/memtrack.mt6755.so
 vendor/lib64/hw/thermal.mt6755.so
@@ -195,6 +200,26 @@ vendor/lib/vendor.mediatek.hardware.power@2.0.so
 -vendor/lib/soundfx/libldnhncr.so
 -vendor/lib/soundfx/libreverbwrapper.so
 vendor/lib/soundfx/libvisualizer.so
+-vendor/lib64/hw/android.hardware.audio.effect@5.0-impl.so
+-vendor/lib64/hw/audio.bluetooth.default.so
+-vendor/lib64/hw/audio.r_submix.default.so
+-vendor/lib64/hw/audio.usb.default.so
+-vendor/lib64/android.hardware.audio.common-util.so
+-vendor/lib64/android.hardware.audio.common@5.0-util.so
+-vendor/lib64/libalsautils.so
+-vendor/lib64/libeffects.so
+-vendor/lib64/libeffectsconfig.so
+-vendor/lib64/libnbaio_mono.so
+-vendor/lib64/libtinycompress.so
+-vendor/lib64/libtinyxml.so
+-vendor/lib64/libwebrtc_audio_preprocessing.so
+-vendor/lib64/soundfx/libaudiopreprocessing.so
+-vendor/lib64/soundfx/libbundlewrapper.so
+-vendor/lib64/soundfx/libdownmix.so
+-vendor/lib64/soundfx/libdynproc.so
+-vendor/lib64/soundfx/libeffectproxy.so
+-vendor/lib64/soundfx/libldnhncr.so
+-vendor/lib64/soundfx/libreverbwrapper.so
 vendor/etc/a2dp_audio_policy_configuration.xml
 vendor/etc/a2dp_in_audio_policy_configuration.xml
 vendor/etc/audio_device.xml
@@ -365,6 +390,7 @@ vendor/lib/libnvramagentclient.so
 vendor/lib/vendor.mediatek.hardware.camera.ccap@1.0.so
 vendor/lib/vendor.mediatek.hardware.camera.device@1.1.so
 vendor/lib/vendor.mediatek.hardware.power@1.1.so
+-vendor/lib64/libsensorndkbridge.so
 
 # Wi-Fi / Bluetooth / WMT connectivity
 vendor/bin/hw/android.hardware.bluetooth@1.0-service-mediatek
@@ -467,6 +493,7 @@ vendor/lib64/libratconfig.so
 vendor/lib64/librilmtk.so
 vendor/lib64/librilproxy.so
 vendor/lib64/librilproxyutils.so
+-vendor/lib/librilutils.so
 -vendor/lib64/librilutils.so
 vendor/lib64/libsysenv.so
 vendor/lib64/mtk-ril.so
