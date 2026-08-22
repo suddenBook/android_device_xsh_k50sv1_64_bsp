@@ -1,0 +1,4 @@
+prebuilt/* -diff
+*.bin -diff
+*.dtb -diff
+*.dtbo -diff
