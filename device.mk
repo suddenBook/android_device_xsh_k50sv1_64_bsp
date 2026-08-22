@@ -10,15 +10,22 @@ $(call inherit-product-if-exists, vendor/xsh/k50sv1_64_bsp/k50sv1_64_bsp-vendor.
 # by the vendor tree and loaded through the standard HIDL wrappers.
 PRODUCT_PACKAGES += \
     android.hardware.configstore@1.1-service \
+    android.hardware.gatekeeper@1.0-impl \
     android.hardware.gatekeeper@1.0-service \
     android.hardware.graphics.allocator@2.0-service \
     android.hardware.graphics.composer@2.1-service \
     android.hardware.health@2.0-service \
+    android.hardware.keymaster@3.0-impl \
     android.hardware.keymaster@3.0-service \
+    android.hardware.light@2.0-impl \
     android.hardware.light@2.0-service \
+    android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
+    android.hardware.power@1.0-impl \
     android.hardware.power@1.0-service \
+    android.hardware.thermal@1.0-impl \
     android.hardware.thermal@1.0-service \
+    android.hardware.vibrator@1.0-impl \
     android.hardware.vibrator@1.0-service \
     power.default
 
