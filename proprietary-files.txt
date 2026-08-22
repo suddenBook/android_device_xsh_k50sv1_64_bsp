@@ -184,8 +184,6 @@ vendor/etc/a2dp_in_audio_policy_configuration.xml
 vendor/etc/audio_device.xml
 vendor/etc/audio_effects.xml
 vendor/etc/audio_em.xml
-vendor/etc/audio_policy_configuration.xml
-vendor/etc/audio_policy_configuration_bluetooth_legacy_hal.xml
 vendor/etc/audio_policy_volumes.xml
 vendor/etc/bluetooth_audio_policy_configuration.xml
 vendor/etc/default_volume_tables.xml
