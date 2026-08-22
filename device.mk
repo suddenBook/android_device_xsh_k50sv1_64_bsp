@@ -12,6 +12,8 @@ $(call inherit-product-if-exists, vendor/xsh/k50sv1_64_bsp/k50sv1_64_bsp-vendor.
 # keystore helpers, so build both variants from source for Soong consistency.
 PRODUCT_PACKAGES += \
     android.hardware.configstore@1.1-service \
+    android.hardware.drm@1.0-impl \
+    android.hardware.drm@1.0-service \
     android.hardware.gatekeeper@1.0-impl \
     android.hardware.gatekeeper@1.0-service \
     android.hardware.graphics.allocator@2.0-service \
