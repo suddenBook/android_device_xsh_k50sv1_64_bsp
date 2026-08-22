@@ -63,7 +63,7 @@ extract "${MY_DIR}/proprietary-files.txt" "${SRC}" ${KANG} --section "${SECTION}
 PROPRIETARY_ROOT="${LINEAGE_ROOT}/vendor/${VENDOR}/${DEVICE}/proprietary"
 (
     cd "${PROPRIETARY_ROOT}"
-    find . -type f ! -name SHA256SUMS -print0 \
+    find . \( -type f -o -type l \) ! -name SHA256SUMS -print0 \
         | sort -z \
         | xargs -0 sha256sum >SHA256SUMS
 )
