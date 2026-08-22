@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Stock advertises unusable LIGHT and PROXIMITY handles. -->
+    <bool name="config_automatic_brightness_available">false</bool>
+    <bool name="config_suspendWhenScreenOffDueToProximity">false</bool>
+
+    <bool name="config_showNavigationBar">true</bool>
+    <integer name="config_defaultPeakRefreshRate">60</integer>
+</resources>
