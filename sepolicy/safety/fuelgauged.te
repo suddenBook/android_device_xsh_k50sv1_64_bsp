@@ -1,0 +1,13 @@
+type fuelgauged, domain;
+type fuelgauged_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(fuelgauged)
+
+# The legacy fuel-gauge library exchanges commands with the battery driver over
+# netlink and exposes one tuning knob below battery_meter.  Its /dev/kmsg writes
+# are intentionally not permitted.
+allow fuelgauged self:netlink_socket create_socket_perms_no_ioctl;
+allow fuelgauged self:netlink_route_socket create_socket_perms_no_ioctl;
+allow fuelgauged self:netlink_route_socket { nlmsg_read nlmsg_write };
+
+r_dir_file(fuelgauged, sysfs_batteryinfo)

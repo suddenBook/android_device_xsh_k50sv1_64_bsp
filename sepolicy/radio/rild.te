@@ -1,0 +1,24 @@
+# rilproxy is intentionally kept in AOSP's rild/hal_telephony_server domain.
+vndbinder_use(rild)
+hal_client_domain(rild, hal_audio)
+
+# rilproxy publishes the vendor extension in addition to the standard Android
+# radio HIDL services already covered by the platform telephony attributes.
+hal_attribute_hwservice(hal_telephony, mtk_radioex_hwservice)
+
+# Proxy requests are forwarded to the proprietary mtkrild command sockets.
+allow rild mtk_rild_socket:sock_file write;
+allow rild mtkrild:unix_stream_socket connectto;
+
+set_prop(rild, mtk_ril_mux_report_prop)
+set_prop(rild, mtk_vendor_radio_prop)
+set_prop(rild, mtk_telephony_sensitive_prop)
+get_prop(rild, mtk_ril_mux_prop)
+get_prop(rild, mtk_muxreport_state_prop)
+get_prop(rild, mtk_ril_active_md_prop)
+get_prop(rild, mtk_modem_status_prop)
+get_prop(rild, mtk_radio_config_prop)
+
+# librilproxy reads only the carrier-express selection record directly.
+allow rild mnt_vendor_file:dir search;
+allow rild mtk_modem_config_file:file r_file_perms;

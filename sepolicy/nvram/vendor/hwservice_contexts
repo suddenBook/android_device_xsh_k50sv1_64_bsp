@@ -1,0 +1,1 @@
+vendor.mediatek.hardware.nvram::INvram u:object_r:mtk_nvram_hwservice:s0

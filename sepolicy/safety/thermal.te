@@ -1,0 +1,16 @@
+type mtk_thermal, domain;
+type mtk_thermal_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(mtk_thermal)
+
+allow mtk_thermal proc_mtk_thermal:dir r_dir_perms;
+allow mtk_thermal proc_mtk_thermal:file rw_file_perms;
+allow mtk_thermal proc_mtk_cooler:dir search;
+
+allow mtk_thermal mtk_thermal_data_file:dir search;
+allow mtk_thermal mtk_thermal_data_file:file rw_file_perms;
+
+set_prop(mtk_thermal, mtk_thermal_config_prop)
+
+# The thermal coordinator sends policy changes to the local SPA server.
+allow mtk_thermal mtk_thermalloadalgod:unix_stream_socket connectto;

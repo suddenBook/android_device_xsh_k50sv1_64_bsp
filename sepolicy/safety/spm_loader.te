@@ -1,0 +1,7 @@
+type mtk_spm_loader, domain;
+type mtk_spm_loader_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(mtk_spm_loader)
+
+# Opening /dev/spm read-only asks the kernel driver to load its PCM firmware.
+allow mtk_spm_loader mtk_spm_device:chr_file r_file_perms;

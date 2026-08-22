@@ -1,0 +1,20 @@
+# Internal MNL, AGPS and LBS transport. wlan_assistant receives only the narrow
+# cross-domain peer permission declared by the connectivity policy.
+allow mnld mtk_agpsd:unix_dgram_socket sendto;
+allow mtk_agpsd mnld:unix_dgram_socket sendto;
+
+allow mnld lbs_hidl_service:unix_dgram_socket sendto;
+allow lbs_hidl_service mnld:unix_dgram_socket sendto;
+
+allow mtk_agpsd lbs_hidl_service:unix_dgram_socket sendto;
+allow lbs_hidl_service mtk_agpsd:unix_dgram_socket sendto;
+
+allow lbs_hidl_service mtk_agpsd_socket:sock_file write;
+allow lbs_hidl_service mtk_agpsd:unix_stream_socket connectto;
+
+# Cellular/SIM state drives the production SUPL path through rilproxy and its
+# MTK backend; keep these edges on the already separated peer domains/types.
+allow rild mtk_agpsd_socket:sock_file write;
+allow rild mtk_agpsd:unix_stream_socket connectto;
+allow { rild mtkrild } mnld:unix_dgram_socket sendto;
+allow mtk_agpsd rild:unix_dgram_socket sendto;

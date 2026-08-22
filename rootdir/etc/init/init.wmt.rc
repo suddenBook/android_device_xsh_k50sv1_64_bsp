@@ -1,9 +1,3 @@
-on post-fs-data
-    mkdir /data/vendor/stp_dump 0750 system system
-    mkdir /data/vendor/connsyslog 0750 system system
-    mkdir /data/vendor/wifi/hostapd 0770 wifi wifi
-    mkdir /data/vendor/wifi/hostapd/sockets 0770 wifi wifi
-
 service wmt_loader /vendor/bin/wmt_loader
     class early_hal
     user system
@@ -14,12 +8,6 @@ service wmt_launcher /vendor/bin/wmt_launcher -p /vendor/firmware/ -o 1
     class early_hal
     user system
     group system
-
-service stp_dump /vendor/bin/stp_dump3
-    class core
-    user system
-    group system
-    disabled
 
 service wlan_assistant /vendor/bin/wlan_assistant
     class main

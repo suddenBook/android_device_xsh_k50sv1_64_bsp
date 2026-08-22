@@ -1,0 +1,14 @@
+on post-fs-data
+    mkdir /data/vendor/sensor 0770 system system
+    restorecon_recursive /data/vendor/sensor
+
+    chown system system /sys/class/sensor/m_acc_misc/accenablenodata
+    chmod 0660 /sys/class/sensor/m_acc_misc/accenablenodata
+    chown system system /sys/class/sensor/m_acc_misc/accactive
+    chmod 0660 /sys/class/sensor/m_acc_misc/accactive
+    chown system system /sys/class/sensor/m_acc_misc/accbatch
+    chmod 0660 /sys/class/sensor/m_acc_misc/accbatch
+    chown system system /sys/class/sensor/m_acc_misc/accflush
+    chmod 0660 /sys/class/sensor/m_acc_misc/accflush
+    chown system system /sys/class/sensor/m_acc_misc/acccali
+    chmod 0660 /sys/class/sensor/m_acc_misc/acccali

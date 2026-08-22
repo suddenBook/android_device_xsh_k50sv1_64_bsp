@@ -1,0 +1,7 @@
+type mtk_accelerometer_device, dev_type;
+type mtk_cmdq_device, dev_type;
+type mtk_audiohal_data_file, file_type, data_file_type;
+type mtk_sensor_data_file, file_type, data_file_type;
+type mtk_smi_device, dev_type;
+type proc_ged, fs_type, proc_type;
+type sysfs_mtk_accelerometer, fs_type, sysfs_type;

@@ -1,0 +1,21 @@
+# Control properties are split per service so ccci_mdinit cannot control
+# unrelated vendor daemons.
+type ctl_mtk_ccci_fsd_prop, property_type;
+type ctl_mtk_ccci3_fsd_prop, property_type;
+type ctl_mtk_ccci_rpcd_prop, property_type;
+type ctl_mtk_gsm0710muxd_prop, property_type;
+type ctl_mtkrild_prop, property_type;
+type ctl_mtk_rilproxy_prop, property_type;
+type ctl_mtk_muxreport_prop, property_type;
+
+type mtk_ril_mux_prop, property_type;
+type mtk_ril_mux_report_prop, property_type;
+type mtk_muxreport_state_prop, property_type;
+type mtk_ril_active_md_prop, property_type;
+type mtk_modem_status_prop, property_type;
+type mtk_ccci_response_prop, property_type;
+type mtk_vendor_radio_prop, property_type;
+type mtk_telephony_sensitive_prop, property_type;
+type mtk_radio_config_prop, property_type;
+type mtk_ccci_config_prop, property_type;
+type mtk_nvram_ready_prop, property_type;

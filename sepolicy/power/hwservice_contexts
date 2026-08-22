@@ -1,0 +1,9 @@
+# Both MTK power interface families are served from hal_power_default and use
+# AOSP's existing HAL client/server contract.  IPerf is the inherited/legacy
+# descriptor present in Stock's registration chain.
+vendor.mediatek.hardware.mtkpower::IMtkPerf   u:object_r:hal_power_hwservice:s0
+vendor.mediatek.hardware.mtkpower::IMtkPower  u:object_r:hal_power_hwservice:s0
+vendor.mediatek.hardware.power::IPerf         u:object_r:hal_power_hwservice:s0
+vendor.mediatek.hardware.power::IPower        u:object_r:hal_power_hwservice:s0
+
+vendor.mediatek.hardware.netdagent::INetdagent u:object_r:mtk_netdagent_hwservice:s0

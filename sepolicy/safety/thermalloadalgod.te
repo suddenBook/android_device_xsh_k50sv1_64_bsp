@@ -1,0 +1,15 @@
+type mtk_thermalloadalgod, domain;
+type mtk_thermalloadalgod_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(mtk_thermalloadalgod)
+
+allow mtk_thermalloadalgod self:netlink_socket create_socket_perms_no_ioctl;
+
+allow mtk_thermalloadalgod proc_mtk_thermal:dir r_dir_perms;
+allow mtk_thermalloadalgod proc_mtk_thermal:file rw_file_perms;
+
+allow mtk_thermalloadalgod mtk_thermal_data_file:dir create_dir_perms;
+allow mtk_thermalloadalgod mtk_thermal_data_file:file create_file_perms;
+
+# Deliberately omit kmsg and /proc/<app-pid> access from the stock policy.  The
+# latter powered an optional per-application SPA classifier, not thermal safety.

@@ -1,0 +1,2 @@
+genfscon sysfs /devices/virtual/sensor/m_acc_misc u:object_r:sysfs_mtk_accelerometer:s0
+genfscon proc /ged u:object_r:proc_ged:s0

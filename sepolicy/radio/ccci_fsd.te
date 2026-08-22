@@ -1,0 +1,33 @@
+type ccci_fsd, domain;
+type ccci_fsd_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(ccci_fsd)
+wakelock_use(ccci_fsd)
+
+allow ccci_fsd mtk_ccci_status_device:chr_file rw_file_perms;
+allow ccci_fsd mtk_ccci_fs_device:chr_file rw_file_perms;
+
+allow ccci_fsd mtk_ccci_cfg_file:dir create_dir_perms;
+allow ccci_fsd mtk_ccci_cfg_file:file create_file_perms;
+allow ccci_fsd mtk_ccci_lpm_file:dir create_dir_perms;
+allow ccci_fsd mtk_ccci_lpm_file:file create_file_perms;
+allow ccci_fsd mtk_ccci_md3_file:dir create_dir_perms;
+allow ccci_fsd mtk_ccci_md3_file:file create_file_perms;
+allow ccci_fsd mtk_modem_nvdata_file:dir create_dir_perms;
+allow ccci_fsd mtk_modem_nvdata_file:file create_file_perms;
+allow ccci_fsd mtk_protect_f_file:dir create_dir_perms;
+allow ccci_fsd mtk_protect_f_file:file create_file_perms;
+allow ccci_fsd mtk_protect_s_file:dir create_dir_perms;
+allow ccci_fsd mtk_protect_s_file:file create_file_perms;
+allow ccci_fsd mnt_vendor_file:dir search;
+
+allow ccci_fsd sysfs_mtk_ccci:dir r_dir_perms;
+allow ccci_fsd sysfs_mtk_ccci:file r_file_perms;
+
+# Raw access is limited to the dedicated NVRAM partition.  nvdata is mounted
+# and accessed through its labeled modem directories, never as a raw device.
+allow ccci_fsd block_device:dir search;
+allow ccci_fsd mtk_nvram_block_device:blk_file rw_file_perms;
+
+get_prop(ccci_fsd, mtk_modem_status_prop)
+get_prop(ccci_fsd, mtk_radio_config_prop)

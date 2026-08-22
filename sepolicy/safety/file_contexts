@@ -1,0 +1,13 @@
+/dev/spm                              u:object_r:mtk_spm_device:s0
+/dev/stpwmt                           u:object_r:mtk_stpwmt_device:s0
+/dev/wmtdetect                        u:object_r:mtk_wmtdetect_device:s0
+
+/data/vendor/\.tp(/.*)?               u:object_r:mtk_thermal_data_file:s0
+
+/(vendor|system/vendor)/bin/fuelgauged       u:object_r:fuelgauged_exec:s0
+/(vendor|system/vendor)/bin/thermal          u:object_r:mtk_thermal_exec:s0
+/(vendor|system/vendor)/bin/thermal_manager  u:object_r:mtk_thermal_manager_exec:s0
+/(vendor|system/vendor)/bin/thermalloadalgod u:object_r:mtk_thermalloadalgod_exec:s0
+/(vendor|system/vendor)/bin/spm_loader        u:object_r:mtk_spm_loader_exec:s0
+/(vendor|system/vendor)/bin/wmt_loader        u:object_r:mtk_wmt_loader_exec:s0
+/(vendor|system/vendor)/bin/wmt_launcher      u:object_r:mtk_wmt_launcher_exec:s0

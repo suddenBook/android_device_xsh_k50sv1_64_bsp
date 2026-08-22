@@ -1,0 +1,17 @@
+cc_library_shared {
+    name: "sensors.k50sv1_64_bsp",
+    vendor: true,
+    relative_install_path: "hw",
+    compile_multilib: "64",
+    srcs: ["sensors.c"],
+    header_libs: ["libhardware_headers"],
+    shared_libs: [
+        "libdl",
+        "liblog",
+    ],
+    cflags: [
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+    ],
+}

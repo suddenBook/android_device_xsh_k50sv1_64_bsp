@@ -1,0 +1,40 @@
+# CCCI device nodes are separated by function instead of inheriting Stock's
+# single catch-all label for every modem, logging and diagnostic channel.
+type mtk_ccci_status_device, dev_type;
+type mtk_ccci_monitor_device, dev_type;
+type mtk_ccci_fs_device, dev_type;
+type mtk_ccci_rpc_device, dev_type;
+type mtk_ccci_mdinit_device, dev_type;
+type mtk_ccci_ioctl_device, dev_type;
+type mtk_gsm0710mux_device, dev_type;
+type mtk_radio_mux_device, dev_type;
+type mtk_devmap_device, dev_type;
+
+# Persistent modem partitions used by the NVRAM and sysenv libraries.
+type mtk_nvram_block_device, dev_type;
+type mtk_para_block_device, dev_type;
+
+# Runtime and persistent modem data.
+type mtk_ccci_cfg_file, file_type, data_file_type;
+type mtk_ccci_lpm_file, file_type, data_file_type;
+type mtk_ccci_md3_file, file_type, data_file_type;
+type mtk_modem_nvdata_file, file_type, data_file_type;
+type mtk_modem_config_file, file_type, data_file_type;
+type mtk_protect_f_file, file_type, data_file_type;
+type mtk_protect_s_file, file_type, data_file_type;
+
+# Narrow procfs/sysfs resources used during modem initialization.
+type proc_mtk_bootprof, fs_type, proc_type;
+type proc_mtk_lk_env, fs_type, proc_type;
+type sysfs_mtk_ccci, fs_type, sysfs_type;
+type sysfs_mtk_ccci_boot, fs_type, sysfs_type;
+type sysfs_mtk_boot_mode, fs_type, sysfs_type;
+
+# Local sockets created by init for the two-stage MTK RIL architecture.
+type mtk_rild_socket, file_type;
+type mtk_ril_oem_socket, file_type;
+type mtk_ril_ims_socket, file_type;
+type mtk_ril_atci_socket, file_type;
+type mtk_ril_vsim_socket, file_type;
+type mtk_ril_sap_socket, file_type;
+type mtk_ril_test_socket, file_type;

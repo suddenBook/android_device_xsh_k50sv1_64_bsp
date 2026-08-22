@@ -1,0 +1,1 @@
+genfscon proc /mtk_jpeg u:object_r:proc_mtk_jpeg:s0

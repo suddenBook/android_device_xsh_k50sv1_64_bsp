@@ -3,13 +3,21 @@
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/recovery  0640  root  system
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/secro     0640  root  system
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/seccfg    0660  root  system
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/proinfo   0660  root  system
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/proinfo   0600  root  root
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/nvram     0660  root  system
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/nvdata    0600  root  root
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/para      0660  root  system
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/frp       0660  root  system
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/md1img    0660  root  system
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/md1dsp    0660  root  system
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/md1arm7   0660  root  system
+
+# Stable GPT indices verified against the captured partition map. These rules
+# set the real block-node DAC; the by-name entries above are symlink aliases.
+/dev/block/mmcblk0p2   0660  root  system
+/dev/block/mmcblk0p6   0600  root  root
+/dev/block/mmcblk0p12  0600  root  root
+/dev/block/mmcblk0p17  0660  root  system
 
 # MTK connectivity
 /dev/stpwmt       0660  system     system
@@ -37,13 +45,32 @@
 
 # Active graphics allocator/GPU ABI. Keep Stock modes for first boot; tighten
 # only after measuring the proprietary gralloc/Mali access pattern.
-/dev/mali0  0666  system  graphics
-/dev/ion    0666  system  graphics
+/dev/mali0         0666  system  graphics
+/dev/ion           0666  system  graphics
+/dev/mtk_disp_mgr  0660  system  graphics
+/dev/mtk_cmdq      0644  system  system
+/dev/MTK_SMI       0660  media   media
+/dev/Vcodec        0660  media   system
+/dev/sw_sync       0664  system  graphics
+
+# Camera nodes physically present on this board.
+/dev/CAM_CAL_DRV1          0660  system  camera
+/dev/CAM_CAL_DRV2          0660  system  camera
+/dev/MAINAF                0660  system  camera
+/dev/SUBAF                 0660  system  camera
+/dev/camera-fdvt           0660  system  camera
+/dev/camera-isp            0660  system  camera
+/dev/kd_camera_flashlight  0660  system  camera
+/dev/kd_camera_hw          0660  system  camera
+/dev/kd_camera_hw_bus2     0660  system  camera
 
 # Verified MIR3DA accelerometer and touch compatibility node
-/dev/gsensor  0660  system  system
-/dev/touch    0660  root    system
+/dev/gsensor    0660  system  system
+/dev/m_acc_misc 0660  system  system
+/dev/touch      0660  root    system
 
 # Power/watchdog and MTK GPIO used by radio
 /dev/RT_Monitor  0660  system  system
+/dev/spm         0660  system  system
 /dev/mtgpio      0600  radio   root
+/dev/mtk-adc-cali 0600 root    root

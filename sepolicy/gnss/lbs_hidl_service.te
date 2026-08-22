@@ -1,0 +1,13 @@
+type lbs_hidl_service, domain;
+type lbs_hidl_service_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(lbs_hidl_service)
+hal_server_domain(lbs_hidl_service, hal_mtk_lbs)
+hwbinder_use(lbs_hidl_service)
+vndbinder_use(lbs_hidl_service)
+
+# libbinder is retained for the telephony bridge; it gets no radio device or
+# radio-data access.
+binder_call(radio, lbs_hidl_service)
+
+get_prop(lbs_hidl_service, mtk_gnss_ro_prop)

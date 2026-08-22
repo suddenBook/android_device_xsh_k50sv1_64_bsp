@@ -1,0 +1,15 @@
+# Persistent state for the board-specific power service.
+type mtk_powerhal_data_file, file_type, data_file_type;
+
+# Only the live, core-hint nodes are split out of procfs and sysfs.  Keeping
+# them in separate types prevents the power HAL from inheriting access to the
+# rest of the MTK performance/debug surfaces.
+type proc_mtk_power_perf_ioctl, fs_type, proc_type;
+type proc_mtk_power_ppm, fs_type, proc_type;
+type proc_mtk_power_hps, fs_type, proc_type;
+type proc_mtk_power_perfmgr, fs_type, proc_type;
+type proc_mtk_netdagent_arp, fs_type, proc_type;
+
+type sysfs_mtk_power_cpu_info, fs_type, sysfs_type;
+type sysfs_mtk_power_cpu_control, fs_type, sysfs_type;
+type sysfs_mtk_power_storage_control, fs_type, sysfs_type;

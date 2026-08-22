@@ -1,0 +1,1 @@
+type mtk_nvram_hwservice, hwservice_manager_type;

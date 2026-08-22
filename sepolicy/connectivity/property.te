@@ -1,0 +1,2 @@
+# Android Q vendor property type used after WLAN NVRAM reaches the driver.
+type mtk_wlan_nvram_ready_prop, property_type;

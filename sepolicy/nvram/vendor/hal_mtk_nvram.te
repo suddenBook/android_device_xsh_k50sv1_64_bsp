@@ -1,0 +1,5 @@
+# HwBinder calls and registration are constrained to the declared NVRAM HAL
+# client/server attributes, preserving the Treble binder boundary.
+binder_call(hal_mtk_nvram_client, hal_mtk_nvram_server)
+binder_call(hal_mtk_nvram_server, hal_mtk_nvram_client)
+hal_attribute_hwservice(hal_mtk_nvram, mtk_nvram_hwservice)

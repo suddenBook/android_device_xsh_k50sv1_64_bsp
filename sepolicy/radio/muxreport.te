@@ -1,0 +1,18 @@
+type muxreport, domain;
+type muxreport_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(muxreport)
+
+# On mtkrild failure, muxreport applies the selected recovery request through
+# the primary modem ioctl channel and then publishes completion state.
+allow muxreport mtk_ccci_ioctl_device:chr_file rw_file_perms;
+allow muxreport gsm0710muxd_devpts:chr_file rw_file_perms;
+allowxperm muxreport gsm0710muxd_devpts:chr_file ioctl unpriv_tty_ioctls;
+
+allow muxreport sysfs_mtk_ccci:dir r_dir_perms;
+allow muxreport sysfs_mtk_ccci:file r_file_perms;
+
+set_prop(muxreport, mtk_ril_mux_report_prop)
+set_prop(muxreport, mtk_muxreport_state_prop)
+get_prop(muxreport, mtk_ril_mux_prop)
+get_prop(muxreport, mtk_radio_config_prop)

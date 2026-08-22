@@ -82,6 +82,14 @@ BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
 BOARD_AVB_ENABLE := false
 
 # SELinux
-BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
+BOARD_VENDOR_SEPOLICY_DIRS += \
+    $(DEVICE_PATH)/sepolicy/connectivity \
+    $(DEVICE_PATH)/sepolicy/gnss \
+    $(DEVICE_PATH)/sepolicy/media \
+    $(DEVICE_PATH)/sepolicy/nvram/vendor \
+    $(DEVICE_PATH)/sepolicy/power \
+    $(DEVICE_PATH)/sepolicy/radio \
+    $(DEVICE_PATH)/sepolicy/vendor \
+    $(DEVICE_PATH)/sepolicy/safety
 
 -include vendor/xsh/k50sv1_64_bsp/BoardConfigVendor.mk

@@ -1,0 +1,2 @@
+vendor.mediatek.hardware.camera.ccap::ICCAPControl       u:object_r:hal_camera_hwservice:s0
+vendor.mediatek.hardware.wifi.supplicant::ISupplicant   u:object_r:hal_wifi_supplicant_hwservice:s0

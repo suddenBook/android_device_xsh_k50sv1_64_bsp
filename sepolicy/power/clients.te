@@ -1,0 +1,34 @@
+# These vendor stack processes have direct, verified HIDL power calls.  The
+# existing AOSP system_server and surfaceflinger power relationships remain in
+# platform policy.
+hal_client_domain(hal_audio_default, hal_power)
+hal_client_domain(hal_camera_default, hal_power)
+hal_client_domain(hal_graphics_composer_default, hal_power)
+hal_client_domain(mediacodec, hal_power)
+
+# libperfctl is loaded directly in framework/application processes.  Access is
+# limited to the one perf ioctl node and Stock's observed command families.
+allow {
+    appdomain
+    bootanim
+    cameraserver
+    mediaserver
+    surfaceflinger
+    system_server
+} proc_mtk_power_perf_ioctl:file { getattr ioctl open read };
+
+allowxperm {
+    appdomain
+    bootanim
+    cameraserver
+    mediaserver
+    surfaceflinger
+    system_server
+} proc_mtk_power_perf_ioctl:file ioctl {
+    0x6701
+    0x6703
+    0x670f-0x6710
+};
+
+# SurfaceFlinger additionally uses the compositor-specific command.
+allowxperm surfaceflinger proc_mtk_power_perf_ioctl:file ioctl 0x6705;

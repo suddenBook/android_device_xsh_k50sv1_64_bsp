@@ -1,0 +1,2 @@
+type mtk_gnss_runtime_prop, property_type;
+type mtk_gnss_ro_prop, property_type;

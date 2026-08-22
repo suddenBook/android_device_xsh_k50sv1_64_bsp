@@ -1,0 +1,40 @@
+# GPU extension consumers proven by Stock policy and the graphics/media stack.
+hal_client_domain(surfaceflinger, hal_mtk_gpu)
+hal_client_domain(mediaserver, hal_mtk_gpu)
+
+# PQ consumers with live Binder references or direct libdpframework linkage.
+hal_client_domain(surfaceflinger, hal_mtk_pq)
+hal_client_domain(hal_graphics_composer_default, hal_mtk_pq)
+hal_client_domain(hal_camera_default, hal_mtk_pq)
+hal_client_domain(mediacodec, hal_mtk_pq)
+hal_client_domain(mtk_hal_mms, hal_mtk_pq)
+
+# Do not reproduce Stock's exposure of MMS to every app domain.  These are the
+# retained platform/vendor processes which can submit graphics or camera FDs.
+hal_client_domain(surfaceflinger, hal_mtk_mms)
+hal_client_domain(hal_camera_default, hal_mtk_mms)
+hal_client_domain(mediacodec, hal_mtk_mms)
+
+# libMtkOmxApeDec is hosted by mediacodec; the other two are Stock's framework
+# control clients.  The service itself has no direct device access.
+hal_client_domain(mediacodec, hal_mtkcodecservice)
+hal_client_domain(mediaserver, hal_mtkcodecservice)
+hal_client_domain(system_server, hal_mtkcodecservice)
+
+# PQ client libraries read the same non-sensitive tuning switches locally.
+# Only the PQ service can modify the writable property group.
+get_prop({
+    surfaceflinger
+    hal_graphics_composer_default
+    hal_camera_default
+    mediacodec
+    mtk_hal_mms
+}, mtk_pq_config_prop)
+
+get_prop({
+    surfaceflinger
+    hal_graphics_composer_default
+    hal_camera_default
+    mediacodec
+    mtk_hal_mms
+}, mtk_pq_ro_prop)

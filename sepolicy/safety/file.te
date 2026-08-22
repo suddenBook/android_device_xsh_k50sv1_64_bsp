@@ -1,0 +1,13 @@
+# Character devices used by the MT6755 power and connectivity loaders.
+type mtk_spm_device, dev_type;
+type mtk_stpwmt_device, dev_type;
+type mtk_wmtdetect_device, dev_type;
+
+# Narrow procfs labels for the MTK thermal and WMT control interfaces.
+type proc_mtk_thermal, fs_type, proc_type;
+type proc_mtk_cooler, fs_type, proc_type;
+type proc_mtk_thermal_zone, fs_type, proc_type;
+type proc_mtk_wmt_control, fs_type, proc_type;
+
+# Runtime state shared by the three proprietary thermal daemons.
+type mtk_thermal_data_file, file_type, data_file_type;

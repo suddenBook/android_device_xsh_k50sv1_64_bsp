@@ -1,0 +1,24 @@
+type mtk_hal_mms, domain;
+type mtk_hal_mms_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(mtk_hal_mms)
+hal_server_domain(mtk_hal_mms, hal_mtk_mms)
+hwbinder_use(mtk_hal_mms)
+
+# The idle on-demand service holds these three nodes read-only.  Vcodec is
+# opened by the hardware JPEG path and requires bidirectional ioctl buffers.
+allow mtk_hal_mms ion_device:chr_file r_file_perms;
+allow mtk_hal_mms mtk_cmdq_device:chr_file r_file_perms;
+allow mtk_hal_mms graphics_device:chr_file r_file_perms;
+allow mtk_hal_mms video_device:chr_file rw_file_perms;
+
+# libJpgEncPipe names this exact JPEG bridge.  This avoids Stock's grant to the
+# generic proc type.
+allow mtk_hal_mms proc_mtk_jpeg:file r_file_perms;
+allowxperm mtk_hal_mms proc_mtk_jpeg:file ioctl { 0x780b-0x780f };
+
+hal_client_domain(mtk_hal_mms, hal_allocator)
+hal_client_domain(mtk_hal_mms, hal_graphics_allocator)
+
+# No direct /dev/mali0 or /dev/MTK_SMI access: neither the ELF path strings,
+# Stock policy nor live FDs support such a grant.  Buffer FDs arrive over HIDL.

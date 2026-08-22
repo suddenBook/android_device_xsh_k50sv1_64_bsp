@@ -25,8 +25,6 @@ PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
-    android.hardware.power@1.0-impl \
-    android.hardware.power@1.0-service \
     android.hardware.thermal@1.0-impl \
     android.hardware.thermal@1.0-service \
     android.hardware.vibrator@1.0-impl \
@@ -38,9 +36,10 @@ PRODUCT_PACKAGES += \
     libkeystore-wifi-hidl \
     librilutils \
     libvisualizer \
-    power.default
+    sensors.k50sv1_64_bsp
 
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/agps_profiles_conf2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/agps_profiles_conf2.xml \
     $(LOCAL_PATH)/configs/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
     $(LOCAL_PATH)/configs/mtk_bt_fw.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/bluetooth/mtk_bt_fw.conf \
     $(LOCAL_PATH)/configs/mtk_bt_stack.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/bluetooth/mtk_bt_stack.conf \
@@ -48,12 +47,19 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/fstab.mt6755:$(TARGET_COPY_OUT_RAMDISK)/fstab.mt6755 \
     $(LOCAL_PATH)/rootdir/etc/fstab.mt6755:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.mt6755 \
     $(LOCAL_PATH)/rootdir/etc/fstab.enableswap:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.enableswap \
+    $(LOCAL_PATH)/rootdir/etc/init/android.hardware.sensors@2.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.sensors@2.0-service.rc \
+    $(LOCAL_PATH)/rootdir/etc/init/init.sensors.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.sensors.rc \
+    $(LOCAL_PATH)/rootdir/etc/init/vendor.mediatek.hardware.mtkpower@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.mediatek.hardware.mtkpower@1.0-service.rc \
     $(LOCAL_PATH)/rootdir/etc/init/hw/init.mt6755.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.mt6755.rc \
     $(LOCAL_PATH)/rootdir/etc/init/init.connectivity.modules.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.connectivity.modules.rc \
     $(LOCAL_PATH)/rootdir/etc/init/init.gnss.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.gnss.rc \
+    $(LOCAL_PATH)/rootdir/etc/init/lbs_hidl_service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/lbs_hidl_service.rc \
+    $(LOCAL_PATH)/rootdir/etc/init/netdagent.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/netdagent.rc \
     $(LOCAL_PATH)/rootdir/etc/init/init.wmt.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.wmt.rc \
+    $(LOCAL_PATH)/rootdir/etc/init/zz_vendor.media.omx.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/zz_vendor.media.omx.rc \
     $(LOCAL_PATH)/rootdir/vendor/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
     $(LOCAL_PATH)/keylayout/HALL_DEV.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/HALL_DEV.kl \
+    system/ca-certificates/files/f013ecaf.0:$(TARGET_COPY_OUT_VENDOR)/etc/security/cacerts_supl/f013ecaf.0 \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.front.xml \
     frameworks/native/data/etc/android.hardware.location.gps.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.location.gps.xml \
@@ -82,23 +88,28 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 
 PRODUCT_VENDOR_PROPERTIES += \
     persist.vendor.connsys.coredump.mode=0 \
+    ro.vendor.net.upload.benchmark.default=blocking \
+    ro.vendor.md_apps.load_gencfg=GEN91_USER \
+    ro.vendor.md_apps.load_type=user \
+    ro.vendor.md_apps.load_verno=MOLY.LR11.W1630.MD.MP.V191.4 \
+    ro.vendor.md_apps.support=1 \
+    ro.vendor.mediatek.platform=MT6755 \
+    ro.vendor.mtk_aal_support=1 \
+    ro.vendor.mtk_agps_app=1 \
     ro.vendor.mtk_audio_alac_support=1 \
     ro.vendor.mtk_audio_ape_support=1 \
     ro.vendor.mtk_audio_tuning_tool_ver=V2.2 \
     ro.vendor.mtk_besloudness_support=1 \
     ro.vendor.mtk_camera_app_version=1 \
     ro.vendor.mtk_emmc_support=1 \
+    ro.vendor.mtk_f2fs_enable=0 \
     ro.vendor.mtk_fd_support=1 \
     ro.vendor.mtk_gps_support=1 \
+    ro.vendor.mtk_log_hide_gps=0 \
+    ro.vendor.mtk_md1_support=10 \
     ro.vendor.mtk_pq_color_mode=1 \
     ro.vendor.mtk_pq_support=2 \
-    ro.vendor.md_apps.load_gencfg=GEN91_USER \
-    ro.vendor.md_apps.load_type=user \
-    ro.vendor.md_apps.load_verno=MOLY.LR11.W1630.MD.MP.V191.4 \
-    ro.vendor.md_apps.support=1 \
-    ro.vendor.mediatek.platform=MT6755 \
     ro.vendor.mtk_protocol1_rat_config=Lf/Lt/W/T/G \
-    ro.vendor.mtk_f2fs_enable=0 \
     ro.vendor.mtk_ril_mode=c6m_3rild \
     ro.vendor.mtk_rild_read_imsi=1 \
     ro.vendor.mtk_zsdhdr_support=1 \

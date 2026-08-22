@@ -1,0 +1,7 @@
+type mtk_gnss_device, dev_type;
+type mtk_agps_serial_device, dev_type;
+
+type mtk_mnld_socket, file_type;
+type mtk_agpsd_socket, file_type;
+type mtk_gps_data_file, file_type, data_file_type;
+type mtk_agps_data_file, file_type, data_file_type;

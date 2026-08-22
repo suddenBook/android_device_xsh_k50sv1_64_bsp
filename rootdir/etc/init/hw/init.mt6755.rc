@@ -1,4 +1,5 @@
 on early-init
+    mkdir /dev/radio 0770 radio radio
     mkdir /mnt/vendor 0755 root root
     mkdir /mnt/vendor/protect_f 0770 system system
     mkdir /mnt/vendor/protect_s 0770 system system
@@ -24,19 +25,21 @@ on post-fs
     restorecon_recursive /mnt/vendor/nvdata
 
 on post-fs-data
-    mkdir /mnt/vendor/nvdata/media 0771 media audio
-    mkdir /mnt/vendor/nvdata/md 0770 root system
-    mkdir /mnt/vendor/nvdata/md3 0770 root system
+    restorecon /dev/radio
 
+    mkdir /mnt/vendor/nvdata/media 0771 media audio
+
+    mkdir /data/vendor/.tp 0775 system system
+    mkdir /data/vendor/powerhal 0775 system system
     mkdir /data/vendor/gps 0770 gps system
     mkdir /data/vendor/wifi 0770 wifi wifi
     mkdir /data/vendor/wifi/wpa 0770 wifi wifi
     mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
-    mkdir /data/vendor/stp_dump 0750 system system
-    mkdir /data/vendor/connsyslog 0750 system system
     mkdir /data/vendor/camera_dump 0770 cameraserver camera
 
     restorecon_recursive /mnt/vendor/nvdata
+    restorecon_recursive /data/vendor/.tp
+    restorecon_recursive /data/vendor/powerhal
     restorecon_recursive /data/vendor/gps
     restorecon_recursive /data/vendor/wifi
 
@@ -46,3 +49,9 @@ on post-fs-data
 
     # Required by vold for the block-encryption post-fs-data flow.
     setprop vold.post_fs_data_done 1
+
+# NVRAM restore can recreate category files after the initial post-fs-data
+# relabel. Re-apply the precise camera/audio/Wi-Fi/BT/GPS contexts once the
+# trusted migrator publishes completion.
+on property:vendor.service.nvram_init=Ready
+    restorecon_recursive /mnt/vendor/nvdata

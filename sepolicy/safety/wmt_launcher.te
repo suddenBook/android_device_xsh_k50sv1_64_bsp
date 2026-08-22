@@ -1,0 +1,11 @@
+type mtk_wmt_launcher, domain;
+type mtk_wmt_launcher_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(mtk_wmt_launcher)
+
+allow mtk_wmt_launcher mtk_stpwmt_device:chr_file rw_file_perms;
+
+set_prop(mtk_wmt_launcher, mtk_wmt_prop)
+
+# This board uses the SoC WMT path (-o 1); no serial tty/devpts access is
+# granted.  FM and diagnostic dump devices are intentionally out of scope.

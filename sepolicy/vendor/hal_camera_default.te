@@ -1,0 +1,8 @@
+vndbinder_use(hal_camera_default)
+
+allow hal_camera_default mtk_cmdq_device:chr_file { ioctl open read };
+allow hal_camera_default mtk_smi_device:chr_file r_file_perms;
+
+# The shared MTK JPEG bridge is used by both the HAL1 camera provider and MMS.
+allow hal_camera_default proc_mtk_jpeg:file r_file_perms;
+allowxperm hal_camera_default proc_mtk_jpeg:file ioctl { 0x780b-0x780f };

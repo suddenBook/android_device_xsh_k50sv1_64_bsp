@@ -1,0 +1,14 @@
+type mtk_wmt_loader, domain;
+type mtk_wmt_loader_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(mtk_wmt_loader)
+
+allow mtk_wmt_loader mtk_wmtdetect_device:chr_file rw_file_perms;
+allow mtk_wmt_loader mtk_stpwmt_device:chr_file rw_file_perms;
+
+set_prop(mtk_wmt_loader, mtk_wmt_prop)
+
+# wmt_loader normalizes ownership of this single proc control node.  The AEE
+# node, debugfs and dump interfaces remain inaccessible.
+allow mtk_wmt_loader self:capability chown;
+allow mtk_wmt_loader proc_mtk_wmt_control:file setattr;

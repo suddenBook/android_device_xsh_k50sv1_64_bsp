@@ -1,0 +1,2 @@
+type mtk_pq_config_prop, property_type;
+type mtk_pq_ro_prop, property_type;

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The chassis has no notification or battery indicator LED. -->
+    <integer name="config_deviceLightCapabilities">0</integer>
+</resources>

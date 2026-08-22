@@ -1,0 +1,61 @@
+# Stock exposes the HIDL service to the phone process.  No other retained blob
+# links the vendor NVRAM HIDL interface; camera/audio/Wi-Fi/BT use libnvram
+# directly and therefore receive only their category files below.
+hal_client_domain(radio, hal_mtk_nvram)
+
+# Relabeling nvdata's real directory hierarchy requires explicit traversal for
+# the existing radio and connectivity domains.
+allow {
+    ccci_fsd
+    ccci_mdinit
+    rild
+    mtkrild
+    wlan_assistant
+    hal_camera_default
+    hal_audio_default
+    hal_wifi_default
+    hal_bluetooth_default
+} mtk_nvdata_file:dir search;
+
+allow {
+    hal_camera_default
+    hal_audio_default
+    hal_wifi_default
+    hal_bluetooth_default
+} mnt_vendor_file:dir search;
+
+allow hal_camera_default mtk_camera_nvram_file:file { getattr open read write };
+allow hal_audio_default mtk_audio_nvram_file:file { getattr open read write };
+allow hal_wifi_default mtk_wlan_nvram_file:file { getattr open read write };
+allow hal_bluetooth_default mtk_bt_nvram_file:file { getattr open read write };
+
+# libnvram/libnvram_sec resolve the fixed eMMC layout and encryption mode even
+# when a client opens only one category record.
+allow {
+    hal_camera_default
+    hal_audio_default
+    hal_wifi_default
+    hal_bluetooth_default
+} proc_cmdline:file r_file_perms;
+allow {
+    hal_camera_default
+    hal_audio_default
+    hal_wifi_default
+    hal_bluetooth_default
+} sysfs_dt_firmware_android:dir search;
+allow {
+    hal_camera_default
+    hal_audio_default
+    hal_wifi_default
+    hal_bluetooth_default
+} sysfs_mtk_boot_mode:file r_file_perms;
+
+get_prop({
+    rild
+    mtkrild
+    wlan_assistant
+    hal_camera_default
+    hal_audio_default
+    hal_wifi_default
+    hal_bluetooth_default
+}, mtk_nvram_ready_prop)

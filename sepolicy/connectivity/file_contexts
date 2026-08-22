@@ -1,0 +1,6 @@
+/(vendor|system/vendor)/bin/wlan_assistant u:object_r:wlan_assistant_exec:s0
+
+/dev/wmtWifi                              u:object_r:mtk_wmt_wifi_device:s0
+
+/mnt/vendor/nvdata/APCFG/APRDEB/WIFI      u:object_r:mtk_wlan_nvram_file:s0
+/data/vendor/(nvramwifi|macwifi)           u:object_r:mtk_wlan_override_file:s0

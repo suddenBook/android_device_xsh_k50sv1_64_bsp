@@ -1,0 +1,20 @@
+/dev/(gsensor|m_acc_misc)          u:object_r:mtk_accelerometer_device:s0
+/dev/ccci_(aud|pcm_rx|pcm_tx)     u:object_r:audio_device:s0
+/dev/stpbt                        u:object_r:hci_attach_dev:s0
+/dev/mali0                        u:object_r:gpu_device:s0
+/dev/mtk_disp_mgr                 u:object_r:graphics_device:s0
+/dev/mtk_cmdq                     u:object_r:mtk_cmdq_device:s0
+/dev/MTK_SMI                      u:object_r:mtk_smi_device:s0
+/dev/(CAM_CAL_DRV[12]|MAINAF|SUBAF|camera-fdvt|camera-isp|kd_camera_flashlight|kd_camera_hw|kd_camera_hw_bus2) u:object_r:camera_device:s0
+/data/vendor/audiohal(/.*)?       u:object_r:mtk_audiohal_data_file:s0
+/data/vendor/sensor(/.*)?         u:object_r:mtk_sensor_data_file:s0
+
+# Standard HALs with MTK-specific executable names use the corresponding AOSP
+# default domains; device-specific node access is granted separately.
+/(vendor|system/vendor)/bin/hw/android\.hardware\.audio@5\.0-service-mediatek                  u:object_r:hal_audio_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth@1\.0-service-mediatek              u:object_r:hal_bluetooth_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.gnss@2\.0-service-mediatek                   u:object_r:hal_gnss_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.usb@1\.1-service-mediatek                    u:object_r:hal_usb_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.wifi@1\.0-service-lazy-mediatek              u:object_r:hal_wifi_default_exec:s0
+/(vendor|system/vendor)/bin/hw/camerahalserver                                                 u:object_r:hal_camera_default_exec:s0
+/(vendor|system/vendor)/bin/hw/rilproxy                                                        u:object_r:rild_exec:s0

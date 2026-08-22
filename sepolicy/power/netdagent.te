@@ -1,0 +1,41 @@
+type netdagent, domain;
+type netdagent_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(netdagent)
+hwbinder_use(netdagent)
+add_hwservice(netdagent, mtk_netdagent_hwservice)
+
+# libpowerhal uses the priority firewall commands for network boost.  The
+# retained rilproxy (rild domain) uses set_plmn_iface_rule for the ordinary
+# modem data path.  Do not expose this operator helper to shell, applications,
+# or unrelated vendor domains.
+allow hal_power_default mtk_netdagent_hwservice:hwservice_manager find;
+binder_call(hal_power_default, netdagent)
+allow rild mtk_netdagent_hwservice:hwservice_manager find;
+binder_call(rild, netdagent)
+
+# Direct interface setup is limited to the datagram and route-netlink calls in
+# libifcutils_mtk.  ip/tc/iptables execution transitions to AOSP's constrained
+# netutils_wrapper domain through the platform domain_auto_trans rule.
+allow netdagent self:udp_socket { create ioctl };
+allowxperm netdagent self:udp_socket ioctl {
+    SIOCGIFFLAGS
+    SIOCSIFFLAGS
+};
+allow netdagent self:netlink_route_socket {
+    bind
+    connect
+    create
+    getattr
+    nlmsg_read
+    nlmsg_write
+    read
+    setopt
+    write
+};
+allow netdagent self:global_capability_class_set net_admin;
+
+allow netdagent proc_mtk_netdagent_arp:file { getattr open read };
+
+set_prop(netdagent, mtk_netdagent_prop)
+get_prop(netdagent, mtk_netdagent_config_prop)

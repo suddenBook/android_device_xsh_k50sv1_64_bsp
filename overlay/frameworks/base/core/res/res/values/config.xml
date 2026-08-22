@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Stock advertises unusable LIGHT and PROXIMITY handles. -->
+    <!-- The device has no ambient-light or proximity sensor hardware. -->
     <bool name="config_automatic_brightness_available">false</bool>
     <bool name="config_suspendWhenScreenOffDueToProximity">false</bool>
 

@@ -1,0 +1,1 @@
+type mtk_radioex_hwservice, hwservice_manager_type;

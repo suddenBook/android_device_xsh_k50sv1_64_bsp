@@ -1,0 +1,10 @@
+# The standard service already transitions through hal_gnss_default_exec in the
+# common device policy.  It exchanges GNSS commands with mnld over abstract
+# Unix datagrams and does not open the MTK GNSS device directly.
+vndbinder_use(hal_gnss_default)
+
+allow hal_gnss_default mnld:unix_dgram_socket sendto;
+allow mnld hal_gnss_default:unix_dgram_socket sendto;
+
+get_prop(hal_gnss_default, mtk_gnss_ro_prop)
+get_prop(hal_gnss_default, mtk_wmt_prop)

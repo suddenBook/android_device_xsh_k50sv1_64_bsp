@@ -1,0 +1,36 @@
+# init service control labels checked for ctl.start/ctl.stop operations.
+ctl.vendor.ccci_fsd          u:object_r:ctl_mtk_ccci_fsd_prop:s0
+ctl.vendor.ccci3_fsd         u:object_r:ctl_mtk_ccci3_fsd_prop:s0
+ctl.vendor.ccci_rpcd         u:object_r:ctl_mtk_ccci_rpcd_prop:s0
+ctl.vendor.gsm0710muxd       u:object_r:ctl_mtk_gsm0710muxd_prop:s0
+ctl.vendor.ril-daemon-mtk    u:object_r:ctl_mtkrild_prop:s0
+ctl.vendor.ril-proxy         u:object_r:ctl_mtk_rilproxy_prop:s0
+ctl.vendor.muxreport-daemon  u:object_r:ctl_mtk_muxreport_prop:s0
+
+# Properties used by the mux and modem bootstrap state machine.
+vendor.ril.mux.report.case   u:object_r:mtk_ril_mux_report_prop:s0
+vendor.ril.mux.              u:object_r:mtk_ril_mux_prop:s0
+vendor.ril.muxreport         u:object_r:mtk_muxreport_state_prop:s0
+vendor.ril.active.md         u:object_r:mtk_ril_active_md_prop:s0
+vendor.ril.getccci.response  u:object_r:mtk_ccci_response_prop:s0
+vendor.mtk.md                u:object_r:mtk_modem_status_prop:s0
+persist.vendor.ccci.         u:object_r:mtk_ccci_config_prop:s0
+vendor.service.nvram_init    u:object_r:mtk_nvram_ready_prop:s0
+
+# Sensitive identifiers remain distinct even though the RIL also owns the
+# wider vendor radio namespace.
+vendor.ril.iccid.sim         u:object_r:mtk_telephony_sensitive_prop:s0
+vendor.ril.uim.subscriberid  u:object_r:mtk_telephony_sensitive_prop:s0
+persist.vendor.radio.last_iccid_sim u:object_r:mtk_telephony_sensitive_prop:s0
+
+# The proprietary RIL legitimately owns this vendor-only property namespace.
+vendor.ril.                  u:object_r:mtk_vendor_radio_prop:s0
+ro.vendor.ril.               u:object_r:mtk_radio_config_prop:s0
+vendor.gsm.                  u:object_r:mtk_vendor_radio_prop:s0
+persist.vendor.radio.        u:object_r:mtk_vendor_radio_prop:s0
+
+# Read-only board/RIL topology inputs.
+ro.vendor.mtk_ril_mode       u:object_r:mtk_radio_config_prop:s0
+ro.vendor.mtk_md1_support    u:object_r:mtk_radio_config_prop:s0
+ro.vendor.mtk_md3_support    u:object_r:mtk_radio_config_prop:s0
+ro.vendor.mtk_md_sbp_custom_value u:object_r:mtk_radio_config_prop:s0

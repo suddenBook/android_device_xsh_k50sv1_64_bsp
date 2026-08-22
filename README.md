@@ -11,13 +11,14 @@ Verified baseline:
 - Stock Linux 3.18.119 prebuilt kernel and Android DT table
 - 720x1560 at 60 Hz; FT8057 touch; IMX145 + GC5025 HAL1 cameras
 - MIR3DA accelerometer and functional Hall/stylus-slot switch
-- no usable fingerprint, light, proximity, compass, or gyroscope feature
+- two physical microphone apertures, one bottom speaker, earpiece and USB OTG
+- no fingerprint, notification LED, NFC, 3.5 mm jack, light, proximity,
+  compass, or gyroscope hardware
 
 The authoritative evidence and AOSP decisions are maintained in
 `../../../../work/k50sv1-bringup/`. Stock declarations are treated as hints,
 not hardware proof.
 
 The first bring-up intentionally omits Stock fingerprint and S Pen UI stacks,
-identity spoofing, ADUPS FOTA, and engineering applications. The low-level Hall
-input remains enabled until runtime testing shows that its wake behavior should
-be disabled independently.
+identity spoofing, ADUPS FOTA, and engineering applications. The Hall input is
+kept for diagnostics, but its unused wake key is explicitly suppressed.

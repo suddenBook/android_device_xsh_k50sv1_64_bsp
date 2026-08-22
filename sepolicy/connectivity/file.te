@@ -1,0 +1,5 @@
+# WLAN calibration data and the kernel handoff device are kept separate from
+# generic vendor data and device nodes.
+type mtk_wmt_wifi_device, dev_type;
+type mtk_wlan_nvram_file, file_type, data_file_type;
+type mtk_wlan_override_file, file_type, data_file_type;

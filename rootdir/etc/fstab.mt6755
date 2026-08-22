@@ -7,10 +7,12 @@
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata  /data                 ext4  noatime,nosuid,nodev,noauto_da_alloc          wait,check,formattable,quota,resize,forcefdeorfbe=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/metadata
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache     /cache                ext4  noatime,nosuid,nodev,noauto_da_alloc,discard  wait,check,formattable
 
-# MTK radio/calibration data filesystems
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect1  /mnt/vendor/protect_f ext4  noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc  wait,check,formattable
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect2  /mnt/vendor/protect_s ext4  noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc  wait,check,formattable
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/nvdata    /mnt/vendor/nvdata    ext4  noatime,nosuid,nodev,noauto_da_alloc,commit=1,discard     wait,check,formattable
+# MTK radio/calibration data filesystems. Never auto-format these identity and
+# calibration stores: an unreadable filesystem must fail visibly and be
+# restored from the verified backup, not be silently replaced with an empty one.
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect1  /mnt/vendor/protect_f ext4  noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc  wait,check
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect2  /mnt/vendor/protect_s ext4  noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc  wait,check
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/nvdata    /mnt/vendor/nvdata    ext4  noatime,nosuid,nodev,noauto_da_alloc,commit=1,discard     wait,check
 
 # Removable storage
 /devices/mtk-msdc.0/11240000.msdc1*                             auto                  auto  defaults                                    voldmanaged=sdcard1:auto,encryptable=userdata

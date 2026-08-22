@@ -1,0 +1,9 @@
+vendor.gps.                       u:object_r:mtk_gnss_runtime_prop:s0
+vendor.gpsdbglog.                 u:object_r:mtk_gnss_runtime_prop:s0
+vendor.debug.gps.                 u:object_r:mtk_gnss_runtime_prop:s0
+persist.vendor.radio.mnl.prop     u:object_r:mtk_gnss_runtime_prop:s0 exact string
+
+ro.vendor.mtk_gps_support        u:object_r:mtk_gnss_ro_prop:s0 exact bool
+ro.vendor.mtk_agps_app           u:object_r:mtk_gnss_ro_prop:s0 exact bool
+ro.vendor.mtk_log_hide_gps       u:object_r:mtk_gnss_ro_prop:s0 exact bool
+ro.vendor.mtk_hidl_consolidation u:object_r:mtk_gnss_ro_prop:s0 exact bool

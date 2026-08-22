@@ -1,0 +1,2 @@
+# Narrow replacement for Stock's broad proc:file access in the MMS domain.
+type proc_mtk_jpeg, fs_type, proc_type;

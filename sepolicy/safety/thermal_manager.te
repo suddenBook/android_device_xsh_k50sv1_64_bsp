@@ -1,0 +1,21 @@
+type mtk_thermal_manager, domain;
+type mtk_thermal_manager_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(mtk_thermal_manager)
+
+allow mtk_thermal_manager proc_mtk_thermal:dir r_dir_perms;
+allow mtk_thermal_manager proc_mtk_thermal:file rw_file_perms;
+allow mtk_thermal_manager proc_mtk_cooler:dir r_dir_perms;
+allow mtk_thermal_manager proc_mtk_cooler:file rw_file_perms;
+allow mtk_thermal_manager proc_mtk_thermal_zone:dir r_dir_perms;
+allow mtk_thermal_manager proc_mtk_thermal_zone:file rw_file_perms;
+
+allow mtk_thermal_manager sysfs_thermal:dir r_dir_perms;
+allow mtk_thermal_manager sysfs_thermal:file rw_file_perms;
+
+allow mtk_thermal_manager mtk_thermal_data_file:dir create_dir_perms;
+allow mtk_thermal_manager mtk_thermal_data_file:file create_file_perms;
+
+set_prop(mtk_thermal_manager, mtk_thermal_config_prop)
+
+allow mtk_thermal_manager mtk_thermalloadalgod:unix_stream_socket connectto;

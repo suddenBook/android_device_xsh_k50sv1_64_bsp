@@ -1,0 +1,10 @@
+vendor.thermal.manager.data               u:object_r:mtk_thermal_config_prop:s0
+
+persist.vendor.connsys.bt_fw_ver          u:object_r:mtk_wmt_prop:s0
+persist.vendor.connsys.chipid             u:object_r:mtk_wmt_prop:s0
+persist.vendor.connsys.dynamic.dump       u:object_r:mtk_wmt_prop:s0
+persist.vendor.connsys.fwlog.status       u:object_r:mtk_wmt_prop:s0
+persist.vendor.connsys.patch.version      u:object_r:mtk_wmt_prop:s0
+persist.vendor.connsys.wifi_fw_ver        u:object_r:mtk_wmt_prop:s0
+vendor.connsys.driver.ready               u:object_r:mtk_wmt_prop:s0
+vendor.connsys.formeta.ready              u:object_r:mtk_wmt_prop:s0

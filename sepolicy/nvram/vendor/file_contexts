@@ -1,0 +1,32 @@
+# Independent daemon and HIDL service domains.
+/(vendor|system/vendor)/bin/nvram_daemon u:object_r:nvram_daemon_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.mediatek\.hardware\.nvram@1\.1-service u:object_r:nvram_agent_binder_exec:s0
+
+# Fixed nvdata and proinfo partitions.  nvram/mmcblk0p17 is supplied by radio.
+/dev/block/mmcblk0p6  u:object_r:mtk_nvdata_block_device:s0
+/dev/block/mmcblk0p12 u:object_r:mtk_proinfo_block_device:s0
+/dev/block/platform/mtk-msdc\.0/11230000\.msdc0/by-name/nvdata  u:object_r:mtk_nvdata_block_device:s0
+/dev/block/platform/mtk-msdc\.0/11230000\.msdc0/by-name/proinfo u:object_r:mtk_proinfo_block_device:s0
+/dev/block/platform/bootdevice/by-name/nvdata  u:object_r:mtk_nvdata_block_device:s0
+/dev/block/platform/bootdevice/by-name/proinfo u:object_r:mtk_proinfo_block_device:s0
+/dev/pro_info u:object_r:mtk_proinfo_block_device:s0
+/dev/mtk-adc-cali u:object_r:mtk_adc_calibration_device:s0
+
+# Mount root, NVRAM backup metadata and directory traversal points.  lost+found
+# and any unrecognized calibration record deliberately remain outside this
+# type.
+/mnt/vendor/nvdata u:object_r:mtk_nvdata_file:s0
+/mnt/vendor/nvdata/(AllFile|AllMap|AllFileCheck|AllMapCheck|BackupFlag|RestoreFlag) u:object_r:mtk_nvdata_file:s0
+/mnt/vendor/nvdata/dm(/.*)? u:object_r:mtk_nvdata_file:s0
+/mnt/vendor/nvdata/APCFG(/APRDCL|/APRDEB)? u:object_r:mtk_nvdata_file:s0
+/mnt/vendor/nvdata/media u:object_r:mtk_nvdata_file:s0
+
+# Records verified on the captured handset.  There are no ALS/PS, gyro,
+# fingerprint or NFC calibration labels.
+/mnt/vendor/nvdata/APCFG/APRDCL/(AUXADC|FILE_VER) u:object_r:mtk_nvdata_file:s0
+/mnt/vendor/nvdata/APCFG/APRDCL/HWMON_ACC u:object_r:mtk_accel_nvram_file:s0
+/mnt/vendor/nvdata/APCFG/APRDEB/BT_Addr u:object_r:mtk_bt_nvram_file:s0
+/mnt/vendor/nvdata/APCFG/APRDEB/GPS u:object_r:mtk_gps_nvram_file:s0
+/mnt/vendor/nvdata/APCFG/APRDEB/WIFI_CUSTOM u:object_r:mtk_wlan_nvram_file:s0
+/mnt/vendor/nvdata/media/(Audio_.*|Headphone_.*|MusicDRC_.*|RingToneDRC_.*|Sph_.*|Voice_Recognize_.*|VibSpk_.*) u:object_r:mtk_audio_nvram_file:s0
+/mnt/vendor/nvdata/media/CAMERA_.* u:object_r:mtk_camera_nvram_file:s0

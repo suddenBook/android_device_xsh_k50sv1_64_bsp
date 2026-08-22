@@ -1,0 +1,7 @@
+# The MTK Audio 5.0 service uses vendor Binder in addition to HwBinder for its
+# private parameter/control bridge. Keep it in the standard AOSP audio HAL
+# domain and add only the binder device contract proven by the live process.
+vndbinder_use(hal_audio_default)
+
+allow hal_audio_default mtk_audiohal_data_file:dir create_dir_perms;
+allow hal_audio_default mtk_audiohal_data_file:file create_file_perms;

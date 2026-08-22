@@ -1,0 +1,33 @@
+type mnld, domain;
+type mnld_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(mnld)
+net_domain(mnld)
+hwbinder_use(mnld)
+wakelock_use(mnld)
+
+allow mnld mtk_gnss_device:chr_file rw_file_perms;
+
+allow mnld mtk_gps_data_file:dir create_dir_perms;
+allow mnld mtk_gps_data_file:file create_file_perms;
+
+# The legacy MNL/AGPS exchange creates socket files below the private SUPL
+# directory, but mnld does not own arbitrary AGPS configuration files.
+allow mnld mtk_agps_data_file:dir create_dir_perms;
+allow mnld mtk_agps_data_file:sock_file create_file_perms;
+
+# Only the two GPS calibration records referenced by this exact MT6755 binary.
+allow mnld mnt_vendor_file:dir search;
+allow mnld mtk_modem_nvdata_file:dir search;
+allow mnld mtk_gps_nvram_file:file r_file_perms;
+
+# MPE may consume the one truthful accelerometer through the framework sensor
+# manager.  No light/proximity/magnetometer/gyro node access is granted.
+allow mnld fwk_sensor_hwservice:hwservice_manager find;
+binder_call(mnld, system_server)
+binder_call(system_server, mnld)
+
+set_prop(mnld, mtk_gnss_runtime_prop)
+get_prop(mnld, mtk_gnss_ro_prop)
+get_prop(mnld, mtk_wmt_prop)
+get_prop(mnld, mtk_nvram_ready_prop)

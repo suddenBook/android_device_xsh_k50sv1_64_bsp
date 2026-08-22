@@ -1,0 +1,5 @@
+type mtk_hal_lbs_hwservice, hwservice_manager_type;
+
+binder_call(hal_mtk_lbs_client, hal_mtk_lbs_server)
+binder_call(hal_mtk_lbs_server, hal_mtk_lbs_client)
+hal_attribute_hwservice(hal_mtk_lbs, mtk_hal_lbs_hwservice)

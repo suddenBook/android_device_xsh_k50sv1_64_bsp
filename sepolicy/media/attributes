@@ -1,0 +1,4 @@
+hal_attribute(mtk_gpu);
+hal_attribute(mtk_mms);
+hal_attribute(mtk_pq);
+hal_attribute(mtkcodecservice);

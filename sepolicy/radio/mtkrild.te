@@ -1,0 +1,44 @@
+type mtkrild, domain;
+type mtkrild_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(mtkrild)
+net_domain(mtkrild)
+wakelock_use(mtkrild)
+vndbinder_use(mtkrild)
+
+allow mtkrild self:capability { setuid net_admin net_raw };
+allow mtkrild self:netlink_route_socket nlmsg_write;
+allowxperm mtkrild self:udp_socket ioctl {
+    SIOCDELRT
+    SIOCSIFFLAGS
+    SIOCSIFADDR
+    SIOCKILLADDR
+    SIOCDEVPRIVATE
+    SIOCDEVPRIVATE_1
+};
+
+allow mtkrild mtk_ccci_status_device:chr_file rw_file_perms;
+allow mtkrild mtk_ccci_ioctl_device:chr_file rw_file_perms;
+
+allow mtkrild mtk_radio_mux_device:dir search;
+allow mtkrild mtk_radio_mux_device:lnk_file { getattr read };
+allow mtkrild gsm0710muxd_devpts:chr_file rw_file_perms;
+allowxperm mtkrild gsm0710muxd_devpts:chr_file ioctl unpriv_tty_ioctls;
+
+allow mtkrild sysfs_mtk_ccci:dir r_dir_perms;
+allow mtkrild sysfs_mtk_ccci:file r_file_perms;
+
+allow mtkrild proc_mtk_lk_env:file rw_file_perms;
+allow mtkrild block_device:dir search;
+allow mtkrild mtk_para_block_device:blk_file rw_file_perms;
+
+set_prop(mtkrild, mtk_ril_active_md_prop)
+set_prop(mtkrild, mtk_ril_mux_report_prop)
+set_prop(mtkrild, mtk_muxreport_state_prop)
+set_prop(mtkrild, ctl_mtk_muxreport_prop)
+set_prop(mtkrild, mtk_vendor_radio_prop)
+set_prop(mtkrild, mtk_telephony_sensitive_prop)
+get_prop(mtkrild, mtk_ril_mux_prop)
+get_prop(mtkrild, mtk_ccci_response_prop)
+get_prop(mtkrild, mtk_modem_status_prop)
+get_prop(mtkrild, mtk_radio_config_prop)

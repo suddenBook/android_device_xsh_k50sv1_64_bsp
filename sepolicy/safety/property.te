@@ -1,0 +1,2 @@
+type mtk_thermal_config_prop, property_type;
+type mtk_wmt_prop, property_type;

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Device override for Lineage's unconditional Android Beam permission file.
+     This handset has no NFC controller, so it intentionally declares no Beam
+     software feature.
+-->
+<permissions />

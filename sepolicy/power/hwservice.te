@@ -1,0 +1,3 @@
+# Netdagent is not a general networking HAL.  Its private HIDL endpoint is
+# exposed only to the power HAL in netdagent.te.
+type mtk_netdagent_hwservice, hwservice_manager_type;

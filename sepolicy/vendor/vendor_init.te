@@ -1,0 +1,1 @@
+allow vendor_init sysfs_mtk_accelerometer:file setattr;

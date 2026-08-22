@@ -1,0 +1,8 @@
+# Verified MT6755 interfaces.  Do not widen these labels to all of proc/sysfs.
+genfscon proc /driver/thermal u:object_r:proc_mtk_thermal:s0
+genfscon proc /mtkcooler      u:object_r:proc_mtk_cooler:s0
+genfscon proc /mtktz          u:object_r:proc_mtk_thermal_zone:s0
+genfscon proc /driver/wmt_dbg u:object_r:proc_mtk_wmt_control:s0
+
+genfscon sysfs /devices/platform/battery_meter u:object_r:sysfs_batteryinfo:s0
+genfscon sysfs /devices/virtual/thermal         u:object_r:sysfs_thermal:s0

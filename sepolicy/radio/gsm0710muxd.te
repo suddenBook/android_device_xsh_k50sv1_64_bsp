@@ -1,0 +1,24 @@
+type gsm0710muxd, domain;
+type gsm0710muxd_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(gsm0710muxd)
+create_pty(gsm0710muxd)
+
+# The daemon starts as root, creates/chowns its PTYs and then drops to radio.
+allow gsm0710muxd self:capability { chown fowner setuid };
+allow gsm0710muxd gsm0710muxd_devpts:chr_file setattr;
+
+allow gsm0710muxd mtk_gsm0710mux_device:chr_file rw_file_perms;
+allow gsm0710muxd mtk_radio_mux_device:dir {
+    read write getattr open search add_name remove_name
+};
+allow gsm0710muxd mtk_radio_mux_device:lnk_file { create getattr read unlink };
+
+allow gsm0710muxd sysfs_mtk_ccci:dir r_dir_perms;
+allow gsm0710muxd sysfs_mtk_ccci:file r_file_perms;
+
+set_prop(gsm0710muxd, ctl_mtkrild_prop)
+set_prop(gsm0710muxd, mtk_ril_mux_prop)
+set_prop(gsm0710muxd, mtk_ril_mux_report_prop)
+set_prop(gsm0710muxd, mtk_vendor_radio_prop)
+get_prop(gsm0710muxd, mtk_radio_config_prop)

@@ -1,0 +1,9 @@
+type ccci_rpcd, domain;
+type ccci_rpcd_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(ccci_rpcd)
+wakelock_use(ccci_rpcd)
+
+allow ccci_rpcd mtk_ccci_rpc_device:chr_file rw_file_perms;
+allow ccci_rpcd sysfs_mtk_ccci:dir r_dir_perms;
+allow ccci_rpcd sysfs_mtk_ccci:file r_file_perms;
