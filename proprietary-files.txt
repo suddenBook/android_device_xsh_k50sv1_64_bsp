@@ -484,8 +484,6 @@ vendor/lib64/libratconfig.so
 vendor/lib64/librilmtk.so
 vendor/lib64/librilproxy.so
 vendor/lib64/librilproxyutils.so
--vendor/lib/librilutils.so
--vendor/lib64/librilutils.so
 vendor/lib64/libsysenv.so
 vendor/lib64/mtk-ril.so
 vendor/lib64/mtk-rilproxy.so

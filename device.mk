@@ -34,6 +34,7 @@ PRODUCT_PACKAGES += \
     libeffectsconfig.vendor \
     libkeystore-engine-wifi-hidl \
     libkeystore-wifi-hidl \
+    librilutils \
     libvisualizer \
     power.default
 
