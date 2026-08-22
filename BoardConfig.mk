@@ -21,6 +21,8 @@ TARGET_NO_RADIOIMAGE := true
 # Proprietary vendor compatibility contract
 BOARD_VNDK_VERSION := current
 BOARD_SYSTEMSDK_VERSIONS := 28
+DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
+DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml
 
 # Kernel and boot image
 TARGET_KERNEL_ARCH := arm64
