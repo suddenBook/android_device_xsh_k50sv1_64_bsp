@@ -1,0 +1,12 @@
+# Proprietary files for k50sv1_64_bsp
+#
+# Source: immutable factory_image_unpacked filesystem, never the rooted live
+# device. Entries are grouped by runtime subsystem and reviewed before use.
+#
+# Deliberate exclusions:
+# - fingerprint feature/HAL/service/app/policy
+# - SecPenNote and Stock S Pen popup/sound UI
+# - ADUPS FOTA, Facebook, fake Samsung/UMIDIGI identity and product overlays
+# - EngineerMode/ATCI/factory test/logging packages unless a measured runtime
+#   dependency proves they are required
+# - Stock fstab, assembled VINTF, generated/precompiled SELinux policy
