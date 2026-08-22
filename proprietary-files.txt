@@ -417,8 +417,6 @@ vendor/lib64/hw/android.hardware.bluetooth.audio@2.0-impl-mediatek.so
 vendor/lib64/libbluetooth_audio_session_mediatek.so
 vendor/lib64/libbt-vendor.so
 vendor/lib64/libbluetooth_mtk.so
--vendor/lib64/libkeystore-engine-wifi-hidl.so
--vendor/lib64/libkeystore-wifi-hidl.so
 vendor/lib64/libnvram.so
 vendor/lib64/libnvram_platform.so
 vendor/lib64/libnvram_sec.so

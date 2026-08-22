@@ -6,8 +6,10 @@ PRODUCT_SOONG_NAMESPACES += \
 
 $(call inherit-product-if-exists, vendor/xsh/k50sv1_64_bsp/k50sv1_64_bsp-vendor.mk)
 
-# Prefer AOSP Q service shells. Proprietary legacy implementations are supplied
-# by the vendor tree and loaded through the standard HIDL wrappers.
+# Prefer AOSP Q service shells and complete-architecture platform helpers.
+# Proprietary legacy implementations are supplied by the vendor tree and
+# loaded through the standard HIDL wrappers. Stock has only 64-bit Wi-Fi
+# keystore helpers, so build both variants from source for Soong consistency.
 PRODUCT_PACKAGES += \
     android.hardware.configstore@1.1-service \
     android.hardware.gatekeeper@1.0-impl \
@@ -27,6 +29,8 @@ PRODUCT_PACKAGES += \
     android.hardware.thermal@1.0-service \
     android.hardware.vibrator@1.0-impl \
     android.hardware.vibrator@1.0-service \
+    libkeystore-engine-wifi-hidl \
+    libkeystore-wifi-hidl \
     power.default
 
 # full_base_telephony installs the CTS handheld core file, which falsely
