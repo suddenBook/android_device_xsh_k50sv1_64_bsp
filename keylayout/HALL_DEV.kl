@@ -1,0 +1,3 @@
+# Preserve the Hall/stylus-slot device for diagnostics but suppress Stock's
+# KEY_WAKEUP behavior. The passive capacitive stylus has no LineageOS feature.
+key 143 UNKNOWN
