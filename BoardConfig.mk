@@ -72,6 +72,10 @@ BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
 
+# Android Q requires the XML audio policy format. The device supplies a
+# physical-hardware-filtered audio_policy_configuration.xml.
+USE_XML_AUDIO_POLICY_CONF := 1
+
 # Android Q first-stage ramdisk + switch-root. Stock system/vendor mounts do
 # not use AVB or dm-verity, despite those capabilities existing in the kernel.
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
