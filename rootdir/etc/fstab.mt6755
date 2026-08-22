@@ -1,0 +1,23 @@
+# Android Q first-stage mounts
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system    /system               ext4  ro                                          wait,first_stage_mount
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/vendor    /vendor               ext4  ro                                          wait,first_stage_mount
+
+# Block-encrypted userdata. metadata is a raw cryptfs key/footer partition,
+# not a mountable filesystem.
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata  /data                 ext4  noatime,nosuid,nodev,noauto_da_alloc          wait,check,formattable,quota,resize,forcefdeorfbe=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/metadata
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache     /cache                ext4  noatime,nosuid,nodev,noauto_da_alloc,discard  wait,check,formattable
+
+# MTK radio/calibration data filesystems
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect1  /mnt/vendor/protect_f ext4  noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc  wait,check,formattable
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect2  /mnt/vendor/protect_s ext4  noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc  wait,check,formattable
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/nvdata    /mnt/vendor/nvdata    ext4  noatime,nosuid,nodev,noauto_da_alloc,commit=1,discard     wait,check,formattable
+
+# Removable storage
+/devices/mtk-msdc.0/11240000.msdc1*                             auto                  auto  defaults                                    voldmanaged=sdcard1:auto,encryptable=userdata
+/devices/soc/11270000.usb3_xhci*                                auto                  auto  defaults                                    voldmanaged=usbotg:auto
+
+# Recovery-visible raw partitions
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/frp       /persistent           emmc  defaults                                    defaults
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/para      /misc                 emmc  defaults                                    defaults
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/boot      /boot                 emmc  defaults                                    defaults
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/recovery  /recovery             emmc  defaults                                    defaults
