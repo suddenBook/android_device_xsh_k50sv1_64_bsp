@@ -178,6 +178,11 @@
         <transport>hwbinder</transport>
         <fqname>@1.0::IMDMonitorService/default</fqname>
     </hal>
+    <hal format="hidl">
+        <name>vendor.mediatek.hardware.mms</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.5::IMms/default</fqname>
+    </hal>
     <hal format="hidl" override="true">
         <name>vendor.mediatek.hardware.mtkradioex</name>
         <transport>hwbinder</transport>
@@ -210,5 +215,10 @@
         <name>vendor.mediatek.hardware.nvram</name>
         <transport>hwbinder</transport>
         <fqname>@1.1::INvram/default</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.mediatek.hardware.pq</name>
+        <transport>hwbinder</transport>
+        <fqname>@2.3::IPictureQuality/default</fqname>
     </hal>
 </manifest>

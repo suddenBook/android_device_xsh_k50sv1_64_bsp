@@ -59,6 +59,18 @@ vendor/lib64/vendor.mediatek.hardware.mms@1.3.so
 vendor/lib64/vendor.mediatek.hardware.mms@1.4.so
 vendor/lib64/vendor.mediatek.hardware.mms@1.5.so
 vendor/lib64/vendor.mediatek.hardware.pq@2.0.so
+vendor/bin/hw/vendor.mediatek.hardware.mms@1.5-service
+vendor/bin/hw/vendor.mediatek.hardware.pq@2.2-service
+vendor/etc/init/vendor.mediatek.hardware.mms@1.5-service.rc
+vendor/etc/init/vendor.mediatek.hardware.pq@2.2-service.rc
+vendor/lib64/hw/vendor.mediatek.hardware.mms@1.5-impl.so
+vendor/lib64/hw/vendor.mediatek.hardware.pq@2.3-impl.so
+vendor/lib/vendor.mediatek.hardware.pq@2.1.so
+vendor/lib/vendor.mediatek.hardware.pq@2.2.so
+vendor/lib/vendor.mediatek.hardware.pq@2.3.so
+vendor/lib64/vendor.mediatek.hardware.pq@2.1.so
+vendor/lib64/vendor.mediatek.hardware.pq@2.2.so
+vendor/lib64/vendor.mediatek.hardware.pq@2.3.so
 
 # Sensors (MIR3DA is the only usable Android sensor)
 vendor/bin/hw/android.hardware.sensors@2.0-service-mediatek
