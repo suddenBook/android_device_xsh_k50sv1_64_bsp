@@ -18,6 +18,11 @@ TARGET_BOOTLOADER_BOARD_NAME := k50sv1_64_bsp
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 
+# Verified LCD geometry. Lineage uses these values to select the correctly
+# sized boot animation; logical density remains configured by the overlay.
+TARGET_SCREEN_WIDTH := 720
+TARGET_SCREEN_HEIGHT := 1560
+
 # Proprietary vendor compatibility contract
 BOARD_VNDK_VERSION := current
 BOARD_SYSTEMSDK_VERSIONS := 28
