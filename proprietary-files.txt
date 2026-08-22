@@ -164,8 +164,6 @@ vendor/lib/hw/audio.primary.mt6755.so
 -vendor/lib/hw/audio.bluetooth.default.so
 -vendor/lib/hw/audio.r_submix.default.so
 -vendor/lib/hw/audio.usb.default.so
--vendor/lib/android.hardware.audio.common-util.so
--vendor/lib/android.hardware.audio.common@5.0-util.so
 vendor/lib/vendor.mediatek.hardware.audio@5.1.so
 -vendor/lib/libalsautils.so
 vendor/lib/libaudio_param_parser-vnd.so
@@ -182,7 +180,6 @@ vendor/lib/libbluetooth_audio_session_mediatek.so
 vendor/lib/libbluetooth_mtk_pure.so
 vendor/lib/libcvsd_mtk.so
 -vendor/lib/libeffects.so
--vendor/lib/libeffectsconfig.so
 vendor/lib/libmsbc_mtk.so
 -vendor/lib/libnbaio_mono.so
 vendor/lib/libspeech_enh_lib.so
@@ -204,11 +201,8 @@ vendor/lib/soundfx/libvisualizer.so
 -vendor/lib64/hw/audio.bluetooth.default.so
 -vendor/lib64/hw/audio.r_submix.default.so
 -vendor/lib64/hw/audio.usb.default.so
--vendor/lib64/android.hardware.audio.common-util.so
--vendor/lib64/android.hardware.audio.common@5.0-util.so
 -vendor/lib64/libalsautils.so
 -vendor/lib64/libeffects.so
--vendor/lib64/libeffectsconfig.so
 -vendor/lib64/libnbaio_mono.so
 -vendor/lib64/libtinycompress.so
 -vendor/lib64/libtinyxml.so

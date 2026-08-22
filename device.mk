@@ -29,6 +29,9 @@ PRODUCT_PACKAGES += \
     android.hardware.thermal@1.0-service \
     android.hardware.vibrator@1.0-impl \
     android.hardware.vibrator@1.0-service \
+    android.hardware.audio.common-util.vendor \
+    android.hardware.audio.common@5.0-util.vendor \
+    libeffectsconfig.vendor \
     libkeystore-engine-wifi-hidl \
     libkeystore-wifi-hidl \
     power.default
