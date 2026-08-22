@@ -49,6 +49,7 @@
                 <item>Speaker</item>
                 <item>Earpiece</item>
                 <item>Built-In Mic</item>
+                <item>Built-In Back Mic</item>
                 <item>Voice Call In</item>
                 <item>Echo Ref In</item>
                 <item>Telephony Tx</item>
@@ -121,6 +122,11 @@
                              samplingRates="8000,16000,32000,44100,48000"
                              channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO"/>
                 </devicePort>
+                <devicePort tagName="Built-In Back Mic" type="AUDIO_DEVICE_IN_BACK_MIC" role="source">
+                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="8000,16000,32000,44100,48000"
+                             channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO"/>
+                </devicePort>
                 <devicePort tagName="BT SCO Headset Mic" type="AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET" role="source">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="8000,16000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
@@ -149,9 +155,9 @@
                 <route type="mix" sink="BT SCO Car Kit"
                        sources="primary output,Voice Call In"/>
                <route type="mix" sink="Telephony Tx"
-                       sources="Built-In Mic,BT SCO Headset Mic,incall_music_uplink"/>
+                       sources="Built-In Mic,Built-In Back Mic,BT SCO Headset Mic,incall_music_uplink"/>
                 <route type="mix" sink="primary input"
-                       sources="Built-In Mic,BT SCO Headset Mic"/>
+                       sources="Built-In Mic,Built-In Back Mic,BT SCO Headset Mic"/>
                 <route type="mix" sink="voice tx"
                        sources="Voice Call In"/>
             </routes>
