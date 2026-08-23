@@ -3,6 +3,49 @@
     <!-- The chassis has no notification or battery indicator LED. -->
     <integer name="config_deviceLightCapabilities">0</integer>
 
+    <!-- LiveDisplay has nothing to drive on this hardware.
+           dumpsys lineagelivedisplay -> mConfig=capabilities={}
+           dumpsys color_display     -> Night display: Not available
+                                        Global saturation: Not available
+           dumpsys SurfaceFlinger    -> uses color management: 0, ColorMode::NATIVE only
+         AOSP's config_nightDisplayAvailable is @bool/config_setColorTransformAccelerated,
+         which is false here.
+
+         Settings gates the whole LiveDisplay entry on this bool alone, not on
+         capabilities (res/xml/display_settings.xml). With capabilities empty AND
+         night display unavailable, LiveDisplaySettings strips the colour
+         profile, outdoor mode, reading mode, CABC, colour enhancement and
+         picture adjustment preferences - but the block that would also remove
+         the mode picker and the colour-temperature slider is itself guarded by
+         isNightDisplayAvailable, so it never runs. The result is a Display menu
+         entry that opens a screen with two controls that silently do nothing:
+         LiveDisplayService.setMode() returns false without hasModeSupport().
+
+         The related defaults config_defaultAutoOutdoorMode / config_defaultCABC /
+         config_defaultColorEnhancement are deliberately NOT overridden - their
+         controllers return immediately without the matching LineageHardware
+         feature, so they are already inert. This one bool is the correct fix. -->
+    <bool name="config_enableLiveDisplay">false</bool>
+
+    <!-- 720x1560 is 2.167:1, past the 1.86 ratio at which Android 10
+         letterboxes non-resizeable apps that target below O
+         (ActivityRecord.computeBounds). This bool gates LineageOS's per-app
+         "Long screen" override (lineage-sdk LongScreen.java, surfaced by
+         Settings' display_settings.xml, enforced in ActivityRecord). With it
+         false the user cannot opt any app out of the black bars. The override
+         is opt-in per application, so enabling it changes nothing until the
+         user asks for it. -->
+    <bool name="config_haveHigherAspectRatioScreen">true</bool>
+
+    <!-- config_haveNotch stays FALSE, and this is a trap worth naming: the
+         device does have a punch hole, so the name reads like a missing
+         override. Its only consumer in 17.1 is LineageParts' StatusBarSettings,
+         which uses it to REMOVE the network-traffic preference. SystemUI
+         already reserves the aperture through cutout_space_view, and the fill
+         layer is live on the handset (ColorLayer "Letterbox - top" crop
+         [0,0,720,70]). Setting it true would delete a working feature and fix
+         nothing. -->
+
     <!-- config_deviceHardwareKeys and config_deviceHardwareWakeKeys stay at the
          lineage-sdk default of 64 (volume rocker only, no capacitive keys), and
          both bits are correct.

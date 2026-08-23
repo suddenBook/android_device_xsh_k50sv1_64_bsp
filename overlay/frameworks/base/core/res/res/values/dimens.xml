@@ -1,19 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Portrait: 40dp is 80px at the product density of 320, which clears the
-         measured 70px cutout bottom with 10px to spare. DisplayPolicy already
-         raises the status bar to the cutout's safe inset on its own
-         (getStatusBarHeight takes the max of the two), so this dimen only adds
-         the margin above it. It also stays at or below the 48dp
-         quick_qs_offset_height default, so the Quick Settings header needs no
-         matching change. Stock reserved the same 40dp; this value is now
-         derived from the measurement rather than copied. -->
+    <!-- Portrait status bar. 45dp, not the 40dp Stock reserves, and the
+         difference is load-bearing.
+
+         The punch hole was measured at y 12..70 display pixels, so the bar has
+         to be at least 70px tall to clear it. dp are resolved against the
+         *runtime* density, not ro.sf.lcd_density:
+
+             density 320 (default)                  45dp = 90px   clears 70
+             density 256 (owner's Display Size)     45dp = 72px   clears 70
+             density 256 with the old 40dp          40dp = 64px   DOES NOT clear
+
+         The owner runs Display Size at "small", i.e. display_density_forced=256.
+         At that density the previous 40dp rendered a 64px bar, narrower than the
+         aperture. Apps stayed safe either way, because
+         DisplayPolicy.getStatusBarHeight() takes the max of this dimen and the
+         cutout's safe inset and so clamped to 70 - but SystemUI's own status
+         icons are laid out inside this dimen, so they had no margin below the
+         hole and the clock sat against it. 45dp is the smallest value that
+         clears 70px at both densities.
+
+         Upper bound: it must stay at or below the 48dp quick_qs_offset_height
+         default, or the Quick Settings header needs a matching override. 45dp
+         does, with 3dp to spare.
+
+         (An earlier revision of this comment described the 40dp case and is
+         wrong; notes/HANDOFF.md's "display_density_forced=256 is not a defect"
+         entry described the same 64px situation as an accepted cost, which it no
+         longer is.) -->
     <dimen name="status_bar_height_portrait">45dp</dimen>
 
-    <!-- Landscape deliberately keeps the AOSP default. Rotating the device
-         moves the hole to a *side* edge, so there is nothing above the content
-         to clear; Stock's 40dp landscape bar just wastes 40dp of a 720px-tall
-         viewport. AOSP defaults this to @dimen/status_bar_height_portrait,
-         which would inherit the 40dp above, so restate the 24dp default. -->
+    <!-- Landscape. Rotating the device moves the hole to a *side* edge, so there
+         is nothing above the content to clear and the bar does not need to grow;
+         Stock's 40dp landscape bar just spends 40dp of a 720px-tall viewport for
+         nothing.
+
+         AOSP defaults this to @dimen/status_bar_height_portrait
+         (frameworks/base/core/res/res/values/dimens.xml), so leaving it unset
+         would inherit the 45dp above. It is restated here at 25dp - AOSP's own
+         24dp landscape convention plus 1dp, which keeps it a hair above the
+         status bar content height at density 256 (25dp = 40px). -->
     <dimen name="status_bar_height_landscape">25dp</dimen>
 </resources>

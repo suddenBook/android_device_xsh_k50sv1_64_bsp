@@ -408,7 +408,11 @@ vendor/etc/audio_param/Volume_ParamUnitDesc.xml
 # any Stock factory application.
 vendor/bin/hw/camerahalserver
 vendor/etc/init/camerahalserver.rc
-vendor/etc/media_profiles_V1_0.xml
+# media_profiles_V1_0.xml is NOT extracted. Stock's copy declares three 640x480
+# @120 fps high-speed camcorder profiles on a camera whose fps ceiling is 30, and
+# caps the h264 encoder at maxFrameHeight=1088 so StagefrightRecorder silently
+# clamps this panel's 720x1560 to 720x1088 and scales it. Written by the device
+# tree instead; see configs/media_profiles_V1_0.xml.
 vendor/lib/hw/android.hardware.camera.provider@2.4-impl-mediatek.so
 vendor/lib/hw/vendor.mediatek.hardware.camera.ccap@1.0-impl.so
 vendor/lib/libmtkcam_device1.so
@@ -546,6 +550,22 @@ vendor/etc/init/muxreport.rc
 vendor/etc/init/nvram_daemon.rc
 vendor/etc/init/rilproxy.rc
 vendor/etc/init/vendor.mediatek.hardware.nvram@1.1-sevice.rc
+# Open-market emergency-number table, parsed by mtk-rilproxy.so (the only blob
+# that names it) from the absolute path /system/vendor/etc/ecc_list.xml, which
+# reaches /vendor through the symlink AOSP's create-system-vendor-symlink makes
+# for every BOARD_USES_VENDORIMAGE build. It is labelled vendor_configs_file,
+# which public/domain.te already lets every domain read, so it needs no policy.
+#
+# Emergency numbers are safety-critical and this is the cheapest layer of the
+# three Android 10 merges in EmergencyNumberTracker (modem list, RIL/ecc_list,
+# Google database), so it is worth having even though the other two would cover
+# the common cases on their own.
+#
+# The seven Stock ecc_list_OP*.xml carrier variants are deliberately excluded:
+# mtk-rilproxy selects one by operator code, no operator property is set
+# anywhere in this device tree, and this file is the open-market table its own
+# header describes.
+vendor/etc/ecc_list.xml
 vendor/lib/libccci_util.so
 vendor/lib/libfile_op.so
 vendor/lib/libhwm.so

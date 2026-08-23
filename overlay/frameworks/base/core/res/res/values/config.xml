@@ -45,7 +45,21 @@
     <bool name="config_maskMainBuiltInDisplayCutout">false</bool>
 
     <bool name="config_showNavigationBar">true</bool>
+
+    <!-- Redundant against AOSP Q, which already defaults to 60, and the panel
+         reports exactly one mode (dumpsys display: 720x1560 @ 60.0). Kept only
+         so the single-mode fact is stated somewhere; it is not fixing anything. -->
     <integer name="config_defaultPeakRefreshRate">60</integer>
+
+    <!-- The chip is dual-band and AOSP's default for this is false. `iw list`
+         on the handset enumerates a Band 2 (5180/5200/5220/5240 MHz at 30 dBm,
+         plus the DFS 5260-5700 set) and lists AP among the supported interface
+         modes on the same phy; the handset is associated on 5 GHz right now.
+         WifiServiceImpl.isDualBandSupported() reads this resource, and
+         Settings' WifiTetherApBandPreferenceController hides the hotspot band
+         picker when it is false - so leaving it false pins SoftAP to 2.4 GHz
+         with no way to change it. -->
+    <bool name="config_wifi_dual_band_support">true</bool>
 
     <!-- Bind the Android 10 MTK MMTEL service through AOSP ImsResolver. Only
          voice over LTE is a device capability; carrier config and provisioning
