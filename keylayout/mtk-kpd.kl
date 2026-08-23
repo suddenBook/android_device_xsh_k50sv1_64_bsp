@@ -18,6 +18,12 @@
 # VOLUME_DOWN and VOLUME_MUTE, and then gates it on
 # LineageSettings.System.VOLUME_WAKE_SCREEN. POWER is handled separately by
 # interceptPowerKeyDown().
+#
+# And it does work now. Earlier revisions recorded that the keypad could never
+# wake this SoC because kpd_pdrv_suspend() clears KP_EN; init.mt6755.rc now sets
+# kpd_call_state=2, which makes both PM hooks skip that write, and the owner has
+# confirmed on the handset that Volume Up wakes the display from suspend. See
+# E-024 and E-028.
 
 key 114   VOLUME_DOWN
 key 115   VOLUME_UP
