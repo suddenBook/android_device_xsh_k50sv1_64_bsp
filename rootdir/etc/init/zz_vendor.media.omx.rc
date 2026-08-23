@@ -9,8 +9,11 @@
 #   E/BWC: Open SMI(/dev/MTK_SMI) driver file failed.:Permission denied
 #   E/BWC: Failed to switch SMI profile, error: -1
 #   E/BWC: fail to open mem_bw_ctrl driver file
-# which is EACCES from the DAC check, not SELinux -- the node is already
-# labelled and allowed. Stock hands this service twelve supplementary groups
+# which is EACCES from the DAC check, not SELinux. (The node was already
+# *labelled* mtk_smi_device, but nothing granted mediacodec access to that type
+# -- that half was added separately in sepolicy/media/clients.te. Both halves
+# were missing; only the DAC one produced the visible EACCES, because the build
+# was permissive.) Stock hands this service twelve supplementary groups
 # (media_rw sdcard_rw media system audio inet net_bt net_bt_admin net_bw_acct
 # sdcard_r on top of AOSP's three); only the two that a shipped node actually
 # requires are added here. In particular the service gets no network groups: an
