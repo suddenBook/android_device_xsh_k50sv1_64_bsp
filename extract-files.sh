@@ -156,6 +156,28 @@ function blob_fixup() {
         system/priv-app/ImsService/ImsService.apk)
             patch_ims_apk "$2" || exit 1
             ;;
+        vendor/lib64/hw/gatekeeper.default.so)
+            # Stock stores this as a symlink to a byte-identical
+            # libSoftGatekeeper.so, and extract_utils probes the destination
+            # name before the source name, so the symlink is what lands in the
+            # vendor tree. A symlink there makes the generated
+            # PRODUCT_COPY_FILES entry silently depend on a second entry
+            # existing in the same directory, and the gatekeeper HAL aborts the
+            # service if the module cannot be opened. Materialise it.
+            if [[ -L "$2" ]]; then
+                local gatekeeper_target
+                gatekeeper_target="$(readlink -f "$2")"
+                if [[ ! -f "${gatekeeper_target}" ]]; then
+                    echo "Dangling gatekeeper.default.so symlink: $2" >&2
+                    exit 1
+                fi
+                cp --remove-destination -- "${gatekeeper_target}" "$2" || exit 1
+            fi
+            if [[ -L "$2" || ! -s "$2" ]]; then
+                echo "gatekeeper.default.so is still not a real file" >&2
+                exit 1
+            fi
+            ;;
         vendor/etc/init/init.volte_imcb.rc)
             if [[ "$(sha256sum "$2" | awk '{ print $1 }')" != \
                   "0da26dce066caacabd3453a9bf6812358f72def2fdd5eca941d87981eef4453e" ]]; then

@@ -98,11 +98,9 @@ vendor/lib64/libaedv.so
 vendor/lib64/libksensor.so
 
 # Legacy light, memtrack, thermal and vibrator implementations
--vendor/lib/hw/vibrator.default.so
 vendor/lib64/hw/lights.mt6755.so
 vendor/lib64/hw/memtrack.mt6755.so
 vendor/lib64/hw/thermal.mt6755.so
--vendor/lib64/hw/vibrator.default.so
 
 # Thermal and fuel gauge
 vendor/bin/fuelgauged
@@ -142,7 +140,14 @@ vendor/lib64/vendor.mediatek.hardware.mtkpower@1.0.so
 vendor/lib64/vendor.mediatek.hardware.power@2.0.so
 vendor/lib64/vendor.mediatek.hardware.power@2.1.so
 
-# Software gatekeeper legacy module loaded by the AOSP HIDL wrapper
+# Software gatekeeper legacy module loaded by the AOSP HIDL wrapper. AOSP Q
+# ships no gatekeeper.default of its own (hardware/libhardware/modules has no
+# gatekeeper directory), and android.hardware.gatekeeper@1.0-impl aborts the
+# service with LOG_ALWAYS_FATAL if hw_get_module fails, so this blob is on the
+# lockscreen-credential critical path. Stock stores gatekeeper.default.so as a
+# symlink to a byte-identical libSoftGatekeeper.so and extract_utils probes the
+# destination name first, so the symlink is what gets copied; blob_fixup
+# materialises it into a real file.
 vendor/lib64/hw/libSoftGatekeeper.so
 vendor/lib64/hw/libSoftGatekeeper.so:vendor/lib64/hw/gatekeeper.default.so
 
@@ -441,6 +446,7 @@ vendor/firmware/ROMv2_lm_patch_1_1_hdr.bin
 vendor/firmware/WIFI_RAM_CODE_6755
 vendor/firmware/WMT_SOC.cfg
 vendor/lib64/hw/android.hardware.bluetooth@1.0-impl-mediatek.so
+vendor/lib/hw/android.hardware.bluetooth.audio@2.0-impl-mediatek.so
 vendor/lib64/hw/android.hardware.bluetooth.audio@2.0-impl-mediatek.so
 vendor/lib64/libbluetooth_audio_session_mediatek.so
 vendor/lib64/libbt-vendor.so
