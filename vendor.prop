@@ -20,8 +20,49 @@ persist.vendor.vilte_support=0
 persist.vendor.viwifi_support=0
 persist.vendor.volte_support=1
 persist.vendor.wfc.sys_wfc_support=0
-# Skip absent extension/legacy jars and use the APK's built-in base factories.
-ro.vendor.mtk_telephony_add_on_policy=1
+# ro.vendor.mtk_telephony_add_on_policy MUST be 0 (stock leaves it unset, which
+# is the same thing). An earlier revision set it to 1 with the comment "skip
+# absent extension/legacy jars and use the APK's built-in base factories",
+# which is a fair description of what it does and a fatal choice, because the
+# built-in base factory does not implement anything:
+#
+#   MtkMmTelFeature.getUt()
+#     -> supportMdAutoSetupIms() is false (md_auto_setup_ims=0)
+#     -> ExtensionFactory.makeLegacyComponentFactory(): with add_on_policy != 0
+#        the PathClassLoader("/system/framework/mediatek-ims-legacy.jar") branch
+#        is skipped entirely, so it returns a LegacyComponentFactoryBase
+#     -> LegacyComponentFactoryBase.makeImsUt() is literally `return null`
+#     -> MtkMmTelFeature.getUtInterface() returns null
+#     -> ImsManager.getSupplementaryServiceConfiguration() throws
+#        CODE_UT_NOT_SUPPORTED (801)
+#     -> ImsPhoneCallTracker.startListeningForCalls() throws at `mUtInterface =
+#        getUtInterface()`, so updateImsServiceConfig(true) and
+#        sendImsServiceStateIntent(ACTION_IMS_SERVICE_UP) below it never run
+#     -> ImsManager.Connector.notifyReady() rethrows -> notifyNotReady() ->
+#        stopListeningForCalls() -> retryGetImsService(), forever.
+#
+# CAPABILITY_TYPE_VOICE is therefore never enabled on the MmTelFeature and the
+# MTK stack is never told to register. Observed on the handset as
+# startListeningForCalls immediately followed by stopListeningForCalls and
+# isVolteEnabled=false, repeating on both slots for the whole uptime -- with two
+# SIMs LOADED. No amount of carrier config or signal can rescue it.
+#
+# The jar is now shipped (proprietary-files.txt, `ims` section) and this is set
+# to what stock effectively uses. Known limitation, accepted: the legacy jar
+# references four MTK classes this port does not ship, all of them reached only
+# from MMTelSSUtils / XcapClient / ImsUtStub$ResultHandler, i.e. only when a real
+# UT/XCAP supplementary-service operation runs. Call forwarding and call barring
+# OVER IMS are therefore out of scope and will throw NoClassDefFoundError;
+# they work over CS as normal.
+#
+# TO REVERT if com.android.phone misbehaves: set this back to 1. That restores
+# exactly today's behaviour (no VoLTE, but a stable phone process) in one line.
+#
+# md_auto_setup_ims stays 0. Setting it to 1 would also fix getUt(), and is the
+# wrong lever: it is read at 42 other sites in the APK plus GbaManager, and
+# switches the whole stack to the Gen93 modem-driven IMS setup path on a Gen91
+# MT6755.
+ro.vendor.mtk_telephony_add_on_policy=0
 ro.vendor.md_auto_setup_ims=0
 ro.vendor.md_mims_support=1
 ro.vendor.md_prop_ver=1

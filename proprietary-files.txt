@@ -315,19 +315,24 @@ vendor/lib/vendor.mediatek.hardware.power@2.0.so
 -vendor/lib64/soundfx/libdynproc.so
 -vendor/lib64/soundfx/libldnhncr.so
 -vendor/lib64/soundfx/libreverbwrapper.so
-# a2dp_audio_policy_configuration.xml is NOT extracted. It and
+# NONE of the six audio_policy xi:include fragments is extracted any more; they
+# are copied from frameworks/av/services/audiopolicy/config/ in device.mk.
+# Three of the stock copies (a2dp_in, bluetooth, r_submix) were byte-identical
+# to AOSP's and usb differed only in whitespace -- pure redundancy. The other
+# two were Android 9 files: default_volume_tables.xml lacked every curve
+# Android 10 added, so audio_policy_volumes.xml mapped AUDIO_STREAM_ALARM to the
+# MUTABLE curves. Q made alarms non-mutable on purpose so an alarm is always
+# audible; shipping Pie's tables silently undid that.
+#
+# The historical note below is kept because the a2dp question it answers is
+# still live:
+# a2dp_audio_policy_configuration.xml is NOT used. It and
 # a2dp_in_audio_policy_configuration.xml both declare <module name="a2dp">, and
 # configs/audio_policy_configuration.xml xi:includes only the _in one, so the
 # other could never be parsed.
-vendor/etc/a2dp_in_audio_policy_configuration.xml
 vendor/etc/audio_device.xml
 vendor/etc/audio_effects.xml
 vendor/etc/audio_em.xml
-vendor/etc/audio_policy_volumes.xml
-vendor/etc/bluetooth_audio_policy_configuration.xml
-vendor/etc/default_volume_tables.xml
-vendor/etc/r_submix_audio_policy_configuration.xml
-vendor/etc/usb_audio_policy_configuration.xml
 vendor/etc/audio_param/AudioParamOptions.xml
 vendor/etc/audio_param/BtInfo_AudioParam.xml
 vendor/etc/audio_param/BtInfo_ParamUnitDesc.xml
@@ -638,10 +643,19 @@ vendor/lib64/vendor.mediatek.hardware.nvram@1.1.so
 
 # IMS / VoLTE (voice-only). ImsService.apk is pinned and patched during  -- section: ims
 # extraction to the Lineage framework resource IDs, then platform-signed by the
-# selected build tier. WFC/EPDG, ViLTE/ViWiFi, UT plugin and RCS payloads are
-# deliberately excluded.
+# selected build tier. WFC/EPDG, ViLTE/ViWiFi and RCS payloads are deliberately
+# excluded.
+#
+# mediatek-ims-legacy.jar is NOT optional, and leaving it out is what stopped
+# VoLTE from ever registering. It is loaded by absolute path with a
+# PathClassLoader, so it needs no <library> XML, no <uses-library> and no
+# PRODUCT_BOOT_JARS entry -- but without it ExtensionFactory falls through to
+# LegacyComponentFactoryBase, whose makeImsUt() is a two-instruction `return
+# null`, and the whole MMTEL session tears down on every attempt. See
+# vendor.prop's note on ro.vendor.mtk_telephony_add_on_policy and E-043.
 -system/framework/mediatek-common.jar
 -system/framework/mediatek-ims-base.jar
+-system/framework/mediatek-ims-legacy.jar
 -system/priv-app/ImsService/ImsService.apk
 vendor/bin/hw/vendor.mediatek.hardware.imsa@1.0-service
 vendor/bin/mtkmal
