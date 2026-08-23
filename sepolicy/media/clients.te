@@ -79,3 +79,27 @@ allowxperm hal_camera_default proc_mtk_m4u:file ioctl { 0x6704 0x6705 0x670b 0x6
 # open } on this node plus dir search; only the four that a text sysfs
 # attribute can use are granted here.
 allow mediacodec sysfs_mtk_concurrency_scenario:file { getattr open read write };
+
+# libbwc also switches the SMI (Smart Multimedia Interface) profile during an
+# encode session, and it opens /dev/MTK_SMI to do it. This is the second half
+# of the fix recorded in rootdir/etc/init/zz_vendor.media.omx.rc: that file
+# added the "media" supplementary group so the DAC check on the node
+# (media:media 0660) passes, but the SELinux half was never granted --
+# mtk_smi_device was reachable only from hal_camera_default. The rc comment's
+# claim that "the node is already labelled and allowed" is true of the label
+# and false of the rule, which permissive tier 1 hides.
+#   E/BWC: Open SMI(/dev/MTK_SMI) driver file failed.:Permission denied
+# Stock's compiled policy:
+#   (allow mediacodec MTK_SMI_device (chr_file (ioctl read open)))
+allow mediacodec mtk_smi_device:chr_file { ioctl open read };
+
+# NOT granted to mediacodec, deliberately:
+#   graphics_device (/dev/mtk_disp_mgr) -- Stock grants it, but the node is
+#     system:graphics 0660 and mediacodec runs uid mediacodec gid camera with
+#     groups { system drmrpc mediadrm media }, so the DAC check fails first.
+#     Only the composer and PQ hold it open on the handset.
+#   mtk_sw_sync_device -- Stock grants rw, but /dev/sw_sync is system:graphics
+#     0664: mediacodec cannot open it for write, and a timeline consumer works
+#     on the fence fd, not on the producer node.
+#   gpu_device, ion_device, video_device -- already granted by
+#     system/sepolicy/vendor/mediacodec.te:28-31, no device rule needed.

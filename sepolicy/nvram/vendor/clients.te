@@ -26,6 +26,26 @@ allow {
     hal_bluetooth_default
 } mtk_nvdata_file:file r_file_perms;
 
+# libnvram resolves its record paths through the nvdata tree and follows any
+# symlink it meets on the way. `allow domain dev_type:lnk_file r_file_perms`
+# (public/domain.te:64) covers device nodes only, not file_type, so a symlink
+# under /mnt/vendor/nvdata is unreadable without this. Stock grants
+# nvdata_file:lnk_file read to essentially every libnvram client.
+allow {
+    ccci_fsd
+    ccci_mdinit
+    rild
+    mtkrild
+    wlan_assistant
+    mnld
+    hal_camera_default
+    hal_audio_default
+    hal_wifi_default
+    hal_bluetooth_default
+    nvram_daemon
+    nvram_agent_binder
+} mtk_nvdata_file:lnk_file r_file_perms;
+
 allow {
     hal_camera_default
     hal_audio_default

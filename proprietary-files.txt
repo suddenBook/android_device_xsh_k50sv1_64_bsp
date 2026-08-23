@@ -619,7 +619,11 @@ vendor/lib64/vendor.mediatek.hardware.imsa@1.0.so
 # with the platform module; retain only the MTK implementation and codecs.
 vendor/bin/hw/vendor.mediatek.hardware.mtkcodecservice@1.1-service
 vendor/etc/init/vendor.mediatek.hardware.mtkcodecservice@1.1-service.rc
-vendor/etc/media_codecs.xml
+# media_codecs.xml lives in configs/ instead: Stock's copy <Include>s
+# media_codecs_google_audio.xml and media_codecs_google_video_le.xml, which are
+# not on this partition and are not wanted (Q serves those software codecs from
+# the com.android.media.swcodec APEX as c2.android.* with OMX.google.* aliases).
+# The mediatek_* fragments below are still Stock and still extracted.
 vendor/etc/media_codecs_mediatek_audio.xml
 vendor/etc/media_codecs_mediatek_video.xml
 vendor/etc/media_codecs_performance.xml

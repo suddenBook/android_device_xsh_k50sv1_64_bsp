@@ -1,0 +1,24 @@
+# com.mediatek.ims (ImsService.apk, sharedUserId android.uid.phone, so the
+# radio domain) registers "mtkIms" ->
+# com.mediatek.ims.internal.IMtkImsService. Confirmed live: `service list`
+# on the handset shows it at index 4.
+#
+# It used to be labelled radio_service, which is a shared bucket that AOSP
+# hands to essentially everything:
+#   system/sepolicy/private/untrusted_app_all.te:99  allow untrusted_app_all radio_service:service_manager find;
+#   .../priv_app.te:49  .../platform_app.te:64  .../ephemeral_app.te:46
+# i.e. any installed app could getService("mtkIms") and start poking a vendor
+# IMS control interface. Its own type keeps the client set to the two domains
+# that actually use it: the phone process that owns it, and the telephony
+# framework in system_server.
+#
+# Both operands are core platform types, so this belongs in plat_private per
+# the rule in BoardConfig.mk. Declared in private (not public) because nothing
+# outside the platform image needs the symbol.
+type mtk_ims_service, service_manager_type;
+
+# add_service() also emits `neverallow { domain -radio } mtk_ims_service:
+# service_manager add;`, which is the half that stops another process
+# impersonating the IMS service.
+add_service(radio, mtk_ims_service)
+allow system_server mtk_ims_service:service_manager find;

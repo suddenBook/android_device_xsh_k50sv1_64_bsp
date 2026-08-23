@@ -6,10 +6,39 @@ hwbinder_use(netdagent)
 add_hwservice(netdagent, mtk_netdagent_hwservice)
 create_pty(netdagent)
 
-# libforkexecwrap gives the constrained netutils child its private PTY and
-# inherited descriptor.  Never expose the global devpts type to either side.
-allow netutils_wrapper netdagent:fd use;
-allow netutils_wrapper netdagent_devpts:chr_file { read write };
+# NO netutils_wrapper rules here, and this is deliberate.
+#
+# There were two:
+#     allow netutils_wrapper netdagent:fd use;
+#     allow netutils_wrapper netdagent_devpts:chr_file { read write };
+# justified by a comment claiming that "ip/tc/iptables execution transitions to
+# AOSP's constrained netutils_wrapper domain through the platform
+# domain_auto_trans rule". No such platform rule exists. Grepping the whole
+# tree, the only domain_auto_trans(*, netutils_wrapper_exec, netutils_wrapper)
+# instances are in device/qcom/sepolicy -- AOSP ships the domain
+# (public/netutils_wrapper.te) and expects each vendor to add its own
+# transition. Without one, netutils_wrapper can never be netdagent's child, so
+# both rules were unreachable; and public/netutils_wrapper.te:4 is
+#     neverallow domain netutils_wrapper_exec:file execute_no_trans;
+# so the exec cannot succeed any other way either.
+#
+# The live handset agrees: netdagent's entire fd table is
+#   3x /dev/null, one socket, /dev/pmsg0, /dev/hwbinder
+# -- no PTY, no devpts, no children. libifcutils_mtk does the interface work
+# over the udp/netlink_route sockets granted below.
+#
+# IF an "avc: denied { execute } ... netutils_wrapper_exec" ever appears, the
+# fix is to add the transition BY HAND rather than with domain_auto_trans(),
+# because that macro expands a `dontaudit ... noatsecure` and this tree bans
+# dontaudit:
+#     allow netdagent netutils_wrapper_exec:file { getattr open read execute map };
+#     allow netdagent netutils_wrapper:process { transition siginh rlimitinh };
+#     allow netutils_wrapper netutils_wrapper_exec:file entrypoint;
+#     type_transition netdagent netutils_wrapper_exec:process netutils_wrapper;
+#     allow netutils_wrapper netdagent:fd use;
+#     allow netutils_wrapper netdagent_devpts:chr_file { read write };
+# (public/domain.te:967 already whitelists netutils_wrapper_exec for the
+# vendor-executes-system neverallow, so no other change is needed.)
 
 # libpowerhal uses the priority firewall commands for network boost.  The
 # retained rilproxy (rild domain) uses set_plmn_iface_rule for the ordinary
@@ -20,9 +49,20 @@ binder_call(hal_power_default, netdagent)
 allow rild mtk_netdagent_hwservice:hwservice_manager find;
 binder_call(rild, netdagent)
 
+# netdagent is a private operator helper, not a HAL, so it is registered with a
+# bare add_hwservice() instead of hal_attribute()/hal_attribute_hwservice().
+# That means it does not get the closed client/server neverallow those macros
+# generate, and nothing would stop a later rule handing this priority-firewall
+# interface to another domain. State the invariant explicitly instead.
+neverallow {
+    domain
+    -netdagent
+    -hal_power_default
+    -rild
+} mtk_netdagent_hwservice:hwservice_manager { add find };
+
 # Direct interface setup is limited to the datagram and route-netlink calls in
-# libifcutils_mtk.  ip/tc/iptables execution transitions to AOSP's constrained
-# netutils_wrapper domain through the platform domain_auto_trans rule.
+# libifcutils_mtk.
 allow netdagent self:udp_socket { create ioctl };
 allowxperm netdagent self:udp_socket ioctl {
     SIOCGIFFLAGS

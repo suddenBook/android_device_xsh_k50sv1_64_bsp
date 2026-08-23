@@ -23,6 +23,11 @@ allow hal_power_default mtk_powerhal_data_file:file {
     unlink
     write
 };
+# libpowerhal also binds a UNIX socket inside its own state directory. Stock's
+# compiled policy has the whole create_file_perms set on
+#   (allow mtk_hal_power mtk_powerhal_data_file (sock_file (...)))
+# and a sock_file needs create/unlink, not just write.
+allow hal_power_default mtk_powerhal_data_file:sock_file create_file_perms;
 
 # Exact core-hint kernel controls present on the captured kernel.
 allow hal_power_default proc_mtk_power_perf_ioctl:file {
@@ -56,12 +61,20 @@ allow hal_power_default {
     sysfs_mtk_power_storage_control
 }:file { getattr open read write };
 
-# libpowerhal's Wi-Fi hint path writes an event to the dedicated WMT node. Its
-# fallback private wlan0 ioctl is intentionally not granted: AOSP forbids a
-# Power HAL from owning network sockets or NET_ADMIN, and falsely making this
-# process a Wi-Fi HAL would collapse two HAL security boundaries. Tier 1 will
-# retain the denial as AVC evidence while the real Wi-Fi HAL owns wlan0.
-allow hal_power_default mtk_wmt_wifi_device:chr_file { open write };
+# NOT GRANTED: mtk_wmt_wifi_device (/dev/wmtWifi).
+#
+# libpowerhal's Wi-Fi hint path would write an event to the WMT node. The
+# previous revision allowed { open write } here while the comment above it
+# argued that making the Power HAL a Wi-Fi HAL "would collapse two HAL security
+# boundaries" -- but /dev/wmtWifi IS the Wi-Fi function's power switch: writing
+# it turns the combo chip's WLAN function on and off. Granting the write is the
+# boundary collapse the comment was refusing.
+#
+# Nothing is lost. On the handset /dev/wmtWifi has no openers at all, the Wi-Fi
+# hint is an optimisation, and connectivity/wlan_assistant.te now carries a
+# neverallow keeping the node to the real Wi-Fi HAL and the calibration loader.
+# If a denial ever shows up here, the fix is a HIDL call into the Wi-Fi HAL,
+# not a second writer on the node.
 
 set_prop(hal_power_default, mtk_powerhal_prop)
 set_prop(hal_power_default, mtk_thermal_config_prop)
