@@ -22,19 +22,3 @@ $(eval include $(BUILD_PREBUILT))
 endef
 
 $(foreach f,HarmonyOSSans-Regular.ttf HarmonyOSSans-Italic.ttf,$(call k50sv1-font,$(f)))
-
-# The replacement for vendor/lineage/prebuilt/common/etc/fonts_customization.xml.
-# BoardConfig.mk removes Lineage's module from PRODUCT_PACKAGES so that this one
-# is the only writer of that path; see the comment there.
-include $(CLEAR_VARS)
-LOCAL_MODULE := k50sv1-fonts_customization.xml
-LOCAL_MODULE_STEM := fonts_customization.xml
-LOCAL_SRC_FILES := fonts_customization.xml
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT)/etc
-LOCAL_PRODUCT_MODULE := true
-LOCAL_REQUIRED_MODULES := \
-    HarmonyOSSans-Regular.ttf \
-    HarmonyOSSans-Italic.ttf
-include $(BUILD_PREBUILT)

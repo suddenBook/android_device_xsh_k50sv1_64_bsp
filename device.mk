@@ -25,16 +25,14 @@ PRODUCT_BOOT_JARS += \
     mediatek-common \
     mediatek-ims-base
 
-# The two files that replace upstream's, plus the Styles entry that makes the
-# new font selectable. BoardConfig.mk removes Lineage's fonts_customization.xml
-# and apns-conf.xml modules from PRODUCT_PACKAGES; these are what take their
-# place. See BoardConfig.mk for why the filter lives there.
+# The Styles entry that makes HarmonyOS Sans selectable. The .ttf files come
+# from fonts/Android.mk; the family that names them is registered in
+# vendor/lineage/prebuilt/common/etc/fonts_customization.xml, which is an
+# upstream file because SystemFonts.java:313 reads exactly one hardcoded path
+# and base_rules.mk:510 makes a second writer of it a build error. See
+# work/k50sv1-bringup/upstream/README.md.
 PRODUCT_PACKAGES += \
-    K50sv1HarmonyOSSansFont \
-    k50sv1-fonts_customization.xml
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/apns-conf.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/apns-conf.xml
+    K50sv1HarmonyOSSansFont
 
 # Prefer AOSP Q service shells and complete-architecture platform helpers.
 # Proprietary legacy implementations are supplied by the vendor tree and

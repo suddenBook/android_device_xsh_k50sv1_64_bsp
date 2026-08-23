@@ -48,8 +48,10 @@ BOARD_VNDK_VERSION := current
 #   build/make/core/config.mk:748-749        -> hard error if < PRODUCT_SHIPPING_API_LEVEL
 #   system/libhidl/vintfdata/Android.mk:56   -> injected into the shipped
 #                                               <system-sdk> of the vendor matrix
-# Keep it in sync with compatibility_matrix.xml's <system-sdk><version>, which
-# hardcodes the same 28. It does not have to match VNDK (29) or
+# compatibility_matrix.xml deliberately does NOT restate it -- assemble_vintf
+# injects it from here, and a hardcoded copy would be merged as a UNION with no
+# diagnostic, so this file is the single source. It does not have to match
+# VNDK (29) or
 # PRODUCT_SHIPPING_API_LEVEL (26, from product_launched_with_o.mk); it only has
 # to be >= the latter and present in PLATFORM_SYSTEMSDK_VERSIONS.
 BOARD_SYSTEMSDK_VERSIONS := 28
@@ -157,47 +159,5 @@ BOARD_VENDOR_SEPOLICY_DIRS += \
     $(DEVICE_PATH)/sepolicy/radio \
     $(DEVICE_PATH)/sepolicy/vendor \
     $(DEVICE_PATH)/sepolicy/safety
-
-# Two files this device replaces wholesale, and the only place a device tree can
-# do it.
-#
-# /product/etc/apns-conf.xml and /product/etc/fonts_customization.xml are each
-# read from ONE hardcoded path -- TelephonyProvider.java:632-639 and
-# SystemFonts.java:313 -- so a device copy cannot sit alongside Lineage's, it
-# has to be instead of it. And the normal ways out do not exist here:
-#
-#   * LOCAL_OVERRIDES_MODULES is rejected for LOCAL_MODULE_CLASS := ETC.
-#     base_rules.mk:342-352 allows it only for EXECUTABLES and SHARED_LIBRARIES
-#     and calls pretty-error otherwise.
-#   * A second module with the same LOCAL_MODULE is a duplicate-definition
-#     error, and a PRODUCT_COPY_FILES entry to the same destination is not
-#     checked against module installs at all (Makefile:23-42 dedups only
-#     against other PRODUCT_COPY_FILES), so it would produce two rules for one
-#     output.
-#   * Filtering inside the product makefile does not work either: inherit-product
-#     appends INHERIT_TAG markers rather than resolved names (product.mk:378-388),
-#     so $(PRODUCT_PACKAGES) there does not yet contain what was inherited.
-#   * CUSTOM_APNS_FILE, Lineage's own hook, is a python2 line-based MERGE keyed
-#     on carrier name (vendor/lineage/tools/custom_apns.py). It cannot express
-#     "replace the file", which is what is wanted.
-#
-# BoardConfig.mk is the first place where the resolved list is both complete and
-# still writable: envsetup.mk includes product_config.mk at :268 and
-# board_config.mk at :279. main.mk:1101 then reads
-# PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_PACKAGES to build the install set, and
-# main.mk:1294/:1469 read the flattened $(PRODUCT_PACKAGES) for its two sanity
-# checks, so both have to be filtered or the dangling-module warning fires.
-#
-# This does reach into a build-system internal. It is deliberate, and the
-# alternative was editing two data files in vendor/lineage, which repo sync
-# would silently revert.
-K50SV1_REPLACED_UPSTREAM_ETC := \
-    apns-conf.xml \
-    fonts_customization.xml
-
-PRODUCT_PACKAGES := \
-    $(filter-out $(K50SV1_REPLACED_UPSTREAM_ETC),$(PRODUCT_PACKAGES))
-PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_PACKAGES := \
-    $(filter-out $(K50SV1_REPLACED_UPSTREAM_ETC),$(PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_PACKAGES))
 
 -include vendor/xsh/k50sv1_64_bsp/BoardConfigVendor.mk
