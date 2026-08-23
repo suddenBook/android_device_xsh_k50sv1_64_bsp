@@ -64,17 +64,29 @@
  * ==================
  * It is one service and one policy file, and it is meant to be easy to drop
  * once a from-source kernel makes the same behaviour a 20-line change in
- * mt_ppm_policy_lcm_off.c.  To revert:
+ * mt_ppm_policy_lcm_off.c.  To revert, delete ALL SIX of these:
  *
- *   1. delete this directory and sepolicy/power/k50sv1_perfd.te
- *   2. remove `k50sv1_perfd` from device.mk PRODUCT_PACKAGES
- *   3. remove the `service vendor.k50sv1_perfd` block from
- *      rootdir/etc/init/hw/init.mt6755.rc
- *   4. remove the two perfserv_* lines from sepolicy/power/genfs_contexts
+ *   1. this directory (perfd/) and sepolicy/power/k50sv1_perfd.te
+ *   2. `k50sv1_perfd` from device.mk PRODUCT_PACKAGES
+ *   3. the `service vendor.k50sv1_perfd` block in
+ *      rootdir/etc/init/hw/init.mt6755.rc, AND the `start vendor.k50sv1_perfd`
+ *      line in `on property:sys.boot_completed=1` above it
+ *   4. genfs_contexts LINES 10-11 ONLY -- perfserv_perf_idx and
+ *      perfserv_max_perf_idx under /proc/ppm/policy/.  Lines 29-30 are
+ *      /proc/perfmgr/legacy/perfserv_{core,freq}, which belong to libpowerhal
+ *      and MUST STAY.  "the two perfserv_* lines" was the earlier wording, and
+ *      it matches four lines.
+ *   5. the /vendor/bin/k50sv1_perfd entry in sepolicy/power/file_contexts.
+ *      Step 1 deletes the type it names, so leaving this behind fails the
+ *      build at checkfc -- in a change whose entire selling point is that it
+ *      is easy to undo.
+ *   6. the chown/chmod of /proc/ppm/policy/perfserv_{perf_idx,max_perf_idx}
+ *      in init.mt6755.rc.  They exist only so a system daemon can write nodes
+ *      the kernel creates root:root.
  *
- * Nothing else in the tree references it.  The device returns to the
- * INTERACTION-only behaviour measured in E-031, which is not broken -- it is
- * just not what the owner asked for.
+ * `grep -rn k50sv1_perfd device/` is the check, and it must come back empty.
+ * The device returns to the INTERACTION-only behaviour measured in E-031,
+ * which is not broken -- it is just not what the owner asked for.
  */
 
 #include <errno.h>

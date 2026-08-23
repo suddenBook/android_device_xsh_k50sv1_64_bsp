@@ -354,7 +354,8 @@ on property:sys.boot_completed=1
 # at all -- the short version is that the PowerHAL's INTERACTION lock lasts
 # 235-705 ms rather than the 5 s it is configured for, and that no PPM policy
 # can be released by screen-off, so the screen-state edge has to come from
-# userspace. That file also carries the four-step removal recipe.
+# userspace. That file also carries the removal recipe -- six sites, not the
+# three this comment used to imply.
 service vendor.k50sv1_perfd /vendor/bin/k50sv1_perfd
     class late_start
     user system
