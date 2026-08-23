@@ -147,6 +147,21 @@
         <transport>hwbinder</transport>
         <fqname>@1.2::ISupplicant/default</fqname>
     </hal>
+    <!-- wpa_supplicant registers MediaTek's own extension interface alongside
+         the three AOSP ones (confirmed on the handset: all four are served by
+         /vendor/bin/hw/wpa_supplicant). Without this entry hwservicemanager has
+         no transport for it, so a getService() would fall through to passthrough
+         and fail. Nothing on a pure-AOSP Wi-Fi framework calls it today; it is
+         declared because the process really does serve it, and an undeclared
+         registered interface is a latent trap.
+         sepolicy/vendor/hwservice_contexts already labels it
+         hal_wifi_supplicant_hwservice. -->
+    <hal format="hidl">
+        <name>vendor.mediatek.hardware.wifi.supplicant</name>
+        <transport>hwbinder</transport>
+        <fqname>@2.0::ISupplicant/default</fqname>
+    </hal>
+
     <hal format="hidl">
         <name>vendor.mediatek.hardware.gpu</name>
         <transport>hwbinder</transport>
