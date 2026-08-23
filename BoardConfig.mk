@@ -18,6 +18,7 @@ TARGET_BOARD_PLATFORM := mt6755
 TARGET_BOOTLOADER_BOARD_NAME := k50sv1_64_bsp
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
+VENDOR_SECURITY_PATCH := 2020-08-05
 
 # Verified LCD geometry. Lineage uses these values to select the correctly
 # sized boot animation; logical density remains configured by the overlay.

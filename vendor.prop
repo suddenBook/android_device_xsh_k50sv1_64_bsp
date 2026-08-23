@@ -1,0 +1,31 @@
+# Android Q automatically appends this device-local file to vendor/build.prop.
+# Keep MTK implementation defaults here so their partition ownership is
+# explicit and init can consume them before the corresponding HALs start.
+persist.vendor.connsys.coredump.mode=0
+ro.vendor.net.upload.benchmark.default=blocking
+ro.vendor.md_apps.load_gencfg=GEN91_USER
+ro.vendor.md_apps.load_type=user
+ro.vendor.md_apps.load_verno=MOLY.LR11.W1630.MD.MP.V191.4
+ro.vendor.md_apps.support=1
+ro.vendor.mediatek.platform=MT6755
+ro.vendor.mtk_aal_support=1
+ro.vendor.mtk_agps_app=1
+ro.vendor.mtk_audio_alac_support=1
+ro.vendor.mtk_audio_ape_support=1
+ro.vendor.mtk_audio_tuning_tool_ver=V2.2
+ro.vendor.mtk_besloudness_support=1
+ro.vendor.mtk_camera_app_version=1
+ro.vendor.mtk_emmc_support=1
+ro.vendor.mtk_f2fs_enable=0
+ro.vendor.mtk_fd_support=1
+ro.vendor.mtk_gps_support=1
+ro.vendor.mtk_log_hide_gps=0
+ro.vendor.mtk_md1_support=10
+ro.vendor.mtk_pq_color_mode=1
+ro.vendor.mtk_pq_support=2
+ro.vendor.mtk_protocol1_rat_config=Lf/Lt/W/T/G
+ro.vendor.mtk_ril_mode=c6m_3rild
+ro.vendor.mtk_rild_read_imsi=1
+ro.vendor.mtk_zsdhdr_support=1
+ro.vendor.radio.max.multisim=dsds
+ro.vendor.wlan.gen=gen2
