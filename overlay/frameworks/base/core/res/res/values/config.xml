@@ -4,6 +4,46 @@
     <bool name="config_automatic_brightness_available">false</bool>
     <bool name="config_suspendWhenScreenOffDueToProximity">false</bool>
 
+    <!-- Punch-hole front camera, measured on the handset against a 1:1
+         720x1560 calibration target (tools/cutout/): the opaque aperture,
+         including its black ring, spans x 330..388 and y 12..70 display pixels
+         - a 58 px circle centred at (359, 41), one pixel left of the display
+         centre line.
+
+         Pixels, not @dp: the path has no @dp marker, so DisplayCutout takes the
+         coordinates verbatim with the origin at the top centre of the display.
+         @dp would scale by ro.sf.lcd_density/160 and ignore any runtime `wm
+         density` override, which is wrong for a physical aperture. Do not use
+         @ratio here either - it is Android 11+, and on Q it makes PathParser
+         throw and the whole cutout is dropped behind a Log.wtf.
+
+         The drawn path is two half arcs plus a degenerate subpath at the origin
+         so its bounding box starts at y=0, as AOSP's own emulation overlays do.
+         The RectApproximation is what the framework actually measures: apps see
+         safeInsetTop = its bounding-box bottom = 70 px. -->
+    <string translatable="false" name="config_mainBuiltInDisplayCutout">
+        M -30,41
+        A 29,29 0 1,0 28,41
+        A 29,29 0 1,0 -30,41
+        Z
+        M 0,0 L 0,0 Z
+    </string>
+    <string translatable="false" name="config_mainBuiltInDisplayCutoutRectApproximation">
+        M -30,0
+        L -30,70
+        L 28,70
+        L 28,0
+        Z
+    </string>
+
+    <!-- Let SystemUI paint the aperture black so its edge is anti-aliased
+         against the physical hole. -->
+    <bool name="config_fillMainBuiltInDisplayCutout">true</bool>
+
+    <!-- Keep the full 720x1560 logical display. true would permanently
+         letterbox the cutout strip away and hide it from apps entirely. -->
+    <bool name="config_maskMainBuiltInDisplayCutout">false</bool>
+
     <bool name="config_showNavigationBar">true</bool>
     <integer name="config_defaultPeakRefreshRate">60</integer>
 

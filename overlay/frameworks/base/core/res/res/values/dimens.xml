@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Portrait: the front camera sits in a punch hole in the top-centre of
-         the panel. Until the hole is physically measured and a real
-         config_mainBuiltInDisplayCutout path is declared (see the TODO in the
-         bring-up notes), reserve the same height Stock reserves so the status
-         bar clears the aperture. 40dp is 80px at the product density of 320. -->
+    <!-- Portrait: 40dp is 80px at the product density of 320, which clears the
+         measured 70px cutout bottom with 10px to spare. DisplayPolicy already
+         raises the status bar to the cutout's safe inset on its own
+         (getStatusBarHeight takes the max of the two), so this dimen only adds
+         the margin above it. It also stays at or below the 48dp
+         quick_qs_offset_height default, so the Quick Settings header needs no
+         matching change. Stock reserved the same 40dp; this value is now
+         derived from the measurement rather than copied. -->
     <dimen name="status_bar_height_portrait">40dp</dimen>
 
     <!-- Landscape deliberately keeps the AOSP default. Rotating the device
