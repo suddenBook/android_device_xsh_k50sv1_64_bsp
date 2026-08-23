@@ -16,6 +16,26 @@ PRODUCT_COPY_FILES += \
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 
+# Android Go. The SoC is an 8x Cortex-A53 at 1.5 GHz with a Mali-T860 MP2 and
+# an eMMC that tops out around 150 MB/s; 3.74 GiB of usable RAM is the one
+# resource this device is not short of. Inheriting AOSP's canonical Go product
+# defaults (ro.config.low_ram, speed-profile system server, profile-guided boot
+# image, always-preopt extracted APKs, in-process network stack, minimized Java
+# debug info) buys back CPU and storage. See the two deliberate deviations
+# below.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/go_defaults_common.mk)
+
+# Deviation 1: heap. go_defaults_common.prop sizes the Dalvik heap for a 1 GiB
+# handset (128m/256m). AOSP's own per-RAM profile for this device is the 4096
+# one, whose 0.6 target utilization and larger free window also mean fewer GC
+# pauses, which is what a weak CPU needs. PRODUCT_PROPERTY_OVERRIDES lands in
+# vendor/build.prop, which init loads after system/build.prop, so these values
+# are the ones that take effect.
+#
+# Deviation 2: MALLOC_SVELTE is deliberately NOT set. It trades CPU for RAM,
+# which is the wrong direction here.
+$(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
+
 # Build the full phone userspace without AOSP's generic vendor rild. The MTK
 # radio stack supplies mtkrild and rilproxy, so installing a second rild would
 # create a competing init service for the same modem contract.
@@ -35,8 +55,14 @@ endif
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    keyguard.no_require_sim=true \
-    ro.config.low_ram=true \
+    keyguard.no_require_sim=true
+
+# The 3.18 kernel has neither CONFIG_MEMCG nor PSI, so per-app memory cgroups
+# do not exist and lmkd cannot run its userspace/PSI killer. lmkd auto-detects
+# /sys/module/lowmemorykiller and drives the in-kernel driver instead, taking
+# its thresholds from ActivityManager. ro.config.low_ram itself comes from
+# go_defaults_common.mk.
+PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.per_app_memcg=false
 
 # Stock's boot contract requires the legacy Android BootSignature. Tiers 1 and

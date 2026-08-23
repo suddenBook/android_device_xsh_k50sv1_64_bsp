@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Stock reserves a 40 dp bar around the physical center camera hole in
-         both orientations but declares no software DisplayCutout geometry. -->
+    <!-- Portrait: the front camera sits in a punch hole in the top-centre of
+         the panel. Until the hole is physically measured and a real
+         config_mainBuiltInDisplayCutout path is declared (see the TODO in the
+         bring-up notes), reserve the same height Stock reserves so the status
+         bar clears the aperture. 40dp is 80px at the product density of 320. -->
     <dimen name="status_bar_height_portrait">40dp</dimen>
-    <dimen name="status_bar_height_landscape">40dp</dimen>
+
+    <!-- Landscape deliberately keeps the AOSP default. Rotating the device
+         moves the hole to a *side* edge, so there is nothing above the content
+         to clear; Stock's 40dp landscape bar just wastes 40dp of a 720px-tall
+         viewport. AOSP defaults this to @dimen/status_bar_height_portrait,
+         which would inherit the 40dp above, so restate the 24dp default. -->
+    <dimen name="status_bar_height_landscape">24dp</dimen>
 </resources>
