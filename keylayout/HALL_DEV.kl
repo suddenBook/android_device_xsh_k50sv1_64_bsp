@@ -1,3 +1,15 @@
-# Preserve the Hall/stylus-slot device for diagnostics but suppress Stock's
-# KEY_WAKEUP behavior. The passive capacitive stylus has no LineageOS feature.
-key 143 UNKNOWN
+# Hall switch in the stylus silo. Stock uses KEY_SLEEP/KEY_WAKEUP from it to
+# blank and unblank the panel as the passive stylus is removed and reinserted,
+# paired with an OEM app. This port ships no stylus feature, and a marginal
+# hall switch that emits KEY_SLEEP would blank the screen unpredictably.
+#
+# This file therefore declares no keys at all. That is the only correct way to
+# drop a scan code: Android's key-layout grammar has no ignore verb, and
+# `key 143 UNKNOWN` is a parse error -- getKeyCodeByLabel("UNKNOWN") returns 0
+# and KeyLayoutMap::Parser::parseKey() rejects a zero keycode with BAD_VALUE,
+# which invalidates the whole file and silently falls the device back to
+# Generic.kl, where 142 and 143 *are* mapped to SLEEP and WAKEUP.
+#
+# With no declarations, EventHub resolves 142/143 to AKEYCODE_UNKNOWN and
+# InputReader discards them. Raw events stay visible to getevent for
+# diagnostics.

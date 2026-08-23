@@ -1,0 +1,23 @@
+# MT6755 matrix keypad.
+#
+# Physically populated keys: Volume Up, Volume Down, Power. The driver also
+# advertises KEY_HOME (102) and KEY_RESTART (408) because they exist in the
+# MT6755 reference matrix, but neither is wired to a switch on this chassis.
+# Both are deliberately left undeclared: an undeclared scan code resolves to
+# AKEYCODE_UNKNOWN and InputReader drops it. Without this file the device falls
+# back to Generic.kl, which maps 102 to MOVE_HOME -- a phantom matrix scan would
+# then inject a text-cursor key into whatever has focus.
+#
+# WAKE on the volume keys is what LineageOS's "Volume buttons wake device"
+# option needs: PhoneWindowManager derives isWakeKey from FLAG_WAKE and then
+# gates it on LineageSettings.System.VOLUME_WAKE_SCREEN in isWakeKeyEnabled()
+# and isWakeKeyWhenScreenOff(). With the setting off the flag has no effect, so
+# declaring WAKE here does not cause spurious wakes.
+#
+# WAKE on POWER is the AOSP convention. PhoneWindowManager clears isWakeKey for
+# KEYCODE_POWER and wakes through interceptPowerKeyDown() instead, so the flag
+# is inert there; it is stated for consistency with every AOSP keylayout.
+
+key 114   VOLUME_DOWN   WAKE
+key 115   VOLUME_UP     WAKE
+key 116   POWER         WAKE

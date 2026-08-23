@@ -53,3 +53,28 @@ on post-fs-data
 # trusted migrator publishes completion.
 on property:vendor.service.nvram_init=Ready
     restorecon_recursive /mnt/vendor/nvdata
+
+# Stock persistent properties survive a partition flash in /data/property, and
+# init applies them after the build.prop defaults. Re-assert the voice-only IMS
+# contract once persistent properties have been loaded so a stale WFC/ViLTE/RCS
+# value cannot outlive the flash.
+#
+# This block used to live in a device init.mt6755.rc installed into the boot
+# ramdisk. On this switch-root device that file is discarded before second-stage
+# init runs, so it never executed. /vendor/etc/init/hw/init.${ro.hardware}.rc is
+# imported by AOSP's /init.rc and is the correct home for it.
+on property:ro.persistent_properties.ready=true
+    setprop persist.vendor.ims_support 1
+    setprop persist.vendor.mims_support 1
+    setprop persist.vendor.mtk_dynamic_ims_switch 0
+    setprop persist.vendor.mtk_wfc_support 0
+    setprop persist.vendor.mtk.wfc.enable 0
+    setprop persist.vendor.vilte_support 0
+    setprop persist.vendor.mtk.vilte.enable 0
+    setprop persist.vendor.viwifi_support 0
+    setprop persist.vendor.mtk.viwifi.enable 0
+    setprop persist.vendor.mtk.ims.video.enable 0
+    setprop persist.vendor.mtk_rcs_ua_support 0
+    setprop persist.vendor.mtk_rtt_support 0
+    setprop persist.vendor.volte_support 1
+    setprop persist.vendor.wfc.sys_wfc_support 0

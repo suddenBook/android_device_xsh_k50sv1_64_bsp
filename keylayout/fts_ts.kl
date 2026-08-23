@@ -1,0 +1,12 @@
+# Focaltech FT8xxx touch controller.
+#
+# Besides the multitouch axes the driver advertises a gesture key set --
+# KEY_W/E/I/O/S/L/Z/C/V/M, the four D-pad keys and KEY_POWER -- used by the
+# stock firmware's letter-gesture and double-tap-to-wake feature. Under
+# Generic.kl those scan codes become literal letters, D-pad presses and a POWER
+# press, so a firmware gesture would type text or toggle the screen.
+#
+# No LineageOS touchscreen-gesture HAL is wired up for this device and the
+# controller's gesture engine (fts_gesture_mode) is left off, so every gesture
+# scan code is deliberately left undeclared and resolves to AKEYCODE_UNKNOWN.
+# Re-map KEY_POWER here if double-tap-to-wake is ever enabled.
