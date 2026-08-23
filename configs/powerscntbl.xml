@@ -73,7 +73,7 @@
         <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="1001000"></data>
         <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_1" param1="4"></data>
         <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_1" param1="1508000"></data>
-        <data cmd="PERF_RES_POWER_HINT_HOLD_TIME" param1="2000"></data>
+        <data cmd="PERF_RES_POWER_HINT_HOLD_TIME" param1="5000"></data>
     </scenario>
 
     <!-- Touch, scroll, window animation, rotation, and display-on.
@@ -87,6 +87,12 @@
              adb shell 'while :; do cat /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq; sleep 0.5; done'
          while tapping the screen - it should sit at 1508000 during use and fall
          back within about this many milliseconds of the last touch.
+         Set to 5000 ms at the owner's request: with the screen on and any
+         interaction at all, that keeps both clusters pinned essentially
+         continuously, which is the "flat out while the screen is on" behaviour
+         asked for. Watch the thermal policy - PPM_POLICY_THERMAL outranks
+         PERF_SERV, so sustained load will still be cut back rather than
+         cooking the part.
          Deliberately NOT combined with PERF_RES_POWERHAL_SCREEN_OFF_STATE: that
          command's default (0) is what drops the lock when the panel blanks, and
          setting it to 1 would keep the boost alive with the screen off. -->
@@ -95,7 +101,7 @@
         <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="1001000"></data>
         <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_1" param1="4"></data>
         <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_1" param1="1508000"></data>
-        <data cmd="PERF_RES_POWER_HINT_HOLD_TIME" param1="2000"></data>
+        <data cmd="PERF_RES_POWER_HINT_HOLD_TIME" param1="5000"></data>
     </scenario>
 
     <!-- SurfaceFlinger raises this while a frame costs more than the budget.
