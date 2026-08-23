@@ -1,0 +1,19 @@
+# MTK ACCDET (accessory detect) on the PMIC.
+#
+# This chassis has no 3.5 mm jack -- audio out is the bottom speaker, the
+# earpiece and USB-C -- and there is no /sys/class/switch/h2w, so
+# WiredAccessoryManager never sees a headset. The driver is nevertheless
+# instantiated by the MT6755 PMIC and advertises the full inline-remote key set
+# (KEY_VOLUMEUP, KEY_VOLUMEDOWN, KEY_PLAYPAUSE, KEY_VOICECOMMAND) plus the
+# SW_*_INSERT switches, all driven by an ADC on jack pins that do not exist.
+#
+# Under Generic.kl a floating-ADC glitch on that comparator becomes a real
+# VOLUME_UP down event. That matters here: a VOLUME_UP down with no matching up
+# latches PhoneWindowManager's mA11yShortcutChordVolumeUpKeyTriggered, which
+# makes interceptPowerKeyDown() set mPowerKeyHandled and never call
+# wakeUpFromPowerKey() -- the "power button does not light the screen" fault.
+# ACCDET is one of the two devices that can produce that event, so it is
+# neutralised: no scan code is declared, InputReader resolves every one of them
+# to AKEYCODE_UNKNOWN and drops it. Raw events stay visible to getevent.
+#
+# Restore the inline-remote mapping here if a jack is ever confirmed.
