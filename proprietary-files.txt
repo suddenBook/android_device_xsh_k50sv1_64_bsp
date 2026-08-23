@@ -219,7 +219,6 @@ vendor/lib/libblisrc32_vendor.so
 vendor/lib/libbluetooth_audio_session_mediatek.so
 vendor/lib/libbluetooth_mtk_pure.so
 vendor/lib/libcvsd_mtk.so
--vendor/lib/libeffects.so
 vendor/lib/libmsbc_mtk.so
 vendor/lib/libmtklimiter_vendor.so
 vendor/lib/libmtkshifter_vendor.so
@@ -230,21 +229,34 @@ vendor/lib/libspeech_enh_lib.so
 -vendor/lib/libwebrtc_audio_preprocessing.so
 vendor/lib/vendor.mediatek.hardware.mtkpower@1.0.so
 vendor/lib/vendor.mediatek.hardware.power@2.0.so
-# libeffectproxy is load-bearing for the BUILD, not for the runtime. It is not
-# named in the active <libraries> block of vendor/etc/audio_effects.xml, so
-# nothing loads it -- but build/make/target/product/base_vendor.mk:56 puts it in
-# PRODUCT_PACKAGES unconditionally, and AOSP Q's own source module does not
-# compile: frameworks/av/media/libeffects/proxy/Android.bp sets
-# include_dirs to .../libeffects/factory while the header it needs lives at
-# .../libeffects/factory/include/media/EffectsFactoryApi.h, so dropping the
-# prebuilt hands the build to a module that fails with
-#   fatal error: 'media/EffectsFactoryApi.h' file not found
-# Keep both variants.
+# libeffects (the audio effect factory) and libeffectproxy are built from AOSP
+# source; they are deliberately NOT shipped as prebuilts. Both are in
+# PRODUCT_PACKAGES unconditionally via build/make/target/product/base_vendor.mk
+# (libeffects, libeffectproxy), so something must provide them -- AOSP does,
+# correctly.
+#
+# An earlier revision shipped both as prebuilts because dropping libeffectproxy
+# on its own made the build fail with
+#   frameworks/av/media/libeffects/proxy/EffectProxy.cpp:30:10: fatal error:
+#   'media/EffectsFactoryApi.h' file not found
+# and that was misread as a defect in AOSP Q. It is not. libeffectproxy reaches
+# that header through libeffects, which re-exports libeffects_headers'
+# export_include_dirs (frameworks/av/media/libeffects/factory/Android.bp). But
+# extract_utils emits cc_prebuilt_library_shared with no export_include_dirs,
+# and `prefer: true` substitutes the prebuilt for the source module throughout
+# the dependency graph -- so the libeffects *prebuilt* was itself what deleted
+# the include path from its consumers. Remove the two together and the source
+# builds. Neither blob was reachable at runtime anyway: libeffectproxy is not
+# named in the active <libraries> block of vendor/etc/audio_effects.xml.
+#
+# General rule, and the reason this is spelled out: a `prefer: true` prebuilt of
+# a library whose AOSP source exports headers will silently break that
+# library's source consumers. Ship one only when the library is genuinely
+# SoC-modified.
 -vendor/lib/soundfx/libaudiopreprocessing.so
 -vendor/lib/soundfx/libbundlewrapper.so
 -vendor/lib/soundfx/libdownmix.so
 -vendor/lib/soundfx/libdynproc.so
--vendor/lib/soundfx/libeffectproxy.so
 -vendor/lib/soundfx/libldnhncr.so
 -vendor/lib/soundfx/libreverbwrapper.so
 -vendor/lib64/hw/android.hardware.audio.effect@5.0-impl.so
@@ -252,7 +264,6 @@ vendor/lib/vendor.mediatek.hardware.power@2.0.so
 -vendor/lib64/hw/audio.r_submix.default.so
 -vendor/lib64/hw/audio.usb.default.so
 -vendor/lib64/libalsautils.so
--vendor/lib64/libeffects.so
 -vendor/lib64/libnbaio_mono.so
 -vendor/lib64/libtinycompress.so
 -vendor/lib64/libtinyxml.so
@@ -261,7 +272,6 @@ vendor/lib/vendor.mediatek.hardware.power@2.0.so
 -vendor/lib64/soundfx/libbundlewrapper.so
 -vendor/lib64/soundfx/libdownmix.so
 -vendor/lib64/soundfx/libdynproc.so
--vendor/lib64/soundfx/libeffectproxy.so
 -vendor/lib64/soundfx/libldnhncr.so
 -vendor/lib64/soundfx/libreverbwrapper.so
 vendor/etc/a2dp_audio_policy_configuration.xml
