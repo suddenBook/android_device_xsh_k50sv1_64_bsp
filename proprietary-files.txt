@@ -695,15 +695,10 @@ vendor/etc/init/vendor.mediatek.hardware.mtkcodecservice@1.1-service.rc
 # not on this partition and are not wanted (Q serves those software codecs from
 # the com.android.media.swcodec APEX as c2.android.* with OMX.google.* aliases).
 # The mediatek_* fragments below are still Stock and still extracted.
-vendor/etc/media_codecs_mediatek_audio.xml
 vendor/etc/media_codecs_mediatek_video.xml
 vendor/etc/media_codecs_performance.xml
 vendor/lib/hw/vendor.mediatek.hardware.mtkcodecservice@1.1-impl.so
-vendor/lib/libMtkOmxAdpcmDec.so
-vendor/lib/libMtkOmxAlacDec.so
-vendor/lib/libMtkOmxApeDec.so
 vendor/lib/libMtkOmxCore.so
-vendor/lib/libMtkOmxGsmDec.so
 vendor/lib/libMtkOmxMp3Dec.so
 vendor/lib/libMtkOmxVdecEx.so
 vendor/lib/libMtkOmxVenc.so

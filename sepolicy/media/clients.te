@@ -14,16 +14,27 @@ hal_client_domain(surfaceflinger, hal_mtk_mms)
 hal_client_domain(hal_camera_default, hal_mtk_mms)
 hal_client_domain(mediacodec, hal_mtk_mms)
 
-# libMtkOmxApeDec is hosted by mediacodec; the other two are Stock's framework
-# control clients.  The service itself has no direct device access.
-hal_client_domain(mediacodec, hal_mtk_codecservice)
-# NOT GRANTED: mediaserver and system_server as hal_mtk_codecservice clients.
-# Both were copied from Stock without evidence, and one is impossible.
-# vendor.mediatek.hardware.mtkcodecservice@1.1.so exists only in /vendor/lib --
-# there is no 64-bit copy and the service binary is ELF 32-bit -- so 64-bit
-# system_server cannot load the client stub at all. mediaserver is 32-bit and so
-# not impossible, but it maps no /vendor library whatsoever at runtime and
-# nothing links the stub into it.
+# NO hal_mtk_codecservice clients at all any more, and the HAL itself is now a
+# closed loop.
+#
+# mediacodec was a client for exactly one reason: it hosted libMtkOmxApeDec,
+# which linked the client stub. That decoder has been dropped (see
+# configs/media_codecs_mediatek_audio.xml), and a sweep of every shipped blob
+# now finds the only linkers of vendor.mediatek.hardware.mtkcodecservice@1.1.so
+# to be the HAL's own -impl.so and the service binary. `lshal` shows the
+# interface declared and never registered, which is correct for a lazy service
+# nothing asks for.
+#
+# mediaserver and system_server were client grants copied from Stock without
+# evidence, and one of them was impossible: the stub exists only as a 32-bit
+# /vendor/lib object and the service binary is ELF 32-bit, so 64-bit
+# system_server could never have loaded it. mediaserver is 32-bit and so not
+# impossible, but it maps no /vendor library whatsoever at runtime.
+#
+# The four mtkcodecservice files, its sepolicy domain, its rc file and its VINTF
+# declaration are therefore all removable. Left in place for now because that is
+# a vendor-interface change and this pass is already large; it is a clean
+# follow-up, not a hidden cost.
 
 # PQ client libraries read the same non-sensitive tuning switches locally.
 # Only the PQ service can modify the writable property group.

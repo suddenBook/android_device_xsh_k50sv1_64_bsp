@@ -46,7 +46,12 @@
 /dev/mali0         0666  system  graphics
 /dev/ion           0666  system  graphics
 /dev/mtk_disp_mgr  0660  system  graphics
-/dev/mtk_cmdq      0644  system  system
+# 0660, not stock's 0644. This is the CVE-2020-0069 / MTK-su entry point, and
+# every SELinux grant in this tree is { ioctl open read } to three confined
+# domains -- hal_camera_default, the graphics stack and mtk_hal_mms -- none of
+# which needs the world-read bit. On the permissive diagnostic tiers the DAC bit
+# is the ONLY thing between an installed app and the node.
+/dev/mtk_cmdq      0660  system  system
 /dev/MTK_SMI       0660  media   media
 /dev/Vcodec        0660  media   system
 /dev/sw_sync       0664  system  graphics
