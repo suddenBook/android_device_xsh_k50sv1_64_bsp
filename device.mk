@@ -52,6 +52,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/init/init.sensors.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.sensors.rc \
     $(LOCAL_PATH)/rootdir/etc/init/vendor.mediatek.hardware.mtkpower@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.mediatek.hardware.mtkpower@1.0-service.rc \
     $(LOCAL_PATH)/rootdir/etc/init/hw/init.mt6755.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.mt6755.rc \
+    $(LOCAL_PATH)/rootdir/etc/init/hw/init.mt6755.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.mt6755.usb.rc \
     $(LOCAL_PATH)/rootdir/etc/init/init.connectivity.modules.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.connectivity.modules.rc \
     $(LOCAL_PATH)/rootdir/etc/init/init.gnss.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.gnss.rc \
     $(LOCAL_PATH)/rootdir/etc/init/lbs_hidl_service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/lbs_hidl_service.rc \
@@ -85,11 +86,14 @@ else
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += persist.sys.usb.config=mtp
 endif
 
+# Q's asynchronous/nonblocking FunctionFS paths fail on this 3.18 gadget.
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    persist.adb.nonblocking_ffs=0 \
     persist.radio.multisim.config=dsds \
     ro.hardware.egl=mali \
     ro.frp.pst=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/frp \
     ro.opengles.version=196610 \
     ro.sf.lcd_density=320 \
     ro.telephony.default_network=9,9,9,9 \
-    ro.telephony.sim.count=2
+    ro.telephony.sim.count=2 \
+    sys.usb.ffs.aio_compat=1

@@ -1,3 +1,5 @@
+import /vendor/etc/init/hw/init.mt6755.usb.rc
+
 on early-init
     mkdir /dev/radio 0770 radio radio
     mkdir /mnt/vendor 0755 root root
