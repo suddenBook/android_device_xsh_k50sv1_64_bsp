@@ -25,4 +25,64 @@ source "${HELPER}"
 setup_vendor "${DEVICE}" "${VENDOR}" "${LINEAGE_ROOT}"
 write_headers
 write_makefiles "${MY_DIR}/proprietary-files.txt"
+
+# ImsService is defined by hand in device/xsh/k50sv1_64_bsp/ims/Android.mk so
+# that the privileged APK actually lands in /system/priv-app and can be
+# dexpreopted; Android Q's Soong android_app_import cannot do either. Drop the
+# generated duplicate here. Each android_app_import is parsed as a balanced
+# block so a formatting change cannot make this delete a neighbouring module.
+(
+    patched_bp="$(mktemp "${ANDROIDBP}.ims.XXXXXX")"
+    trap 'rm -f -- "${patched_bp}"' EXIT
+
+    perl - "${ANDROIDBP}" >"${patched_bp}" <<'PERL'
+use strict;
+use warnings;
+
+my $path = shift @ARGV;
+open my $input, '<', $path or die "Cannot read $path: $!\n";
+local $/;
+my $text = <$input>;
+close $input or die "Cannot close $path: $!\n";
+
+my @lines = split /(?<=\n)/, $text, -1;
+my $output = '';
+my $removed = 0;
+
+for (my $index = 0; $index < @lines;) {
+    if ($lines[$index] !~ /^android_app_import\s*\{\s*$/) {
+        $output .= $lines[$index++];
+        next;
+    }
+
+    my $block = '';
+    my $depth = 0;
+    do {
+        die "Unterminated android_app_import in $path\n" if $index >= @lines;
+        my $line = $lines[$index++];
+        $block .= $line;
+        $depth += () = $line =~ /\{/g;
+        $depth -= () = $line =~ /\}/g;
+        die "Unbalanced android_app_import in $path\n" if $depth < 0;
+    } while ($depth != 0);
+
+    if ($block =~ /^\s*name:\s*"ImsService",\s*$/m) {
+        ++$removed;
+        # Also swallow the blank separator line the generator emits.
+        ++$index if $index < @lines && $lines[$index] =~ /^\s*$/;
+        next;
+    }
+
+    $output .= $block;
+}
+
+die "Expected exactly one generated ImsService module in $path\n"
+    unless $removed == 1;
+print $output;
+PERL
+
+    chmod --reference="${ANDROIDBP}" "${patched_bp}"
+    mv -f -- "${patched_bp}" "${ANDROIDBP}"
+)
+
 write_footers

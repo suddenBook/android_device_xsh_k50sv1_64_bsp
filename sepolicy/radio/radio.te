@@ -6,5 +6,8 @@ get_prop(radio, mtk_ril_active_md_prop)
 get_prop(radio, mtk_modem_status_prop)
 get_prop(radio, mtk_telephony_sensitive_prop)
 get_prop(radio, mtk_radio_config_prop)
+get_prop(radio, mtk_ims_prop)
+set_prop(radio, mtk_ims_feature_prop)
+hal_client_domain(radio, hal_imsa)
 
 get_prop(system_server, mtk_telephony_sensitive_prop)

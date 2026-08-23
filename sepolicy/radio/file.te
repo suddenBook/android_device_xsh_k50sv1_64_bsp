@@ -6,6 +6,7 @@ type mtk_ccci_fs_device, dev_type;
 type mtk_ccci_rpc_device, dev_type;
 type mtk_ccci_mdinit_device, dev_type;
 type mtk_ccci_ioctl_device, dev_type;
+type mtk_ccci_imsa_device, dev_type;
 type mtk_gsm0710mux_device, dev_type;
 type mtk_radio_mux_device, dev_type;
 type mtk_devmap_device, dev_type;
@@ -46,3 +47,12 @@ type mtk_ril_atci_socket, file_type;
 type mtk_ril_vsim_socket, file_type;
 type mtk_ril_sap_socket, file_type;
 type mtk_ril_test_socket, file_type;
+
+# Voice IMS sockets created by init. Keep each process boundary distinct so
+# the MAL coordinator cannot connect to unrelated vendor daemons.
+type mtk_mal_mfi_socket, file_type;
+type mtk_volte_imsm_socket, file_type;
+type mtk_volte_imcb_socket, file_type;
+type mtk_volte_imsa_socket, file_type;
+type mtk_volte_stack_socket, file_type;
+type mtk_volte_ua_socket, file_type;

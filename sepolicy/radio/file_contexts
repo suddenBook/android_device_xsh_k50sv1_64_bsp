@@ -5,6 +5,11 @@
 /(vendor|system/vendor)/bin/gsm0710muxd  u:object_r:gsm0710muxd_exec:s0
 /(vendor|system/vendor)/bin/mtkrild       u:object_r:mtkrild_exec:s0
 /(vendor|system/vendor)/bin/muxreport     u:object_r:muxreport_exec:s0
+/(vendor|system/vendor)/bin/mtkmal        u:object_r:mtkmal_exec:s0
+/(vendor|system/vendor)/bin/volte_imcb    u:object_r:volte_imcb_exec:s0
+/(vendor|system/vendor)/bin/volte_stack   u:object_r:volte_stack_exec:s0
+/(vendor|system/vendor)/bin/volte_ua      u:object_r:volte_ua_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.mediatek\.hardware\.imsa@1\.0-service u:object_r:mtk_hal_imsa_exec:s0
 
 # rilproxy deliberately remains on the AOSP rild domain through the mapping in
 # the device's shared vendor file_contexts.
@@ -16,6 +21,7 @@
 /dev/ccci_rpc                            u:object_r:mtk_ccci_rpc_device:s0
 /dev/ccci_ipc_5                          u:object_r:mtk_ccci_mdinit_device:s0
 /dev/ccci_ioctl[0-4]                     u:object_r:mtk_ccci_ioctl_device:s0
+/dev/(ccci_imsa|ccci2_imsa|eemcs_imsa)  u:object_r:mtk_ccci_imsa_device:s0
 /dev/ttyC0                               u:object_r:mtk_gsm0710mux_device:s0
 /dev/radio(/.*)?                         u:object_r:mtk_radio_mux_device:s0
 /dev/devmap                              u:object_r:mtk_devmap_device:s0
@@ -49,3 +55,9 @@
 /dev/socket/rild-vsim[23]?               u:object_r:mtk_ril_vsim_socket:s0
 /dev/socket/sap_uim_socket[1-4]          u:object_r:mtk_ril_sap_socket:s0
 /dev/socket/(rild-mtk-ut|rild-mtk-ut-2|rild-mbim) u:object_r:mtk_ril_test_socket:s0
+/dev/socket/(mal_mfi|mal-mfi)            u:object_r:mtk_mal_mfi_socket:s0
+/dev/socket/volte_imsm                    u:object_r:mtk_volte_imsm_socket:s0
+/dev/socket/volte_imcb                    u:object_r:mtk_volte_imcb_socket:s0
+/dev/socket/volte_imsa1                   u:object_r:mtk_volte_imsa_socket:s0
+/dev/socket/volte_stack                   u:object_r:mtk_volte_stack_socket:s0
+/dev/socket/volte_ua                      u:object_r:mtk_volte_ua_socket:s0

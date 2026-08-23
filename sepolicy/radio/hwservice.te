@@ -1,1 +1,4 @@
 type mtk_radioex_hwservice, hwservice_manager_type;
+type mtk_imsa_hwservice, hwservice_manager_type;
+
+hal_attribute_hwservice(hal_imsa, mtk_imsa_hwservice)

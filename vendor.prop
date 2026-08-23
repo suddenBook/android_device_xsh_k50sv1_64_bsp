@@ -2,6 +2,30 @@
 # Keep MTK implementation defaults here so their partition ownership is
 # explicit and init can consume them before the corresponding HALs start.
 persist.vendor.connsys.coredump.mode=0
+
+# Voice-only legacy MTK IMS. AOSP ImsManager owns carrier/user gating; disable
+# MTK's independent MCC/MNC resource switch and every WFC/video capability.
+persist.vendor.ims_support=1
+persist.vendor.mims_support=1
+persist.vendor.mtk.volte.enable=1
+persist.vendor.mtk.vilte.enable=0
+persist.vendor.mtk.viwifi.enable=0
+persist.vendor.mtk.wfc.enable=0
+persist.vendor.mtk.ims.video.enable=0
+persist.vendor.mtk_rcs_ua_support=0
+persist.vendor.mtk_rtt_support=0
+persist.vendor.mtk_dynamic_ims_switch=0
+persist.vendor.mtk_wfc_support=0
+persist.vendor.vilte_support=0
+persist.vendor.viwifi_support=0
+persist.vendor.volte_support=1
+persist.vendor.wfc.sys_wfc_support=0
+# Skip absent extension/legacy jars and use the APK's built-in base factories.
+ro.vendor.mtk_telephony_add_on_policy=1
+ro.vendor.md_auto_setup_ims=0
+ro.vendor.md_mims_support=1
+ro.vendor.md_prop_ver=1
+
 ro.vendor.net.upload.benchmark.default=blocking
 ro.vendor.md_apps.load_gencfg=GEN91_USER
 ro.vendor.md_apps.load_type=user

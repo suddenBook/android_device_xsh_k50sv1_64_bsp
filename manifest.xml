@@ -180,6 +180,11 @@
         <fqname>@1.0::ILbs/mtk_mtklogger2mnld</fqname>
     </hal>
     <hal format="hidl">
+        <name>vendor.mediatek.hardware.imsa</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.0::IImsa/imsa</fqname>
+    </hal>
+    <hal format="hidl">
         <name>vendor.mediatek.hardware.mms</name>
         <transport>hwbinder</transport>
         <fqname>@1.5::IMms/default</fqname>

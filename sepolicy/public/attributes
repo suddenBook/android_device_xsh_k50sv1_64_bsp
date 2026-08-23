@@ -2,6 +2,7 @@
 # Keep these declarations in public platform policy; concrete domains, service
 # types, and permissions remain in BOARD_VENDOR_SEPOLICY_DIRS.
 hal_attribute(mtk_gpu)
+hal_attribute(imsa)
 hal_attribute(mtk_lbs)
 hal_attribute(mtk_mms)
 hal_attribute(mtk_nvram)

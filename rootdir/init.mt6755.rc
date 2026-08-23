@@ -17,3 +17,22 @@ on post-fs
     rmdir /dev/stune/top-app
     rmdir /dev/stune/rt
     rmdir /dev/stune
+
+# Persistent Stock properties survive fastboot partition flashes. Normalize
+# them only after /data/property has been loaded, otherwise the old WFC/video/
+# RCS values would overwrite the voice-only product defaults moments later.
+on property:ro.persistent_properties.ready=true
+    setprop persist.vendor.ims_support 1
+    setprop persist.vendor.mims_support 1
+    setprop persist.vendor.mtk_dynamic_ims_switch 0
+    setprop persist.vendor.mtk_wfc_support 0
+    setprop persist.vendor.mtk.wfc.enable 0
+    setprop persist.vendor.vilte_support 0
+    setprop persist.vendor.mtk.vilte.enable 0
+    setprop persist.vendor.viwifi_support 0
+    setprop persist.vendor.mtk.viwifi.enable 0
+    setprop persist.vendor.mtk.ims.video.enable 0
+    setprop persist.vendor.mtk_rcs_ua_support 0
+    setprop persist.vendor.mtk_rtt_support 0
+    setprop persist.vendor.volte_support 1
+    setprop persist.vendor.wfc.sys_wfc_support 0

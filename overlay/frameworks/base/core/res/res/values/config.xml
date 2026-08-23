@@ -6,4 +6,13 @@
 
     <bool name="config_showNavigationBar">true</bool>
     <integer name="config_defaultPeakRefreshRate">60</integer>
+
+    <!-- Bind the Android 10 MTK MMTEL service through AOSP ImsResolver. Only
+         voice over LTE is a device capability; carrier config and provisioning
+         remain the second gate. Video telephony and Wi-Fi calling are omitted. -->
+    <bool name="config_dynamic_bind_ims">true</bool>
+    <string name="config_ims_package" translatable="false">com.mediatek.ims</string>
+    <bool name="config_device_volte_available">true</bool>
+    <bool name="config_device_vt_available">false</bool>
+    <bool name="config_device_wfc_ims_available">false</bool>
 </resources>

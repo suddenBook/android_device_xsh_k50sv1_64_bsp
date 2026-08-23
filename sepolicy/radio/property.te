@@ -19,3 +19,12 @@ type mtk_telephony_sensitive_prop, property_type;
 type mtk_radio_config_prop, property_type;
 type mtk_ccci_config_prop, property_type;
 type mtk_nvram_ready_prop, property_type;
+
+# Voice IMS configuration is read by the phone-UID APK. Runtime service
+# control remains split per daemon and writable only by the MAL coordinator.
+type mtk_ims_prop, property_type;
+type mtk_ims_feature_prop, property_type;
+type mtk_volte_runtime_prop, property_type;
+type ctl_mtk_volte_imcb_prop, property_type;
+type ctl_mtk_volte_stack_prop, property_type;
+type ctl_mtk_volte_ua_prop, property_type;

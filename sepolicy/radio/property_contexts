@@ -6,6 +6,32 @@ ctl.vendor.gsm0710muxd       u:object_r:ctl_mtk_gsm0710muxd_prop:s0
 ctl.vendor.ril-daemon-mtk    u:object_r:ctl_mtkrild_prop:s0
 ctl.vendor.ril-proxy         u:object_r:ctl_mtk_rilproxy_prop:s0
 ctl.vendor.muxreport-daemon  u:object_r:ctl_mtk_muxreport_prop:s0
+ctl.vendor.volte_imcb        u:object_r:ctl_mtk_volte_imcb_prop:s0
+ctl.vendor.volte_stack       u:object_r:ctl_mtk_volte_stack_prop:s0
+ctl.vendor.volte_ua          u:object_r:ctl_mtk_volte_ua_prop:s0
+
+# Voice-only IMS product contract and state.
+persist.vendor.ims_support               u:object_r:mtk_ims_prop:s0
+persist.vendor.mims_support              u:object_r:mtk_ims_prop:s0
+persist.vendor.mtk_dynamic_ims_switch    u:object_r:mtk_ims_prop:s0
+persist.vendor.mtk_wfc_support           u:object_r:mtk_ims_prop:s0
+persist.vendor.volte_support             u:object_r:mtk_ims_prop:s0
+persist.vendor.vilte_support             u:object_r:mtk_ims_prop:s0
+persist.vendor.viwifi_support            u:object_r:mtk_ims_prop:s0
+persist.vendor.wfc.sys_wfc_support       u:object_r:mtk_ims_prop:s0
+persist.vendor.mtk.volte.enable          u:object_r:mtk_ims_feature_prop:s0
+persist.vendor.mtk.vilte.enable          u:object_r:mtk_ims_feature_prop:s0
+persist.vendor.mtk.viwifi.enable         u:object_r:mtk_ims_feature_prop:s0
+persist.vendor.mtk.wfc.enable            u:object_r:mtk_ims_feature_prop:s0
+persist.vendor.mtk.ims.video.enable      u:object_r:mtk_ims_feature_prop:s0
+persist.vendor.mtk_rcs_ua_support        u:object_r:mtk_ims_prop:s0
+persist.vendor.mtk_rtt_support           u:object_r:mtk_ims_prop:s0
+ro.vendor.mtk_telephony_add_on_policy    u:object_r:mtk_ims_prop:s0
+ro.vendor.md_auto_setup_ims              u:object_r:mtk_ims_prop:s0
+ro.vendor.md_mims_support                u:object_r:mtk_ims_prop:s0
+ro.vendor.md_prop_ver                    u:object_r:mtk_radio_config_prop:s0
+vendor.ril.volte.                        u:object_r:mtk_volte_runtime_prop:s0
+vendor.ril.imsconfig.force.notify        u:object_r:mtk_ims_feature_prop:s0
 
 # Properties used by the mux and modem bootstrap state machine.
 vendor.ril.mux.report.case   u:object_r:mtk_ril_mux_report_prop:s0

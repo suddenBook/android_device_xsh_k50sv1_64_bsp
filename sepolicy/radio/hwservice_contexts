@@ -1,3 +1,4 @@
 vendor.mediatek.hardware.mtkradioex::IMtkRadioEx u:object_r:mtk_radioex_hwservice:s0
 vendor.mediatek.hardware.radio::ISap             u:object_r:mtk_radioex_hwservice:s0
 vendor.mediatek.hardware.radio_op::IRadioOp      u:object_r:mtk_radioex_hwservice:s0
+vendor.mediatek.hardware.imsa::IImsa             u:object_r:mtk_imsa_hwservice:s0

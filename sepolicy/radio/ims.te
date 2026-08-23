@@ -1,0 +1,177 @@
+# Android 10 dynamic MMTEL bridge.
+type mtk_hal_imsa, domain;
+type mtk_hal_imsa_exec, exec_type, vendor_file_type, file_type;
+type mtkmal, domain;
+type mtkmal_exec, exec_type, vendor_file_type, file_type;
+type volte_imcb, domain;
+type volte_imcb_exec, exec_type, vendor_file_type, file_type;
+type volte_stack, domain;
+type volte_stack_exec, exec_type, vendor_file_type, file_type;
+type volte_ua, domain;
+type volte_ua_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(mtk_hal_imsa)
+hal_server_domain(mtk_hal_imsa, hal_imsa)
+hwbinder_use(mtk_hal_imsa)
+
+# The HIDL service exchanges IMS requests only with MAL's volte_imsm socket.
+allow mtk_hal_imsa mtk_volte_imsm_socket:sock_file write;
+allow mtk_hal_imsa mtkmal:unix_stream_socket connectto;
+
+# Modem adaptation layer and its in-process entity libraries.
+init_daemon_domain(mtkmal)
+vndbinder_use(mtkmal)
+create_pty(mtkmal)
+
+# libmal_mdmngr applies the final mode to MAL's private RIL URC PTY. Keep the
+# permission on this domain-specific devpts type rather than generic devpts.
+allow mtkmal mtkmal_devpts:chr_file setattr;
+
+get_prop(mtkmal, mtk_ims_prop)
+get_prop(mtkmal, mtk_ims_feature_prop)
+get_prop(mtkmal, mtk_vendor_radio_prop)
+get_prop(mtkmal, mtk_radio_config_prop)
+get_prop(mtkmal, mtk_nvram_ready_prop)
+set_prop(mtkmal, mtk_volte_runtime_prop)
+set_prop(mtkmal, mtk_ril_mux_report_prop)
+set_prop(mtkmal, ctl_mtk_volte_imcb_prop)
+set_prop(mtkmal, ctl_mtk_volte_stack_prop)
+set_prop(mtkmal, ctl_mtk_volte_ua_prop)
+
+allow mtkmal self:capability { setgid setuid };
+allow mtkmal self:netlink_route_socket {
+    bind
+    create
+    nlmsg_read
+    nlmsg_write
+    read
+    write
+};
+
+allow mtkmal mtk_radio_mux_device:dir {
+    add_name
+    remove_name
+    search
+    write
+};
+allow mtkmal mtk_radio_mux_device:lnk_file { create unlink };
+allow { mtkrild rild } mtk_radio_mux_device:dir search;
+allow { mtkrild rild } mtk_radio_mux_device:lnk_file { getattr read };
+allow { mtkrild rild } mtkmal_devpts:chr_file rw_file_perms;
+allowxperm { mtkrild rild } mtkmal_devpts:chr_file ioctl unpriv_tty_ioctls;
+
+# MAL connects to both generations of the RIL bridge and coordinates the
+# three voice daemons. The two MAL-owned sockets remain distinct from each
+# other: radio transport never gains the HIDL-facing volte_imsm endpoint.
+allow mtkmal mtk_ril_ims_socket:sock_file write;
+allow mtkmal { mtkrild rild }:unix_stream_socket connectto;
+allow mtkmal mtk_mal_mfi_socket:sock_file write;
+allow mtkmal self:unix_stream_socket connectto;
+allow mtkmal mtk_volte_imcb_socket:sock_file write;
+allow mtkmal mtk_volte_imsa_socket:sock_file write;
+allow mtkmal volte_imcb:unix_stream_socket connectto;
+
+# IMS control/bearer bridge. Only the physical MT6755 IMSA modem channel is
+# exposed; factory/logging CCCI nodes and generic device access remain denied.
+init_daemon_domain(volte_imcb)
+net_domain(volte_imcb)
+
+allow volte_imcb mtk_ccci_imsa_device:chr_file rw_file_perms;
+allow volte_imcb sysfs_mtk_ccci:dir r_dir_perms;
+allow volte_imcb sysfs_mtk_ccci:file r_file_perms;
+allow volte_imcb self:capability { setgid setuid };
+allow volte_imcb self:tcp_socket {
+    accept
+    bind
+    create
+    getattr
+    listen
+    read
+    setopt
+    write
+};
+allow volte_imcb node:tcp_socket node_bind;
+allow volte_imcb port:tcp_socket name_bind;
+allow volte_imcb mtk_volte_ua_socket:sock_file write;
+allow volte_imcb volte_ua:unix_stream_socket connectto;
+set_prop(volte_imcb, mtk_volte_runtime_prop)
+
+# SIP stack. Carrier-selected local/remote ports and IPsec policies cannot be
+# enumerated statically, so retain Stock's network-domain boundary without
+# granting filesystem, modem, or radio-data access.
+init_daemon_domain(volte_stack)
+net_domain(volte_stack)
+
+allow volte_stack self:capability { net_admin setgid setuid };
+allow volte_stack self:key_socket { create read setopt write };
+allow volte_stack self:netlink_xfrm_socket {
+    bind
+    create
+    nlmsg_read
+    nlmsg_write
+    read
+    write
+};
+allow volte_stack self:tcp_socket {
+    accept
+    bind
+    connect
+    create
+    getattr
+    listen
+    read
+    setopt
+    shutdown
+    write
+};
+allow volte_stack self:udp_socket {
+    bind
+    create
+    read
+    setopt
+    shutdown
+    write
+};
+allow volte_stack node:{ tcp_socket udp_socket } node_bind;
+allow volte_stack port:{ tcp_socket udp_socket } name_bind;
+allow volte_stack port:tcp_socket name_connect;
+
+# User agent connects only to the SIP stack; WFC/WFCA is intentionally absent.
+init_daemon_domain(volte_ua)
+net_domain(volte_ua)
+
+allow volte_ua self:capability { setgid setuid };
+allow volte_ua self:capability2 wake_alarm;
+allow volte_ua self:udp_socket { bind create read setopt };
+allow volte_ua node:udp_socket node_bind;
+allow volte_ua mtk_volte_stack_socket:sock_file write;
+allow volte_ua volte_stack:unix_stream_socket connectto;
+
+# Android's fwmarkd endpoint is the public Treble boundary of libnetd_client;
+# the private netd_socket type must not leak into vendor policy.
+allow { volte_imcb volte_stack volte_ua } fwmarkd_socket:sock_file write;
+allow { volte_imcb volte_stack volte_ua } netd:unix_stream_socket connectto;
+
+allow netd { volte_imcb volte_stack volte_ua }:fd use;
+allow netd { volte_imcb volte_stack volte_ua }:{ tcp_socket udp_socket } {
+    getopt
+    read
+    setopt
+    write
+};
+
+# Read-only product/feature state used by each native process.
+get_prop(volte_imcb, mtk_ims_prop)
+get_prop(volte_imcb, mtk_ims_feature_prop)
+get_prop(volte_stack, mtk_ims_prop)
+get_prop(volte_stack, mtk_ims_feature_prop)
+get_prop(volte_ua, mtk_ims_prop)
+get_prop(volte_ua, mtk_ims_feature_prop)
+
+# Existing RIL processes inspect the same one-stack/voice-only contract.
+get_prop(rild, mtk_ims_prop)
+get_prop(rild, mtk_ims_feature_prop)
+get_prop(mtkrild, mtk_ims_prop)
+get_prop(mtkrild, mtk_ims_feature_prop)
+get_prop(rild, mtk_volte_runtime_prop)
+get_prop(mtkrild, mtk_volte_runtime_prop)
