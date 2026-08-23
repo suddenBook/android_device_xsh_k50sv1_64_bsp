@@ -197,7 +197,6 @@ vendor/lib64/vendor.mediatek.hardware.power@2.1.so
 # symlink to a byte-identical libSoftGatekeeper.so and extract_utils probes the
 # destination name first, so the symlink is what gets copied; blob_fixup
 # materialises it into a real file.
-vendor/lib64/hw/libSoftGatekeeper.so
 vendor/lib64/hw/libSoftGatekeeper.so:vendor/lib64/hw/gatekeeper.default.so
 
 # MTK USB HAL  -- section: usb

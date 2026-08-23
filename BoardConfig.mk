@@ -113,6 +113,18 @@ BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
 # physical-hardware-filtered audio_policy_configuration.xml.
 USE_XML_AUDIO_POLICY_CONF := 1
 
+# Off-mode charging must be allowed to suspend, or the SoC stays awake for the
+# entire charge. init.mt6755.rc's charger block states that as the acceptance
+# criterion, and it could not happen: system/core/healthd/Android.mk:38-39,67-68
+# gate both -DCHARGER_ENABLE_SUSPEND and the libsuspend link on this variable,
+# and without it healthd_mode_charger.cpp:274-276 compiles a no-op
+# request_suspend() stub, so all seven call sites do nothing. AOSP's own
+# BoardConfigMainlineCommon.mk:37 sets it true; this tree simply never did.
+# No sepolicy needed: both /sys/power/state and /sys/power/wakeup_count are
+# sysfs_power (private/genfs_contexts:135-136) and public/charger.te already has
+# allow charger sysfs_power:file rw_file_perms.
+BOARD_CHARGER_ENABLE_SUSPEND := true
+
 # Android Q first-stage ramdisk + switch-root. Stock system/vendor mounts do
 # not use AVB or dm-verity, despite those capabilities existing in the kernel.
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := false

@@ -454,14 +454,33 @@ service vendor.k50sv1_perfd /vendor/bin/k50sv1_perfd
 # UNTESTED -- it cannot be tested over adb. Verify by powering the handset fully
 # off and inserting the cable: the battery animation should appear, a power-key
 # press should boot Android, and the SoC should suspend between screen updates.
-on charger
+# `on init`, not `on charger`, and that is a correctness fix rather than a
+# preference. ImportParser::EndFile() (import_parser.cpp:47-53) parses imports
+# only after the importing file is fully parsed, and ActionManager queues
+# matching actions in insertion order (action_manager.cpp:56-66), so AOSP's own
+# `class_start charger` (system/core/rootdir/init.rc:777-778) runs BEFORE
+# anything an imported vendor file puts in `on charger`. These chowns were
+# racing the process they exist to serve. In charger mode init queues only
+# early-init, init and charger, and wait_for_coldboot_done runs before `on
+# init`, so `on init` is both early enough and safe in a normal boot.
+on init
     # The MTK SPM node stock hands over in the same block, so the low-power
     # path has an owner while the framework is absent.
     chown system system /dev/spm
     chmod 0660 /dev/spm
-    chown system system /sys/power/autosleep
+    # /sys/power/wakeup_count, NOT /sys/power/autosleep. libsuspend hard-selects
+    # the wakeup_count implementation (system/core/libsuspend/autosuspend.c:35),
+    # and that one opens /sys/power/state and /sys/power/wakeup_count
+    # (autosuspend_wakeup_count.cpp:52-53). autosleep is never touched, so the
+    # chown this block used to do was dead, and wakeup_count staying root-owned
+    # made autosuspend_enable() fail its O_RDWR open under `user system`.
+    chown system system /sys/power/wakeup_count
     chown system system /sys/power/state
-    chmod 0666 /dev/kmsg
+    # No `chmod 0666 /dev/kmsg` here. device.mk already condemns stock for
+    # world-writing the kernel log to buy back a log line, and it is redundant
+    # besides: the service declares `file /dev/kmsg w` below, init opens that fd
+    # as root before dropping to `user system`, and klog.cpp:39-43 finds it
+    # through android_get_control_file() before ever trying open() by path.
 
 service charger /system/bin/charger
     class charger

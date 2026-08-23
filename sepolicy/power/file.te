@@ -10,7 +10,17 @@ type proc_mtk_power_info, fs_type, proc_type;
 type proc_mtk_power_hps, fs_type, proc_type;
 type proc_mtk_power_perfmgr, fs_type, proc_type;
 type proc_mtk_power_fliper, fs_type, proc_type;
-type proc_mtk_netdagent_arp, fs_type, proc_type;
+# proc_net_type is NOT optional on a type that replaces part of /proc/net.
+# AOSP declares proc_net with it (system/sepolicy/public/file.te:44), and it
+# is the attribute every legitimate /proc/net grant hangs off: domain.te:26,
+# shell.te:134, dumpstate.te:176, init.te:307, vendor_init.te:157, netd.te:49,
+# system_server.te:850, wificond.te:24, hal_wifi*, hal_telephony.te:38,
+# dhcp.te:18, clatd.te:7, ppp.te:8, mdnsd.te:12, netutils_wrapper.te:9,
+# platform_app.te:50 and app.te:185. Omitting it silently took /proc/net/arp
+# away from all of them -- `adb shell cat /proc/net/arp` and the bugreport
+# /proc/net dump both stopped working. netdagent's own narrow grant in
+# power/netdagent.te is unaffected, so no blanket access comes back with it.
+type proc_mtk_netdagent_arp, fs_type, proc_type, proc_net_type;
 
 type sysfs_mtk_power_cpu_control, fs_type, sysfs_type;
 

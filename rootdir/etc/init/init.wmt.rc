@@ -43,6 +43,17 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant -g@android:wpa_wlan0
     interface android.hardware.wifi.supplicant@1.0::ISupplicant default
     interface android.hardware.wifi.supplicant@1.1::ISupplicant default
     interface android.hardware.wifi.supplicant@1.2::ISupplicant default
+    # manifest.xml declares this one too, and wpa_supplicant really registers
+    # it, but without an `interface` line here it can never be lazily started.
+    # On a lookup miss hwservicemanager fires ctl.interface_start <fqName>/<inst>
+    # (ServiceManager.cpp:246-256) and init resolves it by EXACT STRING MATCH
+    # against the set built from these lines (service.cpp:516-545). With no
+    # match nothing starts and the caller spins, because the manifest says
+    # hwbinder so vintfHwbinder is true and getService()'s retry loop
+    # (ServiceManagement.cpp:774) only breaks on !retry. Latent while only AOSP
+    # code asks -- an AOSP getService starts the process, which then registers
+    # all four -- but the declaration is a promise and this makes it true.
+    interface vendor.mediatek.hardware.wifi.supplicant@2.0::ISupplicant default
     socket wpa_wlan0 dgram 660 wifi wifi
     class main
     user wifi

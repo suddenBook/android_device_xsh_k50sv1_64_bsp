@@ -28,7 +28,7 @@
          wrong; notes/HANDOFF.md's "display_density_forced=256 is not a defect"
          entry described the same 64px situation as an accepted cost, which it no
          longer is.) -->
-    <dimen name="status_bar_height_portrait">43dp</dimen>
+    <dimen name="status_bar_height_portrait">45dp</dimen>
 
     <!-- Landscape. Rotating the device moves the hole to a *side* edge, so there
          is nothing above the content to clear and the bar does not need to grow;

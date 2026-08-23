@@ -97,7 +97,14 @@
         <transport>hwbinder</transport>
         <fqname>@1.3::IPower/default</fqname>
     </hal>
-    <hal format="hidl" override="true">
+    <!-- No override="true". On an <fqname>-only <hal> it is a verified no-op:
+         HalManifest::add()'s two override branches both die, because
+         isDisabledHal() returns false as soon as forEachInstance yields and
+         removeHals() iterates hal.versions, which parse_xml.cpp populates only
+         from <version> children. Confirmed with this tree's assemble_vintf:
+         byte-identical output either way. If a future SoC-common manifest ever
+         needs to be beaten, add a real <version> child as well. -->
+    <hal format="hidl">
         <name>android.hardware.radio</name>
         <transport>hwbinder</transport>
         <fqname>@1.4::IRadio/em1</fqname>
@@ -219,7 +226,14 @@
         <transport>hwbinder</transport>
         <fqname>@2.1::IPower/default</fqname>
     </hal>
-    <hal format="hidl" override="true">
+    <!-- No override="true". On an <fqname>-only <hal> it is a verified no-op:
+         HalManifest::add()'s two override branches both die, because
+         isDisabledHal() returns false as soon as forEachInstance yields and
+         removeHals() iterates hal.versions, which parse_xml.cpp populates only
+         from <version> children. Confirmed with this tree's assemble_vintf:
+         byte-identical output either way. If a future SoC-common manifest ever
+         needs to be beaten, add a real <version> child as well. -->
+    <hal format="hidl">
         <name>vendor.mediatek.hardware.mtkradioex</name>
         <transport>hwbinder</transport>
         <fqname>@1.9::IMtkRadioEx/imsSlot1</fqname>
