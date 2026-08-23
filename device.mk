@@ -34,7 +34,19 @@ PRODUCT_BOOT_JARS += \
 #   android.hardware.configstore@1.1-service  base_vendor.mk:43
 #   vibrator.default                          handheld_vendor.mk:28
 #   libvisualizer                             base_vendor.mk:62
+#
+# The seven modules migrated from prebuilt to AOSP source in the same change as
+# the seven added below are NOT listed either, for the same reason. The full
+# chain that pre-declares them is unconditional:
+#   lineage_k50sv1_64_bsp.mk -> aosp_base.mk -> full_base.mk ->
+#   generic_no_telephony.mk -> handheld_vendor.mk -> media_vendor.mk ->
+#   base_vendor.mk
+#   libbundlewrapper libdownmix libdynproc libldnhncr libreverbwrapper
+#                                             base_vendor.mk:51,53,55,58,60
+#   libaudiopreprocessing libwebrtc_audio_preprocessing
+#                                             media_vendor.mk:25,26
 PRODUCT_PACKAGES += \
+    android.hardware.audio.effect@5.0-impl \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service \
     android.hardware.gatekeeper@1.0-impl \
@@ -54,10 +66,16 @@ PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-service \
     android.hardware.audio.common-util.vendor \
     android.hardware.audio.common@5.0-util.vendor \
+    audio.r_submix.default \
+    audio.usb.default \
+    libalsautils \
     libeffectsconfig.vendor \
     libkeystore-engine-wifi-hidl \
     libkeystore-wifi-hidl \
+    libnbaio_mono \
     librilutils \
+    libsensorndkbridge \
+    libtinyxml \
     sensors.k50sv1_64_bsp
 
 PRODUCT_COPY_FILES += \
