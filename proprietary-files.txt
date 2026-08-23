@@ -12,20 +12,32 @@
 # - Stock fstab, assembled VINTF, generated/precompiled SELinux policy
 #
 # A leading '-' packages a Stock library as a preferred prebuilt module. For
-# modules that also exist in AOSP, keep every real Stock 32/64 variant so the
-# replacement satisfies Soong's complete architecture contract - except where
-# the second variant provably has no loader, in which case dropping it makes
-# extract_utils emit compile_multilib "32"/"64" instead of "both".
+# modules that also exist in AOSP, keep every real Stock 32/64 variant, without
+# exception. Soong resolves a `prefer: true` prebuilt against the source module
+# by variation, so a prebuilt that omits one architecture cannot satisfy a
+# source module that builds both, and the build dies at bootstrap:
+#
+#   error: hardware/interfaces/graphics/composer/2.1/default/Android.bp:1:1:
+#   failed to find variation "android_arm_armv8-a_cortex-a53" for module
+#   "prebuilt_android.hardware.graphics.composer@2.1-impl" needed by
+#   "android.hardware.graphics.composer@2.1-impl"
+#
+# "the second variant has no loader on this device" is a true statement about
+# the hardware and an invalid reason to drop it. Blobs with no AOSP counterpart
+# have no such constraint and may ship whichever architectures are real.
 
 # Graphics / Mali
 vendor/bin/hw/vendor.mediatek.hardware.gpu@1.0-service
 vendor/etc/init/vendor.mediatek.hardware.gpu@1.0-service.rc
-# 32-bit allocator/mapper are real: the manifest declares mapper@2.0 as
-# passthrough arch="32+64" and 32-bit clients open gralloc.mt6755.so. The
-# 32-bit composer@2.1-impl and its two hwc2on*adapter helpers are omitted
-# because Stock has no 32-bit hwcomposer.mt6755.so for them to load and the
-# composer HAL is binderized 64-bit only.
+# All three 32-bit HIDL impls stay. allocator and mapper are genuinely used --
+# the manifest declares mapper@2.0 as passthrough arch="32+64" and 32-bit
+# clients open gralloc.mt6755.so. The 32-bit composer@2.1-impl and its two
+# hwc2on*adapter helpers are dead weight on this device (Stock has no 32-bit
+# hwcomposer.mt6755.so for them to load, and the composer HAL is binderized
+# 64-bit only) but they cannot be dropped: see the architecture note in the
+# header. Removing them fails the Soong bootstrap.
 -vendor/lib/hw/android.hardware.graphics.allocator@2.0-impl.so
+-vendor/lib/hw/android.hardware.graphics.composer@2.1-impl.so
 -vendor/lib/hw/android.hardware.graphics.mapper@2.0-impl.so
 vendor/lib/hw/gralloc.mt6755.so
 vendor/lib/egl/libGLES_mali.so
@@ -36,6 +48,8 @@ vendor/lib/libgpud.so
 vendor/lib/libgralloc_extra.so
 vendor/lib/libion_mtk.so
 vendor/lib/libion_ulit.so
+-vendor/lib/libhwc2on1adapter.so
+-vendor/lib/libhwc2onfbadapter.so
 vendor/lib/libladder.so
 vendor/lib/libpq_cust.so
 vendor/lib/libpq_prot.so
