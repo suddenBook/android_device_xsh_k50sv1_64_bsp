@@ -11,9 +11,16 @@ allow init mnt_vendor_file:dir mounton;
 allow init mtk_nvdata_file:dir create_dir_perms;
 allow init mtk_nvdata_file:dir mounton;
 
-# Those fstab entries carry "check", so init forks e2fsck against the nvdata
-# block device (/dev/block/mmcblk0p6, nvram/vendor/file_contexts).
+# Those fstab entries carry "check", so init forks e2fsck against each of the
+# three: nvdata (mmcblk0p6, nvram/vendor/file_contexts) and protect1/protect2
+# (mmcblk0p8/p9, radio/file_contexts). Without the protect labels e2fsck fell
+# back to the generic block_device type:
+#   avc: denied { ioctl open read write } for comm="e2fsck"
+#        scontext=u:r:fsck:s0 tcontext=u:object_r:block_device:s0 tclass=blk_file
+# vold needs no matching rule: none of the three fstab lines is voldmanaged, so
+# init's mount_all owns them end to end, and no vold denial was observed.
 allow fsck mtk_nvdata_block_device:blk_file rw_file_perms;
+allow fsck mtk_protect_block_device:blk_file rw_file_perms;
 
 # init.rc chmod/chown of the io scheduler knob. The canonical sysfs path behind
 # /sys/block/mmcblk0/queue/scheduler is labelled by power/genfs_contexts:52.
@@ -29,7 +36,9 @@ allow init sysfs_mtk_power_cpu_control:file setattr;
 # the "no vendor_file for coredomain" rule precisely for firmware loading.
 r_dir_file(kernel, mtk_firmware_file)
 
-# NOT GRANTED, deliberately:
+# NOT GRANTED, deliberately. Still firing on the flashed build (boot capture
+# work/evidence/tier1-avc-20260823-postfix), and confirmed harmless there --
+# Wi-Fi and BT both come up:
 #   avc: denied { dac_override } for comm="mtk_wmtd_worker"
 #        scontext=u:r:kernel:s0 tcontext=u:r:kernel:s0 tclass=capability
 # system/sepolicy/public/kernel.te:130 is
@@ -38,7 +47,10 @@ r_dir_file(kernel, mtk_firmware_file)
 # firmware load succeeds anyway (Wi-Fi and BT come up); the denial is left
 # visible rather than dontaudit'ed so it is not mistaken for a policy gap.
 
-# ALSO NOT GRANTED, and not dontaudit'ed:
+# ALSO NOT GRANTED, and not dontaudit'ed. Still firing once per boot on the
+# flashed build; the /dev/{stune,cpuset,memcg,cg2_bpf} cleanup in
+# rootdir/etc/init/hw/init.mt6755.rc removes the *directories* but cannot stop
+# init's earlier mount attempt, which is what raises this:
 #   avc: denied { module_request } for comm="init" kmod="fs-cgroup2"
 #        scontext=u:r:init:s0 tcontext=u:r:kernel:s0 tclass=system
 # init requests the cgroup2 filesystem module because /system/etc/cgroups.json
