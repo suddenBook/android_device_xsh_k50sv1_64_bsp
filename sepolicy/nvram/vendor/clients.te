@@ -100,3 +100,14 @@ get_prop({
     hal_wifi_default
     hal_bluetooth_default
 }, mtk_nvram_ready_prop)
+
+# NOT GRANTED: mtk_nvdata_file:dir { write add_name create }. Stock lets
+# libnvram CREATE a missing record in place --
+#   (allow mtk_hal_camera nvdata_file (dir (write create add_name search)))
+#   (allow mtk_hal_audio  nvdata_file (dir (add_name open remove_name write)))
+# -- which is how a blank nvdata partition self-provisions on a factory line.
+# Here every record that this build reads already exists on the partition, and
+# the whole point of the per-category types above is that a HAL can rewrite its
+# own calibration blob without being able to add or remove entries in the
+# directory. Only revisit this if the device is ever built to bring up a
+# freshly-erased nvdata.

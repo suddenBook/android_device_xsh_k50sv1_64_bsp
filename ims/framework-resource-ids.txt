@@ -1,0 +1,27 @@
+# Framework resource IDs the Stock MTK ImsService APK reads directly.
+#
+# The APK was compiled against MediaTek's framework-res and carries raw
+# com.android.internal.R integers in its dex. Those integers are positional: the
+# same name has a different ID in Lineage's framework-res, and every one of the
+# four below lands on an unrelated boolean here (config_dynamic_bind_ims' Stock
+# ID 0x1110064, for instance, is config_dreamsEnabledByDefault in this build).
+# extract-files.sh rewrites them during extraction.
+#
+# This file is the single source of truth for that mapping. It is read by:
+#
+#   extract-files.sh              - to drive the smali rewrite
+#   ims/verify-framework-resource-ids.sh - run from ims/Android.mk on every
+#                                   build, to prove the lineage-id column still
+#                                   names the resource it is supposed to
+#
+# The lineage-id column is the fragile half: these are bool/ entries, so adding
+# or removing any boolean in frameworks/base/core/res shifts them, and a stale
+# value would silently point the IMS stack at the wrong flag. The build-time
+# check exists precisely so that shift is a build failure and not a bug report
+# about VoLTE never registering.
+#
+# resource-name                   stock-id   lineage-id  smali-class
+config_device_volte_available     0x111004b  0x1110050   ImsConfigManager
+config_device_vt_available        0x111004c  0x1110051   ImsConfigManager
+config_device_wfc_ims_available   0x111004d  0x1110052   ImsConfigManager
+config_dynamic_bind_ims           0x1110064  0x1110068   ImsApp

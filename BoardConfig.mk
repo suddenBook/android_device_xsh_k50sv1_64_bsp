@@ -97,9 +97,20 @@ BOARD_AVB_ENABLE := false
 # /vendor/etc/selinux/plat_pub_versioned.cil -- so a platform-only OTA or a GSI
 # would drop the symbol and vendor_sepolicy.cil would fail to link at boot.
 #
-# sepolicy/private holds only rules whose subject and object are both core
-# types (init, system_app, vendor_init x vold_prop) -- board facts never
-# belong there.
+# sepolicy/private holds a rule only when BOTH of these are true:
+#   (a) subject and object are core platform types, and
+#   (b) the rule fixes an AOSP gap that would exist on a board with none of
+#       this hardware -- it is not caused by a board fact.
+# init x tmpfs:lnk_file (AOSP's own init.rc symlink), system_app x sysfs_zram
+# (Settings' storage page) and ueventd's sys_nice all qualify. Anything that
+# exists because of this device's fstab, its rc files or its .ko files stays in
+# the vendor dirs even when both types happen to be core -- e.g.
+# vendor_init x vold_prop, which is only needed because init.mt6755.rc does the
+# setprop, and init x mnt_vendor_file, which is only needed because this fstab
+# mounts /mnt/vendor. The one forced exception is service_contexts: Android Q
+# has no vendor service_contexts for /dev/binder services (only
+# vndservice_contexts), so a binder service label such as mtkIms must live in
+# plat_private regardless of who registers it.
 BOARD_PLAT_PRIVATE_SEPOLICY_DIR += \
     $(DEVICE_PATH)/sepolicy/private
 

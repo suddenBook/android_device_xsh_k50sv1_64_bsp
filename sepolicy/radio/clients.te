@@ -26,3 +26,17 @@ allow { uncrypt vold recovery } block_device:dir search;
 #   (allow rild sysfs_ccci (file (getattr ioctl lock map open read)))
 allow rild sysfs_mtk_ccci:dir r_dir_perms;
 allow rild sysfs_mtk_ccci:file r_file_perms;
+
+# NOT GRANTED, blocked by DAC rather than by policy -- recorded so the next
+# session does not "fix" the SELinux half and wonder why nothing changed:
+#
+#   proc_mtk_lk_env (/proc/lk_env) -- Stock grants rw to mnld, rild, ccci_fsd
+#     and nvram_daemon. The node is 0600 root:root on the handset; mnld runs as
+#     gps and rild/mtkrild as radio, so only the root domains could ever open
+#     it, and ccci_mdinit/mtkrild already have the rules they need.
+#
+#   mtk_devmap_device (/dev/devmap) -- Stock grants read to mtk_hal_audio,
+#     mediacodec, mtkrild and rild. The node is 0600 root:root and
+#     rootdir/vendor/ueventd.rc deliberately leaves it that way ("stock opens
+#     these group-system for MTK factory/META tooling that this build does not
+#     ship"). ccci_mdinit runs as root and keeps its existing grant.

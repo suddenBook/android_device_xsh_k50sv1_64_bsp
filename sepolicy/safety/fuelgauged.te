@@ -11,3 +11,13 @@ allow fuelgauged self:netlink_route_socket create_socket_perms_no_ioctl;
 allow fuelgauged self:netlink_route_socket { nlmsg_read nlmsg_write };
 
 r_dir_file(fuelgauged, sysfs_batteryinfo)
+
+# REVIEWED, kept: the netlink_route_socket grant above includes nlmsg_write,
+# which is the ability to send route-modifying netlink messages -- more than a
+# fuel-gauge daemon should plausibly need, and Stock grants fuelgauged no
+# netlink_route at all. It is NOT narrowed here because the live check was
+# inconclusive rather than negative: on the handset fuelgauged holds only unix
+# sockets open, but a periodic poller can create and close a netlink socket
+# between samples, and there is no AVC either way. Narrowing on that basis
+# would be guessing. Next session: soak the device with auditallow on
+# fuelgauged self:netlink_route_socket, then drop what never fires.

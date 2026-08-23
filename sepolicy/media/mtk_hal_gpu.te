@@ -20,3 +20,10 @@ allowxperm mtk_hal_gpu proc_ged:file ioctl {
 # by a client.  It does not require allocation or write access to /dev/ion.
 allow mtk_hal_gpu ion_device:chr_file r_file_perms;
 allow mtk_hal_gpu hal_graphics_allocator_default:fd use;
+
+# NOT GRANTED: graphics_device. Stock has
+#   (allow mtk_hal_gpu graphics_device (chr_file (ioctl read write getattr lock append map open)))
+# but on the live handset the only two processes holding /dev/mtk_disp_mgr open
+# are the composer and PQ; this service is not among them. Stock's rule is a
+# multi-SKU leftover -- the same file also grants it debugfs_ged, which this
+# tree refuses outright.

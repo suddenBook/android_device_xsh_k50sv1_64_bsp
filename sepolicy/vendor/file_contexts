@@ -88,3 +88,21 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.wifi@1\.0-service-lazy-mediatek              u:object_r:hal_wifi_default_exec:s0
 /(vendor|system/vendor)/bin/hw/camerahalserver                                                 u:object_r:hal_camera_default_exec:s0
 /(vendor|system/vendor)/bin/hw/rilproxy                                                        u:object_r:rild_exec:s0
+
+# Device nodes deliberately left UNLABELLED (they fall back to the generic
+# "device" type, so any access is denied and shows up by name):
+#   /dev/mtgpio     0600 radio:root  -- Stock: (allow radio mtgpio_device (chr_file (ioctl read open)))
+#   /dev/RT_Monitor 0660 system:system -- Stock: init, surfaceflinger, system_server
+#   /dev/touch      0660 root:system   -- Stock: system_server, system_app
+#   /dev/btif       0600 system:system -- no Stock user at all
+# All four exist on the handset and rootdir/vendor/ueventd.rc sets their DAC,
+# but nothing in this build opens them and the tier 1 capture shows no denial
+# for any of them. Labelling a node without a consumer only creates a type that
+# looks load-bearing.
+#
+# Nodes in Stock's file_contexts that DO NOT EXIST on this hardware, verified
+# with ls on the handset -- do not port their rules across:
+#   /dev/nvram      (Stock nvram_device chr_file half; the blk_file half is
+#                    by-name/nvram + by-name/proinfo, which are labelled in
+#                    sepolicy/nvram/vendor/file_contexts)
+#   /dev/mdp_sync   (Stock mtk_mdp_device, used by its mms and camera domains)

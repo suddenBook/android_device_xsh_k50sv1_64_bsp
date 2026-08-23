@@ -64,25 +64,42 @@ function patch_ims_apk() {
         java -jar "${baksmali_jar}" disassemble -j 1 \
             "${patch_dir}/classes.dex" -o "${patch_dir}/smali"
 
-        local ims_app="${patch_dir}/smali/com/mediatek/ims/ImsApp.smali"
-        local ims_config="${patch_dir}/smali/com/mediatek/ims/ImsConfigManager.smali"
         local ims_service="${patch_dir}/smali/com/mediatek/ims/ImsService.smali"
-        local old_resource
-        for old_resource in 0x111004b 0x111004c 0x111004d 0x1110064; do
-            if [[ "$(grep -R -F -h -c "${old_resource}" \
-                    "${patch_dir}/smali/com/mediatek" | awk '{ n += $1 } END { print n + 0 }')" -ne 1 ]]; then
-                echo "Unexpected IMS framework resource reference: ${old_resource}" >&2
+
+        # Rewrite the com.android.internal.R integers the APK was compiled
+        # against. The mapping lives in ims/framework-resource-ids.txt rather
+        # than here, because ims/Android.mk asserts the same table against the
+        # framework this build actually produces -- keeping the two in one file
+        # is what stops them drifting apart.
+        local resource_ids="${MY_DIR}/ims/framework-resource-ids.txt"
+        if [[ ! -r "${resource_ids}" ]]; then
+            echo "Missing IMS framework resource table: ${resource_ids}" >&2
+            exit 1
+        fi
+        local rewrites=0
+        local name stock lineage smali_class target
+        while read -r name stock lineage smali_class; do
+            [[ -z "${name}" || "${name}" == \#* ]] && continue
+            target="${patch_dir}/smali/com/mediatek/ims/${smali_class}.smali"
+            if [[ ! -f "${target}" ]]; then
+                echo "IMS resource table names a missing class: ${smali_class}" >&2
                 exit 1
             fi
-        done
-        sed -i \
-            -e 's/0x1110064/0x1110068/' \
-            "${ims_app}"
-        sed -i \
-            -e 's/0x111004b/0x1110050/' \
-            -e 's/0x111004c/0x1110051/' \
-            -e 's/0x111004d/0x1110052/' \
-            "${ims_config}"
+            # Exactly one reference, and it must be in the class the table names.
+            if [[ "$(grep -R -F -h -c "${stock}" \
+                    "${patch_dir}/smali/com/mediatek" \
+                    | awk '{ n += $1 } END { print n + 0 }')" -ne 1 ]] || \
+               [[ "$(grep -F -c "${stock}" "${target}")" -ne 1 ]]; then
+                echo "Unexpected IMS reference to ${name} (${stock})" >&2
+                exit 1
+            fi
+            sed -i -e "s/${stock}/${lineage}/" "${target}"
+            rewrites=$((rewrites + 1))
+        done <"${resource_ids}"
+        if [[ "${rewrites}" -ne 4 ]]; then
+            echo "IMS resource table rewrote ${rewrites} of the expected 4 IDs" >&2
+            exit 1
+        fi
 
         # The Stock APK starts its full Wi-Fi offload service even when WFC is
         # disabled. This voice-only port retains the state array expected by
@@ -104,12 +121,13 @@ function patch_ims_apk() {
         java -jar "${smali_jar}" assemble -j 1 \
             "${patch_dir}/smali" -o "${patch_dir}/classes.dex"
 
-        for old_resource in 0x111004b 0x111004c 0x111004d 0x1110064; do
-            if grep -R -F -q "${old_resource}" "${patch_dir}/smali/com/mediatek"; then
-                echo "Stale IMS framework resource reference: ${old_resource}" >&2
+        while read -r name stock lineage smali_class; do
+            [[ -z "${name}" || "${name}" == \#* ]] && continue
+            if grep -R -F -q "${stock}" "${patch_dir}/smali/com/mediatek"; then
+                echo "Stale IMS framework resource reference: ${name} (${stock})" >&2
                 exit 1
             fi
-        done
+        done <"${resource_ids}"
 
         cp -- "${apk}" "${patch_dir}/ImsService.apk"
         # Do not rely on ZIP's timestamp-based update decision: the Stock and

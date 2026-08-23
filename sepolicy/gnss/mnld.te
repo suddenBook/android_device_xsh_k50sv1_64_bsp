@@ -38,3 +38,11 @@ set_prop(mnld, mtk_gnss_runtime_prop)
 get_prop(mnld, mtk_gnss_ro_prop)
 get_prop(mnld, mtk_wmt_prop)
 get_prop(mnld, mtk_nvram_ready_prop)
+
+# REVIEWED, kept: net_domain(mnld) above is broad -- it brings in the whole
+# public/net.te socket set plus netd access -- and the SUPL data path belongs
+# to mtk_agpsd, not to mnld. It is NOT narrowed here because the live handset
+# shows mnld holding a dozen sockets whose families could not be attributed
+# from /proc, and there is no AVC to argue from either way. Next session:
+# auditallow mnld self:{ tcp_socket udp_socket }, take a fix, and if nothing
+# fires replace net_domain(mnld) with the specific classes it does use.

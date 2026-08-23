@@ -24,3 +24,14 @@ hal_client_domain(mtk_hal_pq, hal_allocator)
 
 set_prop(mtk_hal_pq, mtk_pq_config_prop)
 get_prop(mtk_hal_pq, mtk_pq_ro_prop)
+
+# NOT GRANTED: nvdata. Stock gives PQ read/write over the whole NVRAM tree
+#   (allow mtk_hal_pq nvdata_file (dir (write add_name search)))
+#   (allow mtk_hal_pq nvdata_file (file (create getattr open read setattr write)))
+#   (allow mtk_hal_pq nvram_data_file (file (... unlink rename ...)))
+# for panel calibration records. This board has no PQ record to read:
+# /mnt/vendor/nvdata/APCFG/APRDCL on the handset contains exactly
+#   AUXADC  FILE_VER  HWMON_ACC  MD_SBP
+# and PQ takes its tuning from /vendor/etc instead (vendor_configs_file, which
+# every vendor domain can already read). Do not add nvdata access here without
+# first showing a record that PQ actually opens.

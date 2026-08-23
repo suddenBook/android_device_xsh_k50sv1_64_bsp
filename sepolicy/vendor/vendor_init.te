@@ -74,3 +74,17 @@ allow vendor_init {
 # /proc/ppm/policy/userlimit_min_cpu_{freq,core} for the duration of boot and
 # releases them at sys.boot_completed. That is a write, not a chmod.
 allow vendor_init proc_mtk_power_ppm:file write;
+
+# rootdir/etc/init/hw/init.mt6755.rc "on post-fs-data" ends with
+#   setprop vold.post_fs_data_done 1
+# A /vendor rc file's setprop runs in the vendor_init context
+# (system/core/init/subcontext.cpp:57), and vold.post_fs_data_done resolves to
+# vold_prop (system/sepolicy/private/property_contexts:99). AOSP's fixed
+# vendor_init property list (public/vendor_init.te:220-246) does not include
+# vold_prop, so without this the assignment is refused and /data never reports
+# post-fs-data completion. There is no neverallow on vold_prop.
+#
+# Both operands are core types, but the rule exists only because this board's
+# rc issues that setprop, so by the criterion in BoardConfig.mk it belongs here
+# rather than in sepolicy/private.
+set_prop(vendor_init, vold_prop)

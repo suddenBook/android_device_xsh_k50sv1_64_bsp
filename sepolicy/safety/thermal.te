@@ -22,3 +22,23 @@ allow mtk_thermal mtk_thermalloadalgod:unix_stream_socket connectto;
 
 allow hal_thermal_default proc_mtk_thermal_zone:dir search;
 allow hal_thermal_default proc_mtk_thermal_zone:file r_file_perms;
+
+# NOT GRANTED, pending evidence: Stock's compiled policy wires the whole media
+# stack into the thermal subsystem --
+#   (allow mtk_hal_camera  proc_thermal (file (getattr open read write)))
+#   (allow mtk_hal_camera  proc_mtktz / proc_mtkcooler (dir (search)) (file (open read write)))
+#   (allow mtk_hal_audio   proc_thermal / proc_mtktz / proc_mtkcooler (dir (search)))
+#   (allow mediacodec      proc_thermal / proc_mtktz / proc_mtkcooler ...)
+#   (allow mtk_hal_power   proc_thermal / proc_mtktz / proc_mtkcooler ... )
+#   (allow {those} thermal_manager_data_file (dir/file ...))
+#   (allow mtk_hal_camera mtk_thermal_config_prop (property_service (set)))
+# none of which is reproduced here. Checked before declining:
+#   - work/k50sv1-bringup/evidence/tier1-avc-20260823-postfix/ contains only
+#     priv_app and system_app denials, nothing from a media or thermal domain;
+#   - on the live handset no process holds /proc/driver/thermal, /proc/mtktz,
+#     /proc/mtkcooler or /data/vendor/.tp open outside the three thermal
+#     daemons below.
+# Thermal throttling here is owned by thermal/thermal_manager/thermalloadalgod
+# plus AOSP's hal_thermal_default, and the media stack does not need to read the
+# zone temperatures to work. If a real AVC appears, grant the single node the
+# denial names -- do not import Stock's whole block.

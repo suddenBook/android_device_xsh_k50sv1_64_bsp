@@ -81,3 +81,11 @@ allow hal_power_default {
 
 set_prop(hal_power_default, mtk_powerhal_prop)
 set_prop(hal_power_default, mtk_thermal_config_prop)
+
+# NOT GRANTED: mtk_ril_oem_socket. Stock has
+#   (allow mtk_hal_power rild_oem_socket (sock_file (write)))
+# so its power HAL can push hints straight into the RIL. Here the only writer
+# of that socket is mtk_thermal (safety/thermal.te), which is the process that
+# genuinely has something to tell the modem. Giving the Power HAL a second,
+# unaudited path into the radio stack is exactly the boundary crossing the
+# /dev/wmtWifi note above rejects.

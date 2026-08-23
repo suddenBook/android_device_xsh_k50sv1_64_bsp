@@ -13,3 +13,14 @@ allow hal_camera_default hal_graphics_mapper_hwservice:hwservice_manager find;
 # The shared MTK JPEG bridge is used by both the HAL1 camera provider and MMS.
 allow hal_camera_default proc_mtk_jpeg:file r_file_perms;
 allowxperm hal_camera_default proc_mtk_jpeg:file ioctl { 0x780b-0x780f };
+
+# NOT GRANTED: camera properties. Stock's camerahalserver sets three property
+# groups this tree does not define at all --
+#   (allow mtk_hal_camera mtk_camera_prop (property_service (set)))     vendor.camera.*
+#   (allow mtk_hal_camera mediatek_prop (property_service (set)))       vendor.debug.camera.*
+#   (allow mtk_hal_camera vendor_logmuch_prop (property_service (set))) vendor.logmuch.*
+# Every key behind them is a debug/log-verbosity switch. Unlabelled, they land
+# on AOSP's vendor_default_prop, the write is refused, and libmtkcam falls back
+# to its compiled-in default -- which is the wanted behaviour for a shipping
+# build. Add a device property type only if a real capture feature turns out to
+# depend on one.
