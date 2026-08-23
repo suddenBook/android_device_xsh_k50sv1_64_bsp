@@ -178,26 +178,6 @@ function blob_fixup() {
                 exit 1
             fi
             ;;
-        vendor/etc/init/init.volte_imcb.rc)
-            if [[ "$(sha256sum "$2" | awk '{ print $1 }')" != \
-                  "0da26dce066caacabd3453a9bf6812358f72def2fdd5eca941d87981eef4453e" ]]; then
-                echo "Refusing to narrow an unknown init.volte_imcb.rc" >&2
-                exit 1
-            fi
-            # One active IMS stack: retain only the voice IMSA socket. The
-            # second IMS, video-telephony and UT sockets are unsupported.
-            sed -i \
-                -e '/socket volte_imsa2 /d' \
-                -e '/socket volte_imsvt1 /d' \
-                -e '/socket volte_imsvt2 /d' \
-                -e '/socket volte_ut /d' \
-                "$2"
-            if [[ "$(grep -c '^[[:space:]]*socket volte_' "$2")" -ne 1 ]] || \
-               ! grep -q '^[[:space:]]*socket volte_imsa1 ' "$2"; then
-                echo "Voice-only volte_imcb socket reduction failed" >&2
-                exit 1
-            fi
-            ;;
         vendor/bin/volte_stack)
             if [[ "$(sha256sum "$2" | awk '{ print $1 }')" != \
                   "db8d700b84adf95206c497c15acaa70524756183a5de876391effd5dab734edc" ]]; then

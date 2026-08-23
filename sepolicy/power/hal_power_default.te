@@ -1,5 +1,8 @@
 # The executable is intentionally mapped to AOSP hal_power_default: one
 # process publishes android.hardware.power@1.3 and both MTK power families.
+# The MTK families sit on their own attribute so they are not reachable by
+# every hal_power_client; see power/hwservice.te.
+hal_server_domain(hal_power_default, hal_mtk_power)
 
 # Board configuration retains the standard read-only vendor_configs label;
 # only private persistent state needs a device type.

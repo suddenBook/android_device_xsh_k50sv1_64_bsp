@@ -594,7 +594,9 @@ vendor/bin/volte_imcb
 vendor/bin/volte_stack
 vendor/bin/volte_ua
 vendor/etc/init/init.mal.rc
-vendor/etc/init/init.volte_imcb.rc
+# init.volte_imcb.rc is NOT extracted: it is the one Stock init file this port
+# has to change, so rootdir/etc/init/ owns it and the delta from Stock stays
+# reviewable as a diff.
 vendor/etc/init/init.volte_stack.rc
 vendor/etc/init/init.volte_ua.rc
 vendor/etc/init/vendor.mediatek.hardware.imsa@1.0-service.rc

@@ -38,6 +38,17 @@ allow vendor_init device:file unlink;
 # The .ko files must stay vendor_file: system/sepolicy/public/domain.te:1306 is
 #   neverallow * ~{ system_file vendor_file rootfs }:system module_load;
 # AOSP grants the same pair to vendor_modprobe (vendor/vendor_modprobe.te:7,10).
+#
+# KEPT AS-IS after review, but understand what it costs: this is CAP_SYS_MODULE
+# held by init itself, and module_load over the whole vendor_file type, so any
+# .ko anywhere on /vendor is loadable by the most privileged domain on the
+# device. The narrower shape would be to stop using init's `insmod` builtin and
+# instead exec /vendor/bin/modprobe, which transitions to AOSP's vendor_modprobe
+# domain and leaves vendor_init with neither the capability nor module_load.
+# That is an init.connectivity.modules.rc change, not a policy change, and it
+# was not made here because the six MTK connectivity drivers must load in a
+# fixed order that `insmod` lines express directly. Do not widen this further;
+# in particular do not add module_request or a second module_load source type.
 allow vendor_init self:global_capability_class_set sys_module;
 allow vendor_init vendor_file:system module_load;
 

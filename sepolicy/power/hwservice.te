@@ -1,3 +1,23 @@
 # Netdagent is not a general networking HAL.  Its private HIDL endpoint is
 # exposed only to the power HAL in netdagent.te.
 type mtk_netdagent_hwservice, hwservice_manager_type;
+
+# MTK's private power/perf extension interfaces. AOSP's own
+# android.hardware.power@1.0-1.3::IPower stays on hal_power_hwservice via
+# system/sepolicy/private/hwservice_contexts -- only the vendor.mediatek.*
+# instances move here, so the standard Power HAL contract is untouched.
+type mtk_hal_power_hwservice, hwservice_manager_type;
+
+binder_call(hal_mtk_power_client, hal_mtk_power_server)
+binder_call(hal_mtk_power_server, hal_mtk_power_client)
+hal_attribute_hwservice(hal_mtk_power, mtk_hal_power_hwservice)
+
+# There is deliberately no hal_client_domain(..., hal_mtk_power) anywhere.
+# `lshal --types=b` on the handset lists all four MTK instances with an empty
+# client column: nothing binds them, the framework uses android.hardware.power
+# instead, and libperfctl's in-process clients use the /proc/perfmgr ioctl path
+# (power/clients.te), not HIDL. hal_attribute_hwservice() therefore expands to
+#   neverallow { domain -hal_mtk_power_client -hal_mtk_power_server }
+#           mtk_hal_power_hwservice:hwservice_manager find;
+# with an empty client set, so a future consumer shows up as a named AVC on
+# tier 1 and needs exactly one hal_client_domain() line here.

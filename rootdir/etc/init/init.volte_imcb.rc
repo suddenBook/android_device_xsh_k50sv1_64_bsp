@@ -1,0 +1,25 @@
+# Voice-only IMS connection-broker service.
+#
+# Derived from Stock /vendor/etc/init/init.volte_imcb.rc (itself a copy of
+# device/mediatek/common/init.volte.rc). Owned here rather than extracted and
+# sed-patched during extraction, so the one difference from Stock is visible in
+# a diff instead of buried in extract-files.sh.
+#
+# That difference: Stock declares five control sockets, one per IMS entity it
+# can host. This product runs a single voice IMS stack, so only volte_imsa1 is
+# kept. The four dropped ones are volte_imsa2 (second IMS instance),
+# volte_imsvt1 and volte_imsvt2 (video telephony) and volte_ut (UT/XCAP
+# supplementary services) -- all three features are excluded from this port, and
+# an unused `socket` line still costs init a bound, world-reachable AF_UNIX
+# endpoint in /dev/socket with no reader.
+#
+# volte_imcb is started by volte_imsm.so over ctl.start, not by init directly,
+# hence `disabled`.
+
+service vendor.volte_imcb /vendor/bin/volte_imcb
+    class core
+    socket volte_imsa1 stream 660 root radio
+    user system
+    group system log inet radio
+    oneshot
+    disabled
