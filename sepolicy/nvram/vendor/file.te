@@ -23,7 +23,3 @@ typeattribute mtk_gps_nvram_file mtk_nvram_storage_file;
 typeattribute mtk_audio_nvram_file mtk_nvram_storage_file;
 typeattribute mtk_camera_nvram_file mtk_nvram_storage_file;
 typeattribute mtk_wlan_nvram_file mtk_nvram_storage_file;
-typeattribute mtk_modem_nvdata_file mtk_nvram_storage_file;
-typeattribute mtk_modem_config_file mtk_nvram_storage_file;
-typeattribute mtk_protect_f_file mtk_nvram_storage_file;
-typeattribute mtk_protect_s_file mtk_nvram_storage_file;

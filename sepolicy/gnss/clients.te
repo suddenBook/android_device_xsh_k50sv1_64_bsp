@@ -2,6 +2,7 @@
 # not reintroduce Stock's lbs_dbg, meta, platform-app or arbitrary app clients.
 hal_client_domain(system_server, hal_mtk_lbs)
 
-# The phone process is a legacy direct client. Keep its discovery/call edge
-# one-way rather than adding radio to the bidirectional HAL client attribute.
-allow radio mtk_hal_lbs_hwservice:hwservice_manager find;
+# The phone process retains a live LBS HIDL reference. Model it as a real HAL
+# client so service discovery remains inside hal_attribute_hwservice's closed
+# client/server set instead of bypassing that invariant with a raw find allow.
+hal_client_domain(radio, hal_mtk_lbs)

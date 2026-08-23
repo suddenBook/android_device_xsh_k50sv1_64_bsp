@@ -2,7 +2,6 @@ service power-hal-1-0 /vendor/bin/hw/vendor.mediatek.hardware.mtkpower@1.0-servi
     class hal
     user system
     group system wifi
-    capabilities NET_ADMIN
 
 on property:vold.decrypt=trigger_shutdown_framework
     setprop vendor.powerhal.init 0

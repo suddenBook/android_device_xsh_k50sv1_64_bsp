@@ -20,5 +20,12 @@ allowxperm mtk_hal_mms proc_mtk_jpeg:file ioctl { 0x780b-0x780f };
 hal_client_domain(mtk_hal_mms, hal_allocator)
 hal_client_domain(mtk_hal_mms, hal_graphics_allocator)
 
+# This concrete service also consumes PQ and its non-sensitive tuning
+# properties. Keep memberships that expand to typeattribute beside the domain
+# declaration instead of relying on cross-file lexical order.
+hal_client_domain(mtk_hal_mms, hal_mtk_pq)
+get_prop(mtk_hal_mms, mtk_pq_config_prop)
+get_prop(mtk_hal_mms, mtk_pq_ro_prop)
+
 # No direct /dev/mali0 or /dev/MTK_SMI access: neither the ELF path strings,
 # Stock policy nor live FDs support such a grant.  Buffer FDs arrive over HIDL.

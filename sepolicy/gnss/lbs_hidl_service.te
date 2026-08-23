@@ -6,8 +6,7 @@ hal_server_domain(lbs_hidl_service, hal_mtk_lbs)
 hwbinder_use(lbs_hidl_service)
 vndbinder_use(lbs_hidl_service)
 
-# libbinder is retained for the telephony bridge; it gets no radio device or
-# radio-data access.
-binder_call(radio, lbs_hidl_service)
+# The telephony bridge is covered by radio's formal hal_mtk_lbs client
+# membership; the server receives no radio device or radio-data access.
 
 get_prop(lbs_hidl_service, mtk_gnss_ro_prop)

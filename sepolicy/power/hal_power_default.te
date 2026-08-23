@@ -46,13 +46,12 @@ allow hal_power_default {
     sysfs_mtk_power_storage_control
 }:file { getattr open read write };
 
-# libpowerhal's Wi-Fi hint path writes an event to the dedicated WMT node and
-# issues the verified private wlan0 ioctl.  This is deliberately not expressed
-# as hal_wifi_server membership.
+# libpowerhal's Wi-Fi hint path writes an event to the dedicated WMT node. Its
+# fallback private wlan0 ioctl is intentionally not granted: AOSP forbids a
+# Power HAL from owning network sockets or NET_ADMIN, and falsely making this
+# process a Wi-Fi HAL would collapse two HAL security boundaries. Tier 1 will
+# retain the denial as AVC evidence while the real Wi-Fi HAL owns wlan0.
 allow hal_power_default mtk_wmt_wifi_device:chr_file { open write };
-allow hal_power_default self:udp_socket { create ioctl };
-allowxperm hal_power_default self:udp_socket ioctl 0x8be8;
-allow hal_power_default self:global_capability_class_set net_admin;
 
 set_prop(hal_power_default, mtk_powerhal_prop)
 set_prop(hal_power_default, mtk_thermal_config_prop)

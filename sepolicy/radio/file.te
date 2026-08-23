@@ -23,6 +23,14 @@ type mtk_modem_config_file, file_type, data_file_type;
 type mtk_protect_f_file, file_type, data_file_type;
 type mtk_protect_s_file, file_type, data_file_type;
 
+# These radio-owned storage types join the NVRAM provider set only after their
+# declarations. Keeping the assignments here avoids order-dependent forward
+# typeattribute references from the earlier nvram policy directory.
+typeattribute mtk_modem_nvdata_file mtk_nvram_storage_file;
+typeattribute mtk_modem_config_file mtk_nvram_storage_file;
+typeattribute mtk_protect_f_file mtk_nvram_storage_file;
+typeattribute mtk_protect_s_file mtk_nvram_storage_file;
+
 # Narrow procfs/sysfs resources used during modem initialization.
 type proc_mtk_bootprof, fs_type, proc_type;
 type proc_mtk_lk_env, fs_type, proc_type;
