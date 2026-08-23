@@ -35,7 +35,9 @@ endif
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    keyguard.no_require_sim=true
+    keyguard.no_require_sim=true \
+    ro.config.low_ram=true \
+    ro.config.per_app_memcg=false
 
 # Stock's boot contract requires the legacy Android BootSignature. Tiers 1 and
 # 2 use the AOSP verity test key; Tier 3's final images use the committed verity
