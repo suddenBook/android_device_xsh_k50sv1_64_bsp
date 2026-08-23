@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<!--
+    Carrier config defaults for this device, applied to EVERY carrier.
+
+    DefaultCarrierConfigService reads this file as a RESOURCE
+    (DefaultCarrierConfigService.java:130, `getResources().getXml(R.xml.vendor)`),
+    not as an asset, which is why a device resource overlay reaches it and no
+    upstream change is needed. It is merged last, over whatever
+    assets/carrier_config_*.xml matched, so a value set here wins for every SIM.
+    AOSP's own copy of this file is an empty <carrier_config_list/>, so nothing
+    is lost by replacing it.
+
+    The `device` filter is redundant, because this overlay only exists in this
+    product's image, but it states the scope at the point of the change and
+    costs nothing. It is matched against Build.DEVICE
+    (DefaultCarrierConfigService.checkFilters()).
+-->
+<carrier_config_list>
+    <carrier_config device="k50sv1_64_bsp">
+        <!--
+            Do NOT route emergency calls to IMS first.
+
+            AOSP defaults this true (CarrierConfigManager.java:723). With it
+            true, GsmCdmaPhone.dial() takes the IMS path for ANY emergency call
+            whenever `imsPhone.isImsAvailable()` holds, and that predicate asks
+            only whether the ImsService BINDER is alive (ImsPhone.java:449 to
+            ImsPhoneCallTracker.java:884 to ImsManager.java:1630), never
+            whether IMS is REGISTERED. Note the asymmetry with the
+            ordinary-call predicate immediately above it at
+            GsmCdmaPhone.java:1180: that one does require
+            getServiceState() == STATE_IN_SERVICE. The emergency one does not.
+
+            This device binds MediaTek's MMTEL service (config_dynamic_bind_ims
+            plus config_ims_package in overlay/frameworks/.../config.xml), so
+            the binder is always alive and every emergency dial went to IMS
+            even with IMS unregistered. It then wedged, permanently:
+
+              ImsCallSessionProxy: [callId = null] terminate() :
+                  Terminate Call fail since there is no call ID. Abnormal Case
+
+            MTK's blob logs that and returns WITHOUT throwing ImsException, so
+            ImsPhoneCallTracker.hangup() (:1720-1777) neither reaches its local
+            cleanup branch (:1766, unreachable because imsCall != null) nor its
+            catch (:1775, never entered), and the 500 ms EVENT_HANGUP_PENDINGMO
+            safety net is never scheduled. The connection stays in DIALING
+            forever, and CallsManager.java:3413-3431 then refuses every LATER
+            emergency call. Recovery needed a phone-process kill.
+
+            Turning this off sends emergency calls down the CS path, which does
+            time out and disconnect. The blob bug is not fixable without
+            source; not entering the broken path is. Nothing is lost while IMS
+            cannot register, and this key is the supported knob for exactly
+            this. AOSP itself ships it false for Jazztel
+            (assets/carrier_config_carrierid_1974_Jazztel.xml:4).
+
+            REVISIT if VoLTE ever registers on a SIM with service here: IMS
+            E911 is preferable where it actually works. See WI-029.
+        -->
+        <boolean name="carrier_use_ims_first_for_emergency_bool" value="false" />
+    </carrier_config>
+</carrier_config_list>
