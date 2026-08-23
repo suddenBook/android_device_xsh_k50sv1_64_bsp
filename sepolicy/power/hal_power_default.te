@@ -94,3 +94,15 @@ get_prop(hal_power_default, mtk_thermal_config_prop)
 # genuinely has something to tell the modem. Giving the Power HAL a second,
 # unaudited path into the radio stack is exactly the boundary crossing the
 # /dev/wmtWifi note above rejects.
+
+# NOT GRANTED: hal_power_default x <caller domain>:dir getattr.
+# libpowerhal formats "/proc/%d" and "/proc/%d/comm" to name the process behind
+# a perf hint, so it stats the caller's proc dir; observed twice as
+# `mtkPowerManager` on /proc/<camerahalserver>. That lookup exists to match a
+# process name against the per-application boost table in
+# power_whitelist_cfg.xml, and this build ships that table DELIBERATELY EMPTY
+# (see configs/power_whitelist_cfg.xml). Nothing else consumes the name -- the
+# AOSP POWER_HINT_* scenarios in powerscntbl.xml are keyed by hint, not by
+# caller. Granting it would mean `allow hal_power_default domain:dir getattr`,
+# because the caller can be any client, and that is a wide grant to buy a log
+# line. Revisit only if a real per-application entry is ever added.

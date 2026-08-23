@@ -8,7 +8,35 @@ allow hal_camera_default self:global_capability_class_set sys_nice;
 # AOSP's vendor/hal_camera_default.te grants none; Stock's compiled policy has
 #   (allow mtk_hal_camera sysfs_wake_lock (file (ioctl read write getattr lock append map open)))
 wakelock_use(hal_camera_default)
-allow hal_camera_default hal_graphics_mapper_hwservice:hwservice_manager find;
+
+# The MTK camera provider allocates its own graphics buffers rather than going
+# through the mapper alone: CamClient@RecordStream binds
+# android.hardware.graphics.allocator::IAllocator directly. AOSP's
+# public/hal_camera.te grants `hal_graphics_allocator:fd use` and nothing more,
+# and hal_attribute_hwservice() neverallows a bare `find` from any domain that
+# is not a declared client -- so the macro is the only correct form here, not an
+# allow rule. Denied, video recording loses its allocation path.
+hal_client_domain(hal_camera_default, hal_graphics_allocator)
+# (public/hal_graphics_allocator.te:5 gives every hal_graphics_allocator_client
+# hal_graphics_mapper_hwservice:find, so the standalone rule that used to be
+# here is now redundant.)
+
+# MTK's Mtkcam@SensorProvider feeds accelerometer data to 3A and to the
+# rotation/EIS metadata path through android.frameworks.sensorservice@1.0::
+# ISensorManager, which system_server serves. AOSP's vendor/hal_camera_default.te
+# already grants the hwservice find -- which is why no `find` denial appears --
+# but supplies neither half of the binder pair. Denied, the provider gets a HIDL
+# error it swallows: worse stabilisation and possibly wrong orientation
+# metadata, with nothing logged at the framework. Same shape as mnld, gnss/mnld.te.
+binder_call(hal_camera_default, system_server)
+binder_call(system_server, hal_camera_default)
+
+# The 3A thread walks /sys/class/power_supply to gate high-current flash on
+# battery level. Only the directory search has ever been observed; do not widen
+# to :file until a named file denial appears. public/domain.te's
+# sysfs_batteryinfo neverallow is full_treble_only and scoped to coredomain, so
+# a vendor domain is not covered by it.
+allow hal_camera_default sysfs_batteryinfo:dir search;
 
 # The shared MTK JPEG bridge is used by both the HAL1 camera provider and MMS.
 allow hal_camera_default proc_mtk_jpeg:file r_file_perms;

@@ -22,15 +22,26 @@ allow init mtk_nvdata_file:dir mounton;
 allow fsck mtk_nvdata_block_device:blk_file rw_file_perms;
 allow fsck mtk_protect_block_device:blk_file rw_file_perms;
 
-# NOT GRANTED: init x sysfs_mtk_io_scheduler.
-# The comment used to say "init.rc chmod/chown of the io scheduler knob", but
-# AOSP's init.rc never touches /sys/block/*/queue/*. The only writer is
-# init.mt6755.rc's `write /sys/block/mmcblk0/queue/scheduler deadline`, and that
-# file installs to /vendor/etc/init/hw/, so it runs as vendor_init -- already
-# covered by system/sepolicy/public/vendor_init.te:167
-#   allow vendor_init { sysfs_type -sysfs_usermodehelper }:file rw_file_perms;
-# public/init.te:262-269 deliberately excludes -sysfs_type from init's grant on
-# fs_type; this rule was adding part of it back for nobody.
+# init x sysfs_mtk_io_scheduler. An earlier revision REMOVED this rule, reasoning
+# that AOSP's init.rc never touches /sys/block/*/queue/* and that the only writer
+# is init.mt6755.rc, which installs to /vendor/etc/init/hw/ and therefore runs as
+# vendor_init. Both halves of that are true and the conclusion is still wrong:
+# LineageOS ships its own
+#   vendor/lineage/prebuilt/common/etc/init/lineage-iosched.rc
+# which installs to /SYSTEM/etc/init/, so its `on boot` block runs as init:
+#   restorecon --recursive /sys/block/mmcblk0/queue
+#   chown system system /sys/block/mmcblk0/queue/scheduler   <- setattr
+#   chmod 0664 /sys/block/mmcblk0/queue/scheduler            <- setattr
+# and its `on property:sys.io.scheduler=*` action writes the node.
+#
+# The denial is audit serial 4, ~3 s into every boot. Under enforcing the node
+# would stay root:root 0644 -- so the scheduler stops being settable at runtime
+# at all, and a shipped rc action becomes a permanent silent no-op. Ship the
+# whole mechanism or none of it; half of it is the worst option.
+#
+# The boot-time choice of `deadline` is unaffected either way: that write is
+# init.mt6755.rc's and runs as vendor_init.
+allow init sysfs_mtk_io_scheduler:file { setattr w_file_perms };
 
 # AOSP init.rc:713-722 "chown system system /sys/devices/system/cpu/cpufreq/
 # interactive/min_sample_time" and siblings. This one IS needed: public/init.te

@@ -23,6 +23,15 @@ allow mtk_thermal mtk_thermalloadalgod:unix_stream_socket connectto;
 allow hal_thermal_default proc_mtk_thermal_zone:dir search;
 allow hal_thermal_default proc_mtk_thermal_zone:file r_file_perms;
 
+# IThermal::getCpuUsages() reads /proc/stat. AOSP's public/hal_thermal.te is
+# four lines and grants only the binder pair, so this is an AOSP gap rather than
+# a board fact -- but it is a HAL domain, and public/app_neverallows.te's
+# proc_stat neverallow is scoped to all_untrusted_apps, so nothing forbids it.
+# Denied, getCpuUsages() returns an empty list to
+# HardwarePropertiesManagerService and every consumer of `dumpsys
+# hardware_properties` gets nothing, with no error raised anywhere.
+allow hal_thermal_default proc_stat:file r_file_perms;
+
 # NOT GRANTED, pending evidence: Stock's compiled policy wires the whole media
 # stack into the thermal subsystem --
 #   (allow mtk_hal_camera  proc_thermal (file (getattr open read write)))

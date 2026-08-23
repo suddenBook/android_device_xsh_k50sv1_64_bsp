@@ -1,6 +1,9 @@
 # libged is linked directly by the Mali EGL/gralloc stack.  These domains all
 # either hold a live read-only /proc/ged FD or are explicit Stock EGL startup
 # clients; appdomain is required because applications load libGLES_mali.so.
+# mediaswcodec is here because the Codec2 software decoders still allocate
+# through gralloc: observed as `oid.avc.decoder` doing read/open plus ioctl
+# 0x6765 on /proc/ged, which is inside the range already granted below.
 # isolated_app (the WebView/renderer sandbox, private/app_neverallows.te:7) and
 # ephemeral_app never load the Mali EGL stack, so they are excluded rather than
 # inheriting a proprietary GPU ioctl surface through the appdomain attribute.
@@ -14,6 +17,7 @@ allow {
     hal_graphics_allocator_default
     hal_graphics_composer_default
     mediacodec
+    mediaswcodec
     mediaserver
     surfaceflinger
     system_server
@@ -29,6 +33,7 @@ allowxperm {
     hal_graphics_allocator_default
     hal_graphics_composer_default
     mediacodec
+    mediaswcodec
     mediaserver
     surfaceflinger
     system_server

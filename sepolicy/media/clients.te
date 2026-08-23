@@ -17,8 +17,13 @@ hal_client_domain(mediacodec, hal_mtk_mms)
 # libMtkOmxApeDec is hosted by mediacodec; the other two are Stock's framework
 # control clients.  The service itself has no direct device access.
 hal_client_domain(mediacodec, hal_mtk_codecservice)
-hal_client_domain(mediaserver, hal_mtk_codecservice)
-hal_client_domain(system_server, hal_mtk_codecservice)
+# NOT GRANTED: mediaserver and system_server as hal_mtk_codecservice clients.
+# Both were copied from Stock without evidence, and one is impossible.
+# vendor.mediatek.hardware.mtkcodecservice@1.1.so exists only in /vendor/lib --
+# there is no 64-bit copy and the service binary is ELF 32-bit -- so 64-bit
+# system_server cannot load the client stub at all. mediaserver is 32-bit and so
+# not impossible, but it maps no /vendor library whatsoever at runtime and
+# nothing links the stub into it.
 
 # PQ client libraries read the same non-sensitive tuning switches locally.
 # Only the PQ service can modify the writable property group.
@@ -78,7 +83,13 @@ allowxperm hal_camera_default proc_mtk_m4u:file ioctl { 0x6704 0x6705 0x670b 0x6
 # session. Stock grants mediacodec { ioctl read write getattr lock append map
 # open } on this node plus dir search; only the four that a text sysfs
 # attribute can use are granted here.
-allow mediacodec sysfs_mtk_concurrency_scenario:file { getattr open read write };
+# libbwc's EMI/SMI bandwidth reservation. The camera provider needs it for the
+# same reason mediacodec does, and it fails the same way: `E/BWC: fail to open
+# mem_bw_ctrl driver file`, then an unprioritised profile and dropped frames
+# under concurrent capture+encode, with no error reaching the application. DAC
+# is not the barrier -- the node is media:media 0664 and camerahalserver is in
+# group 1013, which the existence of the AVC already proves.
+allow { mediacodec hal_camera_default } sysfs_mtk_concurrency_scenario:file { getattr open read write };
 
 # libbwc also switches the SMI (Smart Multimedia Interface) profile during an
 # encode session, and it opens /dev/MTK_SMI to do it. This is the second half
