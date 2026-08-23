@@ -207,7 +207,11 @@ function blob_fixup() {
             fi
             LC_ALL=C perl -0pi -e \
                 's/libwifi-hal\.so/libmtk-wifi.so/g' "$2"
-            LC_ALL=C grep -aq 'libmtk-wifi\.so' "$2"
+            if ! LC_ALL=C grep -aq 'libmtk-wifi\.so' "$2" || \
+               LC_ALL=C grep -aq 'libwifi-hal\.so' "$2"; then
+                echo "Wi-Fi HAL service SONAME rewrite did not take" >&2
+                exit 1
+            fi
             ;;
         vendor/lib64/libmtk-wifi.so)
             local match_count
@@ -218,7 +222,11 @@ function blob_fixup() {
             fi
             LC_ALL=C perl -0pi -e \
                 's/libwifi-hal\.so/libmtk-wifi.so/g' "$2"
-            LC_ALL=C grep -aq 'libmtk-wifi\.so' "$2"
+            if ! LC_ALL=C grep -aq 'libmtk-wifi\.so' "$2" || \
+               LC_ALL=C grep -aq 'libwifi-hal\.so' "$2"; then
+                echo "Wi-Fi HAL SONAME rewrite did not take" >&2
+                exit 1
+            fi
             ;;
     esac
 }
