@@ -1,7 +1,7 @@
 /(vendor|system/vendor)/bin/hw/vendor\.mediatek\.hardware\.gpu@1\.0-service             u:object_r:mtk_hal_gpu_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.mediatek\.hardware\.mms@1\.5-service             u:object_r:mtk_hal_mms_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.mediatek\.hardware\.pq@2\.2-service              u:object_r:mtk_hal_pq_exec:s0
-/(vendor|system/vendor)/bin/hw/vendor\.mediatek\.hardware\.mtkcodecservice@1\.1-service u:object_r:hal_mtkcodecservice_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.mediatek\.hardware\.mtkcodecservice@1\.1-service u:object_r:mtk_hal_codecservice_exec:s0
 
 # Reuse the AOSP graphics/video classes.  On this board these resolve to the
 # single sw_sync and Vcodec nodes and preserve existing HWC/media permissions.

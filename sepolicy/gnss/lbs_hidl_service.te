@@ -3,7 +3,10 @@ type lbs_hidl_service_exec, exec_type, vendor_file_type, file_type;
 
 init_daemon_domain(lbs_hidl_service)
 hal_server_domain(lbs_hidl_service, hal_mtk_lbs)
-hwbinder_use(lbs_hidl_service)
+# No hwbinder_use() here: hal_server_domain() above joins halserverdomain, and
+# system/sepolicy/private/halserverdomain.te:6 already applies hwbinder_use()
+# to that attribute. Verified in the linked policy: vendor domains land in the
+# UNVERSIONED halserverdomain typeattributeset, so the platform rule reaches them.
 vndbinder_use(lbs_hidl_service)
 
 # The telephony bridge is covered by radio's formal hal_mtk_lbs client

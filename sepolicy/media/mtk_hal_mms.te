@@ -3,7 +3,10 @@ type mtk_hal_mms_exec, exec_type, vendor_file_type, file_type;
 
 init_daemon_domain(mtk_hal_mms)
 hal_server_domain(mtk_hal_mms, hal_mtk_mms)
-hwbinder_use(mtk_hal_mms)
+# No hwbinder_use() here: hal_server_domain() above joins halserverdomain, and
+# system/sepolicy/private/halserverdomain.te:6 already applies hwbinder_use()
+# to that attribute. Verified in the linked policy: vendor domains land in the
+# UNVERSIONED halserverdomain typeattributeset, so the platform rule reaches them.
 
 # The idle on-demand service holds these three nodes read-only.  Vcodec is
 # opened by the hardware JPEG path and requires bidirectional ioctl buffers.

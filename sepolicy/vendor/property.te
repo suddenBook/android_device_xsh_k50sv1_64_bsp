@@ -1,0 +1,9 @@
+# MTK's audio HAL keeps its per-stream runtime state in properties. Stock's
+# compiled policy has
+#   (allow mtk_hal_audio audiohal_prop (property_service (set)))
+# over vendor.streamout. / vendor.streamin. / vendor.a2dp. / vendor.audiohal. /
+# persist.vendor.audiohal.  Without a device type these fall through AOSP's
+# `vendor.` -> vendor_default_prop catch-all
+# (system/sepolicy/private/property_contexts:171-176), which no vendor domain
+# is allowed to set.
+type mtk_audiohal_prop, property_type;

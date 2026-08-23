@@ -33,10 +33,10 @@ type mtk_protect_block_device, dev_type;
 type mtk_ccci_cfg_file, file_type, data_file_type;
 type mtk_ccci_lpm_file, file_type, data_file_type;
 type mtk_ccci_md3_file, file_type, data_file_type;
-type mtk_modem_nvdata_file, file_type, data_file_type;
-type mtk_modem_config_file, file_type, data_file_type;
-type mtk_protect_f_file, file_type, data_file_type;
-type mtk_protect_s_file, file_type, data_file_type;
+type mtk_modem_nvdata_file, file_type, data_file_type, mtk_nvram_storage_file;
+type mtk_modem_config_file, file_type, data_file_type, mtk_nvram_storage_file;
+type mtk_protect_f_file, file_type, data_file_type, mtk_nvram_storage_file;
+type mtk_protect_s_file, file_type, data_file_type, mtk_nvram_storage_file;
 
 # Narrow procfs/sysfs resources used during modem initialization.
 type proc_mtk_bootprof, fs_type, proc_type;

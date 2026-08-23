@@ -3,7 +3,10 @@ type mtk_hal_gpu_exec, exec_type, vendor_file_type, file_type;
 
 init_daemon_domain(mtk_hal_gpu)
 hal_server_domain(mtk_hal_gpu, hal_mtk_gpu)
-hwbinder_use(mtk_hal_gpu)
+# No hwbinder_use() here: hal_server_domain() above joins halserverdomain, and
+# system/sepolicy/private/halserverdomain.te:6 already applies hwbinder_use()
+# to that attribute. Verified in the linked policy: vendor domains land in the
+# UNVERSIONED halserverdomain typeattributeset, so the platform rule reaches them.
 
 # libged keeps this node open read-only and performs the documented GED ioctl
 # families.  Debugfs GED controls and /dev/mali0 are deliberately not exposed.

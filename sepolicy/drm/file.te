@@ -1,0 +1,7 @@
+# Widevine CDM persistent storage under /data/vendor/mediadrm.
+#
+# A dedicated type rather than the generic vendor_data_file that
+# /data/vendor(/.*)? otherwise gets: hal_drm_default needs create and write
+# access to this tree, and granting that on vendor_data_file would hand the DRM
+# HAL every other vendor HAL's private data directory as well.
+type mediadrm_vendor_data_file, file_type, data_file_type;

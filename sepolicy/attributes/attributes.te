@@ -1,0 +1,74 @@
+# All device-specific attribute declarations live here, in the FIRST directory
+# of BOARD_VENDOR_SEPOLICY_DIRS, so that every later directory can both *use*
+# an attribute and attach a type to it from the type declaration itself.
+#
+# NOTE ON FILE NAME: this must be `attributes.te`, never `attributes`.
+# sepolicy_build_files (system/sepolicy/Android.mk:133) lists `attributes`
+# ahead of `*.te`, and build_policy() (Android.mk:115) loops over *file names*
+# in the outer loop and *directories* in the inner one -- so every directory's
+# `attributes` file is emitted before any directory's `*.te`. A vendor
+# `attributes` file therefore lands in the middle of the shared public prefix
+# of vendor_policy.conf, while being absent from pub_policy.conf entirely.
+# The neverallows that hal_attribute() expands to would then allocate
+# checkpolicy's auto-generated base_typeattr_N names at different indices in
+# the two compilations, and version_policy renames vendor's base_typeattr_N to
+# base_typeattr_N_29_0 *by number* -- so the sets get mismapped and unrelated
+# neverallows fire at the final secilc link. Keeping these in a `*.te` file
+# puts them after the whole shared prefix, where they only allocate new
+# numbers instead of shifting existing ones.
+# (Reproduced: mixing a `user` vendor policy with a `userdebug`
+# plat_pub_versioned.cil produces exactly that failure signature --
+# "neverallow base_typeattr_560_29_0 ..." against
+# "allow base_typeattr_223_29_0 ..." vs "allow base_typeattr_221_29_0 ...".)
+#
+# NOTE ON DIRECTORY: sepolicy/attributes must stay FIRST in
+# BOARD_VENDOR_SEPOLICY_DIRS. mtk_nvram_storage_file's members are declared in
+# connectivity/, nvram/vendor/ and radio/, and each attaches itself in its own
+# `type` statement -- which only requires the *attribute* to already exist.
+# That removes the previous dependency on `safety` being the LAST directory in
+# the list (the old safety/nvram_storage_members.te collected every
+# typeattribute there because a typeattribute needs both operands declared).
+
+# Device-specific HAL attributes.
+#
+# Deliberately NOT in a BOARD_PLAT_PUBLIC_SEPOLICY_DIR: nothing in platform
+# policy references them, and a plat_public declaration is emitted into
+# /system/etc/selinux/plat_sepolicy.cil and (un-versioned) into
+# /vendor/etc/selinux/plat_pub_versioned.cil, so a platform-only OTA or a GSI
+# would drop the symbol and vendor_sepolicy.cil would fail to link at boot.
+#
+#   vendor.mediatek.hardware.lbs::ILbs
+#       /vendor/bin/lbs_hidl_service
+hal_attribute(mtk_lbs)
+#   vendor.mediatek.hardware.gpu::IGraphicExt
+#       /vendor/bin/hw/vendor.mediatek.hardware.gpu@1.0-service
+hal_attribute(mtk_gpu)
+#   vendor.mediatek.hardware.mms::IMms
+#       /vendor/bin/hw/vendor.mediatek.hardware.mms@1.5-service
+hal_attribute(mtk_mms)
+#   vendor.mediatek.hardware.pq::IPictureQuality
+#       /vendor/bin/hw/vendor.mediatek.hardware.pq@2.2-service
+hal_attribute(mtk_pq)
+#   vendor.mediatek.hardware.mtkcodecservice::IMtkCodecService
+#       /vendor/bin/hw/vendor.mediatek.hardware.mtkcodecservice@1.1-service
+hal_attribute(mtk_codecservice)
+#   vendor.mediatek.hardware.nvram::INvram
+#       /vendor/bin/hw/vendor.mediatek.hardware.nvram@1.1-service
+hal_attribute(mtk_nvram)
+#   vendor.mediatek.hardware.imsa::IImsa
+#       /vendor/bin/hw/vendor.mediatek.hardware.imsa@1.0-service
+hal_attribute(mtk_imsa)
+#   vendor.mediatek.hardware.mtkradioex::IMtkRadioEx
+#       published by /vendor/bin/hw/rilproxy (rild domain).
+# hal_mtk_radioex replaces the previous reuse of the platform hal_telephony
+# attribute: hal_telephony_client resolves to { bluetooth radio su }, so
+# attaching mtk_radioex_hwservice to it let the Bluetooth app look up MTK's
+# private RIL extension. Stock does the same thing -- its own compiled policy
+# puts IMtkRadioEx on a dedicated mtk_hal_rild_hwservice, not on telephony.
+hal_attribute(mtk_radioex)
+
+# Every storage type the two trusted NVRAM providers (nvram_daemon and
+# nvram_agent_binder) must be able to migrate, back up and restore. Members
+# attach themselves in their own `type` statements; see the directory note
+# above for why that is done here rather than with typeattribute.
+attribute mtk_nvram_storage_file;

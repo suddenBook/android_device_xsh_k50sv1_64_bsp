@@ -5,12 +5,12 @@ type mtk_proinfo_block_device, dev_type;
 type mtk_adc_calibration_device, dev_type;
 
 # NVRAM metadata and the physically present calibration categories.
-type mtk_nvdata_file, file_type, data_file_type;
-type mtk_accel_nvram_file, file_type, data_file_type;
-type mtk_bt_nvram_file, file_type, data_file_type;
-type mtk_gps_nvram_file, file_type, data_file_type;
-type mtk_audio_nvram_file, file_type, data_file_type;
-type mtk_camera_nvram_file, file_type, data_file_type;
+type mtk_nvdata_file, file_type, data_file_type, mtk_nvram_storage_file;
+type mtk_accel_nvram_file, file_type, data_file_type, mtk_nvram_storage_file;
+type mtk_bt_nvram_file, file_type, data_file_type, mtk_nvram_storage_file;
+type mtk_gps_nvram_file, file_type, data_file_type, mtk_nvram_storage_file;
+type mtk_audio_nvram_file, file_type, data_file_type, mtk_nvram_storage_file;
+type mtk_camera_nvram_file, file_type, data_file_type, mtk_nvram_storage_file;
 
 # mtk_nvram_storage_file is declared in nvram/vendor/attributes and its
 # membership is assigned in safety/nvram_storage_members.te; see the comment

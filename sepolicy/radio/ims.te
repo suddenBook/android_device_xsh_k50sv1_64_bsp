@@ -11,8 +11,11 @@ type volte_ua, domain;
 type volte_ua_exec, exec_type, vendor_file_type, file_type;
 
 init_daemon_domain(mtk_hal_imsa)
-hal_server_domain(mtk_hal_imsa, hal_imsa)
-hwbinder_use(mtk_hal_imsa)
+hal_server_domain(mtk_hal_imsa, hal_mtk_imsa)
+# No hwbinder_use() here: hal_server_domain() above joins halserverdomain, and
+# system/sepolicy/private/halserverdomain.te:6 already applies hwbinder_use()
+# to that attribute. Verified in the linked policy: vendor domains land in the
+# UNVERSIONED halserverdomain typeattributeset, so the platform rule reaches them.
 
 # The HIDL service exchanges IMS requests only with MAL's volte_imsm socket.
 allow mtk_hal_imsa mtk_volte_imsm_socket:sock_file write;
@@ -92,7 +95,9 @@ allow mtkmal mtk_mal_mfi_socket:sock_file write;
 #        tcontext=u:r:mtkmal:s0 tclass=unix_stream_socket
 allow mtkrild mtk_mal_mfi_socket:sock_file write;
 allow mtkrild mtkmal:unix_stream_socket connectto;
-allow mtkmal self:unix_stream_socket connectto;
+# No "allow mtkmal self:unix_stream_socket connectto": system/sepolicy/public/
+# domain.te:29 already grants every domain
+#   allow domain self:unix_stream_socket { create_stream_socket_perms connectto };
 allow mtkmal mtk_volte_imsa_socket:sock_file write;
 allow mtkmal volte_imcb:unix_stream_socket connectto;
 
@@ -105,18 +110,12 @@ allow volte_imcb mtk_ccci_ims_device:chr_file rw_file_perms;
 allow volte_imcb sysfs_mtk_ccci:dir r_dir_perms;
 allow volte_imcb sysfs_mtk_ccci:file r_file_perms;
 allow volte_imcb self:global_capability_class_set { setgid setuid };
-allow volte_imcb self:tcp_socket {
-    accept
-    bind
-    create
-    getattr
-    listen
-    read
-    setopt
-    write
-};
-allow volte_imcb node:tcp_socket node_bind;
-allow volte_imcb port:tcp_socket name_bind;
+# No self:tcp_socket / node_bind / name_bind rules: net_domain() above already
+# pulls in system/sepolicy/public/net.te:11-19, which grants every netdomain
+#   allow netdomain self:tcp_socket create_stream_socket_perms;
+#   allow {netdomain -ephemeral_app} node_type:{...tcp_socket...} node_bind;
+#   allow {netdomain -ephemeral_app} port_type:tcp_socket name_bind;
+# and `node`/`port` are the sole members of node_type/port_type (public/net.te:2-4).
 allow volte_imcb mtk_volte_ua_socket:sock_file write;
 allow volte_imcb volte_ua:unix_stream_socket connectto;
 set_prop(volte_imcb, mtk_volte_runtime_prop)
@@ -137,35 +136,16 @@ allow volte_stack self:netlink_xfrm_socket {
     read
     write
 };
-allow volte_stack self:tcp_socket {
-    accept
-    bind
-    connect
-    create
-    getattr
-    listen
-    read
-    setopt
-    shutdown
-    write
-};
-allow volte_stack self:udp_socket {
-    bind
-    create
-    read
-    setopt
-    shutdown
-    write
-};
+# self:tcp_socket and self:udp_socket are covered by net_domain() -- see the
+# note on volte_imcb above. Only the non-netdomain socket classes below need
+# an explicit rule.
 # volte_stack re-opens its own init-created /dev/socket/volte_stack by
 # pathname during SIP stack bring-up rather than using only the inherited fd:
 #   avc: denied { write } for comm="volte_stack" name="volte_stack"
 #        tcontext=u:object_r:mtk_volte_stack_socket:s0 tclass=sock_file
 allow volte_stack mtk_volte_stack_socket:sock_file write;
 
-allow volte_stack node:{ tcp_socket udp_socket } node_bind;
-allow volte_stack port:{ tcp_socket udp_socket } name_bind;
-allow volte_stack port:tcp_socket name_connect;
+# node_bind / name_bind / name_connect: covered by net.te:15-19 via net_domain().
 
 # User agent connects only to the SIP stack; WFC/WFCA is intentionally absent.
 init_daemon_domain(volte_ua)
@@ -173,23 +153,24 @@ net_domain(volte_ua)
 
 allow volte_ua self:global_capability_class_set { setgid setuid };
 allow volte_ua self:capability2 wake_alarm;
-allow volte_ua self:udp_socket { bind create read setopt };
-allow volte_ua node:udp_socket node_bind;
+# self:udp_socket and node_bind: covered by net.te via net_domain().
 allow volte_ua mtk_volte_stack_socket:sock_file write;
 allow volte_ua volte_stack:unix_stream_socket connectto;
 
-# Android's fwmarkd endpoint is the public Treble boundary of libnetd_client;
-# the private netd_socket type must not leak into vendor policy.
-allow { volte_imcb volte_stack volte_ua } fwmarkd_socket:sock_file write;
-allow { volte_imcb volte_stack volte_ua } netd:unix_stream_socket connectto;
+# volte_ua re-opens its own init-created /dev/socket/volte_ua by pathname, the
+# same way volte_stack does above. Stock's compiled policy has the matching
+#   (allow volte_ua volte_ua_socket (sock_file (write)))
+# and this tree already hit and fixed the identical bug for volte_stack.
+allow volte_ua mtk_volte_ua_socket:sock_file write;
 
-allow netd { volte_imcb volte_stack volte_ua }:fd use;
-allow netd { volte_imcb volte_stack volte_ua }:{ tcp_socket udp_socket } {
-    getopt
-    read
-    setopt
-    write
-};
+# No fwmarkd / netd rules here. libnetd_client's public Treble boundary is
+# already wired up for every netdomain by the platform:
+#   system/sepolicy/public/net.te:27  unix_socket_connect(netdomain, fwmarkd, netd)
+#   system/sepolicy/public/netd.te:104-111
+#       allow netd netdomain:{ icmp_socket tcp_socket udp_socket rawip_socket
+#                              tun_socket } { read write getattr setattr getopt setopt };
+#       allow netd netdomain:fd use;
+# Re-stating them here only hid the fact that net_domain() is what grants them.
 
 # Read-only product/feature state used by each native process.
 get_prop(volte_imcb, mtk_ims_prop)
@@ -199,10 +180,21 @@ get_prop(volte_stack, mtk_ims_feature_prop)
 get_prop(volte_ua, mtk_ims_prop)
 get_prop(volte_ua, mtk_ims_feature_prop)
 
-# Existing RIL processes inspect the same one-stack/voice-only contract.
-get_prop(rild, mtk_ims_prop)
-get_prop(rild, mtk_ims_feature_prop)
-get_prop(mtkrild, mtk_ims_prop)
+# Existing RIL processes inspect the same one-stack/voice-only contract -- and
+# rilproxy WRITES it back as the modem reports capability. Stock's compiled
+# policy grants rild property_service set on every one of the split types this
+# tree collapses into mtk_ims_prop / mtk_ims_feature_prop:
+#   (allow rild mtk_volte_prop (property_service (set)))          -> feature
+#   (allow rild mtk_vilte_prop ...)  (allow rild mtk_viwifi_prop ...)
+#   (allow rild mtk_wfc_prop ...)    (allow rild mtk_vt_prop ...)
+#   (allow rild mtk_volte_support_prop (property_service (set)))  -> ims
+#   (allow rild mtk_vilte_support_prop ...) (allow rild mtk_viwifi_support_prop ...)
+#   (allow rild mtk_wfc_support_prop ...)   (allow rild mtk_rcs_ua_support_prop ...)
+#   (allow rild mtk_ims_prop ...)    (allow mtkrild mtk_ims_prop ...)
+# set_prop() is a superset of get_prop(), so these replace the previous reads.
+set_prop(rild, mtk_ims_prop)
+set_prop(rild, mtk_ims_feature_prop)
+set_prop(mtkrild, mtk_ims_prop)
 get_prop(mtkrild, mtk_ims_feature_prop)
 get_prop(rild, mtk_volte_runtime_prop)
 get_prop(mtkrild, mtk_volte_runtime_prop)

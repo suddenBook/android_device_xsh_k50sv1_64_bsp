@@ -1,9 +1,0 @@
-type hal_mtkcodecservice_default, domain;
-type hal_mtkcodecservice_default_exec, exec_type, vendor_file_type, file_type;
-
-init_daemon_domain(hal_mtkcodecservice_default)
-hal_server_domain(hal_mtkcodecservice_default, hal_mtkcodecservice)
-hwbinder_use(hal_mtkcodecservice_default)
-
-# The 32-bit APE service exchanges HIDL memory only; it opens no media device.
-hal_client_domain(hal_mtkcodecservice_default, hal_allocator)

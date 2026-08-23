@@ -1,0 +1,12 @@
+# AOSP's android.hardware.drm@1.0-service runs as hal_drm_default and dlopens
+# /vendor/lib/mediadrm/libwvdrmengine.so. Everything the Widevine CDM needs
+# beyond the plugin itself is already in public/hal_drm.te (execmem, tee_device,
+# ion_device, serialno_prop) except its own storage.
+
+# Reach the directory init created for it. /data/vendor itself keeps the
+# generic label, so this is search only -- no read of the directory listing.
+allow hal_drm_default vendor_data_file:dir search;
+
+# The provisioned device identity, offline licence store and usage tables.
+allow hal_drm_default mediadrm_vendor_data_file:dir create_dir_perms;
+allow hal_drm_default mediadrm_vendor_data_file:file create_file_perms;

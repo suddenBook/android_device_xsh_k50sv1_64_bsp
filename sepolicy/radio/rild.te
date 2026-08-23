@@ -1,5 +1,10 @@
 # rilproxy is intentionally kept in AOSP's rild/hal_telephony_server domain.
 vndbinder_use(rild)
+
+# The modem keeps the AP awake across an incoming call setup. AOSP's
+# vendor/rild.te grants no wakelock; Stock's compiled policy has
+#   (allow rild sysfs_wake_lock (file (ioctl read write getattr lock append map open)))
+wakelock_use(rild)
 hal_client_domain(rild, hal_audio)
 
 # rilproxy publishes the vendor extension in addition to the standard Android
@@ -30,9 +35,14 @@ allow rild mtkrild:unix_stream_socket connectto;
 set_prop(rild, mtk_ril_mux_report_prop)
 set_prop(rild, mtk_vendor_radio_prop)
 set_prop(rild, mtk_telephony_sensitive_prop)
-get_prop(rild, mtk_ril_mux_prop)
+# rilproxy publishes the selected modem and the mux configuration, it does not
+# only read them. Stock's compiled policy has
+#   (allow rild ril_active_md_prop (property_service (set)))
+#   (allow rild gsm0710muxd_prop (property_service (set)))
+# which are vendor.ril.active.md and the vendor.ril.mux. namespace here.
+set_prop(rild, mtk_ril_active_md_prop)
+set_prop(rild, mtk_ril_mux_prop)
 get_prop(rild, mtk_muxreport_state_prop)
-get_prop(rild, mtk_ril_active_md_prop)
 get_prop(rild, mtk_modem_status_prop)
 get_prop(rild, mtk_radio_config_prop)
 

@@ -1,0 +1,15 @@
+# Widevine CDM persistent storage.
+#
+# The Level 3 CDM keeps its provisioned device identity under
+# /data/vendor/mediadrm (the blob names /data/vendor/mediadrm/IDM directly) and
+# creates the tree itself on first use. AOSP's
+# android.hardware.drm@1.0-service.rc does not create it -- upstream leaves the
+# directory to whichever vendor actually ships a plugin -- and hal_drm_default
+# has no write access to the generic vendor_data_file label on /data/vendor, so
+# without this the very first provisioning attempt fails and every DRM playback
+# falls back to "no supported scheme".
+#
+# Create it here with the ownership Stock uses, so the HAL only ever needs
+# permission *inside* the directory; sepolicy/drm gives it its own label.
+on post-fs-data
+    mkdir /data/vendor/mediadrm 0770 media mediadrm

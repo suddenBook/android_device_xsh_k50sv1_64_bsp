@@ -8,9 +8,9 @@ type mtk_imsa_hwservice, hwservice_manager_type;
 #        scontext=u:r:radio:s0 tcontext=u:r:mtk_hal_imsa:s0 tclass=binder
 #   avc: denied { call } comm="imsa@1.0-servic"
 #        scontext=u:r:mtk_hal_imsa:s0 tcontext=u:r:radio:s0 tclass=binder
-binder_call(hal_imsa_client, hal_imsa_server)
-binder_call(hal_imsa_server, hal_imsa_client)
-hal_attribute_hwservice(hal_imsa, mtk_imsa_hwservice)
+binder_call(hal_mtk_imsa_client, hal_mtk_imsa_server)
+binder_call(hal_mtk_imsa_server, hal_mtk_imsa_client)
+hal_attribute_hwservice(hal_mtk_imsa, mtk_imsa_hwservice)
 
 # MtkRadioEx is rilproxy's private extension (10 interface versions x 12
 # instances of RIL internals: EM, Capability, RCS, SE, IMS slots). It used to be

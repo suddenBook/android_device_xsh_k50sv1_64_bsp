@@ -16,9 +16,9 @@ hal_client_domain(mediacodec, hal_mtk_mms)
 
 # libMtkOmxApeDec is hosted by mediacodec; the other two are Stock's framework
 # control clients.  The service itself has no direct device access.
-hal_client_domain(mediacodec, hal_mtkcodecservice)
-hal_client_domain(mediaserver, hal_mtkcodecservice)
-hal_client_domain(system_server, hal_mtkcodecservice)
+hal_client_domain(mediacodec, hal_mtk_codecservice)
+hal_client_domain(mediaserver, hal_mtk_codecservice)
+hal_client_domain(system_server, hal_mtk_codecservice)
 
 # PQ client libraries read the same non-sensitive tuning switches locally.
 # Only the PQ service can modify the writable property group.

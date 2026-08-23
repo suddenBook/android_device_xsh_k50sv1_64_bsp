@@ -1,0 +1,12 @@
+type mtk_hal_codecservice, domain;
+type mtk_hal_codecservice_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(mtk_hal_codecservice)
+hal_server_domain(mtk_hal_codecservice, hal_mtk_codecservice)
+# No hwbinder_use() here: hal_server_domain() above joins halserverdomain, and
+# system/sepolicy/private/halserverdomain.te:6 already applies hwbinder_use()
+# to that attribute. Verified in the linked policy: vendor domains land in the
+# UNVERSIONED halserverdomain typeattributeset, so the platform rule reaches them.
+
+# The 32-bit APE service exchanges HIDL memory only; it opens no media device.
+hal_client_domain(mtk_hal_codecservice, hal_allocator)

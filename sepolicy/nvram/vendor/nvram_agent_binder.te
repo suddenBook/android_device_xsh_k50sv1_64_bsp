@@ -2,7 +2,10 @@ type nvram_agent_binder, domain;
 type nvram_agent_binder_exec, exec_type, vendor_file_type, file_type;
 
 init_daemon_domain(nvram_agent_binder)
-hwbinder_use(nvram_agent_binder)
+# No hwbinder_use() here: hal_server_domain() above joins halserverdomain, and
+# system/sepolicy/private/halserverdomain.te:6 already applies hwbinder_use()
+# to that attribute. Verified in the linked policy: vendor domains land in the
+# UNVERSIONED halserverdomain typeattributeset, so the platform rule reaches them.
 hal_server_domain(nvram_agent_binder, hal_mtk_nvram)
 
 # INvram supports reads, writes and explicit full backup/restore operations.

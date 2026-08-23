@@ -1,0 +1,5 @@
+vendor.streamout.          u:object_r:mtk_audiohal_prop:s0
+vendor.streamin.           u:object_r:mtk_audiohal_prop:s0
+vendor.a2dp.               u:object_r:mtk_audiohal_prop:s0
+vendor.audiohal.           u:object_r:mtk_audiohal_prop:s0
+persist.vendor.audiohal.   u:object_r:mtk_audiohal_prop:s0

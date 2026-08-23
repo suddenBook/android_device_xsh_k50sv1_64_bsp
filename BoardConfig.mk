@@ -98,12 +98,19 @@ BOARD_AVB_ENABLE := false
 # would drop the symbol and vendor_sepolicy.cil would fail to link at boot.
 #
 # sepolicy/private holds only rules whose subject and object are both core
-# types (init, system_app) -- board facts never belong there.
+# types (init, system_app, vendor_init x vold_prop) -- board facts never
+# belong there.
 BOARD_PLAT_PRIVATE_SEPOLICY_DIR += \
     $(DEVICE_PATH)/sepolicy/private
 
+# sepolicy/attributes MUST stay first: it declares every device attribute, and
+# the types that join mtk_nvram_storage_file do so from their own `type`
+# statement in connectivity/, nvram/vendor/ and radio/, which requires the
+# attribute to already exist. Nothing else in this list is order-sensitive.
 BOARD_VENDOR_SEPOLICY_DIRS += \
+    $(DEVICE_PATH)/sepolicy/attributes \
     $(DEVICE_PATH)/sepolicy/connectivity \
+    $(DEVICE_PATH)/sepolicy/drm \
     $(DEVICE_PATH)/sepolicy/gnss \
     $(DEVICE_PATH)/sepolicy/media \
     $(DEVICE_PATH)/sepolicy/nvram/vendor \

@@ -5,3 +5,12 @@ vndbinder_use(hal_audio_default)
 
 allow hal_audio_default mtk_audiohal_data_file:dir create_dir_perms;
 allow hal_audio_default mtk_audiohal_data_file:file create_file_perms;
+
+# Per-stream runtime state; see vendor/property.te for why this needs a device
+# type rather than falling through to vendor_default_prop.
+set_prop(hal_audio_default, mtk_audiohal_prop)
+
+# The audio HAL holds a wakelock across a call and during offloaded playback.
+# AOSP's public/hal_audio.te grants none; Stock's compiled policy has
+#   (allow mtk_hal_audio sysfs_wake_lock (file (ioctl read write getattr lock append map open)))
+wakelock_use(hal_audio_default)

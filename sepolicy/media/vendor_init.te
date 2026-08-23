@@ -1,0 +1,28 @@
+# vendor_init property writes.
+#
+# /vendor/build.prop -- which the build appends device/xsh/k50sv1_64_bsp/vendor.prop
+# to (build/make/core/Makefile:489) -- and every setprop in a /vendor rc file are
+# evaluated in the vendor_init context, not init:
+#   system/core/init/subcontext.cpp:56-58   {"/vendor", kVendorContext="u:r:vendor_init:s0"}
+#   system/core/init/property_service.cpp:656-663, 726
+#       LoadProperties() picks that context by path prefix and then calls
+#       CheckPermissions(), which is a real selinux_check_access() on
+#       <type>:property_service:set.
+# system/sepolicy/public/vendor_init.te:220-246 grants vendor_init a fixed list
+# of PLATFORM property types only, so a device-defined type needs its own rule
+# or the assignment is dropped with
+#   init: Do not have permissions to set <key> ... in property file /vendor/build.prop
+# Stock does exactly this: its vendor_init_29_0 carries property_service set on
+# ~90 MTK property types.
+
+# vendor.prop: ro.vendor.mtk_aal_support, ro.vendor.mtk_pq_color_mode,
+#              ro.vendor.mtk_pq_support
+set_prop(vendor_init, mtk_pq_ro_prop)
+
+# rootdir/etc/init/hw/init.mt6755.rc "on post-fs" hands libbwc's EMI/SMI
+# bandwidth node to the media UID:
+#   chmod 0664 /sys/bus/platform/drivers/mem_bw_ctrl/concurrency_scenario
+#   chown media media /sys/bus/platform/drivers/mem_bw_ctrl/concurrency_scenario
+# A /vendor rc runs its chown/chmod in vendor_init, and public/vendor_init.te:29
+# documents that chown/chmod needs open+read alongside setattr.
+allow vendor_init sysfs_mtk_concurrency_scenario:file { getattr open read setattr };

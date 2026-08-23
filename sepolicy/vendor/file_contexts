@@ -10,14 +10,61 @@
 /data/vendor/sensor(/.*)?         u:object_r:mtk_sensor_data_file:s0
 
 # Canonical Android partition labels for the physical MTK GPT layout.  Label
-# both the real nodes and stable aliases because consumers resolve both forms.
+# both the real nodes and stable aliases because consumers resolve both forms:
+# ueventd applies the best-matching file_contexts entry to the *device node*
+# (system/core/init/devices.cpp:263) and creates the by-name symlink without
+# fscreatecon, so the link inherits its parent directory.
+#
+# Partition map read off the handset
+# (/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name):
+#   boot p20  cache p29  frp p4   metadata p7  nvdata p6  nvram p17
+#   para p2   proinfo p12  protect1 p8  protect2 p9  recovery p1
+#   system p28  userdata p30  vendor p27
 /dev/block/mmcblk0p4              u:object_r:frp_block_device:s0
 /dev/block/mmcblk0p7              u:object_r:metadata_block_device:s0
 /dev/block/mmcblk0p29             u:object_r:cache_block_device:s0
-/dev/block/zram0                  u:object_r:swap_block_device:s0
 /dev/block/platform/mtk-msdc\.0/11230000\.msdc0/by-name/frp      u:object_r:frp_block_device:s0
 /dev/block/platform/mtk-msdc\.0/11230000\.msdc0/by-name/metadata u:object_r:metadata_block_device:s0
 /dev/block/platform/mtk-msdc\.0/11230000\.msdc0/by-name/cache    u:object_r:cache_block_device:s0
+
+# /data. rootdir/etc/fstab.mt6755 mounts this "wait,check,formattable,quota,
+# forcefdeorfbe=...", so THREE core domains need the canonical type and get
+# nothing from the generic block_device fallback:
+#   system/sepolicy/public/fsck.te:18   allow fsck userdata_block_device:blk_file rw_file_perms;
+#   system/sepolicy/public/vold.te:196  allow vold userdata_block_device:blk_file rw_file_perms;
+#   system/sepolicy/public/e2fs.te:8    allow e2fs userdata_block_device:blk_file rw_file_perms;
+# plus device/lineage/sepolicy/common/private/mkfs.te:8. Without this label
+# e2fsck and the FDE bring-up of /data are both denied on an enforcing build --
+# the same failure this tree already fixed for nvdata and protect1/protect2 in
+# sepolicy/vendor/init.te.
+/dev/block/mmcblk0p30             u:object_r:userdata_block_device:s0
+/dev/block/platform/mtk-msdc\.0/11230000\.msdc0/by-name/userdata u:object_r:userdata_block_device:s0
+
+# Read-only OS partitions and the two flashable images. Nothing in this tree is
+# granted write on system_block_device -- public/domain.te:590-597 neverallows
+# it outside fastbootd/recovery/update_engine -- but install_recovery
+# (public/install_recovery.te:19-20) and recovery need the canonical types, and
+# leaving them on the generic block_device fallback is what silently breaks
+# sideload/OTA. Android Q has no separate vendor_block_device type, so /vendor
+# shares system_block_device.
+/dev/block/mmcblk0p28             u:object_r:system_block_device:s0
+/dev/block/mmcblk0p27             u:object_r:system_block_device:s0
+/dev/block/mmcblk0p20             u:object_r:boot_block_device:s0
+/dev/block/mmcblk0p1              u:object_r:recovery_block_device:s0
+/dev/block/platform/mtk-msdc\.0/11230000\.msdc0/by-name/system   u:object_r:system_block_device:s0
+/dev/block/platform/mtk-msdc\.0/11230000\.msdc0/by-name/vendor   u:object_r:system_block_device:s0
+/dev/block/platform/mtk-msdc\.0/11230000\.msdc0/by-name/boot     u:object_r:boot_block_device:s0
+/dev/block/platform/mtk-msdc\.0/11230000\.msdc0/by-name/recovery u:object_r:recovery_block_device:s0
+
+# zram. This deliberately overrides AOSP's /dev/block/zram[0-9]* -> ram_device
+# (system/sepolicy/private/file_contexts:85) because the swap really is in use:
+# init.mt6755.rc "on post-fs-data" runs "swapon_all /vendor/etc/fstab.enableswap"
+# and /proc/swaps on the handset shows /dev/block/zram0 active. swapon_all is
+# declared {false, do_swapon_all} in system/core/init/builtins.cpp:1282 -- the
+# false is run_in_subcontext -- so it executes as init, which
+# public/init.te:495 already allows on swap_block_device. Do not "clean this
+# up": ram_device has no consumer anywhere in the policy.
+/dev/block/zram0                  u:object_r:swap_block_device:s0
 
 # SP-HALs are loaded directly by framework processes and applications.  The
 # standard type carries the constrained execute/map contract required by
@@ -25,7 +72,7 @@
 /(vendor|system/vendor)/lib(64)?/hw/gralloc\.mt6755\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libged\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libdpframework\.so u:object_r:same_process_hal_file:s0
-/(vendor|system/vendor)/lib(64)?/(libgpu_aux|libgpud|libgralloc_extra|libion_mtk|libion_ulit|libladder|libpq_cust|libpq_prot)\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/(libgpu_aux|libgpud|libgralloc_extra|libion_mtk|libion_ulit|libladder|libm4u|libpq_cust|libpq_prot)\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/vendor\.mediatek\.hardware\.gpu@1\.0\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/vendor\.mediatek\.hardware\.mms@1\.[0-5]\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/vendor\.mediatek\.hardware\.pq@2\.0\.so u:object_r:same_process_hal_file:s0

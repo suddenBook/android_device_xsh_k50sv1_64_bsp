@@ -631,3 +631,33 @@ vendor/lib/libvp8dec_sa.ca7.so
 vendor/lib/libvp8enc_sa.ca7.so
 vendor/lib/libvp9dec_sa.ca7.so
 vendor/lib/vendor.mediatek.hardware.mtkcodecservice@1.1.so
+
+# DRM / Widevine (Level 3, legacy drm@1.0 plugin path)
+# The port serves DRM with AOSP's android.hardware.drm@1.0-impl/-service, which
+# dlopens plugins from getDrmPluginPath() -- /vendor/lib/mediadrm for a 32-bit
+# service, /vendor/lib64/mediadrm for a 64-bit one
+# (hardware/interfaces/drm/1.0/default/LegacyPluginPath.cpp). AOSP forces that
+# service to 32-bit unless TARGET_ENABLE_MEDIADRM_64 is set
+# (drm/1.0/default/common_default_service.mk), so today only the 32-bit copy is
+# ever loaded; the 64-bit copy is kept so flipping that board flag stays a
+# one-line change instead of a silent loss of DRM.
+#
+# The Stock blob exports the legacy createDrmFactory/createCryptoFactory ABI in
+# both architectures, which is exactly what @1.0-impl's PluginLoader looks for,
+# and its DT_NEEDED closure is entirely VNDK/LLNDK (libbase, liblog,
+# libprotobuf-cpp-lite, libstagefright_foundation, libutils) -- nothing
+# MediaTek-specific, so it needs no other blob.
+#
+# Stock instead runs its own android.hardware.drm@1.2-service.widevine backed
+# by libwvhidl.so under the "widevine" instance name. That path is NOT ported:
+# it would need the service, libwvhidl, three more manifest <fqname> entries and
+# its own SELinux domain, for a newer HIDL minor version this device gains
+# nothing from. The @1.0 instance is already declared in manifest.xml.
+#
+# Level 1 needs an OEMCrypto root of trust in the TEE that this clone does not
+# provision -- the blob itself logs "Bad Level 1 Root of Trust. Falling Back to
+# L3." -- so this is Widevine L3: SD streaming and DRM audio, not HD.
+# /data/vendor/mediadrm is created by rootdir/etc/init/init.mediadrm.rc and
+# labelled by sepolicy/drm.
+vendor/lib/mediadrm/libwvdrmengine.so
+vendor/lib64/mediadrm/libwvdrmengine.so
