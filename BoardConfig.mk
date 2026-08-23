@@ -17,6 +17,12 @@ TARGET_USES_64_BIT_BINDER := true
 TARGET_BOARD_PLATFORM := mt6755
 TARGET_BOOTLOADER_BOARD_NAME := k50sv1_64_bsp
 TARGET_NO_BOOTLOADER := true
+# Inert in Android 10, kept as a statement of fact rather than a working flag.
+# Its single occurrence in the build system is membership in
+# board_config.mk's _board_strip_readonly_list, which only strips and marks it
+# read-only; nothing consumes it. INSTALLED_RADIOIMAGE_TARGET is populated
+# exclusively by definitions.mk's add-radio-file macros, which this tree never
+# calls. Contrast TARGET_NO_BOOTLOADER on the next line, which IS live.
 TARGET_NO_RADIOIMAGE := true
 VENDOR_SECURITY_PATCH := 2020-08-05
 

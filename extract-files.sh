@@ -336,7 +336,7 @@ PROPRIETARY_ROOT="${LINEAGE_ROOT}/vendor/${VENDOR}/${DEVICE}/proprietary"
 (
     cd "${PROPRIETARY_ROOT}"
     find . \( -type f -o -type l \) ! -name SHA256SUMS -print0 \
-        | sort -z \
+        | LC_ALL=C sort -z \
         | xargs -0 sha256sum >SHA256SUMS
 )
 

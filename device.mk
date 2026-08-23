@@ -199,6 +199,29 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     ro.logd.size=1M
 endif
 
+# Silence one vendor tag that carries no information and 21% of the main buffer.
+#
+# /vendor/bin/fuelgauged tries to open /dev/kmsg for its own logging, which is
+# crw------- root root while the daemon runs as `system`, so the open fails and
+# it logs the failure -- "fd < 0, init first!" / "init failed, return!" -- about
+# 17 times a second, forever. The gauge itself works fine; dmesg shows its ADC
+# reads and dumpsys battery is correct. What is lost is only its kmsg logging.
+#
+# Measured: 346 lines in 20 s, the largest single tag in the buffer, ahead of
+# the camera HAL's 3A tags.
+#
+# The obvious fix is not the fix. /sys/devices/platform/battery_meter/
+# FG_daemon_log_level looks like the gate and is not: writing 0 changed the rate
+# from 346 to 344 lines per 20 s, i.e. not at all. Stock's answer -- `chmod 0666
+# /dev/kmsg` in its charger block -- world-writes the kernel log to buy back a
+# log line, which is a bad trade in both directions.
+#
+# liblog's own tag gate does work, measured 0 lines per 20 s.
+# `log.tag.` rather than `persist.log.tag.` deliberately: both work, and this
+# one involves no /data state that survives a wipe or diverges from the build.
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    log.tag.MTK_FG=S
+
 # Screen-on maximum performance. One leaf daemon; see perfd/k50sv1_perfd.c for
 # why it exists, what it measured, and the six-site recipe to remove it.
 PRODUCT_PACKAGES += \

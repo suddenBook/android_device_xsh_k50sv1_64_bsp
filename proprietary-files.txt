@@ -335,6 +335,15 @@ vendor/etc/audio_effects.xml
 vendor/etc/audio_em.xml
 vendor/etc/audio_param/AudioParamOptions.xml
 vendor/etc/audio_param/BtInfo_AudioParam.xml
+# THREE files in this block differ from stock by exactly one appended 0x0a, and
+# no blob_fixup causes it: SoundEnhancement_ParamUnitDesc.xml,
+# UplinkConfiguration_ParamUnitDesc.xml and VoIPv2DMNR_ParamUnitDesc.xml. They
+# are the only three files under audio_param/ that stock ships without a
+# trailing newline, and extract_utils' own fix_xml() runs on every .xml before
+# blob_fixup and always terminates the last line. Deterministic and
+# re-derivable -- replaying fix_xml on the stock copies reproduces all three
+# hashes exactly -- but without this note a future auditor diffing against
+# stock finds three unexplained mismatches and no fixup to attribute them to.
 vendor/etc/audio_param/BtInfo_ParamUnitDesc.xml
 vendor/etc/audio_param/HpImpedance_AudioParam.xml
 vendor/etc/audio_param/HpImpedance_ParamUnitDesc.xml
@@ -543,6 +552,15 @@ vendor/lib64/vendor.mediatek.hardware.wifi.supplicant@2.0.so
 vendor/lib64/vendor.mediatek.hardware.wifi.supplicant@2.1.so
 
 # GNSS / LBS (64-bit HIDL with 32-bit helpers)  -- section: gnss
+#
+# NETWORK BEHAVIOUR, stated because nothing else here says it: mnld downloads
+# GNSS assistance data from MediaTek's own servers -- qepodownload.mediatek.com
+# and qgepodownload.mediatek.com over HTTPS, with an MD5 integrity check -- and
+# writes EPO.DAT, QEPO.DAT and MTKNAV.DAT into /data/vendor/gps. It is live on
+# the handset. This is not a security hole, but it IS unconsented vendor traffic
+# on a device whose SUPL profile was deliberately trimmed from stock's 33
+# entries to one TLS-1.2 production entry with CA verification on. There is an
+# EPO_ENABLE knob inside the binary if it should ever be turned off.
 vendor/bin/hw/android.hardware.gnss@2.0-service-mediatek
 vendor/bin/lbs_hidl_service
 vendor/bin/mnld
