@@ -24,6 +24,14 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_system.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_product.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_o.mk)
 $(call inherit-product, device/xsh/k50sv1_64_bsp/device.mk)
+
+# Select LineageOS's partner-GMS Go path. The explicit guard prevents its
+# optional product inherit from silently producing a GMS-free image.
+WITH_GMS := true
+WITH_GMS_GO := true
+ifeq ($(wildcard vendor/partner_gms/products/gms_go.mk),)
+$(error Missing vendor/partner_gms/products/gms_go.mk; import the pinned NikGapps Go payload first)
+endif
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
 PRODUCT_PROPERTY_OVERRIDES += \
