@@ -1,0 +1,30 @@
+# The screen-state performance daemon. See perfd/k50sv1_perfd.c for why it
+# exists and how to remove it.
+#
+# It is a leaf domain by construction: it reads one sysfs file, writes one
+# procfs file, and talks to nothing. No binder, no hwbinder, no sockets, no
+# capabilities.
+type k50sv1_perfd, domain;
+type k50sv1_perfd_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(k50sv1_perfd)
+
+# The screen-state signal: /sys/class/leds/lcd-backlight/brightness, labelled
+# sysfs_leds by AOSP's private/genfs_contexts:111 and by this device's
+# vendor/genfs_contexts for the MT6755 backing path. Read only -- the Lights
+# HAL owns the write side and this daemon must never touch it.
+allow k50sv1_perfd sysfs_leds:dir search;
+allow k50sv1_perfd sysfs_leds:file r_file_perms;
+
+# The one knob: /proc/ppm/policy/perfserv_perf_idx (write) and
+# perfserv_max_perf_idx (read, once, at start). Both are proc_mtk_power_ppm --
+# see power/genfs_contexts. The daemon needs no other PPM node, and in
+# particular not the userlimit_* set, which is libpowerhal's.
+allow k50sv1_perfd proc_mtk_power_ppm:file { getattr open read write };
+
+# NOT GRANTED, and worth stating because each is one line away:
+#   * proc_mtk_power_perf_ioctl -- the ioctl path is libpowerhal's, and going
+#     through it would put two writers on the same PPM kicker.
+#   * sysfs_mtk_power_cpu_control -- writing scaling_min_freq directly bypasses
+#     PPM's arbitration, so thermal and DLPT would no longer be able to cut in.
+#   * any capability. It runs as system:system and needs none.

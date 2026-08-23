@@ -145,3 +145,8 @@ endif
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     persist.adb.nonblocking_ffs=0 \
     sys.usb.ffs.aio_compat=1
+
+# Screen-on maximum performance. One leaf daemon; see perfd/k50sv1_perfd.c for
+# why it exists, what it measured, and the four-step recipe to remove it.
+PRODUCT_PACKAGES += \
+    k50sv1_perfd

@@ -110,6 +110,13 @@ on post-fs
     chmod 0660 /proc/ppm/root_cluster
     chown system system /proc/ppm/policy_status
     chmod 0660 /proc/ppm/policy_status
+    # k50sv1_perfd's two nodes. The kernel creates them root:root 0664, so
+    # a system daemon can read but not write. See perfd/k50sv1_perfd.c.
+    chown system system /proc/ppm/policy/perfserv_perf_idx
+    chmod 0660 /proc/ppm/policy/perfserv_perf_idx
+    chown system system /proc/ppm/policy/perfserv_max_perf_idx
+    chmod 0440 /proc/ppm/policy/perfserv_max_perf_idx
+
     chown system system /proc/ppm/policy/userlimit_min_cpu_freq
     chmod 0660 /proc/ppm/policy/userlimit_min_cpu_freq
     chown system system /proc/ppm/policy/userlimit_max_cpu_freq
@@ -338,3 +345,23 @@ on property:sys.boot_completed=1
     write /proc/ppm/policy/userlimit_min_cpu_core "0 -1"
     write /proc/ppm/policy/userlimit_min_cpu_core "1 -1"
     write /sys/block/mmcblk0/queue/read_ahead_kb 128
+    start vendor.k50sv1_perfd
+
+# Screen-on maximum performance. Started at boot_completed rather than earlier
+# so it cannot compete with the boot-time cluster pin above, which it would
+# otherwise release the first time it saw the panel dark during boot.
+#
+# See device/xsh/k50sv1_64_bsp/perfd/k50sv1_perfd.c for why a daemon is needed
+# at all -- the short version is that the PowerHAL's INTERACTION lock lasts
+# 235-705 ms rather than the 5 s it is configured for, and that no PPM policy
+# can be released by screen-off, so the screen-state edge has to come from
+# userspace. That file also carries the four-step removal recipe.
+service vendor.k50sv1_perfd /vendor/bin/k50sv1_perfd
+    class late_start
+    user system
+    group system
+    disabled
+    seclabel u:r:k50sv1_perfd:s0
+    # Not oneshot: it is a loop, and if it ever dies the handset silently
+    # reverts to the INTERACTION-only behaviour with no other symptom. Let init
+    # restart it.

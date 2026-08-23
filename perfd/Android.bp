@@ -1,0 +1,15 @@
+// See k50sv1_perfd.c for why this exists, what it is worth, and how to remove
+// it. It is deliberately a leaf: nothing depends on it and it depends on
+// nothing but liblog.
+cc_binary {
+    name: "k50sv1_perfd",
+    vendor: true,
+    compile_multilib: "64",
+    srcs: ["k50sv1_perfd.c"],
+    shared_libs: ["liblog"],
+    cflags: [
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+    ],
+}

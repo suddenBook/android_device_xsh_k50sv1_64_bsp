@@ -7,6 +7,8 @@ genfscon proc /ppm/policy/userlimit_min_cpu_core u:object_r:proc_mtk_power_ppm:s
 genfscon proc /ppm/policy/userlimit_min_cpu_freq u:object_r:proc_mtk_power_ppm:s0
 genfscon proc /ppm/policy/userlimit_max_cpu_core u:object_r:proc_mtk_power_ppm:s0
 genfscon proc /ppm/policy/userlimit_max_cpu_freq u:object_r:proc_mtk_power_ppm:s0
+genfscon proc /ppm/policy/perfserv_perf_idx      u:object_r:proc_mtk_power_ppm:s0
+genfscon proc /ppm/policy/perfserv_max_perf_idx  u:object_r:proc_mtk_power_ppm:s0
 genfscon proc /ppm/policy_status                 u:object_r:proc_mtk_power_ppm:s0
 genfscon proc /ppm/root_cluster                  u:object_r:proc_mtk_power_ppm:s0
 genfscon proc /ppm/mode                          u:object_r:proc_mtk_power_ppm:s0
