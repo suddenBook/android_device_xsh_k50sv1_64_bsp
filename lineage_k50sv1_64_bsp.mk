@@ -60,12 +60,15 @@ ifeq ($(K50SV1_BUILD_TIER),1)
 PRODUCT_PROPERTY_OVERRIDES += ro.control_privapp_permissions=log
 endif
 
-# Select LineageOS's partner-GMS Go path. The explicit guard prevents its
-# optional product inherit from silently producing a GMS-free image.
+# Select LineageOS's partner-GMS path. WITH_GMS_GO is deliberately not set:
+# partner_gms.mk would route it to products/gms_go.mk, which no longer exists.
+# This is independent of go_defaults_common.mk above -- Android Go platform
+# mode stays on; only the GMS payload changed from the Go set to the full one.
+# The explicit guard prevents the optional product inherit from silently
+# producing a GMS-free image.
 WITH_GMS := true
-WITH_GMS_GO := true
-ifeq ($(wildcard vendor/partner_gms/products/gms_go.mk),)
-$(error Missing vendor/partner_gms/products/gms_go.mk; import the pinned NikGapps Go payload first)
+ifeq ($(wildcard vendor/partner_gms/products/gms.mk),)
+$(error Missing vendor/partner_gms/products/gms.mk; import the pinned NikGapps omni payload first)
 endif
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
