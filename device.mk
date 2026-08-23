@@ -110,6 +110,20 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += persist.sys.usb.config=mtp
 endif
 
 # Q's asynchronous/nonblocking FunctionFS paths fail on this 3.18 gadget.
+#
+# ro.telephony.iwlan_operation_mode=legacy matches Stock and states the contract
+# explicitly. TransportManager.isInLegacyMode() is
+#     mode.equals("legacy") || mPhone.getHalVersion().less(RADIO_HAL_VERSION_1_4)
+# and this RIL registers android.hardware.radio@1.0::IRadio/slot1, so the second
+# clause already forces legacy mode today and the property changes nothing right
+# now. It is set anyway because the alternative is a latent trap: without it, the
+# behaviour depends entirely on which IRadio version the blob happens to
+# register, and in AP-assisted mode TransportManager constructs an
+# AccessNetworksManager that then finds no IQualifiedNetworksService --
+# config_qualified_networks_service_package is empty in AOSP and this tree ships
+# no QNS. Legacy is also the architecturally correct answer here: MediaTek runs
+# the ePDG tunnel in Android userspace (strongSwan), not as an Android data
+# connection, so IWLAN must not be modelled as a separate transport.
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     persist.adb.nonblocking_ffs=0 \
     persist.radio.multisim.config=dsds \
@@ -118,5 +132,6 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     ro.opengles.version=196610 \
     ro.sf.lcd_density=320 \
     ro.telephony.default_network=9,9,9,9 \
+    ro.telephony.iwlan_operation_mode=legacy \
     ro.telephony.sim.count=2 \
     sys.usb.ffs.aio_compat=1
