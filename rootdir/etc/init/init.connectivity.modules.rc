@@ -19,4 +19,27 @@ on property:vendor.connsys.driver.ready=yes
     exec u:r:vendor_modprobe:s0 -- /vendor/bin/insmod /vendor/lib/modules/wlan_drv_${ro.vendor.wlan.gen}.ko
     exec u:r:vendor_modprobe:s0 -- /vendor/bin/insmod /vendor/lib/modules/bt_drv.ko
     exec u:r:vendor_modprobe:s0 -- /vendor/bin/insmod /vendor/lib/modules/gps_drv.ko
+
+# wlan_assistant needs BOTH the connectivity driver AND NVRAM. It reads the
+# WIFI record out of /mnt/vendor/nvdata/APCFG/APRDEB and hands the MAC and the
+# regulatory/calibration data to the WLAN driver; started before nvram_daemon
+# has published, it finds nothing and exits, and the driver falls back to a
+# RANDOM MAC with no country data -- which costs the 5 GHz band entirely and
+# makes the device's own SSID field read "NVRAM WARNING: Err = 0x01".
+#
+# That dependency was never expressed. It held by accident while wmt_drv.ko was
+# insmod'ed at `on boot`, because the extra second was enough for nvram_daemon
+# to win the race. Moving the insmod to `on post-fs` -- correct in itself, it
+# put the module before its consumer instead of 926 ms after -- made
+# connsys.driver.ready fire earlier and the race started going the other way.
+# Stock has the same unexpressed dependency and the same accidental ordering.
+#
+# Proven on the handset: with the driver up but wlan_assistant dead,
+# `glLoadNvram: fgNvramAvailable = 0` and wlan0 is 00:08:22:e0:b7:fe; a manual
+# `start wlan_assistant` afterwards gives `fgNvramAvailable = 1` and
+# 2c:45:67:89:f9:2c, the address the factory wrote into NVRAM.
+#
+# Two property triggers ANDed: system/core/init/action_parser.cpp accepts `&&`
+# between property triggers and fires the action when both hold.
+on property:vendor.connsys.driver.ready=yes && property:vendor.service.nvram_init=Ready
     start wlan_assistant
