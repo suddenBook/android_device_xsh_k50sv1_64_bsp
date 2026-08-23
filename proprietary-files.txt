@@ -188,13 +188,22 @@ vendor/firmware/pcm_suspend_by_mp1_r.bin
 vendor/firmware/pcm_suspend_m.bin
 vendor/firmware/pcm_suspend_r.bin
 
-# Kernel-matched MTK connectivity modules
+# Kernel-matched MTK connectivity modules. Deliberately in load order, not
+# alphabetical: wmt_drv is the parent every other module lists in its
+# `depends=`, and init.connectivity.modules.rc insmods them in this sequence.
+#
+# fmradio_drv.ko is NOT here. This device has no 3.5 mm jack, so it has no FM
+# antenna, and nothing in the port can reach the driver: no FM app, no HAL, no
+# feature XML, no VINTF entry, and no other module depends on it. It could not
+# work even if something tried -- the driver request_firmware()s
+# mt6627_fm_v1_patch.bin and mt6627_fm_v1_coeff.bin and reads fm_cust.cfg, none
+# of which is extracted, so loading it only burns boot time and kernel memory
+# before its DSP download fails.
 vendor/lib/modules/wmt_drv.ko
 vendor/lib/modules/wmt_chrdev_wifi.ko
 vendor/lib/modules/wlan_drv_gen2.ko
 vendor/lib/modules/bt_drv.ko
 vendor/lib/modules/gps_drv.ko
-vendor/lib/modules/fmradio_drv.ko
 
 # Audio (active Stock service is 32-bit)
 vendor/bin/hw/android.hardware.audio@5.0-service-mediatek

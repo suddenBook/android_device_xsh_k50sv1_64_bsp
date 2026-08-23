@@ -1,0 +1,28 @@
+# Core-domain access to types declared in this directory.
+
+# /misc is the bootloader control block. rootdir/etc/fstab.mt6755 maps
+# by-name/para (mmcblk0p2) to /misc, and libbootloader_message resolves the BCB
+# device from exactly that fstab entry -- so uncrypt's "reboot to recovery",
+# an OTA package install and vold's wipe all open THIS node.
+#
+# The partition is deliberately NOT relabelled to misc_block_device, even
+# though that is what its contents are:
+#   system/sepolicy/public/domain.te:604-617 neverallows misc_block_device
+#   outside { fastbootd hal_bootctl_server init uncrypt update_engine
+#             vendor_init vendor_misc_writer vold recovery ueventd },
+# and that assertion is guarded by userdebug_or_eng(`-domain'). ccci_mdinit and
+# mtkrild both hold mtk_para_block_device (MTK stores its boot-mode flags in
+# the same partition), so relabelling would compile on tier 2 (userdebug) and
+# fail sepolicy_neverallows on tier 3 (user) -- exactly the kind of late
+# surprise this split is meant to avoid. Granting the platform's misc consumers
+# on the device type instead keeps both halves working with no neverallow risk.
+allow { uncrypt vold recovery } mtk_para_block_device:blk_file w_file_perms;
+allow { uncrypt recovery } mtk_para_block_device:blk_file r_file_perms;
+allow { uncrypt vold recovery } block_device:dir search;
+
+# rilproxy reads the same CCCI state directory the rest of the modem stack
+# does. Stock's compiled policy:
+#   (allow rild sysfs_ccci (dir (search)))
+#   (allow rild sysfs_ccci (file (getattr ioctl lock map open read)))
+allow rild sysfs_mtk_ccci:dir r_dir_perms;
+allow rild sysfs_mtk_ccci:file r_file_perms;

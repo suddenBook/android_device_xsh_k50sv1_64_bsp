@@ -16,5 +16,12 @@ allow mtk_agpsd mtk_agps_data_file:sock_file create_file_perms;
 allow mtk_agpsd mtk_gps_data_file:dir create_dir_perms;
 allow mtk_agpsd mtk_gps_data_file:file create_file_perms;
 
+# The SUPL daemon checks modem readiness before it opens a data call. Stock's
+# compiled policy:
+#   (allow mtk_agpsd sysfs_ccci (dir (search)))
+#   (allow mtk_agpsd sysfs_ccci (file (open read)))
+allow mtk_agpsd sysfs_mtk_ccci:dir search;
+allow mtk_agpsd sysfs_mtk_ccci:file r_file_perms;
+
 get_prop(mtk_agpsd, mtk_gnss_runtime_prop)
 get_prop(mtk_agpsd, mtk_gnss_ro_prop)
