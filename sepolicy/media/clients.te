@@ -44,7 +44,38 @@ allow {
     mediacodec
 } sysfs_mtk_devinfo:file r_file_perms;
 
-allow mediacodec proc_mtk_m4u:file { getattr open read };
-allow hal_camera_default proc_mtk_m4u:file { getattr ioctl open read };
+# M4U (the multimedia IOMMU) is driven by ioctl, not by reads. Both command
+# sets below are taken from Stock's own compiled policy,
+# factory_image_unpacked/vendor/etc/selinux/vendor_sepolicy.cil, which is the
+# authoritative description of what these exact blobs ask the driver for:
+#     (allow mediacodec proc_m4u (file (ioctl read getattr lock map open)))
+#     (allowx mediacodec proc_m4u (ioctl file (0x670a)))
+#     (allowx mediacodec proc_m4u (ioctl file (0x670b)))
+#     (allowx mediacodec proc_m4u (ioctl file (0x671a)))
+#     (allowx mediacodec proc_m4u (ioctl file (0x6732)))
+#     (allow mtk_hal_camera proc_m4u (file (ioctl read getattr lock map open)))
+#     (allowx mtk_hal_camera proc_m4u
+#             (ioctl file (((range 0x6704 0x6705)) 0x670b 0x671d 0x6732)))
+# Taking that list is not "trusting Stock": it is an enumerated interface, four
+# and five command numbers wide, not a range or a wildcard, and each domain gets
+# only its own set. What is deliberately NOT copied from Stock is its habit of
+# handing the same nodes to broad attributes -- it grants `appdomain` the whole
+# 0x6700..0x670e range on proc_ged, which is exactly the kind of blanket grant
+# this tree exists to avoid.
+#
+# mediacodec previously had no ioctl permission at all, which was not a
+# theoretical gap: reproduced on the handset by running screenrecord,
+#   avc: denied { ioctl } comm="MtkOmxVencEncod" path="/proc/m4u"
+#        ioctlcmd=671a scontext=u:r:mediacodec:s0 tclass=file
+# and hal_camera_default had one command number out of five.
+allow mediacodec proc_mtk_m4u:file { getattr ioctl lock map open read };
+allowxperm mediacodec proc_mtk_m4u:file ioctl { 0x670a 0x670b 0x671a 0x6732 };
 
-allowxperm hal_camera_default proc_mtk_m4u:file ioctl 0x670b;
+allow hal_camera_default proc_mtk_m4u:file { getattr ioctl lock map open read };
+allowxperm hal_camera_default proc_mtk_m4u:file ioctl { 0x6704 0x6705 0x670b 0x671d 0x6732 };
+
+# libbwc raises the EMI/SMI bandwidth profile for the duration of a video
+# session. Stock grants mediacodec { ioctl read write getattr lock append map
+# open } on this node plus dir search; only the four that a text sysfs
+# attribute can use are granted here.
+allow mediacodec sysfs_mtk_concurrency_scenario:file { getattr open read write };

@@ -73,25 +73,46 @@
         <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="1001000"></data>
         <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_1" param1="4"></data>
         <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_1" param1="1508000"></data>
+        <data cmd="PERF_RES_POWER_HINT_HOLD_TIME" param1="2000"></data>
     </scenario>
 
-    <!-- Touch, scroll, window animation, rotation, and display-on. -->
+    <!-- Touch, scroll, window animation, rotation, and display-on.
+         PERF_RES_POWER_HINT_HOLD_TIME is how long the lock is held after the
+         hint, in milliseconds. It is the one knob that turns a per-event pulse
+         into "the screen is on and the owner is using it": every touch,
+         animation frame and rotation re-arms it, so continuous use keeps both
+         clusters pinned continuously, and it decays on its own when the handset
+         is put down. Raise it for a wider window, lower it for battery.
+         Verify after any change with:
+             adb shell 'while :; do cat /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq; sleep 0.5; done'
+         while tapping the screen - it should sit at 1508000 during use and fall
+         back within about this many milliseconds of the last touch.
+         Deliberately NOT combined with PERF_RES_POWERHAL_SCREEN_OFF_STATE: that
+         command's default (0) is what drops the lock when the panel blanks, and
+         setting it to 1 would keep the boost alive with the screen off. -->
     <scenario powerhint="INTERACTION">
         <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_0" param1="4"></data>
         <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="1001000"></data>
         <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_1" param1="4"></data>
         <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_1" param1="1508000"></data>
+        <data cmd="PERF_RES_POWER_HINT_HOLD_TIME" param1="2000"></data>
     </scenario>
 
     <!-- SurfaceFlinger raises this while a frame costs more than the budget.
-         Give it the GPU as well as the CPU; the Mali-T860 MP2 tops out at
-         676 MHz (/proc/gpufreq/gpufreq_opp_dump: 676000/520000/351000). -->
+         CPU only. PERF_RES_GPU_FREQ_MIN is in libpowerhal's command list but is
+         not reachable on this kernel: the library's GPU path writes
+         /d/ged/hal/custom_boost_gpu_freq, i.e. debugfs, which is not mounted on
+         a non-eng build, and powercontable.xml can only redirect a command to a
+         node the library already knows how to drive. Adding the line would cost
+         one "cmdSetting - unknown cmd" log line per hint and change nothing, so
+         it is left out rather than left in looking effective. The Mali-T860 MP2
+         runs 676/520/351 MHz (/proc/gpufreq/gpufreq_opp_dump) under its own
+         governor. -->
     <scenario powerhint="EXPENSIVE_RENDERING">
         <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_0" param1="4"></data>
         <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="1001000"></data>
         <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_1" param1="4"></data>
         <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_1" param1="1508000"></data>
-        <data cmd="PERF_RES_GPU_FREQ_MIN" param1="676000"></data>
     </scenario>
 
     <!-- Camera. Launch and capture are latency-bound and get everything;

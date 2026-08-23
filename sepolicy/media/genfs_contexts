@@ -1,1 +1,4 @@
 genfscon proc /mtk_jpeg u:object_r:proc_mtk_jpeg:s0
+
+# libbwc's EMI/SMI bandwidth profile control.
+genfscon sysfs /bus/platform/drivers/mem_bw_ctrl/concurrency_scenario u:object_r:sysfs_mtk_concurrency_scenario:s0

@@ -8,12 +8,12 @@
          quick_qs_offset_height default, so the Quick Settings header needs no
          matching change. Stock reserved the same 40dp; this value is now
          derived from the measurement rather than copied. -->
-    <dimen name="status_bar_height_portrait">40dp</dimen>
+    <dimen name="status_bar_height_portrait">45dp</dimen>
 
     <!-- Landscape deliberately keeps the AOSP default. Rotating the device
          moves the hole to a *side* edge, so there is nothing above the content
          to clear; Stock's 40dp landscape bar just wastes 40dp of a 720px-tall
          viewport. AOSP defaults this to @dimen/status_bar_height_portrait,
          which would inherit the 40dp above, so restate the 24dp default. -->
-    <dimen name="status_bar_height_landscape">24dp</dimen>
+    <dimen name="status_bar_height_landscape">25dp</dimen>
 </resources>

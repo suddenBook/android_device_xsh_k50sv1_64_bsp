@@ -1,0 +1,73 @@
+# Vendor seccomp additions for media.codec on k50sv1_64_bsp.
+#
+# WHY THIS FILE HAS TO EXIST
+#
+# frameworks/av/services/mediacodec/main_codecservice.cpp:44 calls
+#   SetUpMinijail("/system/etc/seccomp_policy/mediacodec.policy",
+#                 "/vendor/etc/seccomp_policy/mediacodec.policy")
+# unconditionally, and minijail.cpp:71-76 treats a missing vendor file as a
+# LOG(WARNING) and then installs the base filter anyway. The kernel is 3.18, so
+# there is no SECCOMP_RET_LOG and the filter kills rather than logs.
+#
+# AOSP's base policy (frameworks/av/services/mediacodec/seccomp_policy/
+# mediacodec-arm.policy) grants 48 syscalls, and the MTK codec libraries this
+# device ships need syscalls that are not among them. Verified by reading the
+# dynamic symbol tables of the shipped blobs rather than by copying Stock:
+#
+#   libvcodecdrv.so        fsync, syscall
+#   libvcodec_utility.so   fsync, getpid, sched_getaffinity, sched_setaffinity,
+#                          syscall
+#   libMtkOmxVdecEx.so     gettid, sched_getparam
+#   libMtkOmxVenc.so       gettid
+#
+# and observed directly on the handset: four tombstones, all
+#   pid 654/17234/17344/17376  name: omx@1.0-service  >>> media.codec <<<
+#   signal 6 (SIGABRT), code -1 (SI_QUEUE)
+#   #01 libminijail.so (do_fatal_log+92)
+#   #02 libminijail.so (log_sigsys_handler+38)
+#   ... "libminijail[NNNNN]: blocked syscall: ..."
+# produced by running `screenrecord`, which is the shortest path to the MTK
+# AVC encoder. Every hardware decode and encode on this build was killing the
+# codec service.
+#
+# libvcodecdrv and libvcodec_utility also import the raw syscall(2) wrapper, so
+# the set they can reach is not knowable from the symbol table. The remaining
+# entries below are therefore taken from Stock's own
+# vendor/etc/seccomp_policy/mediacodec.policy, which is MediaTek's statement of
+# what these same binaries require. That list is reproduced here rather than
+# extracted as a blob so it can carry this reasoning, and deduplicated: Stock
+# names sched_getaffinity twice.
+#
+# Nothing here widens the base policy beyond MediaTek's own list. In particular
+# the two other Stock vendor policies are deliberately NOT adopted:
+#   mediaextractor.policy  adds gettimeofday, ioprio_set, unlinkat, setsockopt,
+#                          clock_gettime and setrlimit for an MTK audio
+#                          table-of-contents thread. No MTK extractor library is
+#                          shipped, so mediaextractor runs pure AOSP code.
+#   mediaswcodec.policy    adds clock_nanosleep. media.swcodec runs only the
+#                          AOSP c2 software codecs from the media APEX.
+# Add either one only if a tombstone names it.
+
+# Direct imports of the shipped MTK codec libraries.
+fsync: 1
+getpid: 1
+gettid: 1
+sched_getaffinity: 1
+sched_setaffinity: 1
+sched_getparam: 1
+
+# Reachable through libvcodecdrv/libvcodec_utility's raw syscall(2) use; the
+# set is MediaTek's own.
+sched_getscheduler: 1
+mlock: 1
+munlock: 1
+flock: 1
+fchownat: 1
+fchmodat: 1
+sysinfo: 1
+setrlimit: 1
+eventfd2: 1
+pselect6: 1
+sendto: 1
+recvfrom: 1
+setsockopt: 1

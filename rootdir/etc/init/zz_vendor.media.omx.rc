@@ -1,10 +1,24 @@
-# Parsed after the AOSP service definition. The MTK Vcodec node is deliberately
-# group-readable rather than world-accessible, so mediacodec needs the system
-# supplementary group used by the verified Stock OMX service.
+# Parsed after the AOSP service definition, whose supplementary groups are
+# "camera drmrpc mediadrm" only. Two device nodes need more than that, and both
+# were confirmed on the handset:
+#
+#   /dev/Vcodec    media:system 0660  -> needs "system"
+#   /dev/MTK_SMI   media:media  0660  -> needs "media"
+#
+# Without "media", libbwc fails every SMI/EMI bandwidth call during encode:
+#   E/BWC: Open SMI(/dev/MTK_SMI) driver file failed.:Permission denied
+#   E/BWC: Failed to switch SMI profile, error: -1
+#   E/BWC: fail to open mem_bw_ctrl driver file
+# which is EACCES from the DAC check, not SELinux -- the node is already
+# labelled and allowed. Stock hands this service twelve supplementary groups
+# (media_rw sdcard_rw media system audio inet net_bt net_bt_admin net_bw_acct
+# sdcard_r on top of AOSP's three); only the two that a shipped node actually
+# requires are added here. In particular the service gets no network groups: an
+# OMX component has no business holding a socket.
 service vendor.media.omx /vendor/bin/hw/android.hardware.media.omx@1.0-service
     class main
     user mediacodec
-    group camera drmrpc mediadrm system
+    group camera drmrpc mediadrm media system
     ioprio rt 4
     writepid /dev/cpuset/foreground/tasks
     override

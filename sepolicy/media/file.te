@@ -1,2 +1,7 @@
 # Narrow replacement for Stock's broad proc:file access in the MMS domain.
 type proc_mtk_jpeg, fs_type, proc_type;
+
+# EMI/SMI bandwidth profile written by libbwc from inside the MTK OMX
+# components. Its own type rather than generic sysfs: mediacodec is the only
+# writer, and the node steers DRAM bandwidth arbitration for the whole SoC.
+type sysfs_mtk_concurrency_scenario, fs_type, sysfs_type;
