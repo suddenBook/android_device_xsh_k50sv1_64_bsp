@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Stock reserves a 40 dp bar around the physical center camera hole in
+         both orientations but declares no software DisplayCutout geometry. -->
+    <dimen name="status_bar_height_portrait">40dp</dimen>
+    <dimen name="status_bar_height_landscape">40dp</dimen>
+</resources>
