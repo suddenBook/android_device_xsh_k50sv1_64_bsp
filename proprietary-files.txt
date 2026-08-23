@@ -228,10 +228,21 @@ vendor/lib/libspeech_enh_lib.so
 -vendor/lib/libwebrtc_audio_preprocessing.so
 vendor/lib/vendor.mediatek.hardware.mtkpower@1.0.so
 vendor/lib/vendor.mediatek.hardware.power@2.0.so
+# libeffectproxy is load-bearing for the BUILD, not for the runtime. It is not
+# named in the active <libraries> block of vendor/etc/audio_effects.xml, so
+# nothing loads it -- but build/make/target/product/base_vendor.mk:56 puts it in
+# PRODUCT_PACKAGES unconditionally, and AOSP Q's own source module does not
+# compile: frameworks/av/media/libeffects/proxy/Android.bp sets
+# include_dirs to .../libeffects/factory while the header it needs lives at
+# .../libeffects/factory/include/media/EffectsFactoryApi.h, so dropping the
+# prebuilt hands the build to a module that fails with
+#   fatal error: 'media/EffectsFactoryApi.h' file not found
+# Keep both variants.
 -vendor/lib/soundfx/libaudiopreprocessing.so
 -vendor/lib/soundfx/libbundlewrapper.so
 -vendor/lib/soundfx/libdownmix.so
 -vendor/lib/soundfx/libdynproc.so
+-vendor/lib/soundfx/libeffectproxy.so
 -vendor/lib/soundfx/libldnhncr.so
 -vendor/lib/soundfx/libreverbwrapper.so
 -vendor/lib64/hw/android.hardware.audio.effect@5.0-impl.so
@@ -248,6 +259,7 @@ vendor/lib/vendor.mediatek.hardware.power@2.0.so
 -vendor/lib64/soundfx/libbundlewrapper.so
 -vendor/lib64/soundfx/libdownmix.so
 -vendor/lib64/soundfx/libdynproc.so
+-vendor/lib64/soundfx/libeffectproxy.so
 -vendor/lib64/soundfx/libldnhncr.so
 -vendor/lib64/soundfx/libreverbwrapper.so
 vendor/etc/a2dp_audio_policy_configuration.xml
