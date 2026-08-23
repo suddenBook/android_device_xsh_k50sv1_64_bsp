@@ -33,6 +33,7 @@ vendor/lib/libion_ulit.so
 -vendor/lib/libhwc2on1adapter.so
 -vendor/lib/libhwc2onfbadapter.so
 vendor/lib/libladder.so
+vendor/lib/libpq_cust.so
 vendor/lib/libpq_prot.so
 vendor/lib/vendor.mediatek.hardware.gpu@1.0.so
 vendor/lib/vendor.mediatek.hardware.mms@1.0.so
@@ -48,6 +49,7 @@ vendor/lib/vendor.mediatek.hardware.pq@2.0.so
 vendor/lib64/hw/gralloc.mt6755.so
 vendor/lib64/hw/hwcomposer.mt6755.so
 vendor/lib64/egl/libGLES_mali.so
+vendor/lib64/libaal_key.so
 vendor/lib64/libaal_cust.so
 vendor/lib64/libaal_mtk.so
 vendor/lib64/libaalservice.so
@@ -65,6 +67,7 @@ vendor/lib64/libJpgEncPipe.so
 vendor/lib64/libjpeg-alpha-oal_vendor.so
 vendor/lib64/libjpeg-alpha_vendor.so
 vendor/lib64/libm4u.so
+vendor/lib64/libmtkperf_client_vendor.so
 vendor/lib64/libpq_cust.so
 vendor/lib64/libpq_prot.so
 vendor/lib64/vendor.mediatek.hardware.gpu@1.0.so
@@ -129,6 +132,7 @@ vendor/bin/hw/vendor.mediatek.hardware.mtkpower@1.0-service
 vendor/etc/power_whitelist_cfg.xml
 vendor/etc/powercontable.xml
 vendor/etc/powerscntbl.xml
+vendor/lib/vendor.mediatek.hardware.power@2.1.so
 vendor/lib64/hw/android.hardware.power@1.3-impl-mediatek.so
 vendor/lib64/hw/vendor.mediatek.hardware.mtkpower@1.0-impl.so
 vendor/lib64/hw/vendor.mediatek.hardware.power@2.1-impl.so
@@ -343,7 +347,9 @@ vendor/etc/audio_param/VolumeGainMap_ParamUnitDesc.xml
 vendor/etc/audio_param/Volume_AudioParam.xml
 vendor/etc/audio_param/Volume_ParamUnitDesc.xml
 
-# Camera (active Stock provider is 32-bit HAL1)
+# Camera (active Stock provider is 32-bit HAL1). Keep its core platform
+# backend and the declared CCAP -> ACDK runtime-load chain without restoring
+# any Stock factory application.
 vendor/bin/hw/camerahalserver
 vendor/etc/init/camerahalserver.rc
 vendor/etc/media_profiles.xml
@@ -359,7 +365,9 @@ vendor/lib/libJpgDecPipe.so
 vendor/lib/libJpgEncPipe.so
 vendor/lib/libSonyIMX230PdafLibrary.so
 vendor/lib/libSwJpgCodec.so
+vendor/lib/libacdk.so
 vendor/lib/libbwc.so
+vendor/lib/libcam.device1.so
 vendor/lib/libcam.camadapter.so
 vendor/lib/libcam.camnode.so
 vendor/lib/libcam.camshot.so
@@ -374,6 +382,7 @@ vendor/lib/libcam.metadataprovider.so
 vendor/lib/libcam.paramsmgr.so
 vendor/lib/libcam.utils.sensorprovider.so
 vendor/lib/libcam.utils.so
+vendor/lib/libcam_platform.so
 vendor/lib/libcam1_utils.so
 vendor/lib/libcam_hwutils.so
 vendor/lib/libcam_mmp.so
@@ -381,6 +390,7 @@ vendor/lib/libcam_utils.so
 vendor/lib/libcamalgo.so
 vendor/lib/libcamdrv.so
 vendor/lib/libcameracustom.so
+vendor/lib/libccap.so
 vendor/lib/libcustom_nvram.so
 vendor/lib/libdngop.so
 vendor/lib/libfeatureio.so
@@ -458,7 +468,8 @@ vendor/lib64/hw/gps.default.so
 vendor/lib64/lbs_hidl_service-impl.so
 vendor/lib64/vendor.mediatek.hardware.lbs@1.0.so
 
-# Radio / NVRAM / CCCI (no IMS framework applications)
+# Radio / NVRAM / CCCI (no IMS framework applications). The MAL libraries are
+# retained because the active RIL always initializes their data-manager ABI.
 vendor/bin/ccci_fsd
 vendor/bin/ccci_mdinit
 vendor/bin/ccci_rpcd
@@ -493,6 +504,8 @@ vendor/lib64/libccci_util.so
 vendor/lib64/libcustom_nvram.so
 vendor/lib64/libfile_op.so
 vendor/lib64/libforkexecwrap.so
+vendor/lib64/libmal.so
+vendor/lib64/libmdfx.so
 vendor/lib64/libmtkconfig.so
 vendor/lib64/libmtkconfigutils.so
 vendor/lib64/libmtkcutils.so
@@ -542,6 +555,7 @@ vendor/lib/libMtkOmxMp3Dec.so
 vendor/lib/libMtkOmxVdecEx.so
 vendor/lib/libMtkOmxVenc.so
 vendor/lib/libmp4enc_sa.ca7.so
+vendor/lib/libpowerhalwrap_vendor.so
 vendor/lib/libstagefrighthw.so
 vendor/lib/libvcodec_oal.so
 vendor/lib/libvcodec_utility.so
@@ -549,4 +563,5 @@ vendor/lib/libvcodecdrv.so
 vendor/lib/libvc1dec_sa.ca7.so
 vendor/lib/libvp8dec_sa.ca7.so
 vendor/lib/libvp8enc_sa.ca7.so
+vendor/lib/libvp9dec_sa.ca7.so
 vendor/lib/vendor.mediatek.hardware.mtkcodecservice@1.1.so
