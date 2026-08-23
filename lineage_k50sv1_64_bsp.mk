@@ -7,9 +7,18 @@ else
 WITH_ADB_INSECURE :=
 endif
 
-# Product copy rules keep the first source for a duplicate destination. Add
-# the verified no-compass handheld contract and empty no-NFC Beam contract
-# before inherited common products contribute their generic versions.
+# Product copy rules keep the first source for a duplicate destination
+# (build/make/core/Makefile:22-42), so these must precede the inherits below.
+#
+# For the Beam contract that is still live: vendor/lineage/config/common.mk
+# contributes a generic android.software.nfc.beam.xml and this device has no
+# NFC, so the empty override has to be seen first.
+#
+# For handheld_core_hardware.xml the ordering argument no longer applies. With
+# go_defaults_common.mk gone, NO other product in this inherit graph provides
+# that destination -- full_base_telephony.mk, the other AOSP provider, is not
+# inherited. The line is now the ONLY source of the file rather than merely the
+# winning one; see permissions/handheld_core_hardware.xml's own header.
 PRODUCT_COPY_FILES += \
     device/xsh/k50sv1_64_bsp/permissions/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml \
     device/xsh/k50sv1_64_bsp/permissions/android.software.nfc.beam.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.software.nfc.beam.xml
@@ -179,6 +188,19 @@ endif
 # no upside to inventing a value, and the property must never be set by hand --
 # common.mk owns it.
 # PRODUCT_GMS_CLIENTID_BASE := android-xsh
+
+# Pin the ART runtime APEX, after every inherit-product above so the `:=` wins.
+#
+# This variable is in _product_var_list (build/make/core/product.mk:268), so
+# inherit-product CONCATENATES it. Two inherited products each setting `false`
+# resolved to the two-word string `false false`, and art/Android.mk:346's exact
+# string test then selected com.android.runtime.DEBUG on every userdebug tier --
+# 130 MB of libartd and dex2oatd, against both setters' intent (E-042). Dropping
+# the Android Go inherit removed one setter and fixed it, but incidentally:
+# Android 10 has no single-value check for product variables (that landed after
+# Q), so any future second setter would silently restore it with no warning.
+# State it here once, and the outcome stops depending on who else sets it.
+PRODUCT_ART_TARGET_INCLUDE_DEBUG_BUILD := false
 
 PRODUCT_NAME := lineage_k50sv1_64_bsp
 PRODUCT_DEVICE := k50sv1_64_bsp

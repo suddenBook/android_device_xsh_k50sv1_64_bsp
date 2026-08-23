@@ -356,6 +356,23 @@ on property:sys.boot_completed=1
 # can be released by screen-off, so the screen-state edge has to come from
 # userspace. That file also carries the removal recipe -- six sites, not the
 # three this comment used to imply.
+# Release the pin if the daemon ever stops. init's `stop` is SIGKILL
+# (system/core/init/service.cpp), so the daemon cannot clean up after itself
+# with a signal handler -- and without this, stopping it while the panel is lit
+# leaves perfserv_perf_idx at maximum FOREVER. Reproduced on the handset: stop
+# the service with the screen on, blank the panel, and 18 s later
+# perfserv_perf_idx is still 5616 with all eight cores online. That is the worst
+# possible state for battery, produced by trying to turn the feature off.
+#
+# `stopped` also covers a crash: system/core/init/service.cpp sets
+# init.svc.<name> to `restarting` first and then `stopped`, so a crash-restart
+# releases the pin and the daemon re-applies it within a second.
+#
+# vendor_init already holds proc_mtk_power_ppm:file write
+# (sepolicy/vendor/vendor_init.te:70), so this needs no new rule.
+on property:init.svc.vendor.k50sv1_perfd=stopped
+    write /proc/ppm/policy/perfserv_perf_idx 0
+
 service vendor.k50sv1_perfd /vendor/bin/k50sv1_perfd
     class late_start
     user system

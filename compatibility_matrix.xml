@@ -28,10 +28,17 @@
         <name>android.system.wifi.keystore</name>
         <version>1.0</version>
     </hal>
-    <vendor-ndk>
-        <version>29</version>
-    </vendor-ndk>
-    <system-sdk>
-        <version>28</version>
-    </system-sdk>
+    <!-- No <vendor-ndk> and no <system-sdk> here on purpose.
+
+         assemble_vintf injects both from the board configuration:
+         system/libhidl/vintfdata/Android.mk:55-62 passes REQUIRED_VNDK_VERSION
+         (from BOARD_VNDK_VERSION) and BOARD_SYSTEMSDK_VERSIONS, and AOSP's own
+         device_compatibility_matrix.default.xml declares neither.
+
+         Hardcoding them is not symmetric. AssembleVintf.cpp:520-536 HARD-ERRORS
+         if <vendor-ndk> disagrees with REQUIRED_VNDK_VERSION, but merges
+         <system-sdk> into a std::set: a UNION, with no check. So a hardcoded
+         <system-sdk>28 left behind after someone bumps BOARD_SYSTEMSDK_VERSIONS
+         to 29 silently ships a matrix demanding BOTH, with no diagnostic
+         anywhere. BoardConfig.mk is the single source for both. -->
 </compatibility-matrix>

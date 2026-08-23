@@ -1,9 +1,15 @@
 LOCAL_PATH := device/xsh/k50sv1_64_bsp
 include $(LOCAL_PATH)/build_tiers.mk
 
-PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH) \
-    vendor/xsh/k50sv1_64_bsp
+# PRODUCT_SOONG_NAMESPACES is only a FILTER on namespaces that already exist:
+# build/soong/android/namespace.go:110-127 creates one only where an Android.bp
+# declares `soong_namespace {}`. This directory has no root Android.bp, so an
+# entry for it would match nothing, and vendor/xsh/k50sv1_64_bsp declares its own
+# in the generated k50sv1_64_bsp-vendor.mk -- listing it here just duplicated it.
+# k50sv1_perfd and sensors.k50sv1_64_bsp therefore live in the root namespace and
+# are global module names; add a soong_namespace{} here if that ever needs to
+# change, rather than re-adding a line that advertises isolation the tree does
+# not have.
 
 $(call inherit-product-if-exists, vendor/xsh/k50sv1_64_bsp/k50sv1_64_bsp-vendor.mk)
 
@@ -109,26 +115,45 @@ PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 PRODUCT_CHARACTERISTICS := default
 
+# PRODUCT_SYSTEM_DEFAULT_PROPERTIES, not PRODUCT_DEFAULT_PROPERTY_OVERRIDES.
+# On a full-Treble device BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED is true
+# (build/make/core/config.mk:706-708), and PRODUCT_DEFAULT_PROPERTY_OVERRIDES
+# then lands in /VENDOR/default.prop (Makefile:156-157, :268-281) -- not in
+# /system/etc/prop.default. Both keys are read only by /system code: adbd for
+# service.adb.root, system_server's UsbDeviceManager for
+# persist.sys.usb.config. Putting them on /vendor worked solely because init
+# loads /vendor/default.prop last and LoadProperties() uses insert_or_assign,
+# i.e. by the same accidental file-order mechanism this tree already refused to
+# rely on for ro.control_privapp_permissions.
+#
+# It bit in two places. At Tier 3, post_process_props.py writes
+# persist.sys.usb.config=none into /system/etc/prop.default because the key is
+# empty there, and the intended `mtp` won only by file order. And the debug
+# tiers' root-adb switch was persisted on the partition a system-only OTA does
+# not replace.
 ifeq ($(K50SV1_ADB_ENABLED),true)
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += persist.sys.usb.config=adb
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += persist.sys.usb.config=adb
 ifeq ($(K50SV1_ADB_ROOT),true)
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += service.adb.root=1
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += service.adb.root=1
 endif
 else
 # Production tier retains USB file transfer without exposing adbd.
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += persist.sys.usb.config=mtp
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += persist.sys.usb.config=mtp
 endif
 
 # Q's asynchronous/nonblocking FunctionFS paths fail on this 3.18 gadget.
 #
-# ro.telephony.iwlan_operation_mode=legacy matches Stock and states the contract
-# explicitly. TransportManager.isInLegacyMode() is
+# ro.telephony.iwlan_operation_mode=legacy matches Stock and is LOAD-BEARING --
+# do not remove it. TransportManager.isInLegacyMode() is
 #     mode.equals("legacy") || mPhone.getHalVersion().less(RADIO_HAL_VERSION_1_4)
-# and this RIL registers android.hardware.radio@1.0::IRadio/slot1, so the second
-# clause already forces legacy mode today and the property changes nothing right
-# now. It is set anyway because the alternative is a latent trap: without it, the
-# behaviour depends entirely on which IRadio version the blob happens to
-# register, and in AP-assisted mode TransportManager constructs an
+# An earlier revision of this comment claimed the RIL registers
+# android.hardware.radio@1.0::IRadio/slot1, so that the second clause forced
+# legacy mode by itself and the property "changes nothing right now". That is
+# false and would have invited someone to delete it. `lshal` on the handset
+# reports the interfaceChain up to @1.4, and manifest.xml:103-113 in this same
+# repository declares @1.4::IRadio/slot1 -- so less(1.4) is FALSE and the
+# property is the only thing selecting legacy mode. Without it the device goes
+# straight to AP-assisted mode, where TransportManager constructs an
 # AccessNetworksManager that then finds no IQualifiedNetworksService --
 # config_qualified_networks_service_package is empty in AOSP and this tree ships
 # no QNS. Legacy is also the architecturally correct answer here: MediaTek runs
@@ -146,12 +171,12 @@ endif
 # ro.sf.lcd_density is gone entirely -- TARGET_SCREEN_DENSITY in BoardConfig.mk
 # is the first-class hook for it.
 #
-# What stays here is what adbd reads, and adbd lives on /system.
+# What stays on /system is what /system code reads: adbd and UsbDeviceManager.
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     persist.adb.nonblocking_ffs=0 \
     sys.usb.ffs.aio_compat=1
 
 # Screen-on maximum performance. One leaf daemon; see perfd/k50sv1_perfd.c for
-# why it exists, what it measured, and the four-step recipe to remove it.
+# why it exists, what it measured, and the six-site recipe to remove it.
 PRODUCT_PACKAGES += \
     k50sv1_perfd

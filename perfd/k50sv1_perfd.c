@@ -172,29 +172,64 @@ int main(void)
 
     /* -1 means "no decision yet", so the first observation always writes. */
     int pinned = -1;
+    /* Latches so a persistent failure logs once, not once a second. */
+    int read_failed = 0;
+    int write_failed = 0;
 
     for (;;) {
         char buf[32];
         ssize_t n = pread(fd, buf, sizeof(buf) - 1, 0);
-        if (n > 0) {
+        if (n <= 0) {
+            /* Do not fail silently. If the panel node stops being readable the
+             * daemon can no longer see a screen-off edge, and whatever state it
+             * last applied is now permanent -- so say so, once per transition
+             * rather than once per second. */
+            if (!read_failed) {
+                ALOGE("read %s failed (%s); state is now frozen at perf_idx %ld",
+                      kBacklight, n < 0 ? strerror(errno) : "empty read",
+                      pinned == 1 ? max_idx : 0L);
+                read_failed = 1;
+            }
+        } else {
+            read_failed = 0;
             buf[n] = '\0';
             int want = (strtol(buf, NULL, 10) > 0) ? 1 : 0;
             if (want != pinned) {
                 if (write_number(kPerfIdx, want ? max_idx : 0) == 0) {
                     pinned = want;
+                    write_failed = 0;
                     ALOGI("panel %s -> perf_idx %ld", want ? "on" : "off",
                           want ? max_idx : 0L);
                 } else {
-                    /* Do not latch a state we failed to apply; retry next tick. */
-                    ALOGE("write %s failed: %s", kPerfIdx, strerror(errno));
+                    /* Do not latch a state we failed to apply; retry next tick.
+                     * Log once per run of failures -- at 1 Hz an unconditional
+                     * ALOGE here is itself a battery cost. errno is captured by
+                     * write_number() before its close(), which can clobber it. */
+                    if (!write_failed) {
+                        ALOGE("write %s failed: %s", kPerfIdx, strerror(errno));
+                        write_failed = 1;
+                    }
                 }
             }
         }
 
-        /* POLLPRI in case the LED class ever gains a sysfs_notify. It has none
-         * today, so this is the 1 Hz timeout path. */
-        struct pollfd pfd = { .fd = fd, .events = POLLPRI | POLLERR, .revents = 0 };
-        int rc = poll(&pfd, 1, POLL_MS);
+        /* A pure sleep, deliberately: poll() on this fd is NOT usable.
+         *
+         * An earlier revision passed the brightness fd with POLLPRI|POLLERR "in
+         * case the LED class ever gains a sysfs_notify".  It has none -- there
+         * is no sysfs_notify anywhere under drivers/leds/ in the matching 3.18
+         * source -- so POLLPRI could never fire.  What COULD fire is POLLERR:
+         * fs/select.c always reports it regardless of .events, and kernfs
+         * returns it permanently once a node is deactivated
+         * (fs/kernfs/file.c).  revents was never inspected, so that would have
+         * turned this loop into a silent 100% busy-spin on one core -- the
+         * exact opposite of what the daemon is for, and invisible except as
+         * battery drain.
+         *
+         * poll(NULL, 0, ms) has the same timing and no fd to misreport.  It is
+         * still CLOCK_MONOTONIC, so it does not advance across suspend and is
+         * not a wake source. */
+        int rc = poll(NULL, 0, POLL_MS);
         if (rc < 0 && errno != EINTR) {
             ALOGE("poll failed: %s, exiting", strerror(errno));
             close(fd);

@@ -61,6 +61,44 @@
          with no way to change it. -->
     <bool name="config_wifi_dual_band_support">true</bool>
 
+    <!-- Tethering. AOSP ships all three of these arrays EMPTY
+         (frameworks/base/core/res/res/values/config.xml:380-399), and
+         Tethering.hasTetherableConfiguration() is false when they all are, so
+         isTetheringSupported() returns false and Settings hides the entire
+         "Hotspot & tethering" screen. On the flashed build the screen contained
+         only "Allow clients to use VPNs" and `dumpsys connectivity` logged
+         "wlan0 is not a tetherable iface, ignoring". No hotspot, no USB
+         tethering, no Bluetooth PAN, on a device that has the hardware and
+         the software for all three.
+
+         Everything each one needs is already present and was checked:
+           wifi  - /vendor/bin/hw/hostapd ships, android.hardware.wifi.hostapd
+                   @1.0/@1.1 are declared in manifest.xml and served lazily, and
+                   config_wifi_dual_band_support above is true. AOSP's
+                   wifi_chip.cpp names AP interfaces from the same wlanN pool as
+                   STA, so wlan\\d is the operative entry; softap\\d and ap\\d
+                   are there because MTK vendor HALs have used both.
+           usb   - rootdir/etc/init/hw/init.mt6755.usb.rc:50-62 already
+                   implements the whole sys.usb.config=rndis path against the
+                   legacy android_usb gadget (CONFIG_USB_G_ANDROID=y), which
+                   names the interface rndis0.
+           bt    - bt-pan is the AOSP/BlueDroid PAN interface name.
+
+         config_wifi_dual_band_support being true without these was a half
+         mechanism: the band the hotspot could not use was declared, and the
+         hotspot itself could never start. -->
+    <string-array translatable="false" name="config_tether_wifi_regexs">
+        <item>"wlan\\d"</item>
+        <item>"softap\\d"</item>
+        <item>"ap\\d"</item>
+    </string-array>
+    <string-array translatable="false" name="config_tether_usb_regexs">
+        <item>"rndis\\d"</item>
+    </string-array>
+    <string-array translatable="false" name="config_tether_bluetooth_regexs">
+        <item>"bt-pan"</item>
+    </string-array>
+
     <!-- Bind the Android 10 MTK MMTEL service through AOSP ImsResolver. Only
          voice over LTE is a device capability; carrier config and provisioning
          remain the second gate. Video telephony and Wi-Fi calling are omitted. -->
