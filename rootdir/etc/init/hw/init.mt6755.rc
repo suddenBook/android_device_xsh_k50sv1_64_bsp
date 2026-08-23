@@ -13,8 +13,9 @@ on early-init
     # Values are OPPs that exist on this part:
     #   cluster 0 (cpu0-3): 1001000 910000 819000 689000 598000 494000 338000 156000
     #   cluster 1 (cpu4-7): 1508000 1430000 1352000 1196000 1027000 871000 663000 286000
-    # Stock's own early-init pins "1 1508000", which is right; its powerscntbl.xml
-    # asks for 1950000, which is not. See configs/powerscntbl.xml.
+    # Stock's own early-init pins "1 1508000", which is right; Stock's powerscntbl.xml
+    # asks for 1950000, which is not -- the file shipped from configs/ is
+    # already corrected. See configs/powerscntbl.xml.
     write /proc/ppm/policy/userlimit_min_cpu_freq "0 1001000"
     write /proc/ppm/policy/userlimit_min_cpu_freq "1 1508000"
     write /proc/ppm/policy/userlimit_min_cpu_core "0 4"

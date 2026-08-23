@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- target-level="2" is correct and deliberate: Stock's own vendor manifest
+     is target-level 2. Level 3 would also pass; level 4 would not, because the
+     FCM-4 matrix requires android.hardware.graphics.mapper 2.1/3.0 and this
+     vendor provides 2.0. Do not "modernise" this to 4. -->
 <manifest version="1.0" type="device" target-level="2">
     <hal format="hidl">
         <name>android.hardware.audio</name>

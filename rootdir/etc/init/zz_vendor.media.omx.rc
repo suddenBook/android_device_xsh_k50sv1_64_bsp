@@ -23,5 +23,12 @@ service vendor.media.omx /vendor/bin/hw/android.hardware.media.omx@1.0-service
     user mediacodec
     group camera drmrpc mediadrm media system
     ioprio rt 4
-    writepid /dev/cpuset/foreground/tasks
+    # NO writepid here. AOSP's own
+    # frameworks/av/services/mediacodec/android.hardware.media.omx@1.0-service.rc:6
+    # has `writepid /dev/cpuset/foreground/tasks`, but init.mt6755.rc's post-fs
+    # trigger deletes that file and rmdirs /dev/cpuset -- this kernel has no
+    # CONFIG_CPUSETS. Keeping the line would log
+    #   couldn't write <pid> to /dev/cpuset/foreground/tasks
+    # on every start of the OMX HAL. The point of this override is a
+    # hand-audited service definition; this line is the audit.
     override

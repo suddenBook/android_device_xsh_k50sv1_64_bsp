@@ -11,8 +11,8 @@ endif
 # the verified no-compass handheld contract and empty no-NFC Beam contract
 # before inherited common products contribute their generic versions.
 PRODUCT_COPY_FILES += \
-    device/xsh/k50sv1_64_bsp/permissions/handheld_core_hardware.xml:vendor/etc/permissions/handheld_core_hardware.xml \
-    device/xsh/k50sv1_64_bsp/permissions/android.software.nfc.beam.xml:system/etc/permissions/android.software.nfc.beam.xml
+    device/xsh/k50sv1_64_bsp/permissions/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml \
+    device/xsh/k50sv1_64_bsp/permissions/android.software.nfc.beam.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.software.nfc.beam.xml
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 
@@ -32,8 +32,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/go_defaults_common.mk)
 # vendor/build.prop, which init loads after system/build.prop, so these values
 # are the ones that take effect.
 #
-# Deviation 2: MALLOC_SVELTE is deliberately NOT set. It trades CPU for RAM,
-# which is the wrong direction here.
+# Not a deviation, stated so nobody adds it: MALLOC_SVELTE is left unset. No
+# Go defaults file sets it either (tree-wide it appears only in
+# board_config.mk:139's error text and soong_config.mk:117), so unset is the
+# AOSP default. It trades CPU for RAM, which is the wrong direction here.
 $(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
 
 # Build the full phone userspace without AOSP's generic vendor rild. The MTK
@@ -46,9 +48,19 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_o.mk)
 $(call inherit-product, device/xsh/k50sv1_64_bsp/device.mk)
 
 # Tier 1 only, and it must be declared before common_full_phone.mk is
-# inherited: duplicate keys in PRODUCT_PROPERTY_OVERRIDES are resolved
-# first-wins by uniq-pairs-by-first-component, so a later assignment would
-# lose to Lineage's.
+# inherited: FINAL_DEFAULT_PROPERTIES runs through uniq-pairs-by-first-component
+# (build/make/core/Makefile:245-246), which is first-wins, so a later assignment
+# would lose to Lineage's.
+#
+# Use PRODUCT_SYSTEM_DEFAULT_PROPERTIES, the same variable Lineage uses at
+# vendor/lineage/config/common.mk:79-80. An earlier revision used
+# PRODUCT_PROPERTY_OVERRIDES and explained the ordering in terms of that
+# variable's dedup. That reasoning did not hold: the two variables land in
+# different files (/system/etc/prop.default vs /vendor/build.prop), so
+# uniq-pairs-by-first-component never saw both keys and the ordering constraint
+# it described did not exist. What made "log" win was init's file order --
+# property_service.cpp:901 then :910, last file wins even for ro. -- which is
+# accidental, and would silently invert if Lineage ever moved its enforce.
 #
 # LineageOS sets ro.control_privapp_permissions=enforce, under
 # which a privileged app requesting a signature|privileged permission that is
@@ -57,7 +69,7 @@ $(call inherit-product, device/xsh/k50sv1_64_bsp/device.mk)
 # diagnostic tier downgrade to "log": a wrong entry then costs one grep instead
 # of one flash cycle. Tiers 2 and 3 keep Lineage's enforce.
 ifeq ($(K50SV1_BUILD_TIER),1)
-PRODUCT_PROPERTY_OVERRIDES += ro.control_privapp_permissions=log
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.control_privapp_permissions=log
 endif
 
 # Select LineageOS's partner-GMS path. WITH_GMS_GO is deliberately not set:
@@ -72,7 +84,7 @@ $(error Missing vendor/partner_gms/products/gms.mk; import the pinned NikGapps o
 endif
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
-PRODUCT_PROPERTY_OVERRIDES += \
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     keyguard.no_require_sim=true
 
 # VoLTE availability. ImsManager.isVolteEnabledByPlatform() ANDs
@@ -85,16 +97,29 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # way to enable VoLTE on a device whose operator has no AOSP carrier asset.
 # The other two are stated explicitly so the voice-only contract is not left
 # to a default.
-PRODUCT_PROPERTY_OVERRIDES += \
+# These four are framework knobs -- ImsManager and Keyguard read them, both on
+# /system -- so they go in PRODUCT_SYSTEM_DEFAULT_PROPERTIES rather than
+# PRODUCT_PROPERTY_OVERRIDES, which on a Treble device lands in
+# /vendor/build.prop (build/make/core/Makefile:492-497).
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     persist.dbg.volte_avail_ovr=1 \
     persist.dbg.vt_avail_ovr=0 \
     persist.dbg.wfc_avail_ovr=0
 
 # The 3.18 kernel has neither CONFIG_MEMCG nor PSI, so per-app memory cgroups
-# do not exist and lmkd cannot run its userspace/PSI killer. lmkd auto-detects
-# /sys/module/lowmemorykiller and drives the in-kernel driver instead, taking
-# its thresholds from ActivityManager. ro.config.low_ram itself comes from
-# go_defaults_common.mk.
+# do not exist and lmkd cannot run its userspace killer. lmkd probes
+# /sys/module/lowmemorykiller/parameters/minfree for write access
+# (system/core/lmkd/lmkd.c:1968), finds it, and takes the in-kernel path
+# unconditionally -- every ro.lmk.* is read and then never consumed, including
+# the four go_defaults_common.prop drags in. The only tuning with any effect is
+# config_lowMemoryKillerMinFreeKbytesAdjust/Absolute, left at defaults.
+#
+# per_app_memcg states what the kernel already forces: processgroup.cpp:402-409
+# gates on isMemoryCgroupSupported() first, which is false here regardless. It
+# is belt and braces, kept so the value is not silently inferred from low_ram.
+# ro.config.low_ram itself comes from go_defaults_common.mk.
+# NOTE (PSI): lmkd needs the *writable trigger* interface, which is upstream
+# 5.2 -- not the read-only /proc/pressure of 4.20. Neither exists here.
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.per_app_memcg=false
 

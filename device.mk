@@ -18,8 +18,12 @@ PRODUCT_BOOT_JARS += \
 # Proprietary legacy implementations are supplied by the vendor tree and
 # loaded through the standard HIDL wrappers. Stock has only 64-bit Wi-Fi
 # keystore helpers, so build both variants from source for Soong consistency.
+# Not listed, because an inherited AOSP product already provides them and a
+# second listing only rots when AOSP drops one:
+#   android.hardware.configstore@1.1-service  base_vendor.mk:43
+#   vibrator.default                          handheld_vendor.mk:28
+#   libvisualizer                             base_vendor.mk:62
 PRODUCT_PACKAGES += \
-    android.hardware.configstore@1.1-service \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service \
     android.hardware.gatekeeper@1.0-impl \
@@ -37,14 +41,12 @@ PRODUCT_PACKAGES += \
     android.hardware.thermal@1.0-service \
     android.hardware.vibrator@1.0-impl \
     android.hardware.vibrator@1.0-service \
-    vibrator.default \
     android.hardware.audio.common-util.vendor \
     android.hardware.audio.common@5.0-util.vendor \
     libeffectsconfig.vendor \
     libkeystore-engine-wifi-hidl \
     libkeystore-wifi-hidl \
     librilutils \
-    libvisualizer \
     sensors.k50sv1_64_bsp
 
 PRODUCT_COPY_FILES += \
@@ -127,14 +129,19 @@ endif
 # no QNS. Legacy is also the architecturally correct answer here: MediaTek runs
 # the ePDG tunnel in Android userspace (strongSwan), not as an Android data
 # connection, so IWLAN must not be modelled as a separate transport.
+# Partition ownership follows
+# https://source.android.com/docs/core/architecture/configuration/add-system-properties:
+# a property that describes THIS HARDWARE belongs on /vendor, so that a
+# system-only OTA or a GSI boot cannot contradict it. Everything hardware-facing
+# in this block therefore moved to vendor.prop, which Q appends to
+# /vendor/build.prop automatically (build/make/core/Makefile:486-490):
+#   ro.hardware.egl, ro.frp.pst, ro.opengles.version,
+#   persist.radio.multisim.config, ro.telephony.{sim.count,default_network,
+#   iwlan_operation_mode}
+# ro.sf.lcd_density is gone entirely -- TARGET_SCREEN_DENSITY in BoardConfig.mk
+# is the first-class hook for it.
+#
+# What stays here is what adbd reads, and adbd lives on /system.
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     persist.adb.nonblocking_ffs=0 \
-    persist.radio.multisim.config=dsds \
-    ro.hardware.egl=mali \
-    ro.frp.pst=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/frp \
-    ro.opengles.version=196610 \
-    ro.sf.lcd_density=320 \
-    ro.telephony.default_network=9,9,9,9 \
-    ro.telephony.iwlan_operation_mode=legacy \
-    ro.telephony.sim.count=2 \
     sys.usb.ffs.aio_compat=1

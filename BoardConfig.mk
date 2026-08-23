@@ -20,25 +20,40 @@ TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 VENDOR_SECURITY_PATCH := 2020-08-05
 
-# Verified LCD geometry. Lineage uses these values to select the correctly
-# sized boot animation; logical density remains configured by the overlay.
+# Verified LCD geometry. Lineage uses width/height to select the correctly
+# sized boot animation (vendor/lineage/bootanimation/Android.mk:18-37);
+# TARGET_SCREEN_DENSITY is what build/make/core/Makefile:517-519 turns into
+# ro.sf.lcd_density in /vendor/build.prop. Setting the property by hand in
+# device.mk worked only while this variable was unset -- with both, the vendor
+# copy wins (property_service.cpp:727-734) and the two would fight silently.
+# Logical density for the UI remains the overlay's business.
 TARGET_SCREEN_WIDTH := 720
 TARGET_SCREEN_HEIGHT := 1560
+TARGET_SCREEN_DENSITY := 320
 
 # Proprietary vendor compatibility contract
 BOARD_VNDK_VERSION := current
-# The System SDK level vendor Java may compile against. Nothing in this port
-# builds vendor Java, so the value is inert -- it is recorded here only so a
-# future reader does not spend time reconciling it with the two neighbouring
-# numbers it does not match: VNDK is 29 (above) and PRODUCT_SHIPPING_API_LEVEL
-# is 26 (inherited from product_launched_with_o.mk). 28 is neither; it is
-# simply what the port started with. Change it only alongside an actual vendor
-# Java module.
+# The System SDK level this device REQUIRES OF THE FRAMEWORK, and the level
+# Soong lets vendor Java compile against. Not inert -- five consumers:
+#   build/make/core/soong_config.mk:115      -> Soong DeviceSystemSdkVersions
+#   build/make/core/local_systemsdk.mk:17,45 -> restricts vendor Java targets
+#   build/make/core/board_config.mk:529-532  -> hard error if not in
+#                                               PLATFORM_SYSTEMSDK_VERSIONS
+#   build/make/core/config.mk:748-749        -> hard error if < PRODUCT_SHIPPING_API_LEVEL
+#   system/libhidl/vintfdata/Android.mk:56   -> injected into the shipped
+#                                               <system-sdk> of the vendor matrix
+# Keep it in sync with compatibility_matrix.xml's <system-sdk><version>, which
+# hardcodes the same 28. It does not have to match VNDK (29) or
+# PRODUCT_SHIPPING_API_LEVEL (26, from product_launched_with_o.mk); it only has
+# to be >= the latter and present in PLATFORM_SYSTEMSDK_VERSIONS.
 BOARD_SYSTEMSDK_VERSIONS := 28
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
 DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml
 
 # Kernel and boot image
+# Read only by vendor/lineage/config/BoardConfigKernel.mk:48-52, which runs only
+# when Lineage builds a kernel from source. This tree ships a prebuilt, so the
+# value is inert today; it is kept for WI-019.
 TARGET_KERNEL_ARCH := arm64
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true

@@ -1,3 +1,13 @@
+# TRAP: the `setprop sys.usb.state ...` lines below are only permitted because
+# PRODUCT_COMPATIBLE_PROPERTY is false. build/make/core/config.mk:645-652 leaves
+# it false while PRODUCT_SHIPPING_API_LEVEL is 26 (inherited from
+# product_launched_with_o.mk), which keeps the blanket
+#   set_prop(vendor_init, {property_type -...})
+# in system/sepolicy/public/vendor_init.te:193-215 alive -- it is wrapped in
+# not_compatible_property. sys.usb.state resolves to system_prop
+# (private/property_contexts:24), a type vendor_init is NOT granted explicitly.
+# Raise the shipping API level above 27 and every one of these becomes an
+# enforcing denial, and USB function switching stops working.
 # The 3.18 MTK gadget uses legacy android_usb and FunctionFS rather than
 # configfs. Keep only Android's standard user-facing functions; factory ACM,
 # rawbulk, mass-storage and modem diagnostic combinations are intentionally
