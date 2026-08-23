@@ -31,7 +31,15 @@ PRODUCT_BOOT_JARS += \
 # upstream file because SystemFonts.java:313 reads exactly one hardcoded path
 # and base_rules.mk:510 makes a second writer of it a build error. See
 # work/k50sv1-bringup/upstream/README.md.
+# The .ttf modules are named explicitly. They used to be pulled in by
+# LOCAL_REQUIRED_MODULES on the fonts_customization.xml module, and when that
+# module moved upstream the requirement went with it -- the fonts then built and
+# were never installed, while fonts_customization.xml still named them. A font
+# family whose files are absent is dropped at parse time, so the failure would
+# have been a missing Styles entry and nothing in the log.
 PRODUCT_PACKAGES += \
+    HarmonyOSSans-Italic.ttf \
+    HarmonyOSSans-Regular.ttf \
     K50sv1HarmonyOSSansFont
 
 # Prefer AOSP Q service shells and complete-architecture platform helpers.

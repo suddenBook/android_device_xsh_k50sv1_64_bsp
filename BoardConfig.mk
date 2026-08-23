@@ -172,4 +172,56 @@ BOARD_VENDOR_SEPOLICY_DIRS += \
     $(DEVICE_PATH)/sepolicy/vendor \
     $(DEVICE_PATH)/sepolicy/safety
 
+# Make a PRODUCT_PACKAGES entry that names a module the build cannot see a BUILD
+# ERROR rather than silence.
+#
+# main.mk:1291-1304 already has the check; it is opt-in and nothing had opted in.
+# Without it, a package listed in PRODUCT_PACKAGES whose Android.mk was never
+# parsed simply does not install, the build reports success, and the first
+# symptom is a missing feature on the handset. That is exactly what happened to
+# the HarmonyOS Sans Styles overlay: its Android.mk sits two levels under the
+# device root, and all-makefiles-under is one level deep
+# (definitions.mk:179-181), so the module never existed and nobody was told.
+PRODUCT_ENFORCE_PACKAGES_EXIST := true
+
+# Turning it on found thirteen entries that had been missing from every build so
+# far, silently. All thirteen come from LineageOS's own product makefiles and
+# none is a defect in this port, so they are whitelisted rather than chased --
+# but they are listed individually, because a whitelist that says "these are
+# fine" without saying WHY is the next silent failure.
+#
+#   Browser2 Calendar Launcher3QuickStep LineageDarkTheme LockClock Music
+#   MusicFX QuickSearchBox WeatherProvider powertop
+#       Optional apps and tools whose repositories are not in this checkout.
+#       Nothing depends on them; HOME resolves to com.android.launcher3 and the
+#       GApps payload supplies the rest.
+#
+#   org.lineageos.platform.xml
+#       Named by vendor/lineage/config/lineage_sdk_common.mk:15, but this
+#       checkout's lineage-sdk ships it as a raw FILE with no module around it.
+#       Harmless: the SDK is complete on the device anyway --
+#       /system/framework/org.lineageos.platform.jar is installed, and the
+#       permission XML arrives as org.lineageos.android.xml through
+#       vendor/lineage/config/common.mk:76's PRODUCT_COPY_FILES.
+#
+#   product_manifest.xml
+#       A product-partition VINTF fragment. This device declares everything in
+#       the device manifest and has no /product/etc/vintf at all.
+#
+# The point of the flag is what it catches NEXT. If it fires on something new,
+# fix the module; do not add it here.
+PRODUCT_ENFORCE_PACKAGES_EXIST_WHITELIST := \
+    Browser2 \
+    Calendar \
+    Launcher3QuickStep \
+    LineageDarkTheme \
+    LockClock \
+    Music \
+    MusicFX \
+    QuickSearchBox \
+    WeatherProvider \
+    org.lineageos.platform.xml \
+    powertop \
+    product_manifest.xml
+
 -include vendor/xsh/k50sv1_64_bsp/BoardConfigVendor.mk
