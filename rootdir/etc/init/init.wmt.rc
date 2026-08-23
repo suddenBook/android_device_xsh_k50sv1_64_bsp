@@ -9,11 +9,35 @@ service wmt_launcher /vendor/bin/wmt_launcher -p /vendor/firmware/ -o 1
     user system
     group system
 
+# NOT `disabled`, deliberately, and this is the one place stock had it right.
+#
+# wlan_assistant pushes the factory WIFI record from
+# /mnt/vendor/nvdata/APCFG/APRDEB/WIFI into the WLAN driver through
+# /dev/wmtWifi. That record carries the MAC and the 5 GHz band-enable and
+# power tables; without it the driver takes a random MAC, loses the whole
+# 5 GHz band, and its SSID string field reads "NVRAM WARNING: Err = 0x01".
+#
+# The binary is SELF-SYNCHRONISING. Disassembled: it polls
+# access("/dev/wmtWifi", F_OK) in an unbounded sleep(1) loop, and then polls
+# access(<record>, R_OK) in a second unbounded sleep(1) loop. Started too
+# early it sleeps; it does not fail. It also reads no properties at all --
+# `property_set` is the only property symbol it imports -- so it cannot be
+# gated on one, and `vendor.mtk.nvram.ready` is its OUTPUT, not its input.
+#
+# Adding `disabled` here converted that self-synchronising daemon into a
+# single-shot one whose only start point was a property trigger, which made
+# boot ordering load-bearing where it had not been. That is what turned an
+# unrelated timing change into a silently missing Wi-Fi band (E-047, which
+# corrects E-045's account of the same failure). Stock's
+# vendor/etc/init/wlan_assistant.rc has no `disabled`; neither does this.
+#
+# Not `oneshot` either, also matching stock: init restarts a non-oneshot
+# service that exits, so even the one real fast-exit path the binary has --
+# /dev/wmtWifi absent or not a character device at stat() time -- self-heals.
 service wlan_assistant /vendor/bin/wlan_assistant
     class main
     user wifi
     group system gps inet
-    disabled
 
 service wpa_supplicant /vendor/bin/hw/wpa_supplicant -g@android:wpa_wlan0
     interface android.hardware.wifi.supplicant@1.0::ISupplicant default

@@ -1,71 +1,62 @@
 # wmt_drv.ko creates /dev/wmtdetect and /dev/stpwmt, which wmt_loader opens.
 #
-# `on boot`, NOT `on post-fs` -- and this is a REVERT, deliberately, with the
-# measurement that motivated the move still standing.
+# `on boot`, and it stays there. An earlier revision moved it to `on post-fs`
+# to buy back a measured 926 ms of wmt_loader retry spin
+# ("chipId detect failed, retrying, left retryCounter:%d" inside the blob),
+# then reverted it when 5 GHz disappeared. Both the move and the revert were
+# reasoned from a number that does not mean what it looked like:
 #
-# The move to `on post-fs` was correct on its own terms: wmt_loader is
-# class early_hal, started from /init.rc's `on late-fs`, so loading the module
-# at `on boot` puts it AFTER its only consumer, and the boot capture shows
-# wmt_loader spinning 926 ms in the retry loop inside the blob
-# ("chipId detect failed, retrying, left retryCounter:%d"). post-fs runs about
-# 23 ms before class_start early_hal and needs nothing the module does not have.
+#   * the spin happens inside wmt_loader, which is `class early_hal` and
+#     `oneshot`. init forks it and does not wait, so the 926 ms is wall-clock
+#     concurrent, not serial boot time. Measured on the current build,
+#     `on late-fs` hands off to `on post-fs-data` 13 ms later.
+#   * the `exec ... insmod` itself blocks init's action processing for 79 ms.
+#     Moving it one stage earlier moves the same 79 ms earlier. Net serial
+#     saving: ZERO.
+#   * nothing on the boot-completed path consumes vendor.connsys.driver.ready.
+#     Its only consumers are the four insmods below and wlan_assistant, and the
+#     chip is not touched at all until the framework enables Wi-Fi at t=16.8 s,
+#     13 s after this chain finishes. sys.boot_completed lands at t=26.0 s and
+#     is bootanim-bound.
 #
-# It also broke Wi-Fi, and the reason is worth reading before anyone tries again
-# (E-045). wlan_assistant reads the WIFI record out of
-# /mnt/vendor/nvdata/APCFG/APRDEB and hands the MAC and the regulatory data to
-# the WLAN driver. Bringing the connectivity driver up ~1 s earlier made
-# vendor.connsys.driver.ready fire before NVRAM was restored; wlan_assistant
-# found nothing and exited in 17 ms, and the driver took a RANDOM MAC with no
-# country data -- which costs the entire 5 GHz band and makes the
-# NVRAM-derived string field read "NVRAM WARNING: Err = 0x01".
-#
-# ANDing vendor.service.nvram_init=Ready onto the trigger was tried and is NOT
-# sufficient: measured on the handset, nvram_daemon publishes that property
-# 17.7 SECONDS before it finishes and exits, and wlan_assistant started at
-# nvram_init=Ready still exits in 17 ms. The binary's own readiness property is
-# `vendor.mtk.nvram.ready`, which is EMPTY on this device and therefore never a
-# usable gate either.
-#
-# So the working signal is nvram_daemon actually exiting, and the only thing
-# that has been PROVEN to work on this handset is the original `on boot`
-# ordering plus a manual start afterwards. Reverted to the proven one.
-#
-# TO TRY AGAIN: put the insmod back on post-fs and gate the start on
-# `init.svc.nvram_daemon=stopped` instead, then verify
-# `cat /sys/class/net/wlan0/address` is 2c:45:67:89:f9:2c and
-# `dmesg | grep fgNvramAvailable` reads 1 -- on a fresh flash, because a wiped
-# /data changes how long nvram_daemon takes.
+# So there is nothing to win here, and the ordering question that cost a Wi-Fi
+# band was never really about NVRAM at all. See E-047.
 on boot
     exec u:r:vendor_modprobe:s0 -- /vendor/bin/insmod /vendor/lib/modules/wmt_drv.ko
 
+# wlan_assistant is NOT started from here.
+#
+# It is a `class main` service with no `disabled` (init.wmt.rc), so init starts
+# it with its class and the binary blocks on its own two unbounded poll loops
+# until /dev/wmtWifi and the NVRAM record both exist. That is the whole
+# dependency, expressed where the daemon can actually enforce it rather than
+# where init has to guess.
+#
+# What was here before was `on property:vendor.connsys.driver.ready=yes &&
+# property:vendor.service.nvram_init=Ready -> start wlan_assistant`, and BOTH
+# halves were wrong:
+#
+#   * The NVRAM half gated on nothing real. The WIFI record is FACTORY content
+#     on the nvdata partition -- mtime 2026-01-13, unchanged across boots,
+#     while BT_Addr in the same directory is rewritten every boot -- so
+#     nvram_daemon neither creates nor touches it. It is readable from
+#     `mount_all` at `on fs` (init.mt6755.rc:27), ~300 ms before `on post-fs`
+#     and ~800 ms before this insmod. There was never a window in which it was
+#     missing. Separately, vendor.service.nvram_init=Ready is published 10 s
+#     (17.7 s on a fresh /data) BEFORE nvram_daemon exits, so it would not have
+#     been a usable barrier even if the dependency had been real.
+#
+#   * The driver.ready half was the only start point, which is what made it
+#     dangerous. Removing `disabled` removes the single point of failure.
+#
+# The one real hazard is /dev/wmtWifi: wmt_chrdev_wifi.ko registers the char
+# device but UEVENTD creates the NODE asynchronously, and `exec ... insmod`
+# returns before it exists -- measured 140 ms apart on the current build.
+# stat() on a missing node is the only fast-exit path wlan_assistant has. With
+# the service un-disabled and non-oneshot, init restarts it, and its own
+# access() poll loop covers the gap. Nothing here needs to wait on it.
 on property:vendor.connsys.driver.ready=yes
     exec u:r:vendor_modprobe:s0 -- /vendor/bin/insmod /vendor/lib/modules/wmt_chrdev_wifi.ko
     exec u:r:vendor_modprobe:s0 -- /vendor/bin/insmod /vendor/lib/modules/wlan_drv_${ro.vendor.wlan.gen}.ko
     exec u:r:vendor_modprobe:s0 -- /vendor/bin/insmod /vendor/lib/modules/bt_drv.ko
     exec u:r:vendor_modprobe:s0 -- /vendor/bin/insmod /vendor/lib/modules/gps_drv.ko
-
-# wlan_assistant needs BOTH the connectivity driver AND NVRAM. It reads the
-# WIFI record out of /mnt/vendor/nvdata/APCFG/APRDEB and hands the MAC and the
-# regulatory/calibration data to the WLAN driver; started before nvram_daemon
-# has published, it finds nothing and exits, and the driver falls back to a
-# RANDOM MAC with no country data -- which costs the 5 GHz band entirely and
-# makes the device's own SSID field read "NVRAM WARNING: Err = 0x01".
-#
-# That dependency was never expressed. It held by accident while wmt_drv.ko was
-# insmod'ed at `on boot`, because the extra second was enough for nvram_daemon
-# to win the race. Moving the insmod to `on post-fs` -- correct in itself, it
-# put the module before its consumer instead of 926 ms after -- made
-# connsys.driver.ready fire earlier and the race started going the other way.
-# Stock has the same unexpressed dependency and the same accidental ordering.
-#
-# Proven on the handset: with the driver up but wlan_assistant dead,
-# `glLoadNvram: fgNvramAvailable = 0` and wlan0 is 00:08:22:e0:b7:fe; a manual
-# `start wlan_assistant` afterwards gives `fgNvramAvailable = 1` and
-# 2c:45:67:89:f9:2c, the address the factory wrote into NVRAM.
-#
-# Two property triggers ANDed: system/core/init/action_parser.cpp accepts `&&`
-# between property triggers and fires the action when both hold.
-# The nvram_init=Ready half is kept because the dependency is REAL and should
-# be stated even though it is not sufficient on its own -- see the header.
-on property:vendor.connsys.driver.ready=yes && property:vendor.service.nvram_init=Ready
-    start wlan_assistant
