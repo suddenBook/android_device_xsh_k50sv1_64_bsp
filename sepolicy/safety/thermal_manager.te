@@ -3,6 +3,9 @@ type mtk_thermal_manager_exec, exec_type, vendor_file_type, file_type;
 
 init_daemon_domain(mtk_thermal_manager)
 
+# The one-shot startup normalizes ownership of its private thermal state.
+allow mtk_thermal_manager self:global_capability_class_set { chown fowner };
+
 allow mtk_thermal_manager proc_mtk_thermal:dir r_dir_perms;
 allow mtk_thermal_manager proc_mtk_thermal:file rw_file_perms;
 allow mtk_thermal_manager proc_mtk_cooler:dir r_dir_perms;

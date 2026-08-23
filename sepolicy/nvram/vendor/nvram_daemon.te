@@ -29,6 +29,7 @@ allow nvram_daemon mtk_adc_calibration_device:chr_file rw_file_perms;
 
 allow nvram_daemon proc_cmdline:file r_file_perms;
 allow nvram_daemon sysfs_dt_firmware_android:dir search;
+allow nvram_daemon sysfs_dt_firmware_android:file r_file_perms;
 allow nvram_daemon sysfs_mtk_boot_mode:file r_file_perms;
 
 allow nvram_daemon mnt_vendor_file:dir search;

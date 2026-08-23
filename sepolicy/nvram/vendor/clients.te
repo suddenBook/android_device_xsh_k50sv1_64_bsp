@@ -17,6 +17,15 @@ allow {
     hal_bluetooth_default
 } mtk_nvdata_file:dir search;
 
+# libnvram validates the common FILE_VER record before opening a category
+# file.  It is metadata, not a calibration payload.
+allow {
+    hal_camera_default
+    hal_audio_default
+    hal_wifi_default
+    hal_bluetooth_default
+} mtk_nvdata_file:file r_file_perms;
+
 allow {
     hal_camera_default
     hal_audio_default
@@ -48,7 +57,19 @@ allow {
     hal_audio_default
     hal_wifi_default
     hal_bluetooth_default
+} sysfs_dt_firmware_android:file r_file_perms;
+allow {
+    hal_camera_default
+    hal_audio_default
+    hal_wifi_default
+    hal_bluetooth_default
 } sysfs_mtk_boot_mode:file r_file_perms;
+
+get_prop(hal_audio_default, mtk_radio_config_prop)
+allow hal_audio_default sysfs_mtk_ccci:dir search;
+allow hal_audio_default sysfs_mtk_ccci:file r_file_perms;
+
+get_prop(hal_bluetooth_default, mtk_wmt_prop)
 
 get_prop({
     rild

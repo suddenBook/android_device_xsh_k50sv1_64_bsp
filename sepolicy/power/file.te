@@ -6,10 +6,13 @@ type mtk_powerhal_data_file, file_type, data_file_type;
 # rest of the MTK performance/debug surfaces.
 type proc_mtk_power_perf_ioctl, fs_type, proc_type;
 type proc_mtk_power_ppm, fs_type, proc_type;
+type proc_mtk_power_info, fs_type, proc_type;
 type proc_mtk_power_hps, fs_type, proc_type;
 type proc_mtk_power_perfmgr, fs_type, proc_type;
+type proc_mtk_power_fliper, fs_type, proc_type;
 type proc_mtk_netdagent_arp, fs_type, proc_type;
 
 type sysfs_mtk_power_cpu_info, fs_type, sysfs_type;
 type sysfs_mtk_power_cpu_control, fs_type, sysfs_type;
 type sysfs_mtk_power_storage_control, fs_type, sysfs_type;
+type sysfs_mtk_io_scheduler, fs_type, sysfs_type;

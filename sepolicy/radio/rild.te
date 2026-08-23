@@ -10,6 +10,10 @@ hal_attribute_hwservice(hal_telephony, mtk_radioex_hwservice)
 allow rild mtk_rild_socket:sock_file write;
 allow rild mtkrild:unix_stream_socket connectto;
 
+# This chassis exposes two physical SIM slots and no virtual/external SIM
+# feature.  Retain the vendor RIL's optional probe as a denied, quiet fallback.
+dontaudit rild mtk_ril_vsim_socket:sock_file write;
+
 set_prop(rild, mtk_ril_mux_report_prop)
 set_prop(rild, mtk_vendor_radio_prop)
 set_prop(rild, mtk_telephony_sensitive_prop)

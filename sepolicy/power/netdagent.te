@@ -4,6 +4,12 @@ type netdagent_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(netdagent)
 hwbinder_use(netdagent)
 add_hwservice(netdagent, mtk_netdagent_hwservice)
+create_pty(netdagent)
+
+# libforkexecwrap gives the constrained netutils child its private PTY and
+# inherited descriptor.  Never expose the global devpts type to either side.
+allow netutils_wrapper netdagent:fd use;
+allow netutils_wrapper netdagent_devpts:chr_file { read write };
 
 # libpowerhal uses the priority firewall commands for network boost.  The
 # retained rilproxy (rild domain) uses set_plmn_iface_rule for the ordinary
@@ -39,3 +45,4 @@ allow netdagent proc_mtk_netdagent_arp:file { getattr open read };
 
 set_prop(netdagent, mtk_netdagent_prop)
 get_prop(netdagent, mtk_netdagent_config_prop)
+get_prop(netdagent, hwservicemanager_prop)

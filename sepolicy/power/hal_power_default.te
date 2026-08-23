@@ -40,6 +40,9 @@ allow hal_power_default {
     proc_mtk_power_perfmgr
 }:file { getattr open read write };
 
+allow hal_power_default proc_mtk_power_info:file r_file_perms;
+dontaudit hal_power_default proc_mtk_power_fliper:file getattr;
+
 allow hal_power_default sysfs_mtk_power_cpu_info:file { getattr open read };
 allow hal_power_default {
     sysfs_mtk_power_cpu_control

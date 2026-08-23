@@ -37,3 +37,16 @@ allow {
     mediacodec
     surfaceflinger
 } mtk_cmdq_device:chr_file { ioctl open read };
+
+# The proprietary composer uses vendor Binder for its MTK extension service
+# and listens for hotplug uevents.
+vndbinder_use(hal_graphics_composer_default)
+allow hal_graphics_composer_default self:netlink_kobject_uevent_socket {
+    bind
+    create
+    read
+    setopt
+};
+
+set_prop(hal_graphics_composer_default, mtk_hwc_runtime_prop)
+get_prop(surfaceflinger, mtk_hwc_runtime_prop)

@@ -30,6 +30,8 @@ allow ccci_mdinit mtk_devmap_device:chr_file r_file_perms;
 allow ccci_mdinit mtk_ccci_cfg_file:dir create_dir_perms;
 allow ccci_mdinit mtk_ccci_cfg_file:file create_file_perms;
 allow ccci_mdinit mtk_modem_config_file:file r_file_perms;
+allow ccci_mdinit mtk_modem_config_file:file write;
+allow ccci_mdinit mtk_nvdata_file:file r_file_perms;
 allow ccci_mdinit mnt_vendor_file:dir search;
 
 allow ccci_mdinit sysfs_mtk_ccci:dir r_dir_perms;
@@ -37,6 +39,7 @@ allow ccci_mdinit sysfs_mtk_ccci:file r_file_perms;
 allow ccci_mdinit sysfs_mtk_ccci_boot:file rw_file_perms;
 allow ccci_mdinit sysfs_mtk_boot_mode:file r_file_perms;
 allow ccci_mdinit sysfs_dt_firmware_android:dir search;
+allow ccci_mdinit sysfs_dt_firmware_android:file r_file_perms;
 
 allow ccci_mdinit proc_mtk_bootprof:file rw_file_perms;
 allow ccci_mdinit proc_mtk_lk_env:file rw_file_perms;

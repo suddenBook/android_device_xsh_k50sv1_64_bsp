@@ -7,6 +7,11 @@ allow mtk_thermal proc_mtk_thermal:dir r_dir_perms;
 allow mtk_thermal proc_mtk_thermal:file rw_file_perms;
 allow mtk_thermal proc_mtk_cooler:dir search;
 
+# Thermal policy changes are sent to the modem through the dedicated OEM RIL
+# endpoint; no other radio sockets are exposed.
+allow mtk_thermal mtk_ril_oem_socket:sock_file write;
+allow mtk_thermal mtkrild:unix_stream_socket connectto;
+
 allow mtk_thermal mtk_thermal_data_file:dir search;
 allow mtk_thermal mtk_thermal_data_file:file rw_file_perms;
 
@@ -14,3 +19,6 @@ set_prop(mtk_thermal, mtk_thermal_config_prop)
 
 # The thermal coordinator sends policy changes to the local SPA server.
 allow mtk_thermal mtk_thermalloadalgod:unix_stream_socket connectto;
+
+allow hal_thermal_default proc_mtk_thermal_zone:dir search;
+allow hal_thermal_default proc_mtk_thermal_zone:file r_file_perms;

@@ -1,0 +1,11 @@
+# Settings displays zram usage.  Keep this to the standard read-only zram
+# label; page-allocation layout in /proc/pagetypeinfo remains intentionally
+# inaccessible to the broad system_app domain.
+r_dir_file(system_app, sysfs_zram)
+
+# Optional Settings probes which platform neverallows prohibit from becoming
+# public app-facing service contracts.
+dontaudit system_app {
+    apex_service
+    system_suspend_control_service
+}:service_manager find;

@@ -20,6 +20,13 @@ allow mnld mtk_agps_data_file:sock_file create_file_perms;
 allow mnld mnt_vendor_file:dir search;
 allow mnld mtk_modem_nvdata_file:dir search;
 allow mnld mtk_gps_nvram_file:file r_file_perms;
+allow mnld mtk_nvdata_file:dir search;
+allow mnld mtk_nvdata_file:file r_file_perms;
+
+allow mnld proc_cmdline:file r_file_perms;
+allow mnld sysfs_dt_firmware_android:dir search;
+allow mnld sysfs_dt_firmware_android:file r_file_perms;
+allow mnld sysfs_mtk_boot_mode:file r_file_perms;
 
 # MPE may consume the one truthful accelerometer through the framework sensor
 # manager.  No light/proximity/magnetometer/gyro node access is granted.

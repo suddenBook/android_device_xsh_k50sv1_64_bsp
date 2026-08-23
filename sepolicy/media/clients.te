@@ -35,3 +35,16 @@ get_prop({
     hal_camera_default
     mediacodec
 }, mtk_pq_ro_prop)
+
+# Hardware identity and the M4U control node are read directly by the shipped
+# media stack.  Keep both on dedicated types instead of generic sysfs/proc.
+allow {
+    hal_audio_default
+    hal_camera_default
+    mediacodec
+} sysfs_mtk_devinfo:file r_file_perms;
+
+allow mediacodec proc_mtk_m4u:file { getattr open read };
+allow hal_camera_default proc_mtk_m4u:file { getattr ioctl open read };
+
+allowxperm hal_camera_default proc_mtk_m4u:file ioctl 0x670b;

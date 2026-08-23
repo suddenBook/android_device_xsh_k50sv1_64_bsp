@@ -1,0 +1,3 @@
+# The Wi-Fi HAL powers the MTK connectivity function through this one device;
+# it receives no generic device-node access.
+allow hal_wifi_default mtk_wmt_wifi_device:chr_file { open write };

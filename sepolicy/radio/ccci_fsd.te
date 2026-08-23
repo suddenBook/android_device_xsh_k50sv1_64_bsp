@@ -20,6 +20,8 @@ allow ccci_fsd mtk_protect_f_file:file create_file_perms;
 allow ccci_fsd mtk_protect_s_file:dir create_dir_perms;
 allow ccci_fsd mtk_protect_s_file:file create_file_perms;
 allow ccci_fsd mnt_vendor_file:dir search;
+allow ccci_fsd mtk_nvdata_file:dir getattr;
+allow ccci_fsd mtk_gps_nvram_file:file r_file_perms;
 
 allow ccci_fsd sysfs_mtk_ccci:dir r_dir_perms;
 allow ccci_fsd sysfs_mtk_ccci:file r_file_perms;

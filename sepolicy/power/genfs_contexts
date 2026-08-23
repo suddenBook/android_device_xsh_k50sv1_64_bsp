@@ -10,6 +10,12 @@ genfscon proc /ppm/policy/userlimit_max_cpu_freq u:object_r:proc_mtk_power_ppm:s
 genfscon proc /ppm/policy_status                 u:object_r:proc_mtk_power_ppm:s0
 genfscon proc /ppm/root_cluster                  u:object_r:proc_mtk_power_ppm:s0
 genfscon proc /ppm/mode                          u:object_r:proc_mtk_power_ppm:s0
+genfscon proc /ppm/dump_cluster_0_dvfs_table     u:object_r:proc_mtk_power_info:s0
+genfscon proc /ppm/dump_cluster_1_dvfs_table     u:object_r:proc_mtk_power_info:s0
+
+# Optional legacy fliper probe.  The HAL only checks whether this node exists;
+# it does not receive blanket access to the rest of /proc.
+genfscon proc /fliper u:object_r:proc_mtk_power_fliper:s0
 
 # HPS controls which are present on this kernel.
 genfscon proc /hps/num_limit_power_serv u:object_r:proc_mtk_power_hps:s0
@@ -24,8 +30,8 @@ genfscon proc /perfmgr/legacy/perfserv_freq u:object_r:proc_mtk_power_perfmgr:s0
 # Netdagent only parses ARP entries; it has no blanket /proc/net access.
 genfscon proc /net/arp u:object_r:proc_mtk_netdagent_arp:s0
 
-# Read-only topology/frequency discovery.
-genfscon sysfs /devices/system/cpu/possible u:object_r:sysfs_mtk_power_cpu_info:s0
+# Read-only frequency discovery.  Generic CPU topology remains on AOSP's
+# sysfs_devices_system_cpu so apps retain the standard read-only contract.
 genfscon sysfs /devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies u:object_r:sysfs_mtk_power_cpu_info:s0
 genfscon sysfs /devices/system/cpu/cpu1/cpufreq/scaling_available_frequencies u:object_r:sysfs_mtk_power_cpu_info:s0
 genfscon sysfs /devices/system/cpu/cpu4/cpufreq/scaling_available_frequencies u:object_r:sysfs_mtk_power_cpu_info:s0
@@ -43,3 +49,4 @@ genfscon sysfs /devices/system/cpu/cpufreq/interactive/above_hispeed_delay u:obj
 
 # Canonical sysfs backing path for /sys/block/mmcblk0/queue/read_ahead_kb.
 genfscon sysfs /devices/mtk-msdc.0/11230000.msdc0/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/read_ahead_kb u:object_r:sysfs_mtk_power_storage_control:s0
+genfscon sysfs /devices/mtk-msdc.0/11230000.msdc0/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler u:object_r:sysfs_mtk_io_scheduler:s0

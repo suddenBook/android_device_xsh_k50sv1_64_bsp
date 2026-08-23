@@ -1,0 +1,19 @@
+# Operations on the root ramdisk must remain in the platform init domain.
+# A vendor rc is parsed in vendor_init and cannot safely create mount points
+# below the tmpfs-backed /mnt hierarchy on an enforcing boot.
+on early-init
+    mkdir /mnt/vendor 0755 root root
+    mkdir /mnt/vendor/protect_f 0770 system system
+    mkdir /mnt/vendor/protect_s 0770 system system
+    mkdir /mnt/vendor/nvdata 0771 root system
+
+# This 3.18 kernel has no schedtune controller.  AOSP's generic init.rc still
+# creates the directories, and later task-profile writes otherwise turn their
+# "tasks" nodes into ordinary tmpfs files.  Remove the empty placeholders
+# before zygote starts so scheduling requests fail closed with ENOENT.
+on post-fs
+    rmdir /dev/stune/foreground
+    rmdir /dev/stune/background
+    rmdir /dev/stune/top-app
+    rmdir /dev/stune/rt
+    rmdir /dev/stune
