@@ -12,7 +12,22 @@ type proc_mtk_power_perfmgr, fs_type, proc_type;
 type proc_mtk_power_fliper, fs_type, proc_type;
 type proc_mtk_netdagent_arp, fs_type, proc_type;
 
-type sysfs_mtk_power_cpu_info, fs_type, sysfs_type;
 type sysfs_mtk_power_cpu_control, fs_type, sysfs_type;
+
+# Relabelling scaling_min_freq/scaling_max_freq and the interactive governor
+# knobs out of sysfs_devices_system_cpu is what lets only the Power HAL and
+# vendor_init WRITE them. It also silently removed the READ that
+# system/sepolicy/public/domain.te:210 grants every domain on that tree --
+# scaling_max_freq in particular is read by system_server, dumpstate,
+# incidentd (private/incidentd.te:35), perfprofd (public/perfprofd.te:17) and
+# routinely by apps. Put the read back; keep the write private.
+# isolated_app is excluded because private/isolated_app.te:127-133 neverallows
+# it any sysfs_type read outside sysfs_devices_system_cpu,
+# sysfs_transparent_hugepage and sysfs_usb -- the build fails otherwise. That
+# is a real, unavoidable consequence of relabelling: an isolated_app (WebView
+# renderer, sandboxed service) can no longer read scaling_max_freq. Accepted;
+# the alternative is granting the Power HAL write on the whole
+# sysfs_devices_system_cpu tree, which is far broader.
+allow { domain -isolated_app } sysfs_mtk_power_cpu_control:file r_file_perms;
 type sysfs_mtk_power_storage_control, fs_type, sysfs_type;
 type sysfs_mtk_io_scheduler, fs_type, sysfs_type;

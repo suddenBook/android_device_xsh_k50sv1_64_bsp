@@ -6,39 +6,35 @@ hwbinder_use(netdagent)
 add_hwservice(netdagent, mtk_netdagent_hwservice)
 create_pty(netdagent)
 
-# NO netutils_wrapper rules here, and this is deliberate.
+# netdagent spawns ip/tc/iptables, and AOSP transitions those to its own
+# constrained netutils_wrapper domain. Both halves of that were denied on this
+# handset at every boot until this rule pair was restored:
 #
-# There were two:
-#     allow netutils_wrapper netdagent:fd use;
-#     allow netutils_wrapper netdagent_devpts:chr_file { read write };
-# justified by a comment claiming that "ip/tc/iptables execution transitions to
-# AOSP's constrained netutils_wrapper domain through the platform
-# domain_auto_trans rule". No such platform rule exists. Grepping the whole
-# tree, the only domain_auto_trans(*, netutils_wrapper_exec, netutils_wrapper)
-# instances are in device/qcom/sepolicy -- AOSP ships the domain
-# (public/netutils_wrapper.te) and expects each vendor to add its own
-# transition. Without one, netutils_wrapper can never be netdagent's child, so
-# both rules were unreachable; and public/netutils_wrapper.te:4 is
-#     neverallow domain netutils_wrapper_exec:file execute_no_trans;
-# so the exec cannot succeed any other way either.
+#   avc: denied { use } for comm="iptables-wrappe" path="/dev/pts/0"
+#        scontext=u:r:netutils_wrapper:s0 tcontext=u:r:netdagent:s0 tclass=fd
+#   avc: denied { read write } for comm="iptables-wrappe" path="/dev/pts/0"
+#        scontext=u:r:netutils_wrapper:s0
+#        tcontext=u:object_r:netdagent_devpts:s0 tclass=chr_file
 #
-# The live handset agrees: netdagent's entire fd table is
-#   3x /dev/null, one socket, /dev/pmsg0, /dev/hwbinder
-# -- no PTY, no devpts, no children. libifcutils_mtk does the interface work
-# over the udp/netlink_route sockets granted below.
+# 30 of them in one boot, i.e. every firewall command netdagent issues.
 #
-# IF an "avc: denied { execute } ... netutils_wrapper_exec" ever appears, the
-# fix is to add the transition BY HAND rather than with domain_auto_trans(),
-# because that macro expands a `dontaudit ... noatsecure` and this tree bans
-# dontaudit:
-#     allow netdagent netutils_wrapper_exec:file { getattr open read execute map };
-#     allow netdagent netutils_wrapper:process { transition siginh rlimitinh };
-#     allow netutils_wrapper netutils_wrapper_exec:file entrypoint;
-#     type_transition netdagent netutils_wrapper_exec:process netutils_wrapper;
-#     allow netutils_wrapper netdagent:fd use;
-#     allow netutils_wrapper netdagent_devpts:chr_file { read write };
-# (public/domain.te:967 already whitelists netutils_wrapper_exec for the
-# vendor-executes-system neverallow, so no other change is needed.)
+# An earlier revision deleted these two rules and argued at length that they
+# were unreachable because "no platform domain_auto_trans to netutils_wrapper
+# exists; the only ones are in device/qcom/sepolicy". That is wrong.
+# system/sepolicy/private/netutils_wrapper.te:31-35 is
+#
+#     domain_auto_trans({ domain -coredomain -appdomain },
+#                       netutils_wrapper_exec, netutils_wrapper)
+#
+# -- a platform-wide transition for every non-core, non-app domain, which is
+# exactly what netdagent is. It spans five lines, which is why a single-line
+# grep missed it. create_pty(netdagent) above is load-bearing for the same
+# reason: the pty in the denials is netdagent's.
+#
+# The transition is AOSP's, so nothing needs adding by hand. Only the two
+# permissions that let the child use the fd it inherits:
+allow netutils_wrapper netdagent:fd use;
+allow netutils_wrapper netdagent_devpts:chr_file { read write };
 
 # libpowerhal uses the priority firewall commands for network boost.  The
 # retained rilproxy (rild domain) uses set_plmn_iface_rule for the ordinary

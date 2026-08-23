@@ -1,2 +1,8 @@
 # Android Q vendor property type used after WLAN NVRAM reaches the driver.
 type mtk_wlan_nvram_ready_prop, property_type;
+
+# vendor.wlan.firmware.version is published by the Wi-Fi HAL once the firmware
+# banner is read back from the driver. It was landing on vendor_default_prop and
+# denied at every boot; public/domain.te:535 neverallows any domain but
+# init/vendor_init from setting that type, so the fix is a device type.
+type mtk_wlan_prop, property_type;

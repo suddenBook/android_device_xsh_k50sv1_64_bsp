@@ -32,7 +32,13 @@ allow mtkmal mtkmal_devpts:chr_file setattr;
 
 get_prop(mtkmal, mtk_ims_prop)
 get_prop(mtkmal, mtk_ims_feature_prop)
-get_prop(mtkmal, mtk_vendor_radio_prop)
+# mtkmal both reads and writes this prefix. It was get_prop only, and
+# vendor.ril.mal.flag was denied at every boot:
+#   avc:  denied  { set } for property=vendor.ril.mal.flag
+#         scontext=u:r:mtkmal:s0
+#         tcontext=u:object_r:mtk_vendor_radio_prop:s0 tclass=property_service
+set_prop(mtkmal, mtk_vendor_radio_prop)
+set_prop(mtkmal, mtk_ril_handover_prop)
 get_prop(mtkmal, mtk_radio_config_prop)
 get_prop(mtkmal, mtk_nvram_ready_prop)
 # volte_imsm.so reads both vendor.ril.mux.report.case (mtk_ril_mux_report_prop)

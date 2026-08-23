@@ -12,12 +12,26 @@ binder_call(hal_mtk_power_client, hal_mtk_power_server)
 binder_call(hal_mtk_power_server, hal_mtk_power_client)
 hal_attribute_hwservice(hal_mtk_power, mtk_hal_power_hwservice)
 
-# There is deliberately no hal_client_domain(..., hal_mtk_power) anywhere.
-# `lshal --types=b` on the handset lists all four MTK instances with an empty
-# client column: nothing binds them, the framework uses android.hardware.power
-# instead, and libperfctl's in-process clients use the /proc/perfmgr ioctl path
-# (power/clients.te), not HIDL. hal_attribute_hwservice() therefore expands to
+# The client set was empty by design, on the reasoning that `lshal --types=b`
+# showed all four MTK instances with an empty client column and that
+# libperfctl's in-process clients use the /proc/perfmgr ioctl path rather than
+# HIDL. hal_attribute_hwservice() expands to
 #   neverallow { domain -hal_mtk_power_client -hal_mtk_power_server }
 #           mtk_hal_power_hwservice:hwservice_manager find;
-# with an empty client set, so a future consumer shows up as a named AVC on
-# tier 1 and needs exactly one hal_client_domain() line here.
+# so the prediction was that a real consumer would show up as a named AVC on
+# tier 1 and need exactly one hal_client_domain() line. That is what happened.
+# Three appeared in one boot:
+#
+#   interface=vendor.mediatek.hardware.power::IPower      sid=u:r:hal_camera_default:s0
+#   interface=vendor.mediatek.hardware.mtkpower::IMtkPower sid=u:r:hal_audio_default:s0
+#   interface=vendor.mediatek.hardware.mtkpower::IMtkPower sid=u:r:mediacodec:s0
+#
+# All three are legitimate: the MTK camera, audio and codec stacks raise perf
+# hints through libpowerhalwrap, which binds these interfaces. Denying them
+# does not fail safe -- it silently drops the boost, which on this part is the
+# difference between a codec session that keeps up and one that drops frames.
+# `lshal`'s empty client column was measuring the wrong thing: it lists
+# registered clients at the instant it runs, and these are transient binds.
+hal_client_domain(hal_camera_default, hal_mtk_power)
+hal_client_domain(hal_audio_default, hal_mtk_power)
+hal_client_domain(mediacodec, hal_mtk_power)

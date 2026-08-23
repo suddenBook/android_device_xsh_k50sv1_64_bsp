@@ -58,7 +58,8 @@ allow hal_power_default proc_mtk_power_info:file r_file_perms;
 #   avc: denied { getattr } for comm="mtkPowerManager" path="/proc/fliper"
 allow hal_power_default proc_mtk_power_fliper:file getattr;
 
-allow hal_power_default sysfs_mtk_power_cpu_info:file { getattr open read };
+# scaling_available_frequencies is read as sysfs_devices_system_cpu through
+# public/domain.te:210; no rule is needed and sysfs_mtk_power_cpu_info is gone.
 allow hal_power_default {
     sysfs_mtk_power_cpu_control
     sysfs_mtk_power_storage_control
@@ -80,7 +81,11 @@ allow hal_power_default {
 # not a second writer on the node.
 
 set_prop(hal_power_default, mtk_powerhal_prop)
-set_prop(hal_power_default, mtk_thermal_config_prop)
+# Read, not write. The Power HAL consumes vendor.thermal.manager.data; the
+# thermal daemons own it. Granting set here is the same boundary crossing this
+# file refuses two rules below for /dev/wmtWifi and mtk_ril_oem_socket, and no
+# AVC in any capture asks for it.
+get_prop(hal_power_default, mtk_thermal_config_prop)
 
 # NOT GRANTED: mtk_ril_oem_socket. Stock has
 #   (allow mtk_hal_power rild_oem_socket (sock_file (write)))

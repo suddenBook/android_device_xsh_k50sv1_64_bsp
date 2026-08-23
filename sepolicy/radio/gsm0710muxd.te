@@ -21,4 +21,14 @@ set_prop(gsm0710muxd, ctl_mtkrild_prop)
 set_prop(gsm0710muxd, mtk_ril_mux_prop)
 set_prop(gsm0710muxd, mtk_ril_mux_report_prop)
 set_prop(gsm0710muxd, mtk_vendor_radio_prop)
+
+# vendor.ril.muxreport is the mux daemon's own run state, and it is the daemon
+# that publishes it. Denied at every boot until this was added:
+#   avc:  denied  { set } for property=vendor.ril.muxreport.run
+#         scontext=u:r:gsm0710muxd:s0
+#         tcontext=u:object_r:mtk_muxreport_state_prop:s0 tclass=property_service
+# ims.te:41 already gives mtkmal the matching get_prop -- volte_imsm.so reads
+# this before starting the three VoLTE daemons, so under enforcing the write
+# failing here would leave that read looking at a value nobody ever set.
+set_prop(gsm0710muxd, mtk_muxreport_state_prop)
 get_prop(gsm0710muxd, mtk_radio_config_prop)

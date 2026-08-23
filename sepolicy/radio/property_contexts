@@ -50,6 +50,8 @@ vendor.ril.uim.subscriberid  u:object_r:mtk_telephony_sensitive_prop:s0
 persist.vendor.radio.last_iccid_sim u:object_r:mtk_telephony_sensitive_prop:s0
 
 # The proprietary RIL legitimately owns this vendor-only property namespace.
+vendor.net.handover.         u:object_r:mtk_ril_handover_prop:s0
+vendor.cdma.ril.             u:object_r:mtk_ril_cdma_prop:s0
 vendor.ril.                  u:object_r:mtk_vendor_radio_prop:s0
 ro.vendor.ril.               u:object_r:mtk_radio_config_prop:s0
 vendor.gsm.                  u:object_r:mtk_vendor_radio_prop:s0

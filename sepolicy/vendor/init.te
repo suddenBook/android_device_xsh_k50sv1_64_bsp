@@ -22,12 +22,20 @@ allow init mtk_nvdata_file:dir mounton;
 allow fsck mtk_nvdata_block_device:blk_file rw_file_perms;
 allow fsck mtk_protect_block_device:blk_file rw_file_perms;
 
-# init.rc chmod/chown of the io scheduler knob. The canonical sysfs path behind
-# /sys/block/mmcblk0/queue/scheduler is labelled by power/genfs_contexts:52.
-allow init sysfs_mtk_io_scheduler:file { getattr open read setattr write };
+# NOT GRANTED: init x sysfs_mtk_io_scheduler.
+# The comment used to say "init.rc chmod/chown of the io scheduler knob", but
+# AOSP's init.rc never touches /sys/block/*/queue/*. The only writer is
+# init.mt6755.rc's `write /sys/block/mmcblk0/queue/scheduler deadline`, and that
+# file installs to /vendor/etc/init/hw/, so it runs as vendor_init -- already
+# covered by system/sepolicy/public/vendor_init.te:167
+#   allow vendor_init { sysfs_type -sysfs_usermodehelper }:file rw_file_perms;
+# public/init.te:262-269 deliberately excludes -sysfs_type from init's grant on
+# fs_type; this rule was adding part of it back for nobody.
 
-# AOSP init.rc:151 "chown system system /sys/devices/system/cpu/cpufreq/
-# interactive/min_sample_time" and siblings; power/genfs_contexts:46-48.
+# AOSP init.rc:713-722 "chown system system /sys/devices/system/cpu/cpufreq/
+# interactive/min_sample_time" and siblings. This one IS needed: public/init.te
+# grants setattr only on sysfs_devices_system_cpu, and these nodes are not that
+# type any more.
 allow init sysfs_mtk_power_cpu_control:file setattr;
 
 # The in-kernel MTK connectivity worker (mtk_wmtd_worker) direct-loads the
@@ -37,7 +45,7 @@ allow init sysfs_mtk_power_cpu_control:file setattr;
 r_dir_file(kernel, mtk_firmware_file)
 
 # NOT GRANTED, deliberately. Still firing on the flashed build (boot capture
-# work/evidence/tier1-avc-20260823-postfix), and confirmed harmless there --
+# work/k50sv1-bringup/evidence/tier1-avc-20260823-boot), and confirmed harmless there --
 # Wi-Fi and BT both come up:
 #   avc: denied { dac_override } for comm="mtk_wmtd_worker"
 #        scontext=u:r:kernel:s0 tcontext=u:r:kernel:s0 tclass=capability

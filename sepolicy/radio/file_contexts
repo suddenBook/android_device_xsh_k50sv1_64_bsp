@@ -41,7 +41,15 @@
 /data/vendor/ccci_cfg(/.*)?              u:object_r:mtk_ccci_cfg_file:s0
 /data/vendor/mdlpm(/.*)?                 u:object_r:mtk_ccci_lpm_file:s0
 /data/vendor/md3(/.*)?                   u:object_r:mtk_ccci_md3_file:s0
-/mnt/vendor/nvdata/md(/.*)?              u:object_r:mtk_modem_nvdata_file:s0
+# md3 too. The shipped init.cccimdinit.rc mkdirs /mnt/vendor/nvdata/md3 on
+# every boot, and `md(/.*)?` does not match it -- it was falling through to
+# AOSP's /mnt/vendor(/.*)? -> mnt_vendor_file, on which ccci_fsd and
+# ccci_mdinit hold only `dir search`. MD3 looks inert on this board
+# (CONFIG_MTK_MD3_SUPPORT=0 in the live kernel config, no CDMA in
+# ro.vendor.mtk_protocol1_rat_config, no md3 property set), so nothing is
+# broken today; the label closes the gap rather than leaving it to be
+# rediscovered if a modem image ever uses it.
+/mnt/vendor/nvdata/md[0-9]*(/.*)?        u:object_r:mtk_modem_nvdata_file:s0
 /mnt/vendor/nvdata/md_cmn(/.*)?          u:object_r:mtk_modem_nvdata_file:s0
 /mnt/vendor/nvdata/APCFG/APRDCL/MD_SBP  u:object_r:mtk_modem_config_file:s0
 /mnt/vendor/protect_f/md(/.*)?           u:object_r:mtk_protect_f_file:s0

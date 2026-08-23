@@ -1,1 +1,2 @@
 vendor.mtk.nvram.ready u:object_r:mtk_wlan_nvram_ready_prop:s0
+vendor.wlan.           u:object_r:mtk_wlan_prop:s0

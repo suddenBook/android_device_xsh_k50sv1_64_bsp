@@ -15,6 +15,17 @@ type mtk_ril_active_md_prop, property_type;
 type mtk_modem_status_prop, property_type;
 type mtk_ccci_response_prop, property_type;
 type mtk_vendor_radio_prop, property_type;
+
+# Two more prefixes the modem stack writes that were landing on
+# vendor_default_prop and being denied at every boot:
+#   vendor.net.handover.thlte    from mtkmal   (LTE<->WiFi handover threshold)
+#   vendor.cdma.ril.uicc.mccmnc  from mtkrild  (UICC operator, CDMA namespace)
+# public/domain.te:535 is
+#   neverallow { domain -init -vendor_init } vendor_default_prop:property_service set;
+# so an allow rule cannot close these -- the only correct fix is to give them a
+# device type, which is the pattern vendor/property.te already documents.
+type mtk_ril_handover_prop, property_type;
+type mtk_ril_cdma_prop, property_type;
 type mtk_telephony_sensitive_prop, property_type;
 type mtk_radio_config_prop, property_type;
 type mtk_ccci_config_prop, property_type;

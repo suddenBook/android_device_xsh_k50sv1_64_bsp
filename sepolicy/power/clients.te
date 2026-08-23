@@ -6,14 +6,20 @@ hal_client_domain(hal_camera_default, hal_power)
 hal_client_domain(hal_graphics_composer_default, hal_power)
 hal_client_domain(mediacodec, hal_power)
 
-# libperfctl is loaded directly in framework/application processes.  Access is
-# limited to the one perf ioctl node and Stock's observed command families.
-# isolated_app and ephemeral_app do not link libperfctl and are excluded from
-# the appdomain attribute rather than inheriting a vendor ioctl surface.
+# libperfctl's in-process clients reach /proc/perfmgr/perf_ioctl directly.
+#
+# appdomain is deliberately NOT in this set, and was removed after review.
+# Three reasons, in order of weight:
+#   1. No AVC in any capture on this handset names proc_mtk_power_perf_ioctl or
+#      /proc/perfmgr/perf_ioctl from an app domain. The set was inherited from
+#      Stock, which is the practice this tree exists to reject.
+#   2. It cannot work anyway: init.mt6755.rc chowns the node system:system 0660,
+#      so an app (uid 10xxx) fails the DAC check before SELinux is consulted.
+#      The rule was simultaneously dead and a standing grant.
+#   3. What it would grant is CPU frequency and core pinning to every installed
+#      app -- including untrusted_app -- the moment those modes change.
+# If a named app-domain AVC ever appears, add that one domain here.
 allow {
-    appdomain
-    -isolated_app
-    -ephemeral_app
     bootanim
     cameraserver
     mediaserver
@@ -22,9 +28,6 @@ allow {
 } proc_mtk_power_perf_ioctl:file { getattr ioctl open read };
 
 allowxperm {
-    appdomain
-    -isolated_app
-    -ephemeral_app
     bootanim
     cameraserver
     mediaserver
