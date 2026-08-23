@@ -45,6 +45,21 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_product.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_o.mk)
 $(call inherit-product, device/xsh/k50sv1_64_bsp/device.mk)
 
+# Tier 1 only, and it must be declared before common_full_phone.mk is
+# inherited: duplicate keys in PRODUCT_PROPERTY_OVERRIDES are resolved
+# first-wins by uniq-pairs-by-first-component, so a later assignment would
+# lose to Lineage's.
+#
+# LineageOS sets ro.control_privapp_permissions=enforce, under
+# which a privileged app requesting a signature|privileged permission that is
+# missing from its allowlist makes PermissionManagerService throw and
+# system_server boot-loop. The MTK IMS allowlist is derived by hand, so on the
+# diagnostic tier downgrade to "log": a wrong entry then costs one grep instead
+# of one flash cycle. Tiers 2 and 3 keep Lineage's enforce.
+ifeq ($(K50SV1_BUILD_TIER),1)
+PRODUCT_PROPERTY_OVERRIDES += ro.control_privapp_permissions=log
+endif
+
 # Select LineageOS's partner-GMS Go path. The explicit guard prevents its
 # optional product inherit from silently producing a GMS-free image.
 WITH_GMS := true
@@ -56,6 +71,21 @@ $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true
+
+# VoLTE availability. ImsManager.isVolteEnabledByPlatform() ANDs
+# config_device_volte_available with CarrierConfig's
+# KEY_CARRIER_VOLTE_AVAILABLE_BOOL, which defaults to false and is only set
+# true by the ~24 carrier assets AOSP ships -- Stock papers over that with its
+# own MtkCarrierConfig APK carrying ~473 per-MCCMNC assets, which is not
+# something to port. persist.dbg.volte_avail_ovr short-circuits both the
+# overlay and CarrierConfig (ImsManager.java:622-637), which is the supported
+# way to enable VoLTE on a device whose operator has no AOSP carrier asset.
+# The other two are stated explicitly so the voice-only contract is not left
+# to a default.
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.dbg.volte_avail_ovr=1 \
+    persist.dbg.vt_avail_ovr=0 \
+    persist.dbg.wfc_avail_ovr=0
 
 # The 3.18 kernel has neither CONFIG_MEMCG nor PSI, so per-app memory cgroups
 # do not exist and lmkd cannot run its userspace/PSI killer. lmkd auto-detects
@@ -81,6 +111,11 @@ PRODUCT_VERITY_SIGNING_KEY := device/xsh/k50sv1_64_bsp/security/verity
 else
 PRODUCT_VERITY_SIGNING_KEY := build/make/target/product/security/verity
 endif
+
+# Google's client-id base for this product. Consumed by
+# vendor/lineage/config/common.mk to set ro.com.google.clientidbase; never set
+# the property by hand.
+PRODUCT_GMS_CLIENTID_BASE := android-xsh
 
 PRODUCT_NAME := lineage_k50sv1_64_bsp
 PRODUCT_DEVICE := k50sv1_64_bsp
