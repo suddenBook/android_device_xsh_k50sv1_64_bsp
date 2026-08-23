@@ -355,6 +355,19 @@ on property:ro.persistent_properties.ready=true
     setprop persist.vendor.mtk_rtt_support 0
     setprop persist.vendor.volte_support 1
     setprop persist.vendor.wfc.sys_wfc_support 0
+    # The four keys that actually decide whether VoLTE comes up were missing
+    # from this list, which is the one place the contract is enforced against a
+    # stale /data. persist.vendor.mtk.volte.enable is the MTK feature flag and
+    # is already present in /data/property/persistent_properties, i.e. a vendor
+    # blob has written it at least once, so it is exactly the class of key this
+    # block exists for; its WFC sibling was listed and it was not. The three
+    # persist.dbg.*_ovr keys come from PRODUCT_SYSTEM_DEFAULT_PROPERTIES into
+    # /system/etc/prop.default, which init loads FIRST, so a stale persistent
+    # value silently wins over them.
+    setprop persist.vendor.mtk.volte.enable 1
+    setprop persist.dbg.volte_avail_ovr 1
+    setprop persist.dbg.vt_avail_ovr 0
+    setprop persist.dbg.wfc_avail_ovr 0
 
 # Boot is over: give the frequency and core floors back to PPM's own policies
 # and put read-ahead back to the default. Stock releases the frequency pin here

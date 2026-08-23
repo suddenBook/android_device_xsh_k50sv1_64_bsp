@@ -1,4 +1,17 @@
-on boot
+# wmt_drv.ko creates /dev/wmtdetect and /dev/stpwmt, which wmt_loader opens.
+#
+# `on post-fs`, not `on boot`. wmt_loader is class early_hal, started from
+# /init.rc's `on late-fs`, and /init.rc's own `on boot` is queued after that --
+# so loading the module at `on boot` put it AFTER its only consumer. Measured
+# from the boot capture: wmt_loader started at 2.620 s and did not get its
+# device open until 3.546 s, spinning for 926 ms on the retry loop inside the
+# blob ("chipId detect failed, retrying, left retryCounter:%d"). Stock has the
+# identical ordering bug, which is presumably where it came from.
+#
+# post-fs runs at 2.597 s, about 23 ms before class_start early_hal, and needs
+# nothing this module does not already have: /vendor is mounted and neither
+# zram nor /data is involved.
+on post-fs
     exec u:r:vendor_modprobe:s0 -- /vendor/bin/insmod /vendor/lib/modules/wmt_drv.ko
 
 on property:vendor.connsys.driver.ready=yes

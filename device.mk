@@ -182,6 +182,22 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     persist.adb.nonblocking_ffs=0 \
     sys.usb.ffs.aio_compat=1
 
+# Log buffer sizing, diagnostic tiers only.
+#
+# liblog's default is 256 KiB per buffer. That was 64 KiB while this product was
+# Android Go, and a runtime sweep found every non-empty buffer at 95-98% of
+# capacity with only the last FIVE MINUTES of a 70-minute uptime still present.
+# The vendor drivers are extraordinarily chatty -- the shipped prebuilt kernel
+# still contains a vendor developer's `zhengqiongtest` and `cfsucc @@@` printks --
+# so 256 KiB is not enough to hold a boot plus a reproduction.
+#
+# Not set on tier 3: a release image should not spend 7 MiB of RAM on log
+# buffers, and nobody is reading them there.
+ifneq ($(K50SV1_BUILD_TIER),3)
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    ro.logd.size=1M
+endif
+
 # Screen-on maximum performance. One leaf daemon; see perfd/k50sv1_perfd.c for
 # why it exists, what it measured, and the six-site recipe to remove it.
 PRODUCT_PACKAGES += \

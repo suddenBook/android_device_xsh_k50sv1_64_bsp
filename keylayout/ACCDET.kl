@@ -1,8 +1,19 @@
 # MTK ACCDET (accessory detect) on the PMIC.
 #
-# This chassis has no 3.5 mm jack -- audio out is the bottom speaker, the
-# earpiece and USB-C -- and there is no /sys/class/switch/h2w, so
-# WiredAccessoryManager never sees a headset. The driver is nevertheless
+# This chassis has no 3.5 mm jack: audio out is the bottom speaker, the earpiece
+# and USB-C.
+#
+# An earlier revision said WiredAccessoryManager never sees a headset "because
+# there is no /sys/class/switch/h2w". That is only the LEGACY path, and a key
+# layout has no effect on EV_SW events at all -- SwitchInputMapper passes raw SW
+# codes straight through, and ACCDET really does advertise
+# SW_HEADPHONE_INSERT/SW_MICROPHONE_INSERT/SW_LINEOUT_INSERT/SW_JACK_PHYSICAL_INS.
+# What actually closes that hole is a config gate: InputManagerService forwards
+# switch events to WiredAccessoryManager only when
+# config_useDevInputEventForAudioJack is true, and AOSP defaults it false with no
+# overlay raising it here. DO NOT set it true on this chassis. Confirmed live:
+# dumpsys input reports SwitchValues: 0, and dumpsys audio lists only earpiece,
+# speaker and usb_headset. The driver is nevertheless
 # instantiated by the MT6755 PMIC and advertises the full inline-remote key set
 # (KEY_VOLUMEUP, KEY_VOLUMEDOWN, KEY_PLAYPAUSE, KEY_VOICECOMMAND) plus the
 # SW_*_INSERT switches, all driven by an ADC on jack pins that do not exist.

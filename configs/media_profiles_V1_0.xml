@@ -142,8 +142,16 @@
                    sampleRate="48000"
                    channels="1" />
         </EncoderProfile>
+        <!-- qvga and cif were codec="m4v" and could never have worked. BOTH MPEG-4
+             encoders on this device cap at 176x144: the MTK one in
+             /vendor/etc/media_codecs_mediatek_video.xml and c2.android.mpeg4.encoder,
+             neither with can-swap-width-height. So CamcorderProfile.hasProfile()
+             returned true for 320x240 and 352x288 while
+             MediaCodecList.findEncoderForFormat() returned null. h264 covers
+             128x96 to 1920x1080 and is what every other profile here already
+             uses. -->
         <EncoderProfile quality="qvga" fileFormat="mp4" duration="30">
-            <Video codec="m4v"
+            <Video codec="h264"
                    bitRate="1000000"
                    width="320"
                    height="240"
@@ -154,7 +162,7 @@
                    channels="1" />
         </EncoderProfile>
         <EncoderProfile quality="cif" fileFormat="mp4" duration="30">
-            <Video codec="m4v"
+            <Video codec="h264"
                    bitRate="1250000"
                    width="352"
                    height="288"
@@ -231,7 +239,7 @@
                    channels="1" />
         </EncoderProfile>
         <EncoderProfile quality="timelapseqvga" fileFormat="mp4" duration="30">
-            <Video codec="m4v"
+            <Video codec="h264"
                    bitRate="1000000"
                    width="320"
                    height="240"
@@ -242,7 +250,7 @@
                    channels="1" />
         </EncoderProfile>
         <EncoderProfile quality="timelapsecif" fileFormat="mp4" duration="30">
-            <Video codec="m4v"
+            <Video codec="h264"
                    bitRate="1250000"
                    width="352"
                    height="288"
@@ -326,7 +334,7 @@
                    channels="1" />
         </EncoderProfile>
         <EncoderProfile quality="qvga" fileFormat="mp4" duration="30">
-            <Video codec="m4v"
+            <Video codec="h264"
                    bitRate="1000000"
                    width="320"
                    height="240"
@@ -337,7 +345,7 @@
                    channels="1" />
         </EncoderProfile>
         <EncoderProfile quality="cif" fileFormat="mp4" duration="30">
-            <Video codec="m4v"
+            <Video codec="h264"
                    bitRate="1250000"
                    width="352"
                    height="288"
@@ -403,7 +411,7 @@
                    channels="1" />
         </EncoderProfile>
         <EncoderProfile quality="timelapseqvga" fileFormat="mp4" duration="30">
-            <Video codec="m4v"
+            <Video codec="h264"
                    bitRate="1000000"
                    width="320"
                    height="240"
@@ -414,7 +422,7 @@
                    channels="1" />
         </EncoderProfile>
         <EncoderProfile quality="timelapsecif" fileFormat="mp4" duration="30">
-            <Video codec="m4v"
+            <Video codec="h264"
                    bitRate="1250000"
                    width="352"
                    height="288"

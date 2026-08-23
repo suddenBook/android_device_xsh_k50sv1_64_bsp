@@ -12,12 +12,16 @@
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/md1dsp    0660  root  system
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/md1arm7   0660  root  system
 
-# Stable GPT indices verified against the captured partition map. These rules
-# set the real block-node DAC; the by-name entries above are symlink aliases.
-/dev/block/mmcblk0p2   0660  root  system
-/dev/block/mmcblk0p6   0600  root  root
-/dev/block/mmcblk0p12  0600  root  root
-/dev/block/mmcblk0p17  0660  root  system
+# NOT repeated as numeric rules. An earlier revision listed
+# /dev/block/mmcblk0p{2,6,12,17} here on the premise that "the by-name entries
+# above are symlink aliases" and only a numeric rule sets the real node's DAC.
+# That is false: DeviceHandler::GetDevicePermissions() matches the node path AND
+# every by-name link. Proven on the handset -- mmcblk0p4 has no numeric rule at
+# all, only the by-name/frp rule above, and it comes out root:system 0660.
+#
+# They were also a latent hazard, because the match runs in REVERSE order so the
+# LAST matching rule wins: if the GPT ever shifted, a stale numeric rule would
+# silently override the by-name rule it was meant to reinforce.
 
 # MTK connectivity
 /dev/stpwmt       0660  system     system
@@ -26,8 +30,11 @@
 /dev/btif         0600  system     system
 /dev/stpgps       0660  gps        gps
 /dev/wmtWifi      0660  wifi       wifi
-/dev/fm           0660  media      media
 /dev/ttyMT1       0660  system     system
+
+# NOT declared: /dev/fm. The FM radio driver is deliberately not loaded (its
+# firmware was never extracted either), so the node never appears and the rule
+# only described hardware this build does not bring up.
 
 # Modem and telephony audio
 /dev/ccci*        0660  radio  radio
