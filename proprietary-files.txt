@@ -3,6 +3,16 @@
 # Source: immutable factory_image_unpacked filesystem, never the rooted live
 # device. Entries are grouped by runtime subsystem and reviewed before use.
 #
+# Each section header ends in "-- section: <tag>", and extract-files.sh -s <tag>
+# resolves against those tags. Do not pass a bare subsystem word: extract_utils
+# turns --section into a sed range that starts at every comment containing the
+# string and ends at the next blank line, and because sed restarts a range as
+# soon as it closes, a word appearing in more than one comment silently selects
+# the UNION of several sections. "-s ims" used to extract Radio and IMS
+# together (90 entries instead of 27) and "-s media" the whole Audio tail plus
+# Media OMX (153 instead of 25). extract-files.sh now rejects any name that does
+# not resolve to exactly one section and prints the valid tags.
+#
 # Deliberate exclusions:
 # - fingerprint feature/HAL/service/app/policy
 # - SecPenNote and Stock S Pen popup/sound UI
@@ -26,7 +36,7 @@
 # the hardware and an invalid reason to drop it. Blobs with no AOSP counterpart
 # have no such constraint and may ship whichever architectures are real.
 
-# Graphics / Mali
+# Graphics / Mali  -- section: graphics
 vendor/bin/hw/vendor.mediatek.hardware.gpu@1.0-service
 vendor/etc/init/vendor.mediatek.hardware.gpu@1.0-service.rc
 # All three 32-bit HIDL impls stay. allocator and mapper are genuinely used --
@@ -106,18 +116,18 @@ vendor/lib64/vendor.mediatek.hardware.pq@2.1.so
 vendor/lib64/vendor.mediatek.hardware.pq@2.2.so
 vendor/lib64/vendor.mediatek.hardware.pq@2.3.so
 
-# Sensors (MIR3DA is the only usable Android sensor)
+# Sensors (MIR3DA is the only usable Android sensor)  -- section: sensors
 vendor/bin/hw/android.hardware.sensors@2.0-service-mediatek:vendor/bin/hw/android.hardware.sensors@2.0-service
 vendor/lib64/hw/sensors.mt6755.so:vendor/lib64/hw/sensors.mt6755.stock.so
 vendor/lib64/libaedv.so
 vendor/lib64/libksensor.so
 
-# Legacy light, memtrack, thermal and vibrator implementations
+# Legacy light, memtrack, thermal and vibrator implementations  -- section: legacy-hals
 vendor/lib64/hw/lights.mt6755.so
 vendor/lib64/hw/memtrack.mt6755.so
 vendor/lib64/hw/thermal.mt6755.so
 
-# Thermal and fuel gauge
+# Thermal and fuel gauge  -- section: thermal
 vendor/bin/fuelgauged
 vendor/bin/thermal
 vendor/bin/thermal_manager
@@ -140,7 +150,7 @@ vendor/lib/libthermalalgo.so
 vendor/lib64/libifcutils_mtk.so
 vendor/lib64/libmtcloader.so
 
-# Unified MTK power service (standard Power 1.3 plus MTK extensions)
+# Unified MTK power service (standard Power 1.3 plus MTK extensions)  -- section: power
 vendor/bin/hw/vendor.mediatek.hardware.mtkpower@1.0-service
 # powerscntbl.xml, powercontable.xml and power_whitelist_cfg.xml are NOT
 # extracted. All three are written by the device tree (configs/) because
@@ -157,7 +167,7 @@ vendor/lib64/vendor.mediatek.hardware.mtkpower@1.0.so
 vendor/lib64/vendor.mediatek.hardware.power@2.0.so
 vendor/lib64/vendor.mediatek.hardware.power@2.1.so
 
-# Software gatekeeper legacy module loaded by the AOSP HIDL wrapper. AOSP Q
+# Software gatekeeper legacy module loaded by the AOSP HIDL wrapper. AOSP Q  -- section: gatekeeper
 # ships no gatekeeper.default of its own (hardware/libhardware/modules has no
 # gatekeeper directory), and android.hardware.gatekeeper@1.0-impl aborts the
 # service with LOG_ALWAYS_FATAL if hw_get_module fails, so this blob is on the
@@ -168,11 +178,11 @@ vendor/lib64/vendor.mediatek.hardware.power@2.1.so
 vendor/lib64/hw/libSoftGatekeeper.so
 vendor/lib64/hw/libSoftGatekeeper.so:vendor/lib64/hw/gatekeeper.default.so
 
-# MTK USB HAL
+# MTK USB HAL  -- section: usb
 vendor/bin/hw/android.hardware.usb@1.1-service-mediatek
 vendor/etc/init/android.hardware.usb@1.1-service-mediatek.rc
 
-# SPM loader and low-power firmware
+# SPM loader and low-power firmware  -- section: spm
 vendor/bin/spm_loader
 vendor/etc/init/spm_script.rc
 vendor/firmware/pcm_deepidle_by_mp1_m.bin
@@ -188,7 +198,7 @@ vendor/firmware/pcm_suspend_by_mp1_r.bin
 vendor/firmware/pcm_suspend_m.bin
 vendor/firmware/pcm_suspend_r.bin
 
-# Kernel-matched MTK connectivity modules. Deliberately in load order, not
+# Kernel-matched MTK connectivity modules. Deliberately in load order, not  -- section: modules
 # alphabetical: wmt_drv is the parent every other module lists in its
 # `depends=`, and init.connectivity.modules.rc insmods them in this sequence.
 #
@@ -205,7 +215,7 @@ vendor/lib/modules/wlan_drv_gen2.ko
 vendor/lib/modules/bt_drv.ko
 vendor/lib/modules/gps_drv.ko
 
-# Audio (active Stock service is 32-bit)
+# Audio (active Stock service is 32-bit)  -- section: audio
 vendor/bin/hw/android.hardware.audio@5.0-service-mediatek
 vendor/etc/init/android.hardware.audio@5.0-service-mediatek.rc
 vendor/lib/hw/android.hardware.audio@5.0-impl-mediatek.so
@@ -393,7 +403,7 @@ vendor/etc/audio_param/VolumeGainMap_ParamUnitDesc.xml
 vendor/etc/audio_param/Volume_AudioParam.xml
 vendor/etc/audio_param/Volume_ParamUnitDesc.xml
 
-# Camera (active Stock provider is 32-bit HAL1). Keep its core platform
+# Camera (active Stock provider is 32-bit HAL1). Keep its core platform  -- section: camera
 # backend and the declared CCAP -> ACDK runtime-load chain without restoring
 # any Stock factory application.
 vendor/bin/hw/camerahalserver
@@ -466,7 +476,7 @@ vendor/lib/vendor.mediatek.hardware.camera.device@1.1.so
 vendor/lib/vendor.mediatek.hardware.power@1.1.so
 -vendor/lib64/libsensorndkbridge.so
 
-# Wi-Fi / Bluetooth / WMT connectivity
+# Wi-Fi / Bluetooth / WMT connectivity  -- section: connectivity
 vendor/bin/hw/android.hardware.bluetooth@1.0-service-mediatek
 vendor/bin/hw/android.hardware.wifi@1.0-service-lazy-mediatek
 vendor/bin/hw/hostapd
@@ -498,7 +508,7 @@ vendor/lib64/libwifi-hal.so:vendor/lib64/libmtk-wifi.so
 vendor/lib64/vendor.mediatek.hardware.wifi.supplicant@2.0.so
 vendor/lib64/vendor.mediatek.hardware.wifi.supplicant@2.1.so
 
-# GNSS / LBS (64-bit HIDL with 32-bit helpers)
+# GNSS / LBS (64-bit HIDL with 32-bit helpers)  -- section: gnss
 vendor/bin/hw/android.hardware.gnss@2.0-service-mediatek
 vendor/bin/lbs_hidl_service
 vendor/bin/mnld
@@ -514,7 +524,7 @@ vendor/lib64/hw/gps.default.so
 vendor/lib64/lbs_hidl_service-impl.so
 vendor/lib64/vendor.mediatek.hardware.lbs@1.0.so
 
-# Radio / NVRAM / CCCI base. The 64-bit MAL libraries are retained because the
+# Radio / NVRAM / CCCI base. The 64-bit MAL libraries are retained because the  -- section: radio
 # active RIL always initializes their data-manager ABI; the voice IMS process
 # closure is kept in its own auditable section below.
 vendor/bin/ccci_fsd
@@ -581,7 +591,7 @@ vendor/lib64/vendor.mediatek.hardware.netdagent@1.0.so
 vendor/lib64/vendor.mediatek.hardware.nvram@1.0.so
 vendor/lib64/vendor.mediatek.hardware.nvram@1.1.so
 
-# IMS / VoLTE (voice-only). ImsService.apk is pinned and patched during
+# IMS / VoLTE (voice-only). ImsService.apk is pinned and patched during  -- section: ims
 # extraction to the Lineage framework resource IDs, then platform-signed by the
 # selected build tier. WFC/EPDG, ViLTE/ViWiFi, UT plugin and RCS payloads are
 # deliberately excluded.
@@ -616,7 +626,7 @@ vendor/lib/libvolte_xdmc_shr.so
 vendor/lib/volte_imsm.so
 vendor/lib64/vendor.mediatek.hardware.imsa@1.0.so
 
-# Media OMX / MTK codec service (active Stock codec service is 32-bit).
+# Media OMX / MTK codec service (active Stock codec service is 32-bit).  -- section: media
 # Use Lineage's source-built standard OMX service wrapper to avoid colliding
 # with the platform module; retain only the MTK implementation and codecs.
 vendor/bin/hw/vendor.mediatek.hardware.mtkcodecservice@1.1-service
@@ -650,7 +660,7 @@ vendor/lib/libvp8enc_sa.ca7.so
 vendor/lib/libvp9dec_sa.ca7.so
 vendor/lib/vendor.mediatek.hardware.mtkcodecservice@1.1.so
 
-# DRM / Widevine (Level 3, legacy drm@1.0 plugin path)
+# DRM / Widevine (Level 3, legacy drm@1.0 plugin path)  -- section: drm
 # The port serves DRM with AOSP's android.hardware.drm@1.0-impl/-service, which
 # dlopens plugins from getDrmPluginPath() -- /vendor/lib/mediadrm for a 32-bit
 # service, /vendor/lib64/mediadrm for a 64-bit one

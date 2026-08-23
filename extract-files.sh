@@ -274,6 +274,50 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
+# Resolve -s/--section against the section tags in proprietary-files.txt.
+#
+# extract_utils turns --section into
+#     sed -n '/^[[:space:]]*#.*<name>/I,/^[[:space:]]*$/p'
+# i.e. it starts at the FIRST comment line containing the string and stops at
+# the next blank line. A bare subsystem word therefore selects whichever comment
+# happens to mention it first, which is usually not the section header:
+# "graphics" hit the Soong error quoted in the file header and extracted nothing
+# at all, "media" hit a frameworks/av/media path in the Audio section, and "ims"
+# hit the Radio section's note about the voice IMS closure.
+#
+# Every section header carries a "-- section: <tag>" suffix. Translate the tag
+# the user typed into that full string, which appears nowhere else, and refuse
+# anything that does not resolve to exactly one section rather than silently
+# extracting the wrong range.
+function resolve_section() {
+    local requested="$1"
+    local list="${MY_DIR}/proprietary-files.txt"
+    local matches
+
+    # An explicit "section: foo" is passed through, so the raw extract_utils
+    # behaviour stays reachable for anything this table does not cover.
+    if [[ "${requested}" == section:* ]]; then
+        printf '%s' "${requested}"
+        return 0
+    fi
+
+    matches="$(grep -c -- "-- section: ${requested}\$" "${list}" || true)"
+    if [[ "${matches}" -ne 1 ]]; then
+        {
+            echo "Unknown --section '${requested}'. Known sections:"
+            sed -n 's/.*-- section: \(.*\)$/  \1/p' "${list}" | sort
+            echo
+            echo "Pass 'section: <tag>' verbatim to bypass this check."
+        } >&2
+        exit 1
+    fi
+    printf 'section: %s' "${requested}"
+}
+
+if [[ -n "${SECTION}" ]]; then
+    SECTION="$(resolve_section "${SECTION}")"
+fi
+
 # Prefer the immutable offline extraction over the Magisk-modified handset.
 if [[ -z "${SRC}" ]]; then
     SRC="${LINEAGE_ROOT}/../factory_image_unpacked"
