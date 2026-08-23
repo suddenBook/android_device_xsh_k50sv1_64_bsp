@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Adds HarmonyOS Sans to Settings -> Styles -> Font, the same way LineageOS
+    adds Lato and Rubik (packages/overlays/Lineage/fonts/).
+
+    The picker enumerates overlays whose category is
+    android.theme.customization.font, reads REQUIRED_SYSTEM_FONTS to check that
+    the named families actually exist before offering the entry, and applies
+    the overlay through OverlayManager. The family names below must match
+    fonts_customization.xml exactly.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.lineageos.overlay.font.harmonyos"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <overlay
+        android:targetPackage="android"
+        android:category="android.theme.customization.font"
+        android:priority="1" />
+
+    <application
+        android:hasCode="false"
+        android:label="@string/font_harmonyos_overlay">
+        <meta-data
+            android:name="android.theme.customization.REQUIRED_SYSTEM_FONTS"
+            android:value="harmonyos,harmonyos-medium" />
+    </application>
+</manifest>

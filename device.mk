@@ -25,6 +25,17 @@ PRODUCT_BOOT_JARS += \
     mediatek-common \
     mediatek-ims-base
 
+# The two files that replace upstream's, plus the Styles entry that makes the
+# new font selectable. BoardConfig.mk removes Lineage's fonts_customization.xml
+# and apns-conf.xml modules from PRODUCT_PACKAGES; these are what take their
+# place. See BoardConfig.mk for why the filter lives there.
+PRODUCT_PACKAGES += \
+    K50sv1HarmonyOSSansFont \
+    k50sv1-fonts_customization.xml
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/apns-conf.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/apns-conf.xml
+
 # Prefer AOSP Q service shells and complete-architecture platform helpers.
 # Proprietary legacy implementations are supplied by the vendor tree and
 # loaded through the standard HIDL wrappers. Stock has only 64-bit Wi-Fi

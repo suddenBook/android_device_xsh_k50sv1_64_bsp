@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    This REPLACES vendor/lineage/prebuilt/common/etc/fonts_customization.xml.
+
+    SystemFonts.java:313 reads exactly one hardcoded path,
+    /product/etc/fonts_customization.xml, with its fonts in /product/fonts/, so
+    a third font family cannot be added alongside Lineage's file; it has to be
+    added to it. LineageOS's two families are reproduced verbatim below because
+    LineageLatoFont and LineageRubikFont remain in PRODUCT_PACKAGES and would
+    otherwise name families that no longer exist.
+
+    Adding HarmonyOS Sans has to survive that, so BoardConfig.mk filters
+    Lineage's module out of PRODUCT_PACKAGES and device.mk installs this file
+    instead. See BoardConfig.mk for why that is done there and not here.
+
+    HarmonyOS Sans is a VARIABLE font with a wght axis spanning 40 to 900, so
+    one file covers every weight through <axis tag="wght" stylevalue="N">,
+    which FontListParser.readFont() (:132) supports and
+    FontCustomizationParser delegates to (:100).
+
+    The regular face is HarmonyOS Sans SC, not the Latin-only HarmonyOS Sans.
+    SC is a strict superset: full ASCII, full Latin-1 Supplement, full
+    Cyrillic, the same Greek coverage, plus 20,991 CJK ideographs. Using it
+    means Chinese text renders in HarmonyOS Sans too. The Latin-only file would
+    have handed every Chinese glyph to Noto Sans CJK, because Android matches
+    within a family by weight and style only and falls back for missing glyphs
+    at FAMILY granularity, so a second file in the same family would never have
+    been consulted for coverage. It costs 19.7 MB against 1.9 GB free.
+
+    Italic is the Latin-only file; there is no SC italic. Italic CJK therefore
+    falls back to Noto, which is what a synthesised oblique would have looked
+    like anyway.
+-->
+<fonts-modification version="1">
+    <family customizationType="new-named-family" name="lato">
+        <font weight="400" style="normal">Lato-Regular.ttf</font>
+        <font weight="400" style="italic">Lato-Italic.ttf</font>
+        <font weight="500" style="normal">Lato-Medium.ttf</font>
+        <font weight="500" style="italic">Lato-MediumItalic.ttf</font>
+        <font weight="700" style="normal">Lato-Bold.ttf</font>
+        <font weight="700" style="italic">Lato-BoldItalic.ttf</font>
+    </family>
+    <alias name="lato-medium" to="lato" weight="500" />
+    <alias name="lato-bold" to="lato" weight="700" />
+
+    <family customizationType="new-named-family" name="rubik">
+        <font weight="400" style="normal">Rubik-Regular.ttf</font>
+        <font weight="400" style="italic">Rubik-Italic.ttf</font>
+        <font weight="500" style="normal">Rubik-Medium.ttf</font>
+        <font weight="500" style="italic">Rubik-MediumItalic.ttf</font>
+        <font weight="700" style="normal">Rubik-Bold.ttf</font>
+        <font weight="700" style="italic">Rubik-BoldItalic.ttf</font>
+    </family>
+    <alias name="rubik-medium" to="rubik" weight="500" />
+    <alias name="rubik-bold" to="rubik" weight="700" />
+
+    <family customizationType="new-named-family" name="harmonyos">
+        <font weight="400" style="normal">HarmonyOSSans-Regular.ttf
+            <axis tag="wght" stylevalue="400" />
+        </font>
+        <font weight="400" style="italic">HarmonyOSSans-Italic.ttf
+            <axis tag="wght" stylevalue="400" />
+        </font>
+        <font weight="500" style="normal">HarmonyOSSans-Regular.ttf
+            <axis tag="wght" stylevalue="500" />
+        </font>
+        <font weight="500" style="italic">HarmonyOSSans-Italic.ttf
+            <axis tag="wght" stylevalue="500" />
+        </font>
+        <font weight="700" style="normal">HarmonyOSSans-Regular.ttf
+            <axis tag="wght" stylevalue="700" />
+        </font>
+        <font weight="700" style="italic">HarmonyOSSans-Italic.ttf
+            <axis tag="wght" stylevalue="700" />
+        </font>
+    </family>
+    <alias name="harmonyos-medium" to="harmonyos" weight="500" />
+    <alias name="harmonyos-bold" to="harmonyos" weight="700" />
+</fonts-modification>
