@@ -31,11 +31,6 @@ endif
 
 endif
 
-# Validate on every include. Some Android build entry points parse product and
-# board configuration in different orders, and TARGET_BUILD_VARIANT may only
-# be populated by the later include.
-ifneq ($(strip $(TARGET_BUILD_VARIANT)),)
-ifneq ($(TARGET_BUILD_VARIANT),$(K50SV1_BUILD_VARIANT))
-$(error K50SV1_BUILD_TIER=$(K50SV1_BUILD_TIER) requires $(K50SV1_BUILD_VARIANT), not $(TARGET_BUILD_VARIANT))
-endif
-endif
+# Do not reject TARGET_BUILD_VARIANT here. Lineage's lunch discovery parses
+# each product once with a temporary eng variant before selecting the requested
+# combo. The authoritative wrapper validates the real post-lunch variant.
