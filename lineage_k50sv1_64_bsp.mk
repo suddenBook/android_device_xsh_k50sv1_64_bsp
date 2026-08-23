@@ -115,6 +115,15 @@ $(error Missing vendor/partner_gms/products/gms.mk; import the pinned NikGapps o
 endif
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
+# Huawei AppGallery and HMS Core, at the owner's request. Guarded the same way
+# as the GMS payload above: the tree carries the makefile, the binaries live in
+# their own repository, and a missing import should fail the build loudly rather
+# than silently produce an image without them.
+ifeq ($(wildcard vendor/huawei/hms/products/huawei.mk),)
+$(error Missing vendor/huawei/hms/products/huawei.mk; import the Huawei payload first)
+endif
+$(call inherit-product, vendor/huawei/hms/products/huawei.mk)
+
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     keyguard.no_require_sim=true
 
