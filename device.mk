@@ -186,3 +186,9 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 # why it exists, what it measured, and the six-site recipe to remove it.
 PRODUCT_PACKAGES += \
     k50sv1_perfd
+
+# Build-time xmllint over every XML in this device tree. Not installed; it exists
+# so that an unparseable hand-written XML is a build failure instead of a
+# runtime one. See Android.mk.
+PRODUCT_PACKAGES += \
+    k50sv1-xml-validation

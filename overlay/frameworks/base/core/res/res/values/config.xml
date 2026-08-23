@@ -99,6 +99,11 @@
         <item>"bt-pan"</item>
     </string-array>
 
+    <!-- Two physical SIM slots. AOSP defaults this to 1, and the device works
+         anyway only because UiccController clamps it up to mCis.length ; state
+         the fact rather than depend on the clamp. -->
+    <integer name="config_num_physical_slots">2</integer>
+
     <!-- Bind the Android 10 MTK MMTEL service through AOSP ImsResolver. Only
          voice over LTE is a device capability; carrier config and provisioning
          remain the second gate. Video telephony and Wi-Fi calling are omitted. -->

@@ -24,14 +24,14 @@
          verbatim even though this product no longer sets ro.config.low_ram.
          SystemConfig applies the attribute itself, so the file stays correct in
          both configurations; hand-expanding the list would break one of them.
-         Never switch to go_handheld_core_hardware.xml -- besides the notLowRam
+         Never switch to go_handheld_core_hardware.xml ; besides the notLowRam
          set it also drops app_widgets unconditionally, which the launcher on
          this build does support.
 
      This file must stay in PRODUCT_COPY_FILES in lineage_k50sv1_64_bsp.mk. With
      go_defaults_common.mk no longer inherited it is the ONLY provider of
      vendor/etc/permissions/handheld_core_hardware.xml in this product's
-     inheritance chain -- full_base_telephony.mk, the other AOSP provider, is
+     inheritance chain ; full_base_telephony.mk, the other AOSP provider, is
      not in it.
 --><permissions>
     <!-- This is Android and fully CTS compatible.  Basically this is for CTS tests to use. -->

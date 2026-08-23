@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <permissions>
     <!-- Exact Android Q privileged intersection requested by ImsService.apk. -->
-    <privapp-permissions package="com.mediatek.ims">
+    <!-- NOT listed: android.permission.CHANGE_WIFI_STATE. The APK requests it, and
+     stock's privapp-permissions-mediatek.xml lists it, but its protectionLevel
+     in AOSP Q's core AndroidManifest.xml is "normal" ; PermissionManagerService
+     never consults the allowlist for it, so the entry was inert noise that also
+     falsified this file's claim to be the exact privileged intersection.
+
+     NOT listed either: READ_PRIVILEGED_PHONE_STATE. The manifest asks for
+     "android.Manifest.permission.READ_PRIVILEGED_PHONE_STATE", which is not a
+     permission name any package defines, so PackageManager drops it. The app
+     still HAS the permission at runtime because sharedUserId="android.uid.phone"
+     resolves checks against the union with com.android.phone. Adding it here
+     would be a second over-grant, not a fix. -->
+<privapp-permissions package="com.mediatek.ims">
         <permission name="android.permission.READ_PRECISE_PHONE_STATE"/>
         <permission name="android.permission.READ_NETWORK_USAGE_HISTORY"/>
         <permission name="android.permission.PACKET_KEEPALIVE_OFFLOAD"/>
-        <permission name="android.permission.CHANGE_WIFI_STATE"/>
         <permission name="android.permission.NETWORK_SIGNAL_STRENGTH_WAKEUP"/>
     </privapp-permissions>
 </permissions>
