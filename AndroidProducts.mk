@@ -3,5 +3,4 @@ PRODUCT_MAKEFILES := \
 
 COMMON_LUNCH_CHOICES := \
     lineage_k50sv1_64_bsp-user \
-    lineage_k50sv1_64_bsp-userdebug \
-    lineage_k50sv1_64_bsp-eng
+    lineage_k50sv1_64_bsp-userdebug

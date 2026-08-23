@@ -1,4 +1,5 @@
 LOCAL_PATH := device/xsh/k50sv1_64_bsp
+include $(LOCAL_PATH)/build_tiers.mk
 
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
@@ -74,8 +75,15 @@ PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 PRODUCT_CHARACTERISTICS := default
 
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=adb
+ifeq ($(K50SV1_ADB_ENABLED),true)
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += persist.sys.usb.config=adb
+ifeq ($(K50SV1_ADB_ROOT),true)
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += service.adb.root=1
+endif
+else
+# Production tier retains USB file transfer without exposing adbd.
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += persist.sys.usb.config=mtp
+endif
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     persist.radio.multisim.config=dsds \

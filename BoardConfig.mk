@@ -1,4 +1,5 @@
 DEVICE_PATH := device/xsh/k50sv1_64_bsp
+include $(DEVICE_PATH)/build_tiers.mk
 
 # Architecture
 TARGET_ARCH := arm64
@@ -38,6 +39,11 @@ BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilt/dtb
 BOARD_KERNEL_BASE := 0x40000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2
+ifeq ($(K50SV1_SELINUX_PERMISSIVE),true)
+# Tier 1 keeps policy/domain transitions active while logging denials without
+# blocking first boot. Tiers 2 and 3 omit the argument and enforce policy.
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+endif
 BOARD_MKBOOTIMG_ARGS += \
     --header_version 2 \
     --kernel_offset 0x00080000 \
