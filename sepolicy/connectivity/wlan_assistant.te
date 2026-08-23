@@ -12,10 +12,6 @@ allow wlan_assistant mtk_wmt_wifi_device:chr_file { getattr open read write };
 allow wlan_assistant mnt_vendor_file:dir search;
 allow wlan_assistant mtk_wlan_nvram_file:file { getattr open read };
 
-# These two exact fallback files are real code paths; their type is not applied
-# to any directory or other /data/vendor content.
-allow wlan_assistant mtk_wlan_override_file:file { getattr open read };
-
 # Retain the narrow Stock AGPS notification contract without granting general
 # networking or access to AGPS data directories.
 allow wlan_assistant mtk_agpsd_socket:sock_file write;

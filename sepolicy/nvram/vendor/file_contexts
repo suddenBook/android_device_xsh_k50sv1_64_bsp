@@ -7,9 +7,6 @@
 /dev/block/mmcblk0p12 u:object_r:mtk_proinfo_block_device:s0
 /dev/block/platform/mtk-msdc\.0/11230000\.msdc0/by-name/nvdata  u:object_r:mtk_nvdata_block_device:s0
 /dev/block/platform/mtk-msdc\.0/11230000\.msdc0/by-name/proinfo u:object_r:mtk_proinfo_block_device:s0
-/dev/block/platform/bootdevice/by-name/nvdata  u:object_r:mtk_nvdata_block_device:s0
-/dev/block/platform/bootdevice/by-name/proinfo u:object_r:mtk_proinfo_block_device:s0
-/dev/pro_info u:object_r:mtk_proinfo_block_device:s0
 /dev/mtk-adc-cali u:object_r:mtk_adc_calibration_device:s0
 
 # Mount root, NVRAM backup metadata and directory traversal points.  lost+found

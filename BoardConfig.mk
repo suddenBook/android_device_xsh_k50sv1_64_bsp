@@ -89,9 +89,16 @@ BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
 BOARD_AVB_ENABLE := false
 
 # SELinux
-BOARD_PLAT_PUBLIC_SEPOLICY_DIR += \
-    $(DEVICE_PATH)/sepolicy/public
-
+#
+# No BOARD_PLAT_PUBLIC_SEPOLICY_DIR: every device-specific HAL attribute is
+# declared in the BOARD_VENDOR_SEPOLICY_DIRS entry that uses it. A plat_public
+# declaration is emitted into /system/etc/selinux/plat_sepolicy.cil and, because
+# version_policy only versions the frozen 29.0 API set, un-versioned into
+# /vendor/etc/selinux/plat_pub_versioned.cil -- so a platform-only OTA or a GSI
+# would drop the symbol and vendor_sepolicy.cil would fail to link at boot.
+#
+# sepolicy/private holds only rules whose subject and object are both core
+# types (init, system_app) -- board facts never belong there.
 BOARD_PLAT_PRIVATE_SEPOLICY_DIR += \
     $(DEVICE_PATH)/sepolicy/private
 

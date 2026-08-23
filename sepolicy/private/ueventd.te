@@ -1,0 +1,12 @@
+# ueventd calls setpriority(PRIO_PROCESS, 0, 0) at
+# system/core/init/ueventd.cpp:323 to drop back to nice 0 after init started it
+# at a negative nice value; raising the priority of a running process needs
+# CAP_SYS_NICE:
+#
+#   avc: denied { sys_nice } for comm="ueventd" capability=23
+#        scontext=u:r:ueventd:s0 tcontext=u:r:ueventd:s0 tclass=capability
+#
+# AOSP grants ueventd nine capabilities in system/sepolicy/public/ueventd.te but
+# not this one, and there is no neverallow against it. Both subject and object
+# are core types, so this belongs in plat_private, not in a vendor directory.
+allow ueventd self:global_capability_class_set sys_nice;

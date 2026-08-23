@@ -10,5 +10,5 @@ set_prop(mtk_wmt_loader, mtk_wmt_prop)
 
 # wmt_loader normalizes ownership of this single proc control node.  The AEE
 # node, debugfs and dump interfaces remain inaccessible.
-allow mtk_wmt_loader self:capability chown;
+allow mtk_wmt_loader self:global_capability_class_set chown;
 allow mtk_wmt_loader proc_mtk_wmt_control:file setattr;

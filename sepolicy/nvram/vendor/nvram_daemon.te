@@ -4,7 +4,7 @@ type nvram_daemon_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(nvram_daemon)
 
 # The boot-time migrator owns NVRAM file modes and backup metadata.
-allow nvram_daemon self:capability { chown fowner fsetid };
+allow nvram_daemon self:global_capability_class_set { chown fowner fsetid };
 
 allow nvram_daemon mtk_nvram_storage_file:dir create_dir_perms;
 allow nvram_daemon mtk_nvram_storage_file:file create_file_perms;
@@ -14,12 +14,13 @@ allow nvram_daemon block_device:dir search;
 allow nvram_daemon mtk_nvram_block_device:blk_file rw_file_perms;
 allow nvram_daemon mtk_nvdata_block_device:blk_file rw_file_perms;
 allow nvram_daemon mtk_proinfo_block_device:blk_file rw_file_perms;
-allow nvram_daemon mtk_proinfo_block_device:chr_file rw_file_perms;
-allow nvram_daemon {
-    mtk_nvram_block_device
-    mtk_nvdata_block_device
-    mtk_proinfo_block_device
-}:lnk_file { getattr read };
+# No *_block_device:lnk_file rule: the /dev/block/platform/.../by-name/*
+# aliases are always labelled block_device. ueventd applies the by-name
+# file_contexts entry to the *device node* via
+# SelabelLookupFileContextBestMatch (system/core/init/devices.cpp:263) and then
+# creates the symlink with no fscreatecon, so the link inherits its parent
+# directory. Reading it is already covered by the platform's
+# block_device:lnk_file rule.
 
 # Only the verified MIR3DA accelerometer calibration callback is active.
 allow nvram_daemon mtk_accelerometer_device:chr_file r_file_perms;

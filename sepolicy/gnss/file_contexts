@@ -2,11 +2,11 @@
 /(vendor|system/vendor)/bin/lbs_hidl_service u:object_r:lbs_hidl_service_exec:s0
 /(vendor|system/vendor)/bin/mtk_agpsd         u:object_r:mtk_agpsd_exec:s0
 
-/dev/(stpgps|gps) u:object_r:mtk_gnss_device:s0
+/dev/stpgps       u:object_r:mtk_gnss_device:s0
 /dev/ttyC2        u:object_r:mtk_agps_serial_device:s0
 
 /dev/socket/mnld                  u:object_r:mtk_mnld_socket:s0
 /dev/socket/agpsd[23]?            u:object_r:mtk_agpsd_socket:s0
 /data/vendor/gps(/.*)?            u:object_r:mtk_gps_data_file:s0
 /data/vendor/agps_supl(/.*)?      u:object_r:mtk_agps_data_file:s0
-/mnt/vendor/nvdata/md/NVRAM/CALIBRAT/(EL6N_000|ML4A_000) u:object_r:mtk_gps_nvram_file:s0
+/mnt/vendor/nvdata/md/NVRAM/CALIBRAT/ML4A_000 u:object_r:mtk_gps_nvram_file:s0

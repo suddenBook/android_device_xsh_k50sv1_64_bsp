@@ -1,8 +1,13 @@
 # libged is linked directly by the Mali EGL/gralloc stack.  These domains all
 # either hold a live read-only /proc/ged FD or are explicit Stock EGL startup
 # clients; appdomain is required because applications load libGLES_mali.so.
+# isolated_app (the WebView/renderer sandbox, private/app_neverallows.te:7) and
+# ephemeral_app never load the Mali EGL stack, so they are excluded rather than
+# inheriting a proprietary GPU ioctl surface through the appdomain attribute.
 allow {
     appdomain
+    -isolated_app
+    -ephemeral_app
     bootanim
     cameraserver
     hal_camera_default
@@ -16,6 +21,8 @@ allow {
 
 allowxperm {
     appdomain
+    -isolated_app
+    -ephemeral_app
     bootanim
     cameraserver
     hal_camera_default

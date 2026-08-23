@@ -2,3 +2,13 @@ type mtk_radioex_hwservice, hwservice_manager_type;
 type mtk_imsa_hwservice, hwservice_manager_type;
 
 hal_attribute_hwservice(hal_imsa, mtk_imsa_hwservice)
+
+# MtkRadioEx is rilproxy's private extension (10 interface versions x 12
+# instances of RIL internals: EM, Capability, RCS, SE, IMS slots). It used to be
+# attached to the platform hal_telephony attribute, whose client set resolves to
+# { bluetooth radio su } -- i.e. the Bluetooth app could look it up. Its own
+# attribute (radio/attributes) keeps the closed client/server set to the one
+# real consumer, com.android.phone.
+binder_call(hal_mtk_radioex_client, hal_mtk_radioex_server)
+binder_call(hal_mtk_radioex_server, hal_mtk_radioex_client)
+hal_attribute_hwservice(hal_mtk_radioex, mtk_radioex_hwservice)

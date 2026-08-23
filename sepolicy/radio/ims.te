@@ -32,13 +32,17 @@ get_prop(mtkmal, mtk_ims_feature_prop)
 get_prop(mtkmal, mtk_vendor_radio_prop)
 get_prop(mtkmal, mtk_radio_config_prop)
 get_prop(mtkmal, mtk_nvram_ready_prop)
+# volte_imsm.so reads both vendor.ril.mux.report.case (mtk_ril_mux_report_prop)
+# and vendor.ril.muxreport (mtk_muxreport_state_prop) before starting the three
+# VoLTE daemons.
+get_prop(mtkmal, mtk_muxreport_state_prop)
 set_prop(mtkmal, mtk_volte_runtime_prop)
 set_prop(mtkmal, mtk_ril_mux_report_prop)
 set_prop(mtkmal, ctl_mtk_volte_imcb_prop)
 set_prop(mtkmal, ctl_mtk_volte_stack_prop)
 set_prop(mtkmal, ctl_mtk_volte_ua_prop)
 
-allow mtkmal self:capability { setgid setuid };
+allow mtkmal self:global_capability_class_set { setgid setuid };
 allow mtkmal self:netlink_route_socket {
     bind
     create
@@ -67,7 +71,6 @@ allow mtkmal mtk_ril_ims_socket:sock_file write;
 allow mtkmal { mtkrild rild }:unix_stream_socket connectto;
 allow mtkmal mtk_mal_mfi_socket:sock_file write;
 allow mtkmal self:unix_stream_socket connectto;
-allow mtkmal mtk_volte_imcb_socket:sock_file write;
 allow mtkmal mtk_volte_imsa_socket:sock_file write;
 allow mtkmal volte_imcb:unix_stream_socket connectto;
 
@@ -79,7 +82,7 @@ net_domain(volte_imcb)
 allow volte_imcb mtk_ccci_imsa_device:chr_file rw_file_perms;
 allow volte_imcb sysfs_mtk_ccci:dir r_dir_perms;
 allow volte_imcb sysfs_mtk_ccci:file r_file_perms;
-allow volte_imcb self:capability { setgid setuid };
+allow volte_imcb self:global_capability_class_set { setgid setuid };
 allow volte_imcb self:tcp_socket {
     accept
     bind
@@ -102,7 +105,7 @@ set_prop(volte_imcb, mtk_volte_runtime_prop)
 init_daemon_domain(volte_stack)
 net_domain(volte_stack)
 
-allow volte_stack self:capability { net_admin setgid setuid };
+allow volte_stack self:global_capability_class_set { net_admin setgid setuid };
 allow volte_stack self:key_socket { create read setopt write };
 allow volte_stack self:netlink_xfrm_socket {
     bind
@@ -140,7 +143,7 @@ allow volte_stack port:tcp_socket name_connect;
 init_daemon_domain(volte_ua)
 net_domain(volte_ua)
 
-allow volte_ua self:capability { setgid setuid };
+allow volte_ua self:global_capability_class_set { setgid setuid };
 allow volte_ua self:capability2 wake_alarm;
 allow volte_ua self:udp_socket { bind create read setopt };
 allow volte_ua node:udp_socket node_bind;

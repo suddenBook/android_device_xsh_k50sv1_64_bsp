@@ -6,7 +6,7 @@ hwbinder_use(nvram_agent_binder)
 hal_server_domain(nvram_agent_binder, hal_mtk_nvram)
 
 # INvram supports reads, writes and explicit full backup/restore operations.
-allow nvram_agent_binder self:capability { chown fowner fsetid };
+allow nvram_agent_binder self:global_capability_class_set { chown fowner fsetid };
 allow nvram_agent_binder mtk_nvram_storage_file:dir create_dir_perms;
 allow nvram_agent_binder mtk_nvram_storage_file:file create_file_perms;
 allow nvram_agent_binder mtk_nvram_storage_file:lnk_file { getattr read unlink };
@@ -15,12 +15,13 @@ allow nvram_agent_binder block_device:dir search;
 allow nvram_agent_binder mtk_nvram_block_device:blk_file rw_file_perms;
 allow nvram_agent_binder mtk_nvdata_block_device:blk_file rw_file_perms;
 allow nvram_agent_binder mtk_proinfo_block_device:blk_file rw_file_perms;
-allow nvram_agent_binder mtk_proinfo_block_device:chr_file rw_file_perms;
-allow nvram_agent_binder {
-    mtk_nvram_block_device
-    mtk_nvdata_block_device
-    mtk_proinfo_block_device
-}:lnk_file { getattr read };
+# No *_block_device:lnk_file rule: the /dev/block/platform/.../by-name/*
+# aliases are always labelled block_device. ueventd applies the by-name
+# file_contexts entry to the *device node* via
+# SelabelLookupFileContextBestMatch (system/core/init/devices.cpp:263) and then
+# creates the symlink with no fscreatecon, so the link inherits its parent
+# directory. Reading it is already covered by the platform's
+# block_device:lnk_file rule.
 
 allow nvram_agent_binder proc_cmdline:file r_file_perms;
 allow nvram_agent_binder sysfs_dt_firmware_android:dir search;

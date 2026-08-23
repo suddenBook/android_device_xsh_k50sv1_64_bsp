@@ -41,7 +41,14 @@ allow hal_power_default {
 }:file { getattr open read write };
 
 allow hal_power_default proc_mtk_power_info:file r_file_perms;
-dontaudit hal_power_default proc_mtk_power_fliper:file getattr;
+
+# libpowerhal stats /proc/fliper during init to decide whether the legacy
+# fliper path is available. The node *does* exist on this kernel (verified on
+# the handset), so the stat must succeed -- the previous dontaudit hid a probe
+# that would silently return the wrong answer in enforcing. Only getattr is
+# ever requested:
+#   avc: denied { getattr } for comm="mtkPowerManager" path="/proc/fliper"
+allow hal_power_default proc_mtk_power_fliper:file getattr;
 
 allow hal_power_default sysfs_mtk_power_cpu_info:file { getattr open read };
 allow hal_power_default {

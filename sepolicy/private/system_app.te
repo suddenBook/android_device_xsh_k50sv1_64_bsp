@@ -1,0 +1,6 @@
+# Settings' storage page reads zram usage from /sys/block/zram0 -> (symlink)
+# /sys/devices/virtual/block/zram0, which AOSP labels sysfs_zram via
+# system/sepolicy/private/genfs_contexts. Both system_app and sysfs_zram are
+# core types and the label is not a board fact, so this belongs in plat_private
+# rather than in a BOARD_VENDOR_SEPOLICY_DIRS entry.
+r_dir_file(system_app, sysfs_zram)

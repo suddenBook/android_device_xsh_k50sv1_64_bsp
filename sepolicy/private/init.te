@@ -1,0 +1,15 @@
+# AOSP system/core/rootdir/init.rc:132 creates the legacy
+#   symlink /storage/self/primary /mnt/sdcard
+# on the /mnt tmpfs, but system/sepolicy/public/init.te:40 grants init only
+# { getattr read relabelfrom } on tmpfs:lnk_file, so the create is denied:
+#
+#   avc: denied { create } for comm="init" name="sdcard"
+#        scontext=u:r:init:s0 tcontext=u:object_r:tmpfs:s0 tclass=lnk_file
+#
+# The symlink must keep the tmpfs label -- system/sepolicy/private/adbd.te:76
+# ("allow adbd tmpfs:lnk_file r_file_perms;  # /mnt/sdcard symlink") and
+# system/sepolicy/public/app.te:32 both read it there. Retargeting it to rootfs
+# with a named type_transition would additionally require
+# "allow rootfs tmpfs:filesystem associate;", which does not exist (rootfs is
+# fs_type, not file_type, so public/file.te:488 does not cover it).
+allow init tmpfs:lnk_file create;

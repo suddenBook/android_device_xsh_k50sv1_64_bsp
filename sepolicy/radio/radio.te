@@ -10,4 +10,9 @@ get_prop(radio, mtk_ims_prop)
 set_prop(radio, mtk_ims_feature_prop)
 hal_client_domain(radio, hal_imsa)
 
+# com.android.phone is the only consumer of rilproxy's MtkRadioEx extension
+# (lshal shows vendor.mediatek.hardware.mtkradioex@1.0-1.9::IMtkRadioEx with
+# mtkSlot/imsSlot/mtkCap/mtkEm/mtkRcs/mtkSe/mtkAssist instances per SIM slot).
+hal_client_domain(radio, hal_mtk_radioex)
+
 get_prop(system_server, mtk_telephony_sensitive_prop)

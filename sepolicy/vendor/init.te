@@ -1,0 +1,51 @@
+# Rules whose subject is a core boot domain (init, fsck, kernel) but whose
+# object is a board-specific type declared in this directory set. They must be
+# compiled together with the type declarations, so they stay in vendor policy;
+# see sepolicy/private/ for rules that are core-on-core.
+
+# rootdir/etc/fstab.mt6755 mounts nvdata, protect_f and protect_s under
+# /mnt/vendor; init performs the mkdir + mounton for "mount_all" in
+# init.mt6755.rc:10.
+allow init mnt_vendor_file:dir create_dir_perms;
+allow init mnt_vendor_file:dir mounton;
+allow init mtk_nvdata_file:dir create_dir_perms;
+allow init mtk_nvdata_file:dir mounton;
+
+# Those fstab entries carry "check", so init forks e2fsck against the nvdata
+# block device (/dev/block/mmcblk0p6, nvram/vendor/file_contexts).
+allow fsck mtk_nvdata_block_device:blk_file rw_file_perms;
+
+# init.rc chmod/chown of the io scheduler knob. The canonical sysfs path behind
+# /sys/block/mmcblk0/queue/scheduler is labelled by power/genfs_contexts:52.
+allow init sysfs_mtk_io_scheduler:file { getattr open read setattr write };
+
+# AOSP init.rc:151 "chown system system /sys/devices/system/cpu/cpufreq/
+# interactive/min_sample_time" and siblings; power/genfs_contexts:46-48.
+allow init sysfs_mtk_power_cpu_control:file setattr;
+
+# The in-kernel MTK connectivity worker (mtk_wmtd_worker) direct-loads the
+# combo-chip firmware from /vendor/firmware, labelled mtk_firmware_file by
+# vendor/file_contexts. system/sepolicy/public/domain.te exempts kernel from
+# the "no vendor_file for coredomain" rule precisely for firmware loading.
+r_dir_file(kernel, mtk_firmware_file)
+
+# NOT GRANTED, deliberately:
+#   avc: denied { dac_override } for comm="mtk_wmtd_worker"
+#        scontext=u:r:kernel:s0 tcontext=u:r:kernel:s0 tclass=capability
+# system/sepolicy/public/kernel.te:130 is
+#   neverallow kernel self:global_capability_class_set { dac_override dac_read_search };
+# so an allow here would fail sepolicy_neverallows in an enforcing build. The
+# firmware load succeeds anyway (Wi-Fi and BT come up); the denial is left
+# visible rather than dontaudit'ed so it is not mistaken for a policy gap.
+
+# ALSO NOT GRANTED, and not dontaudit'ed:
+#   avc: denied { module_request } for comm="init" kmod="fs-cgroup2"
+#        scontext=u:r:init:s0 tcontext=u:r:kernel:s0 tclass=system
+# init requests the cgroup2 filesystem module because /system/etc/cgroups.json
+# carries a "Cgroups2" block, but this 3.18 kernel has no cgroup2 and module
+# autoloading is disabled. The fix is to drop that block, which lives in
+# system/core/libprocessgroup/profiles/cgroups.json; /vendor/etc/cgroups.json
+# can override a controller's path but cannot delete an entry
+# (system/core/libprocessgroup/setup/cgroup_map_write.cpp:176-183 merges by
+# controller name). Nothing inside the device tree can suppress it, so the
+# single boot-time denial is left visible rather than filtered.

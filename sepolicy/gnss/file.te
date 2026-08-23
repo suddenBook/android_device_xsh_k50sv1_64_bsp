@@ -1,6 +1,21 @@
 type mtk_gnss_device, dev_type;
 type mtk_agps_serial_device, dev_type;
 
+# /dev/socket/mnld is declared "stream" by rootdir/etc/init/init.gnss.rc, but
+# every modelled mnld peer uses unix_dgram_socket sendto (gnss/socket.te,
+# gnss/hal_gnss_default.te) and no domain is granted mtk_mnld_socket:sock_file
+# write. If any client connects over the pathname rather than an abstract or
+# inherited socket it will be denied. GNSS was never exercised during the AVC
+# capture, so no allow is added speculatively.
+#
+# TO RESOLVE: take a location fix on the next enforcing build FIRST, then for
+# each peer that actually shows up in the AVC log add exactly these two rules
+# to gnss/socket.te (hal_gnss_default, mtk_agpsd and lbs_hidl_service are the
+# candidates; do not add them blind):
+#   allow <peer> mtk_mnld_socket:sock_file write;
+#   allow <peer> mnld:unix_stream_socket connectto;
+# If no such denial appears, the dgram model is correct and this type stays
+# writer-less.
 type mtk_mnld_socket, file_type;
 type mtk_agpsd_socket, file_type;
 type mtk_gps_data_file, file_type, data_file_type;

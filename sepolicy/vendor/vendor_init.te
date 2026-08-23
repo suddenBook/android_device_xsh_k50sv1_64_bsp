@@ -1,32 +1,42 @@
+# Rules whose subject is vendor_init. Rules for init/fsck/kernel live in
+# sepolicy/vendor/init.te so the file name matches the domain it constrains.
+
+# rootdir/etc/init/init.sensors.rc:5-14 chown/chmod the MIR3DA accelerometer
+# attributes under /sys/class/sensor/m_acc_misc -> (symlink)
+# /sys/devices/virtual/sensor/m_acc_misc, labelled by vendor/genfs_contexts:1.
+# A /vendor rc runs its chown/chmod in vendor_init, not init.
 allow vendor_init sysfs_mtk_accelerometer:file setattr;
 
-# Mount points are created from the device-owned root rc in the platform init
-# domain; the vendor script only performs mount_all.  These are the storage
-# operations observed during boot.
-allow init mnt_vendor_file:dir create_dir_perms;
-allow init mnt_vendor_file:dir mounton;
-allow init mtk_nvdata_file:dir create_dir_perms;
-allow init mtk_nvdata_file:dir mounton;
-allow fsck mtk_nvdata_block_device:blk_file rw_file_perms;
-
-# /mnt is tmpfs, but the legacy /mnt/sdcard symlink is part of the rootfs API.
-# A named transition fixes only that init-created object.
-type_transition init tmpfs:lnk_file rootfs "sdcard";
-
+# rootdir/etc/init/hw/init.mt6755.rc:45 "write /proc/sys/vm/swappiness 100".
 allow vendor_init proc_mtk_vm_swappiness:file w_file_perms;
 
-allow init {
-    sysfs_mtk_power_cpu_control
-}:file setattr;
+# rootdir/etc/init/hw/init.mt6755.rc "on post-fs" creates and then removes the
+# /mnt/vendor mount points and the dead cgroup roots. AOSP grants vendor_init
+# dev_type:dir create_dir_perms (public/vendor_init.te:117, which includes
+# rmdir/write/remove_name) but gives it nothing on tmpfs:dir beyond
+# { getattr search } from public/domain.te:61.
+allow vendor_init tmpfs:dir { create getattr open read search setattr write add_name remove_name };
+allow vendor_init mnt_vendor_file:dir create_dir_perms;
 
-allow init sysfs_mtk_io_scheduler:file { getattr open read setattr write };
+# The "rm /dev/{stune,cpuset}/*/tasks" lines that precede the rmdirs in that
+# same post-fs block. This is the other half of a permission vendor_init
+# already holds: system/sepolicy/public/vendor_init.te:117 grants
+# dev_type:dir create_dir_perms, whose rw_dir_perms already includes
+# remove_name -- so vendor_init may already unlink the directory ENTRY and is
+# only missing unlink on the inode itself. Scoped to the generic "device" type
+# (the label those stray tmpfs files inherit), not to all of dev_type. The only
+# device:file neverallow in the platform is public/domain.te:468, which covers
+# properties_device.
+allow vendor_init device:file unlink;
 
-r_dir_file(kernel, mtk_firmware_file)
-
-# Generic init probes cgroup2 once even though this pinned 3.18 kernel has no
-# cgroup2 support and module autoloading is deliberately disabled.
-dontaudit init kernel:system module_request;
-
-# ueventd attempts to normalize an inherited nice value; failure is harmless
-# and does not affect device-node creation.
-dontaudit ueventd self:global_capability_class_set sys_nice;
+# rootdir/etc/init/init.connectivity.modules.rc insmods the six MTK
+# connectivity drivers from /vendor/lib/modules (wmt_drv.ko, wmt_chrdev_wifi.ko,
+# wlan_drv_gen2.ko, bt_drv.ko, gps_drv.ko, fmradio_drv.ko).
+#   avc: denied { sys_module } scontext=u:r:vendor_init:s0 tclass=capability
+#   avc: denied { module_load } path="/vendor/lib/modules/wmt_drv.ko"
+#        tcontext=u:object_r:vendor_file:s0 tclass=system
+# The .ko files must stay vendor_file: system/sepolicy/public/domain.te:1306 is
+#   neverallow * ~{ system_file vendor_file rootfs }:system module_load;
+# AOSP grants the same pair to vendor_modprobe (vendor/vendor_modprobe.te:7,10).
+allow vendor_init self:global_capability_class_set sys_module;
+allow vendor_init vendor_file:system module_load;

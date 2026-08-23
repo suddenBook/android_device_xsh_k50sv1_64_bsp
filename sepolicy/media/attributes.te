@@ -1,0 +1,24 @@
+# NOTE ON PLACEMENT: these declarations must live in a *.te file, not in a file
+# named `attributes`. sepolicy_build_files (system/sepolicy/Android.mk:133) emits
+# every directory's `attributes` file ahead of every directory's *.te, so an
+# `attributes` file in a BOARD_VENDOR_SEPOLICY_DIRS entry is hoisted in front of
+# the whole public policy in vendor_policy.conf but is absent from
+# pub_policy.conf. That shifts checkpolicy's auto-generated base_typeattr_N
+# numbering between the two compilations, and version_policy renames vendor's
+# base_typeattr_N to base_typeattr_N_29_0 by number -- so the sets get mismapped
+# and unrelated neverallows fire at the final secilc link. The file name also has
+# to sort before every user in this directory (clients.te, hwservice.te, ...).
+# device/lineage/sepolicy/common/dynamic/hal_lineage_*.te uses the same pattern.
+
+# Device-specific HAL attributes for the MTK graphics/media services:
+#   vendor.mediatek.hardware.gpu::IGraphicExt      /vendor/bin/hw/vendor.mediatek.hardware.gpu@1.0-service
+#   vendor.mediatek.hardware.mms::IMms             /vendor/bin/hw/vendor.mediatek.hardware.mms@1.5-service
+#   vendor.mediatek.hardware.pq::IPictureQuality   /vendor/bin/hw/vendor.mediatek.hardware.pq@2.2-service
+#   vendor.mediatek.hardware.mtkcodecservice::IMtkCodecService
+#                                                  /vendor/bin/hw/vendor.mediatek.hardware.mtkcodecservice@1.1-service
+#
+# Kept out of plat_public for the reason documented in gnss/attributes.
+hal_attribute(mtk_gpu)
+hal_attribute(mtk_mms)
+hal_attribute(mtk_pq)
+hal_attribute(mtkcodecservice)

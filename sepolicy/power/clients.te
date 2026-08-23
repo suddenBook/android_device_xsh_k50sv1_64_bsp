@@ -8,8 +8,12 @@ hal_client_domain(mediacodec, hal_power)
 
 # libperfctl is loaded directly in framework/application processes.  Access is
 # limited to the one perf ioctl node and Stock's observed command families.
+# isolated_app and ephemeral_app do not link libperfctl and are excluded from
+# the appdomain attribute rather than inheriting a vendor ioctl surface.
 allow {
     appdomain
+    -isolated_app
+    -ephemeral_app
     bootanim
     cameraserver
     mediaserver
@@ -19,6 +23,8 @@ allow {
 
 allowxperm {
     appdomain
+    -isolated_app
+    -ephemeral_app
     bootanim
     cameraserver
     mediaserver

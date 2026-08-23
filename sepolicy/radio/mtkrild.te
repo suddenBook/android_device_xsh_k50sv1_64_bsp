@@ -6,7 +6,7 @@ net_domain(mtkrild)
 wakelock_use(mtkrild)
 vndbinder_use(mtkrild)
 
-allow mtkrild self:capability { setuid net_admin net_raw };
+allow mtkrild self:global_capability_class_set { setuid net_admin net_raw };
 allow mtkrild self:netlink_route_socket nlmsg_write;
 allowxperm mtkrild self:udp_socket ioctl {
     SIOCDELRT

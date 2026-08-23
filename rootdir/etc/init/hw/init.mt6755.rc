@@ -10,6 +10,69 @@ on fs
     mount_all /vendor/etc/fstab.mt6755
 
 on post-fs
+    # This 3.18 kernel provides only the cpu, cpuacct, freezer and debug cgroup
+    # controllers (/proc/cgroups), so the schedtune, cpuset, memory and cgroup2
+    # mounts declared by /system/etc/cgroups.json all fail. AOSP init.rc then
+    # leaves plain tmpfs directories behind (labelled "device"), and services
+    # write task ids into stray text files inside them -- which does nothing
+    # useful and produces a denial per writer:
+    #
+    #   avc: denied { open write } for comm="main" path="/dev/stune/foreground/tasks"
+    #        scontext=u:r:zygote:s0 tcontext=u:object_r:device:s0 tclass=file
+    #   (same for netd, installd, storaged, gsid, adbroot, and the ~25 services
+    #    that writepid into /dev/cpuset/system-background/tasks)
+    #
+    # Removing the directories makes the path walk fail with ENOENT before any
+    # SELinux check, so the denials disappear without granting anything.
+    #
+    # The "rm" before each "rmdir" is required, not defensive tidying: AOSP
+    # init.rc:195 does "mkdir /dev/cpuset/system-background" and :305 does
+    # "start servicemanager", BOTH inside "on init", and
+    # frameworks/native/cmds/servicemanager/servicemanager.rc:17 and
+    # vndservicemanager.rc:5 both carry
+    #   writepid /dev/cpuset/system-background/tasks
+    # so that tasks file already exists when "on post-fs" runs and a bare rmdir
+    # would fail with ENOTEMPTY -- taking the parent rmdir down with it. The
+    # other leaves are only populated by zygote/surfaceflinger, which start
+    # after post-fs, but they get the same treatment so that a future AOSP
+    # writepid on a service that starts in "on init" cannot silently break this.
+    # rm on an absent path just fails harmlessly.
+    #
+    # /dev/blkio is deliberately left alone: init.rc:98-101 populates it with
+    # blkio.weight and blkio.group_idle, which are init.rc content rather than
+    # stray task ids, and it produces no denials.
+    rm /dev/stune/foreground/tasks
+    rm /dev/stune/background/tasks
+    rm /dev/stune/top-app/tasks
+    rm /dev/stune/rt/tasks
+    rm /dev/stune/tasks
+    rmdir /dev/stune/foreground
+    rmdir /dev/stune/background
+    rmdir /dev/stune/top-app
+    rmdir /dev/stune/rt
+    rmdir /dev/stune
+
+    rm /dev/cpuset/foreground/tasks
+    rm /dev/cpuset/background/tasks
+    rm /dev/cpuset/system-background/tasks
+    rm /dev/cpuset/restricted/tasks
+    rm /dev/cpuset/top-app/tasks
+    rm /dev/cpuset/tasks
+    rmdir /dev/cpuset/foreground
+    rmdir /dev/cpuset/background
+    rmdir /dev/cpuset/system-background
+    rmdir /dev/cpuset/restricted
+    rmdir /dev/cpuset/top-app
+    rmdir /dev/cpuset
+
+    # No rm for memcg: nothing in the tree writepids under /dev/memcg and both
+    # leaves are empty on the live handset.
+    rmdir /dev/memcg/apps
+    rmdir /dev/memcg/system
+    rmdir /dev/memcg
+
+    rmdir /dev/cg2_bpf
+
     chown system system /mnt/vendor/protect_f
     chmod 0770 /mnt/vendor/protect_f
     restorecon_recursive /mnt/vendor/protect_f
