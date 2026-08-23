@@ -8,8 +8,13 @@ hal_server_domain(mtk_hal_pq, hal_mtk_pq)
 # to that attribute. Verified in the linked policy: vendor domains land in the
 # UNVERSIONED halserverdomain typeattributeset, so the platform rule reaches them.
 
-# Both persistent live FDs on Stock are read-only mtk_disp_mgr handles.
-allow mtk_hal_pq graphics_device:chr_file { getattr ioctl open read };
+# PQ is one of only two processes holding /dev/mtk_disp_mgr open on the handset
+# (the other is the composer). It configures the display pipeline, which is a
+# write: Stock's compiled policy has
+#   (allow mtk_hal_pq graphics_device (chr_file (ioctl read write open)))
+# The previous read-only grant was inferred from an idle FD listing, which
+# cannot show the open mode.
+allow mtk_hal_pq graphics_device:chr_file { getattr ioctl open read write };
 
 # AAL probes the framework sensor manager.  With the truthful device sensor
 # contract this returns no light sensor; no sensor device access is granted.

@@ -283,7 +283,10 @@ vendor/lib/vendor.mediatek.hardware.power@2.0.so
 -vendor/lib64/soundfx/libdynproc.so
 -vendor/lib64/soundfx/libldnhncr.so
 -vendor/lib64/soundfx/libreverbwrapper.so
-vendor/etc/a2dp_audio_policy_configuration.xml
+# a2dp_audio_policy_configuration.xml is NOT extracted. It and
+# a2dp_in_audio_policy_configuration.xml both declare <module name="a2dp">, and
+# configs/audio_policy_configuration.xml xi:includes only the _in one, so the
+# other could never be parsed.
 vendor/etc/a2dp_in_audio_policy_configuration.xml
 vendor/etc/audio_device.xml
 vendor/etc/audio_effects.xml

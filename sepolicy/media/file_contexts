@@ -3,7 +3,11 @@
 /(vendor|system/vendor)/bin/hw/vendor\.mediatek\.hardware\.pq@2\.2-service              u:object_r:mtk_hal_pq_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.mediatek\.hardware\.mtkcodecservice@1\.1-service u:object_r:mtk_hal_codecservice_exec:s0
 
-# Reuse the AOSP graphics/video classes.  On this board these resolve to the
-# single sw_sync and Vcodec nodes and preserve existing HWC/media permissions.
-/dev/sw_sync u:object_r:graphics_device:s0
+# /dev/Vcodec reuses AOSP's video_device so mediacodec keeps the access
+# system/sepolicy/vendor/mediacodec.te:30-31 already grants it.
 /dev/Vcodec  u:object_r:video_device:s0
+
+# /dev/sw_sync gets its own type rather than sharing graphics_device with
+# /dev/mtk_disp_mgr -- see media/file.te for the reasoning and the live
+# evidence. Openers are granted in media/graphics_stack.te.
+/dev/sw_sync u:object_r:mtk_sw_sync_device:s0

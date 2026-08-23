@@ -45,6 +45,17 @@ allow {
     surfaceflinger
 } mtk_cmdq_device:chr_file { ioctl open read };
 
+# sw_sync timeline producers. Splitting /dev/sw_sync out of graphics_device
+# (media/file.te) removes the access the composer previously inherited from
+# system/sepolicy/public/hal_graphics_composer.te:23, so it is restated here
+# for the two processes that actually hold the node open on the handset.
+# Stock grants sw_sync_device rw to mtk_hal_camera, mtk_hal_mms and mediacodec
+# as well; none of those three has it open here, so they are left out.
+allow {
+    hal_graphics_composer_default
+    mtk_hal_mms
+} mtk_sw_sync_device:chr_file rw_file_perms;
+
 # The proprietary composer uses vendor Binder for its MTK extension service
 # and listens for hotplug uevents.
 vndbinder_use(hal_graphics_composer_default)

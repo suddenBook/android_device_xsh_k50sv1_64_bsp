@@ -8,12 +8,15 @@ hal_server_domain(mtk_hal_mms, hal_mtk_mms)
 # to that attribute. Verified in the linked policy: vendor domains land in the
 # UNVERSIONED halserverdomain typeattributeset, so the platform rule reaches them.
 
-# The idle on-demand service holds these three nodes read-only.  Vcodec is
-# opened by the hardware JPEG path and requires bidirectional ioctl buffers.
+# The idle on-demand service holds these nodes read-only.  Vcodec is opened by
+# the hardware JPEG path and requires bidirectional ioctl buffers.
 allow mtk_hal_mms ion_device:chr_file r_file_perms;
 allow mtk_hal_mms mtk_cmdq_device:chr_file r_file_perms;
-allow mtk_hal_mms graphics_device:chr_file r_file_perms;
 allow mtk_hal_mms video_device:chr_file rw_file_perms;
+# No graphics_device (/dev/mtk_disp_mgr) rule: the only graphics node this
+# service holds open on the handset is /dev/sw_sync, which is now its own type
+# and is granted in media/graphics_stack.te. The display manager belongs to the
+# composer and to PQ.
 
 # libJpgEncPipe names this exact JPEG bridge.  This avoids Stock's grant to the
 # generic proc type.
