@@ -16,26 +16,48 @@ PRODUCT_COPY_FILES += \
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 
-# Android Go. The SoC is an 8x Cortex-A53 at 1.5 GHz with a Mali-T860 MP2 and
-# an eMMC that tops out around 150 MB/s; 3.74 GiB of usable RAM is the one
-# resource this device is not short of. Inheriting AOSP's canonical Go product
-# defaults (ro.config.low_ram, speed-profile system server, profile-guided boot
-# image, always-preopt extracted APKs, in-process network stack, minimized Java
-# debug info) buys back CPU and storage. See the two deliberate deviations
-# below.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/go_defaults_common.mk)
-
-# Deviation 1: heap. go_defaults_common.prop sizes the Dalvik heap for a 1 GiB
-# handset (128m/256m). AOSP's own per-RAM profile for this device is the 4096
-# one, whose 0.6 target utilization and larger free window also mean fewer GC
-# pauses, which is what a weak CPU needs. PRODUCT_PROPERTY_OVERRIDES lands in
-# vendor/build.prop, which init loads after system/build.prop, so these values
-# are the ones that take effect.
+# NOT Android Go. An earlier revision inherited go_defaults_common.mk to buy
+# back CPU and storage on a weak SoC. The owner has since asked for full
+# Android, and the trade was the wrong one anyway: this handset is short of CPU,
+# not of RAM. Measured on the running Go build, MemAvailable is 2.5 GiB, zram is
+# 0% used and the in-kernel lowmemorykiller has never fired.
 #
-# Not a deviation, stated so nobody adds it: MALLOC_SVELTE is left unset. No
-# Go defaults file sets it either (tree-wide it appears only in
-# board_config.mk:139's error text and soong_config.mk:117), so unset is the
-# AOSP default. It trades CPU for RAM, which is the wrong direction here.
+# Removing that one inherit is the whole change; low_ram has exactly one setter
+# (go_defaults_common.mk:22) and everything downstream reverts by itself. What
+# comes back: picture-in-picture, voice recognizers, managed users/work
+# profiles, activities on secondary displays, SYSTEM_ALERT_WINDOW, full-scale
+# task snapshots, bubbles, notification listeners, and ram.low -> ram.normal.
+# What goes away: pm.dexopt.shared=quicken (back to AOSP's `speed`, which AOSP's
+# own comment in go_defaults_common.prop:29-36 says costs storage but SAVES cpu
+# and battery -- the right direction here), speed-profile for system_server
+# (back to `speed`, fully AOT, no JIT warm-up), and persist.traced.enable=1.
+# Perfetto is runtime-enableable when a capture is needed:
+#   adb shell setprop persist.traced.enable 1
+# perfetto.rc:47-60 starts both daemons on that property edge.
+#
+# It also repairs a live defect. PRODUCT_ART_TARGET_INCLUDE_DEBUG_BUILD is a
+# product variable, so inherit-product CONCATENATES it; go_defaults_common.mk:38
+# and vendor/lineage/config/common.mk:99 both set `false`, the value resolved to
+# the two-word string `false false`, and art/Android.mk:346's exact
+# `ifneq (false,...)` test therefore selected com.android.runtime.DEBUG on every
+# userdebug tier -- 130 MB of libartd/dex2oatd nothing here uses, against
+# Lineage's explicit request for the release APEX. One setter left, one word,
+# release module. See E-042.
+#
+# MALLOC_SVELTE stays unset, stated so nobody adds it back with the Go comment
+# it used to live under: tree-wide it appears only in board_config.mk:139's
+# error text and soong_config.mk:117, so unset is the AOSP default. It trades
+# CPU for RAM, which is the wrong direction here.
+
+# The Dalvik heap. AOSP's per-RAM profile for this device: 4 GiB physical
+# (MemTotal 3,925,620 kB), xhdpi (TARGET_SCREEN_DENSITY 320), normal screen ->
+# phone-xhdpi-4096. 8m/192m/512m at 0.6 target utilization; it is the only
+# phone-* profile with 0.6, and the larger free window means fewer GC pauses,
+# which is what a weak CPU needs.
+#
+# This inherit is NOT optional and is unrelated to Go. It is the only source of
+# dalvik.vm.heap* in the tree; without it every app falls back to
+# AndroidRuntime.cpp's -Xms4m/-Xmx16m (E-019).
 $(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
 
 # Build the full phone userspace without AOSP's generic vendor rild. The MTK
@@ -73,11 +95,11 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.control_privapp_permissions=log
 endif
 
 # Select LineageOS's partner-GMS path. WITH_GMS_GO is deliberately not set:
-# partner_gms.mk would route it to products/gms_go.mk, which no longer exists.
-# This is independent of go_defaults_common.mk above -- Android Go platform
-# mode stays on; only the GMS payload changed from the Go set to the full one.
-# The explicit guard prevents the optional product inherit from silently
-# producing a GMS-free image.
+# vendor/lineage/config/partner_gms.mk:6-9 would route it to products/gms_go.mk,
+# which does not exist here. No GMS Go substitution has ever been active, so the
+# low_ram removal above changes nothing about the payload. The explicit guard
+# prevents the optional product inherit from silently producing a GMS-free
+# image.
 WITH_GMS := true
 ifeq ($(wildcard vendor/partner_gms/products/gms.mk),)
 $(error Missing vendor/partner_gms/products/gms.mk; import the pinned NikGapps omni payload first)
@@ -106,20 +128,29 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     persist.dbg.vt_avail_ovr=0 \
     persist.dbg.wfc_avail_ovr=0
 
-# The 3.18 kernel has neither CONFIG_MEMCG nor PSI, so per-app memory cgroups
-# do not exist and lmkd cannot run its userspace killer. lmkd probes
+# The 3.18 kernel has neither CONFIG_MEMCG nor PSI, so per-app memory cgroups do
+# not exist and lmkd cannot run its userspace killer. lmkd probes
 # /sys/module/lowmemorykiller/parameters/minfree for write access
-# (system/core/lmkd/lmkd.c:1968), finds it, and takes the in-kernel path
-# unconditionally -- every ro.lmk.* is read and then never consumed, including
-# the four go_defaults_common.prop drags in. The only tuning with any effect is
-# config_lowMemoryKillerMinFreeKbytesAdjust/Absolute, left at defaults.
+# (system/core/lmkd/lmkd.c:1968) -- an access(W_OK) test that always succeeds
+# here -- and takes the in-kernel path, so every ro.lmk.* is read and then never
+# consumed. Do not add any.
+# NOTE (PSI): lmkd needs the *writable trigger* interface, upstream 5.2, not the
+# read-only /proc/pressure of 4.20. Neither exists here.
 #
-# per_app_memcg states what the kernel already forces: processgroup.cpp:402-409
-# gates on isMemoryCgroupSupported() first, which is false here regardless. It
-# is belt and braces, kept so the value is not silently inferred from low_ram.
-# ro.config.low_ram itself comes from go_defaults_common.mk.
-# NOTE (PSI): lmkd needs the *writable trigger* interface, which is upstream
-# 5.2 -- not the read-only /proc/pressure of 4.20. Neither exists here.
+# The minfree table itself is NOT affected by low_ram either way.
+# ProcessList.updateOomLevels() computes it purely from total RAM and display
+# area with no low-RAM term, and pushes it through LMK_TARGET, which is one of
+# the few lmkd commands with no in-kernel-interface early return. Measured
+# before this change and expected unchanged after:
+#   minfree 18432,23040,27648,32256,55296,80640
+#   adj     0,100,200,250,900,950
+# If those move, something other than this edit moved them.
+#
+# per_app_memcg states what the kernel already forces twice over:
+# processgroup.cpp:404 gates on isMemoryCgroupSupported() first, which is false
+# with no memory controller mounted, and with low_ram gone the native default
+# that both processgroup.cpp and lmkd.c infer from it is already false. Kept as
+# documentation of an immutable kernel fact, not as a working override.
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.per_app_memcg=false
 

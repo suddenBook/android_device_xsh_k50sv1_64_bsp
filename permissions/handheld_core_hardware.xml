@@ -21,12 +21,18 @@
          handset exposes is a single MTK accelerometer; there is no
          magnetometer, no gyroscope, no proximity and no ambient-light sensor.
        * Nothing else. In particular every notLowRam="true" attribute is kept
-         verbatim: this product sets ro.config.low_ram=true, and SystemConfig
-         uses that attribute to drop the marked features by itself. Hand-
-         expanding the list (or switching to go_handheld_core_hardware.xml)
-         would make the file wrong for one of the two configurations, and
-         go_handheld_core_hardware.xml additionally drops app_widgets, which
-         the launcher on this build does support.
+         verbatim even though this product no longer sets ro.config.low_ram.
+         SystemConfig applies the attribute itself, so the file stays correct in
+         both configurations; hand-expanding the list would break one of them.
+         Never switch to go_handheld_core_hardware.xml -- besides the notLowRam
+         set it also drops app_widgets unconditionally, which the launcher on
+         this build does support.
+
+     This file must stay in PRODUCT_COPY_FILES in lineage_k50sv1_64_bsp.mk. With
+     go_defaults_common.mk no longer inherited it is the ONLY provider of
+     vendor/etc/permissions/handheld_core_hardware.xml in this product's
+     inheritance chain -- full_base_telephony.mk, the other AOSP provider, is
+     not in it.
 --><permissions>
     <!-- This is Android and fully CTS compatible.  Basically this is for CTS tests to use. -->
     <feature name="android.software.cts" />

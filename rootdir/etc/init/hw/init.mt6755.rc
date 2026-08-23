@@ -260,8 +260,7 @@ on post-fs
     # Large read-ahead pays off for the sequential, page-cache-cold reads that
     # dominate boot. It is restored to the 128 KiB default at
     # sys.boot_completed below -- Stock sets 2048 here and never puts it back,
-    # which on a low-RAM device spends page cache on speculative reads for the
-    # entire uptime.
+    # which spends page cache on speculative reads for the entire uptime.
     write /sys/block/mmcblk0/queue/read_ahead_kb 2048
     # zram is RAM. Reading ahead into it evicts the page cache to populate a
     # cache of pages that were never slower than a memcpy.
