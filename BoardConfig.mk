@@ -27,6 +27,13 @@ TARGET_SCREEN_HEIGHT := 1560
 
 # Proprietary vendor compatibility contract
 BOARD_VNDK_VERSION := current
+# The System SDK level vendor Java may compile against. Nothing in this port
+# builds vendor Java, so the value is inert -- it is recorded here only so a
+# future reader does not spend time reconciling it with the two neighbouring
+# numbers it does not match: VNDK is 29 (above) and PRODUCT_SHIPPING_API_LEVEL
+# is 26 (inherited from product_launched_with_o.mk). 28 is neither; it is
+# simply what the port started with. Change it only alongside an actual vendor
+# Java module.
 BOARD_SYSTEMSDK_VERSIONS := 28
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
 DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml

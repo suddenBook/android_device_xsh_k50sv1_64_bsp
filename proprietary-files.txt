@@ -20,6 +20,11 @@
 # - EngineerMode/ATCI/factory test/logging packages unless a measured runtime
 #   dependency proves they are required
 # - Stock fstab, assembled VINTF, generated/precompiled SELinux policy
+# - libmtk-rilop.so and vendor.mediatek.hardware.radio_op@2.0.so. librilproxy
+#   dlopens the first by name (RilOpProxy::initOpLibrary) and logs the failure
+#   without aborting; it carries operator-specific RIL extensions this
+#   open-market build has no operator to apply, and restoring it would also
+#   need a radio_op@2.0 manifest entry. Excluded deliberately, not missed.
 #
 # A leading '-' packages a Stock library as a preferred prebuilt module. For
 # modules that also exist in AOSP, keep every real Stock 32/64 variant, without
@@ -39,13 +44,30 @@
 # Graphics / Mali  -- section: graphics
 vendor/bin/hw/vendor.mediatek.hardware.gpu@1.0-service
 vendor/etc/init/vendor.mediatek.hardware.gpu@1.0-service.rc
-# All three 32-bit HIDL impls stay. allocator and mapper are genuinely used --
-# the manifest declares mapper@2.0 as passthrough arch="32+64" and 32-bit
-# clients open gralloc.mt6755.so. The 32-bit composer@2.1-impl and its two
-# hwc2on*adapter helpers are dead weight on this device (Stock has no 32-bit
-# hwcomposer.mt6755.so for them to load, and the composer HAL is binderized
-# 64-bit only) but they cannot be dropped: see the architecture note in the
-# header. Removing them fails the Soong bootstrap.
+# All three 32-bit HIDL impls stay, but only ONE of them is actually used.
+#
+# mapper@2.0 is: manifest.xml declares it <transport arch="32+64">passthrough,
+# so a 32-bit client loads the 32-bit impl in-process, which opens the 32-bit
+# gralloc.mt6755.so.
+#
+# allocator@2.0 is NOT, contrary to what this comment used to claim. The
+# manifest declares it <transport>hwbinder and the built
+# vendor/bin/hw/android.hardware.graphics.allocator@2.0-service is ELF64, so
+# nothing ever loads a 32-bit allocator impl -- clients reach the 64-bit
+# service over hwbinder.
+#
+# composer@2.1 is not either: also hwbinder, also 64-bit only, and Stock has no
+# 32-bit hwcomposer.mt6755.so for it to open. Its two libhwc2on*adapter
+# dependencies are dead in 32-bit for the same reason.
+#
+# So four of these 32-bit files are dead weight and cannot be dropped anyway:
+# they exist to satisfy Soong's variant matching for a `prefer: true` prebuilt,
+# per the architecture note in the header. The way to actually remove them is
+# to stop packaging these three as modules at all -- none of them is required
+# by any base or Lineage product makefile, so a plain copy entry (or building
+# the AOSP source, which is unmodified here) would install exactly what the
+# device needs with no variant constraint. That is a staged work item, not a
+# drive-by change.
 -vendor/lib/hw/android.hardware.graphics.allocator@2.0-impl.so
 -vendor/lib/hw/android.hardware.graphics.composer@2.1-impl.so
 -vendor/lib/hw/android.hardware.graphics.mapper@2.0-impl.so
@@ -422,6 +444,9 @@ vendor/lib/lib3a_core2.so
 vendor/lib/lib3a_sample.so
 vendor/lib/libJpgDecPipe.so
 vendor/lib/libJpgEncPipe.so
+# Dead code that cannot be dropped: this device fits imx145 (rear) and gc5025
+# (front), never an IMX230, but libcameracustom.so lists this library in
+# DT_NEEDED, so removing it stops camerahalserver loading at all.
 vendor/lib/libSonyIMX230PdafLibrary.so
 vendor/lib/libSwJpgCodec.so
 vendor/lib/libacdk.so
