@@ -32,16 +32,44 @@ genfscon proc /net/arp u:object_r:proc_mtk_netdagent_arp:s0
 
 # Read-only frequency discovery.  Generic CPU topology remains on AOSP's
 # sysfs_devices_system_cpu so apps retain the standard read-only contract.
-# Only cpu0 and cpu1 own a cpufreq policy directory on this SoC; cpu2..cpu7
-# have no .../cpuN/cpufreq node at all (verified on the handset).
+#
+# All eight CPUs carry a cpufreq directory. An earlier revision of this file
+# labelled only cpu0 and cpu1, on the strength of an `ls` taken while MTK's
+# hotplug governor had six cores parked -- a cpufreq directory disappears with
+# its CPU. With every core online:
+#     cpu0: affected_cpus = 0 1 2 3      (cluster 0, LITTLE, max 1001000)
+#     cpu4: affected_cpus = 4 5 6 7      (cluster 1, big,    max 1508000)
+# and cpu1..cpu3, cpu5..cpu7 each expose the same policy through their own
+# directory. The old labelling therefore covered one CPU of cluster 0 twice
+# and left the whole big cluster on the generic type, so libpowerhal's
+# /sys/devices/system/cpu/cpu%d/... reads and writes fell outside the policy.
+# Label all eight.
 genfscon sysfs /devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies u:object_r:sysfs_mtk_power_cpu_info:s0
 genfscon sysfs /devices/system/cpu/cpu1/cpufreq/scaling_available_frequencies u:object_r:sysfs_mtk_power_cpu_info:s0
+genfscon sysfs /devices/system/cpu/cpu2/cpufreq/scaling_available_frequencies u:object_r:sysfs_mtk_power_cpu_info:s0
+genfscon sysfs /devices/system/cpu/cpu3/cpufreq/scaling_available_frequencies u:object_r:sysfs_mtk_power_cpu_info:s0
+genfscon sysfs /devices/system/cpu/cpu4/cpufreq/scaling_available_frequencies u:object_r:sysfs_mtk_power_cpu_info:s0
+genfscon sysfs /devices/system/cpu/cpu5/cpufreq/scaling_available_frequencies u:object_r:sysfs_mtk_power_cpu_info:s0
+genfscon sysfs /devices/system/cpu/cpu6/cpufreq/scaling_available_frequencies u:object_r:sysfs_mtk_power_cpu_info:s0
+genfscon sysfs /devices/system/cpu/cpu7/cpufreq/scaling_available_frequencies u:object_r:sysfs_mtk_power_cpu_info:s0
 
 # Writable cpufreq controls which exist on the captured board.
 genfscon sysfs /devices/system/cpu/cpu0/cpufreq/scaling_min_freq u:object_r:sysfs_mtk_power_cpu_control:s0
 genfscon sysfs /devices/system/cpu/cpu0/cpufreq/scaling_max_freq u:object_r:sysfs_mtk_power_cpu_control:s0
 genfscon sysfs /devices/system/cpu/cpu1/cpufreq/scaling_min_freq u:object_r:sysfs_mtk_power_cpu_control:s0
 genfscon sysfs /devices/system/cpu/cpu1/cpufreq/scaling_max_freq u:object_r:sysfs_mtk_power_cpu_control:s0
+genfscon sysfs /devices/system/cpu/cpu2/cpufreq/scaling_min_freq u:object_r:sysfs_mtk_power_cpu_control:s0
+genfscon sysfs /devices/system/cpu/cpu2/cpufreq/scaling_max_freq u:object_r:sysfs_mtk_power_cpu_control:s0
+genfscon sysfs /devices/system/cpu/cpu3/cpufreq/scaling_min_freq u:object_r:sysfs_mtk_power_cpu_control:s0
+genfscon sysfs /devices/system/cpu/cpu3/cpufreq/scaling_max_freq u:object_r:sysfs_mtk_power_cpu_control:s0
+genfscon sysfs /devices/system/cpu/cpu4/cpufreq/scaling_min_freq u:object_r:sysfs_mtk_power_cpu_control:s0
+genfscon sysfs /devices/system/cpu/cpu4/cpufreq/scaling_max_freq u:object_r:sysfs_mtk_power_cpu_control:s0
+genfscon sysfs /devices/system/cpu/cpu5/cpufreq/scaling_min_freq u:object_r:sysfs_mtk_power_cpu_control:s0
+genfscon sysfs /devices/system/cpu/cpu5/cpufreq/scaling_max_freq u:object_r:sysfs_mtk_power_cpu_control:s0
+genfscon sysfs /devices/system/cpu/cpu6/cpufreq/scaling_min_freq u:object_r:sysfs_mtk_power_cpu_control:s0
+genfscon sysfs /devices/system/cpu/cpu6/cpufreq/scaling_max_freq u:object_r:sysfs_mtk_power_cpu_control:s0
+genfscon sysfs /devices/system/cpu/cpu7/cpufreq/scaling_min_freq u:object_r:sysfs_mtk_power_cpu_control:s0
+genfscon sysfs /devices/system/cpu/cpu7/cpufreq/scaling_max_freq u:object_r:sysfs_mtk_power_cpu_control:s0
 genfscon sysfs /devices/system/cpu/cpufreq/interactive/hispeed_freq u:object_r:sysfs_mtk_power_cpu_control:s0
 genfscon sysfs /devices/system/cpu/cpufreq/interactive/min_sample_time u:object_r:sysfs_mtk_power_cpu_control:s0
 genfscon sysfs /devices/system/cpu/cpufreq/interactive/above_hispeed_delay u:object_r:sysfs_mtk_power_cpu_control:s0

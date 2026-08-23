@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  MTK PowerHAL per-application boost whitelist for k50sv1_64_bsp.
+
+  Deliberately empty.
+
+  Stock ships a seven-entry table naming com.tencent.tmgp.sgame,
+  com.tencent.tmgp.sgamece, com.tencent.tmgp.pubgmhd, com.ss.android.ugc.aweme,
+  com.smile.gifmaker, com.taobao.taobao and com.imangi.templerun2. None of them
+  is installed on this build, and every frequency in it (1950000) is an OPP
+  this part does not have, so the table is inert either way. It is not carried
+  forward: a whitelist that names applications the image does not ship is a
+  maintenance trap, and the generic boosts in powerscntbl.xml already cover
+  every hint the AOSP framework sends.
+
+  libpowerhal prefers /data/vendor/powerhal/power_whitelist_cfg.xml over this
+  file, so a per-application experiment can be dropped in at runtime without a
+  rebuild. Add real entries here only for an application that is actually
+  installed and measurably helped, and only with OPPs from
+  /proc/ppm/dump_cluster_{0,1}_dvfs_table.
+-->
+<WHITELIST>
+    <PerfService>
+    </PerfService>
+</WHITELIST>

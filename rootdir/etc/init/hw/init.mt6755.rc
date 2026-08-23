@@ -3,6 +3,23 @@ import /vendor/etc/init/hw/init.mt6755.usb.rc
 on early-init
     mkdir /dev/radio 0770 radio radio
 
+    # Hold both clusters at their top OPP for the duration of the boot, and
+    # keep a minimum core count online so the parallel parts of boot (package
+    # scanning, dexopt, the Zygote preload) are not waiting on MTK's hotplug
+    # governor to notice the load. Released in full at sys.boot_completed=1
+    # below; PPM's thermal policy sits at priority 4, above USER_LIMIT at 6,
+    # so this cannot override thermal protection.
+    #
+    # Values are OPPs that exist on this part:
+    #   cluster 0 (cpu0-3): 1001000 910000 819000 689000 598000 494000 338000 156000
+    #   cluster 1 (cpu4-7): 1508000 1430000 1352000 1196000 1027000 871000 663000 286000
+    # Stock's own early-init pins "1 1508000", which is right; its powerscntbl.xml
+    # asks for 1950000, which is not. See configs/powerscntbl.xml.
+    write /proc/ppm/policy/userlimit_min_cpu_freq "0 1001000"
+    write /proc/ppm/policy/userlimit_min_cpu_freq "1 1508000"
+    write /proc/ppm/policy/userlimit_min_cpu_core "0 4"
+    write /proc/ppm/policy/userlimit_min_cpu_core "1 2"
+
 on init
     write /sys/block/zram0/comp_algorithm lz4
 
@@ -73,6 +90,114 @@ on post-fs
 
     rmdir /dev/cg2_bpf
 
+    # ---- Power HAL control nodes -------------------------------------------
+    #
+    # libpowerhal runs in hal_power_default as user *system*
+    # (vendor.mediatek.hardware.mtkpower@1.0-service.rc), and the kernel creates
+    # every one of these procfs nodes root:root. sepolicy/power already labels
+    # and allows them, but DAC is the other half of the permission and was
+    # missing: with 0664 root:root the HAL could open them read-only at best,
+    # so no scenario in powerscntbl.xml could ever be applied. Verified on the
+    # handset: /proc/ppm/policy/userlimit_min_cpu_freq was root:root 0664 with
+    # the HAL running as system.
+    #
+    # Only the nodes the HAL actually drives are handed over. The DVFS table
+    # dumps stay read-only; they are discovery, not control.
+    chown system system /proc/ppm/mode
+    chmod 0660 /proc/ppm/mode
+    chown system system /proc/ppm/root_cluster
+    chmod 0660 /proc/ppm/root_cluster
+    chown system system /proc/ppm/policy_status
+    chmod 0660 /proc/ppm/policy_status
+    chown system system /proc/ppm/policy/userlimit_min_cpu_freq
+    chmod 0660 /proc/ppm/policy/userlimit_min_cpu_freq
+    chown system system /proc/ppm/policy/userlimit_max_cpu_freq
+    chmod 0660 /proc/ppm/policy/userlimit_max_cpu_freq
+    chown system system /proc/ppm/policy/userlimit_min_cpu_core
+    chmod 0660 /proc/ppm/policy/userlimit_min_cpu_core
+    chown system system /proc/ppm/policy/userlimit_max_cpu_core
+    chmod 0660 /proc/ppm/policy/userlimit_max_cpu_core
+    chmod 0440 /proc/ppm/dump_cluster_0_dvfs_table
+    chmod 0440 /proc/ppm/dump_cluster_1_dvfs_table
+    chown system system /proc/ppm/dump_cluster_0_dvfs_table
+    chown system system /proc/ppm/dump_cluster_1_dvfs_table
+
+    chown system system /proc/hps/up_threshold
+    chmod 0660 /proc/hps/up_threshold
+    chown system system /proc/hps/down_threshold
+    chmod 0660 /proc/hps/down_threshold
+    chown system system /proc/hps/num_base_perf_serv
+    chmod 0660 /proc/hps/num_base_perf_serv
+    chown system system /proc/hps/num_limit_power_serv
+    chmod 0660 /proc/hps/num_limit_power_serv
+
+    chown system system /proc/perfmgr/perf_ioctl
+    chmod 0660 /proc/perfmgr/perf_ioctl
+    chown system system /proc/perfmgr/legacy/perfserv_freq
+    chmod 0660 /proc/perfmgr/legacy/perfserv_freq
+    chown system system /proc/perfmgr/legacy/perfserv_core
+    chmod 0660 /proc/perfmgr/legacy/perfserv_core
+
+    # ---- interactive governor ----------------------------------------------
+    #
+    # This kernel exposes ONE global tunable set at
+    # /sys/devices/system/cpu/cpufreq/interactive/, shared by both policies, so
+    # every value below has to be sane for a 156000-1001000 cluster and a
+    # 286000-1508000 one at the same time.
+    #
+    # As shipped by the kernel this governor is unusually lazy for a part this
+    # slow: go_hispeed_load 99 means it will not jump to hispeed_freq until a
+    # CPU is essentially saturated, and target_loads 90 means it aims to leave
+    # only 10% headroom. On 8xA53 that is the difference between a scroll that
+    # starts at 1.5 GHz and one that spends its first two sample periods at
+    # 598 MHz.
+    #
+    # Left at their existing values because they are already right:
+    #   timer_rate 20000        20 ms sampling; halving it doubles governor
+    #                           wakeups for a barely measurable gain
+    #   min_sample_time 80000   how long a raised frequency is held. Lowering
+    #                           this makes the governor drop back sooner, which
+    #                           is the opposite of what is wanted here
+    #   timer_slack 80000, boostpulse_duration 80000
+    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1508000
+    write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 85
+    write /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay 20000
+    write /sys/devices/system/cpu/cpufreq/interactive/target_loads "70 663000:75 1027000:85"
+    # Count iowait as busy. Without this the CPU looks idle while it is blocked
+    # on a ~150 MB/s eMMC, downclocks, and is then at the bottom of the table
+    # exactly when the data arrives.
+    write /sys/devices/system/cpu/cpufreq/interactive/io_is_busy 1
+
+    # ---- block I/O ----------------------------------------------------------
+    #
+    # Measured on the handset, 600 concurrent 4 KiB direct reads issued by four
+    # readers while a 192 MiB fsync'd write ran alongside:
+    #     cfq       378 ms
+    #     deadline  271 ms   (-28%)
+    #     noop      257 ms   (-32%)
+    # Single-threaded the three are indistinguishable (~750 ms for 400 reads),
+    # which is why this has to be measured under concurrency to see anything.
+    # deadline is taken rather than noop: the extra 14 ms is inside the noise,
+    # and noop has no read-vs-write starvation protection at all, which is the
+    # one guarantee that matters while dexopt or an app install is writing.
+    # deadline's own knobs were measured too and made no difference
+    # (read_expire 500/100/50 -> 271/275/258 ms), so they stay at the kernel
+    # defaults rather than being tuned on a guess.
+    write /sys/block/mmcblk0/queue/scheduler deadline
+    # Per-I/O accounting the framework does not read back, on a CPU that has
+    # nothing to spare.
+    write /sys/block/mmcblk0/queue/iostats 0
+    write /sys/block/mmcblk0/queue/nr_requests 256
+    # Large read-ahead pays off for the sequential, page-cache-cold reads that
+    # dominate boot. It is restored to the 128 KiB default at
+    # sys.boot_completed below -- Stock sets 2048 here and never puts it back,
+    # which on a low-RAM device spends page cache on speculative reads for the
+    # entire uptime.
+    write /sys/block/mmcblk0/queue/read_ahead_kb 2048
+    # zram is RAM. Reading ahead into it evicts the page cache to populate a
+    # cache of pages that were never slower than a memcpy.
+    write /sys/block/zram0/queue/read_ahead_kb 0
+
     chown system system /mnt/vendor/protect_f
     chmod 0770 /mnt/vendor/protect_f
     restorecon_recursive /mnt/vendor/protect_f
@@ -141,3 +266,13 @@ on property:ro.persistent_properties.ready=true
     setprop persist.vendor.mtk_rtt_support 0
     setprop persist.vendor.volte_support 1
     setprop persist.vendor.wfc.sys_wfc_support 0
+
+# Boot is over: give the frequency and core floors back to PPM's own policies
+# and put read-ahead back to the default. Stock releases the frequency pin here
+# too; it does not release read-ahead.
+on property:sys.boot_completed=1
+    write /proc/ppm/policy/userlimit_min_cpu_freq "0 -1"
+    write /proc/ppm/policy/userlimit_min_cpu_freq "1 -1"
+    write /proc/ppm/policy/userlimit_min_cpu_core "0 -1"
+    write /proc/ppm/policy/userlimit_min_cpu_core "1 -1"
+    write /sys/block/mmcblk0/queue/read_ahead_kb 128

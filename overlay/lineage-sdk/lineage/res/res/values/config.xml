@@ -2,4 +2,34 @@
 <resources>
     <!-- The chassis has no notification or battery indicator LED. -->
     <integer name="config_deviceLightCapabilities">0</integer>
+
+    <!-- config_deviceHardwareKeys and config_deviceHardwareWakeKeys are
+         deliberately LEFT at the lineage-sdk default of 64 (volume rocker
+         only, no capacitive keys), even though the volume keys on this SoC
+         cannot wake it.
+
+         Do not "fix" this to 0. It looks like the right change and it is not:
+
+         * The keypad genuinely cannot wake the SoC. MTK's kpd_pdrv_suspend()
+           writes KP_EN=0, so the keypad block cannot assert its SPM wake
+           source; only the PMIC power key can
+           (CONFIG_KPD_PWRKEY_USE_PMIC=y, CONFIG_KPD_PWRKEY_USE_EINT unset).
+           LineageParts hides the "volume buttons wake device" toggle only when
+           config_deviceHardwareWakeKeys has KEY_MASK_VOLUME clear
+           (LineageParts DeviceUtils.canWakeUsingVolumeKeys, consumed by
+           ButtonSettings:365-369), so clearing the bit would correctly hide a
+           toggle that can never work.
+
+         * But the same bit also gates mVolumeAnswerCall in
+           PhoneWindowManager.updateSettings() (frameworks/base
+           .../policy/PhoneWindowManager.java:2451), while LineageParts hides
+           the "answer call with volume" toggle on a different condition
+           entirely - hasVolumeKeys plus voice capability (ButtonSettings:371).
+           Answering a call with the volume key does work here: the display is
+           already on for an incoming call, so the keypad is not suspended.
+
+         Clearing the bit therefore swaps one visible-but-dead toggle for
+         another visible-but-dead toggle, and loses a working feature on the
+         way. Both states leave exactly one dead switch in the UI; this one
+         keeps answer-on-volume alive. -->
 </resources>

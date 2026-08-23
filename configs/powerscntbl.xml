@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  MTK PowerHAL scenario table for k50sv1_64_bsp.
+
+  libpowerhal.so parses this file at perfLibpowerInit() and, for each power
+  hint it receives over android.hardware.power@1.x::IPower, acquires a PPM
+  PERF_SERV lock holding the listed resources. An unknown <data cmd> is
+  skipped with "cmdSetting - unknown cmd", so a stray entry costs a log line,
+  not a boot.
+
+  WHY THIS FILE IS NOT THE STOCK BLOB
+  ===================================
+  Stock's /vendor/etc/powerscntbl.xml asks for
+      PERF_RES_CPUFREQ_MIN_CLUSTER_0 = 1144000
+      PERF_RES_CPUFREQ_MIN_CLUSTER_1 = 1950000
+  Neither frequency exists on this part. Measured on the handset:
+
+      /proc/ppm/dump_cluster_0_dvfs_table   (cpu0-3, "LITTLE")
+          1001000 910000 819000 689000 598000 494000 338000 156000
+      /proc/ppm/dump_cluster_1_dvfs_table   (cpu4-7, "big")
+          1508000 1430000 1352000 1196000 1027000 871000 663000 286000
+
+  1144000/1950000 are the OPPs of the full-speed MT6755 bin (4x1.95 GHz +
+  4x1.144 GHz). This chassis ships a down-binned part at 1.508/1.001 GHz, and
+  the vendor shipped the other SKU's table unchanged, so every boost stock
+  declares is out of range. The same SKU error is in powercontable.xml
+  (hispeed_freq MaxValue 1950000) and in power_whitelist_cfg.xml.
+
+  Every value below is an OPP that exists in the tables above.
+
+  WHICH HINTS ACTUALLY ARRIVE
+  ===========================
+  LineageOS ships pure AOSP framework jars, so MTK's own hints
+  (MTKPOWER_HINT_*) are never sent; nothing calls libpowerhalwrap_jni. They
+  are kept anyway: they cost nothing, they document the platform contract, and
+  they become live if MTK's framework is ever added. The hints that do arrive
+  on this build, all verified against the Q sources in this tree, are:
+
+    LAUNCH        RootActivityContainer.java:2294/2302 (data 1 = start,
+                  0 = stop) on every activity cold start
+    INTERACTION   PowerManagerService.java:1500 (user activity),
+                  DisplayRotation.java:942, DisplayPolicy.java:539,
+                  SurfaceAnimationRunner.java:242, and
+                  com_android_server_power_PowerManagerService.cpp:200 when
+                  the display is turned back on
+    LOW_POWER     BatterySaverController.java:456
+    SUSTAINED_PERFORMANCE, VR_MODE  PowerManagerService
+    VIDEO_*, AUDIO_*, CAMERA_*, EXPENSIVE_RENDERING  media/camera/SurfaceFlinger
+
+  INTERACTION is therefore the "the screen is on and the owner is using it"
+  signal, and it is deliberately given the full-throttle allocation: 4+4 cores,
+  both clusters at their top OPP. Screen-off needs no entry: no interaction
+  arrives, the lock expires, and the kernel's own PPM_POLICY_LCM_OFF (priority
+  7, above PERF_SERV at 8) drops cluster 0 to 156 MHz. That was measured:
+  scaling_min_freq falls 598000 -> 156000 within 8 s of blanking.
+
+  A permanent pin was considered and rejected. /proc/ppm/policy/userlimit_*
+  does hold 8 cores at 1.508/1.001 GHz (confirmed on the handset), but
+  USER_LIMIT sits at priority 6, above LCM_OFF, so a boot-time pin would keep
+  all eight cores at maximum with the screen off. It also has nowhere to go
+  when PPM_POLICY_THERMAL starts cutting: on a 28 nm part 8xA53 at 1.5 GHz is
+  ~4-5 W and throttles within minutes, which is slower under sustained load
+  than letting the governor and the hints work.
+-->
+<SCNTABLE>
+    <!-- ============ AOSP hints (these are the ones that fire) ============ -->
+
+    <!-- Activity cold start. The single largest perceived-latency item on an
+         8xA53: everything from dex2oat-less class loading through the first
+         frame is CPU-bound. -->
+    <scenario powerhint="LAUNCH">
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_0" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="1001000"></data>
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_1" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_1" param1="1508000"></data>
+    </scenario>
+
+    <!-- Touch, scroll, window animation, rotation, and display-on. -->
+    <scenario powerhint="INTERACTION">
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_0" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="1001000"></data>
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_1" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_1" param1="1508000"></data>
+    </scenario>
+
+    <!-- SurfaceFlinger raises this while a frame costs more than the budget.
+         Give it the GPU as well as the CPU; the Mali-T860 MP2 tops out at
+         676 MHz (/proc/gpufreq/gpufreq_opp_dump: 676000/520000/351000). -->
+    <scenario powerhint="EXPENSIVE_RENDERING">
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_0" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="1001000"></data>
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_1" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_1" param1="1508000"></data>
+        <data cmd="PERF_RES_GPU_FREQ_MIN" param1="676000"></data>
+    </scenario>
+
+    <!-- Camera. Launch and capture are latency-bound and get everything;
+         streaming is a sustained load and is held one step below the top OPP
+         on each cluster so the thermal policy has somewhere to cut before it
+         starts dropping frames. -->
+    <scenario powerhint="CAMERA_LAUNCH">
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_0" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="1001000"></data>
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_1" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_1" param1="1508000"></data>
+    </scenario>
+    <scenario powerhint="CAMERA_SHOT">
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_0" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="1001000"></data>
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_1" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_1" param1="1508000"></data>
+    </scenario>
+    <scenario powerhint="CAMERA_STREAMING">
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_0" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="819000"></data>
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_1" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_1" param1="1196000"></data>
+    </scenario>
+
+    <!-- Media. The MT6755 has hardware codecs, so the CPU cost is buffer
+         handling and the container/network path, not the codec itself. A
+         floor on the LITTLE cluster is enough; pinning the big cluster for a
+         two-hour video would only cost battery. -->
+    <scenario powerhint="VIDEO_DECODE">
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_0" param1="2"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="689000"></data>
+    </scenario>
+    <scenario powerhint="VIDEO_ENCODE">
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_0" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="819000"></data>
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_1" param1="2"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_1" param1="1027000"></data>
+    </scenario>
+
+    <!-- Audio. An underrun is audible, so hold a real floor on the LITTLE
+         cluster; the big cluster is not needed for a PCM path. -->
+    <scenario powerhint="AUDIO_LOW_LATENCY">
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_0" param1="2"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="819000"></data>
+    </scenario>
+    <scenario powerhint="AUDIO_STREAMING">
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_0" param1="2"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="494000"></data>
+    </scenario>
+
+    <!-- Caps, not floors. SUSTAINED_PERFORMANCE exists so an app can ask for a
+         level it can hold indefinitely, and LOW_POWER is battery saver; both
+         are held until the framework sends the matching release. -->
+    <scenario powerhint="SUSTAINED_PERFORMANCE">
+        <data cmd="PERF_RES_CPUFREQ_MAX_CLUSTER_0" param1="819000"></data>
+        <data cmd="PERF_RES_CPUFREQ_MAX_CLUSTER_1" param1="1196000"></data>
+    </scenario>
+    <scenario powerhint="LOW_POWER">
+        <data cmd="PERF_RES_CPUFREQ_MAX_CLUSTER_0" param1="819000"></data>
+        <data cmd="PERF_RES_CPUCORE_MAX_CLUSTER_1" param1="2"></data>
+        <data cmd="PERF_RES_CPUFREQ_MAX_CLUSTER_1" param1="1027000"></data>
+    </scenario>
+
+    <!-- ==== MTK hints: inert on a pure-AOSP framework, correct if it ever
+             is not. Same allocation as their AOSP equivalents. ==== -->
+
+    <scenario powerhint="MTKPOWER_HINT_APP_TOUCH">
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_0" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="1001000"></data>
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_1" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_1" param1="1508000"></data>
+    </scenario>
+    <scenario powerhint="MTKPOWER_HINT_ACT_SWITCH">
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_0" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="1001000"></data>
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_1" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_1" param1="1508000"></data>
+    </scenario>
+    <scenario powerhint="MTKPOWER_HINT_PACK_SWITCH">
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_0" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="1001000"></data>
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_1" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_1" param1="1508000"></data>
+    </scenario>
+    <scenario powerhint="MTKPOWER_HINT_PROCESS_CREATE">
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_0" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="1001000"></data>
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_1" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_1" param1="1508000"></data>
+    </scenario>
+    <scenario powerhint="MTKPOWER_HINT_WHITELIST_LAUNCH">
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_0" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="1001000"></data>
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_1" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_1" param1="1508000"></data>
+    </scenario>
+    <scenario powerhint="MTKPOWER_HINT_APP_ROTATE">
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_0" param1="4"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_0" param1="1001000"></data>
+        <data cmd="PERF_RES_CPUCORE_MIN_CLUSTER_1" param1="2"></data>
+        <data cmd="PERF_RES_CPUFREQ_MIN_CLUSTER_1" param1="1508000"></data>
+    </scenario>
+</SCNTABLE>

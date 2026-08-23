@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  MTK PowerHAL command table for k50sv1_64_bsp.
+
+  This is the other half of the PowerHAL configuration: powerscntbl.xml names
+  resources, and this file binds the resource names that are backed by a plain
+  sysfs/procfs attribute to their path and to the range libpowerhal will accept
+  for them. Resources not listed here are handled inside libpowerhal through
+  /proc/perfmgr/perf_ioctl and need no entry.
+
+  <Compare>less</Compare> means a smaller value wins when several locks are
+  held at once; <Compare>more</Compare> means a larger one does.
+
+  Two corrections against the stock blob, both of them the same SKU mismatch
+  documented at the top of powerscntbl.xml:
+
+    * PERF_RES_POWER_CPUFREQ_HISPEED_FREQ carried MaxValue 1950000, an OPP
+      that does not exist on this part. The clamp is now the real cluster 1
+      maximum, 1508000, taken from /proc/ppm/dump_cluster_1_dvfs_table.
+
+    * PERF_RES_POWER_CPUFREQ_MIN_SAMPLE_TIME allowed up to 800000 us. On a
+      part this slow an 800 ms floor on the governor's sample time is a
+      third of a second of unresponsiveness per step; the ceiling is now
+      200000, which is still eight times the boot value set in
+      init.mt6755.rc and well above anything a scenario asks for.
+
+  Every path below was confirmed present on the running handset.
+-->
+<CONTABLE>
+    <CMD name="PERF_RES_POWER_HPS_THRESH_UP" id="0X01C10000">
+        <Entry path="/proc/hps/up_threshold"></Entry>
+        <LegacyCmdID>16</LegacyCmdID>
+        <Compare>less</Compare>
+        <MaxValue>100</MaxValue>
+        <MinValue>0</MinValue>
+    </CMD>
+    <CMD name="PERF_RES_POWER_HPS_THRESH_DOWN" id="0X01C10100">
+        <Entry path="/proc/hps/down_threshold"></Entry>
+        <LegacyCmdID>17</LegacyCmdID>
+        <Compare>less</Compare>
+        <MaxValue>100</MaxValue>
+        <MinValue>0</MinValue>
+    </CMD>
+    <CMD name="PERF_RES_POWER_CPUFREQ_HISPEED_FREQ" id="0X01C00000">
+        <Entry path="/sys/devices/system/cpu/cpufreq/interactive/hispeed_freq"></Entry>
+        <LegacyCmdID>12</LegacyCmdID>
+        <Compare>more</Compare>
+        <MaxValue>1508000</MaxValue>
+        <MinValue>0</MinValue>
+    </CMD>
+    <CMD name="PERF_RES_POWER_CPUFREQ_MIN_SAMPLE_TIME" id="0X01C04000">
+        <Entry path="/sys/devices/system/cpu/cpufreq/interactive/min_sample_time"></Entry>
+        <LegacyCmdID>13</LegacyCmdID>
+        <Compare>more</Compare>
+        <MaxValue>200000</MaxValue>
+        <MinValue>0</MinValue>
+    </CMD>
+    <CMD name="PERF_RES_POWER_CPUFREQ_ABOVE_HISPEED_DELAY" id="0X01C08000">
+        <Entry path="/sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay"></Entry>
+        <LegacyCmdID>14</LegacyCmdID>
+        <Compare>less</Compare>
+        <MaxValue>200000</MaxValue>
+        <MinValue>0</MinValue>
+    </CMD>
+    <CMD name="PERF_RES_POWER_PPM_ROOT_CLUSTER" id="0x01C24000">
+        <Entry path="/proc/ppm/root_cluster"></Entry>
+        <LegacyCmdID>23</LegacyCmdID>
+        <Compare>more</Compare>
+        <MaxValue>1</MaxValue>
+        <MinValue>-1</MinValue>
+    </CMD>
+    <CMD name="PERF_RES_POWER_PPM_HICA_VAR" id="0x01C2C000">
+        <Entry path="/proc/ppm/policy_status"></Entry>
+        <LegacyCmdID>26</LegacyCmdID>
+        <Compare>more</Compare>
+        <MaxValue>1</MaxValue>
+        <MinValue>0</MinValue>
+        <DefaultValue>1</DefaultValue>
+        <SportValue>1</SportValue>
+        <Prefix>10^</Prefix>
+    </CMD>
+</CONTABLE>

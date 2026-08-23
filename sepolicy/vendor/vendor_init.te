@@ -40,3 +40,26 @@ allow vendor_init device:file unlink;
 # AOSP grants the same pair to vendor_modprobe (vendor/vendor_modprobe.te:7,10).
 allow vendor_init self:global_capability_class_set sys_module;
 allow vendor_init vendor_file:system module_load;
+
+# rootdir/etc/init/hw/init.mt6755.rc "on post-fs" hands the PPM, HPS and
+# perfmgr control nodes to the system UID so the Power HAL can use them.
+# libpowerhal runs in hal_power_default as user system (see
+# rootdir/etc/init/vendor.mediatek.hardware.mtkpower@1.0-service.rc), and every
+# one of these procfs nodes is created root:root 0664 or 0644 by the kernel, so
+# without this the SELinux rules in sepolicy/power were the only half of the
+# permission that was in place and every boost silently failed at open(2).
+# AOSP's public/vendor_init.te:29 documents that chown/chmod need open+read as
+# well as setattr; it grants that pair for the file types it knows about and
+# has no rule for proc_type, so grant it here for exactly these five.
+allow vendor_init {
+    proc_mtk_power_ppm
+    proc_mtk_power_hps
+    proc_mtk_power_perfmgr
+    proc_mtk_power_perf_ioctl
+    proc_mtk_power_info
+}:file { getattr open read setattr };
+
+# The same rc file's "on early-init" pins both clusters through
+# /proc/ppm/policy/userlimit_min_cpu_{freq,core} for the duration of boot and
+# releases them at sys.boot_completed. That is a write, not a chmod.
+allow vendor_init proc_mtk_power_ppm:file write;

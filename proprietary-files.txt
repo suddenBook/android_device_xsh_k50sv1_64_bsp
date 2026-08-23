@@ -142,9 +142,11 @@ vendor/lib64/libmtcloader.so
 
 # Unified MTK power service (standard Power 1.3 plus MTK extensions)
 vendor/bin/hw/vendor.mediatek.hardware.mtkpower@1.0-service
-vendor/etc/power_whitelist_cfg.xml
-vendor/etc/powercontable.xml
-vendor/etc/powerscntbl.xml
+# powerscntbl.xml, powercontable.xml and power_whitelist_cfg.xml are NOT
+# extracted. All three are written by the device tree (configs/) because
+# Stock's copies are for a different MT6755 bin: they ask for 1144000 and
+# 1950000 OPPs that this part does not have, so every boost they declare is
+# out of range. See configs/powerscntbl.xml for the measured DVFS tables.
 vendor/lib/vendor.mediatek.hardware.power@2.1.so
 vendor/lib64/hw/android.hardware.power@1.3-impl-mediatek.so
 vendor/lib64/hw/vendor.mediatek.hardware.mtkpower@1.0-impl.so
