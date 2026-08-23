@@ -15,3 +15,20 @@ type mtk_camera_nvram_file, file_type, data_file_type, mtk_nvram_storage_file;
 # mtk_nvram_storage_file is declared in nvram/vendor/attributes and its
 # membership is assigned in safety/nvram_storage_members.te; see the comment
 # there for why the assignments are collected in the last policy directory.
+
+# DELIBERATELY LEFT DENIED: vold on /mnt/vendor/nvdata and /mnt/vendor/protect_f.
+#
+#   avc: denied { ioctl } path="/mnt/vendor/nvdata"   ioctlcmd=5879 scontext=u:r:vold:s0
+#   avc: denied { ioctl } path="/mnt/vendor/protect_f" ioctlcmd=5879 scontext=u:r:vold:s0
+#   (plus the open/read that precede them)
+#
+# 0x5879 is the low half of FITRIM (0xC0185879). This is vold's idle-maintenance
+# pass walking /proc/mounts and trimming every mounted filesystem. Granting it
+# would work and would silence the log, and it is still the wrong answer here:
+# these two partitions hold the IMEI, the RF calibration and the protect keys,
+# there is no factory server to restore them from, and scope.md's flash policy
+# exists precisely to keep every write path away from them. Two small,
+# almost-static filesystems gain nothing from a trim.
+#
+# vold's IdleMaint just logs and continues on EACCES, so the cost of leaving
+# this denied is the log line. Everything else on the device still trims.

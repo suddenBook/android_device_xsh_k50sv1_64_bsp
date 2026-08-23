@@ -49,3 +49,11 @@ get_prop(rild, mtk_radio_config_prop)
 # librilproxy reads only the carrier-express selection record directly.
 allow rild mnt_vendor_file:dir search;
 allow rild mtk_modem_config_file:file r_file_perms;
+
+# rild reads the CDMA-namespace UICC keys mtkrild publishes. Typing
+# vendor.cdma.ril. off vendor_default_prop (radio/property.te) closed the write
+# and exposed the matching read:
+#   avc: denied { getattr } comm="RIL Proxy Main"
+#        path="/dev/__properties__/u:object_r:mtk_ril_cdma_prop:s0"
+#        scontext=u:r:rild:s0 tcontext=u:object_r:mtk_ril_cdma_prop:s0
+get_prop(rild, mtk_ril_cdma_prop)
