@@ -88,6 +88,9 @@ BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
 BOARD_AVB_ENABLE := false
 
 # SELinux
+BOARD_PLAT_PUBLIC_SEPOLICY_DIR += \
+    $(DEVICE_PATH)/sepolicy/public
+
 BOARD_VENDOR_SEPOLICY_DIRS += \
     $(DEVICE_PATH)/sepolicy/connectivity \
     $(DEVICE_PATH)/sepolicy/gnss \
