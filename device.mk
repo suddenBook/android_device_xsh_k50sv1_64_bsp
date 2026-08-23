@@ -7,6 +7,11 @@ PRODUCT_SOONG_NAMESPACES += \
 
 $(call inherit-product-if-exists, vendor/xsh/k50sv1_64_bsp/k50sv1_64_bsp-vendor.mk)
 
+# Google's Android System WebView in place of AOSP's. Optional by construction:
+# without vendor/google_webview the product falls back to external/
+# chromium-webview's `webview`, which is what media_product.mk asks for.
+$(call inherit-product-if-exists, vendor/google_webview/webview.mk)
+
 # The Stock IMS APK directly references these two MTK framework contracts.
 # They must be real boot jars, not ordinary /system/framework copies, so ART
 # resolves the shared phone-UID process before its Application is created.
