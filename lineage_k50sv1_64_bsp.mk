@@ -171,10 +171,14 @@ else
 PRODUCT_VERITY_SIGNING_KEY := build/make/target/product/security/verity
 endif
 
-# Google's client-id base for this product. Consumed by
-# vendor/lineage/config/common.mk to set ro.com.google.clientidbase; never set
-# the property by hand.
-PRODUCT_GMS_CLIENTID_BASE := android-xsh
+# Google's client-id base. Deliberately NOT set: vendor/lineage/config/common.mk
+# :8-13 falls back to `android-google` when this is empty, and that is the right
+# value here. The client ID is a partner attribution string Google recognises
+# from a registered OEM agreement; `android-xsh` named a partner that does not
+# exist, so every Play Store search referral reported an unknown one. There is
+# no upside to inventing a value, and the property must never be set by hand --
+# common.mk owns it.
+# PRODUCT_GMS_CLIENTID_BASE := android-xsh
 
 PRODUCT_NAME := lineage_k50sv1_64_bsp
 PRODUCT_DEVICE := k50sv1_64_bsp
