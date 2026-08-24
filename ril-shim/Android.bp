@@ -19,6 +19,11 @@ cc_library_shared {
     cflags: [
         "-Wall",
         "-Werror",
+        // ril.h only defines struct RIL_Env and declares RIL_Init/RIL_SAP_Init
+        // inside #ifdef RIL_SHLIB (ril.h:7214-7371). Every RIL implementation
+        // library is compiled with it; without it this file sees an incomplete
+        // struct and a different RIL_Init prototype.
+        "-DRIL_SHLIB",
         "-DANDROID_MULTI_SIM",
         "-DSIM_COUNT=2",
     ],
