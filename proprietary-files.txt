@@ -196,8 +196,9 @@ vendor/lib64/vendor.mediatek.hardware.power@2.1.so
 # service with LOG_ALWAYS_FATAL if hw_get_module fails, so this blob is on the
 # lockscreen-credential critical path. Stock stores gatekeeper.default.so as a
 # symlink to a byte-identical libSoftGatekeeper.so and extract_utils probes the
-# destination name first, so the symlink is what gets copied; blob_fixup
-# materialises it into a real file.
+# destination name first, so the symlink is what gets copied. extract-files.sh
+# explicitly fetches and pins the target, then atomically publishes it under the
+# module name without retaining a duplicate libSoftGatekeeper.so.
 vendor/lib64/hw/libSoftGatekeeper.so:vendor/lib64/hw/gatekeeper.default.so
 
 # MTK USB HAL  -- section: usb

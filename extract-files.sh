@@ -21,6 +21,66 @@ fi
 # shellcheck source=/dev/null
 source "${HELPER}"
 
+GATEKEEPER_STAGE=
+
+function device_cleanup() {
+    if [[ -n "${GATEKEEPER_STAGE}" ]]; then
+        rm -f -- "${GATEKEEPER_STAGE}"
+    fi
+    cleanup
+}
+
+# extract_utils installs its own EXIT trap when sourced. Extend it so a failed
+# extraction cannot leave the gatekeeper staging file in the vendor repository.
+trap device_cleanup EXIT
+
+function stage_gatekeeper_blob() {
+    local expected_sha="a48349adba6e54500fb39cd4604a8d0979057728b88b7268719d5a8464fc6f9a"
+    local source_path="/system/vendor/lib64/hw/libSoftGatekeeper.so"
+    local vendor_root="${LINEAGE_ROOT}/vendor/${VENDOR}/${DEVICE}"
+    local actual_sha
+    local zip_entry
+
+    GATEKEEPER_STAGE="$(mktemp "${vendor_root}/.gatekeeper.default.so.XXXXXX")"
+
+    if [[ "${SRC}" == "adb" ]]; then
+        init_adb_connection
+        if ! get_file "${source_path}" "${GATEKEEPER_STAGE}" "${SRC}"; then
+            echo "Unable to fetch ${source_path} from adb" >&2
+            exit 1
+        fi
+    elif [[ -f "${SRC}" && "${SRC##*.}" == "zip" ]]; then
+        for zip_entry in \
+            "${source_path#/system/}" \
+            "${source_path#/}" \
+            "system/${source_path#/}"; do
+            if unzip -p "${SRC}" "${zip_entry}" >"${GATEKEEPER_STAGE}" 2>/dev/null && \
+                    [[ -s "${GATEKEEPER_STAGE}" ]]; then
+                break
+            fi
+            : >"${GATEKEEPER_STAGE}"
+        done
+        if [[ ! -s "${GATEKEEPER_STAGE}" ]]; then
+            echo "Unable to fetch ${source_path} from ${SRC}" >&2
+            exit 1
+        fi
+    elif ! get_file "${source_path}" "${GATEKEEPER_STAGE}" "${SRC}"; then
+        echo "Unable to fetch ${source_path} from ${SRC}" >&2
+        exit 1
+    fi
+
+    if [[ -L "${GATEKEEPER_STAGE}" || ! -s "${GATEKEEPER_STAGE}" ]]; then
+        echo "Fetched libSoftGatekeeper.so is not a regular non-empty file" >&2
+        exit 1
+    fi
+    actual_sha="$(sha256sum "${GATEKEEPER_STAGE}" | awk '{ print $1 }')"
+    if [[ "${actual_sha}" != "${expected_sha}" ]]; then
+        echo "Refusing unknown libSoftGatekeeper.so: ${actual_sha}" >&2
+        exit 1
+    fi
+    chmod 0644 "${GATEKEEPER_STAGE}"
+}
+
 function patch_ims_apk() {
     local apk="$1"
     local expected_apk_sha="06e62235bc7b30655f5dfcd2efaa7ab6a9b4c6f1efd6a6f8ce49ce1e62da3ff5"
@@ -177,22 +237,32 @@ function blob_fixup() {
         vendor/lib64/hw/gatekeeper.default.so)
             # Stock stores this as a symlink to a byte-identical
             # libSoftGatekeeper.so, and extract_utils probes the destination
-            # name before the source name, so the symlink is what lands in the
-            # vendor tree. A symlink there makes the generated
-            # PRODUCT_COPY_FILES entry silently depend on a second entry
-            # existing in the same directory, and the gatekeeper HAL aborts the
-            # service if the module cannot be opened. Materialise it.
-            if [[ -L "$2" ]]; then
-                local gatekeeper_target
-                gatekeeper_target="$(readlink -f "$2")"
-                if [[ ! -f "${gatekeeper_target}" ]]; then
-                    echo "Dangling gatekeeper.default.so symlink: $2" >&2
-                    exit 1
-                fi
-                cp --remove-destination -- "${gatekeeper_target}" "$2" || exit 1
+            # name before the source name. Do not try to dereference that link
+            # after extraction: a clean or section-only output need not contain
+            # its target. stage_gatekeeper_blob fetched and pinned the target
+            # directly from the active source before extract_utils ran.
+            local expected_gatekeeper_sha="a48349adba6e54500fb39cd4604a8d0979057728b88b7268719d5a8464fc6f9a"
+            local staged_gatekeeper_sha
+            if [[ -z "${GATEKEEPER_STAGE}" || ! -f "${GATEKEEPER_STAGE}" ]]; then
+                echo "Missing staged libSoftGatekeeper.so" >&2
+                exit 1
             fi
-            if [[ -L "$2" || ! -s "$2" ]]; then
-                echo "gatekeeper.default.so is still not a real file" >&2
+            staged_gatekeeper_sha="$(sha256sum "${GATEKEEPER_STAGE}" | awk '{ print $1 }')"
+            if [[ "${staged_gatekeeper_sha}" != "${expected_gatekeeper_sha}" ]]; then
+                echo "Staged libSoftGatekeeper.so changed: ${staged_gatekeeper_sha}" >&2
+                exit 1
+            fi
+            # The stage and vendor output are in the same repository, so rename
+            # atomically replaces the extracted symlink (or any prior file).
+            mv -f -- "${GATEKEEPER_STAGE}" "$2" || exit 1
+            GATEKEEPER_STAGE=
+            rm -f -- "$(dirname "$2")/libSoftGatekeeper.so"
+            if [[ -L "$2" || ! -s "$2" ]] || \
+               [[ "$(sha256sum "$2" | awk '{ print $1 }')" != \
+                  "${expected_gatekeeper_sha}" ]] || \
+               [[ -e "$(dirname "$2")/libSoftGatekeeper.so" || \
+                  -L "$(dirname "$2")/libSoftGatekeeper.so" ]]; then
+                echo "gatekeeper.default.so publication failed" >&2
                 exit 1
             fi
             ;;
@@ -354,6 +424,13 @@ if [[ "${SRC}" != "adb" && ! -d "${SRC}" ]]; then
 fi
 
 setup_vendor "${DEVICE}" "${VENDOR}" "${LINEAGE_ROOT}" false "${CLEAN_VENDOR}"
+
+# Full extraction and the gatekeeper section both need the symlink target. Fetch
+# it explicitly because extract_utils intentionally probes the destination name
+# first and therefore extracts Stock's gatekeeper.default.so symlink.
+if [[ -z "${SECTION}" || "${SECTION}" == "section: gatekeeper" ]]; then
+    stage_gatekeeper_blob
+fi
 
 extract "${MY_DIR}/proprietary-files.txt" "${SRC}" ${KANG} --section "${SECTION}"
 
