@@ -184,9 +184,12 @@ BOARD_VENDOR_SEPOLICY_DIRS += \
 # (definitions.mk:179-181), so the module never existed and nobody was told.
 PRODUCT_ENFORCE_PACKAGES_EXIST := true
 
-# Turning it on found thirteen entries that had been missing from every build so
-# far, silently. All thirteen come from LineageOS's own product makefiles and
-# none is a defect in this port, so they are whitelisted rather than chased --
+# Turning it on found twelve entries that had been missing from every build so
+# far, silently. One was a real defect: lineage-sdk's Android.mk -> Android.bp
+# conversion dropped the org.lineageos.platform.xml prebuilt while
+# vendor/lineage kept naming it. permissions/Android.bp restores that required
+# shared-library declaration locally. The other eleven come from LineageOS's
+# own product makefiles and are whitelisted rather than chased --
 # but they are listed individually, because a whitelist that says "these are
 # fine" without saying WHY is the next silent failure.
 #
@@ -195,14 +198,6 @@ PRODUCT_ENFORCE_PACKAGES_EXIST := true
 #       Optional apps and tools whose repositories are not in this checkout.
 #       Nothing depends on them; HOME resolves to com.android.launcher3 and the
 #       GApps payload supplies the rest.
-#
-#   org.lineageos.platform.xml
-#       Named by vendor/lineage/config/lineage_sdk_common.mk:15, but this
-#       checkout's lineage-sdk ships it as a raw FILE with no module around it.
-#       Harmless: the SDK is complete on the device anyway --
-#       /system/framework/org.lineageos.platform.jar is installed, and the
-#       permission XML arrives as org.lineageos.android.xml through
-#       vendor/lineage/config/common.mk:76's PRODUCT_COPY_FILES.
 #
 #   product_manifest.xml
 #       A product-partition VINTF fragment. This device declares everything in
@@ -220,7 +215,6 @@ PRODUCT_ENFORCE_PACKAGES_EXIST_WHITELIST := \
     MusicFX \
     QuickSearchBox \
     WeatherProvider \
-    org.lineageos.platform.xml \
     powertop \
     product_manifest.xml
 

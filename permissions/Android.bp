@@ -1,0 +1,10 @@
+// lineage-sdk's Android.mk -> Android.bp conversion dropped the prebuilt
+// module for this file while vendor/lineage kept it in PRODUCT_PACKAGES.
+// Keep the repair device-local; the XML registers the already-built jar with
+// PackageManager and is unrelated to org.lineageos.android.xml's feature.
+prebuilt_etc {
+    name: "org.lineageos.platform.xml",
+    src: "org.lineageos.platform.xml",
+    filename_from_src: true,
+    sub_dir: "permissions",
+}
