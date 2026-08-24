@@ -3,8 +3,9 @@
 # explicit and init can consume them before the corresponding HALs start.
 persist.vendor.connsys.coredump.mode=0
 
-# Voice-only legacy MTK IMS. AOSP ImsManager owns carrier/user gating; disable
-# MTK's independent MCC/MNC resource switch and every WFC/video capability.
+# Voice-only legacy MTK IMS. AOSP ImsManager owns the user gating and the
+# CarrierConfig overlay owns the carrier gating; every WFC/video capability
+# is off.
 persist.vendor.ims_support=1
 persist.vendor.mims_support=1
 persist.vendor.mtk.volte.enable=1
@@ -14,7 +15,27 @@ persist.vendor.mtk.wfc.enable=0
 persist.vendor.mtk.ims.video.enable=0
 persist.vendor.mtk_rcs_ua_support=0
 persist.vendor.mtk_rtt_support=0
-persist.vendor.mtk_dynamic_ims_switch=0
+# persist.vendor.mtk_dynamic_ims_switch is 1, as stock sets it
+# (vendor/build.prop:119). An earlier revision set it to 0 to 'disable MTK's
+# independent MCC/MNC resource switch'. That description is right and the
+# choice was wrong: with the property not equal to "1",
+# ImsConfigManager.updateImsResrouceCapability() takes its short branch and
+# only calls updateImsServiceConfig, so IMtkImsConfig.setImsResCapability()
+# is never called and the RIL is never asked to re-push IMS config to the
+# modem for the SIM's MCC/MNC. Measured on the handset: with 0 the only
+# lines are 'updateImsServiceConfig after SIM event'; with 1 the full path
+# runs per slot,
+#
+#   ImsConfigManager: DYNAMIC_IMS_SWITCH_TRIGGER phoneId:0, simState:LOADED
+#   ImsConfigManager: get MtkImsConfigImpl of phone 0
+#   ImsConfigManager: Set res capability: volte = 1, vilte = 0, wfc = 0
+#   ImsConfigManager: DYNAMIC_IMS_SWITCH_COMPLETE phoneId:0, simState:LOADED
+#
+# It did NOT by itself make IMS register (+CIREGU stayed 0), so this is a
+# parity repair, not the VoLTE fix. It is kept because the path it enables
+# is the one stock uses and because leaving it off silently skips the only
+# per-operator IMS configuration this stack has.
+persist.vendor.mtk_dynamic_ims_switch=1
 persist.vendor.mtk_wfc_support=0
 persist.vendor.vilte_support=0
 persist.vendor.viwifi_support=0
@@ -88,7 +109,6 @@ ro.vendor.mtk_pq_color_mode=1
 ro.vendor.mtk_pq_support=2
 ro.vendor.mtk_protocol1_rat_config=Lf/Lt/W/T/G
 ro.vendor.mtk_ril_mode=c6m_3rild
-ro.vendor.mtk_rild_read_imsi=1
 ro.vendor.mtk_zsdhdr_support=1
 ro.vendor.radio.max.multisim=dsds
 ro.vendor.wlan.gen=gen2
@@ -123,20 +143,40 @@ ro.telephony.iwlan_operation_mode=legacy
 # failing slot-1 max-RAF transfer, so their boot-time effect there is unproven.
 # They remain required regressions against stock with real consumers. See E-058.
 #
-# Only the eleven with a consumer in the shipped blob set are here. The four
-# stock also sets and nothing here reads -- ro.vendor.num_md_protocol,
-# persist.vendor.mtk_sim_switch_policy, ro.vendor.sim_refresh_reset_by_modem
-# and ro.vendor.mtk_modem_monitor_support -- are deliberately omitted, on the
-# same rule that keeps ro.telephony.sim.count out above: a property with no
-# reader is not configuration, it is decoration that later reads as intent.
-# ro.vendor.mtk_modem_monitor_support in particular would advertise a
-# md_monitor this build does not ship.
+# Only the eleven with a consumer in the shipped blob set are here. Four that
+# stock also sets are deliberately omitted, but NOT all for the same reason,
+# and an earlier revision of this comment got two of them wrong by grepping
+# the blobs with a method that cannot see compressed dex:
+#
+#   ro.vendor.num_md_protocol           genuinely has no reader anywhere.
+#   ro.vendor.mtk_modem_monitor_support  only EngineerMode.apk reads it, which
+#                                        this build does not ship, and setting
+#                                        it would advertise an md_monitor that
+#                                        is also not shipped.
+#   persist.vendor.mtk_sim_switch_policy DOES have a reader:
+#                                        MtkTelephonyComponentFactory's
+#                                        datasub.CapabilitySwitch reads it in
+#                                        mediatek-telephony-common.jar, which
+#                                        this ROM ships AND boot-classpaths.
+#   ro.vendor.sim_refresh_reset_by_modem DOES have a reader: MtkSIMRecords
+#                                        .handleRefresh() in the same jar.
+#
+# The last two stay out anyway, for a reason worth stating once: those classes
+# are only reachable through MediaTek's telephony framework, which this port
+# does not wire up (E-081: 'Total components injected: 0'), so they are dead on
+# this image. If MTK telephony injection is ever added, revisit both.
+# The rule itself is unchanged -- a property with no reader is decoration --
+# but the SEARCH for a reader must unzip jars and apks and strings the dex, not
+# grep the file.
 #
 # Two other consumed stock properties are excluded explicitly, not overlooked:
 # persist.vendor.mtk_ct_volte_support=1 selects China-Telecom-specific IMS code
 # and is irrelevant to the open-market/KPN control; persist.vendor.radio.msimmode
-# is derived as dsds by the MAL stack from persist.radio.multisim.config and was
-# already dsds in the failing port capture.
+# is derived as dsds by the MAL stack from persist.radio.multisim.config. That
+# derivation is measured, not assumed: it reads back as dsds on a build flashed
+# after a userdata erase, so no stale /data value can explain it, and the five
+# shipped blobs that name it (libmal.so 32/64, libmal_rds.so, libmal_simmngr.so,
+# libmtkrilutils.so, mtk-ril.so) import property_get and never property_set.
 #
 # The consumer of each, from a grep of the vendor blob set:
 #   mtk_ps1_rat             thermal, libratconfig.so, audio.primary.mt6755.so

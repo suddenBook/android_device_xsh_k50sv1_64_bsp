@@ -127,22 +127,28 @@ $(call inherit-product, vendor/huawei/hms/products/huawei.mk)
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     keyguard.no_require_sim=true
 
-# VoLTE availability. ImsManager.isVolteEnabledByPlatform() ANDs
+# Video-telephony and Wi-Fi-calling availability overrides, stated so the
+# voice-only contract is not left to a default.
+#
+# persist.dbg.volte_avail_ovr is deliberately NOT here. It used to be, set to
+# 1, because ImsManager.isVolteEnabledByPlatform() ANDs
 # config_device_volte_available with CarrierConfig's
-# KEY_CARRIER_VOLTE_AVAILABLE_BOOL, which defaults to false and is only set
-# true by the ~24 carrier assets AOSP ships -- Stock papers over that with its
-# own MtkCarrierConfig APK carrying ~473 per-MCCMNC assets, which is not
-# something to port. persist.dbg.volte_avail_ovr short-circuits both the
-# overlay and CarrierConfig (ImsManager.java:622-637), which is the supported
-# way to enable VoLTE on a device whose operator has no AOSP carrier asset.
-# The other two are stated explicitly so the voice-only contract is not left
-# to a default.
-# These four are framework knobs -- ImsManager and Keyguard read them, both on
+# KEY_CARRIER_VOLTE_AVAILABLE_BOOL, which defaults false and is only set true
+# by the ~24 carrier assets AOSP ships. But that property SHORT-CIRCUITS the
+# whole clause (ImsManager.java:622-637), so it also defeated
+# config_device_volte_available and isGbaValid(), and it left every OTHER
+# reader of KEY_CARRIER_VOLTE_AVAILABLE_BOOL seeing false. The carrier gate is
+# now set properly, for every SIM, in
+# overlay/packages/apps/CarrierConfig/res/xml/vendor.xml. That overlay is
+# already proven to reach both subscriptions on this build: its
+# carrier_use_ims_first_for_emergency_bool=false shows up twice in a live
+# `dumpsys carrier_config`, once per phone.
+#
+# These are framework knobs -- ImsManager and Keyguard read them, both on
 # /system -- so they go in PRODUCT_SYSTEM_DEFAULT_PROPERTIES rather than
 # PRODUCT_PROPERTY_OVERRIDES, which on a Treble device lands in
 # /vendor/build.prop (build/make/core/Makefile:492-497).
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
-    persist.dbg.volte_avail_ovr=1 \
     persist.dbg.vt_avail_ovr=0 \
     persist.dbg.wfc_avail_ovr=0
 

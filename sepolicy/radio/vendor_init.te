@@ -30,3 +30,22 @@ set_prop(vendor_init, mtk_ims_feature_prop)
 # vendor.prop: ro.vendor.md_prop_ver, ro.vendor.mtk_ril_mode,
 #              ro.vendor.mtk_md1_support
 set_prop(vendor_init, mtk_radio_config_prop)
+
+# vendor.prop: the six persist.vendor.radio.* topology and fast-dormancy keys
+#   persist.vendor.radio.mtk_ps2_rat, .mtk_dsbp_support,
+#   .fd.counter, .fd.off.counter, .fd.off.r8.counter, .fd.r8.counter
+#
+# property_contexts in this same directory maps the prefix
+# persist.vendor.radio. to mtk_vendor_radio_prop, and that 21-character prefix
+# beats AOSP's persist.vendor. -> vendor_default_prop (private/property_contexts:174)
+# under longest-prefix matching, so these do NOT fall into a type vendor_init
+# already holds.
+#
+# Without this rule all six are silently dropped from /vendor/build.prop the
+# moment the build stops being permissive -- one "Do not have permissions to
+# set" line per key in the init log and nothing else. mtk_ps2_rat is the one
+# that would hurt: it is what tells the RIL that protocol stack 2 is W/G, and
+# it is a required regression against stock (E-058). Tier 1 cannot show this
+# because avc_has_perm returns 0 in permissive mode, so it would first appear
+# as an unexplained radio regression on the first Tier 2 boot (WI-023).
+set_prop(vendor_init, mtk_vendor_radio_prop)

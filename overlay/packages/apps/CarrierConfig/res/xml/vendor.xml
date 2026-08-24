@@ -58,5 +58,31 @@
             E911 is preferable where it actually works. See WI-029.
         -->
         <boolean name="carrier_use_ims_first_for_emergency_bool" value="false" />
+
+        <!--
+            VoLTE is a capability of this device, for every SIM.
+
+            ImsManager.isVolteEnabledByPlatform() (ImsManager.java:622-637) ANDs
+            config_device_volte_available, which this device's framework overlay
+            sets true, with KEY_CARRIER_VOLTE_AVAILABLE_BOOL, which
+            CarrierConfigManager.java:3278 defaults to FALSE and which only the
+            ~24 carrier assets AOSP ships ever set true. None of them matches
+            the operators this handset sees, so without this line VoLTE is off
+            on every SIM regardless of network or user setting.
+
+            The previous revision solved that with persist.dbg.volte_avail_ovr=1.
+            That property is a debug short-circuit: it returns true before the
+            AND is evaluated, so it also bypassed config_device_volte_available
+            and isGbaValid(), and it did nothing for the other readers of
+            KEY_CARRIER_VOLTE_AVAILABLE_BOOL. Setting the key here is the
+            supported route and keeps all three gates real.
+
+            This does NOT claim the operator supports VoLTE. It says the device
+            does. Whether the network registers IMS is still decided by the
+            network, by CarrierConfig provisioning keys (all left at their AOSP
+            defaults, which do not require provisioning), and by the user's
+            Enhanced 4G LTE toggle.
+        -->
+        <boolean name="carrier_volte_available_bool" value="true" />
     </carrier_config>
 </carrier_config_list>
