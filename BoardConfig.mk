@@ -193,11 +193,16 @@ PRODUCT_ENFORCE_PACKAGES_EXIST := true
 # but they are listed individually, because a whitelist that says "these are
 # fine" without saying WHY is the next silent failure.
 #
-#   Browser2 Calendar Launcher3QuickStep LineageDarkTheme LockClock Music
-#   MusicFX QuickSearchBox WeatherProvider powertop
-#       Optional apps and tools whose repositories are not in this checkout.
-#       Nothing depends on them; HOME resolves to com.android.launcher3 and the
-#       GApps payload supplies the rest.
+#   Browser2 / Calendar / Launcher3QuickStep / Music / MusicFX
+#       Compatibility names replaced by installed Jelly, Google Calendar,
+#       Trebuchet, Eleven and AudioFX respectively.
+#   QuickSearchBox
+#       Optional AOSP search app; no role or required library names it.
+#   LineageDarkTheme / LockClock / WeatherProvider
+#       Optional Lineage packages whose repositories are absent; no installed
+#       package or framework role requires them.
+#   powertop
+#       Optional diagnostic tool, not a runtime service.
 #
 #   product_manifest.xml
 #       A product-partition VINTF fragment. This device declares everything in
