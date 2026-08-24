@@ -196,6 +196,31 @@ function blob_fixup() {
                 exit 1
             fi
             ;;
+        vendor/etc/init/mtkrild.rc)
+            # The stock rc is shared with products that support MediaTek's
+            # virtual/external SIM feature. This chassis does not. Leaving the
+            # three sockets makes rilproxy's expected ENOENT probe fail through
+            # SELinux instead, producing a permanent denial with no feature.
+            if [[ "$(sha256sum "$2" | awk '{ print $1 }')" != \
+                  "3c5d36df6d1b8b6ff8157bde278b914521c345ca278dacb3725c68d55af1e7cd" ]]; then
+                echo "Refusing to patch an unknown mtkrild.rc" >&2
+                exit 1
+            fi
+            local vsim_socket_count
+            vsim_socket_count=$(LC_ALL=C grep -Ec \
+                '^[[:space:]]+socket rild-vsim(2|3)? stream 660 root radio$' "$2")
+            if [[ "${vsim_socket_count}" -ne 3 ]]; then
+                echo "Unexpected mtkrild.rc VSIM socket count: ${vsim_socket_count}" >&2
+                exit 1
+            fi
+            sed -i -E \
+                '/^[[:space:]]+socket rild-vsim(2|3)? stream 660 root radio$/d' "$2"
+            if [[ "$(sha256sum "$2" | awk '{ print $1 }')" != \
+                  "d5e6098b732e9e40f96c018153ad0317cb289423e1a66ea3a54db3895add2fdb" ]]; then
+                echo "mtkrild.rc VSIM removal is not reproducible" >&2
+                exit 1
+            fi
+            ;;
         vendor/bin/volte_stack)
             if [[ "$(sha256sum "$2" | awk '{ print $1 }')" != \
                   "db8d700b84adf95206c497c15acaa70524756183a5de876391effd5dab734edc" ]]; then
