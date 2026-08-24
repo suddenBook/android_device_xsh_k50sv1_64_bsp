@@ -273,17 +273,20 @@ on post-fs
     write /proc/sys/vm/swappiness 100
     swapon_all /vendor/etc/fstab.enableswap
 
+    # Stock leaves legacy xattrs on these mount roots. Relabel each root before
+    # changing its DAC metadata: under enforcing, vendor_init is allowed to
+    # relabel an unlabeled root but must never gain generic unlabeled setattr.
+    restorecon_recursive /mnt/vendor/protect_f
     chown system system /mnt/vendor/protect_f
     chmod 0770 /mnt/vendor/protect_f
-    restorecon_recursive /mnt/vendor/protect_f
 
+    restorecon_recursive /mnt/vendor/protect_s
     chown system system /mnt/vendor/protect_s
     chmod 0770 /mnt/vendor/protect_s
-    restorecon_recursive /mnt/vendor/protect_s
 
+    restorecon_recursive /mnt/vendor/nvdata
     chown root system /mnt/vendor/nvdata
     chmod 0771 /mnt/vendor/nvdata
-    restorecon_recursive /mnt/vendor/nvdata
 
 on post-fs-data
     restorecon /dev/radio
