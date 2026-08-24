@@ -62,7 +62,6 @@
 /dev/socket/(rild-oem|rild-mtk-modem)    u:object_r:mtk_ril_oem_socket:s0
 /dev/socket/(rild-ims|rild-mal|rild-mal-at|rilproxy-mal) u:object_r:mtk_ril_ims_socket:s0
 /dev/socket/(rild-atci|rilproxy-atci)     u:object_r:mtk_ril_atci_socket:s0
-/dev/socket/rild-vsim[23]?               u:object_r:mtk_ril_vsim_socket:s0
 /dev/socket/sap_uim_socket[1-4]          u:object_r:mtk_ril_sap_socket:s0
 /dev/socket/(rild-mtk-ut|rild-mtk-ut-2|rild-mbim) u:object_r:mtk_ril_test_socket:s0
 /dev/socket/(mal_mfi|mal-mfi)            u:object_r:mtk_mal_mfi_socket:s0

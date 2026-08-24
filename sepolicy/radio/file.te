@@ -50,7 +50,6 @@ type mtk_rild_socket, file_type;
 type mtk_ril_oem_socket, file_type;
 type mtk_ril_ims_socket, file_type;
 type mtk_ril_atci_socket, file_type;
-type mtk_ril_vsim_socket, file_type;
 # No domain is granted write on these three. They are created by the blob
 # rc files (rilproxy.rc: sap_uim_socket1..4; mtkrild.rc: rild-atci,
 # rild-mtk-ut{,-2}, rild-mbim) but the corresponding features are not shipped:
