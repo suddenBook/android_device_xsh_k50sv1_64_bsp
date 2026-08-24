@@ -10,13 +10,15 @@
 # MTK radio/calibration data filesystems. Never auto-format these identity and
 # calibration stores: an unreadable filesystem must fail visibly and be
 # restored from the verified backup, not be silently replaced with an empty one.
+# nvdata also deliberately omits online `discard`; policy refuses vold FITRIM
+# for the same reason, so both trim paths follow one invariant.
 # `nofail` is what keeps that visible instead of fatal: without it a mount
 # failure makes fs_mgr_mount_all return FS_MGR_MNTALL_FAIL, init's
 # queue_fs_event() rejects the code, and vold.decrypt is never triggered, so a
 # corrupt calibration partition would silently boot-loop this FDE device.
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect1  /mnt/vendor/protect_f ext4  noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc  wait,check,nofail
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect2  /mnt/vendor/protect_s ext4  noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc  wait,check,nofail
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/nvdata    /mnt/vendor/nvdata    ext4  noatime,nosuid,nodev,noauto_da_alloc,commit=1,discard     wait,check,nofail
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/nvdata    /mnt/vendor/nvdata    ext4  noatime,nosuid,nodev,noauto_da_alloc,commit=1             wait,check,nofail
 
 # Removable storage
 /devices/mtk-msdc.0/11240000.msdc1*                             auto                  auto  defaults                                    voldmanaged=sdcard1:auto,encryptable=userdata
