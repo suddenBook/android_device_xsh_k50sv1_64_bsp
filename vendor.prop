@@ -137,6 +137,12 @@ ro.telephony.iwlan_operation_mode=legacy
 # ro.vendor.mtk_modem_monitor_support in particular would advertise a
 # md_monitor this build does not ship.
 #
+# ro.vendor.radio.max.multisim is omitted for a different, verified reason.
+# librilproxy does read it, but getModemsConfig() passes "dsds" as the
+# property_get() default, maps that to two live modems, and also falls back to
+# two for an unrecognised value. Setting stock's explicit "dsds" changes
+# nothing. See E-054.
+#
 # The consumer of each, from a grep of the vendor blob set:
 #   mtk_ps1_rat             thermal, libratconfig.so, audio.primary.mt6755.so
 #   mtk_ps2_rat             mtk-ril.so, mtk-rilproxy.so, libmtkrilutils.so
