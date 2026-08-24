@@ -20,11 +20,12 @@
 # - EngineerMode/ATCI/factory test/logging packages unless a measured runtime
 #   dependency proves they are required
 # - Stock fstab, assembled VINTF, generated/precompiled SELinux policy
-# - libmtk-rilop.so and vendor.mediatek.hardware.radio_op@2.0.so. librilproxy
-#   dlopens the first by name (RilOpProxy::initOpLibrary) and logs the failure
-#   without aborting; it carries operator-specific RIL extensions this
-#   open-market build has no operator to apply, and restoring it would also
-#   need a radio_op@2.0 manifest entry. Excluded deliberately, not missed.
+# - libmtk-rilop.so and vendor.mediatek.hardware.radio_op@2.0.so. Working
+#   open-market stock loads them and publishes four IRadioOp instances, so they
+#   are a real call/IMS parity risk, not an inapplicable carrier add-on. They do
+#   not participate in PLMN attach and are deferred until after the clean slot-0
+#   registration control; restoration must include both blobs, VINTF and policy
+#   as one measured change.
 #
 # A leading '-' packages a Stock library as a preferred prebuilt module. For
 # modules that also exist in AOSP, keep every real Stock 32/64 variant, without
@@ -665,9 +666,20 @@ vendor/lib64/vendor.mediatek.hardware.nvram@1.1.so
 # LegacyComponentFactoryBase, whose makeImsUt() is a two-instruction `return
 # null`, and the whole MMTEL session tears down on every attempt. See
 # vendor.prop's note on ro.vendor.mtk_telephony_add_on_policy and E-043.
+# Working stock also loads mediatek-ims-extension-plugin.jar. Its real call,
+# self-activation and supplementary-service implementations replace no-op/base
+# fallbacks in the APK; it imports MtkImsManager, so mediatek-ims-common is a
+# boot jar rather than a passive file. The larger wwop-common jar stays out: it
+# reflectively enables OpImsRIL and requires the radio_op native HAL deliberately
+# deferred until the clean slot-0 registration control is complete.
 -system/framework/mediatek-common.jar
 -system/framework/mediatek-ims-base.jar
+-system/framework/mediatek-ims-common.jar
+-system/framework/mediatek-ims-extension-plugin.jar
 -system/framework/mediatek-ims-legacy.jar
+-system/framework/mediatek-telecom-common.jar
+-system/framework/mediatek-telephony-base.jar
+-system/framework/mediatek-telephony-common.jar
 -system/priv-app/ImsService/ImsService.apk
 vendor/bin/hw/vendor.mediatek.hardware.imsa@1.0-service
 vendor/bin/mtkmal

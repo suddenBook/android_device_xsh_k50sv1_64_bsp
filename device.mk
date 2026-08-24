@@ -18,12 +18,18 @@ $(call inherit-product-if-exists, vendor/xsh/k50sv1_64_bsp/k50sv1_64_bsp-vendor.
 # chromium-webview's `webview`, which is what media_product.mk asks for.
 $(call inherit-product-if-exists, vendor/google_webview/webview.mk)
 
-# The Stock IMS APK directly references these two MTK framework contracts.
-# They must be real boot jars, not ordinary /system/framework copies, so ART
-# resolves the shared phone-UID process before its Application is created.
+# The Stock IMS APK directly references the first two MTK contracts. Its
+# absolute-path extension plugin imports ims-common plus MTK telephony/telecom
+# classes. These six are the complete MTK type closure and must be boot jars so
+# the shared phone-UID process and plugin parent loader resolve them before IMS
+# initialization.
 PRODUCT_BOOT_JARS += \
     mediatek-common \
-    mediatek-ims-base
+    mediatek-ims-base \
+    mediatek-ims-common \
+    mediatek-telecom-common \
+    mediatek-telephony-base \
+    mediatek-telephony-common
 
 # The Styles entry that makes HarmonyOS Sans selectable. The .ttf files come
 # from fonts/Android.mk; the family that names them is registered in

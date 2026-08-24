@@ -46,11 +46,12 @@
             forever, and CallsManager.java:3413-3431 then refuses every LATER
             emergency call. Recovery needed a phone-process kill.
 
-            Turning this off sends emergency calls down the CS path, which does
-            time out and disconnect. The blob bug is not fixable without
-            source; not entering the broken path is. Nothing is lost while IMS
-            cannot register, and this key is the supported knob for exactly
-            this. AOSP itself ships it false for Jazztel
+            Turning this off avoids the confirmed IMS-null-call wedge and sends
+            the request down the CS path. It does NOT guarantee completion: CS
+            dial, hangup and radio-power requests share the same MTK AT channel,
+            which has also wedged for five minutes. Nothing is lost while IMS
+            is unregistered, and this key is the supported route selector. AOSP
+            itself ships it false for Jazztel
             (assets/carrier_config_carrierid_1974_Jazztel.xml:4).
 
             REVISIT if VoLTE ever registers on a SIM with service here: IMS

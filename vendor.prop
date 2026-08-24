@@ -20,8 +20,8 @@ persist.vendor.vilte_support=0
 persist.vendor.viwifi_support=0
 persist.vendor.volte_support=1
 persist.vendor.wfc.sys_wfc_support=0
-# ro.vendor.mtk_telephony_add_on_policy MUST be 0 (stock leaves it unset, which
-# is the same thing). An earlier revision set it to 1 with the comment "skip
+# ro.vendor.mtk_telephony_add_on_policy MUST be 0, exactly as stock sets it in
+# /system/etc/prop.default. An earlier revision set it to 1 with the comment "skip
 # absent extension/legacy jars and use the APK's built-in base factories",
 # which is a fair description of what it does and a fatal choice, because the
 # built-in base factory does not implement anything:
@@ -47,13 +47,11 @@ persist.vendor.wfc.sys_wfc_support=0
 # isVolteEnabled=false, repeating on both slots for the whole uptime -- with two
 # SIMs LOADED. No amount of carrier config or signal can rescue it.
 #
-# The jar is now shipped (proprietary-files.txt, `ims` section) and this is set
-# to what stock effectively uses. Known limitation, accepted: the legacy jar
-# references four MTK classes this port does not ship, all of them reached only
-# from MMTelSSUtils / XcapClient / ImsUtStub$ResultHandler, i.e. only when a real
-# UT/XCAP supplementary-service operation runs. Call forwarding and call barring
-# OVER IMS are therefore out of scope and will throw NoClassDefFoundError;
-# they work over CS as normal.
+# The legacy jar and stock extension plugin are now shipped with their complete
+# six-boot-jar MTK type closure (proprietary-files.txt, `ims` section). The old
+# four-class UT/XCAP gap is gone. wwop-common remains deliberately absent until
+# its radio_op native HAL is evaluated as one unit; loading half that reflected
+# path would be worse than using DefaultOpImsRIL.
 #
 # TO REVERT if com.android.phone misbehaves: set this back to 1. That restores
 # exactly today's behaviour (no VoLTE, but a stable phone process) in one line.
@@ -119,14 +117,11 @@ ro.telephony.iwlan_operation_mode=legacy
 
 # MediaTek RIL topology that stock sets and this tree had dropped.
 #
-# STATE PLAINLY, BECAUSE IT IS THE FIRST THING ANYONE WILL ASSUME: none of this
-# fixes the no-service problem. All fourteen stock values were injected at
-# runtime and the RIL stack restarted; the world-mode negotiation visibly
-# changed (AT+EMSR answered +EMSR: 3 instead of +EMSR: 1, so the properties are
-# live and reach the blob), and registration did not move -- still
-# NOT_REG_SEARCHING, AT+CGATT: 0, AT+CEER: 0,NONE. They are here because they
-# are a real regression against stock with real shipped consumers, not because
-# they are a fix. See E-051.
+# These values were injected at runtime on the two non-roaming Chinese SIMs and
+# did not make those subscriptions register; the changed AT+EMSR reply proves
+# they reached the blob. That experiment did NOT exercise the Dutch SIM's
+# failing slot-1 max-RAF transfer, so their boot-time effect there is unproven.
+# They remain required regressions against stock with real consumers. See E-058.
 #
 # Only the eleven with a consumer in the shipped blob set are here. The four
 # stock also sets and nothing here reads -- ro.vendor.num_md_protocol,
@@ -136,6 +131,12 @@ ro.telephony.iwlan_operation_mode=legacy
 # reader is not configuration, it is decoration that later reads as intent.
 # ro.vendor.mtk_modem_monitor_support in particular would advertise a
 # md_monitor this build does not ship.
+#
+# Two other consumed stock properties are excluded explicitly, not overlooked:
+# persist.vendor.mtk_ct_volte_support=1 selects China-Telecom-specific IMS code
+# and is irrelevant to the open-market/KPN control; persist.vendor.radio.msimmode
+# is derived as dsds by the MAL stack from persist.radio.multisim.config and was
+# already dsds in the failing port capture.
 #
 # The consumer of each, from a grep of the vendor blob set:
 #   mtk_ps1_rat             thermal, libratconfig.so, audio.primary.mt6755.so
