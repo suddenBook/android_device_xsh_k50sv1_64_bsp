@@ -343,11 +343,19 @@ on property:vendor.service.nvram_init=Ready
 # ramdisk. On this switch-root device that file is discarded before second-stage
 # init runs, so it never executed. /vendor/etc/init/hw/init.${ro.hardware}.rc is
 # imported by AOSP's /init.rc and is the correct home for it.
+#
+# persist.vendor.mtk_wfc_support is 1 here, matching vendor.prop and stock. It
+# is NOT a user-facing WFC switch -- it is MediaTek's ePDG-capable RIL build
+# flag, and with it at 0 the RIL never tells MAL that the IMS PDN went active,
+# so VoLTE cannot register at all (E-087; the full derivation is in the comment
+# above the property in vendor.prop). The user-facing WFC capability is held off
+# by persist.vendor.mtk.wfc.enable and persist.vendor.wfc.sys_wfc_support, which
+# are the ones queryEpdgRat and the framework read, and both stay 0 below.
 on property:ro.persistent_properties.ready=true
     setprop persist.vendor.ims_support 1
     setprop persist.vendor.mims_support 1
     setprop persist.vendor.mtk_dynamic_ims_switch 1
-    setprop persist.vendor.mtk_wfc_support 0
+    setprop persist.vendor.mtk_wfc_support 1
     setprop persist.vendor.mtk.wfc.enable 0
     setprop persist.vendor.vilte_support 0
     setprop persist.vendor.mtk.vilte.enable 0

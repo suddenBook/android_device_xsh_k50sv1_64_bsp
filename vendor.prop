@@ -4,8 +4,10 @@
 persist.vendor.connsys.coredump.mode=0
 
 # Voice-only legacy MTK IMS. AOSP ImsManager owns the user gating and the
-# CarrierConfig overlay owns the carrier gating; every WFC/video capability
-# is off.
+# CarrierConfig overlay owns the carrier gating; every WFC/video USER-FACING
+# capability is off. That is NOT the same thing as switching off MediaTek's
+# ePDG-capable RIL build flag -- see persist.vendor.mtk_wfc_support below,
+# which must stay 1 even though this build offers no WiFi calling.
 persist.vendor.ims_support=1
 persist.vendor.mims_support=1
 persist.vendor.mtk.volte.enable=1
@@ -36,7 +38,34 @@ persist.vendor.mtk_rtt_support=0
 # is the one stock uses and because leaving it off silently skips the only
 # per-operator IMS configuration this stack has.
 persist.vendor.mtk_dynamic_ims_switch=1
-persist.vendor.mtk_wfc_support=0
+# persist.vendor.mtk_wfc_support MUST be 1, exactly as stock sets it
+# (vendor/build.prop:121). It reads like the WiFi-calling feature switch and it
+# is not: it is MediaTek's ePDG-capable RIL build flag, and the AP-driven IMS
+# PDN path is behind it. libmtkconfig.so's mtkGetFeatureByOs() maps feature id 6
+# to this property; libmtkrilutils.so's isEpdgSupport() is literally
+# `mtkGetFeature(6) == "1"`; and mtk-ril.so guards 36 sites on it, including the
+# first two instructions of responseUnsolDataCallRspToMal (0xa9fe0), the ONLY
+# function in the RIL that calls mal_datamngr_set_data_call_info{,_tlv}:
+#
+#   0x000aa010  bl  isEpdgSupport
+#   0x000aa014  cbz w0, <epilogue>     ; MAL is never told the PDN went active
+#
+# With this at 0, AOSP's DcTracker brings the IMS PDN up correctly on ccmni4
+# with the operator's P-CSCF pair, MAL never hears about it, and
+# dm_get_ims_pdn_req refuses with "sim_id 0 interface id 4 for IMS in wrong
+# state 1" -> IMSA_IMCB_PDN_ACT_REJ_RSP cause 31 -> IMCB retries every 12 s
+# forever -> +CIREGU never leaves 0. Measured both ways on the handset (E-087):
+# flipping this one bit takes that error from 130 occurrences per boot to 0 and
+# gets the PDN to MSG_ID_WRAP_IMSM_IMSPA_PDN_ACT_COMPLETED.
+#
+# An earlier revision set it to 0 on the reasoning that VoWiFi was deferred so
+# every WFC capability should be off. The reasoning was never checked against a
+# reader. Do not "restore" the 0.
+#
+# The user-facing WFC switches stay off independently and do not depend on this:
+# persist.vendor.mtk.wfc.enable=0 and persist.vendor.wfc.sys_wfc_support=0 are
+# what queryEpdgRat and the framework read, and mtk-ril still sends AT+EIMSWFC=0.
+persist.vendor.mtk_wfc_support=1
 persist.vendor.vilte_support=0
 persist.vendor.viwifi_support=0
 persist.vendor.volte_support=1
