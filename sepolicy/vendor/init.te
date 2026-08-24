@@ -22,6 +22,28 @@ allow init mtk_nvdata_file:dir mounton;
 allow fsck mtk_nvdata_block_device:blk_file rw_file_perms;
 allow fsck mtk_protect_block_device:blk_file rw_file_perms;
 
+# The flasher deliberately erases /cache. Because its fstab entry is
+# formattable, fs_mgr formats the wiped block device with /system/bin/mke2fs,
+# which transitions to e2fs (not fsck). AOSP gives this exact formatter access
+# to userdata/metadata/dm but not cache; mirror its narrow ext4 contract here.
+allow e2fs cache_block_device:blk_file rw_file_perms;
+allowxperm e2fs cache_block_device:blk_file ioctl {
+    BLKSECDISCARD
+    BLKDISCARD
+    BLKPBSZGET
+    BLKDISCARDZEROES
+    BLKROGET
+};
+
+# With wiped userdata and forcefdeorfbe=<metadata>, fs_mgr opens the external
+# key partition as init and wipe_block_device() tries secure discard followed
+# by ordinary discard. AOSP already grants init the blk_file class permission;
+# it does not grant these two extended ioctls on metadata_block_device.
+allowxperm init metadata_block_device:blk_file ioctl {
+    BLKSECDISCARD
+    BLKDISCARD
+};
+
 # init x sysfs_mtk_io_scheduler. An earlier revision REMOVED this rule, reasoning
 # that AOSP's init.rc never touches /sys/block/*/queue/* and that the only writer
 # is init.mt6755.rc, which installs to /vendor/etc/init/hw/ and therefore runs as
