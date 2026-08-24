@@ -109,6 +109,11 @@
 
 #include <dlfcn.h>
 #include <stddef.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/mman.h>
+#include <unistd.h>
 
 #include <log/log.h>
 #include <telephony/ril.h>
@@ -124,8 +129,17 @@ typedef const RIL_RadioFunctions *(*ril_init_fn)(const struct RIL_Env *env,
                                                  int argc, char **argv);
 
 static const RIL_RadioFunctions *sRealFuncs;
+/*
+ * The blob's own onRequest, captured BEFORE its table is patched. Calling
+ * sRealFuncs->onRequest here instead would re-enter this shim: the patch
+ * points that slot at onRequestShim, clang tail-calls it, and rilproxy's
+ * dispatch thread spins forever with no crash and no dispatched request.
+ * That was the second bug in this file; the symptom was a completely silent
+ * telephony stack that came back the moment rilproxy.rc loaded the blob
+ * directly.
+ */
+static RIL_RequestFunc sRealOnRequest;
 static const struct RIL_Env *sEnv;
-static RIL_RadioFunctions sShimFuncs;
 static void *sRealHandle;
 
 static void onRequestShim(int request, void *data, size_t datalen, RIL_Token t,
@@ -142,7 +156,79 @@ static void onRequestShim(int request, void *data, size_t datalen, RIL_Token t,
         return;
     }
 
-    sRealFuncs->onRequest(request, data, datalen, t, socketId);
+    sRealOnRequest(request, data, datalen, t, socketId);
+}
+
+/*
+ * Original protection of the mapping that contains `addr`, from
+ * /proc/self/maps, as a PROT_* mask. Returns -1 if the address is not found.
+ */
+static int mappingProt(uintptr_t addr)
+{
+    FILE *maps = fopen("/proc/self/maps", "re");
+    char line[512];
+    int prot = -1;
+
+    if (maps == NULL) {
+        return -1;
+    }
+    while (fgets(line, sizeof(line), maps) != NULL) {
+        unsigned long long start, end;
+        char perms[8];
+
+        if (sscanf(line, "%llx-%llx %7s", &start, &end, perms) != 3) {
+            continue;
+        }
+        if (addr < start || addr >= end) {
+            continue;
+        }
+        prot = PROT_NONE;
+        if (perms[0] == 'r') prot |= PROT_READ;
+        if (perms[1] == 'w') prot |= PROT_WRITE;
+        if (perms[2] == 'x') prot |= PROT_EXEC;
+        break;
+    }
+    fclose(maps);
+    return prot;
+}
+
+static int patchOnRequest(const RIL_RadioFunctions *funcs)
+{
+    uintptr_t field = (uintptr_t)&funcs->onRequest;
+    long pageSize = sysconf(_SC_PAGESIZE);
+    uintptr_t page;
+    size_t span;
+    int oldProt;
+
+    if (pageSize <= 0) {
+        return -1;
+    }
+    page = field & ~(uintptr_t)(pageSize - 1);
+    /* The field is one pointer wide and 8-byte aligned, so it can never
+     * straddle a page, but size the range from the field anyway. */
+    span = (size_t)(field + sizeof(RIL_RequestFunc) - page);
+
+    oldProt = mappingProt(field);
+    if (oldProt < 0) {
+        RLOGE("onRequest at %p is in no mapping", (void *)field);
+        return -1;
+    }
+    if ((oldProt & PROT_WRITE) == 0 &&
+        mprotect((void *)page, span, oldProt | PROT_WRITE) != 0) {
+        RLOGE("mprotect(%p, +w) failed", (void *)page);
+        return -1;
+    }
+
+    sRealOnRequest = funcs->onRequest;
+    ((RIL_RadioFunctions *)funcs)->onRequest = onRequestShim;
+
+    if ((oldProt & PROT_WRITE) == 0 &&
+        mprotect((void *)page, span, oldProt) != 0) {
+        /* The patch is in; failing to restore is worth a line but not a
+         * failure, and there is nothing useful to do about it. */
+        RLOGE("mprotect(%p, restore) failed", (void *)page);
+    }
+    return 0;
 }
 
 static void *openRealRil(void)
@@ -180,20 +266,31 @@ const RIL_RadioFunctions *RIL_Init(const struct RIL_Env *env, int argc,
     }
 
     /*
-     * Copy field by field rather than memcpy. RIL_RadioFunctions is an ABI
-     * struct that no vendor extends -- the `version` field is how it is
-     * versioned -- but reading only the six documented members cannot fault
-     * even if this blob's struct were shorter than the header's.
+     * Patch the blob's own table in place and hand back its own pointer.
+     *
+     * Do NOT return a private copy. MediaTek's RIL_RadioFunctions is LONGER
+     * than the one in hardware/ril/include/telephony/ril.h: librilproxy's
+     * onNewCommandConnect calls a function pointer at offset 0x30, which is one
+     * slot past the end of the six-member AOSP struct. A 48-byte copy therefore
+     * leaves that slot reading whatever static happens to follow it, and this
+     * shim's first version crashed rilproxy exactly there:
+     *
+     *   #00 pc 000babe3b84cdbb9  <unknown>
+     *   #01 pc 0000000000065e54  librilproxy.so (onNewCommandConnect+524)
+     *   #02 pc 000000000006b7bc  librilproxy.so (RadioImpl::setResponseFunctions+2044)
+     *
+     * Patching in place needs no knowledge of the real size and cannot
+     * truncate. The table may live in .rodata or in post-RELRO .data.rel.ro,
+     * so make the page writable first and put the original protection back.
      */
-    sShimFuncs.version = sRealFuncs->version;
-    sShimFuncs.onRequest = onRequestShim;
-    sShimFuncs.onStateRequest = sRealFuncs->onStateRequest;
-    sShimFuncs.supports = sRealFuncs->supports;
-    sShimFuncs.onCancel = sRealFuncs->onCancel;
-    sShimFuncs.getVersion = sRealFuncs->getVersion;
+    if (patchOnRequest(sRealFuncs) != 0) {
+        RLOGE("could not patch onRequest; GET_RADIO_CAPABILITY will NOT be "
+              "faked and the MTK SIM switch is live again");
+        return sRealFuncs;
+    }
 
-    RLOGI("wrapping %s, RIL version %d", REAL_RIL_SONAME, sShimFuncs.version);
-    return &sShimFuncs;
+    RLOGI("wrapping %s, RIL version %d", REAL_RIL_SONAME, sRealFuncs->version);
+    return sRealFuncs;
 }
 
 /*
