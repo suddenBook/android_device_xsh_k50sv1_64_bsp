@@ -112,4 +112,30 @@
     <bool name="config_device_volte_available">true</bool>
     <bool name="config_device_vt_available">false</bool>
     <bool name="config_device_wfc_ims_available">false</bool>
+
+    <!-- Static radio access family, used for BOTH phones.
+
+         AOSP consults this only through RIL.makeStaticRadioCapability(), which
+         RadioResponse.getRadioCapabilityResponse() calls when the HAL answers
+         GET_RADIO_CAPABILITY with REQUEST_NOT_SUPPORTED or GENERIC_FAILURE.
+         The device tree makes that happen on purpose: rilproxy loads
+         libril-k50sv1-shim, which fails that one request. See
+         ril-shim/k50sv1_ril_shim.c for the vendor-blob evidence.
+
+         The resource is global, not per-phone, so both phones end up with the
+         same RadioAccessFamily and ProxyController.setRadioCapability() takes
+         its "Already in requested configuration, nothing to do." early return
+         instead of driving MediaTek's SIM switch, which on this modem hangs
+         with both radios UNAVAILABLE and does nothing even when it completes.
+
+         The value is exactly what slot 0's modem reports today: GSM|GPRS|UMTS|LTE
+         parses to 36869, which is the measured rat for modem_sys1_ps1
+         (RILJ: convertHalRadioCapability rat=36869 rcRil.raf=81930 [SUB0]).
+         Slot 1 really is 32772 (GSM|UMTS, protocol stack 2 is W/G), so this
+         over-states slot 1; nothing in Q reads per-phone RAF once the capability
+         switch is gone. Token spelling must match
+         RadioAccessFamily.singleRafTypeFromString exactly: one unrecognised
+         token makes rafTypeFromString return RAF_UNKNOWN for the whole
+         string. -->
+    <string name="config_radio_access_family" translatable="false">GSM|GPRS|UMTS|LTE</string>
 </resources>

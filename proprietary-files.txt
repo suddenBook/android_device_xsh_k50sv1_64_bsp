@@ -592,6 +592,10 @@ vendor/etc/init/init.cccirpcd.rc
 vendor/etc/init/mtkrild.rc
 vendor/etc/init/muxreport.rc
 vendor/etc/init/nvram_daemon.rc
+# rilproxy.rc is REWRITTEN at extraction (extract-files.sh blob_fixup) to load
+# libril-k50sv1-shim.so instead of mtk-rilproxy.so. The shim dlopens the blob
+# and forwards everything except GET_RADIO_CAPABILITY. Do not re-extract it
+# without that fixup or the SIM-switch wedge comes straight back.
 vendor/etc/init/rilproxy.rc
 vendor/etc/init/vendor.mediatek.hardware.nvram@1.1-sevice.rc
 # Open-market emergency-number table, parsed by mtk-rilproxy.so (the only blob

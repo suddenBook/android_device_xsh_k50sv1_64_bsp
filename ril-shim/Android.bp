@@ -1,0 +1,27 @@
+// Loaded by /vendor/bin/hw/rilproxy instead of mtk-rilproxy.so; see the header
+// comment in k50sv1_ril_shim.c for what it changes and why.
+//
+// 64-bit only: /vendor/bin/hw/rilproxy is a 64-bit ELF and there is no 32-bit
+// rilproxy on this image, so a 32-bit copy of this library would be installed
+// and never opened. Do not add compile_multilib: "both".
+//
+// ANDROID_MULTI_SIM must match the blob it wraps. librilproxy.so exports
+// android::sendPendedUrcs(RIL_SOCKET_ID, ClientType) and friends, so it was
+// built with ANDROID_MULTI_SIM defined and RIL_RequestFunc therefore takes the
+// trailing RIL_SOCKET_ID. SIM_COUNT only sizes arrays this shim does not use;
+// it is set to the real slot count so the header's own SIM_COUNT default of 4
+// cannot mislead a later reader.
+cc_library_shared {
+    name: "libril-k50sv1-shim",
+    srcs: ["k50sv1_ril_shim.c"],
+    header_libs: ["ril_headers"],
+    shared_libs: ["liblog"],
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-DANDROID_MULTI_SIM",
+        "-DSIM_COUNT=2",
+    ],
+    vendor: true,
+    compile_multilib: "64",
+}

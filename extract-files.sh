@@ -266,6 +266,27 @@ function blob_fixup() {
                 exit 1
             fi
             ;;
+        vendor/etc/init/rilproxy.rc)
+            # Load the device tree's RIL shim instead of mtk-rilproxy.so. The
+            # shim dlopens the blob and forwards everything except
+            # GET_RADIO_CAPABILITY, which it fails so that the framework uses a
+            # single static RadioAccessFamily for both phones and never starts
+            # MediaTek's SIM switch. That switch hangs this modem with both
+            # radios UNAVAILABLE and is a no-op even when it completes; the
+            # blob addresses proving both are in ril-shim/k50sv1_ril_shim.c.
+            if [[ "$(sha256sum "$2" | awk '{ print $1 }')" != \
+                  "977b91d4b168d17f8fbedd65c98534634f8e403c6d721b3757581aff3182c4bf" ]]; then
+                echo "Refusing to patch an unknown rilproxy.rc" >&2
+                exit 1
+            fi
+            sed -i -E \
+                's|(/vendor/bin/hw/rilproxy) -l mtk-rilproxy\.so|\1 -l libril-k50sv1-shim.so|' "$2"
+            if [[ "$(sha256sum "$2" | awk '{ print $1 }')" != \
+                  "40e110c046ee532b272cd3a0324fa43673c60aa9fbd62b02f5bfb0d446fda4ca" ]]; then
+                echo "rilproxy.rc shim rewrite is not reproducible" >&2
+                exit 1
+            fi
+            ;;
         vendor/etc/init/mtkrild.rc)
             # The stock rc is shared with products that support MediaTek's
             # virtual/external SIM feature. This chassis does not. Leaving the

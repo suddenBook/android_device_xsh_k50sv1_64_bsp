@@ -273,3 +273,11 @@ PRODUCT_PACKAGES += \
 # runtime one. See Android.mk.
 PRODUCT_PACKAGES += \
     k50sv1-xml-validation
+
+# RIL shim: makes GET_RADIO_CAPABILITY fail so the framework uses a single
+# static RAF for both phones and never starts an MTK SIM-switch transaction.
+# rilproxy.rc is patched to load this instead of mtk-rilproxy.so; the shim
+# dlopens the blob and forwards everything else. Full reasoning, with the
+# vendor-blob addresses it is derived from, is in ril-shim/k50sv1_ril_shim.c.
+PRODUCT_PACKAGES += \
+    libril-k50sv1-shim
