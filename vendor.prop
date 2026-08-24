@@ -116,3 +116,59 @@ persist.radio.multisim.config=dsds
 # above. Setting it made the slot count look like it had two sources.
 ro.telephony.default_network=9,9
 ro.telephony.iwlan_operation_mode=legacy
+
+# MediaTek RIL topology that stock sets and this tree had dropped.
+#
+# STATE PLAINLY, BECAUSE IT IS THE FIRST THING ANYONE WILL ASSUME: none of this
+# fixes the no-service problem. All fourteen stock values were injected at
+# runtime and the RIL stack restarted; the world-mode negotiation visibly
+# changed (AT+EMSR answered +EMSR: 3 instead of +EMSR: 1, so the properties are
+# live and reach the blob), and registration did not move -- still
+# NOT_REG_SEARCHING, AT+CGATT: 0, AT+CEER: 0,NONE. They are here because they
+# are a real regression against stock with real shipped consumers, not because
+# they are a fix. See E-051.
+#
+# Only the eleven with a consumer in the shipped blob set are here. The four
+# stock also sets and nothing here reads -- ro.vendor.num_md_protocol,
+# persist.vendor.mtk_sim_switch_policy, ro.vendor.sim_refresh_reset_by_modem
+# and ro.vendor.mtk_modem_monitor_support -- are deliberately omitted, on the
+# same rule that keeps ro.telephony.sim.count out above: a property with no
+# reader is not configuration, it is decoration that later reads as intent.
+# ro.vendor.mtk_modem_monitor_support in particular would advertise a
+# md_monitor this build does not ship.
+#
+# The consumer of each, from a grep of the vendor blob set:
+#   mtk_ps1_rat             thermal, libratconfig.so, audio.primary.mt6755.so
+#   mtk_ps2_rat             mtk-ril.so, mtk-rilproxy.so, libmtkrilutils.so
+#   mtk_lte_support         libmtkrilutils.so
+#   mtk_md_world_mode_support  mtk-ril.so, mtk-rilproxy.so
+#   mtk_world_phone_policy  mtk-ril.so
+#   mtk_flight_mode_power_off_md  mtk_agpsd, mtk-ril.so
+#   mtk_dsbp_support        libmal_nwmngr.so, mtk-ril.so, libmtkrilutils.so
+#   mtk_c2k_lte_mode        mtk-rilproxy.so, libmtkrilutils.so
+#   mtk_external_sim_only_slots  libmtkrilutils.so
+#   sim_me_lock_mode        mtk-rilproxy.so, mtk-ril.so
+#   radio.fd.*              mtk-ril.so
+#
+# mtk_ps2_rat is the one with a visible consequence today: slot 1 comes up
+# GSM-only (the modem reports rcRil.raf=65536, HAL bit 16), so the second SIM
+# cannot use 3G at all. That is MediaTek's DSDS capability split and slot 1 is
+# never getting LTE, but W/G is what stock gives it and G is what it has now.
+#
+# mtk_flight_mode_power_off_md is the other one worth naming: it decides whether
+# flight mode powers the modem down, and this build has a report of flight mode
+# not taking effect while a call was wedged.
+ro.vendor.mtk_ps1_rat=Lf/Lt/W/T/G
+persist.vendor.radio.mtk_ps2_rat=W/G
+ro.vendor.mtk_lte_support=1
+ro.vendor.mtk_md_world_mode_support=1
+ro.vendor.mtk_world_phone_policy=0
+ro.vendor.mtk_flight_mode_power_off_md=1
+persist.vendor.radio.mtk_dsbp_support=1
+ro.vendor.mtk_c2k_lte_mode=0
+ro.vendor.mtk_external_sim_only_slots=0
+ro.vendor.sim_me_lock_mode=0
+persist.vendor.radio.fd.counter=150
+persist.vendor.radio.fd.off.counter=50
+persist.vendor.radio.fd.off.r8.counter=50
+persist.vendor.radio.fd.r8.counter=150
