@@ -40,10 +40,11 @@
  * Screen state comes from /sys/class/leds/lcd-backlight/brightness.  On this
  * handset that reads 0 exactly when the panel is blanked and >= 10 otherwise
  * (Android's own minimum is 10, config_screenBrightnessSettingMinimum), so the
- * signal is unambiguous.  poll(POLLPRI) is attempted first in case the LED
- * class ever grows a sysfs_notify; it does not have one today, so in practice
- * this is a 1 Hz poll of a single small file.  That costs one wakeup per
- * second while the device is awake, and none at all while it is suspended:
+ * signal is unambiguous.  The loop is a plain 1 Hz poll(NULL, 0, 1000) sleep
+ * followed by a re-read of that file; the fd is deliberately NOT passed to
+ * poll(), and the comment at the poll() call says why -- an earlier revision
+ * that did pass it would have busy-spun on POLLERR.  So this costs one wakeup
+ * per second while the device is awake, and none at all while it is suspended:
  * poll() timeouts are CLOCK_MONOTONIC, which does not advance across suspend
  * and is not a wake source.
  *
@@ -120,8 +121,17 @@ static long read_number(const char *path)
         return -1;
     }
     ssize_t n = read(fd, buf, sizeof(buf) - 1);
+    /* close() can clobber errno, and every caller of this function reports
+     * strerror(errno).  Save it across the close, and set one deliberately for
+     * the two failures that are not syscall failures -- a short read and an
+     * unparseable body -- so a caller cannot print "Success" for them. */
+    int saved = errno;
     close(fd);
+    errno = saved;
     if (n <= 0) {
+        if (n == 0) {
+            errno = ENODATA;
+        }
         return -1;
     }
     buf[n] = '\0';
@@ -134,6 +144,9 @@ static long read_number(const char *path)
     char *end = NULL;
     long v = strtol(p, &end, 10);
     if (end == p || errno != 0) {
+        if (errno == 0) {
+            errno = EINVAL;
+        }
         return -1;
     }
     return v;
@@ -151,8 +164,17 @@ static int write_number(const char *path, long value)
         return -1;
     }
     ssize_t n = write(fd, buf, (size_t)len);
+    /* Same reason as read_number(): the caller logs strerror(errno). */
+    int saved = errno;
     close(fd);
-    return (n == len) ? 0 : -1;
+    errno = saved;
+    if (n != len) {
+        if (n >= 0) {
+            errno = EIO;
+        }
+        return -1;
+    }
+    return 0;
 }
 
 int main(void)
@@ -203,8 +225,9 @@ int main(void)
                 } else {
                     /* Do not latch a state we failed to apply; retry next tick.
                      * Log once per run of failures -- at 1 Hz an unconditional
-                     * ALOGE here is itself a battery cost. errno is captured by
-                     * write_number() before its close(), which can clobber it. */
+                     * ALOGE here is itself a battery cost. write_number()
+                     * preserves errno across its own close(), so this really is
+                     * the write's error and not the close's. */
                     if (!write_failed) {
                         ALOGE("write %s failed: %s", kPerfIdx, strerror(errno));
                         write_failed = 1;

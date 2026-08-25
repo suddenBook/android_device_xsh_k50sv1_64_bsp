@@ -81,13 +81,47 @@ droidcore: $(LOCAL_BUILT_MODULE)
 
 k50sv1_xml_files := $(shell find $(LOCAL_PATH) -name '*.xml' -not -path '*/.git/*')
 
+# The same module also runs host_init_verifier over every hand-written init rc
+# in this tree, and that is NOT redundant with the build's own check.
+#
+# Makefile:39 gates that check on
+#     $(filter init%rc,$(notdir $(_dest)))$(filter %/etc/init,$(dir $(_dest)))
+# and $(dir) returns a path WITH a trailing slash, so `%/etc/init` can never
+# match. Only the basename half ever fires. Measured in the generated ninja:
+# init.sensors.rc gets "Copy init script:" plus host_init_verifier, while
+# android.hardware.sensors@2.0-service.rc, vendor.mediatek.hardware.mtkpower@
+# 1.0-service.rc, lbs_hidl_service.rc, netdagent.rc and zz_vendor.media.omx.rc
+# get a plain "Copy:" and no syntax check at all. This device tree owns five rc
+# files whose names do not start with "init", which is exactly the class the
+# upstream filter misses.
+#
+# rootdir/vendor/ueventd.rc is excluded on purpose: it is a ueventd config, not
+# an init script, and host_init_verifier would reject every line of it.
+#
+# The passwd file is the same intermediate copy-init-script-file-checked uses
+# (definitions.mk:2557-2558); host_init_verifier needs it to resolve the
+# user/group names in `service` blocks.
+k50sv1_init_rc_files := $(shell find $(LOCAL_PATH)/rootdir -name '*.rc' \
+    -not -name 'ueventd.rc' -not -path '*/.git/*')
+k50sv1_passwd_file := $(call intermediates-dir-for,ETC,passwd)/passwd
+
 $(LOCAL_BUILT_MODULE): PRIVATE_XML_FILES := $(k50sv1_xml_files)
-$(LOCAL_BUILT_MODULE): $(k50sv1_xml_files) $(XMLLINT)
+$(LOCAL_BUILT_MODULE): PRIVATE_INIT_RC_FILES := $(k50sv1_init_rc_files)
+$(LOCAL_BUILT_MODULE): PRIVATE_PASSWD_FILE := $(k50sv1_passwd_file)
+$(LOCAL_BUILT_MODULE): $(k50sv1_xml_files) $(XMLLINT) \
+                       $(k50sv1_init_rc_files) $(HOST_INIT_VERIFIER) \
+                       $(k50sv1_passwd_file)
 	@echo "Validating $(words $(PRIVATE_XML_FILES)) device-tree XML files"
 	$(hide) $(XMLLINT) --noout $(PRIVATE_XML_FILES)
+	@echo "Validating $(words $(PRIVATE_INIT_RC_FILES)) device-tree init rc files"
+	$(hide) for rc in $(PRIVATE_INIT_RC_FILES); do \
+	    $(HOST_INIT_VERIFIER) $$rc $(PRIVATE_PASSWD_FILE) || exit 1; \
+	done
 	$(hide) mkdir -p $(dir $@) && touch $@
 
 k50sv1_xml_files :=
+k50sv1_init_rc_files :=
+k50sv1_passwd_file :=
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 endif

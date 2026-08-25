@@ -2,14 +2,24 @@
 <!--
      Device-owned copy of the stock vendor/etc/media_codecs_mediatek_audio.xml.
 
-     FIVE decoder declarations are removed relative to stock, and the four
-     libraries behind them are no longer extracted:
+     SIX decoder declarations are removed relative to stock. Five of them had
+     four libraries behind them, and those are no longer extracted:
 
        OMX.MTK.AUDIO.DECODER.GSM        libMtkOmxGsmDec.so
        OMX.MTK.AUDIO.DECODER.ALAC       libMtkOmxAlacDec.so
        OMX.MTK.AUDIO.DECODER.APE        libMtkOmxApeDec.so
        OMX.MTK.AUDIO.DECODER.ADPCM.MS   libMtkOmxAdpcmDec.so
        OMX.MTK.AUDIO.DECODER.ADPCM.DVI  libMtkOmxAdpcmDec.so
+
+     The sixth is OMX.MTK.AUDIO.DECODER.WMA, and it is removed for a different
+     reason: there is no component behind it at all. proprietary-files.txt
+     extracts only libMtkOmxCore / libMtkOmxMp3Dec / libMtkOmxVdecEx /
+     libMtkOmxVenc, and configs/mtk_omx_core.cfg has no WMA line, so by the
+     rule stated further down this file OmxStore cross-checks the declaration
+     against a live listNodes() and drops it, costing one INFO line per boot:
+     "OMX.MTK.AUDIO.DECODER.WMA not found in IOmx". Declaring a codec the image
+     cannot instantiate is not a capability, and it was also making the count
+     above wrong.
 
      These are unmaintained vendor media parsers on a SoC that left MediaTek's
      security-bulletin coverage years ago, and they run inside mediacodec where
@@ -119,6 +129,5 @@ Only the three quirks included above are recognized at this point:
             <Quirk name="decoder-lies-about-number-of-channels" />
             <Quirk name="supports-multiple-frames-per-input-buffer" />
         </MediaCodec>
-        <MediaCodec name="OMX.MTK.AUDIO.DECODER.WMA" type="audio/x-ms-wma" />
     </Decoders>
 </Included>

@@ -54,10 +54,15 @@
   7, above PERF_SERV at 8) drops cluster 0 to 156 MHz. That was measured:
   scaling_min_freq falls 598000 -> 156000 within 8 s of blanking.
 
-  A permanent pin was considered and rejected. /proc/ppm/policy/userlimit_*
-  does hold 8 cores at 1.508/1.001 GHz (confirmed on the handset), but
-  USER_LIMIT sits at priority 6, above LCM_OFF, so a boot-time pin would keep
-  all eight cores at maximum with the screen off. It also has nowhere to go
+  A permanent pin THROUGH USER_LIMIT was considered and rejected.
+  /proc/ppm/policy/userlimit_* does hold 8 cores at 1.508/1.001 GHz (confirmed
+  on the handset), but USER_LIMIT sits at priority 6, above LCM_OFF, so a
+  boot-time pin would keep all eight cores at maximum with the screen off.
+
+  A screen-on pin WAS shipped, by a different route: perfd/k50sv1_perfd.c
+  drives PERF_SERV's own /proc/ppm/policy/perfserv_perf_idx and follows the
+  panel backlight, so it releases on blank. Read that file's header before
+  changing anything here; the two are one design. It also has nowhere to go
   when PPM_POLICY_THERMAL starts cutting: on a 28 nm part 8xA53 at 1.5 GHz is
   ~4-5 W and throttles within minutes, which is slower under sustained load
   than letting the governor and the hints work.
@@ -77,20 +82,19 @@
     </scenario>
 
     <!-- Touch, scroll, window animation, rotation, and display-on.
-         PERF_RES_POWER_HINT_HOLD_TIME is how long the lock is held after the
-         hint, in milliseconds. It is the one knob that turns a per-event pulse
-         into "the screen is on and the owner is using it": every touch,
-         animation frame and rotation re-arms it, so continuous use keeps both
-         clusters pinned continuously, and it decays on its own when the handset
-         is put down. Raise it for a wider window, lower it for battery.
-         Verify after any change with:
-             adb shell 'while :; do cat /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq; sleep 0.5; done'
-         while tapping the screen - it should sit at 1508000 during use and fall
-         back within about this many milliseconds of the last touch.
-         Set to 5000 ms at the owner's request: with the screen on and any
-         interaction at all, that keeps both clusters pinned essentially
-         continuously, which is the "flat out while the screen is on" behaviour
-         asked for. Watch the thermal policy - PPM_POLICY_THERMAL outranks
+         PERF_RES_POWER_HINT_HOLD_TIME is set to 5000 ms for parity with the
+         value stock uses and because libpowerhal echoes it back from
+         updateCusScnTable, so a wrong value here would be visible in the log.
+         It does NOT govern how long the lock is held. That was measured: the
+         lock is released 235-705 ms after the hint regardless, and raising this
+         from 5000 to 20000 changed nothing (E-031, and perfd/k50sv1_perfd.c:14-19,
+         where the same measurement is the entire justification for perfd
+         existing). An earlier version of this comment claimed the opposite and
+         offered a verification recipe for it; the recipe was never going to
+         show what it promised.
+
+         Sustained screen-on residency comes from perfd, not from this value.
+         Watch the thermal policy either way - PPM_POLICY_THERMAL outranks
          PERF_SERV, so sustained load will still be cut back rather than
          cooking the part.
          Deliberately NOT combined with PERF_RES_POWERHAL_SCREEN_OFF_STATE: that

@@ -1,5 +1,12 @@
 service mnld /vendor/bin/mnld
     class main
     user gps
-    group gps inet misc sdcard_rw sdcard_r media_rw system radio wakelock
+    # Stock hands mnld sdcard_rw, sdcard_r and media_rw as well. They are
+    # dropped here, the same way zz_vendor.media.omx.rc drops Stock's twelve:
+    # sepolicy/gnss/mnld.te grants this domain nothing on any shared-storage
+    # type, so under Tier 2 the DAC groups would buy it nothing but a denial,
+    # and a GNSS daemon has no business in /sdcard in the first place. If a real
+    # path turns up, the AVC will name it -- which is more than the group list
+    # ever did.
+    group gps inet misc system radio wakelock
     socket mnld stream 660 gps system

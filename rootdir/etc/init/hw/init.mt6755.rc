@@ -516,9 +516,15 @@ on property:sys.boot_completed=1
 # perfserv_perf_idx is still 5616 with all eight cores online. That is the worst
 # possible state for battery, produced by trying to turn the feature off.
 #
-# `stopped` also covers a crash: system/core/init/service.cpp sets
-# init.svc.<name> to `restarting` first and then `stopped`, so a crash-restart
-# releases the pin and the daemon re-applies it within a second.
+# `stopped` does NOT cover a crash, and an earlier version of this comment said
+# it did. Service::Reap() publishes "stopped" only under
+# flags_ & (SVC_DISABLED | SVC_RESET) (system/core/init/service.cpp:376); a
+# non-oneshot, non-disabled service that dies falls through to :411 and
+# publishes "restarting", then "running". So a crash never fires this trigger.
+# Nothing is lost by that: `pinned` starts at -1 in the daemon, so the restarted
+# process re-applies the pin on its first tick rather than the trigger releasing
+# it. The trigger exists for the deliberate `stop` case above, which is the one
+# that would otherwise leave the pin latched forever.
 #
 # vendor_init already holds proc_mtk_power_ppm:file write
 # (sepolicy/vendor/vendor_init.te:70), so this needs no new rule.

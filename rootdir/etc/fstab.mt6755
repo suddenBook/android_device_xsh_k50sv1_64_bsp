@@ -67,9 +67,11 @@
 # nvdata also deliberately omits online `discard`; policy refuses vold FITRIM
 # for the same reason, so both trim paths follow one invariant.
 # `nofail` is what keeps that visible instead of fatal: without it a mount
-# failure makes fs_mgr_mount_all return FS_MGR_MNTALL_FAIL, init's
-# queue_fs_event() rejects the code, and vold.decrypt is never triggered, so a
-# corrupt calibration partition would silently boot-loop this FDE device.
+# failure makes fs_mgr_mount_all return FS_MGR_MNTALL_FAIL and init's
+# queue_fs_event() then queues NO trigger at all -- not `nonencrypted`, not
+# `encryption_failed` -- so a corrupt calibration partition would leave the
+# handset with no framework and nothing naming the cause. Same mechanism as the
+# userdata note above; this is not the old FDE path, which this file removed.
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect1  /mnt/vendor/protect_f ext4  noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc  wait,check,nofail
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect2  /mnt/vendor/protect_s ext4  noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc  wait,check,nofail
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/nvdata    /mnt/vendor/nvdata    ext4  noatime,nosuid,nodev,noauto_da_alloc,commit=1             wait,check,nofail

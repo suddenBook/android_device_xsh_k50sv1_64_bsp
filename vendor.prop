@@ -268,6 +268,14 @@ ro.vendor.md_auto_setup_ims=0
 # that was hardcoded. Deleting restores stock's arrangement exactly, and the
 # boot-order worry is stock's own: RpImsController::onInit() runs at RIL proxy
 # init, well before ImsService binds, which is why stock reads back 1.
+#
+# END of the md_mims_support note. The property below is unrelated to it.
+
+# ro.vendor.md_prop_ver (vendor/build.prop:60). The modem property-table
+# revision, and not a cosmetic version string: eight shipped binaries carry the
+# name -- vendor/bin/{mtkmal,epdg_wod} and vendor/lib{,64}/{libmal,libmdfx,
+# libmal_rds}.so -- and epdg_wod is on that list, which is why it matters to
+# the ePDG stack and not only to MAL.
 ro.vendor.md_prop_ver=1
 
 ro.vendor.net.upload.benchmark.default=blocking
@@ -305,9 +313,9 @@ ro.vendor.mtk_camera_app_version=1
 #   vendor/lib/libMtkOmxVenc.so     UND property_get
 #   vendor/lib/libvcodecdrv.so      UND property_get
 #   ImsService.apk                  ImsVTProviderUtil, SystemProperties.get with
-#                                   a hardcoded fallback of "0x40000000" -- an
-#                                   eighth of the real value, so the video-call
-#                                   path was sizing against 1 GiB.
+#                                   a hardcoded fallback of "0x40000000" -- a
+#                                   thirty-second of the real value, so the
+#                                   video-call path was sizing against 1 GiB.
 ro.vendor.mtk_config_max_dram_size=0x800000000
 # ro.vendor.mtk_eccci_c2k (vendor/build.prop:61). Read by libcustom_nvram.so --
 # BOTH ABIs, vendor/lib and vendor/lib64, each UND property_get, neither with

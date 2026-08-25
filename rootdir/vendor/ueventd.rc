@@ -56,7 +56,13 @@
 /dev/Vcodec        0660  media   system
 /dev/sw_sync       0664  system  graphics
 
-# Camera nodes physically present on this board.
+# Camera nodes present on this board. "Present" means the node exists, which is
+# weaker than it looks: MediaTek's kd_camera_hw creates MAINAF and SUBAF
+# unconditionally, so /dev/SUBAF is not evidence that the front camera has a
+# focus motor -- a punch-hole selfie module is usually fixed-focus, and the HAL1
+# parameter string advertises the identical focus-mode-values for both devices,
+# so that is not evidence either. Labelling a node that turns out to be inert
+# costs nothing; asserting the hardware from it would be wrong.
 /dev/CAM_CAL_DRV1          0660  system  camera
 /dev/CAM_CAL_DRV2          0660  system  camera
 /dev/MAINAF                0660  system  camera
