@@ -8,21 +8,41 @@
 #       LoadProperties() picks that context by path prefix and then calls
 #       CheckPermissions(), which is a real selinux_check_access() on
 #       <type>:property_service:set.
-# system/sepolicy/public/vendor_init.te:220-246 grants vendor_init a fixed list
-# of PLATFORM property types only, so a device-defined type needs its own rule
-# or the assignment is dropped with
-#   init: Do not have permissions to set <key> ... in property file /vendor/build.prop
-# Stock does exactly this: its vendor_init_29_0 carries property_service set on
-# ~90 MTK property types.
+#
+# The set_prop(vendor_init, ...) rule(s) below are INERT on this product:
+# public/vendor_init.te:193-215 expands here and already grants vendor_init every
+# property_type. They are kept for the day PRODUCT_SHIPPING_API_LEVEL is raised
+# above 27 -- full explanation at sepolicy/gnss/vendor_init.te.
 
 # vendor.prop: ro.vendor.mtk_aal_support, ro.vendor.mtk_pq_color_mode,
 #              ro.vendor.mtk_pq_support
 set_prop(vendor_init, mtk_pq_ro_prop)
 
-# rootdir/etc/init/hw/init.mt6755.rc "on post-fs" hands libbwc's EMI/SMI
+# NO "allow vendor_init sysfs_mtk_concurrency_scenario:file ..." -- deleted, not
+# forgotten.
+#
+# rootdir/etc/init/hw/init.mt6755.rc "on post-fs" does hand libbwc's EMI/SMI
 # bandwidth node to the media UID:
 #   chmod 0664 /sys/bus/platform/drivers/mem_bw_ctrl/concurrency_scenario
 #   chown media media /sys/bus/platform/drivers/mem_bw_ctrl/concurrency_scenario
-# A /vendor rc runs its chown/chmod in vendor_init, and public/vendor_init.te:29
-# documents that chown/chmod needs open+read alongside setattr.
-allow vendor_init sysfs_mtk_concurrency_scenario:file { getattr open read setattr };
+# a /vendor rc does run its chown/chmod in vendor_init, and public/vendor_init.te:29
+# does document that chown/chmod needs open+read alongside setattr. The rule that
+# followed -- { getattr open read setattr } -- was still dead, because AOSP grants
+# all four between two rules of its own:
+#   system/sepolicy/public/vendor_init.te:123-133
+#     allow vendor_init { fs_type -contextmount_type -keychord_device
+#                         -sdcard_type -rootfs -proc_uid_* }:file
+#                        { open read setattr map };
+#   system/sepolicy/public/vendor_init.te:167
+#     allow vendor_init { sysfs_type -sysfs_usermodehelper }:file rw_file_perms;
+# rw_file_perms is r_file_perms + w_file_perms (public/global_macros:25,26,29),
+# and r_file_perms leads with getattr -- so :167 supplies the getattr that
+# :123-133 lacks, and :123-133 supplies the setattr that :167 lacks.
+# sysfs_mtk_concurrency_scenario is `fs_type, sysfs_type` (media/file.te:7), so it
+# is in both sets.
+#
+# That second rule is what makes this site different from the proc_mtk_power_*
+# nodes in sepolicy/vendor/vendor_init.te, which keep a getattr-only rule: proc
+# types have no sysfs_type-style companion grant. Verified the same way -- with
+# this rule removed from policy.conf, probes for all four permissions fire under
+# checkpolicy, so there is nothing left to grant.

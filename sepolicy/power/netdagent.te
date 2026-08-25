@@ -38,23 +38,60 @@ allow netutils_wrapper netdagent_devpts:chr_file { read write };
 
 # libpowerhal uses the priority firewall commands for network boost.  The
 # retained rilproxy (rild domain) uses set_plmn_iface_rule for the ordinary
-# modem data path.  Do not expose this operator helper to shell, applications,
-# or unrelated vendor domains.
+# modem data path.  Do not expose this operator helper to shell, to
+# applications other than the phone process below, or to unrelated vendor
+# domains.
 allow hal_power_default mtk_netdagent_hwservice:hwservice_manager find;
 binder_call(hal_power_default, netdagent)
 allow rild mtk_netdagent_hwservice:hwservice_manager find;
 binder_call(rild, netdagent)
+
+# The third client is the IMS data path. com.mediatek.ims declares
+# sharedUserId="android.uid.phone", so it runs in the radio domain, and it calls
+# INetdagent.setFirewallInterface from there. Both halves of that HIDL edge were
+# denied on this handset -- the lookup and then the transaction:
+#   avc: denied { find } for interface=vendor.mediatek.hardware.netdagent::INetdagent
+#        scontext=u:r:radio:s0 tcontext=u:object_r:mtk_netdagent_hwservice:s0
+#        tclass=hwservice_manager
+#   avc: denied { call } for comm="setFirewallInte"
+#        scontext=u:r:radio:s0 tcontext=u:r:netdagent:s0 tclass=binder
+# Stock grants the equivalent pair to system_server, rild and mtk_hal_power.
+#
+# radio is both a coredomain and an app domain (public/radio.te:2 declares it;
+# private/radio.te:1 `typeattribute radio coredomain` and :3 `app_domain(radio)`),
+# but HwBinder is the sanctioned core<->vendor path on full Treble, so no
+# PLATFORM neverallow stands in the way -- only this file's own, at the bottom of
+# this block. The two edits are one change: without the -radio exclusion the rule
+# below is a checkpolicy failure at build time, not a runtime denial, so neither
+# half can land alone.
+#
+# Written out rather than as hal_client_domain(radio, ...) because netdagent is
+# registered with a bare add_hwservice() and has no hal_attribute -- see the
+# neverallow below. The resulting pair is byte-identical to what the five
+# existing hal_client_domain(radio, hal_mtk_{imsa,wfo,radioex,nvram,lbs}) calls
+# in this tree already emit, so the split build handles it the same way.
+allow radio mtk_netdagent_hwservice:hwservice_manager find;
+binder_call(radio, netdagent)
 
 # netdagent is a private operator helper, not a HAL, so it is registered with a
 # bare add_hwservice() instead of hal_attribute()/hal_attribute_hwservice().
 # That means it does not get the closed client/server neverallow those macros
 # generate, and nothing would stop a later rule handing this priority-firewall
 # interface to another domain. State the invariant explicitly instead.
+#
+# -radio is the other half of the IMS grant above and cannot be omitted: this
+# neverallow is checked by checkpolicy at build time, so the `allow radio
+# mtk_netdagent_hwservice:hwservice_manager find` above without it aborts the
+# sepolicy_neverallows step with
+#   libsepol.report_failure: neverallow on line NN of .../power/netdagent.te
+#   violated by allow radio mtk_netdagent_hwservice:hwservice_manager { find };
+# Keep this list to the four domains that genuinely need the interface.
 neverallow {
     domain
     -netdagent
     -hal_power_default
     -rild
+    -radio
 } mtk_netdagent_hwservice:hwservice_manager { add find };
 
 # Direct interface setup is limited to the datagram and route-netlink calls in

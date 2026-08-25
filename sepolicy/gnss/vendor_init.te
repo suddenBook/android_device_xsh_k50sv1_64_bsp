@@ -8,12 +8,54 @@
 #       LoadProperties() picks that context by path prefix and then calls
 #       CheckPermissions(), which is a real selinux_check_access() on
 #       <type>:property_service:set.
-# system/sepolicy/public/vendor_init.te:220-246 grants vendor_init a fixed list
-# of PLATFORM property types only, so a device-defined type needs its own rule
-# or the assignment is dropped with
+#
+# INERT ON THIS PRODUCT, AND KEPT ON PURPOSE. This block is the canonical
+# explanation for all ten set_prop(vendor_init, ...) rules in the tree; the other
+# nine sites point back to it rather than repeat it.
+#
+# What this comment used to say was that system/sepolicy/public/vendor_init.te:
+# 220-246 grants vendor_init "a fixed list of PLATFORM property types only", so a
+# device-defined type needs its own rule or the assignment is dropped with
 #   init: Do not have permissions to set <key> ... in property file /vendor/build.prop
-# Stock does exactly this: its vendor_init_29_0 carries property_service set on
-# ~90 MTK property types.
+# That is FALSE for this product, and it matters because it was used to justify
+# ten rules and to explain a boot failure that never happened. Lines 220-246 are
+# only the tail of that file. Ahead of them, at :193-215, sits
+#
+#     not_compatible_property(`
+#       set_prop(vendor_init, { property_type -<18 platform exceptions> })
+#     ')
+#
+# and not_compatible_property (system/sepolicy/public/te_macros:498) is
+#     define(`not_compatible_property',
+#            `ifelse(target_compatible_property, `true', , $1)')
+# i.e. it emits its argument whenever target_compatible_property is NOT `true'.
+# PRODUCT_COMPATIBLE_PROPERTY is false here -- build/make/core/config.mk:645-651
+# leaves it false for PRODUCT_SHIPPING_API_LEVEL <= 27 and this product is at 26
+# (see BoardConfig.mk, which relies on the same fact for its `on property:`
+# triggers). So the block EXPANDS, and vendor_init already holds
+# property_service:set on every property_type except those 18 -- all of which are
+# platform types (device_config_*, restorecon_prop, netd_stable_secret_prop,
+# firstboot_prop, pm_prop, *_boot_reason_prop, apexd_prop, gsid_prop,
+# nnapi_ext_deny_product_prop). Not one MTK type is among them.
+#
+# Verified against this product's own build output rather than by reading:
+# out/target/product/k50sv1_64_bsp/obj/ETC/sepolicy_neverallows_intermediates/
+# policy.conf carries the expanded `allow vendor_init { property_type -... }:
+# property_service set;` at the #line 193 marker, and with every one of the ten
+# rules deleted checkpolicy still reports the permission as granted.
+#
+# They are kept because they stop being inert the moment PRODUCT_SHIPPING_API_LEVEL
+# is raised above 27: that flips PRODUCT_COMPATIBLE_PROPERTY to true, :193-215
+# stops expanding, vendor_init drops to the 27-type list at :220-246, and every
+# key below would start failing with exactly the "Do not have permissions to set"
+# line the old comment described. Deleting them would turn raising the shipping
+# API level from a no-op into a silent radio/GNSS/power/WMT regression that first
+# appears as a missing property. Stock ships the same shape: its vendor_init_29_0
+# carries property_service set on ~90 MTK property types.
+#
+# The rule for a NEW device property type is therefore unchanged -- add a
+# matching set_prop(vendor_init, ...) in that type's directory -- only the reason
+# is different: it is insurance, not a fix.
 
 # vendor.prop: ro.vendor.mtk_gps_support, ro.vendor.mtk_agps_app,
 #              ro.vendor.mtk_log_hide_gps

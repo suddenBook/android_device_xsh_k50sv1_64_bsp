@@ -8,16 +8,15 @@
 #       LoadProperties() picks that context by path prefix and then calls
 #       CheckPermissions(), which is a real selinux_check_access() on
 #       <type>:property_service:set.
-# system/sepolicy/public/vendor_init.te:220-246 grants vendor_init a fixed list
-# of PLATFORM property types only, so a device-defined type needs its own rule
-# or the assignment is dropped with
-#   init: Do not have permissions to set <key> ... in property file /vendor/build.prop
-# Stock does exactly this: its vendor_init_29_0 carries property_service set on
-# ~90 MTK property types.
+#
+# The set_prop(vendor_init, ...) rule(s) below are INERT on this product:
+# public/vendor_init.te:193-215 expands here and already grants vendor_init every
+# property_type. They are kept for the day PRODUCT_SHIPPING_API_LEVEL is raised
+# above 27 -- full explanation at sepolicy/gnss/vendor_init.te.
 
 # vendor.prop AND rootdir/etc/init/hw/init.mt6755.rc "on property:
-# ro.persistent_properties.ready=true" both assign these, so they are denied
-# twice over without this rule:
+# ro.persistent_properties.ready=true" both assign these, so if the grant above
+# ever stops expanding they are refused twice over:
 #   persist.vendor.{ims,mims,volte,vilte,viwifi,mtk_wfc,mtk_rcs_ua,mtk_rtt}_support
 #   persist.vendor.mtk_dynamic_ims_switch, persist.vendor.wfc.sys_wfc_support
 #   ro.vendor.mtk_telephony_add_on_policy, ro.vendor.md_auto_setup_ims,
@@ -38,14 +37,21 @@ set_prop(vendor_init, mtk_radio_config_prop)
 # property_contexts in this same directory maps the prefix
 # persist.vendor.radio. to mtk_vendor_radio_prop, and that 21-character prefix
 # beats AOSP's persist.vendor. -> vendor_default_prop (private/property_contexts:174)
-# under longest-prefix matching, so these do NOT fall into a type vendor_init
-# already holds.
+# under longest-prefix matching, so these land on a device type rather than on
+# vendor_default_prop.
 #
-# Without this rule all six are silently dropped from /vendor/build.prop the
-# moment the build stops being permissive -- one "Do not have permissions to
-# set" line per key in the init log and nothing else. mtk_ps2_rat is the one
-# that would hurt: it is what tells the RIL that protocol stack 2 is W/G, and
-# it is a required regression against stock (E-058). Tier 1 cannot show this
-# because avc_has_perm returns 0 in permissive mode, so it would first appear
-# as an unexplained radio regression on the first Tier 2 boot (WI-023).
+# That distinction is worth recording but is NOT what makes this rule matter, and
+# an earlier revision of this comment got the consequence wrong. It said all six
+# keys "are silently dropped from /vendor/build.prop the moment the build stops
+# being permissive", that Tier 1 could not show it because avc_has_perm returns 0
+# in permissive mode, and that mtk_ps2_rat -- the key that tells the RIL protocol
+# stack 2 is W/G, a required regression against stock (E-058) -- would surface as
+# an unexplained radio regression on the first Tier 2 boot (WI-023). None of that
+# happened or could have happened: vendor_init already holds set on every
+# property_type here (see the header), so the six keys were applied correctly on
+# every enforcing boot with or without this rule. WI-023 was never a live risk.
+#
+# What is still true is the conditional: raise PRODUCT_SHIPPING_API_LEVEL past 27
+# and the blanket grant stops expanding, at which point this rule is the only
+# thing standing between mtk_ps2_rat and exactly that failure mode.
 set_prop(vendor_init, mtk_vendor_radio_prop)

@@ -43,6 +43,32 @@ allow mtk_hal_wfo mtkmal:unix_stream_socket connectto;
 # SIM slots to offer MAL. Read-only: the writers stay rild/mtkrild/vendor_init.
 get_prop(mtk_hal_wfo, mtk_radio_config_prop)
 get_prop(mtk_hal_wfo, mtk_ims_feature_prop)
+# Three more reads, from the same first boot that ran this HAL -- nine denials
+# in that one boot, read+open+getattr on each of:
+#   avc: denied { read open getattr } for comm="wfo@1.0-service"
+#        name="u:object_r:mtk_nvram_ready_prop:s0"  scontext=u:r:mtk_hal_wfo:s0
+#   avc: denied { read open getattr } for comm="wfo@1.0-service"
+#        name="u:object_r:mtk_ims_prop:s0"          scontext=u:r:mtk_hal_wfo:s0
+#   avc: denied { read open getattr } for comm="wfo@1.0-service"
+#        name="u:object_r:mtk_vendor_radio_prop:s0" scontext=u:r:mtk_hal_wfo:s0
+# vendor.service.nvram_init (mtk_nvram_ready_prop) is the gate the HAL spins on
+# before it will talk to MAL at all; mtk_ims_prop carries the
+# persist.vendor.*_support contract and mtk_vendor_radio_prop the
+# vendor.ril. / vendor.gsm. / persist.vendor.radio. topology keys.
+#
+# These are NOT on the VoWiFi path only, which is the reason it is worth stating
+# here rather than filing them under "Wi-Fi offload". This HAL's rds_set_ui_param
+# is what clears RDS's "Epdgs is not ready" gate (see the block above); until
+# that clears no IMS RAT is assigned and the IMS PDN is aborted, so a VoLTE-only
+# configuration dies here too. Denying these three does not degrade VoWiFi, it
+# stalls IMS registration outright.
+#
+# Read-only, like the two above. The writers stay nvram_daemon
+# (mtk_nvram_ready_prop), rild/mtkrild/vendor_init (mtk_ims_prop) and
+# mtkmal/gsm0710muxd/rild/mtkrild/vendor_init (mtk_vendor_radio_prop).
+get_prop(mtk_hal_wfo, mtk_nvram_ready_prop)
+get_prop(mtk_hal_wfo, mtk_ims_prop)
+get_prop(mtk_hal_wfo, mtk_vendor_radio_prop)
 
 # Modem adaptation layer and its in-process entity libraries.
 init_daemon_domain(mtkmal)

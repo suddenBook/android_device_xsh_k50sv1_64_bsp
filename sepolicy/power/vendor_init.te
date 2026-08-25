@@ -8,12 +8,11 @@
 #       LoadProperties() picks that context by path prefix and then calls
 #       CheckPermissions(), which is a real selinux_check_access() on
 #       <type>:property_service:set.
-# system/sepolicy/public/vendor_init.te:220-246 grants vendor_init a fixed list
-# of PLATFORM property types only, so a device-defined type needs its own rule
-# or the assignment is dropped with
-#   init: Do not have permissions to set <key> ... in property file /vendor/build.prop
-# Stock does exactly this: its vendor_init_29_0 carries property_service set on
-# ~90 MTK property types.
+#
+# The set_prop(vendor_init, ...) rule(s) below are INERT on this product:
+# public/vendor_init.te:193-215 expands here and already grants vendor_init every
+# property_type. They are kept for the day PRODUCT_SHIPPING_API_LEVEL is raised
+# above 27 -- full explanation at sepolicy/gnss/vendor_init.te.
 
 # rootdir/etc/init/vendor.mediatek.hardware.mtkpower@1.0-service.rc:7
 #   setprop vendor.powerhal.init 0

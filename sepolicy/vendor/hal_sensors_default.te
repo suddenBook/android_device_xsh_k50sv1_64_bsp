@@ -6,4 +6,30 @@ allow hal_sensors_default sysfs_mtk_accelerometer:file rw_file_perms;
 allow hal_sensors_default mtk_sensor_data_file:dir create_dir_perms;
 allow hal_sensors_default mtk_sensor_data_file:file create_file_perms;
 
+# Traversal of the /mnt/vendor mount root, and nothing else. This exists purely
+# to silence a stat() that cannot succeed on this handset, not to open a data
+# path.
+#
+# The stock sensors backend probes a calibration directory that does not exist
+# here. android.hardware.sensors@2.0-service hw_get_module()s sensors.mt6755.so,
+# which is this tree's shim (device/xsh/k50sv1_64_bsp/sensors/sensors.c:17) and
+# dlopens /vendor/lib64/hw/sensors.mt6755.stock.so; that blob carries the
+# literals "/mnt/vendor/nvcfg" and "/mnt/vendor/nvcfg/sensor". But
+# rootdir/etc/fstab.mt6755 mounts exactly three things under /mnt/vendor --
+# protect_f (protect1), protect_s (protect2) and nvdata -- and there is no nvcfg
+# partition on the board. `ls /mnt/vendor` on the handset returns those same
+# three directories and nothing else.
+# So the probe is an ENOENT either way; without this rule it is an ENOENT
+# preceded by an AVC on the mount root at every sensor HAL start, which is noise
+# that looks like a missing grant.
+#
+# Nothing under /mnt/vendor is actually readable by this domain, and that is
+# deliberate. dir:search grants traversal of the root inode only -- not readdir,
+# not getattr on children -- and hal_sensors_default has no rule for
+# mtk_nvdata_file, mtk_protect_f_file, mtk_protect_s_file, mtk_modem_nvdata_file
+# or any other type below that mount point. Its real calibration store is
+# mtk_sensor_data_file above, under /data/vendor. Do not widen this to
+# r_dir_perms "for symmetry" with mnld/wlan_assistant/nvram_daemon: those three
+# traverse to a specific file they are separately granted, and this one has no
+# such destination.
 allow hal_sensors_default mnt_vendor_file:dir search;

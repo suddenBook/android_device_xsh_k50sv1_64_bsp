@@ -1,11 +1,31 @@
 # Rules whose subject is vendor_init. Rules for init/fsck/kernel live in
 # sepolicy/vendor/init.te so the file name matches the domain it constrains.
 
-# rootdir/etc/init/init.sensors.rc:5-14 chown/chmod the MIR3DA accelerometer
-# attributes under /sys/class/sensor/m_acc_misc -> (symlink)
-# /sys/devices/virtual/sensor/m_acc_misc, labelled by vendor/genfs_contexts:1.
-# A /vendor rc runs its chown/chmod in vendor_init, not init.
-allow vendor_init sysfs_mtk_accelerometer:file setattr;
+# NO "allow vendor_init sysfs_mtk_accelerometer:file setattr" -- deleted, not
+# forgotten.
+#
+# The premise was right: rootdir/etc/init/init.sensors.rc:5-14 does chown/chmod
+# the MIR3DA accelerometer attributes under /sys/class/sensor/m_acc_misc ->
+# (symlink) /sys/devices/virtual/sensor/m_acc_misc, labelled by
+# vendor/genfs_contexts:1, and a /vendor rc runs its chown/chmod in vendor_init,
+# not init. The conclusion was not. The rule carried a comment implying AOSP has
+# nothing for this type; AOSP has two rules and either one alone covers it:
+#   system/sepolicy/public/vendor_init.te:123-133
+#     allow vendor_init { fs_type -contextmount_type -keychord_device
+#                         -sdcard_type -rootfs -proc_uid_time_in_state
+#                         -proc_uid_concurrent_active_time
+#                         -proc_uid_concurrent_policy_time }:file
+#                        { open read setattr map };
+#   system/sepolicy/public/vendor_init.te:167
+#     allow vendor_init { sysfs_type -sysfs_usermodehelper }:file rw_file_perms;
+# sysfs_mtk_accelerometer is `fs_type, sysfs_type` (vendor/file.te:9), so it is in
+# both sets, and neither rule is wrapped in a build-variant or compatibility
+# macro. Checked, not assumed: with the rule removed from this product's
+# policy.conf, a probe `neverallow vendor_init sysfs_mtk_accelerometer:file
+# setattr` still fires under checkpolicy.
+#
+# Contrast the proc_mtk_power_* block below, where the same audit left exactly
+# one permission genuinely un-granted.
 
 # rootdir/etc/init/hw/init.mt6755.rc:45 "write /proc/sys/vm/swappiness 100".
 allow vendor_init proc_mtk_vm_swappiness:file w_file_perms;
@@ -51,18 +71,33 @@ allow vendor_init device:file unlink;
 # libpowerhal runs in hal_power_default as user system (see
 # rootdir/etc/init/vendor.mediatek.hardware.mtkpower@1.0-service.rc), and every
 # one of these procfs nodes is created root:root 0664 or 0644 by the kernel, so
-# without this the SELinux rules in sepolicy/power were the only half of the
+# without the chown the SELinux rules in sepolicy/power were the only half of the
 # permission that was in place and every boost silently failed at open(2).
-# AOSP's public/vendor_init.te:29 documents that chown/chmod need open+read as
-# well as setattr; it grants that pair for the file types it knows about and
-# has no rule for proc_type, so grant it here for exactly these five.
+#
+# This grants getattr and nothing else. It used to be { getattr open read setattr }
+# under a comment claiming AOSP "has no rule for proc_type". AOSP has one:
+#   system/sepolicy/public/vendor_init.te:123-133
+#     allow vendor_init { fs_type -contextmount_type -keychord_device
+#                         -sdcard_type -rootfs -proc_uid_time_in_state
+#                         -proc_uid_concurrent_active_time
+#                         -proc_uid_concurrent_policy_time }:file
+#                        { open read setattr map };
+# and all five of these are `fs_type, proc_type` (power/file.te:7-11), so open,
+# read and setattr were redundant from the start. getattr genuinely is not: it is
+# absent from that permission set, and proc types get no second, wider grant the
+# way sysfs types do at :167 ({ sysfs_type -sysfs_usermodehelper }:file
+# rw_file_perms, which does include getattr -- that is why the concurrency_scenario
+# node in sepolicy/media/vendor_init.te needs no rule at all).
+#
+# Measured against this product's policy.conf with the rule removed: probes for
+# open, read and setattr all fire under checkpolicy; the getattr probe does not.
 allow vendor_init {
     proc_mtk_power_ppm
     proc_mtk_power_hps
     proc_mtk_power_perfmgr
     proc_mtk_power_perf_ioctl
     proc_mtk_power_info
-}:file { getattr open read setattr };
+}:file getattr;
 
 # The same rc file's "on early-init" pins both clusters through
 # /proc/ppm/policy/userlimit_min_cpu_{freq,core} for the duration of boot and
@@ -73,10 +108,17 @@ allow vendor_init proc_mtk_power_ppm:file write;
 #   setprop vold.post_fs_data_done 1
 # A /vendor rc file's setprop runs in the vendor_init context
 # (system/core/init/subcontext.cpp:57), and vold.post_fs_data_done resolves to
-# vold_prop (system/sepolicy/private/property_contexts:99). AOSP's fixed
-# vendor_init property list (public/vendor_init.te:220-246) does not include
-# vold_prop, so without this the assignment is refused and /data never reports
-# post-fs-data completion. There is no neverallow on vold_prop.
+# vold_prop (system/sepolicy/private/property_contexts:99).
+#
+# INERT TODAY, like the other nine set_prop(vendor_init, ...) rules -- see the
+# full explanation at sepolicy/gnss/vendor_init.te. This comment used to end
+# "AOSP's fixed vendor_init property list (public/vendor_init.te:220-246) does
+# not include vold_prop, so without this the assignment is refused and /data
+# never reports post-fs-data completion". That list is not the whole grant:
+# :193-215 expands on this product and covers vold_prop like every other
+# property_type, so post-fs-data has never depended on this line. It is kept for
+# the day PRODUCT_SHIPPING_API_LEVEL is raised, when the claim becomes true. There
+# is no neverallow on vold_prop.
 #
 # Both operands are core types, but the rule exists only because this board's
 # rc issues that setprop, so by the criterion in BoardConfig.mk it belongs here
