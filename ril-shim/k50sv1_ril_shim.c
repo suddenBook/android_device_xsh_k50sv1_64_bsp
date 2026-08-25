@@ -92,7 +92,8 @@
  *
  * COST, STATED PLAINLY
  *
- * Data on slot 1 runs on protocol stack 2, which is W/G, so it is 3G/2G. That
+ * Data on slot 1 runs on protocol stack 2, which is W/G, so it is never LTE.
+ * Do not promise 3G either: E-084 measured EDGE on both SIMs tried there. That
  * is what this hardware can do without a working modem SIM switch, and the
  * switch is broken in the vendor blob (see above), not in this port. Both
  * slots now advertise slot 0's RAF, which is optimistic for slot 1; nothing in
