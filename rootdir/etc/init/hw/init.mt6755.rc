@@ -322,10 +322,13 @@ on post-fs-data
     # kernel keeps swap_map in RAM), but the window widens on any boot where
     # vold.decrypt is delayed, e.g. an FDE unlock waiting for a typed password.
 
-    # Required by vold for the block-encryption post-fs-data flow.
-    # This one MUST stay here: AOSP's own copy is commented out at
-    # init.rc with the note that a device with its own post-fs-data action must
-    # provide it, and vold/cryptfs.cpp waits on it.
+    # AOSP's own copy of this is commented out in init.rc with a note that a
+    # device providing its own post-fs-data action must provide it, so it stays
+    # here. It is now INERT rather than required: vold/cryptfs.cpp waits on it
+    # only inside the FDE flow, and userdata is no longer encrypted
+    # (rootdir/etc/fstab.mt6755). Kept because it costs one property, because
+    # AOSP's contract still asks for it, and because restoring FDE would need it
+    # back -- not because anything currently reads it.
     setprop vold.post_fs_data_done 1
 
 # NVRAM restore can recreate category files after the initial post-fs-data
@@ -344,13 +347,23 @@ on property:vendor.service.nvram_init=Ready
 # init runs, so it never executed. /vendor/etc/init/hw/init.${ro.hardware}.rc is
 # imported by AOSP's /init.rc and is the correct home for it.
 #
-# persist.vendor.mtk_wfc_support is 1 here, matching vendor.prop and stock. It
-# is NOT a user-facing WFC switch -- it is MediaTek's ePDG-capable RIL build
-# flag, and with it at 0 the RIL never tells MAL that the IMS PDN went active,
-# so VoLTE cannot register at all (E-087; the full derivation is in the comment
-# above the property in vendor.prop). The user-facing WFC capability is held off
-# by persist.vendor.mtk.wfc.enable and persist.vendor.wfc.sys_wfc_support, which
-# are the ones queryEpdgRat and the framework read, and both stay 0 below.
+# TWO of these are ePDG BUILD flags with WFC-sounding names, and both must be 1
+# or VoLTE cannot register. Neither is a user-facing WiFi-calling switch:
+#
+#   persist.vendor.mtk_wfc_support      -> isEpdgSupport() == mtkGetFeature(6);
+#       gates 36 sites in mtk-ril.so including responseUnsolDataCallRspToMal,
+#       the only caller of mal_datamngr_set_data_call_info (E-087).
+#   persist.vendor.wfc.sys_wfc_support  -> the second gate inside queryEpdgRat
+#       (mtk-ril.so 0x950bc); at 0 it logs "EPDG is not supported" and returns
+#       eran_type 0, MAL's IMSM then logs "rat error!!" and spins forever on
+#       imsm_handler.c:4141, and +CIREGU never leaves 0 (E-089).
+#
+# Both derivations are in the comments above those properties in vendor.prop.
+# The USER-FACING switch is persist.vendor.mtk.wfc.enable, and it stays 0 below;
+# with it off the RIL takes queryEpdgRat's "setup thru mobile" branch, so
+# nothing is routed over WiFi. Do not "restore" either flag to 0 on the
+# reasoning that this build does not ship VoWiFi. That reasoning has now been
+# wrong twice, on two differently-named properties, and it is HANDOFF trap 25.
 on property:ro.persistent_properties.ready=true
     setprop persist.vendor.ims_support 1
     setprop persist.vendor.mims_support 1
@@ -365,7 +378,7 @@ on property:ro.persistent_properties.ready=true
     setprop persist.vendor.mtk_rcs_ua_support 0
     setprop persist.vendor.mtk_rtt_support 0
     setprop persist.vendor.volte_support 1
-    setprop persist.vendor.wfc.sys_wfc_support 0
+    setprop persist.vendor.wfc.sys_wfc_support 1
     # These three were missing from the list above, which is the one place the
     # contract is enforced against a stale /data.
     # persist.vendor.mtk.volte.enable is the MTK feature flag and is already

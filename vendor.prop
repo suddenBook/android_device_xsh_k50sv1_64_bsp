@@ -62,14 +62,62 @@ persist.vendor.mtk_dynamic_ims_switch=1
 # every WFC capability should be off. The reasoning was never checked against a
 # reader. Do not "restore" the 0.
 #
-# The user-facing WFC switches stay off independently and do not depend on this:
-# persist.vendor.mtk.wfc.enable=0 and persist.vendor.wfc.sys_wfc_support=0 are
-# what queryEpdgRat and the framework read, and mtk-ril still sends AT+EIMSWFC=0.
+# The USER-FACING WiFi-calling switch is persist.vendor.mtk.wfc.enable, and it
+# stays off. persist.vendor.wfc.sys_wfc_support is NOT that switch -- see below.
 persist.vendor.mtk_wfc_support=1
 persist.vendor.vilte_support=0
 persist.vendor.viwifi_support=0
 persist.vendor.volte_support=1
-persist.vendor.wfc.sys_wfc_support=0
+# persist.vendor.wfc.sys_wfc_support MUST be 1, exactly as stock sets it
+# (system/etc/prop.default:45). This is the second half of trap 25 and it cost
+# this project as much as the first: the name says "system WFC support" and the
+# thing it actually gates is the ONLY producer of the IMS PDN's RAT.
+#
+# mtk-ril.so's queryEpdgRat (0x95028) is called from every requestSetupDataCall*
+# variant. Its second gate is:
+#
+#   0x000950bc  bl  property_get      ; "persist.vendor.wfc.sys_wfc_support", "0"
+#   0x000950c4  bl  atoi
+#   0x000950c8  cbz w0, 0x952a8       ; -> "[queryEpdgRat] EPDG is not supported"
+#
+# and the bail-out returns 0 for both isHandOver and eran_type. The caller
+# (requestSetupDataCallOverIPv6, with configEpdg's body inlined at 0x909b8)
+# copies eran_type into the SETUP_DATA_CALL response struct, and
+# responseUnsolDataCallRspToMal hands that to mal_datamngr_set_data_call_info_tlv.
+# MAL's IMSM then reads eran_type == 0 out of the bearer record and refuses the
+# PDN activation confirm:
+#
+#   MAL-IMSM: pdn cnt = 1, eran_type = 0, if_name = ccmni4  (imsm_handler.c:3978)
+#   MAL-IMSM: rat error!!                                   (imsm_handler.c:4085)
+#   MAL-IMSM: get cell info fail, need retry, ret = 0, nw_cell_info.status = 1
+#                                                           (imsm_handler.c:4141)
+#
+# ...and that last line is an UNBOUNDED retry loop: ~42 iterations per second,
+# ~640 log lines per second, forever. It wraps a 16 MiB logcat ring in about
+# 90 s, which is why every post-hoc `logcat -d` diagnosis of this bug was
+# reading a window that no longer contained the cause.
+#
+# Measured on the handset, one variable, nothing else changed (E-089):
+#
+#   sys_wfc_support=0  ->  queryEpdgRat: "EPDG is not supported"
+#                          epdgConfig, isHandOver: 0, eran_type: 0
+#                          rat error!! x3835 in 89 s, +CIREGU: 0
+#
+#   sys_wfc_support=1  ->  queryEpdgRat: rsp status: 0, rsp rat: 1, request rat: 0
+#                          queryEpdgRat: setup thru mobile, islteonly:1
+#                          epdgConfig, isHandOver: 0, eran_type: 1
+#                          responseUnsolDataCallRspToMal eran_type:1, cause:0
+#                          Call mal_datamngr_set_data_call_info_tlv success
+#                          rat error!! stops
+#                          AT< +CIREGU: 1,5          <-- IMS REGISTERED
+#
+# So VoLTE on this platform cannot be had without the ePDG feature enabled, and
+# "we do not ship VoWiFi, so switch WFC off" is exactly the reasoning that broke
+# it -- twice, on two differently-named properties. Note that the RIL still
+# takes the "setup thru mobile" branch: enabling this does NOT route anything
+# over WiFi. That needs the ePDG data plane (epdg_wod/wfca/strongSwan), which
+# this build does not ship, plus the framework switches, which stay off.
+persist.vendor.wfc.sys_wfc_support=1
 # ro.vendor.mtk_telephony_add_on_policy MUST be 0, exactly as stock sets it in
 # /system/etc/prop.default. An earlier revision set it to 1 with the comment "skip
 # absent extension/legacy jars and use the APK's built-in base factories",
