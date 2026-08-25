@@ -400,6 +400,36 @@ on property:ro.persistent_properties.ready=true
     setprop persist.dbg.vt_avail_ovr 0
     setprop persist.dbg.wfc_avail_ovr 0
 
+    # Modem/SIM topology from vendor.prop. Same stale-/data hazard as the IMS
+    # subset above: /vendor/build.prop is applied first (property_service.cpp:910)
+    # and persistent_properties second (:1029-1034), so without these a value
+    # left in /data silently wins. persist.radio.multisim.config and
+    # persist.vendor.radio.fd.counter are ALREADY present in
+    # /data/property/persistent_properties on this handset, which is proof of a
+    # live writer -- a key only lands there if something set it after the
+    # persisted set was loaded (:215).
+    #
+    # Keep this list equal to the set difference between the persist.* keys in
+    # vendor.prop and the setprops in this block:
+    #   grep -oE '^persist\.[A-Za-z0-9_.]+' vendor.prop | sort -u
+    #   grep -oE 'setprop +persist\.[A-Za-z0-9_.]+' \
+    #       rootdir/etc/init/hw/init.mt6755.rc | awk '{print $2}' | sort -u
+    #
+    # SEPOLICY: these are vendor_init setprops from a /vendor rc file. Nothing
+    # new is needed at PRODUCT_SHIPPING_API_LEVEL=26 -- system/sepolicy/public/
+    # vendor_init.te:193-215 wraps set_prop(vendor_init, {property_type -...})
+    # in not_compatible_property(), and none of the subtracted types is an MTK
+    # radio or IMS prop type. If the shipping level is ever raised past 27 that
+    # macro stops expanding and every key here needs an explicit set_prop().
+    setprop persist.radio.multisim.config dsds
+    setprop persist.vendor.radio.mtk_ps2_rat W/G
+    setprop persist.vendor.radio.mtk_dsbp_support 1
+    setprop persist.vendor.radio.fd.counter 150
+    setprop persist.vendor.radio.fd.off.counter 50
+    setprop persist.vendor.radio.fd.off.r8.counter 50
+    setprop persist.vendor.radio.fd.r8.counter 150
+    setprop persist.vendor.mtk_ct_volte_support 1
+
 # Boot is over: give the frequency and core floors back to PPM's own policies
 # and put read-ahead back to the default. Stock releases the frequency pin here
 # too; it does not release read-ahead.
