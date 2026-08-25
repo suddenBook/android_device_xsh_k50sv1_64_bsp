@@ -313,11 +313,32 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 # still contains a vendor developer's `zhengqiongtest` and `cfsucc @@@` printks --
 # so 256 KiB is not enough to hold a boot plus a reproduction.
 #
-# Not set on tier 3: a release image should not spend 7 MiB of RAM on log
-# buffers, and nobody is reading them there.
+# 1 MiB is still not enough for the RADIO buffer, and that is the one that
+# matters. HANDOFF trap 28 is the whole reason: MediaTek's IMSM retry loop runs
+# at ~42 Hz and writes ~640 lines a second, which wraps even a 16 MiB radio ring
+# in ninety seconds, and three sessions of VoLTE diagnosis were performed on
+# windows that no longer contained the cause.
+#
+# The standing workaround is `adb shell logcat -b all -G 64M` plus
+# `setprop persist.logd.size 64M`. Neither survives the userdata wipe that every
+# flash performs, so the FIRST BOOT after a flash -- the one boot nobody can
+# repeat -- has always been captured at the default size. That is how this
+# session lost the RIL shim's own "attach-APN re-send armed" line: the fix was
+# working and the line proving it had already scrolled.
+#
+# liblog resolves per-buffer keys first: `ro.logd.size.<name>` and
+# `persist.logd.size.<name>` before the global (properties.cpp:589-621,
+# __android_logger_get_buffer_size). So raise only the two that need it rather
+# than multiplying every buffer by 32. The cap is a maximum, not a
+# preallocation -- logd grows into it -- and this handset has 3.7 GiB.
+#
+# Not set on tier 3: a release image should not spend this on log buffers, and
+# nobody is reading them there.
 ifneq ($(K50SV1_BUILD_TIER),3)
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
-    ro.logd.size=1M
+    ro.logd.size=1M \
+    ro.logd.size.main=8M \
+    ro.logd.size.radio=32M
 endif
 
 # Silence one vendor tag that carries no information and 21% of the main buffer.

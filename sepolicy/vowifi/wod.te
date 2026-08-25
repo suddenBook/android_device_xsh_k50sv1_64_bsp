@@ -37,8 +37,15 @@ allow epdg_wod ipsec:process { signal signull sigkill };
 # declares iptables-wrapper-1.0, ip6tables-wrapper-1.0, ip-wrapper-1.0,
 # ndc-wrapper-1.0 and tc-wrapper-1.0 as `symlinks:` on netutils-wrapper-1.0, and
 # all five are present in this build. Nothing has to be added for them.
+#   avc: denied { read write } for comm="iptables-wrappe" path="socket:[13907]"
+#        scontext=u:r:netutils_wrapper:s0 tcontext=u:r:epdg_wod:s0
+#        tclass=unix_stream_socket
+# epdg_wod hands the wrapper its stdio through a socketpair (libforkexecwrap),
+# not a pipe, which is why this is unix_stream_socket and not fd/fifo. Stock has
+# the same shape for ipsec_mon, over netlink sockets instead.
 allow netutils_wrapper epdg_wod:fd use;
 allow netutils_wrapper epdg_wod:process sigchld;
+allow netutils_wrapper epdg_wod:unix_stream_socket { read write };
 
 # The generated conn fragments and charon's runtime directory.
 allow epdg_wod mtk_wod_apn_data_file:dir rw_dir_perms;
@@ -67,6 +74,13 @@ allow epdg_wod self:global_capability_class_set kill;
 set_prop(epdg_wod, mtk_wod_prop)
 set_prop(epdg_wod, mtk_wod_persist_prop)
 get_prop(epdg_wod, mtk_wfc_service_prop)
+# Measured, 13 denials in the first boot after the ePDG stack shipped:
+#   avc: denied { read open getattr } for comm="epdg_wod"
+#        name="u:object_r:mtk_radio_config_prop:s0" scontext=u:r:epdg_wod:s0
+# It reads ro.vendor.md_prop_ver (the modem property-table revision -- epdg_wod
+# is one of the eight binaries that carry that name) and the multi-SIM topology.
+# Read-only; the writers stay rild/mtkrild/vendor_init.
+get_prop(epdg_wod, mtk_radio_config_prop)
 get_prop(epdg_wod, mtk_ims_prop)
 get_prop(epdg_wod, mtk_ims_feature_prop)
 get_prop(epdg_wod, mtk_vendor_radio_prop)
@@ -78,6 +92,14 @@ allow mtkmal epdg_wod:unix_stream_socket connectto;
 allow epdg_wod { mtk_wod_action_socket mtk_wod_sim_socket }:sock_file write;
 
 # Rules Stock has that are deliberately NOT ported:
+#
+#   CAP_SYS_RESOURCE, which Stock does not grant either and which this build
+#   measured epdg_wod requesting twice in its first boot:
+#       avc: denied { sys_resource } for comm="epdg_wod" capability=24
+#   A daemon raising its own rlimit. Stock's compiled policy has no
+#   sys_resource for this domain, so Stock runs it without one too, and a
+#   failed setrlimit is not a failed tunnel. Grant it only against a measured
+#   consequence, not against the denial itself.
 #
 #   (allow epdg_wod self (capability (sys_module)))
 #       CAP_SYS_MODULE from a network daemon is a privilege escalation with no

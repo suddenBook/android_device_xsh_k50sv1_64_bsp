@@ -1,0 +1,25 @@
+# Domains OUTSIDE this subsystem that the ePDG stack needs something from.
+# Same split as gnss/, media/, power/, radio/ and nvram/vendor/: a client grant
+# belongs beside the other client grants, not in the file that declares the
+# type it names.
+#
+# This file sorts before file.te, which is where every type in this directory is
+# declared. That is fine and is the only ordering that is: get_prop() expands to
+# `allow`, and checkpolicy resolves an allow rule's operands at link time. Do
+# NOT put a `typeattribute` -- or any macro that expands to one, which is every
+# net_domain() and hal_*_domain() -- in a file that sorts before file.te.
+
+# libmal_epdga.so reads persist.vendor.wo.* from inside mtkmal. Measured, 15
+# denials in the first boot after the ePDG stack shipped:
+#   avc: denied { read open getattr } for comm="mtkmal"
+#        name="u:object_r:mtk_wod_persist_prop:s0" scontext=u:r:mtkmal:s0
+# Read-only: epdg_wod stays the only writer of that namespace.
+get_prop(mtkmal, mtk_wod_persist_prop)
+
+# ImsService (com.mediatek.ims, which runs in the `radio` domain) reads the
+# entitlement and operator-list half of the WFC namespace when it evaluates the
+# platform WFC switch. Measured, 6 denials in the same boot:
+#   avc: denied { read open getattr } for comm="om.mediatek.ims"
+#        name="u:object_r:mtk_wfc_service_prop:s0" scontext=u:r:radio:s0
+# Read-only. epdg_wod and adb remain the writers.
+get_prop(radio, mtk_wfc_service_prop)

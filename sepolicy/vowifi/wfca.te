@@ -58,10 +58,19 @@ get_prop(wfca, mtk_ims_prop)
 get_prop(wfca, mtk_ims_feature_prop)
 get_prop(wfca, mtk_vendor_radio_prop)
 
-# NO `dontaudit wfca self:capability dac_override`.
+# NO `dontaudit wfca self:capability dac_override`, and it DID appear:
 #
-# Stock has one. It is a root process, so a dac_override request means it
-# touched something whose mode it does not satisfy -- which is information, not
-# noise. If it appears at Tier 1 it gets diagnosed and either granted with a
-# reason or fixed by a mode/ownership change in the rc file. Silencing it here
-# would make that impossible to see, and this tree does not hide denials.
+#   avc: denied { dac_override } for comm="wfca" capability=1
+#        scontext=u:r:wfca:s0 tcontext=u:r:wfca:s0 tclass=capability
+#
+# once per boot, and it is deliberately NOT granted. Stock `dontaudit`s it,
+# which is not the same as allowing it -- Stock's compiled policy has no
+# `allow wfca self:capability dac_override` either, so Stock runs this daemon
+# WITHOUT the capability under enforcing and WFC works there. Silencing it here
+# would have hidden that fact rather than established it, which is why this
+# tree does not dontaudit.
+#
+# What it means: wfca is root and touched something whose mode it does not
+# satisfy. Under enforcing the request fails and root's other privileges carry
+# it through, exactly as on Stock. If a real failure ever traces back to this,
+# the fix is a mode or ownership change in init.wfca.rc, not a capability.

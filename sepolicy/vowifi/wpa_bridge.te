@@ -53,6 +53,18 @@
 # port OR on Stock. If Wi-Fi misbehaves after a flash, drop the -O in
 # init.wmt.rc, the mount in init.mt6755.rc and this file; nothing else changes.
 
+# init performs the bind mount itself, and the mountpoint keeps its own label
+# until the mount lands:
+#   avc: denied { mounton } for comm="init" path="/data/misc/wifi/sockets"
+#        scontext=u:r:init:s0 tcontext=u:object_r:wpa_socket:s0 tclass=dir
+# This is a core-on-core rule and still belongs in a VENDOR directory, by
+# BoardConfig.mk's own criterion: it exists because THIS device's
+# init.mt6755.rc does the mount, not because of an AOSP gap. No neverallow
+# covers it -- public/domain.te:488-489 protect exec_type and
+# {system,vendor}_file_type, :1107 protects lnk/fifo/sock_file, :1135 protects
+# proc, and wpa_socket is none of those.
+allow init wpa_socket:dir mounton;
+
 # The control connection is AF_UNIX SOCK_DGRAM in both directions: the client
 # binds its own <name>_ctrlconn node in the same directory and sendto()s the
 # server's node, and the server replies to the client's node.
