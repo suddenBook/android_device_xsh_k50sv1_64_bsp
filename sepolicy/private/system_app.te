@@ -4,3 +4,26 @@
 # core types and the label is not a board fact, so this belongs in plat_private
 # rather than in a BOARD_VENDOR_SEPOLICY_DIRS entry.
 r_dir_file(system_app, sysfs_zram)
+
+# Settings' memory page reads /proc/pagetypeinfo for its fragmentation readout.
+# ProcessStats.java:621-624 opens it by name ("Parse /proc/pagetypeinfo and
+# store the values") and :939 renders it, and that class runs in whichever
+# process builds the stats -- Settings included, which is system_app.
+#
+# Nothing forbids the grant. The neverallow at
+# system/sepolicy/private/app_neverallows.te:177-192 covers all_untrusted_apps,
+# and that macro is an explicit set (:5-13: ephemeral_app, isolated_app,
+# mediaprovider, untrusted_app, untrusted_app_25, untrusted_app_27,
+# untrusted_app_all). system_app is not in it. AOSP already makes the identical
+# grant to a core domain at private/system_server.te:852-857, and to incidentd
+# and dumpstate.
+#
+# plat_private for the same reason as the sysfs_zram rule above: both operands
+# are core types and neither label is a board fact.
+#
+# This was carried on tools/expected-avc-tuples.txt's REMOVED list for two
+# sessions with a note saying exactly where the rule belonged and that it was
+# "deliberately NOT added here: the sepolicy directory is owned by another
+# agent". Nobody owned it. Settings lost the readout on every boot and the
+# verifier called that normal.
+allow system_app proc_pagetypeinfo:file r_file_perms;
