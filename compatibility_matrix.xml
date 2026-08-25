@@ -15,6 +15,18 @@
     <hal format="hidl" optional="false">
         <name>android.hidl.manager</name>
         <version>1.0</version>
+        <!-- The <interface> block is what makes this a real requirement.
+             MatrixHal.cpp:118-127: when a matrix HAL yields no instance,
+             libvintf degrades the check to "compatibility matrix doesn't
+             specify any instances. Check versions only." AOSP's own
+             device_compatibility_matrix.default.xml carries it, so dropping it
+             here made this device matrix WEAKER than the default it replaces.
+             Every other entry below is a genuine version-presence requirement
+             under that same rule and needs no instance. -->
+        <interface>
+            <name>IServiceManager</name>
+            <instance>default</instance>
+        </interface>
     </hal>
     <hal format="hidl" optional="false">
         <name>android.hidl.memory</name>

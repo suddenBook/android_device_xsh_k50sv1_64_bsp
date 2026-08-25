@@ -5,8 +5,11 @@ include $(LOCAL_PATH)/build_tiers.mk
 # build/soong/android/namespace.go:110-127 creates one only where an Android.bp
 # declares `soong_namespace {}`. This directory has no root Android.bp, so an
 # entry for it would match nothing, and vendor/xsh/k50sv1_64_bsp declares its own
-# in the generated k50sv1_64_bsp-vendor.mk -- listing it here just duplicated it.
-# k50sv1_perfd and sensors.k50sv1_64_bsp therefore live in the root namespace and
+# in vendor/xsh/k50sv1_64_bsp/Android.bp:19 -- the generated
+# k50sv1_64_bsp-vendor.mk only carries the matching PRODUCT_SOONG_NAMESPACES
+# filter line, which is the FILTER described above and not the declaration.
+# Listing this directory here just duplicated that filter.
+# k50sv1_perfd and sensors.mt6755 therefore live in the root namespace and
 # are global module names; add a soong_namespace{} here if that ever needs to
 # change, rather than re-adding a line that advertises isolation the tree does
 # not have.
@@ -99,7 +102,7 @@ PRODUCT_PACKAGES += \
     librilutils \
     libsensorndkbridge \
     libtinyxml \
-    sensors.k50sv1_64_bsp
+    sensors.mt6755
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/agps_profiles_conf2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/agps_profiles_conf2.xml \

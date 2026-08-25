@@ -55,6 +55,19 @@ BOARD_VNDK_VERSION := current
 # PRODUCT_SHIPPING_API_LEVEL (26, from product_launched_with_o.mk); it only has
 # to be >= the latter and present in PLATFORM_SYSTEMSDK_VERSIONS.
 BOARD_SYSTEMSDK_VERSIONS := 28
+# PRODUCT_SHIPPING_API_LEVEL = 26 has a second, load-bearing consequence that is
+# invisible here and would only surface as a boot-time init parse failure.
+# config.mk:645-651 leaves PRODUCT_COMPATIBLE_PROPERTY false for any level <= 27,
+# main.mk:233-235 then ships ro.actionable_compatible_property.enabled=false, and
+# action_parser.cpp:36-40 returns early from IsActionableProperty() whenever that
+# is false -- skipping the partner-prefix check that would otherwise reject a
+# vendor `on property:` trigger with "unexported property trigger found".
+# Four triggers in this tree's own rc files depend on that relaxation:
+# ro.persistent_properties.ready, sys.boot_completed, sys.usb.config and
+# vold.decrypt. None is under init.svc.vendor./ro.vendor./persist.vendor./vendor./
+# init.svc.odm./ro.odm. (kPartnerPrefixes, action_parser.cpp:45-48).
+# Raising the shipping API level therefore requires re-homing those triggers or
+# granting the property types first. Do not raise it as a cosmetic change.
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
 DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml
 

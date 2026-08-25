@@ -20,7 +20,8 @@
         <!--
             Do NOT route emergency calls to IMS first.
 
-            AOSP defaults this true (CarrierConfigManager.java:723). With it
+            AOSP defaults this true (CarrierConfigManager.java:3305; the key
+            itself is declared at :722-723). With it
             true, GsmCdmaPhone.dial() takes the IMS path for ANY emergency call
             whenever `imsPhone.isImsAvailable()` holds, and that predicate asks
             only whether the ImsService BINDER is alive (ImsPhone.java:449 to

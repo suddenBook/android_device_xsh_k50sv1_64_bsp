@@ -659,9 +659,12 @@ vendor/lib64/vendor.mediatek.hardware.netdagent@1.0.so
 vendor/lib64/vendor.mediatek.hardware.nvram@1.0.so
 vendor/lib64/vendor.mediatek.hardware.nvram@1.1.so
 
-# IMS / VoLTE (voice-only). ImsService.apk is pinned and patched during  -- section: ims
-# extraction to the Lineage framework resource IDs, then platform-signed by the
-# selected build tier. WFC/EPDG, ViLTE/ViWiFi and RCS payloads are deliberately
+# IMS / VoLTE (voice-only). ImsService.apk is patched during extraction to the  -- section: ims
+# Lineage framework resource IDs, then platform-signed by the selected build
+# tier. Not "pinned" -- that word means a |sha1 suffix on the spec line
+# (extract_utils.sh:1612-1627) and this file uses none. The guard is stronger
+# than a pin and lives in extract-files.sh, which SHA-256s both the stock input
+# and the patched output. WFC/EPDG, ViLTE/ViWiFi and RCS payloads are deliberately
 # excluded.
 #
 # mediatek-ims-legacy.jar is NOT optional, and leaving it out is what stopped

@@ -1,5 +1,17 @@
 cc_library_shared {
-    name: "sensors.k50sv1_64_bsp",
+    // Named for ro.hardware (mt6755), not for the product, on purpose.
+    // hw_get_module() tries variant_keys in order -- ro.hardware,
+    // ro.product.board, ro.board.platform, ro.arch (hardware.c:59-65) -- so
+    // "sensors.mt6755" is the FIRST name the sensors HAL service asks for.
+    //
+    // Under the old name "sensors.k50sv1_64_bsp" this filter was reached only
+    // by the ro.product.board fallback, and only because the stock blob is
+    // renamed out of the way to sensors.mt6755.stock.so during extraction
+    // (proprietary-files.txt). Anyone restoring that blob under its original
+    // name would have silently bypassed the filter and brought back every
+    // phantom sensor, with no error anywhere. With this name that mistake is a
+    // duplicate-install build failure instead.
+    name: "sensors.mt6755",
     vendor: true,
     relative_install_path: "hw",
     compile_multilib: "64",

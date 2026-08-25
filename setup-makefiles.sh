@@ -26,6 +26,17 @@ setup_vendor "${DEVICE}" "${VENDOR}" "${LINEAGE_ROOT}"
 write_headers
 write_makefiles "${MY_DIR}/proprietary-files.txt"
 
+# Close the vendor Android.mk's `ifeq` BEFORE the Soong patch below, not after.
+# write_headers appends `ifeq ($(TARGET_DEVICE),k50sv1_64_bsp)` to $ANDROIDMK
+# (extract_utils.sh write_headers) and write_footers appends the matching
+# `endif` (extract_utils.sh write_footers); nothing between them touches
+# $ANDROIDMK. The patch below has three `die` paths, and under `set -e` any of
+# them would abort the script with $ANDROIDMK left unterminated -- every later
+# lunch/make then fails inside the vendor tree with an error that points nowhere
+# near the cause. Ordering it this way makes that impossible rather than
+# recoverable.
+write_footers
+
 # ImsService is defined by hand in device/xsh/k50sv1_64_bsp/ims/Android.mk so
 # that the privileged APK actually lands in /system/priv-app and can be
 # dexpreopted; Android Q's Soong android_app_import cannot do either. Drop the
@@ -84,5 +95,3 @@ PERL
     chmod --reference="${ANDROIDBP}" "${patched_bp}"
     mv -f -- "${patched_bp}" "${ANDROIDBP}"
 )
-
-write_footers
