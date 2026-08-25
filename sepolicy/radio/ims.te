@@ -200,6 +200,12 @@ allow volte_stack self:netlink_xfrm_socket {
 #        tcontext=u:object_r:mtk_volte_stack_socket:s0 tclass=sock_file
 allow volte_stack mtk_volte_stack_socket:sock_file write;
 
+# volte_stack publishes its own IMS state under vendor.net.ims.*; the pid is
+# the one this handset was measured writing. set_prop() also carries the
+# property_socket write and the connectto to init that the same denial set
+# showed, so all three records close together.
+set_prop(volte_stack, mtk_ims_net_prop)
+
 # node_bind / name_bind / name_connect: covered by net.te:15-19 via net_domain().
 
 # User agent connects only to the SIP stack; WFC/WFCA is intentionally absent.

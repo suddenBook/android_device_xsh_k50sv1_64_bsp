@@ -39,3 +39,16 @@ type mtk_volte_runtime_prop, property_type;
 type ctl_mtk_volte_imcb_prop, property_type;
 type ctl_mtk_volte_stack_prop, property_type;
 type ctl_mtk_volte_ua_prop, property_type;
+
+# vendor.net.ims.* -- written by volte_stack, which links libipsec_ims_shr.so.
+# Observed live on the first image where the IMS stack got far enough to
+# publish anything:
+#   avc: denied { set } for property=vendor.net.ims.volte.pid
+#        scontext=u:r:volte_stack:s0 tcontext=u:object_r:vendor_default_prop:s0
+# Unlabelled it falls to vendor_default_prop, which volte_stack cannot set, so
+# under enforcing the IMS stack would silently lose its own state publication.
+# Stock labels the whole `vendor.net.` prefix mtk_network_prop and grants its
+# rcs_volte_stack `set` on it; this tree scopes the type to the one subtree a
+# shipped daemon actually writes. The other reader that will matter is
+# ipsec_mon, which reads vendor.net.ims.ipsec.version -- see WI-018.
+type mtk_ims_net_prop, property_type;
