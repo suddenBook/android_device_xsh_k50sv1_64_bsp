@@ -438,6 +438,13 @@ static void cacheInitialAttachApn(RIL_SOCKET_ID socketId, const void *data,
         return;
     }
 
+    /* Log BEFORE publishing. Once `fresh` is in the cache another caller can
+     * take the lock and freeIaStrings() it, and this would then read freed
+     * memory -- a narrow window, but a real one. */
+    RLOGI("cached initial-attach APN for socket %d (apn=%s, auth=%d)",
+          (int)socketId, fresh.apn != NULL ? fresh.apn : "(null)",
+          fresh.authtype);
+
     pthread_mutex_lock(&sIaLock);
     if (sIaCached[socketId]) {
         freeIaStrings(&sIaCache[socketId]);
@@ -445,10 +452,6 @@ static void cacheInitialAttachApn(RIL_SOCKET_ID socketId, const void *data,
     sIaCache[socketId] = fresh;
     sIaCached[socketId] = true;
     pthread_mutex_unlock(&sIaLock);
-
-    RLOGI("cached initial-attach APN for socket %d (apn=%s, auth=%d)",
-          (int)socketId, fresh.apn != NULL ? fresh.apn : "(null)",
-          fresh.authtype);
 }
 
 static void completeHook(RIL_Token t, RIL_Errno e, void *response,
@@ -554,8 +557,10 @@ static void *iaWorker(void *unused)
  * pointer.
  */
 typedef struct {
-    const char *soname;      /* in:  basename to match */
-    ElfW(Addr) base;         /* out: load bias */
+    const char *soname;                 /* in:  basename to match */
+    ElfW(Addr) base;                    /* out: load bias */
+    const ElfW(Phdr) *phdr;             /* out: for the range check below */
+    ElfW(Half) phnum;
     const ElfW(Rela) *jmprel;
     size_t jmprelCount;
     const ElfW(Sym) *symtab;
@@ -563,10 +568,61 @@ typedef struct {
     bool found;
 } GotScan;
 
+/*
+ * Is [addr, addr+len) inside one of this module's PT_LOAD segments?
+ *
+ * This exists because the next function has one genuinely dangerous decision to
+ * make. DT_SYMTAB, DT_STRTAB and DT_JMPREL hold LINK-TIME virtual addresses;
+ * the runtime address is load_bias + d_ptr, and bionic's own reader does
+ * exactly that (`symtab_ = reinterpret_cast<ElfW(Sym)*>(load_bias +
+ * d->d_un.d_ptr)` in soinfo::prelink_image). It does NOT rewrite the dynamic
+ * section, so the raw value is never the answer here.
+ *
+ * Getting that backwards would not fail loudly: it would produce a plausible
+ * pointer into some other mapping, and the code below would strcmp() against it
+ * and then WRITE to whatever it decided was a GOT slot, inside rild. So every
+ * derived pointer is range-checked against the module's own segments before it
+ * is dereferenced, and the biased and raw forms are both tried rather than
+ * assumed.
+ */
+static bool inModule(const GotScan *scan, ElfW(Addr) addr, size_t len)
+{
+    ElfW(Half) i;
+
+    for (i = 0; i < scan->phnum; i++) {
+        const ElfW(Phdr) *ph = &scan->phdr[i];
+        ElfW(Addr) start, end;
+
+        if (ph->p_type != PT_LOAD) {
+            continue;
+        }
+        start = scan->base + ph->p_vaddr;
+        end = start + ph->p_memsz;
+        if (addr >= start && len <= (size_t)(end - addr)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/* Resolve one DT_* pointer entry to a runtime address, or 0. */
+static ElfW(Addr) resolveDynPtr(const GotScan *scan, ElfW(Addr) value, size_t len)
+{
+    if (inModule(scan, scan->base + value, len)) {
+        return scan->base + value;
+    }
+    if (inModule(scan, value, len)) {
+        return value;
+    }
+    return 0;
+}
+
 static int gotScanCallback(struct dl_phdr_info *info, size_t size, void *arg)
 {
     GotScan *scan = (GotScan *)arg;
     const ElfW(Dyn) *dyn = NULL;
+    ElfW(Addr) jmprel = 0, symtab = 0, strtab = 0;
+    size_t pltrelsz = 0;
     const char *name;
     size_t i;
 
@@ -580,6 +636,10 @@ static int gotScanCallback(struct dl_phdr_info *info, size_t size, void *arg)
         return 0;
     }
 
+    scan->base = info->dlpi_addr;
+    scan->phdr = info->dlpi_phdr;
+    scan->phnum = info->dlpi_phnum;
+
     for (i = 0; i < info->dlpi_phnum; i++) {
         if (info->dlpi_phdr[i].p_type == PT_DYNAMIC) {
             dyn = (const ElfW(Dyn) *)(info->dlpi_addr +
@@ -588,26 +648,26 @@ static int gotScanCallback(struct dl_phdr_info *info, size_t size, void *arg)
         }
     }
     if (dyn == NULL) {
-        return 0;
+        RLOGE("%s has no PT_DYNAMIC", scan->soname);
+        return 1;
     }
 
-    scan->base = info->dlpi_addr;
     for (; dyn->d_tag != DT_NULL; dyn++) {
         switch (dyn->d_tag) {
         case DT_JMPREL:
-            scan->jmprel = (const ElfW(Rela) *)dyn->d_un.d_ptr;
+            jmprel = (ElfW(Addr))dyn->d_un.d_ptr;
             break;
         case DT_PLTRELSZ:
-            scan->jmprelCount = dyn->d_un.d_val / sizeof(ElfW(Rela));
+            pltrelsz = (size_t)dyn->d_un.d_val;
             break;
         case DT_SYMTAB:
-            scan->symtab = (const ElfW(Sym) *)dyn->d_un.d_ptr;
+            symtab = (ElfW(Addr))dyn->d_un.d_ptr;
             break;
         case DT_STRTAB:
-            scan->strtab = (const char *)dyn->d_un.d_ptr;
+            strtab = (ElfW(Addr))dyn->d_un.d_ptr;
             break;
         case DT_PLTREL:
-            /* RELA only. A REL-based PLT would mean the entry layout above is
+            /* RELA only. A REL-based PLT would mean the entry layout below is
              * wrong, and reading it as RELA would walk off the section. */
             if (dyn->d_un.d_val != DT_RELA) {
                 RLOGE("%s PLT is not RELA", scan->soname);
@@ -618,8 +678,27 @@ static int gotScanCallback(struct dl_phdr_info *info, size_t size, void *arg)
             break;
         }
     }
-    scan->found = (scan->jmprel != NULL && scan->jmprelCount != 0 &&
-                   scan->symtab != NULL && scan->strtab != NULL);
+
+    if (pltrelsz == 0 || pltrelsz % sizeof(ElfW(Rela)) != 0) {
+        RLOGE("%s DT_PLTRELSZ %zu is not a whole number of RELA entries",
+              scan->soname, pltrelsz);
+        return 1;
+    }
+    scan->jmprel = (const ElfW(Rela) *)resolveDynPtr(scan, jmprel, pltrelsz);
+    /* One ElfW(Sym) is the least that has to be readable; the table's extent is
+     * not in the dynamic section, and each entry is checked as it is used. */
+    scan->symtab = (const ElfW(Sym) *)resolveDynPtr(scan, symtab,
+                                                    sizeof(ElfW(Sym)));
+    scan->strtab = (const char *)resolveDynPtr(scan, strtab, 1);
+    scan->jmprelCount = pltrelsz / sizeof(ElfW(Rela));
+    scan->found = (scan->jmprel != NULL && scan->symtab != NULL &&
+                   scan->strtab != NULL);
+    if (!scan->found) {
+        RLOGE("%s dynamic pointers do not resolve inside its own segments "
+              "(jmprel=%p symtab=%p strtab=%p)", scan->soname,
+              (const void *)scan->jmprel, (const void *)scan->symtab,
+              (const void *)scan->strtab);
+    }
     return 1;
 }
 
@@ -646,12 +725,23 @@ static void *hookGotEntry(const GotScan *scan, const char *symbol,
         if (ELF64_R_TYPE(rela->r_info) != R_AARCH64_JUMP_SLOT) {
             continue;
         }
+        /* Both derefs are range-checked; see inModule(). A malformed or
+         * unexpected table must not turn into a wild read here. */
+        if (!inModule(scan, (ElfW(Addr))&scan->symtab[symIndex],
+                      sizeof(ElfW(Sym)))) {
+            continue;
+        }
         name = scan->strtab + scan->symtab[symIndex].st_name;
-        if (strcmp(name, symbol) != 0) {
+        if (!inModule(scan, (ElfW(Addr))name, 1) ||
+            strcmp(name, symbol) != 0) {
             continue;
         }
 
         slot = (void **)(scan->base + rela->r_offset);
+        if (!inModule(scan, (ElfW(Addr))slot, sizeof(void *))) {
+            RLOGE("GOT slot for %s is outside %s", symbol, scan->soname);
+            return NULL;
+        }
         pageSize = sysconf(_SC_PAGESIZE);
         if (pageSize <= 0) {
             return NULL;
