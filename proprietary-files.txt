@@ -712,6 +712,16 @@ vendor/lib64/vendor.mediatek.hardware.nvram@1.1.so
 # jni_mal_rds_set_ui_param; its only non-VNDK DT_NEEDED is the interface library
 # below. init.rc runs it as user/group radio, which is what grants it
 # /dev/socket/mal_mfi (created 660 root radio by init.mal.rc).
+#
+# libmal_epdga.so is NOT here, deliberately, and it is the obvious thing to add
+# if VoLTE still does not register. Do not add it on a hunch. mtkmal does try to
+# load an ePDG module when EPDG_SUPPORT is on, and EPDG_SUPPORT is derived from
+# persist.vendor.mtk_wfc_support, which is now 1 -- but two full boots were
+# captured in that exact configuration with the file absent (E-087) and MAL
+# logged no dlopen failure and no degradation: registrations held, data flowed,
+# and the IMS PDN activated. It belongs with the rest of the ePDG data plane
+# (epdg_wod, wfca, charon/starter/stroke, libwo.so, /vendor/etc/ipsec/*), which
+# is a VoWiFi work item, not a VoLTE one.
 vendor/bin/hw/vendor.mediatek.hardware.wfo@1.0-service
 vendor/etc/init/vendor.mediatek.hardware.wfo@1.0-service.rc
 vendor/lib64/vendor.mediatek.hardware.wfo@1.0.so
