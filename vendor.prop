@@ -97,7 +97,7 @@ persist.vendor.volte_support=1
 # 90 s, which is why every post-hoc `logcat -d` diagnosis of this bug was
 # reading a window that no longer contained the cause.
 #
-# Measured on the handset, one variable, nothing else changed (E-089):
+# Measured on the handset, one variable, nothing else changed (E-091):
 #
 #   sys_wfc_support=0  ->  queryEpdgRat: "EPDG is not supported"
 #                          epdgConfig, isHandOver: 0, eran_type: 0

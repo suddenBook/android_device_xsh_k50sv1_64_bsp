@@ -356,7 +356,7 @@ on property:vendor.service.nvram_init=Ready
 #   persist.vendor.wfc.sys_wfc_support  -> the second gate inside queryEpdgRat
 #       (mtk-ril.so 0x950bc); at 0 it logs "EPDG is not supported" and returns
 #       eran_type 0, MAL's IMSM then logs "rat error!!" and spins forever on
-#       imsm_handler.c:4141, and +CIREGU never leaves 0 (E-089).
+#       imsm_handler.c:4141, and +CIREGU never leaves 0 (E-091).
 #
 # Both derivations are in the comments above those properties in vendor.prop.
 # The USER-FACING switch is persist.vendor.mtk.wfc.enable, and it stays 0 below;
