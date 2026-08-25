@@ -410,17 +410,33 @@ on property:sys.boot_completed=1
     write /proc/ppm/policy/userlimit_min_cpu_core "1 -1"
     write /sys/block/mmcblk0/queue/read_ahead_kb 128
 
-    # /data is NOT mmcblk0's queue. It is block-encrypted, so it is dm-0 -- a
-    # separate gendisk with its own request queue and its own backing-dev-info,
-    # which the writes above never reached. The elevator choice does carry over
-    # (dm is bio-based and remaps onto mmcblk0's queue), but nr_requests and
-    # read-ahead do not, and /data is where dexopt output and every app live.
-    # dev.mnt.blk.data is only set once /data is mounted, which is why this
-    # cannot live with the block above; AOSP's own attempt at init.rc fails for
-    # the same reason with "cannot expand".
-    write /sys/devices/virtual/block/${dev.mnt.blk.data}/queue/read_ahead_kb 128
-    write /sys/devices/virtual/block/${dev.mnt.blk.data}/queue/nr_requests 256
-    write /sys/devices/virtual/block/${dev.mnt.blk.data}/queue/iostats 0
+    # /data may or may not be mmcblk0's queue, so both cases are covered by one
+    # expansion with a default.
+    #
+    # Under FDE /data was dm-0: a separate gendisk with its own request queue
+    # and its own backing-dev-info, which the writes above never reached. The
+    # elevator choice carried over (dm is bio-based and remaps onto mmcblk0's
+    # queue) but nr_requests and read-ahead did not, and /data is where dexopt
+    # output and every app live.
+    #
+    # Unencrypted, /data mounts straight off mmcblk0p30, and then
+    # dev.mnt.blk.data is NOT SET AT ALL: mount_handler.cpp:77-85 strips a
+    # partition suffix only for sd*, then stats /sys/block/<value>/queue and
+    # blanks the value when that is not a directory -- and /sys/block holds
+    # gendisks, not partitions, so /sys/block/mmcblk0p30 does not exist. Live
+    # on this handset: `getprop | grep dev.mnt` returns dev.mnt.blk.data and
+    # nothing for /cache, which mounts the same way. An unset property is a
+    # hard command failure, not a skip (util.cpp:344-348), so without the
+    # default these three writes are three logged errors and three lost
+    # tunings on every boot.
+    #
+    # ${name:-default} is supported at util.cpp:328-332. mmcblk0 is the correct
+    # fallback: an unencrypted /data IS mmcblk0's queue, a partition has no
+    # queue of its own, and the write is then idempotent with the one above.
+    # /sys/block covers both -- it holds dm-0 as well as mmcblk0.
+    write /sys/block/${dev.mnt.blk.data:-mmcblk0}/queue/read_ahead_kb 128
+    write /sys/block/${dev.mnt.blk.data:-mmcblk0}/queue/nr_requests 256
+    write /sys/block/${dev.mnt.blk.data:-mmcblk0}/queue/iostats 0
     start vendor.k50sv1_perfd
 
 # Screen-on maximum performance. Started at boot_completed rather than earlier

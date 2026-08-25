@@ -2,9 +2,63 @@
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system    /system               ext4  ro                                          wait,first_stage_mount
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/vendor    /vendor               ext4  ro                                          wait,first_stage_mount
 
-# Block-encrypted userdata. metadata is a raw cryptfs key/footer partition,
-# not a mountable filesystem.
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata  /data                 ext4  noatime,nosuid,nodev,noauto_da_alloc          wait,check,formattable,quota,forcefdeorfbe=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/metadata
+# UNENCRYPTED userdata, by owner decision, on EVERY tier including Tier 3.
+#
+# This line used to carry
+#   forcefdeorfbe=/dev/block/platform/.../by-name/metadata
+# which is what made fs_mgr return FS_MGR_MNTALL_DEV_MIGHT_BE_ENCRYPTED, init
+# set ro.crypto.state=encrypted / ro.crypto.type=block, and vold run the whole
+# cryptfs FDE flow (builtins.cpp:576-580). Without it fs_mgr returns
+# FS_MGR_MNTALL_DEV_NOT_ENCRYPTABLE, init sets ro.crypto.state=unsupported and
+# fires the `nonencrypted` trigger instead (builtins.cpp:585-588). That path is
+# fully wired in AOSP: init.rc:770-772 `on nonencrypted` does class_start
+# main/late_start, and init.rc:645-649 `on zygote-start &&
+# property:ro.crypto.state=unsupported` starts netd and zygote. post-fs-data is
+# not deferred behind vold.decrypt at all -- init.rc:344 triggers it straight
+# from late-init.
+#
+# PRECONDITION, and the one way this change bricks a boot: /data MUST be wiped
+# on the flash that introduces it. If dm-crypt ciphertext is left in place,
+# partition_wiped() is false and is_encryptable() is now false, so
+# fs_mgr.cpp:1299-1316 takes its final else and increments error_count ->
+# FS_MGR_MNTALL_FAIL -> builtins.cpp:631-636 returns an error and queues NO
+# trigger at all. Not `nonencrypted`, not `encryption_failed`: nothing. No
+# class_start main, no framework, forever, with no message that names the
+# cause. tools/flash-tier-images.sh already erases userdata unconditionally --
+# this note exists so nobody "optimises" that away.
+#
+# Why: this is an engineering-sample board used for bring-up. Its releasekey and
+# platform private keys are public (device/.../security/), so FDE was protecting
+# data on a device that is not trustworthy in the first place.
+#
+# What it actually cost is worth stating correctly, because the first version of
+# this comment guessed. It was NOT a "several-minute enablecrypto pass": on a
+# freshly formatted userdata the in-place encryption is cheap, because
+# EncryptInplace.cpp:170-244 walks the ext4 block bitmap and skips free blocks,
+# and :314-316 sizes the work from allocated blocks only. The cost was
+# structural. On every flash the framework was started TWICE --
+# vold/cryptfs.cpp:2780-2798 mounts a tmpfs /data and brings up `class main` on
+# it, then :2905-2906 tears that down and restarts main+late_start on the real
+# one -- plus two hardcoded sleep(2)s at :2795 and :2910; and on every boot
+# thereafter a scrypt key derivation and a dm-crypt setup ahead of `class main`.
+# The CPU does have ARMv8 crypto extensions (`Features: ... aes pmull sha1 sha2
+# ...`), so steady-state throughput was never the problem.
+#
+# Consequence to state rather than rediscover: /data is plaintext at rest, and
+# ro.crypto.state reads `unsupported`, not `unencrypted` -- the latter means
+# "encryptable but not encrypted", which is a different fstab (encryptable=).
+# The metadata partition is now unused; the flasher still erases it.
+#
+# Second consequence, and the only user-visible behaviour change found in the
+# framework: StorageManager.isEncryptable() is false, so
+# DevicePolicyManagerService.getStorageEncryptionStatus() returns
+# ENCRYPTION_STATUS_UNSUPPORTED rather than ENCRYPTION_STATUS_INACTIVE. Every
+# other consumer -- DirectBoot, UserManager.isUserUnlocked(), keystore
+# auth-bound keys, LockSettingsService -- short-circuits cleanly, and
+# UserManager.isUserUnlocked() is simply always true because there is no locked
+# phase to be in. Do NOT add `encryptable=` here to "tidy" the state string:
+# that flips is_encryptable() back on and puts the FDE machinery back.
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata  /data                 ext4  noatime,nosuid,nodev,noauto_da_alloc          wait,check,formattable,quota
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache     /cache                ext4  noatime,nosuid,nodev,noauto_da_alloc,discard  wait,check,formattable
 
 # MTK radio/calibration data filesystems. Never auto-format these identity and

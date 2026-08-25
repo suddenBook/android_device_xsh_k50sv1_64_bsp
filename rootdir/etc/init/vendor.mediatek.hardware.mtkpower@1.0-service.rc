@@ -3,5 +3,9 @@ service power-hal-1-0 /vendor/bin/hw/vendor.mediatek.hardware.mtkpower@1.0-servi
     user system
     group system wifi
 
-on property:vold.decrypt=trigger_shutdown_framework
-    setprop vendor.powerhal.init 0
+# Stock's `on property:vold.decrypt=trigger_shutdown_framework / setprop
+# vendor.powerhal.init 0` is deliberately not here. vold.decrypt is written
+# only from inside the FDE flow (vold/cryptfs.cpp: 1733, 1765, 1770, 1825,
+# 1945, 1948, 2660, 2798, 2900, 3414, 3427) and userdata is no longer
+# encrypted (rootdir/etc/fstab.mt6755), so the trigger can never fire again.
+# It was the last surviving vold.decrypt trigger in this tree.

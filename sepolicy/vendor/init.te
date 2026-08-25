@@ -35,14 +35,21 @@ allowxperm e2fs cache_block_device:blk_file ioctl {
     BLKROGET
 };
 
-# With wiped userdata and forcefdeorfbe=<metadata>, fs_mgr opens the external
-# key partition as init and wipe_block_device() tries secure discard followed
-# by ordinary discard. AOSP already grants init the blk_file class permission;
-# it does not grant these two extended ioctls on metadata_block_device.
-allowxperm init metadata_block_device:blk_file ioctl {
-    BLKSECDISCARD
-    BLKDISCARD
-};
+# No metadata_block_device ioctl grant here, deliberately. It used to exist
+# because forcefdeorfbe=<metadata> made fs_mgr open the external cryptfs key
+# partition as init and wipe_block_device() issue BLKSECDISCARD/BLKDISCARD on
+# it (fs_mgr.cpp:1247-1255, reachable only when is_encryptable() is true and
+# key_loc != KEY_IN_FOOTER). userdata is no longer encrypted
+# (rootdir/etc/fstab.mt6755 says why), so that branch is unreachable and the
+# rule was dead. Nothing else in this configuration opens `metadata` at boot:
+# fs_mgr's other key_dir uses are should_use_metadata_encryption() and the GSI
+# suffix, first_stage_mount mounts it only if the fstab has an entry (it does
+# not), and vold's /metadata/vold/checkpoint is behind isCheckpointing(), which
+# needs a `checkpoint=` flag this fstab does not carry.
+#
+# The metadata_block_device LABEL in sepolicy/vendor/file_contexts stays. It is
+# inert, it costs nothing, and it means restoring FDE is this one rule again:
+#   allowxperm init metadata_block_device:blk_file ioctl { BLKSECDISCARD BLKDISCARD };
 
 # init x sysfs_mtk_io_scheduler. An earlier revision REMOVED this rule, reasoning
 # that AOSP's init.rc never touches /sys/block/*/queue/* and that the only writer
