@@ -21,6 +21,19 @@ hal_server_domain(mtk_hal_imsa, hal_mtk_imsa)
 allow mtk_hal_imsa mtk_volte_imsm_socket:sock_file write;
 allow mtk_hal_imsa mtkmal:unix_stream_socket connectto;
 
+# Wi-Fi offload HIDL server. It dlopens /vendor/lib64/libmal.so and speaks MFI
+# to mtkmal; rds_set_ui_param over that socket is the only thing that clears
+# RDS's "Epdgs is not ready" gate, without which no IMS RAT is ever assigned and
+# the IMS PDN is aborted (E-087). Its init.rc runs it as user/group radio, which
+# is what lets it open /dev/socket/mal_mfi (660 root radio, init.mal.rc).
+type mtk_hal_wfo, domain;
+type mtk_hal_wfo_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(mtk_hal_wfo)
+hal_server_domain(mtk_hal_wfo, hal_mtk_wfo)
+# Same reasoning as mtk_hal_imsa above: no explicit hwbinder_use().
+allow mtk_hal_wfo mtk_mal_mfi_socket:sock_file write;
+allow mtk_hal_wfo mtkmal:unix_stream_socket connectto;
+
 # Modem adaptation layer and its in-process entity libraries.
 init_daemon_domain(mtkmal)
 vndbinder_use(mtkmal)

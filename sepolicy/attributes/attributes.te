@@ -58,6 +58,11 @@ hal_attribute(mtk_nvram)
 #   vendor.mediatek.hardware.imsa::IImsa
 #       /vendor/bin/hw/vendor.mediatek.hardware.imsa@1.0-service
 hal_attribute(mtk_imsa)
+#   vendor.mediatek.hardware.wfo::IWifiOffload  (instance wfo_hidl_service)
+#       /vendor/bin/hw/vendor.mediatek.hardware.wfo@1.0-service
+# On the VoLTE path, not only the VoWiFi one: this is how WifiOffloadService
+# reaches libmal.so's rds_set_ui_param, the only writer of RDS's Epdgs flag.
+hal_attribute(mtk_wfo)
 #   vendor.mediatek.hardware.mtkradioex::IMtkRadioEx
 #       published by /vendor/bin/hw/rilproxy (rild domain).
 # hal_mtk_radioex replaces the previous reuse of the platform hal_telephony

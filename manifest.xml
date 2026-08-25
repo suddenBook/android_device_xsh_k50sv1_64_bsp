@@ -211,6 +211,30 @@
         <fqname>@1.0::IImsa/imsa</fqname>
     </hal>
     <hal format="hidl">
+        <!-- MediaTek's Wi-Fi offload HAL, and it is required for VoLTE, not
+             only for VoWiFi. The framework half (WifiOffloadService, in
+             mediatek-wfo-legacy.jar, started by ImsService) reaches
+             libmal.so's rds_set_ui_param through this interface, and that call
+             is the ONLY writer of RDS's "Epdgs ready" flag; without it RDS
+             assigns no IMS RAT and the IMS PDN is aborted (E-087).
+
+             This entry is load-bearing, not documentation.
+             PRODUCT_ENFORCE_VINTF_MANIFEST is true on this device (derived from
+             PRODUCT_SHIPPING_API_LEVEL=26 via config.mk:658-665 and :673-682),
+             so libhidl is built with -DENFORCE_VINTF_MANIFEST. A HAL missing
+             from this manifest gets Transport::EMPTY and getService() returns
+             null FOREVER, even though the server registered successfully;
+             registration consults SELinux only. WifiOffloadService then retries
+             initHidlService() every 2 s with no self-heal, which hides the
+             cause. Symptom to grep for: "initHidlService() fail !!!".
+
+             The instance name must stay wfo_hidl_service: it is
+             WifiOffloadService.WFO_HIDL_SERVICE_NAME. -->
+        <name>vendor.mediatek.hardware.wfo</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.0::IWifiOffload/wfo_hidl_service</fqname>
+    </hal>
+    <hal format="hidl">
         <name>vendor.mediatek.hardware.mms</name>
         <transport>hwbinder</transport>
         <fqname>@1.5::IMms/default</fqname>

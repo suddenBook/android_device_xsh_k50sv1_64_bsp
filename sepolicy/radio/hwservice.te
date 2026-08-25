@@ -1,5 +1,6 @@
 type mtk_radioex_hwservice, hwservice_manager_type;
 type mtk_imsa_hwservice, hwservice_manager_type;
+type mtk_wfo_hwservice, hwservice_manager_type;
 
 # hal_attribute_hwservice only wires up hwservice_manager find/add; the HIDL
 # traffic itself needs the binder pair. Without it the ImsService APK
@@ -21,3 +22,9 @@ hal_attribute_hwservice(hal_mtk_imsa, mtk_imsa_hwservice)
 binder_call(hal_mtk_radioex_client, hal_mtk_radioex_server)
 binder_call(hal_mtk_radioex_server, hal_mtk_radioex_client)
 hal_attribute_hwservice(hal_mtk_radioex, mtk_radioex_hwservice)
+
+# The Wi-Fi offload HAL, reached from the same client as imsa above: the
+# ImsService APK in the radio domain. Same binder pair for the same reason.
+binder_call(hal_mtk_wfo_client, hal_mtk_wfo_server)
+binder_call(hal_mtk_wfo_server, hal_mtk_wfo_client)
+hal_attribute_hwservice(hal_mtk_wfo, mtk_wfo_hwservice)

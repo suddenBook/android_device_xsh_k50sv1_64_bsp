@@ -70,6 +70,15 @@ BOARD_SYSTEMSDK_VERSIONS := 28
 # granting the property types first. Do not raise it as a cosmetic change.
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
 DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml
+# Do NOT add DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE. Setting it is what
+# turns on assemble_vintf's VINTF_ENFORCE_NO_UNUSED_HALS check, in the
+# manifest->matrix direction, for the WHOLE device manifest. This tree declares
+# 14 vendor.mediatek.* HALs that no compatibility matrix in
+# hardware/interfaces/compatibility_matrices/ mentions, which is normal and
+# correct for vendor-private interfaces -- and every one of them would fail that
+# check at once. The other direction (matrix->manifest) already runs on every
+# build and passes; PRODUCT_ENFORCE_VINTF_MANIFEST is true here, derived from
+# PRODUCT_SHIPPING_API_LEVEL=26 (config.mk:658-665, :673-682).
 
 # Kernel and boot image
 # Read only by vendor/lineage/config/BoardConfigKernel.mk:48-52, which runs only

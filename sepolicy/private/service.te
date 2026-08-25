@@ -22,3 +22,19 @@ type mtk_ims_service, service_manager_type;
 # impersonating the IMS service.
 add_service(radio, mtk_ims_service)
 allow system_server mtk_ims_service:service_manager find;
+
+# The same process also registers "wfo" -> com.mediatek.wfo.IWifiOffloadService,
+# from WfoService.makeWfoService() called by ImsService.<init>. Stock labels it
+# radio_service (plat_service_contexts:260), which is the shared bucket
+# untrusted_app_all, priv_app, platform_app and ephemeral_app can all `find` --
+# so on Stock any installed app can getService("wfo"). WifiOffloadService's
+# binder methods do no permission checks of their own, so the label IS the
+# access control. Its own type, same as mtk_ims_service above.
+#
+# Without a service_contexts entry "wfo" falls to the catch-all
+# `* u:object_r:default_android_service:s0`, and
+# system/sepolicy/public/domain.te makes adding to default_android_service a
+# neverallow -- which no allow rule can work around. The pair is mandatory.
+type mtk_wfo_service, service_manager_type;
+add_service(radio, mtk_wfo_service)
+allow system_server mtk_wfo_service:service_manager find;

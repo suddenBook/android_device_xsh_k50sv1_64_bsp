@@ -9,6 +9,11 @@ get_prop(radio, mtk_radio_config_prop)
 get_prop(radio, mtk_ims_prop)
 set_prop(radio, mtk_ims_feature_prop)
 hal_client_domain(radio, hal_mtk_imsa)
+# Same process, same reason: ImsService.<init> also starts WifiOffloadService,
+# which is a client of the Wi-Fi offload HAL. system_server is deliberately NOT
+# a client here even though Stock grants it -- nothing in mediatek-wfo-legacy
+# runs in system_server on this configuration. Add it only against a real AVC.
+hal_client_domain(radio, hal_mtk_wfo)
 
 # com.android.phone is the only consumer of rilproxy's MtkRadioEx extension
 # (lshal shows vendor.mediatek.hardware.mtkradioex@1.0-1.9::IMtkRadioEx with

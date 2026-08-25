@@ -69,3 +69,4 @@
 /dev/socket/volte_imsa[12]                u:object_r:mtk_volte_imsa_socket:s0
 /dev/socket/volte_stack                   u:object_r:mtk_volte_stack_socket:s0
 /dev/socket/volte_ua                      u:object_r:mtk_volte_ua_socket:s0
+/(vendor|system/vendor)/bin/hw/vendor\.mediatek\.hardware\.wfo@1\.0-service    u:object_r:mtk_hal_wfo_exec:s0

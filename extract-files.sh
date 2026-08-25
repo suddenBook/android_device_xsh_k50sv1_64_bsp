@@ -161,20 +161,27 @@ function patch_ims_apk() {
             exit 1
         fi
 
-        # The Stock APK starts its full Wi-Fi offload service even when WFC is
-        # disabled. This voice-only port retains the state array expected by
-        # the remaining code but does not instantiate WFO/MWI or its EPDG path.
+        # ImsService.<init> calls WfoService.getInstance(ctx).makeWfoService(),
+        # which publishes the "wfo" binder service. That call is KEPT, and this
+        # assertion exists so that an unexpected upstream APK is a hard failure
+        # rather than a silent behaviour change.
+        #
+        # An earlier revision deleted the call here, describing it as "the full
+        # Wi-Fi offload service even when WFC is disabled" that a voice-only
+        # port does not need. That is the wrong reading of what the service
+        # does, and removing it is one half of why VoLTE never registered:
+        # WifiOffloadService is the only caller of nativeSetWosProfile, which is
+        # what reaches libmal.so's rds_set_ui_param, which is the ONLY writer of
+        # MediaTek's RDS "Epdgs ready" flag. With that flag clear, RDS refuses to
+        # assign an IMS RAT ("MDmngr(1) or Epdgs(0) is not ready", every ~5 s),
+        # MAL reports assigned_rat=0, mtk-ril's configEpdg turns that into
+        # eran_type=0, and MAL's IMSM aborts the IMS PDN with "rat error!!".
+        # See E-087, and vendor.prop's note on persist.vendor.mtk_wfc_support,
+        # which is the other half.
         if [[ "$(grep -F -c \
                 'Lcom/mediatek/wfo/impl/WfoService;->makeWfoService()V' \
                 "${ims_service}")" -ne 1 ]]; then
             echo "Unexpected Stock WFO call count in ImsService.apk" >&2
-            exit 1
-        fi
-        sed -i \
-            '/^[[:space:]]*\.line 691$/,/WfoService;->makeWfoService()V$/d' \
-            "${ims_service}"
-        if grep -F -q 'WfoService;->makeWfoService()V' "${ims_service}"; then
-            echo "Failed to remove the voice-only WFO startup call" >&2
             exit 1
         fi
 
@@ -199,16 +206,26 @@ function patch_ims_apk() {
             zip -q -X ImsService.apk classes.dex
         )
         unzip -tq "${patch_dir}/ImsService.apk" >/dev/null
+        # These two pins are reproducibility gates, not integrity gates: the
+        # input APK is already SHA-256 checked above. They exist so that a
+        # toolchain change, a resource-ID shift or an unintended smali edit is a
+        # loud failure. Both were re-derived when the WFO startup call stopped
+        # being deleted (E-087); the previous values were
+        # 3d604f601fe96110598fdda69f675f16751e6b78c47275b9225686b4fcb58a1c and
+        # 022d324338cdfac31c78c4babb4871eca311d72b35c9fe2349ab7986a5d91e6e.
+        # Both new values were confirmed to reproduce across two runs, and the
+        # resulting dex was checked to carry the four LINEAGE resource IDs and
+        # exactly one makeWfoService() call.
         dex_sha="$(unzip -p "${patch_dir}/ImsService.apk" classes.dex \
             | sha256sum | awk '{ print $1 }')"
         if [[ "${dex_sha}" != \
-              "3d604f601fe96110598fdda69f675f16751e6b78c47275b9225686b4fcb58a1c" ]]; then
+              "d5bfa7cca540029899e48040aadc35fde6e5846cb2150d0e70b5263e1f00d638" ]]; then
             echo "Non-reproducible patched IMS classes.dex: ${dex_sha}" >&2
             exit 1
         fi
         apk_sha="$(sha256sum "${patch_dir}/ImsService.apk" | awk '{ print $1 }')"
         if [[ "${apk_sha}" != \
-              "022d324338cdfac31c78c4babb4871eca311d72b35c9fe2349ab7986a5d91e6e" ]]; then
+              "c762f544596c1066c1ed36feb78ee00d7035262bf087572a7c8026f2f8629a8b" ]]; then
             echo "Non-reproducible patched ImsService.apk: ${apk_sha}" >&2
             exit 1
         fi

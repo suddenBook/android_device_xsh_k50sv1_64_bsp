@@ -689,6 +689,32 @@ vendor/lib64/vendor.mediatek.hardware.nvram@1.1.so
 -system/framework/mediatek-telephony-base.jar
 -system/framework/mediatek-telephony-common.jar
 -system/priv-app/ImsService/ImsService.apk
+# mediatek-wfo-legacy.jar is on the VoLTE critical path, not the VoWiFi one.
+# ImsService.<init> calls WfoService.makeWfoService() unconditionally, and with
+# ro.vendor.mtk_ril_mode=c6m_3rild that takes the WifiOffloadService branch and
+# publishes the "wfo" binder service. WifiOffloadService is the only caller of
+# IWifiOffload.nativeSetWosProfile -> libmal.so rds_set_ui_param, which is the
+# ONLY writer of RDS's "Epdgs ready" flag (one str instruction, libmal_rds.so
+# rds_ru_set_uiparam_req). Until that flag is set RDS assigns no IMS RAT and
+# MAL aborts the IMS PDN with "rat error!!" (E-087).
+#
+# Like mediatek-ims-legacy.jar above, it is loaded by absolute path with a
+# PathClassLoader (ExtensionFactory.makeLegacyComponentFactory), so it needs no
+# <library> XML, no <uses-library> and no PRODUCT_BOOT_JARS entry. Do NOT add it
+# to PRODUCT_BOOT_JARS: it re-declares 122 classes that mediatek-telephony-common
+# already puts on the boot classpath, and the boot image has no duplicate-class
+# escape hatch. system/etc/permissions/com.mediatek.wfo.legacy.xml is
+# deliberately NOT extracted -- the explicit PathClassLoader ignores it, and
+# shipping it would put the jar into ImsService.apk's runtime class-loader
+# context, which ims/Android.mk documents as deliberately empty.
+-system/framework/mediatek-wfo-legacy.jar
+# The HIDL server the jar talks to. It dlopens libmal.so and dlsyms
+# jni_mal_rds_set_ui_param; its only non-VNDK DT_NEEDED is the interface library
+# below. init.rc runs it as user/group radio, which is what grants it
+# /dev/socket/mal_mfi (created 660 root radio by init.mal.rc).
+vendor/bin/hw/vendor.mediatek.hardware.wfo@1.0-service
+vendor/etc/init/vendor.mediatek.hardware.wfo@1.0-service.rc
+vendor/lib64/vendor.mediatek.hardware.wfo@1.0.so
 vendor/bin/hw/vendor.mediatek.hardware.imsa@1.0-service
 vendor/bin/mtkmal
 vendor/bin/volte_imcb
