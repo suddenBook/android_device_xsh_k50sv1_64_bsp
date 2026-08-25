@@ -1,13 +1,23 @@
 /*
- * k50sv1 RIL shim - force a static radio access family
- * =====================================================
+ * k50sv1 RIL shim
+ * ===============
  *
  * WHAT THIS DOES
  *
  * It is loaded by /vendor/bin/hw/rilproxy in place of mtk-rilproxy.so, forwards
- * every RIL entry point to the real blob, and changes exactly one thing:
- * RIL_REQUEST_GET_RADIO_CAPABILITY is completed with RIL_E_REQUEST_NOT_SUPPORTED
- * instead of being passed down.
+ * every RIL entry point to the real blob, and changes exactly two things.
+ *
+ *   1. RIL_REQUEST_GET_RADIO_CAPABILITY is completed with
+ *      RIL_E_REQUEST_NOT_SUPPORTED instead of being passed down, so the MTK
+ *      SIM switch never runs. See "PART 1" below.
+ *
+ *   2. It re-sends the initial-attach APN when the vendor RIL asks for it,
+ *      which is the thing AOSP's framework does not do and MediaTek's own
+ *      framework add-on would have. See "PART 2" below.
+ *
+ * ============================================================================
+ * PART 1 - force a static radio access family
+ * ============================================================================
  *
  * WHY
  *
@@ -104,16 +114,131 @@
  * safer and is not: ProxyController.completeRadioCapabilityTransaction()
  * responds to a failed transaction by calling doSetRadioCapabilities() again
  * with the old RAFs, which would fail again, forever.
+ *
+ * ============================================================================
+ * PART 2 - re-send the initial-attach APN when the vendor RIL asks
+ * ============================================================================
+ *
+ * THE DEFECT (E-092). Any airplane-mode cycle permanently removes LTE from the
+ * LTE-capable slot until the next reboot. Data, VoLTE and IMS go with it.
+ *
+ * On RIL_REQUEST_RADIO_POWER off, mtk-ril.so's defineAttachApnIfIACacheExisted
+ * tries to re-define the attach APN from its own cache. MediaTek deliberately
+ * does not persist the PASSWORD, so when the APN had one the cache is useless:
+ *
+ *     IA: defineAttachApnIfIACacheExisted empty IA due to password
+ *     IA: defineAttachApnIfIACacheExisted clear IA cache and IA ICCID
+ *     AT> AT+CGDCONT=0,"IP","this_is_an_invalid_apn",,0,0,0,0,0,0
+ *
+ * It then asks the framework to re-send, 740 times in the measured run:
+ *
+ *     onAttachApnReset: invalid IA, clean cache and send RIL_UNSOL_RESET_ATTACH_APN
+ *
+ * and rilproxy drops every one of them, because the only route it has for that
+ * URC is MediaTek's EXTENDED IRadioIndication, which only MediaTek's framework
+ * add-on registers:
+ *
+ *     RILC-RP: resetAttachApnInd: mtkRadioExService[0]->mRadioIndicationMtk == NULL
+ *
+ * AOSP would have re-sent if it had heard. DcTracker calls setInitialAttachApn()
+ * from exactly three places - onApnChanged(), onRecordsLoadedOrSubIdChanged()
+ * and onDataRoamingOff() - and none fires on a radio power cycle. That is
+ * deliberate, and AOSP says why at DcTracker.java:2673-2676:
+ *
+ *     // TODO: Remove this once all old vendor RILs are gone. We don't need to
+ *     // set initial apn attach and send the data profile again as the modem
+ *     // should have both roaming and non-roaming protocol in place.
+ *
+ * So AOSP's contract is that the modem RETAINS it; MediaTek's RIL discards it
+ * and relies on an add-on that is not here. Neither half is wrong alone.
+ * This shim is the "old vendor RIL" workaround AOSP's own comment anticipates.
+ *
+ * HOW. Cache the last RIL_REQUEST_SET_INITIAL_ATTACH_APN payload per socket,
+ * and on RIL_UNSOL_RESET_ATTACH_APN re-issue it verbatim with a token this
+ * shim owns.
+ *
+ * THE STRUCT. Verified against four binaries - the two producers
+ * (librilproxy.so RadioImpl::setInitialAttachApn and ::setInitialAttachApn_1_4)
+ * and two consumers (mtk-rilproxy.so's parcel encoder for request 111, and
+ * mtk-ril.so requestSetInitialAttachApn). It is AOSP's RIL_InitialAttachApn_v15
+ * with ONE extra int appended:
+ *
+ *   0x00 char *apn            0x20 char *username      0x40 char *mvnoType
+ *   0x08 char *protocol       0x28 char *password      0x48 char *mvnoMatchData
+ *   0x10 char *roamingProtocol 0x30 int supportedTypesBitmask
+ *   0x18 int authtype          0x34 int bearerBitmask
+ *   0x1c (pad)                 0x38 int modemCognitive
+ *                              0x3c int mtu
+ *   0x50 int canHandleIms   <- MediaTek's, one past the end of AOSP's v15
+ *   0x54 (pad)                 sizeof = 0x58 = 88
+ *
+ * Every one of AOSP's twelve offsets matches byte for byte. Both producers pass
+ * datalen 88 (`mov w2, #0x58`) and mtk-rilproxy's encoder reads exactly through
+ * +0x50 and stops. HANDOFF trap 21 is about the RIL_RadioFunctions table, which
+ * IS longer than AOSP's - librilproxy's RIL_register copies 56 bytes, seven
+ * members, one past AOSP's six. That is a different struct in the other
+ * direction, and it is why RIL_Init still patches in place below.
+ *
+ * TWO THINGS THE COPY MUST GET RIGHT, both measured:
+ *
+ *   * Members are legitimately NULL. copyHidlStringToRil writes NULL rather
+ *     than "" for an empty hidl_string unless allowEmpty is set, and only `apn`
+ *     is called with allowEmpty=1. Turning NULL into "" would change the parcel
+ *     from a null string to an empty one.
+ *   * The strings are freed the instant onRequest returns - librilproxy calls
+ *     memsetAndFreeStrings(6, ...) on the next instruction. Caching the
+ *     POINTERS gives dangling, already-zeroed memory. The copy happens inside
+ *     onRequestShim, before it returns.
+ *
+ * WHY A GOT HOOK AND NOT THE RIL_Env. E-092 proposed patching
+ * env->OnUnsolicitedResponse in place. That patch would never have fired.
+ * mtk-rilproxy.so does not use the RIL_Env for this: it imports
+ * RIL_onUnsolicitedResponse and RIL_onRequestComplete directly from
+ * librilproxy.so and calls them through its own PLT -
+ * RfxRilAdapter::responseToRilj tail-calls RIL_onUnsolicitedResponse@plt. An
+ * exhaustive scan of the three users of its saved env pointer finds only
+ * RIL_Init (the store), setRadioState (URCs 1000/1019) and
+ * sendBtSapResponseComplete. URC 3020 is not among them.
+ *
+ * So the two hooks go in mtk-rilproxy.so's own .got.plt, found at runtime by
+ * walking DT_JMPREL/DT_SYMTAB/DT_STRTAB rather than by hardcoding an offset.
+ * PT_GNU_RELRO covers .got.plt, so the slots are read-only and need the same
+ * mprotect dance patchOnRequest already does.
+ *
+ * WHY THE SECOND HOOK. The re-issued request is completed by mtk-ril.so with
+ * the token it was given, and librilproxy's RIL_onRequestComplete DEREFERENCES
+ * the token (`ldr w8, [x0, #0x1c]`) before validating it. A token this shim
+ * invented must therefore never reach it, so RIL_onRequestComplete is hooked
+ * too and swallows exactly that one pointer.
+ *
+ * WHY A WORKER THREAD. The URC arrives on mtk-rilproxy's reader thread. Calling
+ * back into its onRequest from inside its own URC dispatch risks re-entering a
+ * lock it holds. Handing the work to a dedicated thread makes the call look
+ * like every other request dispatch, and gives somewhere to rate-limit: the
+ * vendor RIL emits this URC continuously (740 times in four minutes) until the
+ * APN is valid again, and one re-issue per second is enough.
+ *
+ * IF ANYTHING HERE FAILS it logs and disables itself. Telephony then behaves
+ * exactly as it did before this part existed - E-092 is back, nothing else
+ * changes. There is no partial state: the hooks are installed as a pair or not
+ * at all.
  */
 
 #define LOG_TAG "k50sv1-ril-shim"
 
 #include <dlfcn.h>
+#include <elf.h>
+#include <errno.h>
+#include <link.h>
+#include <pthread.h>
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/mman.h>
+#include <time.h>
 #include <unistd.h>
 
 #include <log/log.h>
@@ -142,23 +267,6 @@ static const RIL_RadioFunctions *sRealFuncs;
 static RIL_RequestFunc sRealOnRequest;
 static const struct RIL_Env *sEnv;
 static void *sRealHandle;
-
-static void onRequestShim(int request, void *data, size_t datalen, RIL_Token t,
-                          RIL_SOCKET_ID socketId)
-{
-    if (request == RIL_REQUEST_GET_RADIO_CAPABILITY) {
-        /*
-         * One line per boot per slot; keep it, it is the only evidence that
-         * the shim is live.
-         */
-        RLOGI("GET_RADIO_CAPABILITY -> REQUEST_NOT_SUPPORTED "
-              "(framework falls back to config_radio_access_family)");
-        sEnv->OnRequestComplete(t, RIL_E_REQUEST_NOT_SUPPORTED, NULL, 0);
-        return;
-    }
-
-    sRealOnRequest(request, data, datalen, t, socketId);
-}
 
 /*
  * Original protection of the mapping that contains `addr`, from
@@ -191,6 +299,466 @@ static int mappingProt(uintptr_t addr)
     }
     fclose(maps);
     return prot;
+}
+
+/* ------------------------------------------------------------------------- *
+ * Initial-attach APN re-send (E-092). See PART 2 of the file header.
+ * ------------------------------------------------------------------------- */
+
+/*
+ * MediaTek's payload for RIL_REQUEST_SET_INITIAL_ATTACH_APN: AOSP's
+ * RIL_InitialAttachApn_v15 with one int appended. Spelled out here rather than
+ * reused from ril.h so that the one MTK field is impossible to miss, and so the
+ * static assert below compares against a layout this file can see.
+ */
+typedef struct {
+    char *apn;
+    char *protocol;
+    char *roamingProtocol;
+    int   authtype;
+    char *username;
+    char *password;
+    int   supportedTypesBitmask;
+    int   bearerBitmask;
+    int   modemCognitive;
+    int   mtu;
+    char *mvnoType;
+    char *mvnoMatchData;
+    /*
+     * (supportedTypesBitmask != 0xffff) && (supportedTypesBitmask & 0x40).
+     * Copied verbatim, never recomputed: 0xffff is a MediaTek sentinel whose
+     * meaning is not established.
+     */
+    int   canHandleIms;
+} MtkInitialAttachApn;
+
+_Static_assert(offsetof(MtkInitialAttachApn, canHandleIms) == 0x50,
+               "canHandleIms must sit at +0x50");
+_Static_assert(sizeof(MtkInitialAttachApn) == 0x58,
+               "MTK's initial-attach APN payload is 88 bytes");
+
+/* MediaTek extension; not in ril.h. Confirmed as the immediate `mov w0, #0xbcc`
+ * in mtk-ril.so's onAttachApnReset, and as requestNumber 3020 in
+ * librilproxy.so's s_unsolResponses entry whose handler is resetAttachApnInd. */
+#define RIL_UNSOL_RESET_ATTACH_APN 3020
+
+/* One re-issue per socket per second is plenty; the vendor RIL repeats the URC
+ * ~3 times a second until the APN is valid again. */
+#define REISSUE_MIN_INTERVAL_NS (1000L * 1000L * 1000L)
+
+typedef void (*ril_unsol_fn)(int unsolResponse, const void *data, size_t datalen,
+                             RIL_SOCKET_ID socketId);
+typedef void (*ril_complete_fn)(RIL_Token t, RIL_Errno e, void *response,
+                                size_t responselen);
+
+static ril_unsol_fn sRealOnUnsol;
+static ril_complete_fn sRealOnComplete;
+
+/*
+ * The token the re-issued request carries. Its VALUE is never interpreted -
+ * only its identity, by completeHook. It must not be NULL and must not collide
+ * with a real RequestInfo *, and the address of a file-static object cannot.
+ */
+static int sReissueTokenObject;
+#define REISSUE_TOKEN ((RIL_Token)&sReissueTokenObject)
+
+static pthread_mutex_t sIaLock = PTHREAD_MUTEX_INITIALIZER;
+static pthread_cond_t sIaWake = PTHREAD_COND_INITIALIZER;
+static MtkInitialAttachApn sIaCache[SIM_COUNT];
+static bool sIaCached[SIM_COUNT];
+static bool sIaPending[SIM_COUNT];
+static bool sIaWorkerRunning;
+
+static void freeIaStrings(MtkInitialAttachApn *ia)
+{
+    free(ia->apn);
+    free(ia->protocol);
+    free(ia->roamingProtocol);
+    free(ia->username);
+    free(ia->password);
+    free(ia->mvnoType);
+    free(ia->mvnoMatchData);
+    memset(ia, 0, sizeof(*ia));
+}
+
+/* NULL in, NULL out. See the header: an empty hidl_string reaches the vendor
+ * RIL as NULL for every member except `apn`, and "" is a different parcel. */
+static char *dupOrNull(const char *src, bool *ok)
+{
+    char *copy;
+
+    if (src == NULL) {
+        return NULL;
+    }
+    copy = strdup(src);
+    if (copy == NULL) {
+        *ok = false;
+    }
+    return copy;
+}
+
+static bool copyIa(MtkInitialAttachApn *dst, const MtkInitialAttachApn *src)
+{
+    bool ok = true;
+
+    memcpy(dst, src, sizeof(*dst));
+    dst->apn = dupOrNull(src->apn, &ok);
+    dst->protocol = dupOrNull(src->protocol, &ok);
+    dst->roamingProtocol = dupOrNull(src->roamingProtocol, &ok);
+    dst->username = dupOrNull(src->username, &ok);
+    dst->password = dupOrNull(src->password, &ok);
+    dst->mvnoType = dupOrNull(src->mvnoType, &ok);
+    dst->mvnoMatchData = dupOrNull(src->mvnoMatchData, &ok);
+    if (!ok) {
+        freeIaStrings(dst);
+    }
+    return ok;
+}
+
+static void cacheInitialAttachApn(RIL_SOCKET_ID socketId, const void *data,
+                                  size_t datalen)
+{
+    MtkInitialAttachApn fresh;
+
+    if ((int)socketId < 0 || (int)socketId >= SIM_COUNT) {
+        return;
+    }
+    /*
+     * The free tripwire against a future blob. Both producers pass 88; if that
+     * ever changes, the layout above is no longer the one in flight, and
+     * caching it would be worse than not fixing E-092 at all.
+     */
+    if (data == NULL || datalen != sizeof(MtkInitialAttachApn)) {
+        RLOGE("SET_INITIAL_ATTACH_APN datalen %zu != %zu; not caching, E-092 "
+              "stays open", datalen, sizeof(MtkInitialAttachApn));
+        return;
+    }
+    if (!copyIa(&fresh, (const MtkInitialAttachApn *)data)) {
+        RLOGE("out of memory caching the initial-attach APN");
+        return;
+    }
+
+    pthread_mutex_lock(&sIaLock);
+    if (sIaCached[socketId]) {
+        freeIaStrings(&sIaCache[socketId]);
+    }
+    sIaCache[socketId] = fresh;
+    sIaCached[socketId] = true;
+    pthread_mutex_unlock(&sIaLock);
+
+    RLOGI("cached initial-attach APN for socket %d (apn=%s, auth=%d)",
+          (int)socketId, fresh.apn != NULL ? fresh.apn : "(null)",
+          fresh.authtype);
+}
+
+static void completeHook(RIL_Token t, RIL_Errno e, void *response,
+                         size_t responselen)
+{
+    if (t == REISSUE_TOKEN) {
+        /*
+         * Ours. Swallow it: librilproxy's RIL_onRequestComplete dereferences
+         * the token at +0x1c before it validates it, so this pointer must never
+         * reach it. One line per re-issue, and it is the only proof the vendor
+         * RIL accepted the request.
+         */
+        RLOGI("re-issued SET_INITIAL_ATTACH_APN completed, e=%d", (int)e);
+        return;
+    }
+    sRealOnComplete(t, e, response, responselen);
+}
+
+static void unsolHook(int unsolResponse, const void *data, size_t datalen,
+                      RIL_SOCKET_ID socketId)
+{
+    if (unsolResponse == RIL_UNSOL_RESET_ATTACH_APN &&
+        (int)socketId >= 0 && (int)socketId < SIM_COUNT) {
+        pthread_mutex_lock(&sIaLock);
+        if (sIaCached[socketId]) {
+            sIaPending[socketId] = true;
+            pthread_cond_signal(&sIaWake);
+        }
+        pthread_mutex_unlock(&sIaLock);
+    }
+    /*
+     * Always forward, including 3020. Swallowing it would cut the log line that
+     * says the vendor RIL is still asking, which is the only signal that the
+     * re-issue did not take.
+     */
+    sRealOnUnsol(unsolResponse, data, datalen, socketId);
+}
+
+static void *iaWorker(void *unused)
+{
+    (void)unused;
+
+    for (;;) {
+        MtkInitialAttachApn outgoing;
+        int socketId = -1;
+        int i;
+
+        pthread_mutex_lock(&sIaLock);
+        for (;;) {
+            for (i = 0; i < SIM_COUNT; i++) {
+                if (sIaPending[i] && sIaCached[i]) {
+                    socketId = i;
+                    break;
+                }
+            }
+            if (socketId >= 0) {
+                break;
+            }
+            pthread_cond_wait(&sIaWake, &sIaLock);
+        }
+        sIaPending[socketId] = false;
+        if (!copyIa(&outgoing, &sIaCache[socketId])) {
+            pthread_mutex_unlock(&sIaLock);
+            RLOGE("out of memory re-issuing the initial-attach APN");
+            continue;
+        }
+        pthread_mutex_unlock(&sIaLock);
+
+        RLOGI("RIL_UNSOL_RESET_ATTACH_APN on socket %d -> re-sending "
+              "SET_INITIAL_ATTACH_APN (apn=%s)", socketId,
+              outgoing.apn != NULL ? outgoing.apn : "(null)");
+
+        /*
+         * The blob's own onRequest, not onRequestShim: nothing in PART 1 has
+         * anything to say about this request, and going through the shim would
+         * only add a branch that can never be taken.
+         *
+         * It is synchronous as far as the payload is concerned -- mtk-rilproxy
+         * encodes the strings into a socket parcel before returning, which is
+         * why librilproxy frees them on the very next instruction. Freeing here
+         * follows the same contract.
+         */
+        sRealOnRequest(RIL_REQUEST_SET_INITIAL_ATTACH_APN, &outgoing,
+                       sizeof(outgoing), REISSUE_TOKEN,
+                       (RIL_SOCKET_ID)socketId);
+        freeIaStrings(&outgoing);
+
+        {
+            struct timespec pause = {
+                .tv_sec = REISSUE_MIN_INTERVAL_NS / 1000000000L,
+                .tv_nsec = REISSUE_MIN_INTERVAL_NS % 1000000000L,
+            };
+            nanosleep(&pause, NULL);
+        }
+    }
+    return NULL;
+}
+
+/*
+ * Everything needed to rewrite one PLT GOT slot of a loaded library, gathered
+ * by dl_iterate_phdr. Nothing here is hardcoded: the slot addresses move with
+ * any change to the blob, and a wrong constant would corrupt an unrelated
+ * pointer.
+ */
+typedef struct {
+    const char *soname;      /* in:  basename to match */
+    ElfW(Addr) base;         /* out: load bias */
+    const ElfW(Rela) *jmprel;
+    size_t jmprelCount;
+    const ElfW(Sym) *symtab;
+    const char *strtab;
+    bool found;
+} GotScan;
+
+static int gotScanCallback(struct dl_phdr_info *info, size_t size, void *arg)
+{
+    GotScan *scan = (GotScan *)arg;
+    const ElfW(Dyn) *dyn = NULL;
+    const char *name;
+    size_t i;
+
+    (void)size;
+    if (info->dlpi_name == NULL) {
+        return 0;
+    }
+    name = strrchr(info->dlpi_name, '/');
+    name = name != NULL ? name + 1 : info->dlpi_name;
+    if (strcmp(name, scan->soname) != 0) {
+        return 0;
+    }
+
+    for (i = 0; i < info->dlpi_phnum; i++) {
+        if (info->dlpi_phdr[i].p_type == PT_DYNAMIC) {
+            dyn = (const ElfW(Dyn) *)(info->dlpi_addr +
+                                      info->dlpi_phdr[i].p_vaddr);
+            break;
+        }
+    }
+    if (dyn == NULL) {
+        return 0;
+    }
+
+    scan->base = info->dlpi_addr;
+    for (; dyn->d_tag != DT_NULL; dyn++) {
+        switch (dyn->d_tag) {
+        case DT_JMPREL:
+            scan->jmprel = (const ElfW(Rela) *)dyn->d_un.d_ptr;
+            break;
+        case DT_PLTRELSZ:
+            scan->jmprelCount = dyn->d_un.d_val / sizeof(ElfW(Rela));
+            break;
+        case DT_SYMTAB:
+            scan->symtab = (const ElfW(Sym) *)dyn->d_un.d_ptr;
+            break;
+        case DT_STRTAB:
+            scan->strtab = (const char *)dyn->d_un.d_ptr;
+            break;
+        case DT_PLTREL:
+            /* RELA only. A REL-based PLT would mean the entry layout above is
+             * wrong, and reading it as RELA would walk off the section. */
+            if (dyn->d_un.d_val != DT_RELA) {
+                RLOGE("%s PLT is not RELA", scan->soname);
+                return 1;
+            }
+            break;
+        default:
+            break;
+        }
+    }
+    scan->found = (scan->jmprel != NULL && scan->jmprelCount != 0 &&
+                   scan->symtab != NULL && scan->strtab != NULL);
+    return 1;
+}
+
+/*
+ * Replace the PLT GOT entry for `symbol` with `replacement`, returning the
+ * value that was there. bionic links this blob with -z now, so the slot already
+ * holds the resolved address and there is no lazy-binding race to lose.
+ */
+static void *hookGotEntry(const GotScan *scan, const char *symbol,
+                          void *replacement)
+{
+    size_t i;
+
+    for (i = 0; i < scan->jmprelCount; i++) {
+        const ElfW(Rela) *rela = &scan->jmprel[i];
+        uint32_t symIndex = (uint32_t)ELF64_R_SYM(rela->r_info);
+        const char *name;
+        void **slot;
+        void *previous;
+        uintptr_t page;
+        long pageSize;
+        int oldProt;
+
+        if (ELF64_R_TYPE(rela->r_info) != R_AARCH64_JUMP_SLOT) {
+            continue;
+        }
+        name = scan->strtab + scan->symtab[symIndex].st_name;
+        if (strcmp(name, symbol) != 0) {
+            continue;
+        }
+
+        slot = (void **)(scan->base + rela->r_offset);
+        pageSize = sysconf(_SC_PAGESIZE);
+        if (pageSize <= 0) {
+            return NULL;
+        }
+        page = (uintptr_t)slot & ~(uintptr_t)(pageSize - 1);
+        oldProt = mappingProt((uintptr_t)slot);
+        if (oldProt < 0) {
+            RLOGE("GOT slot for %s at %p is in no mapping", symbol,
+                  (void *)slot);
+            return NULL;
+        }
+        /* PT_GNU_RELRO covers .got.plt here, so the slot is read-only by the
+         * time RIL_Init runs. Same dance as patchOnRequest. */
+        if ((oldProt & PROT_WRITE) == 0 &&
+            mprotect((void *)page, (size_t)pageSize, oldProt | PROT_WRITE) != 0) {
+            RLOGE("mprotect(%p, +w) for %s failed: %s", (void *)page, symbol,
+                  strerror(errno));
+            return NULL;
+        }
+        previous = *slot;
+        *slot = replacement;
+        if ((oldProt & PROT_WRITE) == 0 &&
+            mprotect((void *)page, (size_t)pageSize, oldProt) != 0) {
+            RLOGE("mprotect(%p, restore) for %s failed: %s", (void *)page,
+                  symbol, strerror(errno));
+        }
+        return previous;
+    }
+    RLOGE("%s has no PLT GOT entry for %s", scan->soname, symbol);
+    return NULL;
+}
+
+/*
+ * Install both hooks, or neither. Returns 0 on success; on failure the caller
+ * carries on with E-092 unfixed and nothing else changed.
+ */
+static int installAttachApnHooks(void)
+{
+    GotScan scan = { .soname = REAL_RIL_SONAME };
+    void *realUnsol;
+    void *realComplete;
+    pthread_t worker;
+    int rc;
+
+    dl_iterate_phdr(gotScanCallback, &scan);
+    if (!scan.found) {
+        RLOGE("could not read %s's dynamic PLT relocations", REAL_RIL_SONAME);
+        return -1;
+    }
+
+    realUnsol = hookGotEntry(&scan, "RIL_onUnsolicitedResponse", unsolHook);
+    if (realUnsol == NULL) {
+        return -1;
+    }
+    sRealOnUnsol = (ril_unsol_fn)realUnsol;
+
+    realComplete = hookGotEntry(&scan, "RIL_onRequestComplete", completeHook);
+    if (realComplete == NULL) {
+        /* Put the first one back rather than run with half a mechanism: an
+         * un-swallowed synthetic token reaches a function that dereferences it. */
+        (void)hookGotEntry(&scan, "RIL_onUnsolicitedResponse", realUnsol);
+        sRealOnUnsol = NULL;
+        return -1;
+    }
+    sRealOnComplete = (ril_complete_fn)realComplete;
+
+    rc = pthread_create(&worker, NULL, iaWorker, NULL);
+    if (rc != 0) {
+        (void)hookGotEntry(&scan, "RIL_onUnsolicitedResponse", realUnsol);
+        (void)hookGotEntry(&scan, "RIL_onRequestComplete", realComplete);
+        sRealOnUnsol = NULL;
+        sRealOnComplete = NULL;
+        RLOGE("pthread_create for the attach-APN worker failed: %s",
+              strerror(rc));
+        return -1;
+    }
+    pthread_detach(worker);
+    sIaWorkerRunning = true;
+    return 0;
+}
+
+static void onRequestShim(int request, void *data, size_t datalen, RIL_Token t,
+                          RIL_SOCKET_ID socketId)
+{
+    if (request == RIL_REQUEST_GET_RADIO_CAPABILITY) {
+        /*
+         * One line per boot per slot; keep it, it is the only evidence that
+         * the shim is live.
+         */
+        RLOGI("GET_RADIO_CAPABILITY -> REQUEST_NOT_SUPPORTED "
+              "(framework falls back to config_radio_access_family)");
+        sEnv->OnRequestComplete(t, RIL_E_REQUEST_NOT_SUPPORTED, NULL, 0);
+        return;
+    }
+
+    /*
+     * Copy BEFORE forwarding. librilproxy frees every heap string in this
+     * payload on the instruction after onRequest returns, so a copy taken
+     * afterwards would be of freed, memset-to-zero memory. Only when the hooks
+     * are live: without them there is nobody to re-issue it and the cache would
+     * be a pure leak of the APN password into this process's heap.
+     */
+    if (request == RIL_REQUEST_SET_INITIAL_ATTACH_APN && sIaWorkerRunning) {
+        cacheInitialAttachApn(socketId, data, datalen);
+    }
+
+    sRealOnRequest(request, data, datalen, t, socketId);
 }
 
 static int patchOnRequest(const RIL_RadioFunctions *funcs)
@@ -288,6 +856,23 @@ const RIL_RadioFunctions *RIL_Init(const struct RIL_Env *env, int argc,
         RLOGE("could not patch onRequest; GET_RADIO_CAPABILITY will NOT be "
               "faked and the MTK SIM switch is live again");
         return sRealFuncs;
+    }
+
+    /*
+     * The payload layout this shim caches is only the one in flight while the
+     * blob reports version 15: librilproxy picks the 5-field 0x28 struct
+     * instead at version <= 14 (`cmp w8, #0xe` in setInitialAttachApn). The
+     * datalen check in cacheInitialAttachApn would catch that anyway; saying so
+     * here costs one line and names the reason.
+     */
+    if (sRealFuncs->version < 15) {
+        RLOGE("RIL version %d < 15: not installing the attach-APN hooks, "
+              "E-092 stays open", sRealFuncs->version);
+    } else if (installAttachApnHooks() != 0) {
+        RLOGE("attach-APN hooks NOT installed; an airplane-mode cycle will "
+              "still cost slot 0 its LTE attach until reboot (E-092)");
+    } else {
+        RLOGI("attach-APN re-send armed (URC %d)", RIL_UNSOL_RESET_ATTACH_APN);
     }
 
     RLOGI("wrapping %s, RIL version %d", REAL_RIL_SONAME, sRealFuncs->version);
