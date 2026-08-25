@@ -10,6 +10,18 @@
 # mechanical. Object types do NOT: Stock labels every one of these sockets and
 # directories with a shared catch-all (socket_device, vendor_data_file), which
 # would let unrelated vendor daemons reach them.
+#
+# EVERY type in this directory is declared HERE, and every other file name in
+# this directory must sort after "file.te". build_policy (system/sepolicy/
+# Android.mk:115-117) expands `*.te` with $(sort $(wildcard ...)), i.e.
+# alphabetically within a directory, and checkpolicy accepts a forward
+# reference from an `allow` rule but NOT from a `typeattribute` -- which is
+# what net_domain() and every hal_*_domain() macro expand to. That is why the
+# ePDG control daemon's rules live in `wod.te` and not `epdg_wod.te`: the
+# latter sorts before this file and failed the build with
+#   sepolicy/vowifi/epdg_wod.te:12: ERROR 'unknown type epdg_wod'
+# on `typeattribute epdg_wod netdomain;`. `wod` is MediaTek's own name for it
+# anyway -- init.wod.rc, wod_action, wod_sim, wod_optr.conf.
 
 type wfca, domain;
 type wfca_exec, exec_type, vendor_file_type, file_type;

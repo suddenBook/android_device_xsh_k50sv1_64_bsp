@@ -39,7 +39,40 @@ service wlan_assistant /vendor/bin/wlan_assistant
     user wifi
     group system gps inet
 
-service wpa_supplicant /vendor/bin/hw/wpa_supplicant -g@android:wpa_wlan0
+# `-O` is not cosmetic and it is not Stock's. Without it wpa_supplicant creates
+# NO per-interface control socket at all, anywhere -- measured live on this
+# handset with Wi-Fi up: both /data/misc/wifi/sockets and
+# /data/vendor/wifi/wpa/sockets were empty.
+#
+# The mechanism is ctrl_iface_unix.c:718-752. When the global control interface
+# is "@android:wpa_wlan0" it takes the text after the '_' -- "wlan0" -- and
+# compares it with conf->ctrl_interface, which /vendor/etc/wifi/wpa_supplicant.conf
+# sets to exactly "wlan0". They match, so `same` is 1 and the function returns
+# early with "global ctrl interface %s matches ctrl interface %s - do not open
+# per-interface ctrl interface". Stock has the same defect; it is a latent
+# MediaTek bug that shipped, on a non-fatal error path.
+#
+# It matters here because three MAL entity libraries open that socket by
+# absolute path -- libmal_epdga.so (the ePDG one), libmal_rds.so and
+# libmal_nwmngr.so, each also binding its own {ea,rds,nwmngr}_ctrlconn beside
+# it -- and log "Can't connect to wpa server side" forever without it. All
+# three send only STATUS, SIGNAL_POLL and BSS <bssid>: read-only queries that
+# cannot fight WifiService for control of the supplicant.
+#
+# -O sets conf->ctrl_interface to a PATH, which no longer equals "wlan0", so
+# `same` becomes 0 and the socket is created. The VENDOR directory is chosen
+# deliberately over the /data/misc/wifi/sockets that the blobs actually name:
+# that path is wpa_socket, a core_data_file_type, and letting a vendor HAL
+# create files there is the Treble violation AOSP removed in
+# device/google/marlin 66da37914e91. /data/vendor/wifi/wpa is wpa_data_file, a
+# vendor type the supplicant is already allowed to write
+# (system/sepolicy/vendor/hal_wifi_supplicant_default.te:19-21), and
+# init.mt6755.rc bind-mounts it onto the legacy path so the blobs find it.
+#
+# Side effect worth knowing: update_config=1 means a later config save writes
+# this path into /data/vendor/wifi/wpa/wpa_supplicant.conf as ctrl_interface.
+# Harmless -- -O overrides it on every start, and /data is wiped on every flash.
+service wpa_supplicant /vendor/bin/hw/wpa_supplicant -O/data/vendor/wifi/wpa/sockets -g@android:wpa_wlan0
     interface android.hardware.wifi.supplicant@1.0::ISupplicant default
     interface android.hardware.wifi.supplicant@1.1::ISupplicant default
     interface android.hardware.wifi.supplicant@1.2::ISupplicant default

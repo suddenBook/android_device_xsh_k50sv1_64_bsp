@@ -312,26 +312,28 @@ on post-fs-data
     #
     # libmal_epdga.so, libmal_rds.so and libmal_nwmngr.so open
     # /data/misc/wifi/sockets/wlan0 and bind their own {ea,rds,nwmngr}_ctrlconn
-    # beside it. That was wpa_supplicant's control directory up to Android 8. On
-    # Q it is /data/vendor/wifi/wpa/sockets, compiled in at
-    # external/wpa_supplicant_8/wpa_supplicant/Android.mk:72-73, so it cannot be
-    # moved from a device tree -- and the new path is longer than the old one,
-    # so the strings cannot be patched in the blobs either.
+    # beside it. That was wpa_supplicant's control directory up to Android 8.
+    # On Q it is /data/vendor/wifi/wpa/sockets, compiled in at
+    # external/wpa_supplicant_8/wpa_supplicant/Android.mk:72-73, and the new
+    # path is longer than the old one, so the strings cannot be patched in the
+    # blobs either.
+    #
+    # This mount is HALF the fix. The other half is the -O argument in
+    # init.wmt.rc: without it wpa_supplicant creates no per-interface socket at
+    # all and this would bind an empty directory onto an empty directory.
+    # Measured, both directories empty with Wi-Fi up. See sepolicy/vowifi/
+    # wpa_bridge.te for the whole mechanism.
     #
     # Nothing on Q writes to /data/misc/wifi/sockets: the only references left
     # in the tree are init.rc:502's mkdir, a CTS assertion on the directory's
     # permissions, and the hs20 client, which this product does not build. The
-    # mount preserves 0770 wifi:wifi, and it moves the path from wpa_socket
-    # (core_data_file_type) to wpa_data_file (vendor), which is the type a
-    # vendor domain is allowed to touch under Treble.
-    #
-    # MAL only ever sends STATUS, SIGNAL_POLL and BSS <bssid> over it -- three
-    # read-only queries, nothing that could fight WifiService for the
-    # supplicant. See sepolicy/vowifi/wpa_bridge.te.
+    # mount preserves 0770 wifi:wifi, and because SELinux labels follow the
+    # inode it keeps the path on wpa_data_file (vendor) instead of wpa_socket
+    # (core_data_file_type) -- which is what makes this Treble-clean.
     #
     # This must run after init.rc's own `mkdir /data/misc/wifi/sockets` and
-    # after the /data/vendor/wifi/wpa/sockets mkdir above; both are satisfied
-    # because init.rc is parsed first and this block is later in post-fs-data.
+    # after the /data/vendor/wifi/wpa/sockets mkdir above; both hold because
+    # init.rc is parsed first and this block is later in post-fs-data.
     mount none /data/vendor/wifi/wpa/sockets /data/misc/wifi/sockets bind
 
     # zram is set up in `on post-fs` above, NOT here. This block runs TWICE on

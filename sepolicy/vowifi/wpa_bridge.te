@@ -1,48 +1,68 @@
-# The Android 10 wpa_supplicant control-socket path, bridged for MAL.
+# The Android 10 wpa_supplicant control socket, made to exist and then bridged.
 #
-# THE PROBLEM. Three MAL entity libraries open wpa_supplicant's per-interface
-# control socket by an absolute path that was correct up to Android 8 and is
-# empty on Q:
+# THE PROBLEM, in two halves.
 #
-#   libmal_epdga.so   /data/misc/wifi/sockets/wlan0  + .../ea_ctrlconn
-#   libmal_rds.so     /data/misc/wifi/sockets/wlan0  + .../rds_ctrlconn
-#   libmal_nwmngr.so  /data/misc/wifi/sockets/wlan0  + .../nwmngr_ctrlconn
+# (1) On Android 10 wpa_supplicant creates NO per-interface control socket at
+#     all. ctrl_iface_unix.c:718-752 compares the tail of the global control
+#     interface name "@android:wpa_wlan0" with conf->ctrl_interface, which
+#     /vendor/etc/wifi/wpa_supplicant.conf sets to "wlan0"; they match, and the
+#     function returns early having opened nothing. Measured live on this
+#     handset with Wi-Fi up: /data/vendor/wifi/wpa/sockets and
+#     /data/misc/wifi/sockets were both empty. Stock has the same defect.
 #
-# On Q the socket is at /data/vendor/wifi/wpa/sockets/wlan0 --
-# external/wpa_supplicant_8/wpa_supplicant/Android.mk:72-73 compiles both
-# CONFIG_CTRL_IFACE_DIR and CONFIG_CTRL_IFACE_CLIENT_DIR to that path, so it is
-# not overridable from a device tree. The strings are longer than the old ones,
-# so they cannot be patched in place in the blobs either.
+# (2) Three MAL entity libraries open that socket by an absolute path that was
+#     correct up to Android 8 and does not exist on Q:
 #
-# THE BRIDGE. init.mt6755.rc bind-mounts the real directory onto the legacy one
-# (see `on post-fs-data` there). Nothing on Q writes to /data/misc/wifi/sockets
-# -- the only remaining references in the whole tree are init.rc:502's mkdir,
-# a CTS permission assertion on the directory, and the hs20 client, which this
-# product does not build -- so the mount is invisible to the platform. It also
-# moves the path from wpa_socket (core_data_file_type,
-# system/sepolicy/public/file.te:435) to wpa_data_file (vendor,
-# system/sepolicy/vendor/file.te:2), which is the Treble-correct type for a
-# vendor domain to touch.
+#       libmal_epdga.so   /data/misc/wifi/sockets/wlan0  + .../ea_ctrlconn
+#       libmal_rds.so     /data/misc/wifi/sockets/wlan0  + .../rds_ctrlconn
+#       libmal_nwmngr.so  /data/misc/wifi/sockets/wlan0  + .../nwmngr_ctrlconn
 #
-# WHAT MAL SENDS. Read-only queries, all three of them: STATUS (libmal_epdga),
-# SIGNAL_POLL (libmal_rds) and BSS <bssid> (libmal_nwmngr). No SCAN, no
-# DISCONNECT, no SET -- nothing that could fight WifiService for control of the
-# supplicant.
+#     Q's path is /data/vendor/wifi/wpa/sockets, compiled in at
+#     external/wpa_supplicant_8/wpa_supplicant/Android.mk:72-73, and it is
+#     LONGER than the old one -- so it can be changed neither from a device
+#     tree nor by patching the strings in the blobs.
 #
-# STATUS: this is the one part of the VoWiFi chain that has never run. It is
-# cheap and it is scoped; if Wi-Fi misbehaves after a flash, remove the mount
-# in init.mt6755.rc and this file, and nothing else has to change.
+# THE FIX, also in two halves, and neither works alone.
+#   init.wmt.rc passes -O/data/vendor/wifi/wpa/sockets, which makes
+#   conf->ctrl_interface a path rather than "wlan0", so `same` is 0 and the
+#   socket is created.
+#   init.mt6755.rc bind-mounts that directory onto /data/misc/wifi/sockets, so
+#   the blobs find it under the name they were built with.
+#
+# WHY THE VENDOR DIRECTORY AND NOT THE LEGACY ONE. /data/misc/wifi/sockets is
+# wpa_socket, a core_data_file_type (system/sepolicy/public/file.te:435).
+# Letting a vendor HAL create files there is exactly the Treble violation
+# Google removed in device/google/marlin 66da37914e91, and it would need
+# hal_wifi_supplicant_default added to data_between_core_and_vendor_violators.
+# /data/vendor/wifi/wpa is wpa_data_file, a VENDOR type
+# (system/sepolicy/vendor/file.te:2) that the supplicant may already write
+# (vendor/hal_wifi_supplicant_default.te:19-21). Bind-mounting the vendor
+# directory onto the legacy name gives the blobs their path while the inode --
+# and therefore the SELinux label -- stays vendor. Nothing below is a
+# relaxation of AOSP's hardening.
+#
+# WHAT MAL SENDS. STATUS (libmal_epdga), SIGNAL_POLL (libmal_rds) and
+# BSS <bssid> (libmal_nwmngr). Three read-only queries; no SCAN, no DISCONNECT,
+# no SET, nothing that could fight WifiService for the supplicant.
+#
+# DAC is already satisfied: the directory is 0770 wifi:wifi and mtkmal runs as
+# uid 1001 with AID_WIFI (1010) among its supplementary groups -- read off
+# /proc/<pid>/status on the handset, not assumed.
+#
+# STATUS: this is the one part of the VoWiFi chain that has never run, on this
+# port OR on Stock. If Wi-Fi misbehaves after a flash, drop the -O in
+# init.wmt.rc, the mount in init.mt6755.rc and this file; nothing else changes.
 
 # The control connection is AF_UNIX SOCK_DGRAM in both directions: the client
-# binds its own <name>_ctrlconn node and sendto()s the server's, and the server
-# replies to the client's node.
+# binds its own <name>_ctrlconn node in the same directory and sendto()s the
+# server's node, and the server replies to the client's node.
 allow mtkmal wpa_data_file:dir { add_name remove_name search write };
 allow mtkmal wpa_data_file:sock_file { create unlink write };
-allow mtkmal hal_wifi_supplicant:unix_dgram_socket sendto;
-allow hal_wifi_supplicant mtkmal:unix_dgram_socket sendto;
+allow mtkmal hal_wifi_supplicant_default:unix_dgram_socket sendto;
+allow hal_wifi_supplicant_default mtkmal:unix_dgram_socket sendto;
 
-# hal_wifi_supplicant is a halserverdomain, so check this against
-# system/sepolicy/public/hal_neverallows.te before adding anything: that file
+# hal_wifi_supplicant_default is a halserverdomain, so check anything added
+# here against system/sepolicy/public/hal_neverallows.te first: that file
 # forbids halserverdomain { tcp_socket udp_socket rawip_socket } and
 # { net_admin net_raw } outside a short exempt list. unix_dgram_socket is in
 # neither neverallow, and hal_wifi_supplicant_server is on the exempt list for
