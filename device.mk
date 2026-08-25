@@ -38,7 +38,12 @@ PRODUCT_BOOT_JARS += \
 # from fonts/Android.mk; the family that names them is registered in
 # vendor/lineage/prebuilt/common/etc/fonts_customization.xml, which is an
 # upstream file because SystemFonts.java:313 reads exactly one hardcoded path
-# and base_rules.mk:510 makes a second writer of it a build error. See
+# and a second writer of it is a ckati "overriding commands for target" ERROR
+# (dep.cc:186-201), which build/soong/ui/build/kati.go:134-136 turns on for the
+# main pass unless BUILD_BROKEN_DUP_RULES is set -- it is not set here, and
+# board_config.mk:90 is where it would go. base_rules.mk:506-513 is only the
+# ordinary install rule; its one "already defined" error, at :324, is a
+# duplicate MODULE NAME check, not a duplicate install path. See
 # work/k50sv1-bringup/upstream/README.md.
 # The .ttf modules are named explicitly. They used to be pulled in by
 # LOCAL_REQUIRED_MODULES on the fonts_customization.xml module, and when that
@@ -133,6 +138,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/init/init.gnss.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.gnss.rc \
     $(LOCAL_PATH)/rootdir/etc/init/init.mediadrm.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.mediadrm.rc \
     $(LOCAL_PATH)/rootdir/etc/init/init.volte_imcb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.volte_imcb.rc \
+    $(LOCAL_PATH)/rootdir/etc/init/init.wfca.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.wfca.rc \
+    $(LOCAL_PATH)/rootdir/etc/init/init.epdg_wod.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.epdg_wod.rc \
     $(LOCAL_PATH)/rootdir/etc/init/lbs_hidl_service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/lbs_hidl_service.rc \
     $(LOCAL_PATH)/rootdir/etc/init/netdagent.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/netdagent.rc \
     $(LOCAL_PATH)/rootdir/etc/init/init.wmt.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.wmt.rc \

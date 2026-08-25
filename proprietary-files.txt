@@ -753,6 +753,87 @@ vendor/lib/libvolte_xdmc_shr.so
 vendor/lib/volte_imsm.so
 vendor/lib64/vendor.mediatek.hardware.imsa@1.0.so
 
+# ePDG / VoWiFi data plane  -- section: vowifi
+# The IMS section above is voice-over-LTE only. This one is the userspace ePDG
+# tunnel, which MediaTek runs in Android rather than in the modem:
+#
+#   epdg_wod  resolves epdg.epc.mnc<MNC>.mcc<MCC>.pub.3gppnetwork.org (or the
+#             operator FQDN from wod_optr.conf), writes one strongSwan conn
+#             fragment per PDN into /data/vendor/ipsec/wo/, forks
+#             `starter --daemon charon`, drives tunnels with `stroke`, and
+#             installs the two oem_epdg_* iptables chains through
+#             /system/bin/iptables-wrapper-1.0.
+#   wfca      carries IMS media between /dev/ccci_imsa and marked sockets on
+#             wlan0 while a WFC call is up.
+#   libmal_epdga.so   MAL's ePDG entity, loaded in-process by mtkmal, which is
+#             ELF32 -- so the 32-bit libwo.so has to ship beside it.
+#
+# The DT_NEEDED closure over all of these terminates in bionic, libcutils,
+# liblog and libz with zero unresolved sonames. The kernel needs nothing: XFRM,
+# XFRM_USER, NET_KEY, INET{,6}_ESP, INET_XFRM_MODE_TUNNEL, TUN,
+# NETFILTER_XT_MATCH_POLICY, NETFILTER_XT_TARGET_TCPMSS, NF_NAT and the whole
+# AES/SHA/HMAC/CBC/CTR/GCM/XCBC set are =y on this handset (/proc/config.gz).
+# Only CRYPTO_CCM is absent, and no profile in wod_optr.conf proposes AES-CCM.
+#
+# The init rc files are NOT extracted. rootdir/etc/init/init.wfca.rc and
+# init.epdg_wod.rc own them so the two deliberate departures from Stock stay
+# reviewable as a diff -- see the headers of those files.
+#
+# DELIBERATELY EXCLUDED, each for a measured reason:
+#
+#   vendor/bin/ipsec_mon, vendor/etc/init/ipsec_mon.rc
+#       Not part of the ePDG tunnel. It watches XFRM netlink for the SIP-IPsec
+#       SAs that libipsec_ims_shr.so installs inside volte_stack and publishes
+#       vendor.net.ims.ipsec.version. That path is SHARED WITH VoLTE, which
+#       registers on this image today without it. Its own stage, not this one.
+#   vendor/lib64/libmal_epdga.so
+#       There is no 64-bit MAL loader: mtkmal is ELF32 and scans /vendor/lib.
+#   vendor/lib/{libcharon-ss,libstrongswan,libhydra,libsimaka,libcrypto-ss,libssl-ss,libcurl-ss}.so
+#       The seven 32-bit strongSwan libraries. starter, charon and stroke are
+#       all ELF64 and nothing 32-bit links them.
+#   vendor/lib64/libipsec_ims_shr.so
+#       Nothing 64-bit links it; the 32-bit copy already ships with VoLTE.
+#   vendor/bin/{wo_epdg_client,wo_ipsec,wo_starter,wo_charon,wo_stroke}
+#       Stock's second, unshipped ePDG generation. Those binaries are not in
+#       this image at all -- only their sepolicy types are.
+#   vendor/etc/ipsec/wod_em.conf
+#       epdg_wod probes for it; it does not exist in this image either.
+vendor/bin/epdg_wod
+vendor/bin/wfca
+vendor/bin/starter
+vendor/bin/charon
+vendor/bin/stroke
+vendor/lib/libmal_epdga.so
+vendor/lib/libwo.so
+vendor/lib64/libwo.so
+vendor/lib64/libcharon-ss.so
+vendor/lib64/libcrypto-ss.so
+vendor/lib64/libcurl-ss.so
+vendor/lib64/libhydra.so
+vendor/lib64/libsimaka.so
+vendor/lib64/libssl-ss.so
+vendor/lib64/libstrongswan.so
+# wod_optr.conf is the operator database: 1410 lines, 66 [OPnn] sections and
+# 105 {mcc=...} blocks of per-operator IKE/ESP proposals, rekey timers, MTU and
+# IDi/IDr types. Without it WFC only works where MediaTek's defaults happen to
+# match. [OP6] (VDF) carries a {mcc=204} block -- Vodafone NL, i.e. the SIM in
+# slot 0, which is also the only slot IMS can run on.
+vendor/etc/ipsec/ipsec.conf
+vendor/etc/ipsec/strongswan.conf
+vendor/etc/ipsec/wod_cust.conf
+vendor/etc/ipsec/wod_optr.conf
+vendor/etc/ipsec/ssl/openssl.cnf
+vendor/etc/ipsec/ipsec.d/cacerts/Entrust.net_Certification_Authority_2048.cer
+vendor/etc/ipsec/ipsec.d/cacerts/GeoTrust_PCA_G3_Root.der
+vendor/etc/ipsec/ipsec.d/cacerts/GeoTrust_Primary_CA.der
+vendor/etc/ipsec/ipsec.d/cacerts/GeoTrust_Primary_CA_G2_ECC.der
+vendor/etc/ipsec/ipsec.d/cacerts/Root_CA_1003.crt
+vendor/etc/ipsec/ipsec.d/cacerts/VeriSignClass3G4.der
+vendor/etc/ipsec/ipsec.d/cacerts/VeriSignClass3G5.der
+vendor/etc/ipsec/ipsec.d/cacerts/VeriSignUniversalRootCertification.der
+vendor/etc/ipsec/ipsec.d/cacerts/gold.cer
+vendor/etc/ipsec/ipsec.d/cacerts/thawte.der
+
 # Media OMX / MTK codec service (active Stock codec service is 32-bit).  -- section: media
 # Use Lineage's source-built standard OMX service wrapper to avoid colliding
 # with the platform module; retain only the MTK implementation and codecs.

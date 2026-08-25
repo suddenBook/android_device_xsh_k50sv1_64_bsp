@@ -1,0 +1,18 @@
+# ePDG (VoWiFi) data plane executables.
+/(vendor|system/vendor)/bin/wfca                 u:object_r:wfca_exec:s0
+/(vendor|system/vendor)/bin/epdg_wod             u:object_r:epdg_wod_exec:s0
+/(vendor|system/vendor)/bin/starter              u:object_r:starter_exec:s0
+/(vendor|system/vendor)/bin/charon               u:object_r:charon_exec:s0
+/(vendor|system/vendor)/bin/stroke               u:object_r:stroke_exec:s0
+
+# init-created sockets. wfca_rds is wfca's second endpoint, for MAL's RDS
+# entity; it belongs on the same type as wfca's own socket because the same
+# process owns both and the same peers dial them.
+/dev/socket/wfca(_rds)?                          u:object_r:mtk_wfca_socket:s0
+/dev/socket/wod_action                           u:object_r:mtk_wod_action_socket:s0
+/dev/socket/wod_sim                              u:object_r:mtk_wod_sim_socket:s0
+
+# charon runtime state, and the conn fragments epdg_wod generates.
+# The /wo subtree is matched by the more specific line, which wins.
+/data/vendor/ipsec(/.*)?                         u:object_r:mtk_wod_ipsec_data_file:s0
+/data/vendor/ipsec/wo(/.*)?                      u:object_r:mtk_wod_apn_data_file:s0

@@ -322,6 +322,25 @@ function patch_wfo_jar() {
         # The alternative -- patching ImsManager.getInstance() to return
         # MtkImsManager -- is an upstream framework change, which this project
         # does not make without the owner's agreement.
+        #
+        # AND IT IS THE ONLY ALTERNATIVE. The obvious-looking repair -- keep the
+        # receiver and swap the cast for AOSP's ImsManager.getConfigInterface()
+        # -- does not exist on Android 10: AOSP's ImsConfig
+        # (frameworks/base/telephony/java/com/android/ims/ImsConfig.java) has no
+        # getFeatureValue(int, int, ImsConfigListener) at all. Q replaced it with
+        # getConfigInt()/ProvisioningManager. getFeatureValue lives only on
+        # MtkImsConfig, reachable only through
+        # MtkImsManager.getConfigInterfaceEx(), and MtkImsManager has no static
+        # factory of its own -- it exists at runtime only because MediaTek
+        # patches ImsManager.getInstance() upstream to return it. So restoring
+        # this receiver is an upstream change or nothing.
+        #
+        # What it costs: nothing measurable. The receiver's only action is to
+        # re-read one IMS feature value and hand it to a CfgListener, and
+        # WifiOffloadService pushes the WFC on/off state to MAL by other paths
+        # (nativeSetWfcSupported / nativeSetWosProfile) that are untouched. The
+        # broadcast comes from ImsService.apk, which is shipped, so this is a
+        # no-op receiver rather than a missing one.
         local marker='.method public onReceive(Landroid/content/Context;Landroid/content/Intent;)V'
         if [[ "$(grep -c -F -- "${marker}" "${receiver}")" -ne 1 ]]; then
             echo "Unexpected onReceive count in WifiOffloadService\$3" >&2
@@ -346,6 +365,106 @@ PYEOF
             echo "WFO receiver still references MtkImsManager" >&2
             exit 1
         fi
+
+        # Give notifyMalSimInfo() a card type it can use.
+        #
+        # WifiOffloadService.notifyMalSimInfo() is the ONLY thing that tells MAL
+        # a SIM exists, and every VoWiFi path below it is dead until it does.
+        # On stock it reads the card type through
+        #
+        #   MtkTelephonyManagerEx.getDefault().getIccCardType(subId)
+        #
+        # which resolves ServiceManager.getService("phoneEx") -- a binder
+        # service registered only by MtkTeleService.apk, MediaTek's drop-in
+        # replacement for packages/services/Telephony. This port ships AOSP's
+        # Phone app, which registers "phone" and "iphonesubinfo" only, so
+        # MtkTelephonyManagerEx catches the NPE and returns null and
+        # notifyMalSimInfo bails four instructions later. Measured on the
+        # handset, on every SIM-state change, both slots:
+        #
+        #   W System.err: java.lang.NullPointerException: ... IMtkTelephonyEx.getIccCardType
+        #       at com.mediatek.telephony.MtkTelephonyManagerEx.getIccCardType(:415)
+        #       at com.mediatek.wfo.impl.WifiOffloadService.notifyMalSimInfo(:1779)
+        #   D WifiOffloadService: notifyMalSimInfo: unexpected result, simType=null, return directly
+        #
+        # The substitute is neither a guess nor a constant: MediaTek's own RIL
+        # already publishes the card type per slot, and it is what the "phoneEx"
+        # implementation would have returned. Live on this handset:
+        #
+        #   [vendor.gsm.ril.uicctype]:   [USIM]     (slot 0)
+        #   [vendor.gsm.ril.uicctype.2]: [USIM]     (slot 1)
+        #
+        # Note the suffix scheme -- base name for slot 0, ".2" for slot 1. It is
+        # NOT the ".1" that vendor.gsm.ril.uicc.mccmnc uses; MediaTek is
+        # inconsistent about this and the two must not be assumed to match.
+        # SIM_COUNT is 2 on this chassis, so both names are spelled out rather
+        # than built at runtime.
+        #
+        # SystemProperties.get(key, def) returns def when the property is unset
+        # OR empty, so a slot with no card would fall back to "USIM" -- which is
+        # unreachable anyway, because this code sits inside the "LOADED" branch.
+        # SystemProperties is already used by ten classes in this jar, so it
+        # raises no new hidden-API question.
+        #
+        # The registers are the ones baksmali emitted: v2 is the slot index
+        # (move/from16 v2, p1), v9 is simTypeStr, and v12 is scratch that the
+        # very next instruction overwrites. .registers is 28, so all three are
+        # reachable by every instruction form used here.
+        local service="${patch_dir}/smali/com/mediatek/wfo/impl/WifiOffloadService.smali"
+        if [[ ! -r "${service}" ]]; then
+            echo "Missing WifiOffloadService.smali" >&2
+            exit 1
+        fi
+        python3 - "${service}" <<'WFOSIMEOF'
+import sys
+path = sys.argv[1]
+src = open(path).read()
+old = '''    invoke-static {}, Lcom/mediatek/telephony/MtkTelephonyManagerEx;->getDefault()Lcom/mediatek/telephony/MtkTelephonyManagerEx;
+
+    move-result-object v12
+
+    invoke-virtual {v12, v4}, Lcom/mediatek/telephony/MtkTelephonyManagerEx;->getIccCardType(I)Ljava/lang/String;
+
+    move-result-object v9
+'''
+new = '''    if-nez v2, :cond_k50sv1_uicc_slot1
+
+    const-string v12, "vendor.gsm.ril.uicctype"
+
+    goto :goto_k50sv1_uicc
+
+    :cond_k50sv1_uicc_slot1
+    const-string v12, "vendor.gsm.ril.uicctype.2"
+
+    :goto_k50sv1_uicc
+    const-string v9, "USIM"
+
+    invoke-static {v12, v9}, Landroid/os/SystemProperties;->get(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v9
+'''
+if src.count(old) != 1:
+    raise SystemExit('expected exactly one getIccCardType call site, found %d'
+                     % src.count(old))
+open(path, 'w').write(src.replace(old, new))
+WFOSIMEOF
+        if [[ "$(grep -c -F 'getIccCardType' "${service}")" -ne 0 ]]; then
+            echo "WifiOffloadService still calls getIccCardType" >&2
+            exit 1
+        fi
+        # getIsimImpi stays. It returns null the same way, but notifyMalSimInfo
+        # already survives that: the null check five instructions later
+        # substitutes "" and checkAsciiValid("") is true, so the method carries
+        # on. Whether an ePDG accepts a UE with no IMPI is a carrier question
+        # this port cannot settle statically -- and there is no correct value to
+        # substitute anyway, because the SIM in slot 0 has no ISIM application
+        # at all (IccCardStatus reports ims_id=-1, RIL-SIM: "Not get ISIM AID
+        # yet").
+        #
+        # notifyPowerOnModem's RadioManager.isFlightModePowerOffModemConfigEnabled()
+        # also stays and needs no patch: it reads five SystemProperties and two
+        # static booleans and cannot throw. An earlier note claiming it had to be
+        # neutralised was wrong.
 
         java -jar "${smali_jar}" assemble -j 1 \
             "${patch_dir}/smali" -o "${patch_dir}/classes.dex"

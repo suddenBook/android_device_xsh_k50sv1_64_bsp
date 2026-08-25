@@ -133,14 +133,34 @@
          the fact rather than depend on the clamp. -->
     <integer name="config_num_physical_slots">2</integer>
 
-    <!-- Bind the Android 10 MTK MMTEL service through AOSP ImsResolver. Only
-         voice over LTE is a device capability; carrier config and provisioning
-         remain the second gate. Video telephony and Wi-Fi calling are omitted. -->
+    <!-- Bind the Android 10 MTK MMTEL service through AOSP ImsResolver. Voice
+         over LTE and voice over Wi-Fi are device capabilities; carrier config
+         and provisioning remain the second gate. Video telephony is omitted -
+         it needs ccci_imsv/ccci_imsdc, which this tree deliberately leaves
+         unlabelled, and libvt_avsync.so, which is not shipped. -->
     <bool name="config_dynamic_bind_ims">true</bool>
     <string name="config_ims_package" translatable="false">com.mediatek.ims</string>
     <bool name="config_device_volte_available">true</bool>
     <bool name="config_device_vt_available">false</bool>
-    <bool name="config_device_wfc_ims_available">false</bool>
+
+    <!-- Wi-Fi calling. ImsManager.isWfcEnabledByPlatform() ANDs exactly this
+         with KEY_CARRIER_WFC_IMS_AVAILABLE_BOOL (set in the CarrierConfig
+         overlay beside carrier_volte_available_bool) and isGbaValid(), which is
+         inert here. Both halves are needed; either alone does nothing.
+
+         Do NOT use persist.dbg.wfc_avail_ovr. It short-circuits the whole AND
+         before it is evaluated, which is the mistake the VoLTE gate already
+         made once with persist.dbg.volte_avail_ovr.
+
+         WFC is a CAPABILITY inside MMTEL (CAPABILITY_TYPE_VOICE x
+         REGISTRATION_TECH_IWLAN), not a separate ImsFeature, so nothing about
+         ImsResolver changes. ro.telephony.iwlan_operation_mode stays `legacy`:
+         MediaTek's ePDG tunnel is a userspace strongSwan tunnel on wlan0, not
+         an Android data transport, so no IQualifiedNetworksService is involved.
+
+         config_carrier_wfc_ims_available is a DIFFERENT resource that exists in
+         Android 10 and has zero Java readers. Overlaying it does nothing. -->
+    <bool name="config_device_wfc_ims_available">true</bool>
 
     <!-- Static radio access family, used for BOTH phones.
 
@@ -160,9 +180,12 @@
          The value is exactly what slot 0's modem reports today: GSM|GPRS|UMTS|LTE
          parses to 36869, which is the measured rat for modem_sys1_ps1
          (RILJ: convertHalRadioCapability rat=36869 rcRil.raf=81930 [SUB0]).
-         Slot 1 really is 32772 (GSM|UMTS, protocol stack 2 is W/G), so this
-         over-states slot 1; nothing in Q reads per-phone RAF once the capability
-         switch is gone. Token spelling must match
+         Slot 1 is CONFIGURED W/G (persist.vendor.radio.mtk_ps2_rat) but comes
+         up GSM-only in practice - the modem reports rcRil.raf 65536, HAL bit
+         16, i.e. GSM alone, and E-084 measured EDGE on both SIMs tried there.
+         So this over-states slot 1 in both directions; nothing in Q reads
+         per-phone RAF once the capability switch is gone. See vendor.prop's
+         mtk_ps2_rat block. Token spelling must match
          RadioAccessFamily.singleRafTypeFromString exactly: one unrecognised
          token makes rafTypeFromString return RAF_UNKNOWN for the whole
          string. -->

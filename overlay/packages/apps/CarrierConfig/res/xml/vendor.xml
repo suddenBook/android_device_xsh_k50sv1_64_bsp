@@ -85,5 +85,31 @@
             Enhanced 4G LTE toggle.
         -->
         <boolean name="carrier_volte_available_bool" value="true" />
+
+        <!--
+            Wi-Fi calling is a capability of this device, for every SIM.
+
+            Exactly the same gate shape as VoLTE above:
+            ImsManager.isWfcEnabledByPlatform() ANDs
+            config_device_wfc_ims_available (set true in this device's framework
+            overlay) with KEY_CARRIER_WFC_IMS_AVAILABLE_BOOL, which
+            CarrierConfigManager defaults to FALSE and which only AOSP's handful
+            of carrier assets ever set true. None of them matches the operators
+            this handset sees.
+
+            This does NOT claim the operator provisions VoWiFi. It says the
+            device can do it. Whether an ePDG accepts the UE is decided by the
+            network, and the residual risk is named in
+            work/k50sv1-bringup/notes/vowifi-feasibility.md: this SIM has no
+            ISIM application (IccCardStatus reports ims_id=-1), so the IMPI
+            WifiOffloadService hands MAL is empty and epdg_wod has to derive the
+            IDi itself.
+
+            Every WFC provisioning/mode key is left at its AOSP default:
+            KEY_CARRIER_VOLTE_PROVISIONING_REQUIRED_BOOL is false, and
+            KEY_CARRIER_DEFAULT_WFC_IMS_MODE_INT defaults to WIFI_PREFERRED.
+            Nothing here forces a mode; the user's setting decides.
+        -->
+        <boolean name="carrier_wfc_ims_available_bool" value="true" />
     </carrier_config>
 </carrier_config_list>

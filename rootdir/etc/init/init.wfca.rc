@@ -1,0 +1,18 @@
+# wfca -- the modem-side half of VoWiFi. It carries IMS media between
+# /dev/ccci_imsa and marked sockets on wlan0 while a WFC call is up, and idles
+# on its two sockets the rest of the time.
+#
+# This file is owned by the device tree rather than extracted, so the delta from
+# Stock stays reviewable as a diff. It differs from
+# vendor/etc/init/init.wfca.rc in exactly one way: Stock lists `root` as a
+# supplementary group on a service whose primary user is already root.
+#
+# The two sockets are 660 root:system because MAL (mtkmal, group system) and
+# volte_ua both dial them; sepolicy/vowifi/wfca.te carries the matching
+# sock_file/connectto edges.
+service wfca /vendor/bin/wfca
+    class core
+    socket wfca stream 660 root system
+    socket wfca_rds stream 660 root system
+    user root
+    group system log inet radio net_admin

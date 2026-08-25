@@ -1,0 +1,49 @@
+# The Android 10 wpa_supplicant control-socket path, bridged for MAL.
+#
+# THE PROBLEM. Three MAL entity libraries open wpa_supplicant's per-interface
+# control socket by an absolute path that was correct up to Android 8 and is
+# empty on Q:
+#
+#   libmal_epdga.so   /data/misc/wifi/sockets/wlan0  + .../ea_ctrlconn
+#   libmal_rds.so     /data/misc/wifi/sockets/wlan0  + .../rds_ctrlconn
+#   libmal_nwmngr.so  /data/misc/wifi/sockets/wlan0  + .../nwmngr_ctrlconn
+#
+# On Q the socket is at /data/vendor/wifi/wpa/sockets/wlan0 --
+# external/wpa_supplicant_8/wpa_supplicant/Android.mk:72-73 compiles both
+# CONFIG_CTRL_IFACE_DIR and CONFIG_CTRL_IFACE_CLIENT_DIR to that path, so it is
+# not overridable from a device tree. The strings are longer than the old ones,
+# so they cannot be patched in place in the blobs either.
+#
+# THE BRIDGE. init.mt6755.rc bind-mounts the real directory onto the legacy one
+# (see `on post-fs-data` there). Nothing on Q writes to /data/misc/wifi/sockets
+# -- the only remaining references in the whole tree are init.rc:502's mkdir,
+# a CTS permission assertion on the directory, and the hs20 client, which this
+# product does not build -- so the mount is invisible to the platform. It also
+# moves the path from wpa_socket (core_data_file_type,
+# system/sepolicy/public/file.te:435) to wpa_data_file (vendor,
+# system/sepolicy/vendor/file.te:2), which is the Treble-correct type for a
+# vendor domain to touch.
+#
+# WHAT MAL SENDS. Read-only queries, all three of them: STATUS (libmal_epdga),
+# SIGNAL_POLL (libmal_rds) and BSS <bssid> (libmal_nwmngr). No SCAN, no
+# DISCONNECT, no SET -- nothing that could fight WifiService for control of the
+# supplicant.
+#
+# STATUS: this is the one part of the VoWiFi chain that has never run. It is
+# cheap and it is scoped; if Wi-Fi misbehaves after a flash, remove the mount
+# in init.mt6755.rc and this file, and nothing else has to change.
+
+# The control connection is AF_UNIX SOCK_DGRAM in both directions: the client
+# binds its own <name>_ctrlconn node and sendto()s the server's, and the server
+# replies to the client's node.
+allow mtkmal wpa_data_file:dir { add_name remove_name search write };
+allow mtkmal wpa_data_file:sock_file { create unlink write };
+allow mtkmal hal_wifi_supplicant:unix_dgram_socket sendto;
+allow hal_wifi_supplicant mtkmal:unix_dgram_socket sendto;
+
+# hal_wifi_supplicant is a halserverdomain, so check this against
+# system/sepolicy/public/hal_neverallows.te before adding anything: that file
+# forbids halserverdomain { tcp_socket udp_socket rawip_socket } and
+# { net_admin net_raw } outside a short exempt list. unix_dgram_socket is in
+# neither neverallow, and hal_wifi_supplicant_server is on the exempt list for
+# both anyway.

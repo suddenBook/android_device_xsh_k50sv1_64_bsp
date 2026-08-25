@@ -1,0 +1,66 @@
+# ipsec -- strongSwan (starter, charon, stroke), forked by epdg_wod.
+#
+# There is no init_daemon_domain() here on purpose: nothing in init starts these.
+# epdg_wod execs them, and the three transitions live in epdg_wod.te. The
+# entrypoints have to be granted on this side.
+allow ipsec starter_exec:file { entrypoint execute getattr map open read };
+allow ipsec charon_exec:file { entrypoint execute getattr map open read };
+allow ipsec stroke_exec:file { entrypoint execute getattr map open read };
+# `starter --daemon charon` re-execs charon in the same domain.
+allow ipsec charon_exec:file execute_no_trans;
+allow ipsec epdg_wod:process sigchld;
+
+# IKEv2 on UDP 10500/14500 (MediaTek moved off 500/4500; see
+# /vendor/etc/ipsec/strongswan.conf), plus DNS through netd.
+net_domain(ipsec)
+
+# XFRM policy and SA installation, and the routes that go with them.
+allow ipsec self:netlink_xfrm_socket { bind create nlmsg_read nlmsg_write read write };
+allow ipsec self:netlink_route_socket { bind create nlmsg_read nlmsg_write read write };
+allow ipsec self:global_capability_class_set { net_admin net_bind_service };
+
+# charon arms a wake alarm for its rekey and DPD timers.
+allow ipsec self:capability2 wake_alarm;
+
+# It kills its own stale pid from /data/vendor/ipsec/charon.pid on restart.
+allow ipsec self:global_capability_class_set kill;
+
+# /vendor/etc/ipsec/{ipsec,strongswan}.conf, ipsec.d/cacerts/* and
+# ssl/openssl.cnf. AOSP already grants domain vendor_configs_file:file
+# { getattr map open read }; only the directory walk is missing.
+allow ipsec vendor_configs_file:dir r_dir_perms;
+
+# charon.ctl (the stroke control socket), the pid files, and the generated
+# wo_apn.conf that /vendor/etc/ipsec/ipsec.conf includes.
+allow ipsec mtk_wod_ipsec_data_file:dir rw_dir_perms;
+allow ipsec mtk_wod_ipsec_data_file:file create_file_perms;
+allow ipsec mtk_wod_ipsec_data_file:sock_file { create setattr unlink write };
+allow ipsec mtk_wod_apn_data_file:dir rw_dir_perms;
+allow ipsec mtk_wod_apn_data_file:file rw_file_perms;
+
+# `stroke` talks to charon over that same control socket, and both run here, so
+# no cross-domain rule is needed -- system/sepolicy/public/domain.te:29 already
+# grants every domain self:unix_stream_socket connectto.
+
+# epdg_wod hands charon its stdout/stderr and the stroke command pipe.
+allow ipsec epdg_wod:fd use;
+allow ipsec epdg_wod:unix_stream_socket { connectto read write };
+
+# `charon --debug` writes to the controlling terminal when started by hand from
+# a shell; harmless and Stock has it.
+allow ipsec devpts:chr_file { open read write };
+
+set_prop(ipsec, mtk_wod_prop)
+get_prop(ipsec, mtk_wfc_service_prop)
+
+# Deliberately NOT ported from Stock:
+#
+#   (allow ipsec custom_file (dir/file (read ...)))
+#       /custom is a Stock-only partition; it does not exist here.
+#
+#   (allow ipsec proc_modules_29_0 (file (getattr)))
+#       strongSwan's kernel-netlink plugin stats /proc/modules to guess which
+#       crypto is available. Every algorithm in wod_optr.conf's 105 profiles is
+#       built in on this kernel, so the answer is already correct without it,
+#       and /proc/modules is a fingerprinting surface this build denies on
+#       purpose elsewhere.

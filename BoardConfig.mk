@@ -84,8 +84,10 @@ BOARD_SYSTEMSDK_VERSIONS := 28
 # granting the property types first. Do not raise it as a cosmetic change.
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
 DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml
-# Do NOT add DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE. Setting it is what
-# turns on assemble_vintf's VINTF_ENFORCE_NO_UNUSED_HALS check, in the
+# Do NOT add DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE -- or
+# DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE, which trips the identical check:
+# Makefile:2719-2723 tests the two together in one $(strip ...). Setting either
+# is what turns on assemble_vintf's VINTF_ENFORCE_NO_UNUSED_HALS check, in the
 # manifest->matrix direction, for the WHOLE device manifest. This tree declares
 # 14 vendor.mediatek.* HALs that no compatibility matrix in
 # hardware/interfaces/compatibility_matrices/ mentions, which is normal and
@@ -275,6 +277,7 @@ BOARD_VENDOR_SEPOLICY_DIRS += \
     $(DEVICE_PATH)/sepolicy/power \
     $(DEVICE_PATH)/sepolicy/radio \
     $(DEVICE_PATH)/sepolicy/vendor \
+    $(DEVICE_PATH)/sepolicy/vowifi \
     $(DEVICE_PATH)/sepolicy/safety
 
 # Make a PRODUCT_PACKAGES entry that names a module the build cannot see a BUILD

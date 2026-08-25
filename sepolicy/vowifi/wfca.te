@@ -1,0 +1,67 @@
+# wfca -- the modem-side half of VoWiFi.
+#
+# It is the ONLY consumer of /dev/ccci_imsa on the WFC path: it moves IMS
+# packets between that modem channel and raw/UDP sockets on wlan0, marked with
+# SO_MARK so netd routes them into the ESP tunnel charon has set up. It is
+# ELF32, like mtkmal and the three volte_* daemons it sits beside.
+#
+# It does NOT open /dev/ccci_imsdc, /dev/ccci_imsem or /dev/ccci_imsv. Those are
+# the video-telephony channels; libvt_avsync.so is their only consumer and this
+# build ships no ViLTE/ViWiFi. sepolicy/radio/file.te leaves them unlabelled on
+# purpose and that decision survives VoWiFi.
+init_daemon_domain(wfca)
+
+# Raw and datagram sockets on wlan0, plus the fwmarkd/netd edges that make
+# SO_MARK work. net_domain() is what grants self:{udp,tcp}_socket,
+# node_type:*:node_bind, port_type:*:name_bind and
+# unix_socket_connect(netdomain, fwmarkd, netd) -- see
+# system/sepolicy/public/net.te:11-27.
+net_domain(wfca)
+
+# Not covered by net_domain(): rawip_socket is not in net.te's socket set, and
+# packet_socket is not either.
+allow wfca self:rawip_socket { bind create getattr read setopt write };
+allow wfca node_type:rawip_socket node_bind;
+allow wfca self:packet_socket { create read setopt };
+
+# The IMS application channel to the modem.
+allow wfca mtk_ccci_ims_device:chr_file rw_file_perms;
+
+# It drops from root to its own uid/gids after opening the modem node.
+allow wfca self:global_capability_class_set { setgid setuid };
+
+# Binding a raw socket and setting SO_MARK on it both need these.
+allow wfca self:global_capability_class_set { net_admin net_raw };
+
+# It takes a wakelock across an active WFC call so the AP cannot suspend the
+# media path. wakelock_use() carries the CAP_BLOCK_SUSPEND and the
+# system_suspend HIDL edges that /sys/power/wake_lock needs on Q.
+wakelock_use(wfca)
+
+# It re-opens its own init-created sockets by pathname rather than using only
+# the inherited fds -- the same pattern volte_stack and volte_ua have on this
+# device, and the same one that cost this tree two AVCs there.
+allow wfca mtk_wfca_socket:sock_file write;
+
+# MAL dials wfca on /dev/socket/wfca (libmal_epdga.so) and on
+# /dev/socket/wfca_rds (libmal_rds.so); volte_ua dials it for the media leg and
+# hands it a bound UDP socket to write RTP into.
+allow { mtkmal volte_ua } mtk_wfca_socket:sock_file write;
+allow { mtkmal volte_ua } wfca:unix_stream_socket connectto;
+allow wfca volte_ua:fd use;
+allow wfca volte_ua:udp_socket { getattr getopt read setopt shutdown write };
+
+# Product contract and per-slot IMS state, read-only. Writers stay
+# rild/mtkrild/vendor_init (mtk_ims_prop, mtk_ims_feature_prop) and
+# mtkmal/rild (mtk_vendor_radio_prop).
+get_prop(wfca, mtk_ims_prop)
+get_prop(wfca, mtk_ims_feature_prop)
+get_prop(wfca, mtk_vendor_radio_prop)
+
+# NO `dontaudit wfca self:capability dac_override`.
+#
+# Stock has one. It is a root process, so a dac_override request means it
+# touched something whose mode it does not satisfy -- which is information, not
+# noise. If it appears at Tier 1 it gets diagnosed and either granted with a
+# reason or fixed by a mode/ownership change in the rc file. Silencing it here
+# would make that impossible to see, and this tree does not hide denials.

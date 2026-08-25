@@ -1,0 +1,11 @@
+# vendor.wo.* is ipsec_mon's and epdg_wod's runtime state; persist.vendor.wo.*
+# is the persistent half of the same namespace. Stock splits these into
+# mtk_wod_prop / persist_wod_prop and that split is kept: the persistent one
+# survives a wipe of the other and is the only one an operator profile writes.
+type mtk_wod_prop, property_type;
+type mtk_wod_persist_prop, property_type;
+
+# The user-facing WFC switch and the operator/entitlement inputs beside it.
+# Deliberately NOT folded into mtk_ims_feature_prop: those are read by five
+# native IMS daemons that have no business in the WFC entitlement namespace.
+type mtk_wfc_service_prop, property_type;

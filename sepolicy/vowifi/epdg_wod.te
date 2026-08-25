@@ -1,0 +1,105 @@
+# epdg_wod -- the ePDG control plane.
+#
+# It resolves epdg.epc.mnc%03d.mcc%03d.pub.3gppnetwork.org (or the operator FQDN
+# from /vendor/etc/ipsec/wod_optr.conf), writes one strongSwan conn fragment per
+# PDN into /data/vendor/ipsec/wo/, forks `starter --daemon charon`, and then
+# drives each tunnel with `stroke up-nb` / `down-nb`. It also installs the two
+# oem_epdg_* iptables chains that NAT and MSS-clamp traffic inside the tunnel.
+init_daemon_domain(epdg_wod)
+
+# DNS, the ePDG probe sockets and the netd/fwmarkd edges. See wfca.te for what
+# net_domain() actually grants.
+net_domain(epdg_wod)
+
+# strongSwan: starter, charon and stroke all run as `ipsec`.
+domain_auto_trans(epdg_wod, starter_exec, ipsec)
+domain_auto_trans(epdg_wod, charon_exec, ipsec)
+domain_auto_trans(epdg_wod, stroke_exec, ipsec)
+allow epdg_wod ipsec:process { signal signull sigkill };
+
+# `/system/bin/iptables-wrapper-1.0` and its ip6 twin. epdg_wod probes for them
+# by path and logs "[NID] netutils supported" when they exist, which is why this
+# is a transition and not an execute_no_trans on system_file:
+#
+#   system/sepolicy/public/netutils_wrapper.te:4
+#       neverallow domain netutils_wrapper_exec:file execute_no_trans;
+#   system/sepolicy/private/netutils_wrapper.te:38-42
+#       domain_auto_trans({ domain -coredomain -appdomain },
+#                         netutils_wrapper_exec, netutils_wrapper)
+#
+# so the forward edge already exists for every vendor domain and must not be
+# restated. Only the two back edges are missing. The wrapper's allowlist accepts
+# these chains as-is: NetUtilsWrapper-1.0.cpp:39 defines
+# VENDOR_CHAIN "(oem_.*|nm_.*|qcom_.*)" and :63/:78 permit -A/-D/-F/-I/-N/-X on
+# one and `-j` to one.
+#
+# The symlinks themselves are AOSP's -- system/netd/netutils_wrappers/Android.bp
+# declares iptables-wrapper-1.0, ip6tables-wrapper-1.0, ip-wrapper-1.0,
+# ndc-wrapper-1.0 and tc-wrapper-1.0 as `symlinks:` on netutils-wrapper-1.0, and
+# all five are present in this build. Nothing has to be added for them.
+allow netutils_wrapper epdg_wod:fd use;
+allow netutils_wrapper epdg_wod:process sigchld;
+
+# The generated conn fragments and charon's runtime directory.
+allow epdg_wod mtk_wod_apn_data_file:dir rw_dir_perms;
+allow epdg_wod mtk_wod_apn_data_file:file create_file_perms;
+allow epdg_wod mtk_wod_ipsec_data_file:dir rw_dir_perms;
+allow epdg_wod mtk_wod_ipsec_data_file:file create_file_perms;
+
+# /vendor/etc/ipsec/{wod_cust,wod_optr,wod_em}.conf. AOSP already grants every
+# domain read+map on vendor_configs_file:file, but not the directory search that
+# opening a path inside it needs.
+allow epdg_wod vendor_configs_file:dir search;
+
+# A tun device for the tunnel's inner address, and the XFRM/route programming
+# that goes with it. epdg_wod creates and labels the interface; charon (ipsec)
+# installs the SAs.
+allow epdg_wod self:tun_socket { create relabelfrom relabelto };
+allow epdg_wod tun_device:chr_file rw_file_perms;
+allow epdg_wod self:netlink_route_socket { bind create getattr nlmsg_read nlmsg_write read setopt write };
+allow epdg_wod self:netlink_xfrm_socket { bind create getattr nlmsg_write read setopt write };
+allow epdg_wod self:global_capability_class_set { net_admin net_raw };
+
+# It signals its own strongSwan children and reaps them.
+allow epdg_wod self:global_capability_class_set kill;
+
+# Its half of the runtime property namespace.
+set_prop(epdg_wod, mtk_wod_prop)
+set_prop(epdg_wod, mtk_wod_persist_prop)
+get_prop(epdg_wod, mtk_wfc_service_prop)
+get_prop(epdg_wod, mtk_ims_prop)
+get_prop(epdg_wod, mtk_ims_feature_prop)
+get_prop(epdg_wod, mtk_vendor_radio_prop)
+
+# MAL's ePDG entity (libmal_epdga.so, inside mtkmal) drives it over the two
+# init-created sockets.
+allow mtkmal { mtk_wod_action_socket mtk_wod_sim_socket }:sock_file write;
+allow mtkmal epdg_wod:unix_stream_socket connectto;
+allow epdg_wod { mtk_wod_action_socket mtk_wod_sim_socket }:sock_file write;
+
+# Rules Stock has that are deliberately NOT ported:
+#
+#   (allow epdg_wod self (capability (sys_module)))
+#       CAP_SYS_MODULE from a network daemon is a privilege escalation with no
+#       plausible need: every XFRM/ESP/tunnel option this device uses is =y in
+#       this kernel (verified from /proc/config.gz), so there is no module to
+#       autoload. If a module_request denial ever appears here it is a fault to
+#       diagnose, not a capability to grant.
+#
+#   (allow epdg_wod device_29_0 (dir (write add_name)))
+#   (allow epdg_wod device_29_0 (lnk_file (create)))
+#       Writing into /dev itself. Whatever this was for on Stock's shared
+#       vendor image, this device's chain does not create device nodes.
+#
+#   (allow epdg_wod system_server_29_0 (process (signull signal)))
+#   (allow epdg_wod kernel_29_0 (process (signal)))
+#       Signalling system_server from a vendor daemon. Not portable, not
+#       needed, and forbidden in spirit by the Treble domain split.
+#
+#   (allow epdg_wod ipsec_exec (file (...execute_no_trans...)))
+#       /vendor/bin/ipsec does not exist in this image. Stock's own policy
+#       labels a file that was never shipped.
+#
+#   (allow epdg_wod vendor_file (file (...execute_no_trans...)))
+#       Blanket exec of any vendor file. The three executables it really runs
+#       are starter, charon and stroke, and each has its own transition above.

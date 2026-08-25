@@ -1,0 +1,28 @@
+# epdg_wod -- the ePDG control plane. It resolves the ePDG FQDN, writes
+# strongSwan conn fragments, forks `starter --daemon charon`, and drives each
+# tunnel with `stroke`. With WFC off it idles on its two sockets.
+#
+# Owned by the device tree rather than extracted, for the same reason as
+# init.wfca.rc. Two deliberate differences from vendor/etc/init/init.wod.rc:
+#
+#   * `root` is dropped from the supplementary group list; the primary user is
+#     already root.
+#   * `mkdir /dev/vendor/net/ 0700 root root` is dropped. No shipped binary
+#     references that path -- it belongs to Stock's second, unshipped ePDG
+#     generation (wo_epdg_client / wo_ipsec), whose executables are not in this
+#     image at all.
+#
+# /data/vendor/ipsec holds charon's runtime state and the generated wo_apn.conf
+# that /vendor/etc/ipsec/ipsec.conf includes; /data/vendor/ipsec/wo holds the
+# per-PDN conn fragments. Both are labelled from file_contexts by init's own
+# mkdir, so no restorecon is needed here.
+on post-fs-data
+    mkdir /data/vendor/ipsec 0700 root root
+    mkdir /data/vendor/ipsec/wo 0700 root root
+
+service vendor.epdg_wod /vendor/bin/epdg_wod
+    class late_start
+    socket wod_action stream 660 root system
+    socket wod_sim stream 660 root system
+    user root
+    group system log inet radio net_admin

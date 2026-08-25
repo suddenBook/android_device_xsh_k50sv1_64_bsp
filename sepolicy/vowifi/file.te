@@ -1,0 +1,61 @@
+# ePDG (VoWiFi) data plane.
+#
+# MediaTek runs the ePDG IPsec tunnel in Android USERSPACE, not in the modem:
+# epdg_wod resolves the ePDG FQDN, writes strongSwan conn files, forks
+# `starter --daemon charon`, and drives connections with `stroke`. ESP itself is
+# kernel XFRM on wlan0. wfca is the modem-side companion that carries IMS media
+# between /dev/ccci_imsa and the WLAN interface.
+#
+# Domain names match Stock's so that a comparison against the Stock CIL stays
+# mechanical. Object types do NOT: Stock labels every one of these sockets and
+# directories with a shared catch-all (socket_device, vendor_data_file), which
+# would let unrelated vendor daemons reach them.
+
+type wfca, domain;
+type wfca_exec, exec_type, vendor_file_type, file_type;
+
+type epdg_wod, domain;
+type epdg_wod_exec, exec_type, vendor_file_type, file_type;
+
+# ONE domain for the three strongSwan executables, as Stock has: `starter`
+# execs `charon`, and `stroke` is a short-lived client of the same daemon, so
+# separating them would only add transitions with no boundary behind them.
+type ipsec, domain;
+type starter_exec, exec_type, vendor_file_type, file_type;
+type charon_exec, exec_type, vendor_file_type, file_type;
+type stroke_exec, exec_type, vendor_file_type, file_type;
+
+# Local sockets created by init for the ePDG chain. Stock puts /dev/socket/wfca
+# and /dev/socket/wfca_rds on one type and leaves wod_action/wod_sim on two
+# more; keeping that split is right -- wfca's peers (mtkmal, volte_ua) and
+# epdg_wod's peer (mtkmal, through libmal_epdga.so) are different sets.
+type mtk_wfca_socket, file_type;
+type mtk_wod_action_socket, file_type;
+type mtk_wod_sim_socket, file_type;
+
+# /data/vendor/ipsec holds charon's runtime state (charon.ctl, the pid files and
+# the generated wo_apn.conf that /vendor/etc/ipsec/ipsec.conf includes).
+# /data/vendor/ipsec/wo holds the per-PDN conn fragments epdg_wod writes.
+#
+# Both MUST be data_file_type and MUST NOT be a core data_file_type: a vendor
+# domain creating or unlinking a file whose type is not in the vendor set trips
+# system/sepolicy/public/domain.te's core-data neverallow.
+type mtk_wod_ipsec_data_file, file_type, data_file_type;
+type mtk_wod_apn_data_file, file_type, data_file_type;
+
+# ipsec_mon is deliberately NOT here, and neither is its blob or its rc file.
+# It is not part of the ePDG tunnel: it watches XFRM netlink for the SIP-IPsec
+# SAs that libipsec_ims_shr.so installs inside volte_stack and republishes them
+# as vendor.net.ims.ipsec.version. That path is SHARED WITH VoLTE, which
+# registers on this image today without it. Adding it would change a working
+# VoLTE SIP path in the same flash as the whole ePDG stack, and then neither
+# result would mean anything. It is its own stage.
+#
+# /dev/socket/wod_dns and /dev/socket/wod_ipsec are declared by Stock's
+# file_contexts and created by nothing on this image -- no rc file makes them
+# and no binary that is shipped opens them. They are deliberately absent here.
+#
+# So is Stock's whole second, UNSHIPPED ePDG generation (wo_epdg_client,
+# wo_ipsec, wo_starter, wo_charon, wo_stroke and their exec/socket types). Those
+# binaries do not exist in this image at all; porting their policy would create
+# types no file can ever carry.

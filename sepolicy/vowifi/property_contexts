@@ -1,0 +1,13 @@
+# ePDG daemon state. Stock: mtk_wod_prop / persist_wod_prop.
+vendor.wo.                         u:object_r:mtk_wod_prop:s0
+persist.vendor.wo.                 u:object_r:mtk_wod_persist_prop:s0
+
+# WFC service-level configuration read by ImsService/WifiOffloadService and by
+# the ePDG daemons. persist.vendor.wfc.sys_wfc_support is deliberately NOT here
+# -- it is already mtk_ims_prop (sepolicy/radio/property_contexts) because it
+# gates mtk-ril.so's queryEpdgRat, which is on the VoLTE path (E-091).
+persist.vendor.mtk.wfc.mccmnc_list u:object_r:mtk_wfc_service_prop:s0
+persist.vendor.mtk_wfc_opt_in      u:object_r:mtk_wfc_service_prop:s0
+persist.vendor.entitlement_enabled u:object_r:mtk_wfc_service_prop:s0
+persist.vendor.entitlement.sesurl  u:object_r:mtk_wfc_service_prop:s0
+persist.vendor.net.wo.epdg_fqdn    u:object_r:mtk_wfc_service_prop:s0
