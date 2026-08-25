@@ -45,7 +45,8 @@ allow vendor_init mnt_vendor_file:dir create_dir_perms;
 # remove_name -- so vendor_init may already unlink the directory ENTRY and is
 # only missing unlink on the inode itself. Scoped to the generic "device" type
 # (the label those stray tmpfs files inherit), not to all of dev_type. The only
-# device:file neverallow in the platform is public/domain.te:468, which covers
+# device:file neverallow in the platform is public/domain.te:468-469 -- :468
+# is property_type:file and :469 is properties_device:file -- which covers
 # properties_device.
 allow vendor_init device:file unlink;
 

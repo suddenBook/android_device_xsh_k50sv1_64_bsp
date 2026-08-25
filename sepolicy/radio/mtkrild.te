@@ -20,8 +20,11 @@ allowxperm mtkrild self:udp_socket ioctl {
 allow mtkrild mtk_ccci_status_device:chr_file rw_file_perms;
 allow mtkrild mtk_ccci_ioctl_device:chr_file rw_file_perms;
 
-allow mtkrild mtk_radio_mux_device:dir search;
-allow mtkrild mtk_radio_mux_device:lnk_file { getattr read };
+# No mtk_radio_mux_device rules here. They used to be, byte-identical to the
+# mtkrild half of radio/ims.te, which is the only genuine intra-tree duplicate
+# the policy had. They live there because that is where the mtkmal-creates /
+# {mtkrild rild}-consumes relationship is documented, and splitting one half of
+# it across two files is how it got duplicated in the first place.
 allow mtkrild gsm0710muxd_devpts:chr_file rw_file_perms;
 allowxperm mtkrild gsm0710muxd_devpts:chr_file ioctl unpriv_tty_ioctls;
 

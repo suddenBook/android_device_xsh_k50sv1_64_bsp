@@ -28,7 +28,7 @@ allow {
 
 # libnvram resolves its record paths through the nvdata tree and follows any
 # symlink it meets on the way. `allow domain dev_type:lnk_file r_file_perms`
-# (public/domain.te:64) covers device nodes only, not file_type, so a symlink
+# (public/domain.te:67) covers device nodes only, not file_type, so a symlink
 # under /mnt/vendor/nvdata is unreadable without this. Stock grants
 # nvdata_file:lnk_file read to essentially every libnvram client.
 allow {

@@ -21,7 +21,7 @@ create_pty(netdagent)
 # An earlier revision deleted these two rules and argued at length that they
 # were unreachable because "no platform domain_auto_trans to netutils_wrapper
 # exists; the only ones are in device/qcom/sepolicy". That is wrong.
-# system/sepolicy/private/netutils_wrapper.te:31-35 is
+# system/sepolicy/private/netutils_wrapper.te:33-37 is
 #
 #     domain_auto_trans({ domain -coredomain -appdomain },
 #                       netutils_wrapper_exec, netutils_wrapper)

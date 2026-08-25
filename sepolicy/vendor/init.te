@@ -63,7 +63,10 @@ allowxperm e2fs cache_block_device:blk_file ioctl {
 #   chmod 0664 /sys/block/mmcblk0/queue/scheduler            <- setattr
 # and its `on property:sys.io.scheduler=*` action writes the node.
 #
-# The denial is audit serial 4, ~3 s into every boot. Under enforcing the node
+# The denial WAS audit serial 4, ~3 s into a boot, and the rule below is what
+# closed it -- it does not appear in current captures. Do not treat an audit
+# serial as an identifier: they are per-boot sequence numbers and serial 4 is a
+# different record on every boot. Under enforcing the node
 # would stay root:root 0644 -- so the scheduler stops being settable at runtime
 # at all, and a shipped rc action becomes a permanent silent no-op. Ship the
 # whole mechanism or none of it; half of it is the worst option.

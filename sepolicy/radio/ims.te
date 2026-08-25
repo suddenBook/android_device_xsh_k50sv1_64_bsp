@@ -131,6 +131,11 @@ allow mtkmal mtk_radio_mux_device:dir {
 };
 allow mtkmal mtk_radio_mux_device:lnk_file { create unlink };
 allow { mtkrild rild } mtk_radio_mux_device:dir search;
+# The lnk_file half is redundant against system/sepolicy/public/domain.te:67,
+#     allow domain dev_type:lnk_file r_file_perms;
+# because mtk_radio_mux_device is dev_type (radio/file.te). The dir half above
+# is NOT: domain.te:66 grants `device:dir search` -- the `device` TYPE, not the
+# dev_type ATTRIBUTE. Kept as insurance, same reasoning as radio/clients.te.
 allow { mtkrild rild } mtk_radio_mux_device:lnk_file { getattr read };
 allow { mtkrild rild } mtkmal_devpts:chr_file rw_file_perms;
 allowxperm { mtkrild rild } mtkmal_devpts:chr_file ioctl unpriv_tty_ioctls;

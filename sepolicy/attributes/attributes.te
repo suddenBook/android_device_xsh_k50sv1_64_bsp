@@ -77,8 +77,11 @@ hal_attribute(mtk_radioex)
 #   Kept off hal_power_hwservice so that the MTK-private boost interface is not
 #   reachable by every hal_power_client -- which on this device includes
 #   hal_audio_default, hal_camera_default, hal_graphics_composer_default and
-#   mediacodec (power/clients.te). lshal shows no client bound to any of the
-#   four MTK instances, so the attribute starts with a server and no clients.
+#   mediacodec (power/clients.te). The attribute had no clients when it was
+#   introduced; three were added later against real Tier-1 AVCs and now live in
+#   power/hwservice.te (hal_camera_default, hal_audio_default, mediacodec). Do
+#   NOT re-derive the client set from `lshal` -- the note beside those rules
+#   explains why its client column reads empty for these instances.
 hal_attribute(mtk_power)
 
 # Every storage type the two trusted NVRAM providers (nvram_daemon and

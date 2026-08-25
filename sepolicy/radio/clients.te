@@ -24,6 +24,17 @@ allow { uncrypt vold recovery } block_device:dir search;
 # does. Stock's compiled policy:
 #   (allow rild sysfs_ccci (dir (search)))
 #   (allow rild sysfs_ccci (file (getattr ioctl lock map open read)))
+#
+# REDUNDANT TODAY, kept for the same reason as the ten set_prop(vendor_init, ...)
+# rules in gnss/vendor_init.te: the rule is insurance against AOSP narrowing a
+# blanket grant. rild is hal_telephony_server
+# (system/sepolicy/vendor/rild.te:3, hal_server_domain(rild, hal_telephony)) and
+# system/sepolicy/public/hal_telephony.te:39 is
+#     r_dir_file(hal_telephony_server, sysfs_type)
+# which already covers sysfs_mtk_ccci -- it is `fs_type, sysfs_type` at
+# radio/file.te. Confirmed, not inferred: `sepolicy-analyze <policy> dups`
+# reports both of these as duplicates of the hal_telephony_server x sysfs_type
+# rules. They become load-bearing the moment that blanket grant narrows.
 allow rild sysfs_mtk_ccci:dir r_dir_perms;
 allow rild sysfs_mtk_ccci:file r_file_perms;
 

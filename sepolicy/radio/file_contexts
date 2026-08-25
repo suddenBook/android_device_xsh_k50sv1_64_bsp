@@ -10,6 +10,7 @@
 /(vendor|system/vendor)/bin/volte_stack   u:object_r:volte_stack_exec:s0
 /(vendor|system/vendor)/bin/volte_ua      u:object_r:volte_ua_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.mediatek\.hardware\.imsa@1\.0-service u:object_r:mtk_hal_imsa_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.mediatek\.hardware\.wfo@1\.0-service    u:object_r:mtk_hal_wfo_exec:s0
 
 # rilproxy deliberately remains on the AOSP rild domain through the mapping in
 # the device's shared vendor file_contexts.
@@ -51,6 +52,18 @@
 # rediscovered if a modem image ever uses it.
 /mnt/vendor/nvdata/md[0-9]*(/.*)?        u:object_r:mtk_modem_nvdata_file:s0
 /mnt/vendor/nvdata/md_cmn(/.*)?          u:object_r:mtk_modem_nvdata_file:s0
+# NOT labelled: /mnt/vendor/nvdata/md_via, the VIA/C2K modem NVRAM directory.
+# It EXISTS on the handset (root:nvram 0770, created beside md2) and `md[0-9]*`
+# does not match it, so it keeps AOSP's /mnt/vendor(/.*)? -> mnt_vendor_file.
+# That is correct here: the directory is empty, no process holds anything under
+# it open, and there is no C2K radio on this chassis: both RAT configs are
+# CDMA-free (ro.vendor.mtk_protocol1_rat_config=Lf/Lt/W/T/G,
+# persist.vendor.radio.mtk_ps2_rat=W/G) and ro.vendor.mtk_c2k_lte_mode=0.
+# ro.vendor.mtk_eccci_c2k is 1, and that is NOT a contradiction -- it selects
+# the C2K ECCCI NVRAM LAYOUT for libcustom_nvram.so, which is why the directory
+# gets created at all. It says nothing about a radio being present. Label this
+# only if a real denial ever names it -- same rule as the four /dev nodes left
+# on the generic `device` type in vendor/file_contexts.
 /mnt/vendor/nvdata/APCFG/APRDCL/MD_SBP  u:object_r:mtk_modem_config_file:s0
 /mnt/vendor/protect_f/md(/.*)?           u:object_r:mtk_protect_f_file:s0
 /mnt/vendor/protect_s/md(/.*)?           u:object_r:mtk_protect_s_file:s0
@@ -69,4 +82,3 @@
 /dev/socket/volte_imsa[12]                u:object_r:mtk_volte_imsa_socket:s0
 /dev/socket/volte_stack                   u:object_r:mtk_volte_stack_socket:s0
 /dev/socket/volte_ua                      u:object_r:mtk_volte_ua_socket:s0
-/(vendor|system/vendor)/bin/hw/vendor\.mediatek\.hardware\.wfo@1\.0-service    u:object_r:mtk_hal_wfo_exec:s0
