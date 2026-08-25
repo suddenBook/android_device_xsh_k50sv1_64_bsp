@@ -44,18 +44,73 @@ endif
 # The user combo is also not advertised in COMMON_LUNCH_CHOICES. Both gates are
 # intentional: removing the menu entry alone does not stop an explicit lunch.
 #
-# The eng skip is what keeps lunch working: Lineage's lunch discovery parses
-# each product once with a temporary eng variant before selecting the requested
-# combo, and build/make/core/envsetup.mk defaults an unset variant to eng. The
-# wrapper asserts the real post-lunch product, variant and device too.
-ifneq ($(TARGET_BUILD_VARIANT),eng)
-ifeq ($(TARGET_BUILD_VARIANT),user)
+# The eng skip is what keeps lunch working. The mechanism, corrected -- the old
+# comment said "Lineage's lunch discovery parses each product once", and it
+# parses exactly ONE, the requested one (product_config.mk:217-229 imports
+# $(current_product_makefile); the all-products branch needs the product-graph
+# or dump-products goal). What is true is the variant: check_product()
+# (build/make/envsetup.sh:152-156) re-invokes get_build_var with
+# TARGET_BUILD_VARIANT= forced EMPTY, and envsetup.mk:93-94 then defaults an
+# unset variant to eng. So this file is parsed with variant=eng during every
+# lunch, whatever combo was actually asked for.
+#
+# That skip was an UNDECLARED FOURTH TIER. `lunch lineage_k50sv1_64_bsp-eng` is
+# a legal combo, it reaches this file with TARGET_BUILD_VARIANT=eng, the whole
+# agreement check was skipped, and the build succeeded -- producing ro.secure=0,
+# ro.adb.secure=0, permissive SELinux and ro.allow.mock.location=1 from AOSP's
+# own eng defaults. None of tiers 1-3 describes that shape, nothing chose it,
+# and nothing said so. Worse, it also swallowed the tier-3 check: an eng build
+# with K50SV1_BUILD_TIER=3 and the pipeline flag set passed silently.
+#
+# Discovery IS distinguishable from a real build, but NOT by CALLED_FROM_SETUP
+# alone -- that was the obvious answer and it is wrong. Verified in
+# build/soong/ui/build/:
+#   dumpvars.go:83      cmd.Environment.Set("CALLED_FROM_SETUP", "true")
+#   dumpvars.go:84-86   ...Set("WRITE_SOONG_VARIABLES", "true") -- only when the
+#                       caller passed write_soong_vars
+#   dumpvars.go:55      dumpMakeVars(..., false)  <- DumpMakeVars, i.e. lunch /
+#                       get_build_var / TAB completion
+#   dumpvars.go:219     dumpMakeVars(..., true)   <- runMakeProductConfig, i.e.
+#                       the product-config phase of a REAL build (build.go:
+#                       165-168, run on every `m`)
+#   kati.go:120-153     the actual build pass, -f main.mk, envFunc is empty --
+#                       neither variable is set
+# So CALLED_FROM_SETUP=true is ALSO set on every `m`, and guarding on it alone
+# would have moved the error from parse time to the kati pass, after Soong had
+# already run to completion. The pair is what separates the three cases:
+#
+#   pass                                CALLED_FROM_SETUP  WRITE_SOONG_VARIABLES
+#   lunch / get_build_var / TAB              true                 unset
+#   real build, product-config phase         true                 true
+#   real build, kati phase (main.mk)         unset                unset
+#
+# CALLED_FROM_SETUP is .KATI_READONLY (config.mk:28-29) so a makefile cannot
+# fake it; WRITE_SOONG_VARIABLES is read only by soong_config.mk:18 and
+# dex_preopt_config.mk:85, both included at config.mk:1170, long after this
+# file, so it is still pristine here.
+#
+# Rejected alternative: $(origin TARGET_BUILD_VARIANT), which is `file` in the
+# check_product pass (envsetup.mk:94 assigns it) and `environment` in an
+# explicit -eng lunch. It would fail at lunch rather than at `m`, which is
+# nicer, but it depends on ckati reproducing GNU make's $(origin) for a
+# variable exported EMPTY, which is undocumented in kati. Not worth it.
+K50SV1_LUNCH_DISCOVERY :=
+ifeq ($(CALLED_FROM_SETUP),true)
+ifneq ($(WRITE_SOONG_VARIABLES),true)
+K50SV1_LUNCH_DISCOVERY := true
+endif
+endif
+
+ifeq ($(TARGET_BUILD_VARIANT),eng)
+ifeq ($(K50SV1_LUNCH_DISCOVERY),)
+$(error TARGET_BUILD_VARIANT=eng is not one of this device's build tiers. Tier 1 and 2 are userdebug, tier 3 is user; an eng image adds ro.secure=0, ro.adb.secure=0, permissive SELinux and ro.allow.mock.location=1 that no tier asks for. Use lineage_k50sv1_64_bsp-userdebug for tiers 1 and 2, or K50SV1_BUILD_TIER=3 work/k50sv1-bringup/tools/run-lineage-build.sh for tier 3. This check does not fire during lunch discovery)
+endif
+else ifeq ($(TARGET_BUILD_VARIANT),user)
 ifneq ($(K50SV1_BUILD_TIER),3)
 $(error K50SV1_BUILD_TIER=$(K50SV1_BUILD_TIER) with TARGET_BUILD_VARIANT=user. Only tier 3 is a user build; tiers 1 and 2 would ship unauthenticated root adb on a release image)
 endif
 else ifeq ($(K50SV1_BUILD_TIER),3)
 $(error K50SV1_BUILD_TIER=3 requires TARGET_BUILD_VARIANT=user, got $(TARGET_BUILD_VARIANT))
-endif
 endif
 
 # There is deliberately no K50SV1_BUILD_VARIANT here. Nothing in the device

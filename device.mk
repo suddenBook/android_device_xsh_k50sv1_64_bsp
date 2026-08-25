@@ -142,10 +142,79 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/fts_ts.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/fts_ts.kl \
     $(LOCAL_PATH)/keylayout/HALL_DEV.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/HALL_DEV.kl \
     $(LOCAL_PATH)/keylayout/mtk-kpd.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/mtk-kpd.kl \
-    $(LOCAL_PATH)/permissions/privapp-permissions-mtk-ims.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-mtk-ims.xml \
-    system/ca-certificates/files/f013ecaf.0:$(TARGET_COPY_OUT_VENDOR)/etc/security/cacerts_supl/f013ecaf.0 \
-    system/ca-certificates/files/111e6273.0:$(TARGET_COPY_OUT_VENDOR)/etc/security/cacerts_supl/111e6273.0 \
-    system/ca-certificates/files/3ad48a91.0:$(TARGET_COPY_OUT_VENDOR)/etc/security/cacerts_supl/3ad48a91.0 \
+    $(LOCAL_PATH)/permissions/privapp-permissions-mtk-ims.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-mtk-ims.xml
+
+# SUPL TLS trust store. Its own block because it needs a comment, and a `#`
+# inside a backslash-continued list would silently swallow every entry after it.
+#
+# This is a real OpenSSL CApath, not decoration: /vendor/bin/mtk_agpsd contains
+# both the literal "/vendor/etc/security/cacerts_supl" and
+# "SSL_CTX_load_verify_locations() error: 0x%x", configs/agps_profiles_conf2.xml
+# sets tls="true" on both SUPL profiles and cert_from_sdcard="false", so this
+# directory is the only place the daemon can find a root. The `.0` filenames are
+# OpenSSL's OLD (MD5) subject hash, not the modern SHA-1 one -- verified against
+# stock, whose own /vendor/etc/security/cacerts_supl uses the same convention --
+# so these names are correct for the lookup and must not be "fixed".
+#
+# TWO OF THE THREE ROOTS THAT USED TO BE HERE WERE EXPIRED, and are removed:
+#   111e6273.0  GlobalSign Root CA - R2      notAfter 2021-12-15   REMOVED
+#   3ad48a91.0  Baltimore CyberTrust Root    notAfter 2025-05-12   REMOVED
+#   f013ecaf.0  GTS Root R1                  notAfter 2036-06-22   kept
+# (openssl x509 -noout -enddate on system/ca-certificates/files/*.)
+#
+# An expired root sitting in a CApath is the AddTrust / DST-Root-X3 failure
+# class: the path builder can select the expired anchor and fail the handshake
+# even though a valid alternative path exists. Nothing was broken yet because
+# the only configured profile is supl.google.com:7275, whose chain terminates at
+# GTS Root R1 -- the one that is still valid -- but the two dead roots were pure
+# downside and 3ad48a91.0 had already been dead for fifteen months.
+#
+# DELIBERATELY NOT ADDED: b0f3e76e.0, GlobalSign Root CA (R1, notAfter
+# 2028-01-28), the current cross-signer of GTS Root R1. It would only matter if
+# the server presented a chain that terminates at GlobalSign rather than at GTS
+# Root R1, and it cannot, because the self-signed GTS Root R1 is in this store
+# and the builder stops there. Adding it would re-create exactly the hazard just
+# removed -- an older, sooner-expiring anchor for the same subject -- with a
+# 2028 fuse, and would widen the trust surface of a network-facing daemon for no
+# measured gain. Stock ships six roots here (plus a `lab` subdirectory) and none
+# of them is GTS Root R1; stock's set is carrier SUPL, not Google's.
+#
+# REVISIT IF: a non-Google SUPL profile is configured in
+# agps_profiles_conf2.xml, or mtk_agpsd starts logging
+# "SSL_CTX_load_verify_locations() error" or a verify failure against
+# supl.google.com. Add that server's root then, and check its notAfter.
+PRODUCT_COPY_FILES += \
+    system/ca-certificates/files/f013ecaf.0:$(TARGET_COPY_OUT_VENDOR)/etc/security/cacerts_supl/f013ecaf.0
+
+# Hardware feature declarations. Separate block for the same comment reason.
+#
+# This list is the device's hardware contract and it is deliberately SHORTER
+# than stock's /vendor/etc/permissions: stock also ships
+# android.hardware.fingerprint.xml, android.hardware.sensor.light.xml and
+# android.hardware.sensor.proximity.xml, and this handset has none of those
+# three. Stock's list is not authoritative here; the verified hardware is.
+#
+# android.hardware.wifi.passpoint.xml is ADDED (stock ships it; this tree had
+# dropped it). It is a framework gate only, and everything behind it is already
+# present:
+#   * /vendor/bin/hw/wpa_supplicant is built with CONFIG_INTERWORKING and
+#     CONFIG_HS20 -- 203 ANQP / "HS 2.0" strings, including the GAS query and
+#     NAI Home Realm paths.
+#   * manifest.xml:156-160 declares android.hardware.wifi.supplicant@1.2, served
+#     by that same binary.
+#   * frameworks/opt/net/wifi WifiInjector.java:291,295 constructs
+#     PasspointManager and PasspointNetworkEvaluator UNCONDITIONALLY; the
+#     feature flag at :355 only decides whether the evaluator is registered with
+#     WifiNetworkSelector. Eleven further sites in WifiServiceImpl.java gate the
+#     public Passpoint API on it.
+# So without the file the objects are built and then never used, and every
+# Passpoint API returns unsupported -- a silent capability loss, and the failure
+# mode is invisible because nothing logs it. Adding it cannot crash a device
+# that lacks the capability, because the capability is not missing.
+#
+# Passpoint is a Wi-Fi protocol feature, not a separate piece of hardware, so
+# this does not contradict the verified hardware list.
+PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.front.xml \
@@ -157,6 +226,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.direct.xml \
+    frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.software.midi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.midi.xml
 

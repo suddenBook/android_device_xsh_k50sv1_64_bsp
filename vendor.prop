@@ -1,7 +1,27 @@
 # Android Q automatically appends this device-local file to vendor/build.prop.
 # Keep MTK implementation defaults here so their partition ownership is
 # explicit and init can consume them before the corresponding HALs start.
-persist.vendor.connsys.coredump.mode=0
+#
+# persist.vendor.connsys.coredump.mode=0 was the first line of this file and is
+# DELETED. It had no reader on this build, and by this file's own rule a
+# property with no reader is decoration.
+#   * Zero occurrences of the string anywhere under
+#     vendor/xsh/k50sv1_64_bsp/proprietary -- searched raw across every file,
+#     and again inside all ten unzipped jars/apks and their disassembled dex.
+#     The `coredump mode` concept exists in vendor/lib/modules/wmt_drv.ko, but
+#     as driver-internal state and printk text, not an Android property.
+#   * Stock's only consumer is /vendor/etc/init/init_connectivity.rc, whose
+#     `on property:persist.vendor.connsys.coredump.mode=...` blocks write
+#     /proc/driver/wmt_dbg. This tree does not ship init_connectivity.rc.
+#   * Stock does not set it in any of its nine prop files either, so removing
+#     it is also a move TOWARDS stock parity, not away from it.
+# It is also the one persist.* key here that could never be re-asserted after a
+# stale /data, which is how it was found -- see the block at the end of this
+# file. Deleting beat guarding.
+# NOTE for whoever owns sepolicy: sepolicy/safety/property_contexts:5 and
+# sepolicy/safety/vendor_init.te:18 both name this key in comments. The
+# set_prop(vendor_init, mtk_wmt_prop) rule itself is still right for the rest of
+# the persist.vendor.connsys.* namespace; only the example is now stale.
 
 # Voice-only legacy MTK IMS. AOSP ImsManager owns the user gating and the
 # CarrierConfig overlay owns the carrier gating; every WFC/video USER-FACING
@@ -17,6 +37,58 @@ persist.vendor.mtk.wfc.enable=0
 persist.vendor.mtk.ims.video.enable=0
 persist.vendor.mtk_rcs_ua_support=0
 persist.vendor.mtk_rtt_support=0
+# persist.vendor.mtk_ct_volte_support=1, exactly as stock sets it
+# (vendor/build.prop:135). It is ADDED here, reversing an explicit earlier
+# exclusion, and the reversal is the point: the old justification was that the
+# key "selects China-Telecom-specific IMS code and is irrelevant to the
+# open-market/KPN control". That is a reading of the NAME. It is the same move
+# that broke VoLTE twice already on persist.vendor.mtk_wfc_support and
+# persist.vendor.wfc.sys_wfc_support (trap 25), and it is wrong for the same
+# reason: the decisive consumer is not in the Java layer the name suggests.
+#
+# mtk-ril.so's imsInit reads it and passes it STRAIGHT TO THE MODEM, on every
+# SIM, with no operator gate at all (aarch64, vaddr of the key is 0x2b703):
+#
+#   0x000bf070  bl  property_get      ; "persist.vendor.mtk_ct_volte_support", "0"
+#   0x000bf078  bl  atoi
+#   0x000bf07c  cmp w0, #1
+#   0x000bf080  b.ne 0xbf0ac
+#   0x000bf094  bl  at_send_command   ; AT+ECFGSET="mtk_ct_volte_support","1"
+#                                     ; logs 'VoLTE over IMS is support[ed] and
+#                                     ;       AT+ECFGSET=...,1'
+#   0x000bf0bc  bl  at_send_command   ; AT+ECFGSET="mtk_ct_volte_support","0"
+#                                     ; logs 'VoLTE over IMS is supported and
+#                                     ;       AT+ECFGSET=...,0'
+#
+# So this is not a framework switch at all: it is the AP->modem transport for a
+# modem config item of the same name, written during IMS init. Stock sends "1"
+# to this exact modem build (MOLY.LR11.W1630.MD.MP.V191.4, which
+# ro.vendor.md_apps.load_verno above already pins), so "1" is known-good on this
+# hardware. Unset, the RIL takes the default "0" and tells the modem the
+# opposite of what stock tells it -- inside the one code path this port is
+# actively trying to fix.
+#
+# The four other shipped consumers ARE operator-gated, which is where the
+# China-Telecom reading came from, and on this device's SIMs they are no-ops
+# either way (OP09 is MediaTek's China Telecom operator id):
+#   mtk-rilproxy.so           RpFeatureOptionUtils::isCtVolteSupport() @0x14a520
+#   ImsService.apk            OperatorUtils.isCTVolteDisabled():  requires
+#                             dynamic_ims_switch==1 && this==0 && isMatched(OP09)
+#   ImsService.apk            ImsService.updateUtCapabilityChange(): reads it
+#                             only inside `if (isMatched(OP09, phoneId))`
+#   ImsService.apk            MtkSuppServExt$2.onReceive(): only inside
+#                             `if (isOp(OP09))`
+#   mediatek-ims-common.jar   MtkImsManager.factoryReset(): NOT operator-gated,
+#                             but only reachable on a factory reset and only
+#                             through MTK telephony injection, which this port
+#                             does not wire up (E-081)
+#
+# HONEST LIMIT: this is static evidence -- disassembly and dex -- not a
+# measurement. The tier-1 handset was not reflashed to compare, and the modem
+# side of AT+ECFGSET is not observable from here. What is certain is that
+# leaving it unset is an unconditional, silent divergence from stock in imsInit.
+# TO REVERT: delete this line; the RIL falls back to "0", i.e. today's behaviour.
+persist.vendor.mtk_ct_volte_support=1
 # persist.vendor.mtk_dynamic_ims_switch is 1, as stock sets it
 # (vendor/build.prop:119). An earlier revision set it to 0 to 'disable MTK's
 # independent MCC/MNC resource switch'. That description is right and the
@@ -160,7 +232,42 @@ persist.vendor.wfc.sys_wfc_support=1
 # MT6755.
 ro.vendor.mtk_telephony_add_on_policy=0
 ro.vendor.md_auto_setup_ims=0
-ro.vendor.md_mims_support=1
+# ro.vendor.md_mims_support=1 used to be the next line. It is DELETED, because
+# setting it here inverts a runtime data flow and permanently wedges it.
+#
+# The property is in NONE of stock's nine prop files, and yet stock's runtime
+# getprop reads [ro.vendor.md_mims_support]: [1]. Something publishes it. That
+# something is mtk-rilproxy.so, which contains the string FOUR times and every
+# one of them is a WRITE (aarch64, key at vaddr 0x97ae0):
+#
+#   RpImsController::onInit()        0x00184e40  bl property_set
+#   RpImsController::sync_mims_capa()0x001853f4  bl property_set
+#
+# (each is a two-way value select converging on one call; there is no
+# property_get of this key anywhere in the blob). The consumer is on the
+# framework side: ImsService.apk, com/mediatek/ims/ImsService, reads it with
+# SystemProperties.getInt as ImsConstants.PROPERTY_MD_MULTI_IMS_SUPPORT.
+# Producer -> consumer, RIL -> IMS APK.
+#
+# ro.* is write-once on Q: property_service.cpp:197-202 returns
+# PROP_ERROR_READ_ONLY_PROPERTY, "Read-only property was already set", for any
+# second set. /vendor/build.prop is loaded in PropertyLoadBootDefaults
+# (property_service.cpp:910), long before rild starts, so with this line present
+# BOTH of the RIL's writes fail -- including sync_mims_capa(), whose whole job
+# is to re-publish the value when the modem's multi-IMS capability CHANGES.
+# ImsService would then read a permanently frozen number.
+#
+# It has produced a visible artefact once already: E-035 records
+#   avc:  denied  { set } for property=ro.vendor.md_mims_support
+#         scontext=u:r:rild:s0 tcontext=u:object_r:mtk_ims_prop:s0
+# i.e. the RIL really does attempt this write on this build. That denial is
+# closed in sepolicy now, so the write reaches property_service -- and is
+# rejected by the read-only check instead.
+#
+# No symptom today only because the value the RIL derives happens to equal the 1
+# that was hardcoded. Deleting restores stock's arrangement exactly, and the
+# boot-order worry is stock's own: RpImsController::onInit() runs at RIL proxy
+# init, well before ImsService binds, which is why stock reads back 1.
 ro.vendor.md_prop_ver=1
 
 ro.vendor.net.upload.benchmark.default=blocking
@@ -168,6 +275,14 @@ ro.vendor.md_apps.load_gencfg=GEN91_USER
 ro.vendor.md_apps.load_type=user
 ro.vendor.md_apps.load_verno=MOLY.LR11.W1630.MD.MP.V191.4
 ro.vendor.md_apps.support=1
+# ro.vendor.md_log_memdump_wait=15, exactly as stock sets it
+# (vendor/build.prop:394). Sole consumer, and it is a shipped one:
+# vendor/bin/ccci_mdinit, the modem bring-up daemon, which imports both
+# property_get and property_set. The value is a seconds budget for waiting on a
+# modem memory dump; unset, ccci_mdinit takes its built-in default instead of
+# stock's, on a platform whose modem is the active problem. Added under this
+# file's own rule -- a stock property with a shipped consumer is not decoration.
+ro.vendor.md_log_memdump_wait=15
 ro.vendor.mediatek.platform=MT6755
 ro.vendor.mtk_aal_support=1
 ro.vendor.mtk_agps_app=1
@@ -176,6 +291,38 @@ ro.vendor.mtk_audio_ape_support=1
 ro.vendor.mtk_audio_tuning_tool_ver=V2.2
 ro.vendor.mtk_besloudness_support=1
 ro.vendor.mtk_camera_app_version=1
+# The next three are stock values this tree had dropped. Each is here because a
+# shipped blob reads it, named below; none is here because stock happens to set
+# it. Consumers were established with `readelf -W --dyn-syms` for the property
+# accessor plus a raw string search -- note that the string search must be a
+# BINARY-safe grep (ugrep skips binary files by default and returns nothing) and
+# must unzip jars/apks, because ImsService.apk stores its classes.dex DEFLATED
+# and no raw grep can see inside it.
+#
+# ro.vendor.mtk_config_max_dram_size (vendor/build.prop:55) sizes codec buffers.
+# Four consumers, three native and one that a raw grep cannot see:
+#   vendor/lib/libMtkOmxVdecEx.so   UND property_get
+#   vendor/lib/libMtkOmxVenc.so     UND property_get
+#   vendor/lib/libvcodecdrv.so      UND property_get
+#   ImsService.apk                  ImsVTProviderUtil, SystemProperties.get with
+#                                   a hardcoded fallback of "0x40000000" -- an
+#                                   eighth of the real value, so the video-call
+#                                   path was sizing against 1 GiB.
+ro.vendor.mtk_config_max_dram_size=0x800000000
+# ro.vendor.mtk_eccci_c2k (vendor/build.prop:61). Read by libcustom_nvram.so --
+# BOTH ABIs, vendor/lib and vendor/lib64, each UND property_get, neither with
+# any property_set. It selects the C2K ECCCI NVRAM layout.
+ro.vendor.mtk_eccci_c2k=1
+# ro.vendor.mtk_embms_support (vendor/build.prop:371). Exactly one consumer, and
+# it is loaded on this build: mtk-rilproxy.so, which the RIL shim dlopens. Two
+# call sites, both a plain read compared against the literal "1":
+#   RpEmbmsAtController::isEmbmsSupported()  0x00188510 -> property_get
+#   RpEmbmsUtils::isEmbmsSupport()           0x0018c680 -> property_get
+# Unlike ro.vendor.mtk_modem_monitor_support, which stays out because its only
+# reader (EngineerMode.apk) is not shipped, this reader IS shipped and running.
+# No eMBMS middleware ships, so nothing will call the API and the controller
+# simply reports the modem's real capability instead of a false negative.
+ro.vendor.mtk_embms_support=1
 ro.vendor.mtk_emmc_support=1
 ro.vendor.mtk_f2fs_enable=0
 ro.vendor.mtk_fd_support=1
@@ -244,16 +391,68 @@ ro.telephony.iwlan_operation_mode=legacy
 # this image. If MTK telephony injection is ever added, revisit both.
 # The rule itself is unchanged -- a property with no reader is decoration --
 # but the SEARCH for a reader must unzip jars and apks and strings the dex, not
-# grep the file.
+# grep the file. Two further method notes, both of which cost real time here:
+# the search must use a BINARY-safe grep (ugrep, which `grep` resolves to on the
+# build host, skips binary files by default and reports nothing at all), and
+# unzipping is not optional for ImsService.apk specifically -- it is the one
+# archive of ten whose classes.dex is DEFLATED rather than stored, so it is
+# invisible to a raw scan of the blob tree even when the other nine are not.
 #
-# Two other consumed stock properties are excluded explicitly, not overlooked:
-# persist.vendor.mtk_ct_volte_support=1 selects China-Telecom-specific IMS code
-# and is irrelevant to the open-market/KPN control; persist.vendor.radio.msimmode
-# is derived as dsds by the MAL stack from persist.radio.multisim.config. That
-# derivation is measured, not assumed: it reads back as dsds on a build flashed
-# after a userdata erase, so no stale /data value can explain it, and the five
-# shipped blobs that name it (libmal.so 32/64, libmal_rds.so, libmal_simmngr.so,
-# libmtkrilutils.so, mtk-ril.so) import property_get and never property_set.
+# persist.vendor.mtk_ct_volte_support used to be listed here as a third
+# deliberate omission. It is NOT omitted any more -- see its own block near the
+# top of this file, and the reason it was wrong to omit it.
+#
+# persist.vendor.radio.msimmode is excluded explicitly, not overlooked -- and
+# the reason given here used to be wrong, in a way worth keeping on the record
+# because the method that produced it is still in use elsewhere.
+#
+# The old text: "the five shipped blobs that name it (libmal.so 32/64,
+# libmal_rds.so, libmal_simmngr.so, libmtkrilutils.so, mtk-ril.so) import
+# property_get and never property_set". Three of those can write properties:
+#
+#   readelf -W --dyn-syms vendor/lib/libmal_rds.so
+#     151: UND property_set          (and it exports legacy_rds_property_set,
+#                                     rds_property_set of its own)
+#   readelf -W --dyn-syms vendor/lib64/mtk-ril.so
+#      67: UND property_set          126: UND setMSimProperty
+#                                    127: UND setMSimPropertyThreadSafe
+#   readelf -W --dyn-syms vendor/lib64/libmtkrilutils.so
+#      35: UND mtk_property_set      183: DEF setMSimProperty
+#      11: UND mtk_property_get       69: DEF setMSimPropertyThreadSafe
+#
+# THE CONCLUSION SURVIVES AND IS NOW PROVEN RATHER THAN INFERRED. mtk-ril.so is
+# the writer, and it derives the value from the key immediately above:
+#
+#   RIL_Init, vendor/lib64/mtk-ril.so (aarch64)
+#     0x00054fd0  bl property_get   ; "persist.radio.multisim.config", def "dsds"
+#     0x00054fe0  bl property_set   ; "persist.vendor.radio.msimmode" <- that value
+#     0x00054ff4  bl memcmp         ; == "dsda" ? done
+#     0x00055010  bl property_get   ; "ro.boot.opt_sim_count", def "0"
+#     0x00055034  bl property_get   ; "persist.vendor.radio.multisimslot", def "0"
+#     0x0005505c  br x10            ; 4-way table -> "ss"/"dsds"/"tsts"/"qsqs"
+#     0x000550ac  bl property_set   ; "persist.vendor.radio.msimmode" <- literal
+#
+# and libmtkrilutils.so is a reader: one reference to the string, inside
+# getSimCount at 0xae24, feeding mtk_property_get. On this handset both
+# selectors are unset (ro.boot.opt_sim_count and
+# persist.vendor.radio.multisimslot are empty), so the second stage is skipped
+# and only the first property_set runs -- which is exactly why the measured
+# value tracks persist.radio.multisim.config=dsds. It is also present in
+# /data/property/persistent_properties, i.e. written after boot by a process,
+# not loaded from build.prop, which independently confirms the write.
+#
+# THE GENERALISABLE TRAP, corrected. The audit that found this said an
+# `nm -D | grep property_set` sweep would miss libmtkrilutils.so because the
+# symbol is mtk_property_set. It would not -- grep is a substring match and
+# matches it fine; only `grep -w property_set` (or an anchored pattern) misses
+# it, which is verifiable in one line. The real traps are two others:
+#   1. MediaTek wraps property access under its own names -- mtk_property_set,
+#      rds_property_set, legacy_rds_property_set, setMSimProperty,
+#      setMSimPropertyThreadSafe -- so an EXACT-symbol sweep sees nothing.
+#   2. More important: the symbol table cannot tell a reader from a writer at
+#      all. Every blob above imports property_get; five of six also touch a
+#      setter. Only the CALL SITE settles it. String-presence plus
+#      symbol-import is a way to build a candidate list, never a conclusion.
 #
 # The consumer of each, from a grep of the vendor blob set:
 #   mtk_ps1_rat             thermal, libratconfig.so, audio.primary.mt6755.so
@@ -290,3 +489,81 @@ persist.vendor.radio.fd.counter=150
 persist.vendor.radio.fd.off.counter=50
 persist.vendor.radio.fd.off.r8.counter=50
 persist.vendor.radio.fd.r8.counter=150
+
+# =====================================================================
+# HANDOFF TO THE OWNER OF rootdir/etc/init/hw/init.mt6755.rc
+# Not a property. Lift the setprop lines below verbatim; delete this block
+# afterwards. Written here because vendor.prop is where the keys live and
+# init.mt6755.rc is owned by someone else right now.
+# =====================================================================
+#
+# THE PROBLEM. Every persist.* key in this file is loaded from
+# /vendor/build.prop by PropertyLoadBootDefaults (property_service.cpp:910) and
+# is then OVERWRITTEN by whatever /data/property/persistent_properties happens
+# to hold: property_service.cpp:1029-1034 replays the persisted records after
+# the defaults, with the source's own comment "Read persistent properties after
+# all default values have been loaded", and only then sets
+# ro.persistent_properties.ready=true. So for a persist.* key, this file states
+# a preference and /data holds the decision.
+#
+# init.mt6755.rc:367-401 already closes that hole -- for the IMS subset only.
+# Sixteen keys are re-asserted there. The set difference against this file is
+# EIGHT keys with no guard at all, and it is reproducible in two lines:
+#
+#   grep -oE '^persist\.[A-Za-z0-9_.]+' vendor.prop | sort
+#   grep -oE 'setprop +persist\.[A-Za-z0-9_.]+' \
+#       rootdir/etc/init/hw/init.mt6755.rc | awk '{print $2}' | sort -u
+#
+# THIS IS NOT HYPOTHETICAL ON THIS HANDSET. Reading
+# /data/property/persistent_properties on the live device shows that two of the
+# eight below have ALREADY been written at runtime by some process and are
+# therefore already living in /data, outside this file's control:
+#   persist.radio.multisim.config
+#   persist.vendor.radio.fd.counter
+# (persist.vendor.radio.msimmode is in there too. It is not one of the eight --
+# this file deliberately does not set it -- but its presence is separately what
+# proves the RIL writes it; see the msimmode note above.) A key only lands in
+# that file if something set it AFTER persistent properties were loaded
+# (property_service.cpp:215), so its presence is proof of a live writer, and a
+# writer is exactly what can leave a stale value behind across a reflash that
+# does not erase userdata.
+#
+# All eight currently read back at their intended values, so there is no symptom
+# yet. That is the same situation the IMS subset was in before it bit.
+#
+# ADD TO THE EXISTING `on property:ro.persistent_properties.ready=true` BLOCK
+# in init.mt6755.rc (append after the persist.dbg.*_ovr lines at :400-401):
+#
+#     # Modem/SIM topology from vendor.prop. Same stale-/data hazard as the IMS
+#     # subset above: /vendor/build.prop is applied first, persistent_properties
+#     # second, so without these eight a value left in /data silently wins.
+#     # persist.radio.multisim.config and persist.vendor.radio.fd.counter are
+#     # already present in /data/property/persistent_properties on this device.
+#     setprop persist.radio.multisim.config dsds
+#     setprop persist.vendor.radio.mtk_ps2_rat W/G
+#     setprop persist.vendor.radio.mtk_dsbp_support 1
+#     setprop persist.vendor.radio.fd.counter 150
+#     setprop persist.vendor.radio.fd.off.counter 50
+#     setprop persist.vendor.radio.fd.off.r8.counter 50
+#     setprop persist.vendor.radio.fd.r8.counter 150
+#     # Added to vendor.prop in the same change; see its block there for why.
+#     setprop persist.vendor.mtk_ct_volte_support 1
+#
+# SEPOLICY. These are vendor_init setprops from a /vendor rc file, so they are
+# checked as <type>:property_service:set in the vendor_init context. Nothing new
+# is needed at PRODUCT_SHIPPING_API_LEVEL=26: system/sepolicy/public/
+# vendor_init.te:193-215 wraps set_prop(vendor_init, {property_type -...}) in
+# not_compatible_property(), and the eighteen subtracted types are all
+# device_config_*/boot_reason/apexd/gsid platform types -- none is an MTK radio
+# or IMS prop type, so all eight keys below are already permitted. If the
+# shipping level is ever raised past 27 that macro stops expanding and these
+# eight need explicit set_prop() rules like the rest; sepolicy/safety/ is where
+# that is tracked.
+#
+# ON THE COUNT, so it reconciles later. When this was audited the eight
+# unguarded keys were the seven modem/SIM ones above PLUS
+# persist.vendor.connsys.coredump.mode. In this same change that key was DELETED
+# rather than guarded -- it has no reader anywhere on this build -- and
+# persist.vendor.mtk_ct_volte_support was ADDED, so the total is still eight but
+# the membership changed by one in each direction. Do not re-add
+# persist.vendor.connsys.coredump.mode here or to vendor.prop.

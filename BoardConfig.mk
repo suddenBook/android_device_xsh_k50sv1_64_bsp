@@ -57,15 +57,29 @@ BOARD_VNDK_VERSION := current
 BOARD_SYSTEMSDK_VERSIONS := 28
 # PRODUCT_SHIPPING_API_LEVEL = 26 has a second, load-bearing consequence that is
 # invisible here and would only surface as a boot-time init parse failure.
-# config.mk:645-651 leaves PRODUCT_COMPATIBLE_PROPERTY false for any level <= 27,
-# main.mk:233-235 then ships ro.actionable_compatible_property.enabled=false, and
-# action_parser.cpp:36-40 returns early from IsActionableProperty() whenever that
-# is false -- skipping the partner-prefix check that would otherwise reject a
-# vendor `on property:` trigger with "unexported property trigger found".
+# config.mk:645-651 leaves PRODUCT_COMPATIBLE_PROPERTY false for any level <= 27
+# (the gate is `math_lt,27,LEVEL`, so true only from 28 up), main.mk:232-236 then
+# ships ro.actionable_compatible_property.enabled=false, and action_parser.cpp:
+# 36-40 returns early from IsActionableProperty() whenever that is false --
+# skipping the partner-prefix check that would otherwise reject a vendor
+# `on property:` trigger with "unexported property trigger found".
+#
+# Two citations here were wrong and are corrected:
+#   * main.mk. The literal `...enabled=false` is main.mk:233, but that is the
+#     PRODUCT_ACTIONABLE_COMPATIBLE_PROPERTY_DISABLE branch, which this product
+#     does not set. The line actually taken is main.mk:235,
+#     `+= ro.actionable_compatible_property.enabled=${PRODUCT_COMPATIBLE_PROPERTY}`,
+#     which expands to false for the reason above. Same outcome, different line;
+#     anyone who went to :233 to change this would have edited a dead branch.
+#   * kPartnerPrefixes is action_parser.cpp:43-47, not :45-48 (:49-53 is the
+#     loop over it), and it has NINE entries, not the six listed before:
+#       init.svc.vendor.  ro.vendor.  persist.vendor.  vendor.
+#       init.svc.odm.     ro.odm.     persist.odm.     odm.     ro.boot.
+#
 # Four triggers in this tree's own rc files depend on that relaxation:
 # ro.persistent_properties.ready, sys.boot_completed, sys.usb.config and
-# vold.decrypt. None is under init.svc.vendor./ro.vendor./persist.vendor./vendor./
-# init.svc.odm./ro.odm. (kPartnerPrefixes, action_parser.cpp:45-48).
+# vold.decrypt. None of the four is under ANY of those nine prefixes, so the
+# conclusion is unchanged -- but it now rests on the whole list.
 # Raising the shipping API level therefore requires re-homing those triggers or
 # granting the property types first. Do not raise it as a cosmetic change.
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
@@ -81,9 +95,33 @@ DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml
 # PRODUCT_SHIPPING_API_LEVEL=26 (config.mk:658-665, :673-682).
 
 # Kernel and boot image
-# Read only by vendor/lineage/config/BoardConfigKernel.mk:48-52, which runs only
-# when Lineage builds a kernel from source. This tree ships a prebuilt, so the
-# value is inert today; it is kept for WI-019.
+# Read only by vendor/lineage/config/BoardConfigKernel.mk:48-52. The previous
+# comment said that file "runs only when Lineage builds a kernel from source"
+# and that the value is therefore inert. Both halves are wrong.
+#
+# BoardConfigKernel.mk is included unconditionally for this product:
+#   build/make/core/config.mk:237-239   ifneq ($(LINEAGE_BUILD),) ->
+#                                       include BoardConfigLineage.mk
+#   BoardConfigLineage.mk:6             include BoardConfigKernel.mk
+# LINEAGE_BUILD is set and exported by check_product() (build/make/envsetup.sh:
+# 145-150) for any TARGET_PRODUCT beginning `lineage_`, which this one does, so
+# the guard is always satisfied here. TARGET_PREBUILT_KERNEL only blanks
+# TARGET_KERNEL_SOURCE (BoardConfigKernel.mk:44-46); it does not skip :48-52.
+#
+# What :48-52 actually does:
+#   TARGET_KERNEL_ARCH := $(strip $(TARGET_KERNEL_ARCH))
+#   ifeq ($(TARGET_KERNEL_ARCH),)
+#   KERNEL_ARCH := $(TARGET_ARCH)      <- arm64 anyway, from line 5 of this file
+#   else
+#   KERNEL_ARCH := $(TARGET_KERNEL_ARCH)
+#   endif
+# So the line runs on every build and computes the same KERNEL_ARCH=arm64 that
+# unsetting it would. It is REDUNDANT WITH TARGET_ARCH, not inert -- a real
+# difference, because "inert" invites setting it to any value, and a wrong
+# value here would silently pick a different KERNEL_TOOLCHAIN
+# (BoardConfigKernel.mk:71-72,83) and a different dtbo path (:136), and is
+# exported to Soong via BoardConfigSoong.mk:5. Kept for WI-019 as an explicit
+# statement; it must keep matching TARGET_ARCH.
 TARGET_KERNEL_ARCH := arm64
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
@@ -149,8 +187,53 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 
 # Android Q first-stage ramdisk + switch-root. Stock system/vendor mounts do
 # not use AVB or dm-verity, despite those capabilities existing in the kernel.
+#
+# These two variables express the same intent and DO NOT behave the same way,
+# which is why one of them is now empty and the other is not. Both were `false`;
+# neither was the no-op that reads like.
+#
+# BOARD_AVB_ENABLE: the image-prop-dictionary generator tests it with
+# $(if $(BOARD_AVB_ENABLE),...) -- Makefile:1489-1528, thirteen consecutive
+# lines -- and $(if) is true for ANY non-empty value, `false` included. With it
+# set to the string `false` the build emitted, into every per-image prop
+# dictionary:
+#     avb_avbtool=avbtool
+#     avb_{system,system_other,vendor,product,product_services,odm}_hashtree_enable=false
+#     avb_*_add_hashtree_footer_args=            (six empty keys)
+# i.e. one tool path and six =false switches, where unset emits nothing at all.
+# (The audit that found this said five hashtree keys; it is six -- system,
+# system_other, vendor, product, product_services, odm.)
+#
+# Harmless today only because every consumer compares against the literal
+# string "true": build_image.py:541,571,602,623,644,667 copy_prop into
+# avb_hashtree_enable, add_img_to_target_files.py:343 and :592-594 both test
+# `== "true"`. But "harmless because the reader happens to be strict" is not a
+# reason to ship a switch that says the opposite of what it means, and this is
+# the same class as HANDOFF trap 5 (LOCAL_ENFORCE_USES_LIBRARIES := false
+# ENABLES enforcement). Empty is the only value that means "off" to $(if).
+# The other AVB call sites -- Makefile:64, :738, :999, :1343, :1963, :1976,
+# :3036, :3061, :4056, :4150 -- all use `ifeq (true,...)` or `filter true`, so
+# they were and remain correctly off either way.
+BOARD_AVB_ENABLE :=
+#
+# BOARD_BUILD_SYSTEM_ROOT_IMAGE: same trap shape, OPPOSITE conclusion, so it
+# deliberately keeps the `false`. Every make-side consumer is
+# `ifeq ($(...),true)` or `$(filter true,...)` -- board_config.mk:235,
+# Makefile:956, :971, :1071, :1534, :1801, :1918, :2365, :3245 -- so `false`
+# and unset are identical there, and the releasetools info-dict key
+# system_root_image (Makefile:1534) is correctly NOT emitted.
+#
+# The one asymmetric reader is buildinfo.sh:25-27, which uses a shell
+# `[ -n "$BOARD_BUILD_SYSTEM_ROOT_IMAGE" ]` and therefore ships
+# ro.build.system_root_image=false into /system/build.prop where unset would
+# omit the property entirely. That is a real difference -- and it is the one
+# stock makes: stock's /system/build.prop:39 is literally
+# ro.build.system_root_image=false, and stock's runtime getprop agrees. This
+# build's handset reads back `false` too, so we are already at parity.
+# Blanking it would silently drop a property stock ships and that recovery /
+# root tooling reads. Kept as `false` on purpose; recorded here so nobody
+# "fixes" it by symmetry with BOARD_AVB_ENABLE above.
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
-BOARD_AVB_ENABLE := false
 
 # SELinux
 #
