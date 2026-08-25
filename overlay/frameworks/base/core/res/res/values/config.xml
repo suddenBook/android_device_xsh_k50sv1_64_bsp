@@ -1,8 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- The device has no ambient-light or proximity sensor hardware. -->
+    <!-- The device has no ambient-light or proximity sensor hardware.
+         Both of these restate the AOSP default (config.xml:754 and :1139) and
+         are kept as an explicit statement of fact about this chassis. -->
     <bool name="config_automatic_brightness_available">false</bool>
     <bool name="config_suspendWhenScreenOffDueToProximity">false</bool>
+
+    <!-- Wired-headset detection. There is no 3.5 mm jack; the USB-C port
+         carries ANALOG audio accessory mode, so the headset is wired to the
+         internal codec through the Type-C mux and the PMIC's ACCDET block
+         detects it exactly as it would a jack. This kernel exposes that only as
+         EV_SW on the "ACCDET" input device: it has no /sys/class/switch/h2w and
+         no extcon node, so WiredAccessoryManager's two other sources
+         (WiredAccessoryManager.java:430-438 for h2w, :131 for extcon) find
+         nothing. The switch path is gated on this resource
+         (WiredAccessoryManager.java:107-108, :115-130), which AOSP defaults
+         false.
+
+         Measured with the owner's USB-C headset in the port (E-088):
+         "dumpsys input" reports SwitchValues: 94 on device ACCDET, and that
+         field is printed with %x (SwitchInputMapper::dump), so it is 0x94 =
+         SW_HEADPHONE_INSERT | SW_MICROPHONE_INSERT | SW_JACK_PHYSICAL_INSERT.
+         The kernel sees the headset; only the framework did not.
+
+         An earlier revision asserted "DO NOT set it true on this chassis",
+         reasoning from a live check that reported SwitchValues: 0. That check
+         was run with nothing plugged in, so it measured an empty port and not
+         the absence of the hardware.
+
+         This gates EV_SW only. It does not re-enable the ACCDET inline-remote
+         key events, which stay neutralised in keylayout/ACCDET.kl for a
+         separate and still-valid reason. -->
+    <bool name="config_useDevInputEventForAudioJack">true</bool>
 
     <!-- Punch-hole front camera, measured on the handset against a 1:1
          720x1560 calibration target (tools/cutout/): the opaque aperture,

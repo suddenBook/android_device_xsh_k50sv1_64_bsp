@@ -1,30 +1,33 @@
 # MTK ACCDET (accessory detect) on the PMIC.
 #
-# This chassis has no 3.5 mm jack: audio out is the bottom speaker, the earpiece
-# and USB-C.
+# This chassis has no 3.5 mm jack, and ACCDET is nevertheless real and in use.
+# The USB-C port carries ANALOG audio accessory mode: a wired headset is muxed
+# straight onto the internal codec's headphone pins, and the PMIC's ACCDET block
+# detects insertion and the inline remote exactly as it would on a jack.
+# Measured with the owner's headset in the port (E-088): "dumpsys input" reports
+# SwitchValues: 94 on this device, printed with %x, i.e.
+# SW_HEADPHONE_INSERT | SW_MICROPHONE_INSERT | SW_JACK_PHYSICAL_INSERT.
 #
-# An earlier revision said WiredAccessoryManager never sees a headset "because
-# there is no /sys/class/switch/h2w". That is only the LEGACY path, and a key
-# layout has no effect on EV_SW events at all -- SwitchInputMapper passes raw SW
-# codes straight through, and ACCDET really does advertise
-# SW_HEADPHONE_INSERT/SW_MICROPHONE_INSERT/SW_LINEOUT_INSERT/SW_JACK_PHYSICAL_INS.
-# What actually closes that hole is a config gate: InputManagerService forwards
-# switch events to WiredAccessoryManager only when
-# config_useDevInputEventForAudioJack is true, and AOSP defaults it false with no
-# overlay raising it here. DO NOT set it true on this chassis. Confirmed live:
-# dumpsys input reports SwitchValues: 0, and dumpsys audio lists only earpiece,
-# speaker and usb_headset. The driver is nevertheless
-# instantiated by the MT6755 PMIC and advertises the full inline-remote key set
-# (KEY_VOLUMEUP, KEY_VOLUMEDOWN, KEY_PLAYPAUSE, KEY_VOICECOMMAND) plus the
-# SW_*_INSERT switches, all driven by an ADC on jack pins that do not exist.
+# An earlier revision here recorded the opposite ("no jack, the ADC floats on
+# pins that do not exist") from a live check that reported SwitchValues: 0. That
+# check was run with nothing plugged in. It measured an empty port, not absent
+# hardware, and the conclusion drawn from it -- do not enable
+# config_useDevInputEventForAudioJack -- was wrong and cost this port its
+# headset routing. The overlay now sets that resource true, which affects EV_SW
+# only; see overlay/frameworks/base/core/res/res/values/config.xml.
 #
-# Under Generic.kl a floating-ADC glitch on that comparator becomes a real
-# VOLUME_UP down event. That matters here: a VOLUME_UP down with no matching up
-# latches PhoneWindowManager's mA11yShortcutChordVolumeUpKeyTriggered, which
-# makes interceptPowerKeyDown() set mPowerKeyHandled and never call
-# wakeUpFromPowerKey() -- the "power button does not light the screen" fault.
-# ACCDET is one of the two devices that can produce that event, so it is
-# neutralised: no scan code is declared, InputReader resolves every one of them
-# to AKEYCODE_UNKNOWN and drops it. Raw events stay visible to getevent.
+# The KEY side stays neutralised, for a reason that is unaffected by the above.
+# ACCDET advertises KEY_VOLUMEUP, KEY_VOLUMEDOWN, KEY_PLAYPAUSE and
+# KEY_VOICECOMMAND on one ADC comparator. Under Generic.kl a glitch on that
+# comparator becomes a real VOLUME_UP down event, and a VOLUME_UP down with no
+# matching up latches PhoneWindowManager's
+# mA11yShortcutChordVolumeUpKeyTriggered, which makes interceptPowerKeyDown()
+# set mPowerKeyHandled and never call wakeUpFromPowerKey() -- the "power button
+# does not light the screen" fault (E-024, E-028). Declaring no scan code makes
+# InputReader resolve every one of them to AKEYCODE_UNKNOWN and drop it. Raw
+# events stay visible to getevent.
 #
-# Restore the inline-remote mapping here if a jack is ever confirmed.
+# Restoring the inline-remote mapping is now a real feature request rather than
+# a dead one, but it MUST be gated on re-testing the stuck-key fault with a
+# headset physically present: the old diagnosis assumed the comparator had
+# nothing attached to it, and that premise is also gone.

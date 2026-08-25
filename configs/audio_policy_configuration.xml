@@ -111,6 +111,33 @@
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="8000,16000" channelMasks="AUDIO_CHANNEL_OUT_MONO"/>
                 </devicePort>
+                <!-- This chassis has no 3.5 mm jack, and these three ports are still
+                     required. Its USB-C port carries ANALOG audio accessory mode: the
+                     headset is wired straight to the internal codec through the Type-C
+                     analog mux, so it appears to Android as an ordinary wired headset,
+                     not as a USB audio device. Measured with the owner's headset in the
+                     port (E-088): /proc/asound/cards still shows only mtsndcard, while
+                     the PMIC's ACCDET input device reports SW_HEADPHONE_INSERT,
+                     SW_MICROPHONE_INSERT and SW_JACK_PHYSICAL_INSERT all set
+                     (dumpsys input "SwitchValues: 94"; that field is printed with %x).
+                     Without these ports AudioPolicyManager has nowhere to route the
+                     headset, keeps the speaker selected, and the MTK HAL leaves
+                     Speaker_Amp_Switch on while the codec's headphone path is also
+                     live: both outputs sound at once, which is the reported defect.
+                     The HAL already implements the paths: audio_device.xml carries
+                     headphone_output, headphoneSpeaker_output and headset_mic_input. -->
+                <devicePort tagName="Wired Headset" type="AUDIO_DEVICE_OUT_WIRED_HEADSET" role="sink">
+                    <profile name="" format="AUDIO_FORMAT_PCM_32_BIT"
+                             samplingRates="44100,48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="44100,48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                </devicePort>
+                <devicePort tagName="Wired Headphones" type="AUDIO_DEVICE_OUT_WIRED_HEADPHONE" role="sink">
+                    <profile name="" format="AUDIO_FORMAT_PCM_32_BIT"
+                             samplingRates="44100,48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="44100,48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                </devicePort>
                 <devicePort tagName="Telephony Tx" type="AUDIO_DEVICE_OUT_TELEPHONY_TX" role="sink">
                     <profile name="" format="AUDIO_FORMAT_PCM_32_BIT"
                              samplingRates="44100,48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
@@ -123,6 +150,11 @@
                              channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO"/>
                 </devicePort>
                 <devicePort tagName="Built-In Back Mic" type="AUDIO_DEVICE_IN_BACK_MIC" role="source">
+                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="8000,16000,32000,44100,48000"
+                             channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO"/>
+                </devicePort>
+                <devicePort tagName="Wired Headset Mic" type="AUDIO_DEVICE_IN_WIRED_HEADSET" role="source">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="8000,16000,32000,44100,48000"
                              channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO"/>
@@ -148,6 +180,10 @@
                        sources="primary output,fast,Voice Call In"/>
                 <route type="mix" sink="Speaker"
                        sources="primary output,fast,Voice Call In"/>
+                <route type="mix" sink="Wired Headset"
+                       sources="primary output,fast,Voice Call In"/>
+                <route type="mix" sink="Wired Headphones"
+                       sources="primary output,fast,Voice Call In"/>
                 <route type="mix" sink="BT SCO"
                        sources="primary output,Voice Call In"/>
                 <route type="mix" sink="BT SCO Headset"
@@ -155,9 +191,9 @@
                 <route type="mix" sink="BT SCO Car Kit"
                        sources="primary output,Voice Call In"/>
                <route type="mix" sink="Telephony Tx"
-                       sources="Built-In Mic,Built-In Back Mic,BT SCO Headset Mic,incall_music_uplink"/>
+                       sources="Built-In Mic,Built-In Back Mic,Wired Headset Mic,BT SCO Headset Mic,incall_music_uplink"/>
                 <route type="mix" sink="primary input"
-                       sources="Built-In Mic,Built-In Back Mic,BT SCO Headset Mic"/>
+                       sources="Built-In Mic,Built-In Back Mic,Wired Headset Mic,BT SCO Headset Mic"/>
                 <route type="mix" sink="voice tx"
                        sources="Voice Call In"/>
             </routes>
