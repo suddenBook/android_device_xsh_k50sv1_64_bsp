@@ -183,12 +183,27 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # key. This does not enable dm-verity or AVB for system/vendor.
 PRODUCT_SUPPORTS_BOOT_SIGNER := true
 ifeq ($(K50SV1_RELEASE_SIGNING),true)
-# Keep the target-files input on AOSP's normal test-key layout. The Tier 3
-# wrapper performs the canonical post-build mapping to the committed release
-# key set, with explicit overrides for both APEX container and payload keys.
-PRODUCT_OTA_PUBLIC_KEYS := build/make/target/product/security/testkey.x509.pem
+# Do NOT set PRODUCT_OTA_PUBLIC_KEYS here, not even to the value it already has
+# by default. Setting it to ANYTHING makes the resulting OTA unflashable:
+#
+#   Makefile:3984 writes it into META/otakeys.txt (the file is empty when the
+#   variable is unset). sign_target_files_apks.py:726 reads that file, :740-746
+#   remaps each entry through key_map, and then :748 `if mapped_keys:` -- and
+#   that branch ONLY PRINTS. The else branch, :751-759, is the only place that
+#   assigns misc_info["default_system_dev_certificate"] = mapped_devkey (:756).
+#
+# So a non-empty otakeys.txt leaves default_system_dev_certificate pointing at
+# AOSP's testkey, ota_from_target_files.py:2369-2373 signs the package with it
+# when -k is not passed, and recovery -- whose otacerts.zip was remapped to the
+# release key -- rejects the package. With the variable unset, :751-759 derives
+# the same recovery key set from default_system_dev_certificate, remaps it, AND
+# writes the remapped value back, which is what makes the later OTA default to
+# the release key.
+#
 # The default certificate is already accepted by recovery; clear Lineage's
 # inherited extra key so the final recovery trusts only the remapped key.
+# This assignment is after every inherit, so it correctly discards
+# vendor/lineage/config/common.mk:287.
 PRODUCT_EXTRA_RECOVERY_KEYS :=
 PRODUCT_VERITY_SIGNING_KEY := device/xsh/k50sv1_64_bsp/security/verity
 else
@@ -216,6 +231,25 @@ endif
 # Q), so any future second setter would silently restore it with no warning.
 # State it here once, and the outcome stops depending on who else sets it.
 PRODUCT_ART_TARGET_INCLUDE_DEBUG_BUILD := false
+
+# Do not build a userdata image. BoardConfig.mk has to declare
+# BOARD_USERDATAIMAGE_PARTITION_SIZE so that Makefile:1402 can emit
+# userdata_size into misc_info.txt, but board_config.mk:304-312 turns that
+# declaration into BUILDING_USERDATA_IMAGE, main.mk:1598 makes the image a
+# droidcore prerequisite, and every build then runs mke2fs over a 51.6 GiB
+# filesystem to produce a file this device never flashes -- the fstab marks
+# /data formattable and flash-tier-images.sh erases it unconditionally.
+#
+# Same shape for cache (board_config.mk:276-287, main.mk:1599), though that one
+# is only a sparse 432 MiB.
+#
+# These MUST live here and not in BoardConfig.mk: both are product variables
+# (product.mk:341,343) made .KATI_READONLY at product_config.mk:422, which runs
+# before board_config.mk (envsetup.mk:268 vs :279), so assigning them from a
+# board config is a hard kati error. misc_info.txt is unaffected -- Makefile:1402
+# and :1406 read the BOARD_* variables directly.
+PRODUCT_BUILD_USERDATA_IMAGE := false
+PRODUCT_BUILD_CACHE_IMAGE := false
 
 PRODUCT_NAME := lineage_k50sv1_64_bsp
 PRODUCT_DEVICE := k50sv1_64_bsp

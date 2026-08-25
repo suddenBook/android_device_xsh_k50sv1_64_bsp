@@ -6,7 +6,7 @@ ifneq ($(filter k50sv1_64_bsp,$(TARGET_DEVICE)),)
 #
 # An earlier version of this comment said PRODUCT_COPY_FILES "copies bytes and
 # checks nothing". That is false on Android 10 and it was the whole stated
-# reason for this module: Makefile:34-35 routes every copy whose DESTINATION
+# reason for this module: Makefile:35-36 routes every copy whose DESTINATION
 # ends in .xml through copy-xml-file-checked, and definitions.mk:2581-2586
 # runs $(XMLLINT) on it. A doubled hyphen in a copied XML is already a build
 # error without this rule. The overlays and RROs are parsed by aapt2, and

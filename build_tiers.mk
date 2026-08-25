@@ -6,7 +6,13 @@ K50SV1_BUILD_TIERS_INCLUDED := true
 # Derive the diagnostic/release shape from the variant when no wrapper supplied
 # a tier. This prevents a direct user build from inheriting Tier 1 root adb, but
 # does not make it a signed release: the wrapper-only guard below is separate.
-K50SV1_BUILD_TIER ?= $(if $(filter user,$(TARGET_BUILD_VARIANT)),3,1)
+# `:=`, not `?=`. `?=` is a DEFERRED assignment, so K50SV1_BUILD_TIER would
+# re-expand at every reference while the booleans below are frozen by the
+# include guard at the first (product-config) include. TARGET_BUILD_VARIANT is
+# not .KATI_READONLY in this tree, so a later change to it between the product
+# and board include sites would silently make the tier and its derived flags
+# disagree, with no diagnostic.
+K50SV1_BUILD_TIER := $(if $(K50SV1_BUILD_TIER),$(K50SV1_BUILD_TIER),$(if $(filter user,$(TARGET_BUILD_VARIANT)),3,1))
 
 K50SV1_SELINUX_PERMISSIVE := false
 K50SV1_ADB_ENABLED := false
