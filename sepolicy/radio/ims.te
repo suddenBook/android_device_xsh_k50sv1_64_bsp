@@ -33,6 +33,16 @@ hal_server_domain(mtk_hal_wfo, hal_mtk_wfo)
 # Same reasoning as mtk_hal_imsa above: no explicit hwbinder_use().
 allow mtk_hal_wfo mtk_mal_mfi_socket:sock_file write;
 allow mtk_hal_wfo mtkmal:unix_stream_socket connectto;
+# Measured on the first boot that ran this HAL, at tier 1 where they were
+# logged rather than enforced:
+#   avc: denied { read open getattr } for
+#        name="u:object_r:mtk_radio_config_prop:s0" scontext=u:r:mtk_hal_wfo:s0
+#   avc: denied { read open getattr } for
+#        name="u:object_r:mtk_ims_feature_prop:s0" scontext=u:r:mtk_hal_wfo:s0
+# It reads the multi-SIM topology and the IMS feature flags to decide how many
+# SIM slots to offer MAL. Read-only: the writers stay rild/mtkrild/vendor_init.
+get_prop(mtk_hal_wfo, mtk_radio_config_prop)
+get_prop(mtk_hal_wfo, mtk_ims_feature_prop)
 
 # Modem adaptation layer and its in-process entity libraries.
 init_daemon_domain(mtkmal)

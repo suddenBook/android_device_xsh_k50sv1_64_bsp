@@ -246,10 +246,130 @@ function patch_ims_apk() {
 # The Wi-Fi fixups keep MTK's Wi-Fi HAL ABI without colliding with the AOSP
 # library that uses the same filename. The replacement SONAME is exactly the
 # same length, so the ELF dynamic string table layout is unchanged.
+function patch_wfo_jar() {
+    local jar="$1"
+    local expected_jar_sha="18fe7a0a3c72ba07e487ed9ac40538bdff8dfc3d2baf33784148f553128f4f7b"
+    local expected_dex_sha="b0a961ffcc71ba2c0909ce2111b0bdc26adaf816c8652d60dd83b4d9aa729449"
+    local baksmali_jar="${LINEAGE_ROOT}/prebuilts/tools-lineage/common/smali/baksmali.jar"
+    local smali_jar="${LINEAGE_ROOT}/prebuilts/tools-lineage/common/smali/smali.jar"
+    local jar_sha
+    local dex_sha
+    local patch_dir
+
+    jar_sha="$(sha256sum "${jar}" | awk '{ print $1 }')"
+    if [[ "${jar_sha}" != "${expected_jar_sha}" ]]; then
+        echo "Refusing to patch an unknown mediatek-wfo-legacy.jar: ${jar_sha}" >&2
+        return 1
+    fi
+    for tool in java unzip zip; do
+        if ! command -v "${tool}" >/dev/null 2>&1; then
+            echo "Missing WFO patch dependency: ${tool}" >&2
+            return 1
+        fi
+    done
+    if [[ ! -r "${baksmali_jar}" || ! -r "${smali_jar}" ]]; then
+        echo "Missing bundled smali tools for mediatek-wfo-legacy.jar" >&2
+        return 1
+    fi
+
+    patch_dir="$(mktemp -d "${jar}.patch.XXXXXX")"
+    (
+        trap 'find "${patch_dir}" -depth -delete 2>/dev/null || true' EXIT
+
+        unzip -p "${jar}" classes.dex >"${patch_dir}/classes.dex"
+        dex_sha="$(sha256sum "${patch_dir}/classes.dex" | awk '{ print $1 }')"
+        if [[ "${dex_sha}" != "${expected_dex_sha}" ]]; then
+            echo "Unexpected Stock WFO classes.dex: ${dex_sha}" >&2
+            exit 1
+        fi
+
+        java -jar "${baksmali_jar}" disassemble -j 1 \
+            "${patch_dir}/classes.dex" -o "${patch_dir}/smali"
+
+        local receiver="${patch_dir}/smali/com/mediatek/wfo/impl/WifiOffloadService\$3.smali"
+        if [[ ! -r "${receiver}" ]]; then
+            echo "Missing WifiOffloadService\$3.smali" >&2
+            exit 1
+        fi
+
+        # Neutralise WifiOffloadService's IMS_FEATURE_CHANGED receiver.
+        #
+        # It does, at WifiOffloadService.java:571-575:
+        #
+        #   ImsManager m = ImsManager.getInstance(ctx, phoneId);
+        #   ((MtkImsManager) m).getConfigInterfaceEx()          <-- ClassCastException
+        #
+        # Stock gets away with that because MediaTek PATCHES AOSP's
+        # frameworks/opt/net/ims so ImsManager.getInstance() returns its own
+        # MtkImsManager subclass. This port builds AOSP's unpatched ims-common,
+        # so the cast throws and takes com.mediatek.ims down with it -- measured
+        # on the handset, twice at boot, after which the IMS service never came
+        # back and no IMS PDN was ever requested.
+        #
+        # A dependency-closure check cannot catch this: every class resolves,
+        # MtkImsManager included. What does not hold is a runtime cast whose
+        # validity depends on an upstream class being patched.
+        #
+        # Neutralising the whole receiver is safe and minimal, and the numbers
+        # matter here: WifiOffloadService$3 has exactly ONE method besides its
+        # constructor, its filter registers exactly ONE action
+        # (com.android.intent.action.IMS_FEATURE_CHANGED), and the only thing it
+        # does with the cast result is read MtkImsConfig to sync a WFC feature
+        # value. This build ships no WFC. It is NOT on the VoLTE path, which
+        # runs through initMalConnection() -> nativeSetWosProfile ->
+        # rds_set_ui_param; that path is what E-087 needs and it is untouched.
+        #
+        # The alternative -- patching ImsManager.getInstance() to return
+        # MtkImsManager -- is an upstream framework change, which this project
+        # does not make without the owner's agreement.
+        local marker='.method public onReceive(Landroid/content/Context;Landroid/content/Intent;)V'
+        if [[ "$(grep -c -F -- "${marker}" "${receiver}")" -ne 1 ]]; then
+            echo "Unexpected onReceive count in WifiOffloadService\$3" >&2
+            exit 1
+        fi
+        # .registers must stay as baksmali emitted it; only the body changes.
+        python3 - "${receiver}" <<'PYEOF'
+import re, sys
+path = sys.argv[1]
+src = open(path).read()
+sig = '.method public onReceive(Landroid/content/Context;Landroid/content/Intent;)V\n'
+i = src.index(sig) + len(sig)
+j = src.index('.end method', i)
+body = src[i:j]
+m = re.search(r'^\s*\.(registers|locals)\s+\d+\s*$', body, re.M)
+if not m:
+    raise SystemExit('no .registers/.locals directive in onReceive')
+head = body[:m.end()] + '\n'
+open(path, 'w').write(src[:i] + head + '\n    return-void\n' + src[j:])
+PYEOF
+        if [[ "$(grep -c -F 'Lcom/mediatek/ims/internal/MtkImsManager;' "${receiver}")" -ne 0 ]]; then
+            echo "WFO receiver still references MtkImsManager" >&2
+            exit 1
+        fi
+
+        java -jar "${smali_jar}" assemble -j 1 \
+            "${patch_dir}/smali" -o "${patch_dir}/classes.dex"
+
+        cp -- "${jar}" "${patch_dir}/mediatek-wfo-legacy.jar"
+        zip -q -d "${patch_dir}/mediatek-wfo-legacy.jar" classes.dex
+        touch -d '2008-01-01 00:00:00 UTC' "${patch_dir}/classes.dex"
+        (
+            cd "${patch_dir}"
+            zip -q -X mediatek-wfo-legacy.jar classes.dex
+        )
+        unzip -tq "${patch_dir}/mediatek-wfo-legacy.jar" >/dev/null
+        chmod 0644 "${patch_dir}/mediatek-wfo-legacy.jar"
+        mv -f -- "${patch_dir}/mediatek-wfo-legacy.jar" "${jar}"
+    )
+}
+
 function blob_fixup() {
     case "$1" in
         system/priv-app/ImsService/ImsService.apk)
             patch_ims_apk "$2" || exit 1
+            ;;
+        system/framework/mediatek-wfo-legacy.jar)
+            patch_wfo_jar "$2" || exit 1
             ;;
         vendor/lib64/hw/gatekeeper.default.so)
             # Stock stores this as a symlink to a byte-identical
