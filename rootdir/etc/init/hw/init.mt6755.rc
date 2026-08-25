@@ -388,17 +388,40 @@ on property:vendor.service.nvram_init=Ready
 #       imsm_handler.c:4141, and +CIREGU never leaves 0 (E-091).
 #
 # Both derivations are in the comments above those properties in vendor.prop.
-# The USER-FACING switch is persist.vendor.mtk.wfc.enable, and it stays 0 below;
-# with it off the RIL takes queryEpdgRat's "setup thru mobile" branch, so
-# nothing is routed over WiFi. Do not "restore" either flag to 0 on the
-# reasoning that this build does not ship VoWiFi. That reasoning has now been
-# wrong twice, on two differently-named properties, and it is HANDOFF trap 25.
+# Do not "restore" either flag to 0 on the reasoning that this build does not
+# ship VoWiFi. That reasoning has now been wrong twice, on two differently-named
+# properties, and it is HANDOFF trap 25.
+#
+# persist.vendor.mtk.wfc.enable is NOT re-asserted here, and it is the ONE
+# deliberate exception to this block's rule that every persist.* key in
+# vendor.prop is guarded against a stale /data. It is a USER SETTING -- the
+# Wi-Fi calling switch in Settings -- so /data winning is the entire point.
+# vendor.prop still carries it at 0, which is the value used when /data has
+# none, i.e. WFC off until the owner turns it on.
+#
+# It USED to be re-asserted to 0 here, and that was a shipped bug once VoWiFi
+# was enabled. Measured on the handset with WFC on and Wi-Fi associated:
+#
+#   09:33:07  init: setprop persist.vendor.mtk.wfc.enable 0   (this block)
+#   09:33:20  WfoService: WfoService new WifiOffloadService
+#   09:33:20  WifiOffloadService: isWfcEnabledByAnyPhone(), isOn:false
+#
+# WifiOffloadService.updateFeatureValue() reads this property as a per-slot
+# BITMASK into mIsWfcEnabled[], and it has exactly ONE caller: the constructor.
+# So init zeroed the switch 13.7 s before the only read of it, the array stayed
+# false for the life of the process, and every ePDG tunnel decision downstream
+# saw WFC as off -- while com.mediatek.ims set the property back to 1 from the
+# user's real setting moments later, with nothing left to read it.
+#
+# CONSEQUENCE THAT REMAINS: because that read is construction-only, turning WFC
+# on at runtime still does not reach MAL until the process restarts. Rebooting
+# after enabling it does work. The receiver that handled this on Stock,
+# WifiOffloadService$3.onReceive, cannot be restored on Android 10 -- see E-097.
 on property:ro.persistent_properties.ready=true
     setprop persist.vendor.ims_support 1
     setprop persist.vendor.mims_support 1
     setprop persist.vendor.mtk_dynamic_ims_switch 1
     setprop persist.vendor.mtk_wfc_support 1
-    setprop persist.vendor.mtk.wfc.enable 0
     setprop persist.vendor.vilte_support 0
     setprop persist.vendor.mtk.vilte.enable 0
     setprop persist.vendor.viwifi_support 0
@@ -439,10 +462,18 @@ on property:ro.persistent_properties.ready=true
     # persisted set was loaded (:215).
     #
     # Keep this list equal to the set difference between the persist.* keys in
-    # vendor.prop and the setprops in this block:
-    #   grep -oE '^persist\.[A-Za-z0-9_.]+' vendor.prop | sort -u
-    #   grep -oE 'setprop +persist\.[A-Za-z0-9_.]+' \
-    #       rootdir/etc/init/hw/init.mt6755.rc | awk '{print $2}' | sort -u
+    # vendor.prop and the setprops in this block, MINUS the one deliberate
+    # exception noted above (persist.vendor.mtk.wfc.enable, a user setting):
+    #   comm -23 \
+    #     <(grep -oE '^persist\.[A-Za-z0-9_.]+' vendor.prop | sort -u) \
+    #     <(grep -oE '^[[:space:]]+setprop +persist\.[A-Za-z0-9_.]+' \
+    #         rootdir/etc/init/hw/init.mt6755.rc | awk '{print $2}' | sort -u)
+    #
+    # The `^[[:space:]]+` anchor is not decoration: without it the pattern also
+    # matches the word `setprop` inside the COMMENTS above, which quote a
+    # setprop line that was deliberately removed -- so the check silently
+    # reported the exception as still guarded. Expect exactly one line of
+    # output: persist.vendor.mtk.wfc.enable.
     #
     # SEPOLICY: these are vendor_init setprops from a /vendor rc file. Nothing
     # new is needed at PRODUCT_SHIPPING_API_LEVEL=26 -- system/sepolicy/public/
@@ -451,6 +482,7 @@ on property:ro.persistent_properties.ready=true
     # radio or IMS prop type. If the shipping level is ever raised past 27 that
     # macro stops expanding and every key here needs an explicit set_prop().
     setprop persist.radio.multisim.config dsds
+    setprop persist.vendor.radio.msimmode dsds
     setprop persist.vendor.radio.mtk_ps2_rat W/G
     setprop persist.vendor.radio.mtk_dsbp_support 1
     setprop persist.vendor.radio.fd.counter 150
