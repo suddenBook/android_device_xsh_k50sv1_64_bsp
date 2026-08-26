@@ -440,12 +440,11 @@ on property:ro.persistent_properties.ready=true
     # PRODUCT_SYSTEM_DEFAULT_PROPERTIES puts in /system/etc/prop.default. On a
     # fresh device they are inert -- ImsManager tests == 1 and treats unset and
     # 0 alike -- but prop.default is loaded FIRST, so a persisted 1 left in
-    # /data would silently win. Restating 0 here is what makes the voice-only
-    # contract hold across a dirty /data. persist.dbg.volte_avail_ovr is gone
-    # from both places: the platform VoLTE gate is now the CarrierConfig
-    # overlay (overlay/packages/apps/CarrierConfig/res/xml/vendor.xml), which
-    # is the supported route and is visible to every other reader of
-    # KEY_CARRIER_VOLTE_AVAILABLE_BOOL, not just isVolteEnabledByPlatform().
+    # /data would silently win. Restating 0 preserves the no-VT and real-WFC-
+    # carrier-gate contract across a dirty /data. persist.dbg.volte_avail_ovr
+    # is gone from both places: VoLTE availability now comes from the filtered
+    # CarrierConfig overlay, visible to every reader of the carrier key rather
+    # than only isVolteEnabledByPlatform().
     setprop persist.vendor.mtk.volte.enable 1
     setprop persist.dbg.vt_avail_ovr 0
     setprop persist.dbg.wfc_avail_ovr 0

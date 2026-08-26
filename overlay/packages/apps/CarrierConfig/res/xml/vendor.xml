@@ -1,115 +1,38 @@
-<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--
-    Carrier config defaults for this device, applied to EVERY carrier.
+    DefaultCarrierConfigService merges every matching fragment below after its
+    carrier asset. Keep device behavior global and carrier support filtered.
 
-    DefaultCarrierConfigService reads this file as a RESOURCE
-    (DefaultCarrierConfigService.java:130, `getResources().getXml(R.xml.vendor)`),
-    not as an asset, which is why a device resource overlay reaches it and no
-    upstream change is needed. It is merged last, over whatever
-    assets/carrier_config_*.xml matched, so a value set here wins for every SIM.
-    AOSP's own copy of this file is an empty <carrier_config_list/>, so nothing
-    is lost by replacing it.
-
-    The `device` filter is redundant, because this overlay only exists in this
-    product's image, but it states the scope at the point of the change and
-    costs nothing. It is matched against Build.DEVICE
-    (DefaultCarrierConfigService.checkFilters()).
+    Do not use cid here. This Android-Q branch compares the XML String to an
+    int carrier ID, so a cid filter can never match. MCC/MNC/IMSI filters are
+    the working device-only alternative.
 -->
 <carrier_config_list>
+    <!-- The MTK IMS service can be binder-alive while unregistered, and its
+         null-call emergency path was measured wedging in DIALING. Ordinary
+         registered IMS calls are selected by a separate useImsForCall path. -->
     <carrier_config device="k50sv1_64_bsp">
-        <!--
-            Do NOT route emergency calls to IMS first.
+        <boolean name="carrier_use_ims_first_for_emergency_bool" value="false"/>
+    </carrier_config>
 
-            AOSP defaults this true (CarrierConfigManager.java:3305; the key
-            itself is declared at :722-723). With it
-            true, GsmCdmaPhone.dial() takes the IMS path for ANY emergency call
-            whenever `imsPhone.isImsAvailable()` holds, and that predicate asks
-            only whether the ImsService BINDER is alive (ImsPhone.java:449 to
-            ImsPhoneCallTracker.java:884 to ImsManager.java:1630), never
-            whether IMS is REGISTERED. Note the asymmetry with the
-            ordinary-call predicate immediately above it at
-            GsmCdmaPhone.java:1180: that one does require
-            getServiceState() == STATE_IN_SERVICE. The emergency one does not.
+    <!-- China Unicom VoLTE is registered live on this handset. The owner
+         confirms that the current Chinese subscriptions cannot use VoWiFi, so
+         do not advertise WFC for them. -->
+    <carrier_config device="k50sv1_64_bsp" mcc="460" mnc="01">
+        <boolean name="carrier_volte_available_bool" value="true"/>
+    </carrier_config>
 
-            This device binds MediaTek's MMTEL service (config_dynamic_bind_ims
-            plus config_ims_package in overlay/frameworks/.../config.xml), so
-            the binder is always alive and every emergency dial went to IMS
-            even with IMS unregistered. It then wedged, permanently:
-
-              ImsCallSessionProxy: [callId = null] terminate() :
-                  Terminate Call fail since there is no call ID. Abnormal Case
-
-            MTK's blob logs that and returns WITHOUT throwing ImsException, so
-            ImsPhoneCallTracker.hangup() (:1720-1777) neither reaches its local
-            cleanup branch (:1766, unreachable because imsCall != null) nor its
-            catch (:1775, never entered), and the 500 ms EVENT_HANGUP_PENDINGMO
-            safety net is never scheduled. The connection stays in DIALING
-            forever, and CallsManager.java:3413-3431 then refuses every LATER
-            emergency call. Recovery needed a phone-process kill.
-
-            Turning this off avoids the confirmed IMS-null-call wedge and sends
-            the request down the CS path. It does NOT guarantee completion: CS
-            dial, hangup and radio-power requests share the same MTK AT channel,
-            which has also wedged for five minutes. Nothing is lost while IMS
-            is unregistered, and this key is the supported route selector. AOSP
-            itself ships it false for Jazztel
-            (assets/carrier_config_carrierid_1974_Jazztel.xml:4).
-
-            REVISIT if VoLTE ever registers on a SIM with service here: IMS
-            E911 is preferable where it actually works. See WI-029.
-        -->
-        <boolean name="carrier_use_ims_first_for_emergency_bool" value="false" />
-
-        <!--
-            VoLTE is a capability of this device, for every SIM.
-
-            ImsManager.isVolteEnabledByPlatform() (ImsManager.java:622-637) ANDs
-            config_device_volte_available, which this device's framework overlay
-            sets true, with KEY_CARRIER_VOLTE_AVAILABLE_BOOL, which
-            CarrierConfigManager.java:3278 defaults to FALSE and which only the
-            ~24 carrier assets AOSP ships ever set true. None of them matches
-            the operators this handset sees, so without this line VoLTE is off
-            on every SIM regardless of network or user setting.
-
-            The previous revision solved that with persist.dbg.volte_avail_ovr=1.
-            That property is a debug short-circuit: it returns true before the
-            AND is evaluated, so it also bypassed config_device_volte_available
-            and isGbaValid(), and it did nothing for the other readers of
-            KEY_CARRIER_VOLTE_AVAILABLE_BOOL. Setting the key here is the
-            supported route and keeps all three gates real.
-
-            This does NOT claim the operator supports VoLTE. It says the device
-            does. Whether the network registers IMS is still decided by the
-            network, by CarrierConfig provisioning keys (all left at their AOSP
-            defaults, which do not require provisioning), and by the user's
-            Enhanced 4G LTE toggle.
-        -->
-        <boolean name="carrier_volte_available_bool" value="true" />
-
-        <!--
-            Wi-Fi calling is a capability of this device, for every SIM.
-
-            Exactly the same gate shape as VoLTE above:
-            ImsManager.isWfcEnabledByPlatform() ANDs
-            config_device_wfc_ims_available (set true in this device's framework
-            overlay) with KEY_CARRIER_WFC_IMS_AVAILABLE_BOOL, which
-            CarrierConfigManager defaults to FALSE and which only AOSP's handful
-            of carrier assets ever set true. None of them matches the operators
-            this handset sees.
-
-            This does NOT claim the operator provisions VoWiFi. It says the
-            device can do it. Whether an ePDG accepts the UE is decided by the
-            network, and the residual risk is named in
-            work/k50sv1-bringup/notes/vowifi-feasibility.md: this SIM has no
-            ISIM application (IccCardStatus reports ims_id=-1), so the IMPI
-            WifiOffloadService hands MAL is empty and epdg_wod has to derive the
-            IDi itself.
-
-            Every WFC provisioning/mode key is left at its AOSP default:
-            KEY_CARRIER_VOLTE_PROVISIONING_REQUIRED_BOOL is false, and
-            KEY_CARRIER_DEFAULT_WFC_IMS_MODE_INT defaults to WIFI_PREFERRED.
-            Nothing here forces a mode; the user's setting decides.
-        -->
-        <boolean name="carrier_wfc_ims_available_bool" value="true" />
+    <!-- Vodafone NL carrier ID 20. The cid filter is broken above, so mirror
+         TelephonyProvider's exact allocated IMSI prefixes for 20404. Stock's
+         MtkCarrierConfig enables these WFC keys, E-091 proves home-network
+         VoLTE registration, and the carrier ePDG control resolves. -->
+    <carrier_config device="k50sv1_64_bsp" mcc="204" mnc="04"
+        imsi="20404[01245789].*">
+        <boolean name="carrier_volte_available_bool" value="true"/>
+        <boolean name="carrier_wfc_ims_available_bool" value="true"/>
+        <int name="carrier_default_wfc_ims_mode_int" value="1"/>
+        <boolean name="editable_wfc_mode_bool" value="false"/>
+        <boolean name="editable_wfc_roaming_mode_bool" value="true"/>
+        <int name="wfc_spn_format_idx_int" value="1"/>
     </carrier_config>
 </carrier_config_list>

@@ -127,8 +127,9 @@ $(call inherit-product, vendor/huawei/hms/products/huawei.mk)
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     keyguard.no_require_sim=true
 
-# Video-telephony and Wi-Fi-calling availability overrides, stated so the
-# voice-only contract is not left to a default.
+# Video-telephony and Wi-Fi-calling debug overrides. Zero keeps the real device
+# and per-carrier gates authoritative; it does not disable WFC for a supported
+# carrier.
 #
 # persist.dbg.volte_avail_ovr is deliberately NOT here. It used to be, set to
 # 1, because ImsManager.isVolteEnabledByPlatform() ANDs
@@ -137,12 +138,11 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 # by the ~24 carrier assets AOSP ships. But that property SHORT-CIRCUITS the
 # whole clause (ImsManager.java:622-637), so it also defeated
 # config_device_volte_available and isGbaValid(), and it left every OTHER
-# reader of KEY_CARRIER_VOLTE_AVAILABLE_BOOL seeing false. The carrier gate is
-# now set properly, for every SIM, in
-# overlay/packages/apps/CarrierConfig/res/xml/vendor.xml. That overlay is
-# already proven to reach both subscriptions on this build: its
-# carrier_use_ims_first_for_emergency_bool=false shows up twice in a live
-# `dumpsys carrier_config`, once per phone.
+# reader of KEY_CARRIER_VOLTE_AVAILABLE_BOOL seeing false. The supported route
+# is overlay/packages/apps/CarrierConfig/res/xml/vendor.xml, now filtered to
+# the CU and Vodafone home identities that have measured registration. The
+# device-wide emergency-routing fragment is already proven to reach both
+# subscriptions in `dumpsys carrier_config`.
 #
 # These are framework knobs -- ImsManager and Keyguard read them, both on
 # /system -- so they go in PRODUCT_SYSTEM_DEFAULT_PROPERTIES rather than
