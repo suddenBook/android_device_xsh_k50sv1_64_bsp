@@ -16,6 +16,10 @@ TARGET_USES_64_BIT_BINDER := true
 # Platform
 TARGET_BOARD_PLATFORM := mt6755
 TARGET_BOOTLOADER_BOARD_NAME := k50sv1_64_bsp
+# ro.product.device is intentionally presented to apps as coral. OTA/recovery
+# compatibility must remain tied to this handset; ro.build.product also stays
+# k50sv1_64_bsp, so the updater accepts this device and not a genuine Pixel.
+TARGET_OTA_ASSERT_DEVICE := k50sv1_64_bsp
 TARGET_NO_BOOTLOADER := true
 # Inert in Android 10, kept as a statement of fact rather than a working flag.
 # Its single occurrence in the build system is membership in

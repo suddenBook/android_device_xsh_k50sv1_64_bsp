@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--
     DefaultCarrierConfigService merges every matching fragment below after its
-    carrier asset. Keep device behavior global and carrier support filtered.
+    carrier asset. This resource overlay exists only in this product, so an
+    additional Build.DEVICE filter would be redundant and would break when the
+    public app identity is presented as Coral.
 
     Do not use cid here. This Android-Q branch compares the XML String to an
     int carrier ID, so a cid filter can never match. MCC/MNC/IMSI filters are
@@ -11,14 +13,14 @@
     <!-- The MTK IMS service can be binder-alive while unregistered, and its
          null-call emergency path was measured wedging in DIALING. Ordinary
          registered IMS calls are selected by a separate useImsForCall path. -->
-    <carrier_config device="k50sv1_64_bsp">
+    <carrier_config>
         <boolean name="carrier_use_ims_first_for_emergency_bool" value="false"/>
     </carrier_config>
 
     <!-- China Unicom VoLTE is registered live on this handset. The owner
          confirms that the current Chinese subscriptions cannot use VoWiFi, so
          do not advertise WFC for them. -->
-    <carrier_config device="k50sv1_64_bsp" mcc="460" mnc="01">
+    <carrier_config mcc="460" mnc="01">
         <boolean name="carrier_volte_available_bool" value="true"/>
     </carrier_config>
 
@@ -26,8 +28,7 @@
          TelephonyProvider's exact allocated IMSI prefixes for 20404. Stock's
          MtkCarrierConfig enables these WFC keys, E-091 proves home-network
          VoLTE registration, and the carrier ePDG control resolves. -->
-    <carrier_config device="k50sv1_64_bsp" mcc="204" mnc="04"
-        imsi="20404[01245789].*">
+    <carrier_config mcc="204" mnc="04" imsi="20404[01245789].*">
         <boolean name="carrier_volte_available_bool" value="true"/>
         <boolean name="carrier_wfc_ims_available_bool" value="true"/>
         <int name="carrier_default_wfc_ims_mode_int" value="1"/>

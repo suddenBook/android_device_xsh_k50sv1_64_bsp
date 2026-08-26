@@ -1,0 +1,9 @@
+# Public Android identity, taken from the owner-supplied Android-10 Coral dump.
+# Android Q derives the unscoped ro.product.* values from this product namespace
+# before odm/vendor/system. Structural TARGET_DEVICE/board/platform properties
+# remain k50sv1_64_bsp/mt6755 elsewhere in the tree.
+ro.product.product.brand=google
+ro.product.product.device=coral
+ro.product.product.manufacturer=Google
+ro.product.product.model=Pixel 4 XL
+ro.product.product.name=coral

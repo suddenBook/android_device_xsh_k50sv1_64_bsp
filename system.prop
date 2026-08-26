@@ -1,0 +1,4 @@
+# Canonical application-facing fingerprint from the Android-10 Pixel 4 XL dump.
+# Keep ro.system/vendor/odm/bootimage fingerprints generated from the real
+# Lineage build: those are partition provenance, not public model presentation.
+ro.build.fingerprint=google/coral/coral:10/QQ3A.200805.001/6578210:user/release-keys
