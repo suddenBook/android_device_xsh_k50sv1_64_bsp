@@ -322,6 +322,27 @@ function patch_wfo_jar() {
         # notifyMalUserProfile/nativeSetWosProfile. This stays inside the jar,
         # avoids an upstream ims-common fork, and preserves live WFC toggles
         # without the invalid MtkImsManager cast.
+        #
+        # There is a second reason this receiver must do real work. With WFC off,
+        # MAL still asked WFO for five RSSI thresholds (-85/-75/-78/-88/-90).
+        # RssiMonitoringProcessor turned each into a ConnectivityManager
+        # NetworkRequest, and AOSP merged them into the Wi-Fi HAL's RSSI-monitor
+        # range. This MTK WLAN driver's wlanoidRssiMonitor clamps the +127 upper
+        # sentinel to -10 dBm; with framework curRssi=-12, firmware repeatedly
+        # reported -10: 2191 events at a 3.072 s mean interval in the captured
+        # baseline, with R12_CONN2AP_SPM_WAKEUP_B / Event 0xa1 waking the AP
+        # through suspend.
+        #
+        # WFO is load-bearing for VoLTE/WFC, so do not disable the service or
+        # remove its privileged permission. These Android threshold callbacks,
+        # however, are direct instances of the empty NetworkCallback base class;
+        # MAL independently polls wpa with SIGNAL_POLL and applies the carrier
+        # thresholds itself. onRssiMonitorRequest therefore removes any stale
+        # callbacks for that SIM and never installs the broken hardware-offload
+        # requests, while retaining its original updateLastRssi/quality-message
+        # tail. The package-visible helper clears every SIM after a live IMS
+        # feature change, and the receiver still sends
+        # EVENT_NOTIRY_MAL_USER_PROFILE so MAL's normal profile refresh survives.
         local marker='.method public onReceive(Landroid/content/Context;Landroid/content/Intent;)V'
         if [[ "$(grep -c -F -- "${marker}" "${receiver}")" -ne 1 ]]; then
             echo "Unexpected onReceive count in WifiOffloadService\$3" >&2
@@ -348,6 +369,8 @@ replacement = r'''
 
     invoke-static {v0}, Lcom/mediatek/wfo/impl/WifiOffloadService;->access$6000(Lcom/mediatek/wfo/impl/WifiOffloadService;)V
 
+    invoke-virtual {v0}, Lcom/mediatek/wfo/impl/WifiOffloadService;->unregisterAllRssiMonitoring()V
+
     iget-object v0, p0, Lcom/mediatek/wfo/impl/WifiOffloadService$3;->this$0:Lcom/mediatek/wfo/impl/WifiOffloadService;
 
     invoke-static {v0}, Lcom/mediatek/wfo/impl/WifiOffloadService;->access$000(Lcom/mediatek/wfo/impl/WifiOffloadService;)Lcom/mediatek/wfo/impl/WifiOffloadService$WFOServHandler;
@@ -370,7 +393,10 @@ service = open(service_path).read()
 private = '.method private updateFeatureValue()V'
 accessor_sig = ('.method static synthetic access$6000('
                 'Lcom/mediatek/wfo/impl/WifiOffloadService;)V')
-if service.count(private) != 1 or 'access$6000' in service:
+cleanup_sig = '.method unregisterAllRssiMonitoring()V'
+if (service.count(private) != 1 or 'access$6000' in service
+        or cleanup_sig in service
+        or 'goto_k50sv1_rssi_registration_done' in service):
     raise SystemExit('unexpected updateFeatureValue declaration')
 accessor = r'''.method static synthetic access$6000(Lcom/mediatek/wfo/impl/WifiOffloadService;)V
     .registers 1
@@ -382,7 +408,73 @@ accessor = r'''.method static synthetic access$6000(Lcom/mediatek/wfo/impl/WifiO
 .end method
 
 '''
-open(service_path, 'w').write(service.replace(private, accessor + private, 1))
+cleanup = r'''.method unregisterAllRssiMonitoring()V
+    .registers 3
+
+    iget-object v1, p0, Lcom/mediatek/wfo/impl/WifiOffloadService;->mRssiMonitoringProcessor:Lcom/mediatek/wfo/util/RssiMonitoringProcessor;
+
+    if-eqz v1, :cond_k50sv1_rssi_cleanup_done
+
+    const/4 v0, 0x0
+
+    :goto_k50sv1_rssi_cleanup
+    iget v1, p0, Lcom/mediatek/wfo/impl/WifiOffloadService;->mSimCount:I
+
+    if-ge v0, v1, :cond_k50sv1_rssi_cleanup_done
+
+    iget-object v1, p0, Lcom/mediatek/wfo/impl/WifiOffloadService;->mRssiMonitoringProcessor:Lcom/mediatek/wfo/util/RssiMonitoringProcessor;
+
+    invoke-virtual {v1, v0}, Lcom/mediatek/wfo/util/RssiMonitoringProcessor;->unregisterAllRssiMonitoring(I)V
+
+    add-int/lit8 v0, v0, 0x1
+
+    goto :goto_k50sv1_rssi_cleanup
+
+    :cond_k50sv1_rssi_cleanup_done
+    return-void
+.end method
+
+'''
+service = service.replace(private, accessor + cleanup + private, 1)
+
+rssi_old = r'''.method protected onRssiMonitorRequest(II[I)V
+    .registers 9
+    .param p1, "simId"    # I
+    .param p2, "size"    # I
+    .param p3, "rssiThresholds"    # [I
+
+    .line 2125
+    iget-object v0, p0, Lcom/mediatek/wfo/impl/WifiOffloadService;->mRssiMonitoringProcessor:Lcom/mediatek/wfo/util/RssiMonitoringProcessor;
+
+    invoke-virtual {v0, p1, p2, p3}, Lcom/mediatek/wfo/util/RssiMonitoringProcessor;->registerRssiMonitoring(II[I)V
+
+    .line 2128
+'''
+rssi_new = r'''.method protected onRssiMonitorRequest(II[I)V
+    .registers 9
+    .param p1, "simId"    # I
+    .param p2, "size"    # I
+    .param p3, "rssiThresholds"    # [I
+
+    const-string v0, "onRssiMonitorRequest: invalid SIM id"
+
+    invoke-direct {p0, p1, v0}, Lcom/mediatek/wfo/impl/WifiOffloadService;->checkInvalidSimIdx(ILjava/lang/String;)Z
+
+    move-result v0
+
+    if-nez v0, :goto_k50sv1_rssi_registration_done
+
+    iget-object v0, p0, Lcom/mediatek/wfo/impl/WifiOffloadService;->mRssiMonitoringProcessor:Lcom/mediatek/wfo/util/RssiMonitoringProcessor;
+
+    invoke-virtual {v0, p1}, Lcom/mediatek/wfo/util/RssiMonitoringProcessor;->unregisterAllRssiMonitoring(I)V
+
+    :goto_k50sv1_rssi_registration_done
+    .line 2128
+'''
+if service.count(rssi_old) != 1:
+    raise SystemExit('unexpected onRssiMonitorRequest prologue')
+service = service.replace(rssi_old, rssi_new, 1)
+open(service_path, 'w').write(service)
 PYEOF
         if [[ "$(grep -c -F 'Lcom/mediatek/ims/internal/MtkImsManager;' "${receiver}")" -ne 0 ]]; then
             echo "WFO receiver still references MtkImsManager" >&2
@@ -390,8 +482,11 @@ PYEOF
         fi
         if [[ "$(grep -c -F -- '->access$6000' "${receiver}")" -ne 1 || \
               "$(grep -c -F '.method static synthetic access$6000' "${service}")" -ne 1 || \
-              "$(grep -c -F '.method private updateFeatureValue()V' "${service}")" -ne 1 ]]; then
-            echo "WFO live feature-value refresh was not installed" >&2
+              "$(grep -c -F '.method private updateFeatureValue()V' "${service}")" -ne 1 || \
+              "$(grep -c -F -- '->unregisterAllRssiMonitoring()V' "${receiver}")" -ne 1 || \
+              "$(grep -c -F '.method unregisterAllRssiMonitoring()V' "${service}")" -ne 1 || \
+              "$(grep -c -F -x '    :goto_k50sv1_rssi_registration_done' "${service}")" -ne 1 ]]; then
+            echo "WFO live feature refresh/RSSI suppression was not installed" >&2
             exit 1
         fi
 
@@ -503,13 +598,13 @@ WFOSIMEOF
         unzip -tq "${patch_dir}/mediatek-wfo-legacy.jar" >/dev/null
         dex_sha="$(sha256sum "${patch_dir}/classes.dex" | awk '{ print $1 }')"
         if [[ "${dex_sha}" != \
-              "99a5cf083d20a2c847e7771c81329ee0b49e29eaec21cbbe39d715190f186198" ]]; then
+              "95f0be95eec46c729d560bd9992f8437b662d4fb2ce46ca6d0df08d430d67e62" ]]; then
             echo "Non-reproducible patched WFO classes.dex: ${dex_sha}" >&2
             exit 1
         fi
         jar_sha="$(sha256sum "${patch_dir}/mediatek-wfo-legacy.jar" | awk '{ print $1 }')"
         if [[ "${jar_sha}" != \
-              "27a90a9c8a831c7f2f2ccc217182c2ef9f5f781b259a43d997e99e8676f8ad39" ]]; then
+              "899a5149c2ca85a1d2bfadf02fcb419a860133becc9c9716d1482b1438bef3c2" ]]; then
             echo "Non-reproducible patched mediatek-wfo-legacy.jar: ${jar_sha}" >&2
             exit 1
         fi
