@@ -287,12 +287,14 @@ function patch_wfo_jar() {
             "${patch_dir}/classes.dex" -o "${patch_dir}/smali"
 
         local receiver="${patch_dir}/smali/com/mediatek/wfo/impl/WifiOffloadService\$3.smali"
-        if [[ ! -r "${receiver}" ]]; then
-            echo "Missing WifiOffloadService\$3.smali" >&2
+        local service="${patch_dir}/smali/com/mediatek/wfo/impl/WifiOffloadService.smali"
+        if [[ ! -r "${receiver}" || ! -r "${service}" ]]; then
+            echo "Missing WifiOffloadService smali" >&2
             exit 1
         fi
 
-        # Neutralise WifiOffloadService's IMS_FEATURE_CHANGED receiver.
+        # Keep WifiOffloadService's IMS_FEATURE_CHANGED receiver without the
+        # MediaTek-only framework cast.
         #
         # It does, at WifiOffloadService.java:571-575:
         #
@@ -306,51 +308,33 @@ function patch_wfo_jar() {
         # on the handset, twice at boot, after which the IMS service never came
         # back and no IMS PDN was ever requested.
         #
-        # A dependency-closure check cannot catch this: every class resolves,
-        # MtkImsManager included. What does not hold is a runtime cast whose
-        # validity depends on an upstream class being patched.
+        # A dependency-closure check cannot catch this: every class resolves;
+        # the runtime type assumption is what fails. The previous workaround
+        # replaced the receiver with return-void. That stopped the crash but also
+        # made updateFeatureValue() constructor-only, so changing WFC at runtime
+        # updated persist.vendor.mtk.wfc.enable without updating mIsWfcEnabled or
+        # MAL. A reboot was then required (E-099/WI-055).
         #
-        # Neutralising the whole receiver is safe and minimal, and the numbers
-        # matter here: WifiOffloadService$3 has exactly ONE method besides its
-        # constructor, its filter registers exactly ONE action
-        # (com.android.intent.action.IMS_FEATURE_CHANGED), and the only thing it
-        # does with the cast result is read MtkImsConfig to sync a WFC feature
-        # value. This build ships no WFC. It is NOT on the VoLTE path, which
-        # runs through initMalConnection() -> nativeSetWosProfile ->
-        # rds_set_ui_param; that path is what E-087 needs and it is untouched.
-        #
-        # The alternative -- patching ImsManager.getInstance() to return
-        # MtkImsManager -- is an upstream framework change, which this project
-        # does not make without the owner's agreement.
-        #
-        # AND IT IS THE ONLY ALTERNATIVE. The obvious-looking repair -- keep the
-        # receiver and swap the cast for AOSP's ImsManager.getConfigInterface()
-        # -- does not exist on Android 10: AOSP's ImsConfig
-        # (frameworks/base/telephony/java/com/android/ims/ImsConfig.java) has no
-        # getFeatureValue(int, int, ImsConfigListener) at all. Q replaced it with
-        # getConfigInt()/ProvisioningManager. getFeatureValue lives only on
-        # MtkImsConfig, reachable only through
-        # MtkImsManager.getConfigInterfaceEx(), and MtkImsManager has no static
-        # factory of its own -- it exists at runtime only because MediaTek
-        # patches ImsManager.getInstance() upstream to return it. So restoring
-        # this receiver is an upstream change or nothing.
-        #
-        # What it costs: nothing measurable. The receiver's only action is to
-        # re-read one IMS feature value and hand it to a CfgListener, and
-        # WifiOffloadService pushes the WFC on/off state to MAL by other paths
-        # (nativeSetWfcSupported / nativeSetWosProfile) that are untouched. The
-        # broadcast comes from ImsService.apk, which is shipped, so this is a
-        # no-op receiver rather than a missing one.
+        # The WFC/VoLTE/ViLTE values this receiver needs already exist in the
+        # properties updateFeatureValue() reads. Call that private method through
+        # a compiler-style synthetic accessor, then enqueue the blob's existing
+        # EVENT_NOTIRY_MAL_USER_PROFILE (20), whose handler calls
+        # notifyMalUserProfile/nativeSetWosProfile. This stays inside the jar,
+        # avoids an upstream ims-common fork, and preserves live WFC toggles
+        # without the invalid MtkImsManager cast.
         local marker='.method public onReceive(Landroid/content/Context;Landroid/content/Intent;)V'
         if [[ "$(grep -c -F -- "${marker}" "${receiver}")" -ne 1 ]]; then
             echo "Unexpected onReceive count in WifiOffloadService\$3" >&2
             exit 1
         fi
-        # .registers must stay as baksmali emitted it; only the body changes.
-        python3 - "${receiver}" <<'PYEOF'
+        # .registers stays as baksmali emitted it; only the body changes. Keep
+        # updateFeatureValue() private so its existing invoke-direct remains
+        # verifier-correct, and add the same synthetic-accessor shape javac would
+        # generate for a private outer method used by an inner class.
+        python3 - "${receiver}" "${service}" <<'PYEOF'
 import re, sys
-path = sys.argv[1]
-src = open(path).read()
+receiver_path, service_path = sys.argv[1:]
+src = open(receiver_path).read()
 sig = '.method public onReceive(Landroid/content/Context;Landroid/content/Intent;)V\n'
 i = src.index(sig) + len(sig)
 j = src.index('.end method', i)
@@ -359,10 +343,55 @@ m = re.search(r'^\s*\.(registers|locals)\s+\d+\s*$', body, re.M)
 if not m:
     raise SystemExit('no .registers/.locals directive in onReceive')
 head = body[:m.end()] + '\n'
-open(path, 'w').write(src[:i] + head + '\n    return-void\n' + src[j:])
+replacement = r'''
+    iget-object v0, p0, Lcom/mediatek/wfo/impl/WifiOffloadService$3;->this$0:Lcom/mediatek/wfo/impl/WifiOffloadService;
+
+    invoke-static {v0}, Lcom/mediatek/wfo/impl/WifiOffloadService;->access$6000(Lcom/mediatek/wfo/impl/WifiOffloadService;)V
+
+    iget-object v0, p0, Lcom/mediatek/wfo/impl/WifiOffloadService$3;->this$0:Lcom/mediatek/wfo/impl/WifiOffloadService;
+
+    invoke-static {v0}, Lcom/mediatek/wfo/impl/WifiOffloadService;->access$000(Lcom/mediatek/wfo/impl/WifiOffloadService;)Lcom/mediatek/wfo/impl/WifiOffloadService$WFOServHandler;
+
+    move-result-object v0
+
+    const/16 v1, 0x14
+
+    invoke-virtual {v0, v1}, Lcom/mediatek/wfo/impl/WifiOffloadService$WFOServHandler;->obtainMessage(I)Landroid/os/Message;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Lcom/mediatek/wfo/impl/WifiOffloadService$WFOServHandler;->sendMessage(Landroid/os/Message;)Z
+
+    return-void
+'''
+open(receiver_path, 'w').write(src[:i] + head + replacement + src[j:])
+
+service = open(service_path).read()
+private = '.method private updateFeatureValue()V'
+accessor_sig = ('.method static synthetic access$6000('
+                'Lcom/mediatek/wfo/impl/WifiOffloadService;)V')
+if service.count(private) != 1 or 'access$6000' in service:
+    raise SystemExit('unexpected updateFeatureValue declaration')
+accessor = r'''.method static synthetic access$6000(Lcom/mediatek/wfo/impl/WifiOffloadService;)V
+    .registers 1
+    .param p0, "x0"    # Lcom/mediatek/wfo/impl/WifiOffloadService;
+
+    invoke-direct {p0}, Lcom/mediatek/wfo/impl/WifiOffloadService;->updateFeatureValue()V
+
+    return-void
+.end method
+
+'''
+open(service_path, 'w').write(service.replace(private, accessor + private, 1))
 PYEOF
         if [[ "$(grep -c -F 'Lcom/mediatek/ims/internal/MtkImsManager;' "${receiver}")" -ne 0 ]]; then
             echo "WFO receiver still references MtkImsManager" >&2
+            exit 1
+        fi
+        if [[ "$(grep -c -F -- '->access$6000' "${receiver}")" -ne 1 || \
+              "$(grep -c -F '.method static synthetic access$6000' "${service}")" -ne 1 || \
+              "$(grep -c -F '.method private updateFeatureValue()V' "${service}")" -ne 1 ]]; then
+            echo "WFO live feature-value refresh was not installed" >&2
             exit 1
         fi
 
@@ -410,11 +439,6 @@ PYEOF
         # (move/from16 v2, p1), v9 is simTypeStr, and v12 is scratch that the
         # very next instruction overwrites. .registers is 28, so all three are
         # reachable by every instruction form used here.
-        local service="${patch_dir}/smali/com/mediatek/wfo/impl/WifiOffloadService.smali"
-        if [[ ! -r "${service}" ]]; then
-            echo "Missing WifiOffloadService.smali" >&2
-            exit 1
-        fi
         python3 - "${service}" <<'WFOSIMEOF'
 import sys
 path = sys.argv[1]
@@ -477,6 +501,18 @@ WFOSIMEOF
             zip -q -X mediatek-wfo-legacy.jar classes.dex
         )
         unzip -tq "${patch_dir}/mediatek-wfo-legacy.jar" >/dev/null
+        dex_sha="$(sha256sum "${patch_dir}/classes.dex" | awk '{ print $1 }')"
+        if [[ "${dex_sha}" != \
+              "99a5cf083d20a2c847e7771c81329ee0b49e29eaec21cbbe39d715190f186198" ]]; then
+            echo "Non-reproducible patched WFO classes.dex: ${dex_sha}" >&2
+            exit 1
+        fi
+        jar_sha="$(sha256sum "${patch_dir}/mediatek-wfo-legacy.jar" | awk '{ print $1 }')"
+        if [[ "${jar_sha}" != \
+              "27a90a9c8a831c7f2f2ccc217182c2ef9f5f781b259a43d997e99e8676f8ad39" ]]; then
+            echo "Non-reproducible patched mediatek-wfo-legacy.jar: ${jar_sha}" >&2
+            exit 1
+        fi
         chmod 0644 "${patch_dir}/mediatek-wfo-legacy.jar"
         mv -f -- "${patch_dir}/mediatek-wfo-legacy.jar" "${jar}"
     )

@@ -266,9 +266,9 @@ on post-fs
     # cache of pages that were never slower than a memcpy.
     write /sys/block/zram0/queue/read_ahead_kb 0
 
-    # zram/swap. Here rather than in `on post-fs-data`, which vold re-triggers
-    # on this FDE device -- see the note at that block. Nothing here needs
-    # /data.
+    # zram/swap. Kept outside post-fs-data so a future encryption migration
+    # cannot repeat the historical double-initialisation described below.
+    # Nothing here needs /data.
     write /proc/sys/vm/page-cluster 0
     write /proc/sys/vm/swappiness 100
     swapon_all /vendor/etc/fstab.enableswap
@@ -336,20 +336,19 @@ on post-fs-data
     # init.rc is parsed first and this block is later in post-fs-data.
     mount none /data/vendor/wifi/wpa/sockets /data/misc/wifi/sockets bind
 
-    # zram is set up in `on post-fs` above, NOT here. This block runs TWICE on
-    # this device: /system/core/rootdir/init.rc has
+    # zram is set up in `on post-fs` above, NOT here. On the former FDE build
+    # this block ran twice: /system/core/rootdir/init.rc has
     #     on property:vold.decrypt=trigger_post_fs_data
     #         trigger post-fs-data
-    # and /data is block-encrypted, so vold fires it again after decrypting.
-    # With swapon_all here the second pass re-ran mkswap over an area the kernel
+    # and vold fired it again after decrypting /data. With swapon_all here the
+    # second pass re-ran mkswap over an area the kernel
     # had had active for 2.5 s -- writing a fresh swap header, with a fresh
     # UUID, describing a live swap area -- and then failed:
     #     zram: Cannot change disksize for initialized device
     #     init: [libfs_mgr]swapon failed for /dev/block/zram0
     #     init: Command 'swapon_all ...' ... failed: fs_mgr_swapon_all() failed
-    # every single boot. Nothing swapped was lost (page 0 is the header and the
-    # kernel keeps swap_map in RAM), but the window widens on any boot where
-    # vold.decrypt is delayed, e.g. an FDE unlock waiting for a typed password.
+    # every boot. Current userdata is unencrypted, so the second trigger is no
+    # longer present; the safer one-shot placement remains.
 
     # AOSP's own copy of this is commented out in init.rc with a note that a
     # device providing its own post-fs-data action must provide it, so it stays
@@ -367,9 +366,9 @@ on property:vendor.service.nvram_init=Ready
     restorecon_recursive /mnt/vendor/nvdata
 
 # Stock persistent properties survive a partition flash in /data/property, and
-# init applies them after the build.prop defaults. Re-assert the voice-only IMS
-# contract once persistent properties have been loaded so a stale WFC/ViLTE/RCS
-# value cannot outlive the flash.
+# init applies them after the build.prop defaults. Re-assert the device-owned
+# IMS capability contract once they load; the user-owned WFC switch is the
+# deliberate exception below.
 #
 # This block used to live in a device init.mt6755.rc installed into the boot
 # ramdisk. On this switch-root device that file is discarded before second-stage
@@ -387,10 +386,8 @@ on property:vendor.service.nvram_init=Ready
 #       eran_type 0, MAL's IMSM then logs "rat error!!" and spins forever on
 #       imsm_handler.c:4141, and +CIREGU never leaves 0 (E-091).
 #
-# Both derivations are in the comments above those properties in vendor.prop.
-# Do not "restore" either flag to 0 on the reasoning that this build does not
-# ship VoWiFi. That reasoning has now been wrong twice, on two differently-named
-# properties, and it is HANDOFF trap 25.
+# Both derivations are in vendor.prop. Do not restore either flag to 0: both
+# VoLTE and the shipped VoWiFi path require them (HANDOFF trap 25).
 #
 # persist.vendor.mtk.wfc.enable is NOT re-asserted here, and it is the ONE
 # deliberate exception to this block's rule that every persist.* key in
@@ -406,17 +403,11 @@ on property:vendor.service.nvram_init=Ready
 #   09:33:20  WfoService: WfoService new WifiOffloadService
 #   09:33:20  WifiOffloadService: isWfcEnabledByAnyPhone(), isOn:false
 #
-# WifiOffloadService.updateFeatureValue() reads this property as a per-slot
-# BITMASK into mIsWfcEnabled[], and it has exactly ONE caller: the constructor.
-# So init zeroed the switch 13.7 s before the only read of it, the array stayed
-# false for the life of the process, and every ePDG tunnel decision downstream
-# saw WFC as off -- while com.mediatek.ims set the property back to 1 from the
-# user's real setting moments later, with nothing left to read it.
-#
-# CONSEQUENCE THAT REMAINS: because that read is construction-only, turning WFC
-# on at runtime still does not reach MAL until the process restarts. Rebooting
-# after enabling it does work. The receiver that handled this on Stock,
-# WifiOffloadService$3.onReceive, cannot be restored on Android 10 -- see E-097.
+# The flashed image reads the bitmask only during construction, so toggling WFC
+# there still needs a reboot. The current tree fixes the next image in
+# extract-files.sh: its IMS_FEATURE_CHANGED receiver refreshes the properties
+# and enqueues WFO's normal profile update without the invalid MtkImsManager
+# cast (WI-055). Keep this init block from overwriting the user value.
 on property:ro.persistent_properties.ready=true
     setprop persist.vendor.ims_support 1
     setprop persist.vendor.mims_support 1

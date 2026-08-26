@@ -659,13 +659,13 @@ vendor/lib64/vendor.mediatek.hardware.netdagent@1.0.so
 vendor/lib64/vendor.mediatek.hardware.nvram@1.0.so
 vendor/lib64/vendor.mediatek.hardware.nvram@1.1.so
 
-# IMS / VoLTE (voice-only). ImsService.apk is patched during extraction to the  -- section: ims
+# IMS / VoLTE framework and MAL base. ImsService.apk is patched during extraction to the  -- section: ims
 # Lineage framework resource IDs, then platform-signed by the selected build
 # tier. Not "pinned" -- that word means a |sha1 suffix on the spec line
 # (extract_utils.sh:1612-1627) and this file uses none. The guard is stronger
 # than a pin and lives in extract-files.sh, which SHA-256s both the stock input
-# and the patched output. WFC/EPDG, ViLTE/ViWiFi and RCS payloads are deliberately
-# excluded.
+# and the patched output. The ePDG data plane is kept in the separate `vowifi`
+# section below; ViLTE/ViWiFi and RCS remain excluded.
 #
 # mediatek-ims-legacy.jar is NOT optional, and leaving it out is what stopped
 # VoLTE from ever registering. It is loaded by absolute path with a
@@ -689,7 +689,7 @@ vendor/lib64/vendor.mediatek.hardware.nvram@1.1.so
 -system/framework/mediatek-telephony-base.jar
 -system/framework/mediatek-telephony-common.jar
 -system/priv-app/ImsService/ImsService.apk
-# mediatek-wfo-legacy.jar is on the VoLTE critical path, not the VoWiFi one.
+# mediatek-wfo-legacy.jar is shared by VoLTE and VoWiFi.
 # ImsService.<init> calls WfoService.makeWfoService() unconditionally, and with
 # ro.vendor.mtk_ril_mode=c6m_3rild that takes the WifiOffloadService branch and
 # publishes the "wfo" binder service. WifiOffloadService is the only caller of
@@ -713,15 +713,9 @@ vendor/lib64/vendor.mediatek.hardware.nvram@1.1.so
 # below. init.rc runs it as user/group radio, which is what grants it
 # /dev/socket/mal_mfi (created 660 root radio by init.mal.rc).
 #
-# libmal_epdga.so is NOT here, deliberately, and it is the obvious thing to add
-# if VoLTE still does not register. Do not add it on a hunch. mtkmal does try to
-# load an ePDG module when EPDG_SUPPORT is on, and EPDG_SUPPORT is derived from
-# persist.vendor.mtk_wfc_support, which is now 1 -- but two full boots were
-# captured in that exact configuration with the file absent (E-087) and MAL
-# logged no dlopen failure and no degradation: registrations held, data flowed,
-# and the IMS PDN activated. It belongs with the rest of the ePDG data plane
-# (epdg_wod, wfca, charon/starter/stroke, libwo.so, /vendor/etc/ipsec/*), which
-# is a VoWiFi work item, not a VoLTE one.
+# libmal_epdga.so is intentionally absent from THIS base section. It ships once,
+# with epdg_wod/wfca/strongSwan/libwo and the IPsec configuration in the `vowifi`
+# section below.
 vendor/bin/hw/vendor.mediatek.hardware.wfo@1.0-service
 vendor/etc/init/vendor.mediatek.hardware.wfo@1.0-service.rc
 vendor/lib64/vendor.mediatek.hardware.wfo@1.0.so
@@ -816,8 +810,8 @@ vendor/lib64/libstrongswan.so
 # wod_optr.conf is the operator database: 1410 lines, 66 [OPnn] sections and
 # 105 {mcc=...} blocks of per-operator IKE/ESP proposals, rekey timers, MTU and
 # IDi/IDr types. Without it WFC only works where MediaTek's defaults happen to
-# match. [OP6] (VDF) carries a {mcc=204} block -- Vodafone NL, i.e. the SIM in
-# slot 0, which is also the only slot IMS can run on.
+# match. [OP6] carries Vodafone's {mcc=204} policy; ePDG discovery still uses
+# the subscriber's home PLMN, not the visited roaming network (E-101).
 vendor/etc/ipsec/ipsec.conf
 vendor/etc/ipsec/strongswan.conf
 vendor/etc/ipsec/wod_cust.conf
@@ -827,7 +821,6 @@ vendor/etc/ipsec/ipsec.d/cacerts/Entrust.net_Certification_Authority_2048.cer
 vendor/etc/ipsec/ipsec.d/cacerts/GeoTrust_PCA_G3_Root.der
 vendor/etc/ipsec/ipsec.d/cacerts/GeoTrust_Primary_CA.der
 vendor/etc/ipsec/ipsec.d/cacerts/GeoTrust_Primary_CA_G2_ECC.der
-vendor/etc/ipsec/ipsec.d/cacerts/Root_CA_1003.crt
 vendor/etc/ipsec/ipsec.d/cacerts/VeriSignClass3G4.der
 vendor/etc/ipsec/ipsec.d/cacerts/VeriSignClass3G5.der
 vendor/etc/ipsec/ipsec.d/cacerts/VeriSignUniversalRootCertification.der

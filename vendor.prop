@@ -23,11 +23,9 @@
 # set_prop(vendor_init, mtk_wmt_prop) rule itself is still right for the rest of
 # the persist.vendor.connsys.* namespace; only the example is now stale.
 
-# Voice-only legacy MTK IMS. AOSP ImsManager owns the user gating and the
-# CarrierConfig overlay owns the carrier gating; every WFC/video USER-FACING
-# capability is off. That is NOT the same thing as switching off MediaTek's
-# ePDG-capable RIL build flag -- see persist.vendor.mtk_wfc_support below,
-# which must stay 1 even though this build offers no WiFi calling.
+# Legacy MTK IMS. AOSP ImsManager owns the user setting, CarrierConfig owns
+# carrier availability, and the MediaTek WFO/ePDG data plane is shipped. Video
+# remains disabled; WFC starts off until the user enables it.
 persist.vendor.ims_support=1
 persist.vendor.mims_support=1
 persist.vendor.mtk.volte.enable=1
@@ -192,12 +190,10 @@ persist.vendor.volte_support=1
 #                          rat error!! stops
 #                          AT< +CIREGU: 1,5          <-- IMS REGISTERED
 #
-# So VoLTE on this platform cannot be had without the ePDG feature enabled, and
-# "we do not ship VoWiFi, so switch WFC off" is exactly the reasoning that broke
-# it -- twice, on two differently-named properties. Note that the RIL still
-# takes the "setup thru mobile" branch: enabling this does NOT route anything
-# over WiFi. That needs the ePDG data plane (epdg_wod/wfca/strongSwan), which
-# this build does not ship, plus the framework switches, which stay off.
+# VoLTE on this platform cannot be had without the ePDG feature enabled. The
+# data plane and framework WFC gates now ship; actual IWLAN selection still
+# depends on the user's setting, an IWLAN-capable IMS APN, and carrier ePDG
+# provisioning (E-101).
 persist.vendor.wfc.sys_wfc_support=1
 # ro.vendor.mtk_telephony_add_on_policy MUST be 0, exactly as stock sets it in
 # /system/etc/prop.default. An earlier revision set it to 1 with the comment "skip
@@ -545,4 +541,3 @@ persist.vendor.radio.fd.counter=150
 persist.vendor.radio.fd.off.counter=50
 persist.vendor.radio.fd.off.r8.counter=50
 persist.vendor.radio.fd.r8.counter=150
-
