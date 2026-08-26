@@ -1,3 +1,5 @@
+genfscon debugfs /ged/hal/total_gpu_freq_level_count u:object_r:debugfs_mtk_ged_gpu_freq_count:s0
+
 # Power HAL ioctl endpoint.  This type is also shared with the proven
 # libperfctl clients, each with a constrained ioctl command set.
 genfscon proc /perfmgr/perf_ioctl u:object_r:proc_mtk_power_perf_ioctl:s0

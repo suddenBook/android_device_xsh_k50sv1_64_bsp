@@ -58,6 +58,14 @@ allow hal_power_default proc_mtk_power_info:file r_file_perms;
 #   avc: denied { getattr } for comm="mtkPowerManager" path="/proc/fliper"
 allow hal_power_default proc_mtk_power_fliper:file getattr;
 
+# libpowerhal reads this integer once while mapping its existing GPU hint
+# levels. This neither exposes the rest of GED debugfs nor changes any power
+# table, governor threshold, or screen-on policy.
+allow hal_power_default debugfs_mtk_ged_gpu_freq_count:file {
+    open
+    read
+};
+
 # scaling_available_frequencies is read as sysfs_devices_system_cpu through
 # public/domain.te:210; no rule is needed and sysfs_mtk_power_cpu_info is gone.
 allow hal_power_default {

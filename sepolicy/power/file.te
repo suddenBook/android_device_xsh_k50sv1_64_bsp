@@ -1,6 +1,10 @@
 # Persistent state for the board-specific power service.
 type mtk_powerhal_data_file, file_type, data_file_type;
 
+# Read-only GED capability count used while libpowerhal builds its GPU-level
+# map. Do not label the whole /ged tree.
+type debugfs_mtk_ged_gpu_freq_count, fs_type, debugfs_type;
+
 # Only the live, core-hint nodes are split out of procfs and sysfs.  Keeping
 # them in separate types prevents the power HAL from inheriting access to the
 # rest of the MTK performance/debug surfaces.

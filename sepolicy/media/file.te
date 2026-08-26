@@ -1,6 +1,10 @@
 # Narrow replacement for Stock's broad proc:file access in the MMS domain.
 type proc_mtk_jpeg, fs_type, proc_type;
 
+# Exact Mali allocation-accounting endpoint consumed by the standard memtrack
+# HAL. Keep it separate from the rest of mali0 debugfs.
+type debugfs_mtk_mali_gpu_memory, fs_type, debugfs_type;
+
 # EMI/SMI bandwidth profile written by libbwc from inside the MTK OMX
 # components. Its own type rather than generic sysfs: mediacodec is the only
 # writer, and the node steers DRAM bandwidth arbitration for the whole SoC.

@@ -1,0 +1,8 @@
+# The standard memtrack HAL periodically reads this one Mali accounting file
+# for framework GPU-memory reporting. Do not expose the surrounding mali0
+# debugfs tree or grant the extra ioctl/map/watch permissions in r_file_perms.
+allow hal_memtrack_default debugfs_mtk_mali_gpu_memory:file {
+    getattr
+    open
+    read
+};

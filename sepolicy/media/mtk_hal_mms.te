@@ -23,6 +23,13 @@ allow mtk_hal_mms video_device:chr_file rw_file_perms;
 allow mtk_hal_mms proc_mtk_jpeg:file r_file_perms;
 allowxperm mtk_hal_mms proc_mtk_jpeg:file ioctl { 0x780b-0x780f };
 
+# libdpframework::PQConfig checks the real boot mode before enabling MDP PQ.
+# The node already has the dedicated sysfs_mtk_boot_mode label.
+allow mtk_hal_mms sysfs_mtk_boot_mode:file {
+    open
+    read
+};
+
 hal_client_domain(mtk_hal_mms, hal_allocator)
 hal_client_domain(mtk_hal_mms, hal_graphics_allocator)
 
