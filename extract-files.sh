@@ -655,12 +655,11 @@ function blob_fixup() {
             ;;
         vendor/etc/init/rilproxy.rc)
             # Load the device tree's RIL shim instead of mtk-rilproxy.so. The
-            # shim dlopens the blob and forwards everything except
-            # GET_RADIO_CAPABILITY, which it fails so that the framework uses a
-            # single static RadioAccessFamily for both phones and never starts
-            # MediaTek's SIM switch. That switch hangs this modem with both
-            # radios UNAVAILABLE and is a no-op even when it completes; the
-            # blob addresses proving both are in ril-shim/k50sv1_ril_shim.c.
+            # shim dlopens the blob, returns the fixed truthful capability of
+            # each physical protocol stack, and absorbs AOSP's attempted swap
+            # as a synthetic transaction. MediaTek's real switch hangs this
+            # modem with both radios UNAVAILABLE and is a no-op even when it
+            # completes; the blob addresses and host tests are in ril-shim/.
             if [[ "$(sha256sum "$2" | awk '{ print $1 }')" != \
                   "977b91d4b168d17f8fbedd65c98534634f8e403c6d721b3757581aff3182c4bf" ]]; then
                 echo "Refusing to patch an unknown rilproxy.rc" >&2

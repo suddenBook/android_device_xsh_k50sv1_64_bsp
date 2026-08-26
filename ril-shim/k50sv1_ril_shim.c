@@ -7,16 +7,16 @@
  * It is loaded by /vendor/bin/hw/rilproxy in place of mtk-rilproxy.so, forwards
  * every RIL entry point to the real blob, and changes exactly two things.
  *
- *   1. RIL_REQUEST_GET_RADIO_CAPABILITY is completed with
- *      RIL_E_REQUEST_NOT_SUPPORTED instead of being passed down, so the MTK
- *      SIM switch never runs. See "PART 1" below.
+ *   1. It publishes the two physical protocol stacks' fixed, truthful radio
+ *      capabilities and completes Android's attempted capability swap as a
+ *      hardware no-op, so the broken MTK SIM switch never runs. See "PART 1".
  *
  *   2. It re-sends the initial-attach APN when the vendor RIL asks for it,
  *      which is the thing AOSP's framework does not do and MediaTek's own
  *      framework add-on would have. See "PART 2" below.
  *
  * ============================================================================
- * PART 1 - force a static radio access family
+ * PART 1 - truthful fixed radio capabilities without the MTK SIM switch
  * ============================================================================
  *
  * WHY
@@ -70,24 +70,23 @@
  *
  * HOW THE FIX WORKS
  *
- * RadioResponse.getRadioCapabilityResponse (frameworks/opt/telephony) does:
+ * GET_RADIO_CAPABILITY is answered from the last native values measured before
+ * this shim existed. They describe protocol stacks, not the network a SIM is
+ * currently attached to:
  *
- *     if (responseInfo.error == RadioError.REQUEST_NOT_SUPPORTED
- *             || responseInfo.error == RadioError.GENERIC_FAILURE) {
- *         ret = mRil.makeStaticRadioCapability();
- *         responseInfo.error = RadioError.NONE;
- *     }
+ *   socket 0  0x1400a = GSM|GPRS|UMTS|LTE  modem_sys1_ps1
+ *   socket 1  0x10008 = GSM|UMTS           modem_sys1_ps2
  *
- * and RIL.makeStaticRadioCapability() builds the RAF from the framework
- * resource config_radio_access_family, which is GLOBAL rather than per-phone.
- * Both phones therefore report the identical RAF, so
- * ProxyController.setRadioCapability() takes its early return
+ * These are ril.h's native 1<<RADIO_TECH_* masks. In particular 0x2 is GPRS,
+ * not EDGE. RIL.java converts them to framework masks 36869 and 32772.
  *
- *     "setRadioCapability: Already in requested configuration, nothing to do."
- *
- * and no transaction is ever started. The device tree overlays
- * config_radio_access_family to slot 0's real capability; see
- * overlay/frameworks/base/core/res/res/values/config.xml.
+ * Truthful unequal RAFs make generic AOSP try to move the maximum RAF to the
+ * default-data phone. There is no resource switch for that assumption. The shim
+ * therefore owns SET_RADIO_CAPABILITY too: it returns successful START, APPLY
+ * and FINISH responses without forwarding request 131, and emits exactly one
+ * session-matched success UNSOL_RSP per APPLY. Every response reports the
+ * physical socket's unchanged RAF and UUID. ProxyController completes cleanly,
+ * Phone keeps truthful state, and no modem or AT channel is touched.
  *
  * Switching the default data subscription still works, through the path
  * Android 10 actually uses for it: PhoneSwitcher selects HAL_COMMAND_PREFERRED_DATA
@@ -105,15 +104,11 @@
  * Data on slot 1 runs on protocol stack 2, which is W/G, so it is never LTE.
  * Do not promise 3G either: E-084 measured EDGE on both SIMs tried there. That
  * is what this hardware can do without a working modem SIM switch, and the
- * switch is broken in the vendor blob (see above), not in this port. Both
- * slots now advertise slot 0's RAF, which is optimistic for slot 1; nothing in
- * Android 10 acts on per-phone RAF once the capability switch is out of the
- * picture.
- *
- * DO NOT ALSO INTERCEPT RIL_REQUEST_SET_RADIO_CAPABILITY. Failing it looks
- * safer and is not: ProxyController.completeRadioCapabilityTransaction()
- * responds to a failed transaction by calling doSetRadioCapabilities() again
- * with the old RAFs, which would fail again, forever.
+ * switch is broken in the vendor blob (see above), not in this port. Selecting
+ * slot 1 now runs a short synthetic transaction and briefly holds AOSP's
+ * ProxyController wakelock. Failing SET would be wrong: ProxyController retries
+ * the old RAFs after a failed transaction. Completing it as an explicit no-op
+ * is what terminates the state machine while preserving physical truth.
  *
  * ============================================================================
  * PART 2 - re-send the initial-attach APN when the vendor RIL asks
@@ -241,7 +236,12 @@
 #include <time.h>
 #include <unistd.h>
 
+#ifdef K50SV1_RIL_SHIM_HOST_TEST
+#define RLOGI(...) do { fprintf(stderr, __VA_ARGS__); fputc('\n', stderr); } while (0)
+#define RLOGE(...) do { fprintf(stderr, __VA_ARGS__); fputc('\n', stderr); } while (0)
+#else
 #include <log/log.h>
+#endif
 #include <telephony/ril.h>
 
 /*
@@ -267,6 +267,158 @@ static const RIL_RadioFunctions *sRealFuncs;
 static RIL_RequestFunc sRealOnRequest;
 static const struct RIL_Env *sEnv;
 static void *sRealHandle;
+
+/* ------------------------------------------------------------------------- *
+ * Fixed radio-capability contract. See PART 1 of the file header.
+ * ------------------------------------------------------------------------- */
+
+#define SLOT0_NATIVE_RAF (RAF_GSM | RAF_GPRS | RAF_UMTS | RAF_LTE)
+#define SLOT1_NATIVE_RAF (RAF_GSM | RAF_UMTS)
+#define SLOT0_MODEM_UUID "modem_sys1_ps1"
+#define SLOT1_MODEM_UUID "modem_sys1_ps2"
+
+_Static_assert(sizeof(RIL_RadioCapability) == 84,
+               "RIL_RadioCapability must be exactly 84 bytes");
+_Static_assert(offsetof(RIL_RadioCapability, logicalModemUuid) == 16,
+               "logicalModemUuid must start at +0x10");
+_Static_assert(offsetof(RIL_RadioCapability, status) == 80,
+               "status must sit at +0x50");
+_Static_assert(SLOT0_NATIVE_RAF == 0x1400a,
+               "slot 0 native RAF must match the measured modem response");
+_Static_assert(SLOT1_NATIVE_RAF == 0x10008,
+               "slot 1 native RAF must match the measured modem response");
+
+/* A duplicate APPLY indication decrements ProxyController's per-phone counter
+ * twice and may complete the transaction before the other phone answers. HIDL
+ * does not normally retry a request, but suppress a repeated session anyway. */
+static pthread_mutex_t sRcLock = PTHREAD_MUTEX_INITIALIZER;
+static int sLastApplySession[SIM_COUNT];
+static bool sLastApplySessionValid[SIM_COUNT];
+
+static bool fillFixedRadioCapability(RIL_SOCKET_ID socketId, int session,
+                                     int phase, int status,
+                                     RIL_RadioCapability *out)
+{
+    const char *uuid;
+
+    if (out == NULL) {
+        return false;
+    }
+
+    memset(out, 0, sizeof(*out));
+    switch (socketId) {
+    case RIL_SOCKET_1:
+        out->rat = SLOT0_NATIVE_RAF;
+        uuid = SLOT0_MODEM_UUID;
+        break;
+    case RIL_SOCKET_2:
+        out->rat = SLOT1_NATIVE_RAF;
+        uuid = SLOT1_MODEM_UUID;
+        break;
+    default:
+        return false;
+    }
+
+    out->version = RIL_RADIO_CAPABILITY_VERSION;
+    out->session = session;
+    out->phase = phase;
+    out->status = status;
+    /* The struct was zeroed, and both literals are far shorter than 64 bytes. */
+    memcpy(out->logicalModemUuid, uuid, strlen(uuid));
+    return true;
+}
+
+static bool shouldSendApplyUnsol(RIL_SOCKET_ID socketId, int session)
+{
+    int index = (int)socketId;
+    bool send;
+
+    if (index < 0 || index >= SIM_COUNT) {
+        return false;
+    }
+
+    pthread_mutex_lock(&sRcLock);
+    send = !sLastApplySessionValid[index] ||
+           sLastApplySession[index] != session;
+    if (send) {
+        sLastApplySession[index] = session;
+        sLastApplySessionValid[index] = true;
+    }
+    pthread_mutex_unlock(&sRcLock);
+    return send;
+}
+
+static void rejectRadioCapabilityRequest(RIL_Token t, int request,
+                                         RIL_SOCKET_ID socketId,
+                                         const void *data, size_t datalen)
+{
+    RLOGE("rejecting radio-capability request=%d socket=%d has_data=%d len=%zu",
+          request, (int)socketId, data != NULL, datalen);
+    sEnv->OnRequestComplete(t, RIL_E_INVALID_ARGUMENTS, NULL, 0);
+}
+
+static void getRadioCapability(RIL_Token t, RIL_SOCKET_ID socketId)
+{
+    RIL_RadioCapability response;
+
+    if (!fillFixedRadioCapability(socketId, 0, RC_PHASE_CONFIGURED,
+                                  RC_STATUS_NONE, &response)) {
+        rejectRadioCapabilityRequest(t, RIL_REQUEST_GET_RADIO_CAPABILITY,
+                                     socketId, NULL, 0);
+        return;
+    }
+
+    RLOGI("GET_RADIO_CAPABILITY socket=%d -> raf=0x%x uuid=%s",
+          (int)socketId, response.rat, response.logicalModemUuid);
+    sEnv->OnRequestComplete(t, RIL_E_SUCCESS, &response, sizeof(response));
+}
+
+static void setRadioCapability(const void *data, size_t datalen, RIL_Token t,
+                               RIL_SOCKET_ID socketId)
+{
+    const RIL_RadioCapability *request = data;
+    RIL_RadioCapability response;
+    RIL_RadioCapability unsol;
+
+    if (request == NULL || datalen != sizeof(*request) ||
+        (request->phase != RC_PHASE_START &&
+         request->phase != RC_PHASE_APPLY &&
+         request->phase != RC_PHASE_FINISH) ||
+        !fillFixedRadioCapability(socketId, request->session, request->phase,
+                                  RC_STATUS_SUCCESS, &response)) {
+        rejectRadioCapabilityRequest(t, RIL_REQUEST_SET_RADIO_CAPABILITY,
+                                     socketId, data, datalen);
+        return;
+    }
+
+    /* FINISH carries the transaction result as an input. Preserve it; START and
+     * APPLY use the successful-response convention measured from this RIL. */
+    response.status = request->phase == RC_PHASE_FINISH
+            ? request->status : RC_STATUS_SUCCESS;
+
+    RLOGI("SET_RADIO_CAPABILITY no-op socket=%d session=%d phase=%d "
+          "-> raf=0x%x uuid=%s",
+          (int)socketId, request->session, request->phase, response.rat,
+          response.logicalModemUuid);
+    sEnv->OnRequestComplete(t, RIL_E_SUCCESS, &response, sizeof(response));
+
+    if (request->phase != RC_PHASE_APPLY ||
+        !shouldSendApplyUnsol(socketId, request->session)) {
+        return;
+    }
+
+    if (!fillFixedRadioCapability(socketId, request->session,
+                                  RC_PHASE_UNSOL_RSP, RC_STATUS_SUCCESS,
+                                  &unsol)) {
+        /* Socket validity was established above; this is unreachable unless
+         * the fixed-capability helper itself changes underneath this path. */
+        RLOGE("could not construct APPLY indication for socket=%d session=%d",
+              (int)socketId, request->session);
+        return;
+    }
+    sEnv->OnUnsolicitedResponse(RIL_UNSOL_RADIO_CAPABILITY, &unsol,
+                                sizeof(unsol), socketId);
+}
 
 /*
  * Original protection of the mapping that contains `addr`, from
@@ -827,13 +979,12 @@ static void onRequestShim(int request, void *data, size_t datalen, RIL_Token t,
                           RIL_SOCKET_ID socketId)
 {
     if (request == RIL_REQUEST_GET_RADIO_CAPABILITY) {
-        /*
-         * One line per boot per slot; keep it, it is the only evidence that
-         * the shim is live.
-         */
-        RLOGI("GET_RADIO_CAPABILITY -> REQUEST_NOT_SUPPORTED "
-              "(framework falls back to config_radio_access_family)");
-        sEnv->OnRequestComplete(t, RIL_E_REQUEST_NOT_SUPPORTED, NULL, 0);
+        getRadioCapability(t, socketId);
+        return;
+    }
+
+    if (request == RIL_REQUEST_SET_RADIO_CAPABILITY) {
+        setRadioCapability(data, datalen, t, socketId);
         return;
     }
 
@@ -943,9 +1094,11 @@ const RIL_RadioFunctions *RIL_Init(const struct RIL_Env *env, int argc,
      * so make the page writable first and put the original protection back.
      */
     if (patchOnRequest(sRealFuncs) != 0) {
-        RLOGE("could not patch onRequest; GET_RADIO_CAPABILITY will NOT be "
-              "faked and the MTK SIM switch is live again");
-        return sRealFuncs;
+        /* Fail closed. Returning the real table would silently put the broken,
+         * destructive MediaTek capability switch back behind a Settings tap. */
+        RLOGE("could not patch onRequest; refusing to expose the unsafe MTK "
+              "radio-capability path");
+        return NULL;
     }
 
     /*

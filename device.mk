@@ -375,10 +375,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     k50sv1-xml-validation
 
-# RIL shim: makes GET_RADIO_CAPABILITY fail so the framework uses a single
-# static RAF for both phones and never starts an MTK SIM-switch transaction.
-# rilproxy.rc is patched to load this instead of mtk-rilproxy.so; the shim
-# dlopens the blob and forwards everything else. Full reasoning, with the
-# vendor-blob addresses it is derived from, is in ril-shim/k50sv1_ril_shim.c.
+# RIL shim: publishes the fixed physical RAF/UUID pair for both protocol
+# stacks, completes AOSP's impossible capability swap as a synthetic no-op,
+# and never enters MediaTek's destructive SIM-switch transaction. rilproxy.rc
+# is patched to load it instead of mtk-rilproxy.so; the shim dlopens the blob
+# and forwards every unrelated request. Full reasoning and focused host tests
+# live in ril-shim/.
 PRODUCT_PACKAGES += \
     libril-k50sv1-shim

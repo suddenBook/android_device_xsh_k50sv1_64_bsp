@@ -359,8 +359,9 @@ ro.vendor.wlan.gen=gen2
 # ro.opengles.version 196610 = ES 3.2, corroborated by GL_ANDROID_extension_pack_es31a
 #   in the live GL extension string.
 # The four telephony keys are modem topology: two physical SIM slots, DSDS,
-# LTE-preferred on both, and IWLAN in legacy mode (see the long note in
-# device.mk for why the last one is stated rather than inherited).
+# LTE/GSM/WCDMA on protocol stack 1, GSM/WCDMA (WCDMA preferred) on fixed
+# protocol stack 2, and IWLAN in legacy mode. The RIL shim publishes the same
+# per-socket capability split and absorbs AOSP's impossible request to swap it.
 ro.hardware.egl=mali
 ro.frp.pst=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/frp
 ro.opengles.version=196610
@@ -373,7 +374,7 @@ persist.vendor.radio.msimmode=dsds
 # TelephonyProperties.java and read by nothing in frameworks/ or packages/;
 # TelephonyManager.getPhoneCount() goes through persist.radio.multisim.config
 # above. Setting it made the slot count look like it had two sources.
-ro.telephony.default_network=9,9
+ro.telephony.default_network=9,0
 ro.telephony.iwlan_operation_mode=legacy
 
 # MediaTek RIL topology that stock sets and this tree had dropped.
