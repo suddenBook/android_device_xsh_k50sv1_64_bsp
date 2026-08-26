@@ -1,6 +1,13 @@
 import /vendor/etc/init/hw/init.mt6755.usb.rc
 
 on early-init
+    # Stock mounts debugfs before Android starts collecting kernel wakelocks.
+    # Without it /d/wakeup_sources is absent, so BatteryStats retries and emits
+    # a system_server wtf/DropBox write on every failed sample. AOSP already
+    # labels /wakeup_sources and grants system_server read-only access.
+    mount debugfs debugfs /sys/kernel/debug
+    chmod 0755 /sys/kernel/debug
+
     mkdir /dev/radio 0770 radio radio
 
     # Hold both clusters at their top OPP for the duration of the boot, and

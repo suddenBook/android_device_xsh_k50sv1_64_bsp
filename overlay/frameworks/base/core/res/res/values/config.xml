@@ -6,6 +6,13 @@
     <bool name="config_automatic_brightness_available">false</bool>
     <bool name="config_suspendWhenScreenOffDueToProximity">false</bool>
 
+    <!-- There is no wake-up/significant-motion sensor. DeviceIdleController
+         otherwise waits for a sensor that SensorManager cannot provide and
+         never enters normal deep Doze; the measured build reached only light
+         idle during more than 32 hours of screen-off time. The stationary
+         timeout path is the correct motion gate for this hardware. -->
+    <bool name="config_autoPowerModeUseMotionSensor">false</bool>
+
     <!-- Wired-headset detection. There is no 3.5 mm jack; the USB-C port
          carries ANALOG audio accessory mode, so the headset is wired to the
          internal codec through the Type-C mux and the PMIC's ACCDET block
