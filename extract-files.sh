@@ -167,8 +167,8 @@ function patch_ims_apk() {
         # rather than a silent behaviour change.
         #
         # An earlier revision deleted the call here, describing it as "the full
-        # Wi-Fi offload service even when WFC is disabled" that a voice-only
-        # port does not need. That is the wrong reading of what the service
+        # Wi-Fi offload service even when WFC is disabled" that a no-video
+        # voice-MMTEL port does not need. That is the wrong reading of what the service
         # does, and removing it is one half of why VoLTE never registered:
         # WifiOffloadService is the only caller of nativeSetWosProfile, which is
         # what reaches libmal.so's rds_set_ui_param, which is the ONLY writer of

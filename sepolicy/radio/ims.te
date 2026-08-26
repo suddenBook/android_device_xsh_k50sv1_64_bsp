@@ -246,7 +246,7 @@ get_prop(volte_stack, mtk_ims_feature_prop)
 get_prop(volte_ua, mtk_ims_prop)
 get_prop(volte_ua, mtk_ims_feature_prop)
 
-# Existing RIL processes inspect the same one-stack/voice-only contract -- and
+# Existing RIL processes inspect the same one-stack voice-MMTEL contract -- and
 # rilproxy WRITES it back as the modem reports capability. Stock's compiled
 # policy grants rild property_service set on every one of the split types this
 # tree collapses into mtk_ims_prop / mtk_ims_feature_prop:

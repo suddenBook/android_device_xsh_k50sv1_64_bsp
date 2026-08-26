@@ -1,4 +1,4 @@
-# Voice-only IMS connection-broker service.
+# Single-instance voice-MMTEL connection-broker service (VoLTE and VoWiFi).
 #
 # Derived from Stock /vendor/etc/init/init.volte_imcb.rc (itself a copy of
 # device/mediatek/common/init.volte.rc). Owned here rather than extracted and
@@ -6,7 +6,7 @@
 # a diff instead of buried in extract-files.sh.
 #
 # That difference: Stock declares five control sockets, one per IMS entity it
-# can host. This product runs a single voice IMS stack, so only volte_imsa1 is
+# can host. This product runs one voice MMTEL stack, so only volte_imsa1 is
 # kept. The four dropped ones are volte_imsa2 (second IMS instance),
 # volte_imsvt1 and volte_imsvt2 (video telephony) and volte_ut (UT/XCAP
 # supplementary services) -- all three features are excluded from this port, and

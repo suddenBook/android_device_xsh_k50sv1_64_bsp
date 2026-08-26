@@ -12,7 +12,7 @@ type mtk_ccci_ioctl_device, dev_type;
 # IMSA HIDL service is named for, which was already labelled here.
 # /dev/ccci_imsdc (232,11), /dev/ccci_imsem (232,21) and /dev/ccci_imsv (232,8)
 # are the data-control, EM and video channels: they exist as nodes but this
-# voice-only build never opens them and they produced no denial, so they are
+# no-video voice-MMTEL build never opens them and they produced no denial, so they are
 # deliberately left unlabelled rather than covered speculatively.
 type mtk_ccci_ims_device, dev_type;
 type mtk_gsm0710mux_device, dev_type;

@@ -13,7 +13,7 @@ ctl.vendor.volte_ua          u:object_r:ctl_mtk_volte_ua_prop:s0
 # IMS network state published by volte_stack (libipsec_ims_shr.so).
 vendor.net.ims.              u:object_r:mtk_ims_net_prop:s0
 
-# Voice-only IMS product contract and state.
+# Voice-MMTEL (VoLTE/VoWiFi), with VT/RCS excluded, product contract and state.
 persist.vendor.ims_support               u:object_r:mtk_ims_prop:s0
 persist.vendor.mims_support              u:object_r:mtk_ims_prop:s0
 persist.vendor.mtk_dynamic_ims_switch    u:object_r:mtk_ims_prop:s0
