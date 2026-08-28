@@ -1,69 +1,11 @@
-# The Android 10 wpa_supplicant control socket, made to exist and then bridged.
+# Android 10 suppresses the per-interface socket when its global interface
+# name and config both resolve to "wlan0". init.wmt.rc's -O option creates it at
+# /data/vendor/wifi/sock. Extraction rewrites MAL's complete legacy pathnames
+# to that same equal-or-shorter path, so no vendor process writes core Wi-Fi
+# data and no bind mount or init mounton exception is needed.
 #
-# THE PROBLEM, in two halves.
-#
-# (1) On Android 10 wpa_supplicant creates NO per-interface control socket at
-#     all. ctrl_iface_unix.c:718-752 compares the tail of the global control
-#     interface name "@android:wpa_wlan0" with conf->ctrl_interface, which
-#     /vendor/etc/wifi/wpa_supplicant.conf sets to "wlan0"; they match, and the
-#     function returns early having opened nothing. Measured live on this
-#     handset with Wi-Fi up: /data/vendor/wifi/wpa/sockets and
-#     /data/misc/wifi/sockets were both empty. Stock has the same defect.
-#
-# (2) Three MAL entity libraries open that socket by an absolute path that was
-#     correct up to Android 8 and does not exist on Q:
-#
-#       libmal_epdga.so   /data/misc/wifi/sockets/wlan0  + .../ea_ctrlconn
-#       libmal_rds.so     /data/misc/wifi/sockets/wlan0  + .../rds_ctrlconn
-#       libmal_nwmngr.so  /data/misc/wifi/sockets/wlan0  + .../nwmngr_ctrlconn
-#
-#     Q's path is /data/vendor/wifi/wpa/sockets, compiled in at
-#     external/wpa_supplicant_8/wpa_supplicant/Android.mk:72-73, and it is
-#     LONGER than the old one -- so it can be changed neither from a device
-#     tree nor by patching the strings in the blobs.
-#
-# THE FIX, also in two halves, and neither works alone.
-#   init.wmt.rc passes -O/data/vendor/wifi/wpa/sockets, which makes
-#   conf->ctrl_interface a path rather than "wlan0", so `same` is 0 and the
-#   socket is created.
-#   init.mt6755.rc bind-mounts that directory onto /data/misc/wifi/sockets, so
-#   the blobs find it under the name they were built with.
-#
-# WHY THE VENDOR DIRECTORY AND NOT THE LEGACY ONE. /data/misc/wifi/sockets is
-# wpa_socket, a core_data_file_type (system/sepolicy/public/file.te:435).
-# Letting a vendor HAL create files there is exactly the Treble violation
-# Google removed in device/google/marlin 66da37914e91, and it would need
-# hal_wifi_supplicant_default added to data_between_core_and_vendor_violators.
-# /data/vendor/wifi/wpa is wpa_data_file, a VENDOR type
-# (system/sepolicy/vendor/file.te:2) that the supplicant may already write
-# (vendor/hal_wifi_supplicant_default.te:19-21). Bind-mounting the vendor
-# directory onto the legacy name gives the blobs their path while the inode --
-# and therefore the SELinux label -- stays vendor. Nothing below is a
-# relaxation of AOSP's hardening.
-#
-# WHAT MAL SENDS. STATUS (libmal_epdga), SIGNAL_POLL (libmal_rds) and
-# BSS <bssid> (libmal_nwmngr). Three read-only queries; no SCAN, no DISCONNECT,
-# no SET, nothing that could fight WifiService for the supplicant.
-#
-# DAC is already satisfied: the directory is 0770 wifi:wifi and mtkmal runs as
-# uid 1001 with AID_WIFI (1010) among its supplementary groups -- read off
-# /proc/<pid>/status on the handset, not assumed.
-#
-# STATUS: this is the one part of the VoWiFi chain that has never run, on this
-# port OR on Stock. If Wi-Fi misbehaves after a flash, drop the -O in
-# init.wmt.rc, the mount in init.mt6755.rc and this file; nothing else changes.
-
-# init performs the bind mount itself, and the mountpoint keeps its own label
-# until the mount lands:
-#   avc: denied { mounton } for comm="init" path="/data/misc/wifi/sockets"
-#        scontext=u:r:init:s0 tcontext=u:object_r:wpa_socket:s0 tclass=dir
-# This is a core-on-core rule and still belongs in a VENDOR directory, by
-# BoardConfig.mk's own criterion: it exists because THIS device's
-# init.mt6755.rc does the mount, not because of an AOSP gap. No neverallow
-# covers it -- public/domain.te:488-489 protect exec_type and
-# {system,vendor}_file_type, :1107 protects lnk/fifo/sock_file, :1135 protects
-# proc, and wpa_socket is none of those.
-allow init wpa_socket:dir mounton;
+# MAL sends only STATUS, SIGNAL_POLL and BSS queries. The directory is
+# 0770 wifi:wifi and mtkmal carries AID_WIFI.
 
 # The control connection is AF_UNIX SOCK_DGRAM in both directions: the client
 # binds its own <name>_ctrlconn node in the same directory and sendto()s the

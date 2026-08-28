@@ -305,7 +305,7 @@ on post-fs-data
     mkdir /data/vendor/gps 0770 gps system
     mkdir /data/vendor/wifi 0770 wifi wifi
     mkdir /data/vendor/wifi/wpa 0770 wifi wifi
-    mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
+    mkdir /data/vendor/wifi/sock 0770 wifi wifi
     mkdir /data/vendor/camera_dump 0770 cameraserver camera
 
     restorecon_recursive /mnt/vendor/nvdata
@@ -313,35 +313,6 @@ on post-fs-data
     restorecon_recursive /data/vendor/powerhal
     restorecon_recursive /data/vendor/gps
     restorecon_recursive /data/vendor/wifi
-
-    # Bridge wpa_supplicant's control socket to the path MediaTek's MAL entity
-    # libraries were compiled against.
-    #
-    # libmal_epdga.so, libmal_rds.so and libmal_nwmngr.so open
-    # /data/misc/wifi/sockets/wlan0 and bind their own {ea,rds,nwmngr}_ctrlconn
-    # beside it. That was wpa_supplicant's control directory up to Android 8.
-    # On Q it is /data/vendor/wifi/wpa/sockets, compiled in at
-    # external/wpa_supplicant_8/wpa_supplicant/Android.mk:72-73, and the new
-    # path is longer than the old one, so the strings cannot be patched in the
-    # blobs either.
-    #
-    # This mount is HALF the fix. The other half is the -O argument in
-    # init.wmt.rc: without it wpa_supplicant creates no per-interface socket at
-    # all and this would bind an empty directory onto an empty directory.
-    # Measured, both directories empty with Wi-Fi up. See sepolicy/vowifi/
-    # wpa_bridge.te for the whole mechanism.
-    #
-    # Nothing on Q writes to /data/misc/wifi/sockets: the only references left
-    # in the tree are init.rc:502's mkdir, a CTS assertion on the directory's
-    # permissions, and the hs20 client, which this product does not build. The
-    # mount preserves 0770 wifi:wifi, and because SELinux labels follow the
-    # inode it keeps the path on wpa_data_file (vendor) instead of wpa_socket
-    # (core_data_file_type) -- which is what makes this Treble-clean.
-    #
-    # This must run after init.rc's own `mkdir /data/misc/wifi/sockets` and
-    # after the /data/vendor/wifi/wpa/sockets mkdir above; both hold because
-    # init.rc is parsed first and this block is later in post-fs-data.
-    mount none /data/vendor/wifi/wpa/sockets /data/misc/wifi/sockets bind
 
     # zram is set up in `on post-fs` above, NOT here. On the former FDE build
     # this block ran twice: /system/core/rootdir/init.rc has

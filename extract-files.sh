@@ -693,6 +693,60 @@ function blob_fixup() {
                 exit 1
             fi
             ;;
+        vendor/lib/libmal.so|vendor/lib/libmal_epdga.so|\
+        vendor/lib/libmal_nwmngr.so|vendor/lib/libmal_rds.so|\
+        vendor/lib64/libmal.so)
+            # MAL predates Treble and names the old core-data control socket.
+            # Use an equal-or-shorter device-owned path under /data/vendor so
+            # wpa_supplicant and MAL share wpa_data_file without a bind mount.
+            local expected_input expected_output expected_paths
+            case "$1" in
+                vendor/lib/libmal.so)
+                    expected_input=ffa030eca4e81f4497996d886266c052cc73eb45a274b5aa1ccf9d0800884af1
+                    expected_output=cdc412e1ed88f34c1c1542eb20c54536f3c5002898828633ba66e87805611631
+                    expected_paths=6
+                    ;;
+                vendor/lib/libmal_epdga.so)
+                    expected_input=a6643d1da8bba4c0f94fb92e72bcc057589cc044cb5df3f04208134f1cef5a4a
+                    expected_output=48493993b50f39bad564fbd4961d2b9841b133d8f59c76d49755229b14e3c5c1
+                    expected_paths=4
+                    ;;
+                vendor/lib/libmal_nwmngr.so)
+                    expected_input=0e1a455b8780e7dc629f6cc4530f96e9a0b0b33ef56934cfac3392a2110705ca
+                    expected_output=c8e4e88582582aeabe8129e381381f8f4dc161c2dc61e71cf81ea0d0622ab888
+                    expected_paths=2
+                    ;;
+                vendor/lib/libmal_rds.so)
+                    expected_input=8cd3418b43eae7f19592172fe355e377cc07c5f5e7a61ffd30e2abb441912a85
+                    expected_output=577be04201426ebb06cceab590e6d452cb2dd243245a717cdce96aaaffa622f7
+                    expected_paths=2
+                    ;;
+                vendor/lib64/libmal.so)
+                    expected_input=02c4014e2f972573ff673cd07ed7f0e4432debbd38cef962979540012506bea7
+                    expected_output=c3345c427a0ab95594122a99f8b154cb54fd98c6e0a2ba987069d5b9753b9bc6
+                    expected_paths=6
+                    ;;
+            esac
+            if [[ "$(sha256sum "$2" | awk '{ print $1 }')" != "${expected_input}" ]] || \
+               [[ "$(LC_ALL=C grep -aoF '/data/misc/wifi/sockets' "$2" | wc -l)" -ne \
+                  "${expected_paths}" ]]; then
+                echo "Refusing to patch unknown MAL socket paths in $1" >&2
+                exit 1
+            fi
+            LC_ALL=C perl -0pi -e '
+                s{\Q/data/misc/wifi/sockets/wlan0\E}{"/data/vendor/wifi/sock/wlan0\0"}ge;
+                s{\Q/data/misc/wifi/sockets/ea_ctrlconn\E}{"/data/vendor/wifi/sock/ea_ctrlconn\0"}ge;
+                s{\Q/data/misc/wifi/sockets/rds_ctrlconn\E}{"/data/vendor/wifi/sock/rds_ctrlconn\0"}ge;
+                s{\Q/data/misc/wifi/sockets/nwmngr_ctrlconn\E}{"/data/vendor/wifi/sock/nwmngr_ctrlconn\0"}ge;
+            ' "$2"
+            if LC_ALL=C grep -aqF '/data/misc/wifi/sockets' "$2" || \
+               [[ "$(LC_ALL=C grep -aoF '/data/vendor/wifi/sock' "$2" | wc -l)" -ne \
+                  "${expected_paths}" ]] || \
+               [[ "$(sha256sum "$2" | awk '{ print $1 }')" != "${expected_output}" ]]; then
+                echo "MAL socket-path rewrite is not reproducible for $1" >&2
+                exit 1
+            fi
+            ;;
         vendor/bin/volte_stack)
             if [[ "$(sha256sum "$2" | awk '{ print $1 }')" != \
                   "db8d700b84adf95206c497c15acaa70524756183a5de876391effd5dab734edc" ]]; then
