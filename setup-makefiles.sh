@@ -37,6 +37,14 @@ write_makefiles "${MY_DIR}/proprietary-files.txt"
 # recoverable.
 write_footers
 
+# The generated vendor product owns all blob copies. Append one stable include
+# that filters only the exact legacy ePDG/strongSwan closure from Tier 3; the
+# included file asserts that all 29 generated entries still exist, so a future
+# extraction cannot silently weaken or broaden the release exclusion. This is
+# after write_footers so a write failure cannot leave Android.mk unterminated.
+printf '\ninclude device/%s/%s/legacy-vowifi-vendor-filter.mk\n' \
+    "${VENDOR}" "${DEVICE}" >>"${PRODUCTMK}"
+
 # ImsService is defined by hand in device/xsh/k50sv1_64_bsp/ims/Android.mk so
 # that the privileged APK actually lands in /system/priv-app and can be
 # dexpreopted; Android Q's Soong android_app_import cannot do either. Drop the

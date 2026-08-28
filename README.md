@@ -33,6 +33,15 @@ kept for diagnostics, but its unused wake key is explicitly suppressed.
 | 2 | `userdebug` | enforcing | unauthenticated root | development/test keys | policy validation with full diagnostics |
 | 3 | `user` | enforcing | not exposed by default (USB defaults to MTP) | rotated external release keys | private daily-use images; no verified boot or data encryption |
 
+Tier 3 deliberately does not provide Wi-Fi calling. The extracted ePDG tunnel
+embeds strongSwan 5.1.2, so the release tier filters its complete legacy
+binary/library/config closure and both tunnel services, then resolves
+`config_device_wfc_ims_available=false`. Tiers 1 and 2 retain it only for
+controlled diagnostics while a modern source-compatible implementation is
+developed. The MediaTek WFO HAL, IMSA/VoLTE daemons and WFC-named RIL build
+flags remain on every tier because they are independently proven load-bearing
+for cellular VoLTE; this is not a global IMS disable.
+
 Run the build wrapper from the workspace with the desired tier:
 
 ```bash

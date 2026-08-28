@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Tier 3 does not ship the legacy strongSwan 5.1.2 ePDG data plane. Keep the
+    MMTEL/VoLTE package and WFO service intact, but make
+    ImsManager.isWfcEnabledByPlatform() fail its device half so Settings and
+    telephony cannot advertise or select an unavailable Wi-Fi-calling tunnel.
+-->
+<resources>
+    <bool name="config_device_wfc_ims_available">false</bool>
+</resources>

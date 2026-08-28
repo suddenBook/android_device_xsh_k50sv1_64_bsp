@@ -751,6 +751,10 @@ vendor/lib64/vendor.mediatek.hardware.imsa@1.0.so
 # The IMS section above is voice-over-LTE only. This one is the userspace ePDG
 # tunnel, which MediaTek runs in Android rather than in the modem:
 #
+# These files remain extracted so Tier 1/2 can diagnose the original tunnel.
+# `legacy-vowifi-vendor-filter.mk` removes this exact 29-file closure from Tier
+# 3, whose higher-priority framework overlay also advertises WFC unavailable.
+#
 #   epdg_wod  resolves epdg.epc.mnc<MNC>.mcc<MCC>.pub.3gppnetwork.org (or the
 #             operator FQDN from wod_optr.conf), writes one strongSwan conn
 #             fragment per PDN into /data/vendor/ipsec/wo/, forks

@@ -24,8 +24,10 @@
 # the persist.vendor.connsys.* namespace; only the example is now stale.
 
 # Legacy MTK IMS. AOSP ImsManager owns the user setting, CarrierConfig owns
-# carrier availability, and the MediaTek WFO/ePDG data plane is shipped. Video
-# remains disabled; WFC starts off until the user enables it.
+# carrier availability. Diagnostic tiers ship the legacy MediaTek WFO/ePDG
+# data plane; Tier 3 retains only the VoLTE-load-bearing WFO/IMS half and
+# advertises no WFC until a modern source-compatible tunnel exists. Video
+# remains disabled; WFC starts off on the diagnostic tiers.
 persist.vendor.ims_support=1
 persist.vendor.mims_support=1
 persist.vendor.mtk.volte.enable=1
@@ -190,10 +192,12 @@ persist.vendor.volte_support=1
 #                          rat error!! stops
 #                          AT< +CIREGU: 1,5          <-- IMS REGISTERED
 #
-# VoLTE on this platform cannot be had without the ePDG feature enabled. The
-# data plane and framework WFC gates now ship; actual IWLAN selection still
-# depends on the user's setting, an IWLAN-capable IMS APN, and carrier ePDG
-# provisioning (E-101).
+# VoLTE on this platform cannot be had without the ePDG *build feature*
+# enabled. Diagnostic tiers also ship the legacy tunnel and framework WFC
+# gate; actual IWLAN selection there still depends on the user's setting, an
+# IWLAN-capable IMS APN, and carrier ePDG provisioning (E-101). Tier 3 keeps
+# this build bit for cellular VoLTE while filtering the tunnel and setting the
+# framework device WFC capability false.
 persist.vendor.wfc.sys_wfc_support=1
 # ro.vendor.mtk_telephony_add_on_policy MUST be 0, exactly as stock sets it in
 # /system/etc/prop.default. An earlier revision set it to 1 with the comment "skip

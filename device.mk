@@ -138,8 +138,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/init/init.gnss.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.gnss.rc \
     $(LOCAL_PATH)/rootdir/etc/init/init.mediadrm.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.mediadrm.rc \
     $(LOCAL_PATH)/rootdir/etc/init/init.volte_imcb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.volte_imcb.rc \
-    $(LOCAL_PATH)/rootdir/etc/init/init.wfca.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.wfca.rc \
-    $(LOCAL_PATH)/rootdir/etc/init/init.epdg_wod.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.epdg_wod.rc \
     $(LOCAL_PATH)/rootdir/etc/init/lbs_hidl_service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/lbs_hidl_service.rc \
     $(LOCAL_PATH)/rootdir/etc/init/netdagent.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/netdagent.rc \
     $(LOCAL_PATH)/rootdir/etc/init/init.wmt.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.wmt.rc \
@@ -150,6 +148,17 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/HALL_DEV.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/HALL_DEV.kl \
     $(LOCAL_PATH)/keylayout/mtk-kpd.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/mtk-kpd.kl \
     $(LOCAL_PATH)/permissions/privapp-permissions-mtk-ims.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-mtk-ims.xml
+
+# Diagnostics retain the legacy MediaTek ePDG stack for controlled WFC
+# bring-up. Tier 3 omits both service definitions together with the filtered
+# binaries/libraries/config in legacy-vowifi-vendor-filter.mk. WFO, IMSA,
+# volte_* and the two WFC-named RIL build gates remain: E-087/E-091 prove they
+# are independently load-bearing for VoLTE even when user-facing WFC is off.
+ifneq ($(K50SV1_BUILD_TIER),3)
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/etc/init/init.wfca.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.wfca.rc \
+    $(LOCAL_PATH)/rootdir/etc/init/init.epdg_wod.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.epdg_wod.rc
+endif
 
 # SUPL TLS trust store. Its own block because it needs a comment, and a `#`
 # inside a backslash-continued list would silently swallow every entry after it.
@@ -237,6 +246,12 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.software.midi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.midi.xml
 
+# Overlay priority is list order: Soong reverses the list so later,
+# lower-priority directories reach aapt2 first. Tier 3's narrow false value is
+# therefore listed before the ordinary diagnostic overlay's true capability.
+ifeq ($(K50SV1_BUILD_TIER),3)
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay-tier3
+endif
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 PRODUCT_AAPT_CONFIG := normal

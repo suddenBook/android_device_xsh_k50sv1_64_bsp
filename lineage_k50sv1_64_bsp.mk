@@ -150,7 +150,9 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 # /vendor/build.prop (build/make/core/Makefile:492-497).
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     persist.dbg.vt_avail_ovr=0 \
-    persist.dbg.wfc_avail_ovr=0
+    persist.dbg.wfc_avail_ovr=0 \
+    persist.dbg.wfc_avail_ovr0=0 \
+    persist.dbg.wfc_avail_ovr1=0
 
 # The 3.18 kernel has neither CONFIG_MEMCG nor PSI, so per-app memory cgroups do
 # not exist and lmkd cannot run its userspace killer. lmkd probes

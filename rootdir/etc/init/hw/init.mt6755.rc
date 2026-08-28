@@ -407,18 +407,22 @@ on property:ro.persistent_properties.ready=true
     # written it at least once, so it is exactly the class of key this block
     # exists for; its WFC sibling was listed and it was not.
     #
-    # The two persist.dbg.*_ovr keys are NOT redundant with the 0 that
+    # These persist.dbg.*_ovr keys are NOT redundant with the 0 that
     # PRODUCT_SYSTEM_DEFAULT_PROPERTIES puts in /system/etc/prop.default. On a
     # fresh device they are inert -- ImsManager tests == 1 and treats unset and
     # 0 alike -- but prop.default is loaded FIRST, so a persisted 1 left in
-    # /data would silently win. Restating 0 preserves the no-VT and real-WFC-
-    # carrier-gate contract across a dirty /data. persist.dbg.volte_avail_ovr
+    # /data would silently win. ImsManager checks the per-phone WFC names before
+    # the general name, so all three must be restated. This preserves the no-VT
+    # and real-WFC/carrier-gate contract across a dirty /data.
+    # persist.dbg.volte_avail_ovr
     # is gone from both places: VoLTE availability now comes from the filtered
     # CarrierConfig overlay, visible to every reader of the carrier key rather
     # than only isVolteEnabledByPlatform().
     setprop persist.vendor.mtk.volte.enable 1
     setprop persist.dbg.vt_avail_ovr 0
     setprop persist.dbg.wfc_avail_ovr 0
+    setprop persist.dbg.wfc_avail_ovr0 0
+    setprop persist.dbg.wfc_avail_ovr1 0
 
     # Modem/SIM topology from vendor.prop. Same stale-/data hazard as the IMS
     # subset above: /vendor/build.prop is applied first (property_service.cpp:910)
