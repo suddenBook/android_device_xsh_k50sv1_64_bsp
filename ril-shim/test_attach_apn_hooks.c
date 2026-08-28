@@ -109,6 +109,7 @@ static void callbackImmediatelyAfterGotWrite(GotWriteStep step)
 
 typedef struct {
     const char *name;
+    unsigned failMakeWritable;
     unsigned failBefore;
     unsigned failAfter;
     unsigned failRestore;
@@ -122,6 +123,7 @@ static int testInstallFailure(const InstallFailureCase *testCase)
 
     CHECK(loadFakeRil() == 0);
     CHECK(resolveFixtureEntries(&unsol, &complete) == 0);
+    sGotTestControl.failMakeWritableMask = testCase->failMakeWritable;
     sGotTestControl.failBeforeWriteMask = testCase->failBefore;
     sGotTestControl.failAfterWriteMask = testCase->failAfter;
     sGotTestControl.failRestoreMask = testCase->failRestore;
@@ -145,6 +147,41 @@ static int testInstallFailure(const InstallFailureCase *testCase)
     CHECK(atomic_load_explicit(&sOriginalCompleteCalls, memory_order_relaxed) ==
           atomic_load_explicit(&sAttemptedCompleteCalls, memory_order_relaxed));
     fprintf(stderr, "install failure %-28s: PASS\n", testCase->name);
+    return 0;
+}
+
+static int testMissingLibrary(void)
+{
+    CHECK(installAttachApnHooks() == -1);
+    CHECK(atomic_load_explicit(&sIaHookState, memory_order_acquire) ==
+          IA_HOOKS_DISABLED);
+    CHECK(atomic_load_explicit(&sRealOnUnsol, memory_order_acquire) == NULL);
+    CHECK(atomic_load_explicit(&sRealOnComplete, memory_order_acquire) == NULL);
+    fprintf(stderr, "install failure missing target DSO          : PASS\n");
+    return 0;
+}
+
+static const char *sMissingCallbackSymbol;
+
+static int testMissingCallback(void)
+{
+    GotEntry unsol;
+    GotEntry complete;
+
+    CHECK(loadFakeRil() == 0);
+    CHECK(resolveFixtureEntries(&unsol, &complete) == 0);
+    sGotTestControl.failResolveSymbol = sMissingCallbackSymbol;
+    CHECK(installAttachApnHooks() == -1);
+    CHECK(atomic_load_explicit(&sIaHookState, memory_order_acquire) ==
+          IA_HOOKS_DISABLED);
+    CHECK(verifyGotValue(&unsol, unsol.original));
+    CHECK(verifyGotValue(&complete, complete.original));
+    /* Publication happens only after both resolutions, so neither pointer is
+     * exposed when either relocation is unavailable. */
+    CHECK(atomic_load_explicit(&sRealOnUnsol, memory_order_acquire) == NULL);
+    CHECK(atomic_load_explicit(&sRealOnComplete, memory_order_acquire) == NULL);
+    fprintf(stderr, "install failure missing %-20s: PASS\n",
+            sMissingCallbackSymbol);
     return 0;
 }
 
@@ -566,13 +603,23 @@ static int runCurrentRollbackFailure(void)
 int main(void)
 {
     static const InstallFailureCase installFailures[] = {
-        { "first write rejected", 1U << GOT_WRITE_INSTALL_UNSOL, 0, 0, false },
-        { "first write verification", 0, 1U << GOT_WRITE_INSTALL_UNSOL, 0, false },
-        { "first protection restore", 0, 0, 1U << GOT_WRITE_INSTALL_UNSOL, false },
-        { "second write rejected", 1U << GOT_WRITE_INSTALL_COMPLETE, 0, 0, false },
-        { "second write verification", 0, 1U << GOT_WRITE_INSTALL_COMPLETE, 0, false },
-        { "second protection restore", 0, 0, 1U << GOT_WRITE_INSTALL_COMPLETE, false },
-        { "worker creation", 0, 0, 0, true },
+        { "first make-writable", 1U << GOT_WRITE_INSTALL_UNSOL,
+          0, 0, 0, false },
+        { "first write rejected", 0,
+          1U << GOT_WRITE_INSTALL_UNSOL, 0, 0, false },
+        { "first write verification", 0,
+          0, 1U << GOT_WRITE_INSTALL_UNSOL, 0, false },
+        { "first protection restore", 0,
+          0, 0, 1U << GOT_WRITE_INSTALL_UNSOL, false },
+        { "second make-writable", 1U << GOT_WRITE_INSTALL_COMPLETE,
+          0, 0, 0, false },
+        { "second write rejected", 0,
+          1U << GOT_WRITE_INSTALL_COMPLETE, 0, 0, false },
+        { "second write verification", 0,
+          0, 1U << GOT_WRITE_INSTALL_COMPLETE, 0, false },
+        { "second protection restore", 0,
+          0, 0, 1U << GOT_WRITE_INSTALL_COMPLETE, false },
+        { "worker creation", 0, 0, 0, 0, true },
     };
     static const RollbackFailureCase rollbackFailures[] = {
         { "complete slot", 1U << GOT_WRITE_ROLLBACK_COMPLETE, false, true },
@@ -582,6 +629,11 @@ int main(void)
     };
     size_t i;
 
+    CHECK(runChild("missing target DSO", testMissingLibrary) == 0);
+    sMissingCallbackSymbol = "RIL_onUnsolicitedResponse";
+    CHECK(runChild("missing unsolicited callback", testMissingCallback) == 0);
+    sMissingCallbackSymbol = "RIL_onRequestComplete";
+    CHECK(runChild("missing complete callback", testMissingCallback) == 0);
     for (i = 0; i < sizeof(installFailures) / sizeof(installFailures[0]); i++) {
         sCurrentInstallFailure = &installFailures[i];
         CHECK(runChild(installFailures[i].name,

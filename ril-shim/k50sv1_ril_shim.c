@@ -1011,11 +1011,13 @@ typedef struct {
 /* Deterministic transition faults and an after-publication callback seam. The
  * production object contains none of this state. */
 typedef struct {
+    unsigned failMakeWritableMask;
     unsigned failBeforeWriteMask;
     unsigned failAfterWriteMask;
     unsigned failRestoreMask;
     unsigned afterWriteDelayUs;
     bool failWorkerCreate;
+    const char *failResolveSymbol;
     void (*afterWrite)(GotWriteStep step);
 } GotTestControl;
 
@@ -1036,6 +1038,12 @@ static bool findGotEntry(const GotScan *scan, const char *symbol,
     size_t i;
 
     memset(out, 0, sizeof(*out));
+#ifdef K50SV1_RIL_SHIM_HOST_TEST
+    if (sGotTestControl.failResolveSymbol != NULL &&
+        strcmp(sGotTestControl.failResolveSymbol, symbol) == 0) {
+        return false;
+    }
+#endif
     for (i = 0; i < scan->jmprelCount; i++) {
         const ElfW(Rela) *rela = &scan->jmprel[i];
         uint32_t symIndex = (uint32_t)ELF64_R_SYM(rela->r_info);
@@ -1130,6 +1138,9 @@ static bool writeGotValue(const GotEntry *entry, void *expected, void *desired,
     (void)step;
 #ifdef K50SV1_RIL_SHIM_HOST_TEST
     skipRestore = (sGotTestControl.failRestoreMask & (1U << step)) != 0;
+    if ((sGotTestControl.failMakeWritableMask & (1U << step)) != 0) {
+        return false;
+    }
 #endif
 
     if (!writable &&
