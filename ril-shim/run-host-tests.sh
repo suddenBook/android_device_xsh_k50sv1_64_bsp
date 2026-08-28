@@ -12,16 +12,37 @@ cleanup() {
 trap cleanup EXIT
 
 CC_BIN="${CC:-cc}"
+COMMON_CFLAGS=(
+    -std=gnu11
+    -D_GNU_SOURCE
+    -DRIL_SHLIB
+    -DANDROID_MULTI_SIM
+    -DSIM_COUNT=2
+    -Wall -Wextra -Werror
+    -I"${LINEAGE_ROOT}/hardware/ril/include"
+)
+
 "${CC_BIN}" \
-    -std=gnu11 \
-    -D_GNU_SOURCE \
-    -DRIL_SHLIB \
-    -DANDROID_MULTI_SIM \
-    -DSIM_COUNT=2 \
-    -Wall -Wextra -Werror \
-    -I"${LINEAGE_ROOT}/hardware/ril/include" \
+    "${COMMON_CFLAGS[@]}" \
+    -fPIC -shared \
+    -Wl,-z,relro,-z,now \
+    -Wl,-soname,libfake-mtk-rilproxy.so \
+    "${HERE}/fake_rilproxy.c" \
+    -o "${TEST_DIR}/libfake-mtk-rilproxy.so"
+
+"${CC_BIN}" \
+    "${COMMON_CFLAGS[@]}" \
+    "${HERE}/test_attach_apn_hooks.c" \
+    -Wl,--export-dynamic \
+    -ldl -pthread \
+    -o "${TEST_DIR}/test_attach_apn_hooks"
+
+"${CC_BIN}" \
+    "${COMMON_CFLAGS[@]}" \
     "${HERE}/test_radio_capability.c" \
     -ldl -pthread \
     -o "${TEST_DIR}/test_radio_capability"
 
+LD_LIBRARY_PATH="${TEST_DIR}${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}" \
+    "${TEST_DIR}/test_attach_apn_hooks"
 "${TEST_DIR}/test_radio_capability"

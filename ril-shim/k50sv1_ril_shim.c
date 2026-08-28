@@ -215,8 +215,9 @@
  *
  * IF ANYTHING HERE FAILS it logs and disables itself. Telephony then behaves
  * exactly as it did before this part existed - E-092 is back, nothing else
- * changes. There is no partial state: the hooks are installed as a pair or not
- * at all.
+ * changes. The mechanism only becomes active after both hooks and the worker
+ * are verified. If a failed rollback physically leaves a hook in one GOT slot,
+ * it remains a safe forwarding thunk; its published original is never cleared.
  */
 
 #define LOG_TAG "k50sv1-ril-shim"
@@ -226,6 +227,7 @@
 #include <errno.h>
 #include <link.h>
 #include <pthread.h>
+#include <stdatomic.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -249,7 +251,9 @@
  * resolved it from its own -l argument. Keep the bare SONAME: an absolute path
  * is rejected by the Treble vendor namespace for a permitted-path lookup.
  */
+#ifndef REAL_RIL_SONAME
 #define REAL_RIL_SONAME "mtk-rilproxy.so"
+#endif
 
 typedef const RIL_RadioFunctions *(*ril_init_fn)(const struct RIL_Env *env,
                                                  int argc, char **argv);
@@ -494,17 +498,40 @@ _Static_assert(sizeof(MtkInitialAttachApn) == 0x58,
  * librilproxy.so's s_unsolResponses entry whose handler is resetAttachApnInd. */
 #define RIL_UNSOL_RESET_ATTACH_APN 3020
 
-/* One re-issue per socket per second is plenty; the vendor RIL repeats the URC
- * ~3 times a second until the APN is valid again. */
+/* One re-issue per second is plenty; the vendor RIL repeats the URC ~3 times a
+ * second until the APN is valid again. Keep one global limit because the shim
+ * owns one synthetic token, and therefore deliberately permits only one
+ * request in flight across the DSDS pair. Host tests shorten this interval. */
+#ifndef REISSUE_MIN_INTERVAL_NS
 #define REISSUE_MIN_INTERVAL_NS (1000L * 1000L * 1000L)
+#endif
 
 typedef void (*ril_unsol_fn)(int unsolResponse, const void *data, size_t datalen,
                              RIL_SOCKET_ID socketId);
 typedef void (*ril_complete_fn)(RIL_Token t, RIL_Errno e, void *response,
                                 size_t responselen);
 
-static ril_unsol_fn sRealOnUnsol;
-static ril_complete_fn sRealOnComplete;
+/*
+ * A hook can become reachable the instant its GOT word changes. The originals
+ * are therefore C11-atomic publications: installAttachApnHooks() resolves both
+ * and stores both with release ordering before changing either slot, and each
+ * hook acquires its target before calling it. These pointers are intentionally
+ * never cleared. If rollback cannot remove a hook, that residual hook remains
+ * a safe forwarding thunk for the lifetime of the process.
+ */
+static _Atomic(ril_unsol_fn) sRealOnUnsol;
+static _Atomic(ril_complete_fn) sRealOnComplete;
+
+typedef enum {
+    IA_HOOKS_DISABLED = 0,
+    IA_HOOKS_INSTALLING,
+    IA_HOOKS_ACTIVE,
+    IA_HOOKS_FAILED,
+} IaHookState;
+
+/* Also owns worker single-flight publication. ACTIVE is released only after a
+ * detached worker exists and both GOT slots have been verified. */
+static _Atomic int sIaHookState = IA_HOOKS_DISABLED;
 
 /*
  * The token the re-issued request carries. Its VALUE is never interpreted -
@@ -519,7 +546,16 @@ static pthread_cond_t sIaWake = PTHREAD_COND_INITIALIZER;
 static MtkInitialAttachApn sIaCache[SIM_COUNT];
 static bool sIaCached[SIM_COUNT];
 static bool sIaPending[SIM_COUNT];
-static bool sIaWorkerRunning;
+static bool sIaRequestInFlight;
+static bool sIaLastIssueValid;
+static struct timespec sIaLastIssue;
+static int sIaNextSocket;
+
+static bool attachApnHooksActive(void)
+{
+    return atomic_load_explicit(&sIaHookState, memory_order_acquire) ==
+            IA_HOOKS_ACTIVE;
+}
 
 static void freeIaStrings(MtkInitialAttachApn *ia)
 {
@@ -609,23 +645,43 @@ static void cacheInitialAttachApn(RIL_SOCKET_ID socketId, const void *data,
 static void completeHook(RIL_Token t, RIL_Errno e, void *response,
                          size_t responselen)
 {
+    ril_complete_fn realComplete;
+
     if (t == REISSUE_TOKEN) {
         /*
          * Ours. Swallow it: librilproxy's RIL_onRequestComplete dereferences
          * the token at +0x1c before it validates it, so this pointer must never
-         * reach it. One line per re-issue, and it is the only proof the vendor
-         * RIL accepted the request.
+         * reach it. Completion is also the single-flight hand-off: only after
+         * this request finishes may the worker issue the coalesced next one.
+         * This remains true even for a residual hook after failed rollback.
          */
+        pthread_mutex_lock(&sIaLock);
+        sIaRequestInFlight = false;
+        pthread_cond_signal(&sIaWake);
+        pthread_mutex_unlock(&sIaLock);
         RLOGI("re-issued SET_INITIAL_ATTACH_APN completed, e=%d", (int)e);
         return;
     }
-    sRealOnComplete(t, e, response, responselen);
+
+    realComplete = atomic_load_explicit(&sRealOnComplete,
+                                        memory_order_acquire);
+    if (realComplete == NULL) {
+        /* Unreachable by construction: both originals are published before a
+         * GOT slot can name this function. Do not turn a violated invariant
+         * into a NULL indirect call. */
+        RLOGE("request-complete hook reached before original publication");
+        return;
+    }
+    realComplete(t, e, response, responselen);
 }
 
 static void unsolHook(int unsolResponse, const void *data, size_t datalen,
                       RIL_SOCKET_ID socketId)
 {
-    if (unsolResponse == RIL_UNSOL_RESET_ATTACH_APN &&
+    ril_unsol_fn realUnsol;
+
+    if (attachApnHooksActive() &&
+        unsolResponse == RIL_UNSOL_RESET_ATTACH_APN &&
         (int)socketId >= 0 && (int)socketId < SIM_COUNT) {
         pthread_mutex_lock(&sIaLock);
         if (sIaCached[socketId]) {
@@ -639,7 +695,33 @@ static void unsolHook(int unsolResponse, const void *data, size_t datalen,
      * says the vendor RIL is still asking, which is the only signal that the
      * re-issue did not take.
      */
-    sRealOnUnsol(unsolResponse, data, datalen, socketId);
+    realUnsol = atomic_load_explicit(&sRealOnUnsol, memory_order_acquire);
+    if (realUnsol == NULL) {
+        RLOGE("unsolicited hook reached before original publication");
+        return;
+    }
+    realUnsol(unsolResponse, data, datalen, socketId);
+}
+
+static int64_t timespecToNs(const struct timespec *time)
+{
+    return (int64_t)time->tv_sec * 1000000000LL + time->tv_nsec;
+}
+
+static void sleepUntilMonotonic(int64_t deadlineNs)
+{
+    struct timespec deadline = {
+        .tv_sec = (time_t)(deadlineNs / 1000000000LL),
+        .tv_nsec = (long)(deadlineNs % 1000000000LL),
+    };
+    int rc;
+
+    do {
+        rc = clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &deadline, NULL);
+    } while (rc == EINTR);
+    if (rc != 0) {
+        RLOGE("attach-APN rate-limit sleep failed: %s", strerror(rc));
+    }
 }
 
 static void *iaWorker(void *unused)
@@ -649,26 +731,71 @@ static void *iaWorker(void *unused)
     for (;;) {
         MtkInitialAttachApn outgoing;
         int socketId = -1;
-        int i;
+        int offset;
+        int64_t waitUntilNs = 0;
+        bool relativeSleep = false;
 
         pthread_mutex_lock(&sIaLock);
         for (;;) {
-            for (i = 0; i < SIM_COUNT; i++) {
-                if (sIaPending[i] && sIaCached[i]) {
-                    socketId = i;
-                    break;
+            if (!sIaRequestInFlight) {
+                for (offset = 0; offset < SIM_COUNT; offset++) {
+                    int i = (sIaNextSocket + offset) % SIM_COUNT;
+
+                    if (sIaPending[i] && sIaCached[i]) {
+                        socketId = i;
+                        break;
+                    }
                 }
             }
             if (socketId >= 0) {
+                struct timespec now;
+
+                if (clock_gettime(CLOCK_MONOTONIC, &now) != 0) {
+                    RLOGE("clock_gettime(CLOCK_MONOTONIC) failed: %s",
+                          strerror(errno));
+                    /* A failed clock must not turn the recovery path into a
+                     * busy loop. Fall back to one full interval. */
+                    relativeSleep = true;
+                } else if (sIaLastIssueValid) {
+                    int64_t earliest = timespecToNs(&sIaLastIssue) +
+                            REISSUE_MIN_INTERVAL_NS;
+                    int64_t nowNs = timespecToNs(&now);
+
+                    if (earliest > nowNs) {
+                        waitUntilNs = earliest;
+                    }
+                }
                 break;
             }
             pthread_cond_wait(&sIaWake, &sIaLock);
         }
-        sIaPending[socketId] = false;
+
+        if (relativeSleep || waitUntilNs != 0) {
+            pthread_mutex_unlock(&sIaLock);
+            if (relativeSleep) {
+                struct timespec pause = {
+                    .tv_sec = REISSUE_MIN_INTERVAL_NS / 1000000000L,
+                    .tv_nsec = REISSUE_MIN_INTERVAL_NS % 1000000000L,
+                };
+                while (nanosleep(&pause, &pause) != 0 && errno == EINTR) {}
+            } else {
+                sleepUntilMonotonic(waitUntilNs);
+            }
+            continue;
+        }
+
         if (!copyIa(&outgoing, &sIaCache[socketId])) {
             pthread_mutex_unlock(&sIaLock);
             RLOGE("out of memory re-issuing the initial-attach APN");
             continue;
+        }
+        sIaPending[socketId] = false;
+        sIaRequestInFlight = true;
+        sIaNextSocket = (socketId + 1) % SIM_COUNT;
+        if (clock_gettime(CLOCK_MONOTONIC, &sIaLastIssue) == 0) {
+            sIaLastIssueValid = true;
+        } else {
+            sIaLastIssueValid = false;
         }
         pthread_mutex_unlock(&sIaLock);
 
@@ -690,14 +817,6 @@ static void *iaWorker(void *unused)
                        sizeof(outgoing), REISSUE_TOKEN,
                        (RIL_SOCKET_ID)socketId);
         freeIaStrings(&outgoing);
-
-        {
-            struct timespec pause = {
-                .tv_sec = REISSUE_MIN_INTERVAL_NS / 1000000000L,
-                .tv_nsec = REISSUE_MIN_INTERVAL_NS % 1000000000L,
-            };
-            nanosleep(&pause, NULL);
-        }
     }
     return NULL;
 }
@@ -748,9 +867,15 @@ static bool inModule(const GotScan *scan, ElfW(Addr) addr, size_t len)
         if (ph->p_type != PT_LOAD) {
             continue;
         }
+        if (ph->p_vaddr > UINTPTR_MAX - scan->base) {
+            continue;
+        }
         start = scan->base + ph->p_vaddr;
+        if (ph->p_memsz > UINTPTR_MAX - start) {
+            continue;
+        }
         end = start + ph->p_memsz;
-        if (addr >= start && len <= (size_t)(end - addr)) {
+        if (addr >= start && addr <= end && len <= (size_t)(end - addr)) {
             return true;
         }
     }
@@ -760,7 +885,8 @@ static bool inModule(const GotScan *scan, ElfW(Addr) addr, size_t len)
 /* Resolve one DT_* pointer entry to a runtime address, or 0. */
 static ElfW(Addr) resolveDynPtr(const GotScan *scan, ElfW(Addr) value, size_t len)
 {
-    if (inModule(scan, scan->base + value, len)) {
+    if (value <= UINTPTR_MAX - scan->base &&
+        inModule(scan, scan->base + value, len)) {
         return scan->base + value;
     }
     if (inModule(scan, value, len)) {
@@ -854,124 +980,327 @@ static int gotScanCallback(struct dl_phdr_info *info, size_t size, void *arg)
     return 1;
 }
 
-/*
- * Replace the PLT GOT entry for `symbol` with `replacement`, returning the
- * value that was there. bionic links this blob with -z now, so the slot already
- * holds the resolved address and there is no lazy-binding race to lose.
- */
-static void *hookGotEntry(const GotScan *scan, const char *symbol,
-                          void *replacement)
+#if defined(__aarch64__)
+#define K50SV1_JUMP_SLOT R_AARCH64_JUMP_SLOT
+#elif defined(__x86_64__)
+/* Host regression tests patch a real x86-64 relocatable shared object. */
+#define K50SV1_JUMP_SLOT R_X86_64_JUMP_SLOT
+#else
+#error "unsupported architecture for the RIL GOT hook"
+#endif
+
+typedef enum {
+    GOT_WRITE_INSTALL_UNSOL = 0,
+    GOT_WRITE_INSTALL_COMPLETE,
+    GOT_WRITE_ROLLBACK_COMPLETE,
+    GOT_WRITE_ROLLBACK_UNSOL,
+    GOT_WRITE_STEP_COUNT,
+} GotWriteStep;
+
+typedef struct {
+    const char *symbol;
+    void **slot;
+    void *original;
+    void *replacement;
+    uintptr_t page;
+    size_t pageSize;
+    int protection;
+} GotEntry;
+
+#ifdef K50SV1_RIL_SHIM_HOST_TEST
+/* Deterministic transition faults and an after-publication callback seam. The
+ * production object contains none of this state. */
+typedef struct {
+    unsigned failBeforeWriteMask;
+    unsigned failAfterWriteMask;
+    unsigned failRestoreMask;
+    unsigned afterWriteDelayUs;
+    bool failWorkerCreate;
+    void (*afterWrite)(GotWriteStep step);
+} GotTestControl;
+
+static GotTestControl sGotTestControl;
+#endif
+
+static void *loadGotValue(const GotEntry *entry)
 {
+    return __atomic_load_n(entry->slot, __ATOMIC_ACQUIRE);
+}
+
+/* Resolve without writing. This is load-bearing: both entries and both
+ * originals must be known before either hook is made reachable. */
+static bool findGotEntry(const GotScan *scan, const char *symbol,
+                         void *replacement, GotEntry *out)
+{
+    size_t symbolLen = strlen(symbol) + 1;
     size_t i;
 
+    memset(out, 0, sizeof(*out));
     for (i = 0; i < scan->jmprelCount; i++) {
         const ElfW(Rela) *rela = &scan->jmprel[i];
         uint32_t symIndex = (uint32_t)ELF64_R_SYM(rela->r_info);
         const char *name;
-        void **slot;
-        void *previous;
-        uintptr_t page;
+        ElfW(Addr) slotAddr;
         long pageSize;
-        int oldProt;
 
-        if (ELF64_R_TYPE(rela->r_info) != R_AARCH64_JUMP_SLOT) {
+        if (ELF64_R_TYPE(rela->r_info) != K50SV1_JUMP_SLOT) {
             continue;
         }
-        /* Both derefs are range-checked; see inModule(). A malformed or
-         * unexpected table must not turn into a wild read here. */
         if (!inModule(scan, (ElfW(Addr))&scan->symtab[symIndex],
                       sizeof(ElfW(Sym)))) {
             continue;
         }
-        name = scan->strtab + scan->symtab[symIndex].st_name;
-        if (!inModule(scan, (ElfW(Addr))name, 1) ||
-            strcmp(name, symbol) != 0) {
+        if (scan->symtab[symIndex].st_name >
+            UINTPTR_MAX - (uintptr_t)scan->strtab) {
             continue;
         }
-
-        slot = (void **)(scan->base + rela->r_offset);
-        if (!inModule(scan, (ElfW(Addr))slot, sizeof(void *))) {
+        name = scan->strtab + scan->symtab[symIndex].st_name;
+        if (!inModule(scan, (ElfW(Addr))name, symbolLen) ||
+            memcmp(name, symbol, symbolLen) != 0) {
+            continue;
+        }
+        if (rela->r_offset > UINTPTR_MAX - scan->base) {
+            RLOGE("GOT slot address for %s overflows", symbol);
+            return false;
+        }
+        slotAddr = scan->base + rela->r_offset;
+        if (!inModule(scan, slotAddr, sizeof(void *))) {
             RLOGE("GOT slot for %s is outside %s", symbol, scan->soname);
-            return NULL;
+            return false;
         }
         pageSize = sysconf(_SC_PAGESIZE);
         if (pageSize <= 0) {
-            return NULL;
+            RLOGE("could not read page size for GOT slot %s", symbol);
+            return false;
         }
-        page = (uintptr_t)slot & ~(uintptr_t)(pageSize - 1);
-        oldProt = mappingProt((uintptr_t)slot);
-        if (oldProt < 0) {
+
+        out->symbol = symbol;
+        out->slot = (void **)slotAddr;
+        out->replacement = replacement;
+        out->pageSize = (size_t)pageSize;
+        out->page = (uintptr_t)out->slot % out->pageSize;
+        out->page = (uintptr_t)out->slot - out->page;
+        out->protection = mappingProt((uintptr_t)out->slot);
+        if (out->protection < 0) {
             RLOGE("GOT slot for %s at %p is in no mapping", symbol,
-                  (void *)slot);
-            return NULL;
+                  (void *)out->slot);
+            return false;
         }
-        /* PT_GNU_RELRO covers .got.plt here, so the slot is read-only by the
-         * time RIL_Init runs. Same dance as patchOnRequest. */
-        if ((oldProt & PROT_WRITE) == 0 &&
-            mprotect((void *)page, (size_t)pageSize, oldProt | PROT_WRITE) != 0) {
-            RLOGE("mprotect(%p, +w) for %s failed: %s", (void *)page, symbol,
-                  strerror(errno));
-            return NULL;
+        out->original = loadGotValue(out);
+        if (out->original == NULL || out->original == replacement) {
+            RLOGE("GOT slot for %s has unsafe original %p", symbol,
+                  out->original);
+            return false;
         }
-        previous = *slot;
-        *slot = replacement;
-        if ((oldProt & PROT_WRITE) == 0 &&
-            mprotect((void *)page, (size_t)pageSize, oldProt) != 0) {
-            RLOGE("mprotect(%p, restore) for %s failed: %s", (void *)page,
-                  symbol, strerror(errno));
-        }
-        return previous;
+        return true;
     }
     RLOGE("%s has no PLT GOT entry for %s", scan->soname, symbol);
-    return NULL;
+    return false;
 }
 
-/*
- * Install both hooks, or neither. Returns 0 on success; on failure the caller
- * carries on with E-092 unfixed and nothing else changed.
- */
-static int installAttachApnHooks(void)
+static bool verifyGotValue(const GotEntry *entry, void *expected)
 {
-    GotScan scan = { .soname = REAL_RIL_SONAME };
-    void *realUnsol;
-    void *realComplete;
+    void *actual = loadGotValue(entry);
+    int actualProt = mappingProt((uintptr_t)entry->slot);
+
+    if (actual != expected) {
+        RLOGE("GOT verification for %s failed: found %p, expected %p",
+              entry->symbol, actual, expected);
+        return false;
+    }
+    if (actualProt != entry->protection) {
+        RLOGE("GOT protection verification for %s failed: found %#x, "
+              "expected %#x", entry->symbol, actualProt, entry->protection);
+        return false;
+    }
+    return true;
+}
+
+/* Compare-and-publish one GOT word, then prove both its value and its original
+ * page protection. GNU atomics are used on the loader-owned word because it is
+ * not declared as a C _Atomic object. */
+static bool writeGotValue(const GotEntry *entry, void *expected, void *desired,
+                          GotWriteStep step)
+{
+    void *observed = expected;
+    bool writable = (entry->protection & PROT_WRITE) != 0;
+    bool success = true;
+    bool skipRestore = false;
+
+    (void)step;
+#ifdef K50SV1_RIL_SHIM_HOST_TEST
+    skipRestore = (sGotTestControl.failRestoreMask & (1U << step)) != 0;
+#endif
+
+    if (!writable &&
+        mprotect((void *)entry->page, entry->pageSize,
+                 entry->protection | PROT_WRITE) != 0) {
+        RLOGE("mprotect(%p, +w) for %s failed: %s", (void *)entry->page,
+              entry->symbol, strerror(errno));
+        return false;
+    }
+
+#ifdef K50SV1_RIL_SHIM_HOST_TEST
+    if ((sGotTestControl.failBeforeWriteMask & (1U << step)) != 0) {
+        success = false;
+    } else
+#endif
+    if (!__atomic_compare_exchange_n(entry->slot, &observed, desired, false,
+                                     __ATOMIC_ACQ_REL, __ATOMIC_ACQUIRE)) {
+        RLOGE("GOT slot for %s changed concurrently: found %p, expected %p",
+              entry->symbol, observed, expected);
+        success = false;
+    }
+
+#ifdef K50SV1_RIL_SHIM_HOST_TEST
+    if (success && sGotTestControl.afterWrite != NULL) {
+        sGotTestControl.afterWrite(step);
+    }
+    if (success && sGotTestControl.afterWriteDelayUs != 0) {
+        usleep(sGotTestControl.afterWriteDelayUs);
+    }
+    if ((sGotTestControl.failAfterWriteMask & (1U << step)) != 0) {
+        success = false;
+    }
+#endif
+
+    if (success && __atomic_load_n(entry->slot, __ATOMIC_ACQUIRE) != desired) {
+        RLOGE("GOT slot for %s did not retain its published value",
+              entry->symbol);
+        success = false;
+    }
+
+    if (!writable && !skipRestore &&
+        mprotect((void *)entry->page, entry->pageSize,
+                 entry->protection) != 0) {
+        RLOGE("mprotect(%p, restore) for %s failed: %s", (void *)entry->page,
+              entry->symbol, strerror(errno));
+        success = false;
+    }
+#ifdef K50SV1_RIL_SHIM_HOST_TEST
+    if (skipRestore) {
+        success = false;
+    }
+#endif
+    return success && verifyGotValue(entry, desired);
+}
+
+/* Roll back in reverse publication order and then independently re-read both
+ * slots. A failed write is not trusted; only this final verification decides
+ * whether the transaction returned to its original state. */
+static bool rollbackGotHooks(const GotEntry *unsol, const GotEntry *complete)
+{
+    bool completeRestored;
+    bool unsolRestored;
+
+    if (loadGotValue(complete) == complete->replacement) {
+        (void)writeGotValue(complete, complete->replacement,
+                            complete->original, GOT_WRITE_ROLLBACK_COMPLETE);
+    }
+    if (loadGotValue(unsol) == unsol->replacement) {
+        (void)writeGotValue(unsol, unsol->replacement, unsol->original,
+                            GOT_WRITE_ROLLBACK_UNSOL);
+    }
+    /* Do not short-circuit: rollback verification must cover both slots even
+     * when the first one is already known to be wrong. */
+    completeRestored = verifyGotValue(complete, complete->original);
+    unsolRestored = verifyGotValue(unsol, unsol->original);
+    return completeRestored && unsolRestored;
+}
+
+static int startIaWorker(void)
+{
+    pthread_attr_t attr;
     pthread_t worker;
     int rc;
 
-    dl_iterate_phdr(gotScanCallback, &scan);
-    if (!scan.found) {
-        RLOGE("could not read %s's dynamic PLT relocations", REAL_RIL_SONAME);
-        return -1;
+#ifdef K50SV1_RIL_SHIM_HOST_TEST
+    if (sGotTestControl.failWorkerCreate) {
+        return EAGAIN;
     }
-
-    realUnsol = hookGotEntry(&scan, "RIL_onUnsolicitedResponse", unsolHook);
-    if (realUnsol == NULL) {
-        return -1;
-    }
-    sRealOnUnsol = (ril_unsol_fn)realUnsol;
-
-    realComplete = hookGotEntry(&scan, "RIL_onRequestComplete", completeHook);
-    if (realComplete == NULL) {
-        /* Put the first one back rather than run with half a mechanism: an
-         * un-swallowed synthetic token reaches a function that dereferences it. */
-        (void)hookGotEntry(&scan, "RIL_onUnsolicitedResponse", realUnsol);
-        sRealOnUnsol = NULL;
-        return -1;
-    }
-    sRealOnComplete = (ril_complete_fn)realComplete;
-
-    rc = pthread_create(&worker, NULL, iaWorker, NULL);
+#endif
+    rc = pthread_attr_init(&attr);
     if (rc != 0) {
-        (void)hookGotEntry(&scan, "RIL_onUnsolicitedResponse", realUnsol);
-        (void)hookGotEntry(&scan, "RIL_onRequestComplete", realComplete);
-        sRealOnUnsol = NULL;
-        sRealOnComplete = NULL;
-        RLOGE("pthread_create for the attach-APN worker failed: %s",
-              strerror(rc));
+        return rc;
+    }
+    rc = pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
+    if (rc == 0) {
+        rc = pthread_create(&worker, &attr, iaWorker, NULL);
+    }
+    (void)pthread_attr_destroy(&attr);
+    return rc;
+}
+
+/* Install two hooks as one logical transaction. During the small physical
+ * interval between the two atomic GOT stores, INSTALLING makes the first hook
+ * a pure forwarding thunk. ACTIVE is published only after both stores, both
+ * protections, and the worker have been verified. */
+static int installAttachApnHooks(void)
+{
+    GotScan scan = { .soname = REAL_RIL_SONAME };
+    GotEntry unsol;
+    GotEntry complete;
+    int expectedState = IA_HOOKS_DISABLED;
+    int rc;
+
+    if (!atomic_compare_exchange_strong_explicit(
+                &sIaHookState, &expectedState, IA_HOOKS_INSTALLING,
+                memory_order_acq_rel, memory_order_acquire)) {
+        return expectedState == IA_HOOKS_ACTIVE ? 0 : -1;
+    }
+
+    dl_iterate_phdr(gotScanCallback, &scan);
+    if (!scan.found ||
+        !findGotEntry(&scan, "RIL_onUnsolicitedResponse", (void *)unsolHook,
+                      &unsol) ||
+        !findGotEntry(&scan, "RIL_onRequestComplete", (void *)completeHook,
+                      &complete) ||
+        unsol.slot == complete.slot) {
+        RLOGE("could not resolve both %s callback GOT entries",
+              REAL_RIL_SONAME);
+        atomic_store_explicit(&sIaHookState, IA_HOOKS_DISABLED,
+                              memory_order_release);
         return -1;
     }
-    pthread_detach(worker);
-    sIaWorkerRunning = true;
+
+    /* Publish BOTH originals before making EITHER hook reachable. */
+    atomic_store_explicit(&sRealOnUnsol, (ril_unsol_fn)unsol.original,
+                          memory_order_release);
+    atomic_store_explicit(&sRealOnComplete,
+                          (ril_complete_fn)complete.original,
+                          memory_order_release);
+
+    if (!writeGotValue(&unsol, unsol.original, unsol.replacement,
+                       GOT_WRITE_INSTALL_UNSOL) ||
+        !writeGotValue(&complete, complete.original, complete.replacement,
+                       GOT_WRITE_INSTALL_COMPLETE) ||
+        !verifyGotValue(&unsol, unsol.replacement) ||
+        !verifyGotValue(&complete, complete.replacement)) {
+        bool rolledBack = rollbackGotHooks(&unsol, &complete);
+
+        atomic_store_explicit(&sIaHookState,
+                              rolledBack ? IA_HOOKS_DISABLED : IA_HOOKS_FAILED,
+                              memory_order_release);
+        RLOGE("attach-APN hook installation failed; rollback %s",
+              rolledBack ? "verified" : "FAILED (residual hooks only forward)");
+        return -1;
+    }
+
+    rc = startIaWorker();
+    if (rc != 0) {
+        bool rolledBack = rollbackGotHooks(&unsol, &complete);
+
+        atomic_store_explicit(&sIaHookState,
+                              rolledBack ? IA_HOOKS_DISABLED : IA_HOOKS_FAILED,
+                              memory_order_release);
+        RLOGE("pthread_create for the attach-APN worker failed: %s; "
+              "rollback %s", strerror(rc),
+              rolledBack ? "verified" : "FAILED (residual hooks only forward)");
+        return -1;
+    }
+
+    atomic_store_explicit(&sIaHookState, IA_HOOKS_ACTIVE,
+                          memory_order_release);
     return 0;
 }
 
@@ -995,7 +1324,8 @@ static void onRequestShim(int request, void *data, size_t datalen, RIL_Token t,
      * are live: without them there is nobody to re-issue it and the cache would
      * be a pure leak of the APN password into this process's heap.
      */
-    if (request == RIL_REQUEST_SET_INITIAL_ATTACH_APN && sIaWorkerRunning) {
+    if (request == RIL_REQUEST_SET_INITIAL_ATTACH_APN &&
+        attachApnHooksActive()) {
         cacheInitialAttachApn(socketId, data, datalen);
     }
 

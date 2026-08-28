@@ -8,12 +8,12 @@
 // ANDROID_MULTI_SIM must match the blob it wraps. librilproxy.so exports
 // android::sendPendedUrcs(RIL_SOCKET_ID, ClientType) and friends, so it was
 // built with ANDROID_MULTI_SIM defined and RIL_RequestFunc therefore takes the
-// trailing RIL_SOCKET_ID. SIM_COUNT only sizes arrays this shim does not use;
-// it is set to the real slot count so the header's own SIM_COUNT default of 4
-// cannot mislead a later reader.
+// trailing RIL_SOCKET_ID. SIM_COUNT sizes the per-socket capability/APN state;
+// set it to the real slot count instead of ril.h's misleading default of 4.
 cc_library_shared {
     name: "libril-k50sv1-shim",
     srcs: ["k50sv1_ril_shim.c"],
+    c_std: "gnu11",
     header_libs: ["ril_headers"],
     shared_libs: ["liblog"],
     cflags: [
