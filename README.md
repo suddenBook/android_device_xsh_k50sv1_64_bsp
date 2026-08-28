@@ -29,16 +29,18 @@ kept for diagnostics, but its unused wake key is explicitly suppressed.
 
 | Tier | Variant | SELinux | Android-system ADB | Signing | Intended use |
 | --- | --- | --- | --- | --- | --- |
-| 1 (default) | `userdebug` | permissive | unauthenticated root | development/test keys | first boot and complete log capture |
+| 1 | `userdebug` | permissive | unauthenticated root | development/test keys | first boot and complete log capture |
 | 2 | `userdebug` | enforcing | unauthenticated root | development/test keys | policy validation with full diagnostics |
-| 3 | `user` | enforcing | disabled (USB defaults to MTP) | committed private release keys | private daily-use images |
+| 3 | `user` | enforcing | not exposed by default (USB defaults to MTP) | rotated external release keys | private daily-use images; no verified boot or data encryption |
 
 Run the build wrapper from the workspace with the desired tier:
 
 ```bash
 K50SV1_BUILD_TIER=1 work/k50sv1-bringup/tools/run-lineage-build.sh
 K50SV1_BUILD_TIER=2 work/k50sv1-bringup/tools/run-lineage-build.sh
-K50SV1_BUILD_TIER=3 work/k50sv1-bringup/tools/run-lineage-build.sh
+K50SV1_BUILD_TIER=3 \
+K50SV1_RELEASE_KEYS_DIR=/secure/path/outside/this/workspace \
+    work/k50sv1-bringup/tools/run-lineage-build.sh
 ```
 
 Tiers 1 and 2 build `boot.img`, `recovery.img`, `system.img`, and
@@ -46,13 +48,14 @@ Tiers 1 and 2 build `boot.img`, `recovery.img`, `system.img`, and
 release-signing intermediate, then publishes the same four standalone images
 plus `SHA256SUMS`; it does not build or publish an OTA package. Recovery's
 explicit sideload mode remains available, but normal Tier 3 Android boots do
-not expose adbd.
+not expose ADB in the default USB configuration. Authenticated non-root ADB can
+still be enabled deliberately in Developer options.
 
 Tier 1 intentionally retains policy/domain transitions and AVC logging while
 allowing denials, so it is the correct first bring-up target. Do not treat a
 successful permissive boot as evidence that Tier 2 is ready; promote only after
 reviewing complete boot, radio, media, suspend/resume, and shutdown logs.
 
-The Tier 3 private keys are intentionally committed for this owner's private
-single-device workflow. They must be treated as publicly disclosed and must
-never be reused for another device or a public ROM; see `security/README.md`.
+The old committed Tier 3 keyset is revoked. New Tier 3 builds require a rotated
+external key directory and publish only non-secret certificate identities in
+their provenance. See `security/README.md`.

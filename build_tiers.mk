@@ -3,16 +3,14 @@
 ifndef K50SV1_BUILD_TIERS_INCLUDED
 K50SV1_BUILD_TIERS_INCLUDED := true
 
-# Derive the diagnostic/release shape from the variant when no wrapper supplied
-# a tier. This prevents a direct user build from inheriting Tier 1 root adb, but
-# does not make it a signed release: the wrapper-only guard below is separate.
-# `:=`, not `?=`. `?=` is a DEFERRED assignment, so K50SV1_BUILD_TIER would
-# re-expand at every reference while the booleans below are frozen by the
-# include guard at the first (product-config) include. TARGET_BUILD_VARIANT is
-# not .KATI_READONLY in this tree, so a later change to it between the product
-# and board include sites would silently make the tier and its derived flags
-# disagree, with no diagnostic.
-K50SV1_BUILD_TIER := $(if $(K50SV1_BUILD_TIER),$(K50SV1_BUILD_TIER),$(if $(filter user,$(TARGET_BUILD_VARIANT)),3,1))
+# A real build must name its tier explicitly. The value 2 below is only a safe
+# placeholder while lunch/get_build_var discovers the product; a guard after
+# K50SV1_LUNCH_DISCOVERY is derived rejects it before any real Soong/Kati build
+# when the caller omitted K50SV1_BUILD_TIER. Never silently default to Tier 1:
+# that tier deliberately enables permissive SELinux and unauthenticated root
+# ADB. `:=`, not `?=`, keeps the first include and all derived booleans stable.
+K50SV1_BUILD_TIER_EXPLICIT := $(if $(strip $(K50SV1_BUILD_TIER)),true,false)
+K50SV1_BUILD_TIER := $(if $(strip $(K50SV1_BUILD_TIER)),$(strip $(K50SV1_BUILD_TIER)),2)
 
 K50SV1_SELINUX_PERMISSIVE := false
 K50SV1_ADB_ENABLED := false
@@ -104,6 +102,12 @@ K50SV1_LUNCH_DISCOVERY :=
 ifeq ($(CALLED_FROM_SETUP),true)
 ifneq ($(WRITE_SOONG_VARIABLES),true)
 K50SV1_LUNCH_DISCOVERY := true
+endif
+endif
+
+ifeq ($(K50SV1_BUILD_TIER_EXPLICIT),false)
+ifeq ($(K50SV1_LUNCH_DISCOVERY),)
+$(error K50SV1_BUILD_TIER is required for every real build. Select 1 (permissive/root diagnostics), 2 (enforcing/root diagnostics), or 3 (wrapper-only release-signed user build); there is no insecure default)
 endif
 endif
 

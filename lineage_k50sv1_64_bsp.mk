@@ -178,10 +178,14 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.per_app_memcg=false
 
-# Stock's boot contract requires the legacy Android BootSignature. Tiers 1 and
-# 2 use the AOSP verity test key; Tier 3's final images use the committed verity
-# key. This does not enable dm-verity or AVB for system/vendor.
+# Stock's image shape carries the legacy Android BootSignature. Every ordinary
+# build intermediate uses AOSP's development verity key. Tier 3 replaces that
+# signature only inside the wrapper's disposable post-signing step with a
+# rotated external `bootsignature` key; no private release key belongs in this
+# source tree. This does not enable dm-verity, AVB, rollback protection, or
+# bootloader enforcement.
 PRODUCT_SUPPORTS_BOOT_SIGNER := true
+PRODUCT_VERITY_SIGNING_KEY := build/make/target/product/security/verity
 ifeq ($(K50SV1_RELEASE_SIGNING),true)
 # Do NOT set PRODUCT_OTA_PUBLIC_KEYS here, not even to the value it already has
 # by default. Setting it to ANYTHING makes the resulting OTA unflashable:
@@ -205,9 +209,6 @@ ifeq ($(K50SV1_RELEASE_SIGNING),true)
 # This assignment is after every inherit, so it correctly discards
 # vendor/lineage/config/common.mk:287.
 PRODUCT_EXTRA_RECOVERY_KEYS :=
-PRODUCT_VERITY_SIGNING_KEY := device/xsh/k50sv1_64_bsp/security/verity
-else
-PRODUCT_VERITY_SIGNING_KEY := build/make/target/product/security/verity
 endif
 
 # Google's client-id base. Deliberately NOT set: vendor/lineage/config/common.mk
