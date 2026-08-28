@@ -1,0 +1,4 @@
+<apn carrier="k50sv1: Vodafone NL IMS" mcc="204" mnc="04" apn="ims" type="ims" protocol="IPV4V6" roaming_protocol="IPV4V6" network_type_bitmask="1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20" />
+<apn carrier="k50sv1: China Telecom MVNO IMS" mcc="204" mnc="04" apn="IMS" type="ims" mvno_type="spn" mvno_match_data="中国电信" protocol="IPV4V6" roaming_protocol="IPV4V6" network_type_bitmask="1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20" />
+<apn carrier="k50sv1: China Mobile IMS" mcc="460" mnc="00" apn="ims" type="ims" protocol="IPV4V6" roaming_protocol="IPV4V6" network_type_bitmask="1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20" />
+<apn carrier="k50sv1: China Unicom IMS" mcc="460" mnc="01" apn="ims" type="ims" protocol="IPV4V6" roaming_protocol="IPV4V6" network_type_bitmask="1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20" />

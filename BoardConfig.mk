@@ -30,6 +30,10 @@ TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 VENDOR_SECURITY_PATCH := 2020-08-05
 
+# Radio. Lineage's existing APN module merges this four-row device fragment
+# into its clean product APN list; do not add a second destination writer.
+CUSTOM_APNS_FILE := $(DEVICE_PATH)/configs/apns-conf.xml
+
 # Verified LCD geometry. Lineage uses width/height to select the correctly
 # sized boot animation (vendor/lineage/bootanimation/Android.mk:18-37);
 # TARGET_SCREEN_DENSITY is what build/make/core/Makefile:517-519 turns into

@@ -12,8 +12,11 @@ ifneq ($(filter k50sv1_64_bsp,$(TARGET_DEVICE)),)
 # error without this rule. The overlays and RROs are parsed by aapt2, and
 # manifest.xml / compatibility_matrix.xml by assemble_vintf.
 #
-# Enumerated against the 21 XML files this tree actually contains, that
-# accounting leaves EXACTLY ONE residual file:
+# After adding the APN fragment, this tree has 22 ordinary XML documents plus
+# one intentional one-element-per-line fragment. The ordinary documents are
+# handled below with xmllint. The fragment cannot be parsed as one XML document
+# and instead gets a stricter APN/TelephonyProvider semantic validator.
+# Among the ordinary files, the accounting leaves exactly one residual file:
 #
 #   permissions/org.lineageos.platform.xml
 #
@@ -79,7 +82,12 @@ include $(BUILD_SYSTEM)/base_rules.mk
 # (BoardConfig.mk) fail the build if this Android.mk ever stops being parsed.
 droidcore: $(LOCAL_BUILT_MODULE)
 
-k50sv1_xml_files := $(shell find $(LOCAL_PATH) -name '*.xml' -not -path '*/.git/*')
+k50sv1_apn_fragment := $(LOCAL_PATH)/configs/apns-conf.xml
+k50sv1_apn_validator := $(LOCAL_PATH)/tools/validate-custom-apns.py
+k50sv1_default_apns := vendor/lineage/prebuilt/common/etc/apns-conf.xml
+k50sv1_internal_apns := frameworks/base/core/res/res/xml/apns.xml
+k50sv1_xml_files := $(filter-out $(k50sv1_apn_fragment), \
+    $(shell find $(LOCAL_PATH) -name '*.xml' -not -path '*/.git/*'))
 
 # The same module also runs host_init_verifier over every hand-written init rc
 # in this tree, and that is NOT redundant with the build's own check.
@@ -106,13 +114,22 @@ k50sv1_init_rc_files := $(shell find $(LOCAL_PATH)/rootdir -name '*.rc' \
 k50sv1_passwd_file := $(call intermediates-dir-for,ETC,passwd)/passwd
 
 $(LOCAL_BUILT_MODULE): PRIVATE_XML_FILES := $(k50sv1_xml_files)
+$(LOCAL_BUILT_MODULE): PRIVATE_APN_FRAGMENT := $(k50sv1_apn_fragment)
+$(LOCAL_BUILT_MODULE): PRIVATE_APN_VALIDATOR := $(k50sv1_apn_validator)
+$(LOCAL_BUILT_MODULE): PRIVATE_DEFAULT_APNS := $(k50sv1_default_apns)
+$(LOCAL_BUILT_MODULE): PRIVATE_INTERNAL_APNS := $(k50sv1_internal_apns)
 $(LOCAL_BUILT_MODULE): PRIVATE_INIT_RC_FILES := $(k50sv1_init_rc_files)
 $(LOCAL_BUILT_MODULE): PRIVATE_PASSWD_FILE := $(k50sv1_passwd_file)
 $(LOCAL_BUILT_MODULE): $(k50sv1_xml_files) $(XMLLINT) \
+                       $(k50sv1_apn_fragment) $(k50sv1_apn_validator) \
+                       $(k50sv1_default_apns) $(k50sv1_internal_apns) \
                        $(k50sv1_init_rc_files) $(HOST_INIT_VERIFIER) \
                        $(k50sv1_passwd_file)
 	@echo "Validating $(words $(PRIVATE_XML_FILES)) device-tree XML files"
 	$(hide) $(XMLLINT) --noout $(PRIVATE_XML_FILES)
+	@echo "Validating the device APN fragment and merged database identities"
+	$(hide) python $(PRIVATE_APN_VALIDATOR) $(PRIVATE_DEFAULT_APNS) \
+	    $(PRIVATE_APN_FRAGMENT) $(PRIVATE_INTERNAL_APNS)
 	@echo "Validating $(words $(PRIVATE_INIT_RC_FILES)) device-tree init rc files"
 	$(hide) for rc in $(PRIVATE_INIT_RC_FILES); do \
 	    $(HOST_INIT_VERIFIER) $$rc $(PRIVATE_PASSWD_FILE) || exit 1; \
@@ -120,6 +137,10 @@ $(LOCAL_BUILT_MODULE): $(k50sv1_xml_files) $(XMLLINT) \
 	$(hide) mkdir -p $(dir $@) && touch $@
 
 k50sv1_xml_files :=
+k50sv1_apn_fragment :=
+k50sv1_apn_validator :=
+k50sv1_default_apns :=
+k50sv1_internal_apns :=
 k50sv1_init_rc_files :=
 k50sv1_passwd_file :=
 
