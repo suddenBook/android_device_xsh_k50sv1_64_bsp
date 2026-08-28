@@ -6,3 +6,12 @@ allow hal_memtrack_default debugfs_mtk_mali_gpu_memory:file {
     open
     read
 };
+
+# The vendor memtrack implementation combines Mali's allocation total with
+# ION's per-client summary. Both inputs are read-only accounting leaves; do not
+# grant access to the surrounding debugfs trees.
+allow hal_memtrack_default debugfs_mtk_ion_clients_summary:file {
+    getattr
+    open
+    read
+};

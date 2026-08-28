@@ -5,6 +5,11 @@ type proc_mtk_jpeg, fs_type, proc_type;
 # HAL. Keep it separate from the rest of mali0 debugfs.
 type debugfs_mtk_mali_gpu_memory, fs_type, debugfs_type;
 
+# Exact ION client summary consumed by the same memtrack HAL. Individual
+# client files and the surrounding ION debugfs controls remain generic and
+# inaccessible.
+type debugfs_mtk_ion_clients_summary, fs_type, debugfs_type;
+
 # EMI/SMI bandwidth profile written by libbwc from inside the MTK OMX
 # components. Its own type rather than generic sysfs: mediacodec is the only
 # writer, and the node steers DRAM bandwidth arbitration for the whole SoC.
