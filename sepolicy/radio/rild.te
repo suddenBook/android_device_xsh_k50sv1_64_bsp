@@ -18,10 +18,12 @@ hal_server_domain(rild, hal_mtk_radioex)
 allow rild mtk_rild_socket:sock_file write;
 allow rild mtkrild:unix_stream_socket connectto;
 
-# This chassis exposes two physical SIM slots and no virtual/external SIM.
-# extract-files.sh removes stock's three rild-vsim socket declarations from
-# mtkrild.rc, so rilproxy's feature probe gets the intended ENOENT. Do not add a
-# socket permission: that would enable a phantom feature and hide the bad rc.
+# rilproxy opens rild-vsim unconditionally. Removing the endpoint caused a
+# permanent one-second reconnect loop; it did not disable a user-visible
+# feature. Preserve the three stock init sockets as a private RIL ABI and grant
+# only the exact stock client edge. There is still no Android VSIM service,
+# permission declaration or fitted virtual/external-SIM hardware.
+allow rild mtk_ril_vsim_socket:sock_file write;
 
 set_prop(rild, mtk_ril_mux_report_prop)
 set_prop(rild, mtk_vendor_radio_prop)
