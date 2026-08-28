@@ -17,13 +17,6 @@
         <boolean name="carrier_use_ims_first_for_emergency_bool" value="false"/>
     </carrier_config>
 
-    <!-- China Unicom VoLTE is registered live on this handset. The owner
-         confirms that the current Chinese subscriptions cannot use VoWiFi, so
-         do not advertise WFC for them. -->
-    <carrier_config mcc="460" mnc="01">
-        <boolean name="carrier_volte_available_bool" value="true"/>
-    </carrier_config>
-
     <!-- Vodafone NL carrier ID 20. The cid filter is broken above, so mirror
          TelephonyProvider's exact allocated IMSI prefixes for 20404. Stock's
          MtkCarrierConfig enables these WFC keys, E-091 proves home-network
