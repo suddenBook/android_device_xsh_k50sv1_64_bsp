@@ -20,4 +20,10 @@ hal_client_domain(radio, hal_mtk_wfo)
 # mtkSlot/imsSlot/mtkCap/mtkEm/mtkRcs/mtkSe/mtkAssist instances per SIM slot).
 hal_client_domain(radio, hal_mtk_radioex)
 
+# Do NOT binder_call(radio, gpuservice). Phone is app_domain and can find
+# gpu_service, then GraphicsEnv::sendGpuStatsLocked tries IGpuService. AOSP Q
+# grants that call to the ordinary UI app domains, not radio. The transact is
+# one-way driver-load telemetry; Phone UI does not need it. Keep the denial
+# visible on expected-avc-tuples.txt.
+
 get_prop(system_server, mtk_telephony_sensitive_prop)

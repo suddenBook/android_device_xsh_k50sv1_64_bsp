@@ -140,6 +140,15 @@
          the fact rather than depend on the clamp. -->
     <integer name="config_num_physical_slots">2</integer>
 
+    <!-- Physical 2SIM+SD tray. AOSP defaults this false, which makes
+         UiccSlot.onIccSwap prompt a reboot on every insert/remove
+         (UiccSlot.java). The default is for soldered/eSIM-primary devices.
+         This chassis has a user-removable UICC tray; MediaTek's RIL already
+         publishes CARDSTATE on insert/remove. true skips the reboot dialog
+         and lets the modem/RIL handle the swap, which is AOSP Q practice for
+         a tray phone. -->
+    <bool name="config_hotswapCapable">true</bool>
+
     <!-- Bind the Android 10 MTK MMTEL service through AOSP ImsResolver. Voice
          over LTE and voice over Wi-Fi are device capabilities; carrier config
          and provisioning remain the second gate. Video telephony is omitted -
