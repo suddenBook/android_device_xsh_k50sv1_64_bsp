@@ -139,10 +139,11 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 # whole clause (ImsManager.java:622-637), so it also defeated
 # config_device_volte_available and isGbaValid(), and it left every OTHER
 # reader of KEY_CARRIER_VOLTE_AVAILABLE_BOOL seeing false. The supported route
-# is overlay/packages/apps/CarrierConfig/res/xml/vendor.xml, now filtered to
-# the CU and Vodafone home identities that have measured registration. The
-# device-wide emergency-routing fragment is already proven to reach both
-# subscriptions in `dumpsys carrier_config`.
+# is overlay/packages/apps/CarrierConfig/res/xml/vendor.xml. That overlay
+# enables VoLTE/WFC only for Vodafone NL IMSI 20404[01245789].* (E-091).
+# CU 46001 and CMCC 46000 keep AOSP false defaults (E-112); do not add a
+# 46001 fragment. The device-wide emergency-routing fragment is already
+# proven to reach both subscriptions in `dumpsys carrier_config`.
 #
 # These are framework knobs -- ImsManager and Keyguard read them, both on
 # /system -- so they go in PRODUCT_SYSTEM_DEFAULT_PROPERTIES rather than
