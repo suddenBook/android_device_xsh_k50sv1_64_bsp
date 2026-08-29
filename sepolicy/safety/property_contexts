@@ -2,9 +2,9 @@ vendor.thermal.manager.data               u:object_r:mtk_thermal_config_prop:s0
 
 # Prefix form, matching Stock's own vendor_property_contexts. The previous
 # revision listed eight exact keys, which meant every other key the WMT stack
-# writes -- including persist.vendor.connsys.coredump.mode, which is in
-# vendor.prop -- fell through AOSP's `persist.vendor.` / `vendor.` catch-all to
+# writes fell through AOSP's `persist.vendor.` / `vendor.` catch-all to
 # vendor_default_prop, a type no vendor domain may set. The namespace belongs
 # to the connectivity subsystem in its entirety; enumerating it bought nothing.
+# persist.vendor.connsys.coredump.mode was deleted from vendor.prop (no reader).
 persist.vendor.connsys.                   u:object_r:mtk_wmt_prop:s0
 vendor.connsys.                           u:object_r:mtk_wmt_prop:s0

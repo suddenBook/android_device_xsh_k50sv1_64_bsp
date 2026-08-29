@@ -14,6 +14,6 @@
 # property_type. They are kept for the day PRODUCT_SHIPPING_API_LEVEL is raised
 # above 27 -- full explanation at sepolicy/gnss/vendor_init.te.
 
-# vendor.prop: persist.vendor.connsys.coredump.mode (and any other key in the
-# persist.vendor.connsys. / vendor.connsys. namespaces that the WMT stack adds).
+# persist.vendor.connsys.* / vendor.connsys.* that the WMT stack still writes.
+# persist.vendor.connsys.coredump.mode itself is gone from vendor.prop.
 set_prop(vendor_init, mtk_wmt_prop)

@@ -27,9 +27,9 @@
 # cause. tools/flash-tier-images.sh already erases userdata unconditionally --
 # this note exists so nobody "optimises" that away.
 #
-# Why: this is an engineering-sample board used for bring-up. Its releasekey and
-# platform private keys are public (device/.../security/), so FDE was protecting
-# data on a device that is not trustworthy in the first place.
+# Why: this is an engineering-sample board used for bring-up. The in-tree
+# releasekey/platform keyset was revoked (E-121; device/.../security/ is only
+# a README). FDE was protecting data on a device that is not trustworthy.
 #
 # What it actually cost is worth stating correctly, because the first version of
 # this comment guessed. It was NOT a "several-minute enablecrypto pass": on a

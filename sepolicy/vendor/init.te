@@ -5,7 +5,7 @@
 
 # rootdir/etc/fstab.mt6755 mounts nvdata, protect_f and protect_s under
 # /mnt/vendor; init performs the mkdir + mounton for "mount_all" in
-# init.mt6755.rc:10.
+# init.mt6755.rc:35.
 allow init mnt_vendor_file:dir create_dir_perms;
 allow init mnt_vendor_file:dir mounton;
 allow init mtk_nvdata_file:dir create_dir_perms;

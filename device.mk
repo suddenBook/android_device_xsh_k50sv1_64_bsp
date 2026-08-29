@@ -230,6 +230,14 @@ PRODUCT_COPY_FILES += \
 #
 # Passpoint is a Wi-Fi protocol feature, not a separate piece of hardware, so
 # this does not contradict the verified hardware list.
+#
+# android.software.ipsec_tunnels.xml is NOT added. AOSP Q's
+# FEATURE_IPSEC_TUNNELS (PackageManager.java) requires CONFIG_XFRM_INTERFACE
+# or VTIs with UPDSA mark-update patches. This 3.18 kernel has
+# CONFIG_NET_IPVTI and CONFIG_INET_XFRM_MODE_TUNNEL, not xfrmi, and no
+# evidence of the UPDSA patches. Declaring the feature would make
+# IpSecManager tunnel APIs throw into a kernel path they cannot implement.
+# ePDG uses userspace strongSwan, not Android IpSecManager.
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \
