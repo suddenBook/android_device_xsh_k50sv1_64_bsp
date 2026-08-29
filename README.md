@@ -20,8 +20,9 @@ The authoritative evidence and AOSP decisions are maintained in
 not hardware proof.
 
 The first bring-up intentionally omits Stock fingerprint and S Pen UI stacks,
-identity spoofing, ADUPS FOTA, and engineering applications. The Hall input is
-kept for diagnostics, but its unused wake key is explicitly suppressed.
+ADUPS FOTA, and engineering applications. Public Play fields present Android-10
+Coral; `TARGET_DEVICE` / OTA assert stay `k50sv1_64_bsp`. The Hall input is
+kept as a low-level path; `HALL_DEV.kl` drops KEY_SLEEP/KEY_WAKEUP.
 
 ## Build tiers
 
