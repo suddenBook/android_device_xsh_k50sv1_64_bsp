@@ -1,0 +1,11 @@
+# ART's ImageSpace::Load takes an exclusive flock on the boot image
+# (art/runtime/gc/space/image_space.cc) so dexoptanalyzer can tell whether
+# boot.art is currently mapped. AOSP Q's private/dexoptanalyzer.te never
+# granted lock on system_file; later AOSP added exactly this rule with the
+# comment "Acquire advisory lock on /system/framework/arm/*".
+#
+# Under enforcing the flock fails with EACCES, ScopedFlock returns null, and
+# the analyzer cannot tell the image is in use. Both operands are core types
+# and the gap is not a board fact, so this belongs in plat_private -- the
+# same placement as system_app x proc_pagetypeinfo.
+allow dexoptanalyzer system_file:file lock;
