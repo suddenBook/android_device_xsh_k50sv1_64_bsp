@@ -3,3 +3,9 @@
 /dev/wmtWifi                              u:object_r:mtk_wmt_wifi_device:s0
 
 /mnt/vendor/nvdata/APCFG/APRDEB/WIFI      u:object_r:mtk_wlan_nvram_file:s0
+
+# AOSP only labels /data/vendor/wifi/wpa. This port's wpa_supplicant -O and
+# the MAL rewrite share /data/vendor/wifi/sock; without this line the
+# directory stays vendor_data_file and wpa_supplicant's sock create is
+# denied under enforcing (live 20260829 dual-boot).
+/data/vendor/wifi/sock(/.*)?              u:object_r:wpa_data_file:s0
