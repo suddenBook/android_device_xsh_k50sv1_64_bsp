@@ -10,8 +10,11 @@
 # The control connection is AF_UNIX SOCK_DGRAM in both directions: the client
 # binds its own <name>_ctrlconn node in the same directory and sendto()s the
 # server's node, and the server replies to the client's node.
-allow mtkmal wpa_data_file:dir { add_name remove_name search write };
-allow mtkmal wpa_data_file:sock_file { create unlink write };
+# create_file_perms (not a create/unlink/write subset) matches AOSP's
+# hal_wifi_supplicant_default grant on this type: the client chmod()s the
+# ctrlconn node after bind. Do not grant generic vendor_data_file.
+allow mtkmal wpa_data_file:dir { open getattr search write add_name remove_name };
+allow mtkmal wpa_data_file:sock_file create_file_perms;
 allow mtkmal hal_wifi_supplicant_default:unix_dgram_socket sendto;
 allow hal_wifi_supplicant_default mtkmal:unix_dgram_socket sendto;
 
