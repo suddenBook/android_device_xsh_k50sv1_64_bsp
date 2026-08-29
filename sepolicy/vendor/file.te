@@ -2,6 +2,10 @@ type mtk_accelerometer_device, dev_type;
 type mtk_cmdq_device, dev_type;
 type mtk_audiohal_data_file, file_type, data_file_type;
 type mtk_sensor_data_file, file_type, data_file_type;
+# MTK camera HAL dump directory created by init.mt6755.rc. Dedicated type so
+# the HAL is not granted generic vendor_data_file write (same class as the
+# wifi-sock hole). Debug dumps only; capture does not depend on it.
+type mtk_camera_dump_file, file_type, data_file_type;
 type mtk_smi_device, dev_type;
 type proc_ged, fs_type, proc_type;
 type proc_mtk_m4u, fs_type, proc_type;

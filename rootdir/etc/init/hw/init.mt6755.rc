@@ -313,6 +313,7 @@ on post-fs-data
     restorecon_recursive /data/vendor/powerhal
     restorecon_recursive /data/vendor/gps
     restorecon_recursive /data/vendor/wifi
+    restorecon_recursive /data/vendor/camera_dump
 
     # zram is set up in `on post-fs` above, NOT here. On the former FDE build
     # this block ran twice: /system/core/rootdir/init.rc has

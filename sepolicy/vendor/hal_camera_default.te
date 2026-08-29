@@ -42,6 +42,12 @@ allow hal_camera_default sysfs_batteryinfo:dir search;
 allow hal_camera_default proc_mtk_jpeg:file r_file_perms;
 allowxperm hal_camera_default proc_mtk_jpeg:file ioctl { 0x780b-0x780f };
 
+# /data/vendor itself stays vendor_data_file; search only, then the dedicated
+# dump type. Do not grant vendor_data_file create/write.
+allow hal_camera_default vendor_data_file:dir search;
+allow hal_camera_default mtk_camera_dump_file:dir create_dir_perms;
+allow hal_camera_default mtk_camera_dump_file:file create_file_perms;
+
 # NOT GRANTED: camera properties. Stock's camerahalserver sets three property
 # groups this tree does not define at all --
 #   (allow mtk_hal_camera mtk_camera_prop (property_service (set)))     vendor.camera.*

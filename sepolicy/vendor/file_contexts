@@ -8,6 +8,7 @@
 /dev/(CAM_CAL_DRV[12]|MAINAF|SUBAF|camera-fdvt|camera-isp|kd_camera_flashlight|kd_camera_hw|kd_camera_hw_bus2) u:object_r:camera_device:s0
 /data/vendor/audiohal(/.*)?       u:object_r:mtk_audiohal_data_file:s0
 /data/vendor/sensor(/.*)?         u:object_r:mtk_sensor_data_file:s0
+/data/vendor/camera_dump(/.*)?    u:object_r:mtk_camera_dump_file:s0
 
 # Canonical Android partition labels for the physical MTK GPT layout.  Label
 # both the real nodes and stable aliases because consumers resolve both forms:
@@ -27,16 +28,16 @@
 /dev/block/platform/mtk-msdc\.0/11230000\.msdc0/by-name/metadata u:object_r:metadata_block_device:s0
 /dev/block/platform/mtk-msdc\.0/11230000\.msdc0/by-name/cache    u:object_r:cache_block_device:s0
 
-# /data. rootdir/etc/fstab.mt6755 mounts this "wait,check,formattable,quota,
-# forcefdeorfbe=...", so THREE core domains need the canonical type and get
+# /data. rootdir/etc/fstab.mt6755 mounts this "wait,check,formattable,quota"
+# with no forcefdeorfbe. THREE core domains need the canonical type and get
 # nothing from the generic block_device fallback:
 #   system/sepolicy/public/fsck.te:18   allow fsck userdata_block_device:blk_file rw_file_perms;
 #   system/sepolicy/public/vold.te:196  allow vold userdata_block_device:blk_file rw_file_perms;
 #   system/sepolicy/public/e2fs.te:8    allow e2fs userdata_block_device:blk_file rw_file_perms;
 # plus device/lineage/sepolicy/common/private/mkfs.te:8. Without this label
-# e2fsck and the FDE bring-up of /data are both denied on an enforcing build --
-# the same failure this tree already fixed for nvdata and protect1/protect2 in
-# sepolicy/vendor/init.te.
+# e2fsck of a wiped /data is denied on an enforcing build -- the same failure
+# this tree already fixed for nvdata and protect1/protect2 in
+# sepolicy/vendor/init.te. Do not restore FDE from this comment.
 /dev/block/mmcblk0p30             u:object_r:userdata_block_device:s0
 /dev/block/platform/mtk-msdc\.0/11230000\.msdc0/by-name/userdata u:object_r:userdata_block_device:s0
 
