@@ -99,6 +99,33 @@ include $(BUILD_SYSTEM)/base_rules.mk
 #   ls out/target/product/k50sv1_64_bsp/obj/ETC/ | grep k50sv1-xml-validation
 droidcore systemimage vendorimage bootimage recoveryimage: $(LOCAL_BUILT_MODULE)
 
+# The same argument applies to compatibility_matrix.xml, and for the same
+# reason: it is verified only on a goal this project never builds.
+#
+# BoardConfig.mk's DEVICE_MATRIX_FILE feeds system/libhidl/vintfdata/
+# Android.mk:38-63, which assembles it into device_compatibility_matrix.xml and
+# exports it as BUILT_VENDOR_MATRIX. Building vendor.img therefore proves the
+# file PARSES, because the module is installed to /vendor/etc/vintf. What it
+# does not prove is the only thing the matrix is for: that the framework
+# actually offers every HAL the matrix demands. That check is
+# $(BUILT_ASSEMBLED_FRAMEWORK_MANIFEST) -- Makefile:2906-2922, assemble_vintf
+# with `-c $(BUILT_VENDOR_MATRIX)` -- and its one ordinary consumer is
+# Makefile:2924 `droidcore: $(BUILT_ASSEMBLED_FRAMEWORK_MANIFEST)`. With only
+# bootimage/recoveryimage/systemimage/vendorimage requested (see :84-90 above),
+# a matrix that demands a missing framework HAL builds clean on Tiers 1 and 2
+# and first fails on Tier 3, which is the one tier that runs a full release
+# flow.
+#
+# The opposite direction is already checked on every build: Makefile:2833 makes
+# $(INSTALLED_VENDORIMAGE_TARGET) depend on $(BUILT_ASSEMBLED_VENDOR_MANIFEST),
+# i.e. this device's manifest.xml against the framework's matrix. This line
+# closes the other half.
+#
+# Legal for the same reason the line above is: build/make/core/Makefile defines
+# both `systemimage` (:792-793, :2394) and this variable, and is included from
+# main.mk after every Android.mk.
+systemimage: $(BUILT_ASSEMBLED_FRAMEWORK_MANIFEST)
+
 k50sv1_apn_fragment := $(LOCAL_PATH)/configs/apns-conf.xml
 k50sv1_apn_validator := $(LOCAL_PATH)/tools/validate-custom-apns.py
 k50sv1_default_apns := vendor/lineage/prebuilt/common/etc/apns-conf.xml
@@ -128,11 +155,20 @@ k50sv1_xml_files := $(filter-out $(k50sv1_apn_fragment), \
 # rootdir/vendor/ueventd.rc is excluded on purpose: it is a ueventd config, not
 # an init script, and host_init_verifier would reject every line of it.
 #
+# recovery/ is searched as well as rootdir/, because recovery/root/
+# init.recovery.mt6755.rc is a hand-written init script that NOTHING else
+# checks. It is not a PRODUCT_COPY_FILES entry, so Makefile:35-39's
+# copy-init-script-file-checked never sees it: Makefile:1752-1757 picks the
+# directory up implicitly through $(wildcard $(TARGET_DEVICE_DIR)/recovery/root)
+# and :1932-1933 cp -rf's it wholesale into $(TARGET_RECOVERY_OUT). A parse
+# error in it is therefore invisible until a recovery boot, which is the one
+# boot with no logcat and no adb by default.
+#
 # The passwd file is the same intermediate copy-init-script-file-checked uses
 # (definitions.mk:2557-2558); host_init_verifier needs it to resolve the
 # user/group names in `service` blocks.
-k50sv1_init_rc_files := $(shell find $(LOCAL_PATH)/rootdir -name '*.rc' \
-    -not -name 'ueventd.rc' -not -path '*/.git/*')
+k50sv1_init_rc_files := $(shell find $(LOCAL_PATH)/rootdir $(LOCAL_PATH)/recovery \
+    -name '*.rc' -not -name 'ueventd.rc' -not -path '*/.git/*')
 k50sv1_passwd_file := $(call intermediates-dir-for,ETC,passwd)/passwd
 
 $(LOCAL_BUILT_MODULE): PRIVATE_XML_FILES := $(k50sv1_xml_files)
