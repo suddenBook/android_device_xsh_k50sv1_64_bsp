@@ -624,10 +624,24 @@ static bool attachApnHooksActive(void)
  * leaves the plaintext in a heap chunk any later allocation in this process
  * can read back.
  */
+/*
+ * Not explicit_bzero: this bionic does not declare it at all (it arrives in
+ * API 30), and the host test build only compiled against it because glibc
+ * does. A volatile store cannot be elided, which is the whole requirement.
+ */
+static void secureZero(void *buffer, size_t length)
+{
+    volatile unsigned char *p = (volatile unsigned char *)buffer;
+
+    while (length-- > 0) {
+        *p++ = 0;
+    }
+}
+
 static void freeSecret(char **field)
 {
     if (*field != NULL) {
-        explicit_bzero(*field, strlen(*field));
+        secureZero(*field, strlen(*field));
         free(*field);
         *field = NULL;
     }
