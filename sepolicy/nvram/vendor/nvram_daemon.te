@@ -9,6 +9,12 @@ allow nvram_daemon self:global_capability_class_set { chown fowner fsetid };
 allow nvram_daemon mtk_nvram_storage_file:dir create_dir_perms;
 allow nvram_daemon mtk_nvram_storage_file:file create_file_perms;
 allow nvram_daemon mtk_nvram_storage_file:lnk_file { getattr read unlink };
+# Measure the destructive half so the attribute can be narrowed with evidence
+# instead of a guess; see attributes/attributes.te for why it is still this
+# wide. One boot's worth of records is the whole cost.
+auditallow nvram_daemon mtk_nvram_storage_file:dir { create rmdir rename };
+auditallow nvram_daemon mtk_nvram_storage_file:file { create unlink rename };
+auditallow nvram_daemon mtk_nvram_storage_file:lnk_file unlink;
 
 allow nvram_daemon block_device:dir search;
 allow nvram_daemon mtk_nvram_block_device:blk_file rw_file_perms;

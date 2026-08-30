@@ -1,5 +1,17 @@
 # Control properties are split per service so ccci_mdinit cannot control
 # unrelated vendor daemons.
+#
+# ctl_mtk_ccci_rpcd_prop and ctl_mtk_muxreport_prop have NO setter, and that is
+# the point rather than an omission: an unlabelled ctl.vendor.* falls through
+# plat_property_contexts' `ctl.` prefix to ctl_default_prop, which
+# private/system_app.te:62, private/system_server.te:595, private/usbd.te:12
+# and public/wificond.te:12 can all set. Deleting these two lines would
+# therefore let any system_app start and stop the modem RPC daemon and the mux
+# reporter. Neither needs a ctl. write today -- vendor.ccci_rpcd is not
+# `disabled` so init auto-starts it, and muxreport is restarted by init's own
+# `start` builtin from `on property:vendor.ril.muxreport=1` -- so no domain is
+# granted them. If a modem-reset restart path is ever needed, add exactly one
+# set_prop() and say which binary carries the service-name literal.
 type ctl_mtk_ccci_fsd_prop, property_type;
 type ctl_mtk_ccci3_fsd_prop, property_type;
 type ctl_mtk_ccci_rpcd_prop, property_type;

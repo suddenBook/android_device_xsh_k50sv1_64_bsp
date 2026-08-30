@@ -463,6 +463,17 @@ on property:ro.persistent_properties.ready=true
     # is gone from both places: VoLTE availability now comes from the filtered
     # CarrierConfig overlay, visible to every reader of the carrier key rather
     # than only isVolteEnabledByPlatform().
+    #
+    # The four persist.dbg.* keys below resolve to plat default_prop through
+    # plat_property_contexts' `*` catch-all, and vendor_init may set them only
+    # because this product leaves PRODUCT_COMPATIBLE_PROPERTY false
+    # (PRODUCT_SHIPPING_API_LEVEL 26, which is stock's real
+    # ro.product.first_api_level and must not be raised). If it were ever
+    # raised above 27, public/domain.te:527-537 compiles
+    # `neverallow { domain -init } default_prop:property_service set`, and this
+    # block becomes a build failure rather than a silent regression. That is
+    # the correct failure mode; do not pre-empt it by labelling platform-
+    # namespace properties from a vendor property_contexts.
     setprop persist.vendor.mtk.volte.enable 1
     setprop persist.dbg.vt_avail_ovr 0
     setprop persist.dbg.wfc_avail_ovr 0

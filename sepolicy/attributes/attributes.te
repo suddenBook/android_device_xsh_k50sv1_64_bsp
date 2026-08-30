@@ -88,4 +88,19 @@ hal_attribute(mtk_power)
 # nvram_agent_binder) must be able to migrate, back up and restore. Members
 # attach themselves in their own `type` statements; see the directory note
 # above for why that is done here rather than with typeattribute.
+#
+# KNOWN WIDTH, deliberately not narrowed yet. The ten members span three trust
+# levels: AP calibration (accel/bt/gps/audio/camera/wlan), modem state
+# (mtk_modem_nvdata_file, mtk_modem_config_file = MD_SBP, which selects the
+# operator RF profile) and the protected partitions (mtk_protect_f_file,
+# mtk_protect_s_file on mmcblk0p8/p9, which carry IMEI). create_file_perms on
+# the attribute therefore lets either daemon rewrite all three.
+#
+# Splitting it is the obvious answer and it is NOT taken here, because the
+# daemons' whole job is restoring exactly those partitions and nothing in a
+# permissive boot distinguishes "opened for write" from "created". Removing
+# `create` blind would break modem-identity restore in a way that surfaces as
+# a dead radio on a device with no source and no second copy of the data. The
+# auditallow beside each grant names which destructive operations are really
+# used on the first enforcing boot; narrow against that, not against a guess.
 attribute mtk_nvram_storage_file;

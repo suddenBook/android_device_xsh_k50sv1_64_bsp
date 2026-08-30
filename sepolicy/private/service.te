@@ -8,9 +8,23 @@
 #   system/sepolicy/private/untrusted_app_all.te:99  allow untrusted_app_all radio_service:service_manager find;
 #   .../priv_app.te:49  .../platform_app.te:64  .../ephemeral_app.te:46
 # i.e. any installed app could getService("mtkIms") and start poking a vendor
-# IMS control interface. Its own type keeps the client set to the two domains
-# that actually use it: the phone process that owns it, and the telephony
-# framework in system_server.
+# IMS control interface. Its own type removes all four of those.
+#
+# WHAT IT DOES NOT DO, because the earlier wording here claimed containment the
+# policy does not provide. A dedicated service_manager_type is not a private
+# type: AOSP grants blanket `find` over the whole attribute minus a fixed
+# exclusion list, at private/system_app.te:83-96, public/shell.te:112-125 and
+# public/dumpstate.te:234,244. So system_app, shell and dumpstate can still
+# find both services here, and system_app is the domain Settings runs in.
+# WifiOffloadService's binder methods do no permission checks of their own, so
+# for `wfo` that label IS the access control and this is a real residual gap,
+# not a theoretical one.
+#
+# Closing it needs the two type names added to those AOSP exclusion lists,
+# which is an upstream patch and therefore an owner decision; there is no
+# device-only way to subtract an existing allow. Until then, state the
+# reduction honestly: four app domains lost access, three system domains kept
+# it.
 #
 # Both operands are core platform types, so this belongs in plat_private per
 # the rule in BoardConfig.mk. Declared in private (not public) because nothing
@@ -27,9 +41,9 @@ allow system_server mtk_ims_service:service_manager find;
 # from WfoService.makeWfoService() called by ImsService.<init>. Stock labels it
 # radio_service (plat_service_contexts:260), which is the shared bucket
 # untrusted_app_all, priv_app, platform_app and ephemeral_app can all `find` --
-# so on Stock any installed app can getService("wfo"). WifiOffloadService's
-# binder methods do no permission checks of their own, so the label IS the
-# access control. Its own type, same as mtk_ims_service above.
+# so on Stock any installed app can getService("wfo"). Its own type, same as
+# mtk_ims_service above -- including the same residual system_app/shell/
+# dumpstate reach documented there.
 #
 # Without a service_contexts entry "wfo" falls to the catch-all
 # `* u:object_r:default_android_service:s0`, and

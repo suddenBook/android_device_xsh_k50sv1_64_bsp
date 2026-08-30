@@ -1,2 +1,7 @@
-vendor.mediatek.hardware.camera.ccap::ICCAPControl       u:object_r:hal_camera_hwservice:s0
+vendor.mediatek.hardware.camera.ccap::ICCAPControl       u:object_r:mtk_ccap_hwservice:s0
+# MediaTek's supplicant extension deliberately KEEPS the AOSP label. Unlike
+# CCAP above, its two possible callers -- hal_wifi_supplicant_default itself
+# and system_server -- are exactly the domains AOSP already grants
+# hal_wifi_supplicant_hwservice find, so a private type would grant the same
+# set under a different name. Revisit only if a third caller appears.
 vendor.mediatek.hardware.wifi.supplicant::ISupplicant   u:object_r:hal_wifi_supplicant_hwservice:s0

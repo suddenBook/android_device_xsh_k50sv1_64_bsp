@@ -49,6 +49,13 @@ allow vendor_init mnt_vendor_file:dir create_dir_perms;
 # is property_type:file and :469 is properties_device:file -- which covers
 # properties_device.
 allow vendor_init device:file unlink;
+# Bound it with evidence rather than with a narrower type. Giving those files
+# their own label does not work: init's writepid creates them with a plain
+# WriteStringToFile and no fscreatecon, so they take /dev's `device` label
+# whatever file_contexts says, and a narrower rule would simply fail. This
+# instead names every inode actually unlinked on the next enforcing boot; the
+# expected set is the eleven paths listed in init.mt6755.rc's post-fs block.
+auditallow vendor_init device:file unlink;
 
 # NOT GRANTED: sys_module + vendor_file:system module_load.
 #

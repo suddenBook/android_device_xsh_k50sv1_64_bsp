@@ -1,0 +1,18 @@
+# MediaTek's private camera control interface gets its own hwservice type
+# rather than sharing hal_camera_hwservice.
+#
+# vendor.mediatek.hardware.camera.ccap@1.0::ICCAPControl/internal/0 is
+# registered by camerahalserver and, on the live image, has zero clients.
+# Labelling it hal_camera_hwservice made it findable by every
+# hal_camera_client -- which includes cameraserver, a core domain with no
+# business in MTK's capture control plane. This is the same split the tree
+# already makes for hal_mtk_radioex (attributes/attributes.te) and
+# mtk_wfo_service (private/service.te); leaving CCAP shared was an
+# inconsistency, not a decision.
+#
+# add_hwservice() emits `neverallow { domain -hal_camera_default } ...:add`,
+# so a second registrant becomes a build error. If a real client ever appears
+# it needs one explicit `allow <domain> mtk_ccap_hwservice:hwservice_manager
+# find;` line, named after the AVC that proves it.
+type mtk_ccap_hwservice, hwservice_manager_type;
+add_hwservice(hal_camera_default, mtk_ccap_hwservice)
