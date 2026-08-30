@@ -24,38 +24,48 @@ on early-init
 on init
     write /sys/block/zram0/comp_algorithm lz4
 
+    # debugfs, and it has to be mounted HERE -- before `late-init`.
+    #
+    # Two things need it. /d/wakeup_sources, without which BatteryStats retries
+    # every sample and emits a system_server wtf/DropBox write; and the whole of
+    # /system/etc/init/atrace.rc, which chmods ~90 tracefs files including
+    # `chmod 0222 /sys/kernel/debug/tracing/trace_marker`.
+    #
+    # atrace.rc declares those chmods in `on late-init`, and init.rc's own
+    # `on late-init` only QUEUES early-fs/fs/post-fs/late-fs. ActionManager
+    # drains current_executing_actions_ before it pops the next event
+    # (action_manager.cpp ExecuteOneCommand), so every `on late-init` action
+    # runs to completion BEFORE `on post-fs` starts. Mounting debugfs in
+    # `on post-fs` therefore left every one of those chmods failing against an
+    # unmounted directory, and trace_marker stayed at the kernel's 0220.
+    #
+    # That is not cosmetic. libcutils opens trace_marker at process start and
+    # keeps the fd; webview_zygote must REOPEN it by path in each forked child,
+    # as an unprivileged uid, and 0220 makes that EACCES -- which ART turns into
+    # `JNI FatalError ... Failed open(/sys/kernel/debug/tracing/trace_marker)`
+    # and aborts the child. Every sandboxed renderer died on this: measured 4
+    # forks, 4 tombstones, a 100% failure rate, i.e. no web content anywhere on
+    # the device. It also produced 242 `cutils-trace: Error opening trace file`
+    # lines from processes that degrade gracefully instead of aborting.
+    #
+    # The cost of mounting this early is that AOSP's init.rc:374
+    # `restorecon --recursive --cross-filesystems /sys/kernel/debug`, in ITS
+    # `on post-fs`, now walks a live filesystem: 11046 inodes, 73 ms warm,
+    # against ro.boottime.init=941. The walk sets nothing -- debugfs and tracefs
+    # are labelled by genfscon, not by xattrs -- so it is pure cost, and it is
+    # the right trade against a broken WebView. Do not "optimise" it back to
+    # post-fs.
+    #
+    # It also cannot move any later for a second, independent reason: init.rc's
+    # `on late-fs` does `chmod 0755 /sys/kernel/debug/tracing` and is queued
+    # ahead of any vendor `on late-fs`.
+    mount debugfs debugfs /sys/kernel/debug
+    chmod 0755 /sys/kernel/debug
+
 on fs
     mount_all /vendor/etc/fstab.mt6755
 
 on post-fs
-    # Stock mounts debugfs before Android starts collecting kernel wakelocks.
-    # Without it /d/wakeup_sources is absent, so BatteryStats retries and emits
-    # a system_server wtf/DropBox write on every failed sample. AOSP already
-    # labels /wakeup_sources and grants system_server read-only access.
-    #
-    # `on post-fs`, not `on early-init`, and the placement is load-bearing in
-    # both directions:
-    #
-    #   * AOSP's init.rc:374 runs `restorecon --recursive --cross-filesystems
-    #     /sys/kernel/debug` in ITS `on post-fs`, which is parsed before this
-    #     file's (init.rc imports vendor rc at the end, and ActionManager runs
-    #     matching actions in insertion order). Mounting at early-init handed
-    #     that walk the whole live filesystem. Measured on this handset: 2854
-    #     debugfs inodes, 11046 with --cross-filesystems, 73 ms warm for the
-    #     identical `restorecon -R -D` call, against ro.boottime.init=941. The
-    #     walk sets nothing either way -- debugfs and tracefs are labelled by
-    #     genfscon, not by xattrs -- so it is pure cost.
-    #
-    #   * It cannot move any later than post-fs. AOSP's init.rc:421 does
-    #     `chmod 0755 /sys/kernel/debug/tracing` in `on late-fs`, and its block
-    #     is queued ahead of any vendor `on late-fs`, so the chmod would run
-    #     against an unmounted directory and fail.
-    #
-    # Nothing on this device reads debugfs before post-fs: the only other
-    # references in any /vendor/etc/init rc file are these two lines.
-    mount debugfs debugfs /sys/kernel/debug
-    chmod 0755 /sys/kernel/debug
-
     # This 3.18 kernel provides only the cpu, cpuacct, freezer and debug cgroup
     # controllers (/proc/cgroups), so the schedtune, cpuset, memory and cgroup2
     # mounts declared by /system/etc/cgroups.json all fail. AOSP init.rc then
