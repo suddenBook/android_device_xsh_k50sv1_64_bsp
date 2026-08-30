@@ -230,4 +230,21 @@
          lineage_k50sv1_64_bsp.mk. Remove both together. -->
     <string name="config_deviceConfiguratorPackageName" translatable="false">com.google.android.gms</string>
 
+    <!-- The PowerHAL scenario table implements SUSTAINED_PERFORMANCE
+         (configs/powerscntbl.xml), capping both clusters at an OPP the part
+         can hold indefinitely, but AOSP defaults this resource to false
+         (config.xml:3451) and therefore tells apps the mode does not exist.
+         Its only reader is PowerManager.isSustainedPerformanceModeSupported()
+         at PowerManager.java:1744-1747, and PowerManager.java:1735-1737
+         documents that call as the check an application is expected to make
+         before Window.setSustainedPerformanceMode(). A well-behaved app
+         therefore never asks, and the scenario never fires.
+
+         The plumbing behind the request is already unconditional:
+         RootWindowContainer.java:725-729 sends
+         PowerHint.SUSTAINED_PERFORMANCE whenever the aggregate window state
+         changes, with no reference to this resource. This overlay only stops
+         the framework from denying that the mode exists. -->
+    <bool name="config_sustainedPerformanceModeSupported">true</bool>
+
 </resources>

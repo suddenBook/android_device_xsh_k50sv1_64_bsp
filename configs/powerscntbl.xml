@@ -33,19 +33,47 @@
   LineageOS ships pure AOSP framework jars, so MTK's own hints
   (MTKPOWER_HINT_*) are never sent; nothing calls libpowerhalwrap_jni. They
   are kept anyway: they cost nothing, they document the platform contract, and
-  they become live if MTK's framework is ever added. The hints that do arrive
-  on this build, all verified against the Q sources in this tree, are:
+  they become live if MTK's framework is ever added.
+
+  This is the COMPLETE set of callers that can reach a power HAL on Q,
+  enumerated once so nobody has to redo the search. Everything Java goes
+  through PowerManagerInternal.powerHint -> powerHintInternal ->
+  nativeSendPowerHint (com_android_server_power_PowerManagerService.cpp:
+  169-175); the two native entries call the HAL directly.
 
     LAUNCH        RootActivityContainer.java:2294/2302 (data 1 = start,
                   0 = stop) on every activity cold start
     INTERACTION   PowerManagerService.java:1500 (user activity),
-                  DisplayRotation.java:942, DisplayPolicy.java:539,
+                  DisplayRotation.java:942, DisplayPolicy.java:539-540,
                   SurfaceAnimationRunner.java:242, and
                   com_android_server_power_PowerManagerService.cpp:200 when
                   the display is turned back on
     LOW_POWER     BatterySaverController.java:456
-    SUSTAINED_PERFORMANCE, VR_MODE  PowerManagerService
-    VIDEO_*, AUDIO_*, CAMERA_*, EXPENSIVE_RENDERING  media/camera/SurfaceFlinger
+    VR_MODE       PowerManagerService.java:4151
+    SUSTAINED_PERFORMANCE
+                  RootWindowContainer.java:725-729, NOT PowerManagerService.
+                  The hint itself is unconditional there; what is gated is
+                  whether an app ever asks, and that gate is the framework
+                  resource this device now overlays true. See
+                  overlay/frameworks/base/core/res/res/values/config.xml.
+    EXPENSIVE_RENDERING
+                  DisplayHardware/PowerAdvisor.cpp:54, via
+                  powerHintAsync_1_3
+
+  VIDEO_*, AUDIO_* and CAMERA_* were listed here as arriving "from
+  media/camera/SurfaceFlinger". They do not arrive at all, and they belong in
+  the same category as the MTKPOWER_* block below: inert unless a vendor blob
+  calls libpowerhal directly. There is no sender for any of them anywhere in
+  the tree; frameworks/av does not reference android.hardware.power at all;
+  and powerHintAsync_1_2, which is the only way to send the 1.2 hints
+  (AUDIO_STREAMING, AUDIO_LOW_LATENCY, CAMERA_LAUNCH, CAMERA_STREAMING,
+  CAMERA_SHOT), has no caller outside other vendors' hardware/ trees that this
+  product does not build.
+
+  SurfaceFlinger.cpp:1341-1348 is not a sender either, despite the name: its
+  notifyPowerHint() RECEIVES a hint id over SF's own binder interface and
+  forwards INTERACTION to Scheduler::notifyTouchEvent. It never reaches
+  android.hardware.power.
 
   INTERACTION is therefore the "the screen is on and the owner is using it"
   signal, and it is deliberately given the full-throttle allocation: 4+4 cores,
