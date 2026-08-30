@@ -123,6 +123,43 @@ else ifeq ($(K50SV1_BUILD_TIER),3)
 $(error K50SV1_BUILD_TIER=3 requires TARGET_BUILD_VARIANT=user, got $(TARGET_BUILD_VARIANT))
 endif
 
+# THE TIER IS NOT PART OF THE BUILD IDENTITY, so an incremental build across a
+# tier switch would ship the previous tier's files. That is not hypothetical for
+# tier 3: legacy-vowifi-vendor-filter.mk removes 29 PRODUCT_COPY_FILES entries,
+# and REMOVING a PRODUCT_COPY_FILES entry does not delete what an earlier build
+# already staged under $(PRODUCT_OUT)/vendor/ (HANDOFF trap 8 is the same
+# mechanism for LOCAL_OVERRIDES_PACKAGES). A tier-2 -> tier-3 `m` without a
+# clean output tree would therefore pack /vendor/bin/{charon,starter,stroke,
+# wfca,epdg_wod} and the strongSwan libraries into a release vendor.img, with no
+# diagnostic anywhere -- the exact stack Tier 3 exists to exclude. Only
+# main.mk's TARGET_PRODUCT/TARGET_BUILD_VARIANT comparison triggers an
+# installclean, and the tier changes neither.
+#
+# Until now the only thing preventing that was run-lineage-build.sh refusing
+# tier 3 without K50SV1_CLEAN_BUILD=1. That is one policy in one other file. The
+# stamp below makes the invariant local and unavoidable.
+#
+# It runs only outside lunch discovery, using the same K50SV1_LUNCH_DISCOVERY
+# test as the checks above -- a `get_build_var` pass must not stamp a tier it
+# only defaulted to. It is also once-per-invocation rather than once per include.
+# If OUT_DIR is somehow unset this silently does nothing rather than writing to
+# the filesystem root.
+ifeq ($(K50SV1_LUNCH_DISCOVERY),)
+ifndef K50SV1_TIER_STAMP_CHECKED
+K50SV1_TIER_STAMP_CHECKED := true
+K50SV1_TIER_STAMP_FILE := $(if $(strip $(OUT_DIR)),$(strip $(OUT_DIR))/k50sv1_build_tier)
+ifneq ($(K50SV1_TIER_STAMP_FILE),)
+K50SV1_TIER_STAMP_PREV := $(strip $(shell cat $(K50SV1_TIER_STAMP_FILE) 2>/dev/null))
+ifneq ($(K50SV1_TIER_STAMP_PREV),)
+ifneq ($(K50SV1_TIER_STAMP_PREV),$(K50SV1_BUILD_TIER))
+$(error This output tree was last built as tier $(K50SV1_TIER_STAMP_PREV) and you are asking for tier $(K50SV1_BUILD_TIER). A tier switch is not incremental: PRODUCT_COPY_FILES entries that a later tier removes stay staged in $(OUT_DIR), so a tier-3 image built this way would still contain the legacy ePDG/strongSwan closure. Remove $(OUT_DIR) and build again -- work/k50sv1-bringup/tools/run-lineage-build.sh does this for you)
+endif
+endif
+$(shell mkdir -p $(dir $(K50SV1_TIER_STAMP_FILE)) && echo $(K50SV1_BUILD_TIER) > $(K50SV1_TIER_STAMP_FILE))
+endif
+endif
+endif
+
 # There is deliberately no K50SV1_BUILD_VARIANT here. Nothing in the device
 # tree or vendor/lineage read it, and tools/run-lineage-build.sh derives the
 # variant from K50SV1_BUILD_TIER itself -- two copies of one tier->variant
