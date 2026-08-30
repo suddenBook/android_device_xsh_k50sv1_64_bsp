@@ -61,14 +61,28 @@ vendor/etc/init/vendor.mediatek.hardware.gpu@1.0-service.rc
 # 32-bit hwcomposer.mt6755.so for it to open. Its two libhwc2on*adapter
 # dependencies are dead in 32-bit for the same reason.
 #
-# So four of these 32-bit files are dead weight and cannot be dropped anyway:
-# they exist to satisfy Soong's variant matching for a `prefer: true` prebuilt,
-# per the architecture note in the header. The way to actually remove them is
-# to stop packaging these three as modules at all -- none of them is required
-# by any base or Lineage product makefile, so a plain copy entry (or building
-# the AOSP source, which is unmodified here) would install exactly what the
-# device needs with no variant constraint. That is a staged work item, not a
-# drive-by change.
+# So two of these 32-bit files are dead weight and cannot be dropped while the
+# three -impl entries stay modules: they exist to satisfy Soong's variant
+# matching for a `prefer: true` prebuilt, per the architecture note in the
+# header. The way to actually remove them is to stop packaging those three as
+# modules at all -- none is required by any base or Lineage product makefile,
+# so a plain copy entry (or building the AOSP source) would install exactly
+# what the device needs with no variant constraint. That is WI-012 work, not a
+# drive-by change, because the three -impl blobs ARE SoC code.
+#
+# The two libhwc2on*adapter libraries are a different case and were fixed
+# rather than staged. They are UNMODIFIED AOSP -- `strings | grep -ci
+# 'mediatek\|mtk'` is 0 for all four copies, and their source is right here at
+# hardware/interfaces/graphics/composer/2.1/utils/hwc2on{1,fb}adapter, both
+# cc_library_shared + vendor: true with export_include_dirs. Shipping them as
+# `prefer: true` prebuilts is precisely what the general rule further down this
+# file forbids: it substitutes a header-less prebuilt for a header-exporting
+# AOSP library graph-wide. Nothing in this build links them today (the composer
+# @2.1-impl that DT_NEEDs them is itself a prebuilt, and only AOSP's
+# @2.1-passthrough header lib pulls them in at build time), so the blast radius
+# was zero -- but it becomes non-zero the moment a composer 2.2/2.3 default
+# enters the build. They are now plain copies: identical bytes, identical
+# install paths, no Soong module, no variant obligation.
 -vendor/lib/hw/android.hardware.graphics.allocator@2.0-impl.so
 -vendor/lib/hw/android.hardware.graphics.composer@2.1-impl.so
 -vendor/lib/hw/android.hardware.graphics.mapper@2.0-impl.so
@@ -81,8 +95,8 @@ vendor/lib/libgpud.so
 vendor/lib/libgralloc_extra.so
 vendor/lib/libion_mtk.so
 vendor/lib/libion_ulit.so
--vendor/lib/libhwc2on1adapter.so
--vendor/lib/libhwc2onfbadapter.so
+vendor/lib/libhwc2on1adapter.so
+vendor/lib/libhwc2onfbadapter.so
 vendor/lib/libladder.so
 vendor/lib/libpq_cust.so
 vendor/lib/libpq_prot.so
@@ -109,8 +123,8 @@ vendor/lib64/libged.so
 vendor/lib64/libgpu_aux.so
 vendor/lib64/libgpud.so
 vendor/lib64/libgralloc_extra.so
--vendor/lib64/libhwc2on1adapter.so
--vendor/lib64/libhwc2onfbadapter.so
+vendor/lib64/libhwc2on1adapter.so
+vendor/lib64/libhwc2onfbadapter.so
 vendor/lib64/libion_mtk.so
 vendor/lib64/libion_ulit.so
 vendor/lib64/libladder.so
@@ -145,7 +159,12 @@ vendor/lib64/hw/sensors.mt6755.so:vendor/lib64/hw/sensors.mt6755.stock.so
 vendor/lib64/libaedv.so
 vendor/lib64/libksensor.so
 
-# Legacy light, memtrack, thermal and vibrator implementations  -- section: legacy-hals
+# Legacy light, memtrack and thermal implementations  -- section: legacy-hals
+#
+# No vibrator blob: AOSP's vibrator.default (handheld_vendor.mk, recorded in
+# device.mk) drives the single ERM motor through /sys/devices/virtual/
+# timed_output/vibrator/enable, which this kernel exposes. Nothing is missing
+# here; do not "restore" a stock vibrator HAL.
 vendor/lib64/hw/lights.mt6755.so
 vendor/lib64/hw/memtrack.mt6755.so
 vendor/lib64/hw/thermal.mt6755.so
@@ -506,6 +525,10 @@ vendor/lib/libmtkcam_metadata.so
 vendor/lib/libmtkcam_stdutils.so
 vendor/lib/libmtkcam_sysutils.so
 vendor/lib/libmtkcam_ulog.so
+# libn3d3a is MediaTek's native 3D 3A -- stereo/dual-rear-camera -- and this
+# chassis has one rear camera. It stays because it is load-bearing anyway:
+# vendor/lib/libfeatureio.so DT_NEEDs it, so dropping it stops camerahalserver.
+# Same shape as libSonyIMX230PdafLibrary.so above, which is documented there.
 vendor/lib/libn3d3a.so
 vendor/lib/libnvram.so
 vendor/lib/libnvram_platform.so
@@ -535,8 +558,16 @@ vendor/firmware/ROMv2_lm_patch_1_1_hdr.bin
 vendor/firmware/WIFI_RAM_CODE_6755
 vendor/firmware/WMT_SOC.cfg
 vendor/lib64/hw/android.hardware.bluetooth@1.0-impl-mediatek.so
+# 32-bit only, and that is not an oversight. IBluetoothAudioProvidersFactory is
+# registered by exactly one process -- hardware/interfaces/audio/common/
+# all-versions/default/service/service.cpp -- which on this device is the ELF32
+# android.hardware.audio@5.0-service-mediatek, and libhidl's passthrough loader
+# globs <fqname>-impl*.so under the CALLER's own ${LIB}/hw. Confirmed live:
+# /proc/<audio-hal-pid>/maps maps /vendor/lib/hw/...-impl-mediatek.so and no
+# process on the handset maps the lib64 copy. Being a plain copy it also
+# carried none of the `prefer: true` variant obligation that justifies the
+# second architecture elsewhere in this file.
 vendor/lib/hw/android.hardware.bluetooth.audio@2.0-impl-mediatek.so
-vendor/lib64/hw/android.hardware.bluetooth.audio@2.0-impl-mediatek.so
 vendor/lib64/libbluetooth_audio_session_mediatek.so
 vendor/lib64/libbt-vendor.so
 vendor/lib64/libbluetooth_mtk.so
@@ -821,6 +852,21 @@ vendor/etc/ipsec/strongswan.conf
 vendor/etc/ipsec/wod_cust.conf
 vendor/etc/ipsec/wod_optr.conf
 vendor/etc/ipsec/ssl/openssl.cnf
+# Nine of stock's ten ePDG trust anchors. Root_CA_1003.crt is deliberately
+# omitted: it is an OpenCA *test* root that expired 2024-02-23, so it can
+# validate nothing and is exactly the kind of thing a carrier trust store
+# should not carry. Restoring it would also take this section to 30 and trip
+# legacy-vowifi-vendor-filter.mk's 29-file assertion; bump that in the same
+# commit if it ever comes back.
+#
+# Seven of the nine that remain are Symantec-lineage (VeriSign G4/G5/Universal,
+# GeoTrust Primary/G2/G3, thawte) and have been distrusted by the public web PKI
+# since 2018. None is expired -- notAfter runs 2028-2038 -- and they are stock
+# data read only by the strongSwan stack, which Tier 3 already excludes in full
+# (legacy-vowifi-vendor-filter.mk). They are kept because an ePDG's certificate
+# chain is the carrier's choice, not the web PKI's, and pruning them blind would
+# break a tunnel we cannot currently test. Prune against a real carrier trace,
+# not against browser policy.
 vendor/etc/ipsec/ipsec.d/cacerts/Entrust.net_Certification_Authority_2048.cer
 vendor/etc/ipsec/ipsec.d/cacerts/GeoTrust_PCA_G3_Root.der
 vendor/etc/ipsec/ipsec.d/cacerts/GeoTrust_Primary_CA.der

@@ -856,7 +856,10 @@ function resolve_section() {
     if [[ "${matches}" -ne 1 ]]; then
         {
             echo "Unknown --section '${requested}'. Known sections:"
-            sed -n 's/.*-- section: \(.*\)$/  \1/p' "${list}" | sort
+            # Anchored and character-restricted: an unanchored ".*" also
+            # matches the prose in proprietary-files.txt's own header, which
+            # made this print a bogus 19th "section".
+            sed -n 's/^#.*-- section: \([A-Za-z0-9_-]\{1,\}\)$/  \1/p' "${list}" | sort
             echo
             echo "Pass 'section: <tag>' verbatim to bypass this check."
         } >&2
