@@ -213,11 +213,20 @@
  * vendor RIL emits this URC continuously (740 times in four minutes) until the
  * APN is valid again, and one re-issue per second is enough.
  *
- * IF ANYTHING HERE FAILS it logs and disables itself. Telephony then behaves
+ * IF THIS PART FAILS it logs and disables itself. Telephony then behaves
  * exactly as it did before this part existed - E-092 is back, nothing else
  * changes. The mechanism only becomes active after both hooks and the worker
  * are verified. If a failed rollback physically leaves a hook in one GOT slot,
  * it remains a safe forwarding thunk; its published original is never cleared.
+ *
+ * THAT PROMISE IS ABOUT PART 2 ONLY, and the distinction is load-bearing.
+ * RIL_Init deliberately does NOT fail open: if patchOnRequest fails, it
+ * returns NULL, and by then realInit() has already brought the vendor RIL all
+ * the way up. The result is a half-initialised telephony stack, which is worse
+ * than either alternative -- but the alternative is handing back an unpatched
+ * table, and that silently restores MediaTek's destructive radio-capability
+ * switch behind an ordinary Settings tap (PART 1). Fail closed is the
+ * deliberate choice; do not "fix" it into fail open without reading PART 1.
  */
 
 #define LOG_TAG "k50sv1-ril-shim"
@@ -493,6 +502,35 @@ _Static_assert(offsetof(MtkInitialAttachApn, canHandleIms) == 0x50,
 _Static_assert(sizeof(MtkInitialAttachApn) == 0x58,
                "MTK's initial-attach APN payload is 88 bytes");
 
+/*
+ * The design rests on this struct being AOSP's RIL_InitialAttachApn_v15 plus
+ * exactly one trailing int, and on all twelve AOSP offsets being unchanged.
+ * Two absolute constants cannot express that: they would still hold if two
+ * AOSP fields swapped places. Compare against the header instead, so a change
+ * on either side is a compile error rather than a wrong pointer written into
+ * the vendor RIL's parcel.
+ */
+_Static_assert(sizeof(RIL_InitialAttachApn_v15) ==
+                   offsetof(MtkInitialAttachApn, canHandleIms),
+               "MTK's extra int must begin exactly where AOSP's v15 ends");
+#define IA_PIN_OFFSET(member) \
+    _Static_assert(offsetof(MtkInitialAttachApn, member) == \
+                       offsetof(RIL_InitialAttachApn_v15, member), \
+                   #member " moved relative to RIL_InitialAttachApn_v15")
+IA_PIN_OFFSET(apn);
+IA_PIN_OFFSET(protocol);
+IA_PIN_OFFSET(roamingProtocol);
+IA_PIN_OFFSET(authtype);
+IA_PIN_OFFSET(username);
+IA_PIN_OFFSET(password);
+IA_PIN_OFFSET(supportedTypesBitmask);
+IA_PIN_OFFSET(bearerBitmask);
+IA_PIN_OFFSET(modemCognitive);
+IA_PIN_OFFSET(mtu);
+IA_PIN_OFFSET(mvnoType);
+IA_PIN_OFFSET(mvnoMatchData);
+#undef IA_PIN_OFFSET
+
 /* MediaTek extension; not in ril.h. Confirmed as the immediate `mov w0, #0xbcc`
  * in mtk-ril.so's onAttachApnReset, and as requestNumber 3020 in
  * librilproxy.so's s_unsolResponses entry whose handler is resetAttachApnInd. */
@@ -504,6 +542,20 @@ _Static_assert(sizeof(MtkInitialAttachApn) == 0x58,
  * request in flight across the DSDS pair. Host tests shorten this interval. */
 #ifndef REISSUE_MIN_INTERVAL_NS
 #define REISSUE_MIN_INTERVAL_NS (1000L * 1000L * 1000L)
+#endif
+
+/*
+ * How long a re-issued request may stay in flight before the worker takes its
+ * single-flight slot back. The vendor RIL completes these in milliseconds; ten
+ * seconds is far outside the normal distribution and is a fault, not a slow
+ * path. Recovering is strictly better than the alternative, because the slot
+ * is never handed back by anything else: completeHook is the only writer that
+ * clears it, so one uncompleted request used to stop every later re-send for
+ * the rest of the boot -- silently, with IA_HOOKS_ACTIVE still published and
+ * not one line logged.
+ */
+#ifndef REISSUE_INFLIGHT_TIMEOUT_NS
+#define REISSUE_INFLIGHT_TIMEOUT_NS (10L * 1000L * 1000L * 1000L)
 #endif
 
 typedef void (*ril_unsol_fn)(int unsolResponse, const void *data, size_t datalen,
@@ -542,6 +594,13 @@ static int sReissueTokenObject;
 #define REISSUE_TOKEN ((RIL_Token)&sReissueTokenObject)
 
 static pthread_mutex_t sIaLock = PTHREAD_MUTEX_INITIALIZER;
+/*
+ * Initialised against CLOCK_MONOTONIC by initIaWake(), because the worker
+ * waits on it with a deadline and this is a handset: NITZ moves CLOCK_REALTIME
+ * backwards on the first network registration, which is exactly when the
+ * attach-APN URC storm happens. PTHREAD_COND_INITIALIZER would give the
+ * default realtime clock.
+ */
 static pthread_cond_t sIaWake = PTHREAD_COND_INITIALIZER;
 static MtkInitialAttachApn sIaCache[SIM_COUNT];
 static bool sIaCached[SIM_COUNT];
@@ -557,13 +616,30 @@ static bool attachApnHooksActive(void)
             IA_HOOKS_ACTIVE;
 }
 
+/*
+ * Overwrite before releasing. The APN password is the reason this whole cache
+ * exists (the vendor RIL refuses to restore an APN whose cache carried one),
+ * so it is present in every cached copy, and librilproxy's own
+ * memsetAndFreeStrings zeroes before free for the same reason. free() alone
+ * leaves the plaintext in a heap chunk any later allocation in this process
+ * can read back.
+ */
+static void freeSecret(char **field)
+{
+    if (*field != NULL) {
+        explicit_bzero(*field, strlen(*field));
+        free(*field);
+        *field = NULL;
+    }
+}
+
 static void freeIaStrings(MtkInitialAttachApn *ia)
 {
     free(ia->apn);
     free(ia->protocol);
     free(ia->roamingProtocol);
-    free(ia->username);
-    free(ia->password);
+    freeSecret(&ia->username);
+    freeSecret(&ia->password);
     free(ia->mvnoType);
     free(ia->mvnoMatchData);
     memset(ia, 0, sizeof(*ia));
@@ -708,6 +784,12 @@ static int64_t timespecToNs(const struct timespec *time)
     return (int64_t)time->tv_sec * 1000000000LL + time->tv_nsec;
 }
 
+static void nsToTimespec(int64_t ns, struct timespec *out)
+{
+    out->tv_sec = (time_t)(ns / 1000000000LL);
+    out->tv_nsec = (long)(ns % 1000000000LL);
+}
+
 static void sleepUntilMonotonic(int64_t deadlineNs)
 {
     struct timespec deadline = {
@@ -767,6 +849,32 @@ static void *iaWorker(void *unused)
                 }
                 break;
             }
+            if (sIaRequestInFlight) {
+                /*
+                 * Bounded, because nothing else can free the slot. An
+                 * unbounded wait here is indistinguishable from a healthy idle
+                 * worker and was the one path in this file that could fail
+                 * without logging.
+                 */
+                struct timespec deadline;
+
+                if (clock_gettime(CLOCK_MONOTONIC, &deadline) != 0) {
+                    RLOGE("clock_gettime(CLOCK_MONOTONIC) failed: %s; "
+                          "releasing the in-flight slot", strerror(errno));
+                    sIaRequestInFlight = false;
+                    continue;
+                }
+                nsToTimespec(timespecToNs(&deadline) +
+                             REISSUE_INFLIGHT_TIMEOUT_NS, &deadline);
+                if (pthread_cond_timedwait(&sIaWake, &sIaLock, &deadline) ==
+                        ETIMEDOUT && sIaRequestInFlight) {
+                    RLOGE("re-issued SET_INITIAL_ATTACH_APN never completed "
+                          "within %ld ms; releasing the in-flight slot",
+                          (long)(REISSUE_INFLIGHT_TIMEOUT_NS / 1000000L));
+                    sIaRequestInFlight = false;
+                }
+                continue;
+            }
             pthread_cond_wait(&sIaWake, &sIaLock);
         }
 
@@ -785,8 +893,22 @@ static void *iaWorker(void *unused)
         }
 
         if (!copyIa(&outgoing, &sIaCache[socketId])) {
+            /*
+             * Charge the failed attempt to the rate limiter before releasing
+             * the lock. Without this, sIaPending[socketId] is still set and
+             * sIaLastIssue is unchanged, so the next iteration recomputes
+             * waitUntilNs == 0 and retries immediately -- measured at 49.4 M
+             * iterations and a full core in one second, each one emitting an
+             * RLOGE, under exactly the memory pressure that caused it.
+             */
+            if (clock_gettime(CLOCK_MONOTONIC, &sIaLastIssue) == 0) {
+                sIaLastIssueValid = true;
+            } else {
+                sIaLastIssueValid = false;
+            }
             pthread_mutex_unlock(&sIaLock);
-            RLOGE("out of memory re-issuing the initial-attach APN");
+            RLOGE("out of memory re-issuing the initial-attach APN; "
+                  "retrying after the rate-limit interval");
             continue;
         }
         sIaPending[socketId] = false;
@@ -1036,6 +1158,7 @@ static bool findGotEntry(const GotScan *scan, const char *symbol,
 {
     size_t symbolLen = strlen(symbol) + 1;
     size_t i;
+    bool found = false;
 
     memset(out, 0, sizeof(*out));
 #ifdef K50SV1_RIL_SHIM_HOST_TEST
@@ -1100,6 +1223,22 @@ static bool findGotEntry(const GotScan *scan, const char *symbol,
                   out->original);
             return false;
         }
+        /*
+         * Keep scanning. Returning on the first match would leave a second
+         * slot for the same symbol unhooked, and the resulting behaviour --
+         * some calls intercepted and some not -- is worse than not hooking at
+         * all and would show up only as an intermittent missing re-send.
+         * One slot per symbol is what this blob has; anything else is a
+         * different binary and must stop the install.
+         */
+        if (found) {
+            RLOGE("%s has more than one PLT GOT entry for %s; refusing to hook",
+                  scan->soname, symbol);
+            return false;
+        }
+        found = true;
+    }
+    if (found) {
         return true;
     }
     RLOGE("%s has no PLT GOT entry for %s", scan->soname, symbol);
@@ -1219,11 +1358,32 @@ static bool rollbackGotHooks(const GotEntry *unsol, const GotEntry *complete)
     return completeRestored && unsolRestored;
 }
 
+/*
+ * Re-initialise sIaWake against CLOCK_MONOTONIC. Called from startIaWorker
+ * before pthread_create, which is the only point at which anything can wait on
+ * or signal it: unsolHook and completeHook both become reachable only after
+ * this function's caller publishes IA_HOOKS_ACTIVE.
+ */
+static void initIaWake(void)
+{
+    pthread_condattr_t attr;
+
+    if (pthread_condattr_init(&attr) != 0) {
+        return;
+    }
+    if (pthread_condattr_setclock(&attr, CLOCK_MONOTONIC) == 0) {
+        (void)pthread_cond_init(&sIaWake, &attr);
+    }
+    (void)pthread_condattr_destroy(&attr);
+}
+
 static int startIaWorker(void)
 {
     pthread_attr_t attr;
     pthread_t worker;
     int rc;
+
+    initIaWake();
 
 #ifdef K50SV1_RIL_SHIM_HOST_TEST
     if (sGotTestControl.failWorkerCreate) {
@@ -1350,6 +1510,7 @@ static int patchOnRequest(const RIL_RadioFunctions *funcs)
     uintptr_t page;
     size_t span;
     int oldProt;
+    bool patched;
 
     if (pageSize <= 0) {
         return -1;
@@ -1372,12 +1533,24 @@ static int patchOnRequest(const RIL_RadioFunctions *funcs)
 
     sRealOnRequest = funcs->onRequest;
     ((RIL_RadioFunctions *)funcs)->onRequest = onRequestShim;
+    /* Read back, the way writeGotValue does for the two GOT slots. A write
+     * into a page whose mapping is not what mappingProt reported would
+     * otherwise be reported as success and leave sRealOnRequest published
+     * against a table that still holds the blob's own pointer. */
+    patched = (funcs->onRequest == onRequestShim);
 
     if ((oldProt & PROT_WRITE) == 0 &&
         mprotect((void *)page, span, oldProt) != 0) {
-        /* The patch is in; failing to restore is worth a line but not a
-         * failure, and there is nothing useful to do about it. */
-        RLOGE("mprotect(%p, restore) failed", (void *)page);
+        /* Retry once: a permanently writable .data.rel.ro page in the RIL
+         * process is worth one more syscall to avoid. */
+        if (mprotect((void *)page, span, oldProt) != 0) {
+            RLOGE("mprotect(%p, restore) failed twice; the RIL function table "
+                  "page stays writable", (void *)page);
+        }
+    }
+    if (!patched) {
+        RLOGE("onRequest patch did not take at %p", (void *)field);
+        return -1;
     }
     return 0;
 }
@@ -1393,12 +1566,31 @@ static void *openRealRil(void)
     return sRealHandle;
 }
 
+/* Set only on the fully successful path, so a failed init can never be
+ * mistaken for a completed one. */
+static bool sOnRequestPatched;
+
 const RIL_RadioFunctions *RIL_Init(const struct RIL_Env *env, int argc,
                                    char **argv)
 {
     ril_init_fn realInit;
-    void *handle = openRealRil();
+    void *handle;
 
+    if (sOnRequestPatched) {
+        /*
+         * A second call would re-enter the blob's RIL_Init and then read
+         * sRealFuncs->onRequest -- which is already onRequestShim, so
+         * sRealOnRequest would become the shim itself and every dispatched
+         * request would tail-call forever: no crash, no log, and a telephony
+         * stack that goes silent while the RIL below it is visibly healthy.
+         * rilproxy calls this once; the guard costs a branch and removes the
+         * question.
+         */
+        RLOGE("RIL_Init called more than once; returning the patched table");
+        return sRealFuncs;
+    }
+
+    handle = openRealRil();
     if (handle == NULL) {
         return NULL;
     }
@@ -1441,6 +1633,7 @@ const RIL_RadioFunctions *RIL_Init(const struct RIL_Env *env, int argc,
               "radio-capability path");
         return NULL;
     }
+    sOnRequestPatched = true;
 
     /*
      * The payload layout this shim caches is only the one in flight while the

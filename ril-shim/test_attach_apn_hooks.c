@@ -1,6 +1,7 @@
 #define K50SV1_RIL_SHIM_HOST_TEST 1
 #define REAL_RIL_SONAME "libfake-mtk-rilproxy.so"
 #define REISSUE_MIN_INTERVAL_NS (30L * 1000L * 1000L)
+#define REISSUE_INFLIGHT_TIMEOUT_NS (400L * 1000L * 1000L)
 
 /* Include the implementation so fault injection exercises the exact static
  * transaction and worker Android builds. The target GOT is still a separate,
@@ -508,8 +509,10 @@ static int testApnLifetimeSingleFlightAndRate(void)
     GotEntry complete;
     OwnedIaStrings firstOwned;
     OwnedIaStrings secondOwned;
+    OwnedIaStrings thirdOwned;
     MtkInitialAttachApn first;
     MtkInitialAttachApn second;
+    MtkInitialAttachApn third;
     pthread_t bursts[4];
     int i;
     int64_t issueSpacing;
@@ -560,6 +563,27 @@ static int testApnLifetimeSingleFlightAndRate(void)
     nanosleep(&pause, NULL);
     CHECK(sCapturedCount == 2); /* pending burst was coalesced exactly once */
     CHECK(sOutstanding == 0);
+
+    /*
+     * A re-issued request that the vendor RIL accepts and never completes must
+     * not cost the single-flight slot permanently. completeHook is the only
+     * writer that clears sIaRequestInFlight, so before the bounded wait one
+     * dropped completion stopped every later re-send for the rest of the boot
+     * -- with IA_HOOKS_ACTIVE still published and nothing logged.
+     */
+    third = makeOwnedIa("third", 300, &thirdOwned);
+    onRequestShim(RIL_REQUEST_SET_INITIAL_ATTACH_APN, &third, sizeof(third),
+                  (RIL_Token)(uintptr_t)0x3000, RIL_SOCKET_1);
+    freeOwnedIa(&thirdOwned);
+    callFixtureUnsol(RIL_UNSOL_RESET_ATTACH_APN);
+    CHECK(waitForCapturedCount(3) == 0);
+    CHECK(checkCaptured(&sCaptured[2], "third", 300) == 0);
+
+    /* No completeSyntheticRequest(): this is the dropped completion. */
+    callFixtureUnsol(RIL_UNSOL_RESET_ATTACH_APN);
+    CHECK(waitForCapturedCount(4) == 0);
+    CHECK(checkCaptured(&sCaptured[3], "third", 300) == 0);
+
     fprintf(stderr, "APN deep-copy, single-flight, and rate limiting: PASS\n");
     return 0;
 }
