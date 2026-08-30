@@ -1,0 +1,28 @@
+# The control-socket directory is created TWICE, and only the first creation
+# gets its label from file_contexts.
+#
+# init.mt6755.rc's `on post-fs-data` mkdirs /data/vendor/wifi/sock and
+# restorecons it, so at boot it is wpa_data_file. But wpa_supplicant owns that
+# directory for the lifetime of the interface: ctrl_iface_unix.c rmdir()s it in
+# wpa_supplicant_ctrl_iface_deinit() and mkdir()s it again on the next
+# ctrl_iface_init(). A directory created at runtime takes its parent's type,
+# not file_contexts, so after the first Wi-Fi off/on cycle the directory and
+# the wlan0 socket inside it were both vendor_data_file again. Measured on the
+# live image: nine distinct denials, 36 records, all of them after 23:21 while
+# /data/vendor/wifi/wpa from 14:19 still carried the right label.
+#
+# A named type_transition is how AOSP solves the identical problem one
+# directory over -- system/sepolicy/vendor/hal_wifi_supplicant_default.te:8
+# does `type_transition hal_wifi_supplicant_default wifi_data_file:dir
+# wpa_socket "sockets"` for the legacy /data/misc path. This is the same rule
+# for this port's path.
+#
+# What is deliberately NOT granted: vendor_data_file sock_file create, or any
+# file access on vendor_data_file. With the transition in place the socket is
+# created inside a wpa_data_file directory and inherits that type, so AOSP's
+# own wpa_data_file:sock_file create_file_perms covers it. Granting the generic
+# type would let wpa_supplicant put a socket anywhere under /data/vendor.
+# public/domain.te already gives every domain vendor_data_file:dir
+# { getattr search }, so only the three mutating permissions are needed here.
+allow hal_wifi_supplicant_default vendor_data_file:dir { write add_name remove_name };
+type_transition hal_wifi_supplicant_default vendor_data_file:dir wpa_data_file "sock";

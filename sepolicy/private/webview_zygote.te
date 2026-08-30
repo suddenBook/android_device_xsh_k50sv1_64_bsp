@@ -1,0 +1,30 @@
+# Two AOSP gaps in webview_zygote's fork path, both of which abort the child
+# under enforcing rather than degrade.
+#
+# webview_zygote must REOPEN every inherited fd by path in each forked child
+# (FileDescriptorInfo::ReopenOrDetach) -- AOSP's own comment in
+# private/webview_zygote.te:41-44 says so, citing b/30963384, and grants
+# debugfs_trace_marker getattr for exactly that reason. The list it grants is
+# incomplete: ART holds an fd to the executable, and on this build that is
+# /system/bin/app_process32, i.e. zygote_exec. private/zygote.te:92 gives the
+# main zygote `zygote_exec:file rx_file_perms`; webview_zygote got nothing.
+# Measured on the live image: 16 denials across read/open/getattr, one set per
+# fork.
+#
+# Read only, never execute: private/webview_zygote.te:92 neverallows
+# `webview_zygote *:file execute_no_trans`, and the reopen is O_RDONLY.
+allow webview_zygote zygote_exec:file r_file_perms;
+
+# ART's Runtime reads its DeviceConfig flags in every zygote it initialises.
+# private/zygote.te:140-141 grants both property types to `zygote` and nothing
+# grants them to webview_zygote, so the flags silently fell back to defaults
+# and logged 28 denials. public/property.te:423-424 exempts both types from
+# the read neverallow list, so this is a plain gap rather than a decision.
+get_prop(webview_zygote, device_config_runtime_native_prop)
+get_prop(webview_zygote, device_config_runtime_native_boot_prop)
+
+# NOT granted, on purpose: the tombstoned/tombstone_data_file/crash-socket
+# denials that appear beside these. Those exist only because the child was
+# aborting -- see the trace_marker fix in init.mt6755.rc `on init`. A crash
+# path is a symptom, and private/webview_zygote.te:88 already names crash_dump
+# as the one domain webview_zygote may transition to for that purpose.
