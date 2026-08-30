@@ -3,8 +3,19 @@ vendor.thermal.manager.data               u:object_r:mtk_thermal_config_prop:s0
 # Prefix form, matching Stock's own vendor_property_contexts. The previous
 # revision listed eight exact keys, which meant every other key the WMT stack
 # writes fell through AOSP's `persist.vendor.` / `vendor.` catch-all to
-# vendor_default_prop, a type no vendor domain may set. The namespace belongs
-# to the connectivity subsystem in its entirety; enumerating it bought nothing.
+# vendor_default_prop. The namespace belongs to the connectivity subsystem in
+# its entirety; enumerating it bought nothing.
+#
+# Note the fall-through is a least-privilege problem, NOT a compile-time one:
+# the neverallow on `vendor_default_prop:property_service set` is wrapped in
+# compatible_property_only() (system/sepolicy/public/domain.te), and
+# PRODUCT_COMPATIBLE_PROPERTY is false on this product because
+# PRODUCT_SHIPPING_API_LEVEL is 26. An earlier revision of this comment said
+# "a type no vendor domain may set", which is the same overstatement that was
+# corrected in five other files this session -- vendor_init holds a blanket
+# grant here, so the writes would have SUCCEEDED while being unlabelled and
+# indistinguishable from every other vendor default. The prefix labels are
+# still right; the reason is narrower than it claimed.
 # persist.vendor.connsys.coredump.mode was deleted from vendor.prop (no reader).
 persist.vendor.connsys.                   u:object_r:mtk_wmt_prop:s0
 vendor.connsys.                           u:object_r:mtk_wmt_prop:s0
