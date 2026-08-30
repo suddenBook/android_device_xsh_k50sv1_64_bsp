@@ -87,6 +87,38 @@
          so the single-mode fact is stated somewhere; it is not fixing anything. -->
     <integer name="config_defaultPeakRefreshRate">60</integer>
 
+    <!-- Night Light. AOSP derives config_nightDisplayAvailable from
+         config_setColorTransformAccelerated (config.xml:1009), which defaults
+         false, so without this override the device has NO blue-light filter at
+         all: LiveDisplay is off for the same reason and `dumpsys color_display`
+         reported "Night display: Not available".
+
+         config_setColorTransformAccelerated is deliberately LEFT false, because
+         it means specifically "setColorTransform can be done efficiently in
+         HARDWARE" and on this HWC it cannot. Measured on the handset by turning
+         on accessibility colour inversion, which drives the same
+         DisplayTransformManager path: every layer in `dumpsys SurfaceFlinger`
+         h/w composer state flipped DEV -> CLI. That is the HWC2 contract for a
+         composer that cannot apply the matrix itself, and it is what makes the
+         feature work: SurfaceFlinger.cpp:3475 computes
+         applyColorMatrix = !hasDeviceComposition && !skipClientColorTransform,
+         so with no device composition left RenderEngine applies the matrix. The
+         panel held 63 fps throughout.
+
+         Keeping the accelerated bool false is not cosmetic. It keeps colour
+         inversion and colour correction in Settings' Experimental category with
+         AOSP's own "may affect performance" footer
+         (AccessibilitySettings.java:736, ToggleDaltonizerPreferenceFragment.java:65),
+         which is the truth here, and it leaves the developer-only global
+         saturation control unavailable (GlobalSaturationTintController.java:79).
+
+         Cost, stated rather than discovered later: while Night Light is on the
+         whole screen is GPU-composited, and `dumpsys SurfaceFlinger` reports
+         "RenderEngine supports protected context: 0", so DRM-protected video may
+         blank for as long as it is on. Both are user-reversible from the same
+         toggle. -->
+    <bool name="config_nightDisplayAvailable">true</bool>
+
     <!-- The chip is dual-band and AOSP's default for this is false. `iw list`
          on the handset enumerates a Band 2 (5180/5200/5220/5240 MHz at 30 dBm,
          plus the DFS 5260-5700 set) and lists AP among the supported interface

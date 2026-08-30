@@ -5,11 +5,24 @@
 
     <!-- LiveDisplay has nothing to drive on this hardware.
            dumpsys lineagelivedisplay -> mConfig=capabilities={}
-           dumpsys color_display     -> Night display: Not available
-                                        Global saturation: Not available
-           dumpsys SurfaceFlinger    -> uses color management: 0, ColorMode::NATIVE only
-         AOSP's config_nightDisplayAvailable is @bool/config_setColorTransformAccelerated,
-         which is false here.
+           dumpsys SurfaceFlinger     -> uses color management: 0, ColorMode::NATIVE only
+         There is no LineageHardware backend at all: no COLOR_BALANCE, no display
+         colour calibration, no outdoor mode, no CABC, no picture adjustment.
+
+         The colour-temperature half is now served by AOSP instead. The device
+         overlay sets config_nightDisplayAvailable=true (see the measurement in
+         overlay/frameworks/base/core/res/res/values/config.xml), so Settings'
+         Display menu carries AOSP's own Night Light entry, which
+         display_settings.xml:44 lists alongside this one. LiveDisplay itself
+         would defer to it anyway: ColorTemperatureController.java:84 computes
+         mUseTemperatureAdjustment = !mNightDisplayAvailable && (...), so with
+         Night Light available LiveDisplay drives no temperature of its own.
+
+         An earlier revision of this comment justified disabling LiveDisplay with
+         "Night display: Not available". That was circular, because Night Display
+         was unavailable only for the reason that this tree had never overridden
+         the bool, and it is why the handset shipped with no blue-light filter of
+         any kind.
 
          Settings gates the whole LiveDisplay entry on this bool alone, not on
          capabilities (res/xml/display_settings.xml). With capabilities empty AND
