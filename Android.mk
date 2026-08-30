@@ -157,7 +157,7 @@ k50sv1_xml_files := $(filter-out $(k50sv1_apn_fragment), \
 #
 # recovery/ is searched as well as rootdir/, because recovery/root/
 # init.recovery.mt6755.rc is a hand-written init script that NOTHING else
-# checks. It is not a PRODUCT_COPY_FILES entry, so Makefile:35-39's
+# checks. It is not a PRODUCT_COPY_FILES entry, so Makefile:39-40's
 # copy-init-script-file-checked never sees it: Makefile:1752-1757 picks the
 # directory up implicitly through $(wildcard $(TARGET_DEVICE_DIR)/recovery/root)
 # and :1932-1933 cp -rf's it wholesale into $(TARGET_RECOVERY_OUT). A parse

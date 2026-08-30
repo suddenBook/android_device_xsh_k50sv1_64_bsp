@@ -10,7 +10,12 @@ Verified baseline:
 - legacy A-only GPT; separate boot/recovery; no dynamic partitions or AVB
 - Stock Linux 3.18.119 prebuilt kernel and Android DT table
 - 720x1560 at 60 Hz; FT8057 touch; IMX145 + GC5025 HAL1 cameras
-- MIR3DA accelerometer and functional Hall/stylus-slot switch
+- one working rear flash LED and one rotor (ERM) vibrator
+- three-position tray: two SIM slots in DSDS plus a removable microSD slot,
+  shipped with no card in it
+- MIR3DA accelerometer and functional Hall/stylus-slot switch. The bundled
+  stylus is ordinary passive capacitive: no hover, pressure, button or
+  digitiser, so no active-stylus capability is declared
 - two physical microphone apertures, one bottom speaker, earpiece and USB OTG
 - no fingerprint, notification LED, NFC, 3.5 mm jack, light, proximity,
   compass, or gyroscope hardware

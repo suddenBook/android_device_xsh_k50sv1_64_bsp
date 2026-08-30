@@ -149,7 +149,12 @@ persist.vendor.mtk_dynamic_ims_switch=1
 # is not: it is MediaTek's ePDG-capable RIL build flag, and the AP-driven IMS
 # PDN path is behind it. libmtkconfig.so's mtkGetFeatureByOs() maps feature id 6
 # to this property; libmtkrilutils.so's isEpdgSupport() is literally
-# `mtkGetFeature(6) == "1"`; and mtk-ril.so guards 36 sites on it, including the
+# `mtkGetFeature(6) == "1"`; and mtk-ril.so guards 36 sites on it, all of them
+# through that isEpdgSupport call -- do not go looking for the property NAME in
+# mtk-ril.so, because it is not there. The literal string appears in 16 other
+# blobs (libmtkconfig.so, libmtkproperty.so, mtk-rilproxy.so, librilproxy.so,
+# the libmal* family, mtkmal, epdg_wod, libmdfx.so and the two mediatek-*.jar
+# files) and in none of them is it mtk-ril.so. The guarded sites include the
 # first two instructions of responseUnsolDataCallRspToMal (0xa9fe0), the ONLY
 # function in the RIL that calls mal_datamngr_set_data_call_info{,_tlv}:
 #
@@ -264,6 +269,16 @@ persist.vendor.wfc.sys_wfc_support=1
 # wrong lever: it is read at 42 other sites in the APK plus GbaManager, and
 # switches the whole stack to the Gen93 modem-driven IMS setup path on a Gen91
 # MT6755.
+#
+# "stays 0" is not stock parity, and the block above should not be read as
+# claiming it is. ro.vendor.md_auto_setup_ims appears in NONE of stock's nine
+# prop files (system/default.prop, system/system/{build,custom}.prop,
+# system/system/etc/mtklog-config.prop, system/system/product/build.prop,
+# vendor/{build,default}.prop, vendor/odm/etc/build.prop and
+# recovery/ramdisk_x/default.prop), so stock shipped it unset. This line pins
+# the implicit code default that the readers fall back to. That is the reason
+# to keep it written down rather than to delete it as redundant: nothing
+# upstream guarantees the fallback stays 0.
 ro.vendor.mtk_telephony_add_on_policy=0
 ro.vendor.md_auto_setup_ims=0
 # ro.vendor.md_mims_support=1 used to be the next line. It is DELETED, because

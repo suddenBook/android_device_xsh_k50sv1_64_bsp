@@ -72,6 +72,27 @@
         <fqname>@2.0::IHealth/default</fqname>
     </hal>
     <hal format="hidl">
+        <!-- KEYS ON THIS DEVICE ARE NOT TEE-BACKED. This entry reads like an
+             ordinary hardware HAL and is not one: the service behind it is
+             AOSP's own hardware/interfaces/keymaster/3.0/default, built from
+             source by device.mk, and its createKeymaster3Device()
+             (KeymasterDevice.cpp:67-75) calls hw_get_module_by_class for
+             KEYSTORE_HARDWARE_MODULE_ID, logs "Could not find any keystore
+             module, using software-only implementation." and returns
+             CreateKeymasterDevice(), the pure-software SoftKeymaster.
+
+             There is no keystore.*.so in vendor/xsh/k50sv1_64_bsp to find, and
+             none in the stock image either: stock's vendor/lib64/hw carries
+             android.hardware.keymaster@3.0-impl.so and no keystore module, so
+             Stock ran the same software implementation. This is a property of
+             the handset, not a regression introduced by this port.
+
+             Consequence: KM_TAG_ROOT_OF_TRUST, hardware-enforced key
+             authorisations and attestation are all software claims. Anything
+             that must be genuinely hardware-bound has to look elsewhere. The
+             gatekeeper HAL is the same story, which is why extract-files.sh
+             pins libSoftGatekeeper.so by hash rather than the
+             gatekeeper.default.so symlink to it. -->
         <name>android.hardware.keymaster</name>
         <transport>hwbinder</transport>
         <fqname>@3.0::IKeymasterDevice/default</fqname>
@@ -166,7 +187,31 @@
          declared because the process really does serve it, and an undeclared
          registered interface is a latent trap.
          sepolicy/vendor/hwservice_contexts already labels it
-         hal_wifi_supplicant_hwservice. -->
+         hal_wifi_supplicant_hwservice.
+
+         The supplicant is not the only process that serves more than it
+         declares. /vendor/bin/hw/android.hardware.audio@5.0-service-mediatek
+         imports registerAsService for two further interfaces that this
+         manifest deliberately does NOT declare, audited and left that way:
+             android.hardware.soundtrigger@2.2::ISoundTriggerHw
+             android.hardware.bluetooth.a2dp@1.0::IBluetoothAudioOffload
+         (its third and fourth registerAsService imports, audio@5.0
+         IDevicesFactory and audio.effect@5.0 IEffectsFactory, are declared
+         above, as is bluetooth.audio@2.0 IBluetoothAudioProvidersFactory.)
+         Neither has a client here: no soundtrigger feature is declared in
+         permissions/, and no A2DP-offload property is set. Leaving them out
+         costs only that a getService() for them returns null, by the
+         Transport::EMPTY path described further down this file; declaring
+         them would put two unused interfaces on the VINTF compatibility
+         surface and, if the process ever stopped registering one, turn a fast
+         null into getRawServiceInternal's retry loop (ServiceManagement.cpp:
+         774-808), which waits one second per attempt with no bound.
+
+         The same binary links android.hardware.broadcastradio@1.0.so and
+         @1.1.so, and that is ALL it does with them: readelf shows zero
+         broadcastradio symbols of any kind, registerAsService included. They
+         are dead DT_NEEDED entries from MediaTek's build, not a served
+         interface, and nothing should be declared for them. -->
     <hal format="hidl">
         <name>vendor.mediatek.hardware.wifi.supplicant</name>
         <transport>hwbinder</transport>
