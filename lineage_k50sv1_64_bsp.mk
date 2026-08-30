@@ -103,17 +103,23 @@ ifeq ($(K50SV1_BUILD_TIER),1)
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.control_privapp_permissions=log
 endif
 
-# Select LineageOS's partner-GMS path. WITH_GMS_GO is deliberately not set:
-# vendor/lineage/config/partner_gms.mk:6-9 would route it to products/gms_go.mk,
-# which does not exist here. No GMS Go substitution has ever been active, so the
-# low_ram removal above changes nothing about the payload. The explicit guard
-# prevents the optional product inherit from silently producing a GMS-free
-# image.
-WITH_GMS := true
-ifeq ($(wildcard vendor/partner_gms/products/gms.mk),)
-$(error Missing vendor/partner_gms/products/gms.mk; import the pinned NikGapps omni payload first)
-endif
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+
+# Google Mobile Services: MindTheGapps, the package LineageOS points its own
+# users at. WITH_GMS is deliberately NOT set. That flag exists to reach
+# vendor/partner_gms (vendor/lineage/config/partner_gms.mk:13), which is
+# Google's real partner payload and is not what this device ships; setting it
+# for a tree without that repository would be an inherit-product-if-exists that
+# silently does nothing. The payload is inherited by name instead, so a missing
+# import is a build error rather than a GMS-free image.
+#
+# vendor/gapps is MindTheGapps' own repository layout, with a newer released
+# payload than its checked-in blobs. Nothing in it is hand-edited; see
+# vendor/gapps/README.md and work/k50sv1-bringup/tools/import-mindthegapps.sh.
+ifeq ($(wildcard vendor/gapps/arm64/arm64-vendor.mk),)
+$(error Missing vendor/gapps/arm64/arm64-vendor.mk; run tools/import-mindthegapps.sh first)
+endif
+$(call inherit-product, vendor/gapps/arm64/arm64-vendor.mk)
 
 # Huawei AppGallery and HMS Core, at the owner's request. Guarded the same way
 # as the GMS payload above: the tree carries the makefile, the binaries live in

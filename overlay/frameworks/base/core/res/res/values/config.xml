@@ -211,4 +211,23 @@
          Android 10 and has zero Java readers. Overlaying it does nothing. -->
     <bool name="config_device_wfc_ims_available">true</bool>
 
+    <!-- The device configurator, i.e. the one package allowed to write
+         DeviceConfig. WRITE_DEVICE_CONFIG is
+         protectionLevel="signature|verifier|configurator"
+         (frameworks/base/core/res/AndroidManifest.xml:2624) and the
+         configurator half is granted to exactly the package this resource
+         names (PermissionManagerService.java:2050-2055 via
+         PackageManagerService.getDeviceConfiguratorPackageName():21501-21504).
+         AOSP leaves it empty (config.xml:2954), so on a GMS build nothing may
+         write DeviceConfig and every GMS Phenotype flag push fails: measured
+         at 11 344 W/PlatformConfigurator lines in one 14 h uptime, the single
+         largest log producer on the handset, and zero afterwards.
+
+         Correct only while the GMS payload is inherited. It is set here rather
+         than in vendor/gapps because vendor/gapps is a generated mirror of
+         MindTheGapps and is never hand-edited; the decision to ship GMS is the
+         device's, and it is made ten lines apart in
+         lineage_k50sv1_64_bsp.mk. Remove both together. -->
+    <string name="config_deviceConfiguratorPackageName" translatable="false">com.google.android.gms</string>
+
 </resources>
