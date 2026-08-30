@@ -410,6 +410,31 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 
 # Screen-on maximum performance. One leaf daemon; see perfd/k50sv1_perfd.c for
 # why it exists, what it measured, and the six-site recipe to remove it.
+# The two HWC2 adapters, built from unmodified AOSP source instead of shipped as
+# blobs. They MUST be named here explicitly, and finding out why cost a build:
+#
+# They are shared_libs of android.hardware.graphics.composer@2.1-IMPL
+# (hardware/interfaces/graphics/composer/2.1/default/Android.bp), not of the
+# -service. This device installs the PREBUILT impl -- `prefer: true` in the
+# generated vendor Android.bp makes it win over AOSP's source -- and a
+# cc_prebuilt_library_shared does not pull its DT_NEEDED entries into the build
+# graph. So with the adapter blobs removed and nothing naming the source
+# modules, nothing built them: `find out/.../vendor -name 'libhwc2on*'` came back
+# empty while BOTH installed impls (lib and lib64) still DT_NEEDed them. That is
+# a dlopen failure in the composer HAL, i.e. no display at all.
+#
+# Caught before flashing by comparing the impl's undefined symbols against the
+# built adapters' exported ones; keep doing that when a prebuilt's dependency
+# changes hands:
+#   nm -D --undefined-only <impl>.so | grep HWC2On
+#   nm -D --defined-only  <adapter>.so
+# The two mangled constructors it needs are
+#   _ZN7android14HWC2On1AdapterC1EP21hwc_composer_device_1
+#   _ZN7android15HWC2OnFbAdapterC1EP20framebuffer_device_t
+PRODUCT_PACKAGES += \
+    libhwc2on1adapter \
+    libhwc2onfbadapter
+
 PRODUCT_PACKAGES += \
     k50sv1_perfd
 
