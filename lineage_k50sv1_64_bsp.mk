@@ -184,7 +184,18 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 # with no memory controller mounted, and with low_ram gone the native default
 # that both processgroup.cpp and lmkd.c infer from it is already false. Kept as
 # documentation of an immutable kernel fact, not as a working override.
-PRODUCT_PROPERTY_OVERRIDES += \
+#
+# PRODUCT_SYSTEM_DEFAULT_PROPERTIES, not PRODUCT_PROPERTY_OVERRIDES: on this
+# Treble device the latter is collapsed into FINAL_VENDOR_BUILD_PROPERTIES
+# (build/make/core/Makefile:493-497) and the key would ship in
+# /vendor/build.prop, while all three readers are /system code --
+# system/core/lmkd/lmkd.c:2114, system/core/libprocessgroup/
+# processgroup.cpp:105 and frameworks/base/services/core/java/com/android/
+# server/am/MemoryStatUtil.java:54. That is the partition-ownership rule
+# device.mk:341-347 states, and this was the one key in the tree contradicting
+# it. Inert either way, for the reason above; the point is that the file it
+# lands in should not have to be excused.
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     ro.config.per_app_memcg=false
 
 # Stock's image shape carries the legacy Android BootSignature. Every ordinary

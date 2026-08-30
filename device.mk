@@ -1,4 +1,6 @@
-LOCAL_PATH := device/xsh/k50sv1_64_bsp
+# No LOCAL_PATH assignment: node_fns.mk:188 sets it from the directory of the
+# makefile being imported, which is this one, before the include on :190. An
+# assignment here could only ever restate that or contradict it.
 include $(LOCAL_PATH)/build_tiers.mk
 
 # PRODUCT_SOONG_NAMESPACES is only a FILTER on namespaces that already exist:
@@ -271,6 +273,16 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.software.midi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.midi.xml
 
+# Radio. Lineage's existing APN module merges this four-row device fragment
+# into its clean product APN list; do not add a second destination writer.
+#
+# Lives here rather than in BoardConfig.mk because it is a product-level global,
+# not a board variable: its only reader is the apns-conf.xml prebuilt in
+# vendor/lineage/prebuilt/common/Android.mk:23-31, which branches on `ifdef
+# CUSTOM_APNS_FILE` and runs vendor/lineage/tools/custom_apns.py to merge this
+# fragment into DEFAULT_APNS_FILE. Nothing about it describes the board.
+CUSTOM_APNS_FILE := $(LOCAL_PATH)/configs/apns-conf.xml
+
 # Overlay priority is list order: Soong reverses the list so later,
 # lower-priority directories reach aapt2 first. Tier 3's narrow false value is
 # therefore listed before the ordinary diagnostic overlay's true capability.
@@ -281,7 +293,6 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
-PRODUCT_CHARACTERISTICS := default
 
 # PRODUCT_SYSTEM_DEFAULT_PROPERTIES, not PRODUCT_DEFAULT_PROPERTY_OVERRIDES.
 # On a full-Treble device BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED is true
@@ -452,3 +463,76 @@ PRODUCT_PACKAGES += \
 # live in ril-shim/.
 PRODUCT_PACKAGES += \
     libril-k50sv1-shim
+
+# PRODUCT_PACKAGES enforcement. This lives here, not in BoardConfig.mk, because
+# it is a product variable in every sense except the one that matters to
+# product.mk: main.mk:1292-1293 reads the bare globals
+# PRODUCT_ENFORCE_PACKAGES_EXIST and PRODUCT_ENFORCE_PACKAGES_EXIST_WHITELIST,
+# and neither name appears in _product_var_list, so nothing marks them read-only
+# and a plain assignment from any product makefile works.
+#
+# The raw assignment is the ONLY mechanism that works on Q, so do not "correct"
+# it to AOSP's nominal entry point. $(call enforce-product-packages-exist,...)
+# (product.mk:403-409) writes PRODUCTS.<mk>.PRODUCT_ENFORCE_PACKAGES_EXIST and
+# ...WHITELIST and marks those .KATI_READONLY -- and nothing anywhere in build/
+# ever reads a PRODUCTS.<mk>.PRODUCT_ENFORCE_PACKAGES_EXIST key. Only the file
+# these two lines lived in was wrong; the approach was always right.
+#
+# Make a PRODUCT_PACKAGES entry that names a module the build cannot see a BUILD
+# ERROR rather than silence.
+#
+# main.mk:1291-1304 already has the check; it is opt-in and nothing had opted in.
+# Without it, a package listed in PRODUCT_PACKAGES whose Android.mk was never
+# parsed simply does not install, the build reports success, and the first
+# symptom is a missing feature on the handset. That is exactly what happened to
+# the HarmonyOS Sans Styles overlay: its Android.mk sits two levels under the
+# device root, and all-makefiles-under is one level deep
+# (definitions.mk:179-181), so the module never existed and nobody was told.
+# NOTE, because the failure message points at build/make and not at this file:
+# main.mk's check is BIDIRECTIONAL. It errors on a whitelisted name that is
+# absent from PRODUCT_PACKAGES just as it does on a PRODUCT_PACKAGES entry with
+# no module -- so this list is coupled to the exact PRODUCT_PACKAGES content of
+# vendor/lineage. An upstream change that lands LineageDarkTheme, LockClock,
+# WeatherProvider or powertop, or that drops one of the compatibility names,
+# becomes a hard error HERE. The answer is still to fix the module or update
+# this list, never to switch the enforcement off (HANDOFF trap 17).
+PRODUCT_ENFORCE_PACKAGES_EXIST := true
+
+# Turning it on found twelve entries that had been missing from every build so
+# far, silently. One was a real defect: lineage-sdk's Android.mk -> Android.bp
+# conversion dropped the org.lineageos.platform.xml prebuilt while
+# vendor/lineage kept naming it. permissions/Android.bp restores that required
+# shared-library declaration locally. The other eleven come from LineageOS's
+# own product makefiles and are whitelisted rather than chased --
+# but they are listed individually, because a whitelist that says "these are
+# fine" without saying WHY is the next silent failure.
+#
+#   Browser2 / Calendar / Launcher3QuickStep / Music / MusicFX
+#       Compatibility names replaced by installed Jelly, Google Calendar,
+#       Trebuchet, Eleven and AudioFX respectively.
+#   QuickSearchBox
+#       Optional AOSP search app; no role or required library names it.
+#   LineageDarkTheme / LockClock / WeatherProvider
+#       Optional Lineage packages whose repositories are absent; no installed
+#       package or framework role requires them.
+#   powertop
+#       Optional diagnostic tool, not a runtime service.
+#
+#   product_manifest.xml
+#       A product-partition VINTF fragment. This device declares everything in
+#       the device manifest and has no /product/etc/vintf at all.
+#
+# The point of the flag is what it catches NEXT. If it fires on something new,
+# fix the module; do not add it here.
+PRODUCT_ENFORCE_PACKAGES_EXIST_WHITELIST := \
+    Browser2 \
+    Calendar \
+    Launcher3QuickStep \
+    LineageDarkTheme \
+    LockClock \
+    Music \
+    MusicFX \
+    QuickSearchBox \
+    WeatherProvider \
+    powertop \
+    product_manifest.xml

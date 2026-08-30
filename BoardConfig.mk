@@ -1,4 +1,13 @@
-DEVICE_PATH := device/xsh/k50sv1_64_bsp
+# board_config.mk:130-131 computes TARGET_DEVICE_DIR from the path of the very
+# BoardConfig.mk it is about to include on :133, and marks it .KATI_READONLY, so
+# it is both already correct here and incapable of drifting from this file's
+# real location. A hardcoded literal could.
+#
+# This only works below the board-config layer. envsetup.mk includes
+# product_config.mk (:268) BEFORE board_config.mk (:279), so TARGET_DEVICE_DIR
+# does not exist yet while device.mk and lineage_k50sv1_64_bsp.mk are being
+# parsed; those two keep their own path expressions.
+DEVICE_PATH := $(TARGET_DEVICE_DIR)
 include $(DEVICE_PATH)/build_tiers.mk
 
 # Architecture
@@ -29,10 +38,6 @@ TARGET_NO_BOOTLOADER := true
 # calls. Contrast TARGET_NO_BOOTLOADER on the next line, which IS live.
 TARGET_NO_RADIOIMAGE := true
 VENDOR_SECURITY_PATCH := 2020-08-05
-
-# Radio. Lineage's existing APN module merges this four-row device fragment
-# into its clean product APN list; do not add a second destination writer.
-CUSTOM_APNS_FILE := $(DEVICE_PATH)/configs/apns-conf.xml
 
 # Verified LCD geometry. Lineage uses width/height to select the correctly
 # sized boot animation (vendor/lineage/bootanimation/Android.mk:18-37);
@@ -293,64 +298,5 @@ BOARD_VENDOR_SEPOLICY_DIRS += \
     $(DEVICE_PATH)/sepolicy/vendor \
     $(DEVICE_PATH)/sepolicy/vowifi \
     $(DEVICE_PATH)/sepolicy/safety
-
-# Make a PRODUCT_PACKAGES entry that names a module the build cannot see a BUILD
-# ERROR rather than silence.
-#
-# main.mk:1291-1304 already has the check; it is opt-in and nothing had opted in.
-# Without it, a package listed in PRODUCT_PACKAGES whose Android.mk was never
-# parsed simply does not install, the build reports success, and the first
-# symptom is a missing feature on the handset. That is exactly what happened to
-# the HarmonyOS Sans Styles overlay: its Android.mk sits two levels under the
-# device root, and all-makefiles-under is one level deep
-# (definitions.mk:179-181), so the module never existed and nobody was told.
-# NOTE, because the failure message points at build/make and not at this file:
-# main.mk's check is BIDIRECTIONAL. It errors on a whitelisted name that is
-# absent from PRODUCT_PACKAGES just as it does on a PRODUCT_PACKAGES entry with
-# no module -- so this list is coupled to the exact PRODUCT_PACKAGES content of
-# vendor/lineage. An upstream change that lands LineageDarkTheme, LockClock,
-# WeatherProvider or powertop, or that drops one of the compatibility names,
-# becomes a hard error HERE. The answer is still to fix the module or update
-# this list, never to switch the enforcement off (HANDOFF trap 17).
-PRODUCT_ENFORCE_PACKAGES_EXIST := true
-
-# Turning it on found twelve entries that had been missing from every build so
-# far, silently. One was a real defect: lineage-sdk's Android.mk -> Android.bp
-# conversion dropped the org.lineageos.platform.xml prebuilt while
-# vendor/lineage kept naming it. permissions/Android.bp restores that required
-# shared-library declaration locally. The other eleven come from LineageOS's
-# own product makefiles and are whitelisted rather than chased --
-# but they are listed individually, because a whitelist that says "these are
-# fine" without saying WHY is the next silent failure.
-#
-#   Browser2 / Calendar / Launcher3QuickStep / Music / MusicFX
-#       Compatibility names replaced by installed Jelly, Google Calendar,
-#       Trebuchet, Eleven and AudioFX respectively.
-#   QuickSearchBox
-#       Optional AOSP search app; no role or required library names it.
-#   LineageDarkTheme / LockClock / WeatherProvider
-#       Optional Lineage packages whose repositories are absent; no installed
-#       package or framework role requires them.
-#   powertop
-#       Optional diagnostic tool, not a runtime service.
-#
-#   product_manifest.xml
-#       A product-partition VINTF fragment. This device declares everything in
-#       the device manifest and has no /product/etc/vintf at all.
-#
-# The point of the flag is what it catches NEXT. If it fires on something new,
-# fix the module; do not add it here.
-PRODUCT_ENFORCE_PACKAGES_EXIST_WHITELIST := \
-    Browser2 \
-    Calendar \
-    Launcher3QuickStep \
-    LineageDarkTheme \
-    LockClock \
-    Music \
-    MusicFX \
-    QuickSearchBox \
-    WeatherProvider \
-    powertop \
-    product_manifest.xml
 
 -include vendor/xsh/k50sv1_64_bsp/BoardConfigVendor.mk
