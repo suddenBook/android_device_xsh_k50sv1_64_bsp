@@ -51,7 +51,6 @@
                 <item>Built-In Mic</item>
                 <item>Built-In Back Mic</item>
                 <item>Voice Call In</item>
-                <item>Echo Ref In</item>
                 <item>Telephony Tx</item>
             </attachedDevices>
             <defaultOutputDevice>Speaker</defaultOutputDevice>
@@ -163,11 +162,36 @@
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="8000,16000" channelMasks="AUDIO_CHANNEL_IN_MONO"/>
                 </devicePort>
-                <devicePort tagName="Echo Ref In" type="AUDIO_DEVICE_IN_ECHO_REFERENCE" role="source">
-                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
-                             samplingRates="8000,16000,32000,44100,48000"
-                             channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO"/>
-                </devicePort>
+                <!-- No "Echo Ref In" (AUDIO_DEVICE_IN_ECHO_REFERENCE). Stock declared
+                     one, but its ONLY consumer was
+                       <route type="mix" sink="FM Tuner input"
+                              sources="FM Tuner In,Echo Ref In"/>
+                     and the FM tuner mixPort and route were removed with the rest
+                     of the FM stack (this port ships no FM app and no
+                     android.hardware.broadcastradio). Carrying the devicePort and
+                     the attachedDevices entry without a route left the device
+                     permanently unreachable: AudioPolicyManager.cpp:4455-4462
+                     drops any attached device with no route, logging
+                     "device ... is unreachable" once per audioserver start. It is
+                     removed rather than re-routed because no shipped audio blob
+                     implements it (nothing under vendor/lib{,64} references
+                     ECHO_REFERENCE at all), so a route would have advertised
+                     AUDIO_SOURCE_ECHO_REFERENCE and then failed at open time,
+                     which is worse than not offering it.
+
+                     Related, and deliberately NOT acted on: the ACCDET input
+                     device advertises SW_LINEOUT_INSERT (live bitmap SW=0xd4),
+                     and WiredAccessoryManager.java:156-166/:340-341 would map a
+                     lone lineout bit to AUDIO_DEVICE_OUT_LINE, for which there is
+                     no devicePort here. That path cannot fire on this kernel:
+                     /proc/config.gz has "# CONFIG_ACCDET_PIN_RECOGNIZATION is not
+                     set", and the owner's measured insert was SW=0x94, i.e.
+                     HEADPHONE|MICROPHONE|JACK_PHYSICAL with bit 6 clear. Without
+                     the port the framework's connection attempt is rejected with
+                     INVALID_OPERATION and audio simply stays on the speaker;
+                     with an untested port it would route to a HAL path that does
+                     not exist and go silent. Add the port only together with a
+                     measurement that shows the bit actually asserting. -->
                 <devicePort tagName="Voice Call In" type="AUDIO_DEVICE_IN_VOICE_CALL" role="source">
                      <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="8000,16000,32000,44100,48000"

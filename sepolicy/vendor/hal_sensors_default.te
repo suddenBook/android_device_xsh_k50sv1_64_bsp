@@ -1,5 +1,14 @@
 allow hal_sensors_default mtk_accelerometer_device:chr_file rw_file_perms;
 
+# The HAL 2.0 service takes wake locks: it DT_NEEDEDs libpower.so and carries
+# "Repeat initialize, collect wakelock thread". AOSP's public/hal_sensors.te
+# grants sys_nice and nothing else, so this is device-owned, and the init half
+# (group wakelock + capabilities BLOCK_SUSPEND) is in
+# rootdir/etc/init/android.hardware.sensors@2.0-service.rc. Under permissive
+# tiers only the DAC half is visible; both are needed under enforcing.
+wakelock_use(hal_sensors_default)
+
+
 allow hal_sensors_default sysfs_mtk_accelerometer:dir r_dir_perms;
 allow hal_sensors_default sysfs_mtk_accelerometer:file rw_file_perms;
 

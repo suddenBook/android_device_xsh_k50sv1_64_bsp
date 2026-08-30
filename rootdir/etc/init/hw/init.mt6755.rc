@@ -1,13 +1,6 @@
 import /vendor/etc/init/hw/init.mt6755.usb.rc
 
 on early-init
-    # Stock mounts debugfs before Android starts collecting kernel wakelocks.
-    # Without it /d/wakeup_sources is absent, so BatteryStats retries and emits
-    # a system_server wtf/DropBox write on every failed sample. AOSP already
-    # labels /wakeup_sources and grants system_server read-only access.
-    mount debugfs debugfs /sys/kernel/debug
-    chmod 0755 /sys/kernel/debug
-
     mkdir /dev/radio 0770 radio radio
 
     # Hold both clusters at their top OPP for the duration of the boot, and
@@ -35,6 +28,34 @@ on fs
     mount_all /vendor/etc/fstab.mt6755
 
 on post-fs
+    # Stock mounts debugfs before Android starts collecting kernel wakelocks.
+    # Without it /d/wakeup_sources is absent, so BatteryStats retries and emits
+    # a system_server wtf/DropBox write on every failed sample. AOSP already
+    # labels /wakeup_sources and grants system_server read-only access.
+    #
+    # `on post-fs`, not `on early-init`, and the placement is load-bearing in
+    # both directions:
+    #
+    #   * AOSP's init.rc:374 runs `restorecon --recursive --cross-filesystems
+    #     /sys/kernel/debug` in ITS `on post-fs`, which is parsed before this
+    #     file's (init.rc imports vendor rc at the end, and ActionManager runs
+    #     matching actions in insertion order). Mounting at early-init handed
+    #     that walk the whole live filesystem. Measured on this handset: 2854
+    #     debugfs inodes, 11046 with --cross-filesystems, 73 ms warm for the
+    #     identical `restorecon -R -D` call, against ro.boottime.init=941. The
+    #     walk sets nothing either way -- debugfs and tracefs are labelled by
+    #     genfscon, not by xattrs -- so it is pure cost.
+    #
+    #   * It cannot move any later than post-fs. AOSP's init.rc:421 does
+    #     `chmod 0755 /sys/kernel/debug/tracing` in `on late-fs`, and its block
+    #     is queued ahead of any vendor `on late-fs`, so the chmod would run
+    #     against an unmounted directory and fail.
+    #
+    # Nothing on this device reads debugfs before post-fs: the only other
+    # references in any /vendor/etc/init rc file are these two lines.
+    mount debugfs debugfs /sys/kernel/debug
+    chmod 0755 /sys/kernel/debug
+
     # This 3.18 kernel provides only the cpu, cpuacct, freezer and debug cgroup
     # controllers (/proc/cgroups), so the schedtune, cpuset, memory and cgroup2
     # mounts declared by /system/etc/cgroups.json all fail. AOSP init.rc then
@@ -90,6 +111,19 @@ on post-fs
     rmdir /dev/cpuset/top-app
     rmdir /dev/cpuset
 
+    # Two AOSP HAL rc files this build installs still `writepid` into the tree
+    # removed just above -- android.hardware.drm@1.0-service.rc:8
+    # (/dev/cpuset/foreground/tasks) and
+    # android.hardware.graphics.composer@2.1-service.rc:7
+    # (/dev/cpuset/system-background/tasks). Each logs one
+    #   couldn't write <pid> to /dev/cpuset/...
+    # from init at its single start, and that is the whole cost: with no
+    # CONFIG_CPUSETS there is no scheduling placement to lose. They are left
+    # alone deliberately. zz_vendor.media.omx.rc drops the same line, but that
+    # override exists because the OMX service genuinely needed two more
+    # supplementary groups; writing two more override files for two log lines a
+    # boot would be more device surface than the noise is worth.
+    #
     # No rm for memcg: nothing in the tree writepids under /dev/memcg and both
     # leaves are empty on the live handset.
     rmdir /dev/memcg/apps
@@ -585,24 +619,70 @@ on init
     # path has an owner while the framework is absent.
     chown system system /dev/spm
     chmod 0660 /dev/spm
-    # /sys/power/wakeup_count, NOT /sys/power/autosleep. libsuspend hard-selects
-    # the wakeup_count implementation (system/core/libsuspend/autosuspend.c:35),
-    # and that one opens /sys/power/state and /sys/power/wakeup_count
-    # (autosuspend_wakeup_count.cpp:52-53). autosleep is never touched, so the
-    # chown this block used to do was dead, and wakeup_count staying root-owned
-    # made autosuspend_enable() fail its O_RDWR open under `user system`.
-    chown system system /sys/power/wakeup_count
-    chown system system /sys/power/state
+    # No chown of /sys/power/state or /sys/power/wakeup_count here, and the
+    # stated reason for once having them was wrong twice over.
+    #
+    # Right half: libsuspend hard-selects the wakeup_count implementation
+    # (system/core/libsuspend/autosuspend.c:35), which opens /sys/power/state
+    # and /sys/power/wakeup_count (autosuspend_wakeup_count.cpp:52-53) and
+    # never touches /sys/power/autosleep. Stock's autosleep chown IS dead and
+    # is correctly not carried over.
+    #
+    # Wrong half: "wakeup_count staying root-owned made autosuspend_enable()
+    # fail". It never does. AOSP's own init.rc:292-293 chowns BOTH nodes to
+    # system:system, and that is in `on init`, which init queues in charger
+    # mode too (init.cpp:821-827 queues early-init, init, charger). These two
+    # lines only ever restated a grant that was already in place.
     # No `chmod 0666 /dev/kmsg` here. device.mk already condemns stock for
     # world-writing the kernel log to buy back a log line, and it is redundant
     # besides: the service declares `file /dev/kmsg w` below, init opens that fd
     # as root before dropping to `user system`, and klog.cpp:39-43 finds it
     # through android_get_control_file() before ever trying open() by path.
 
+# The SPM PCM firmware, which off-mode charging needs and never got.
+#
+# The chowns above hand /dev/spm to system, exactly as stock does, but stock's
+# `on charger` (factory_image_unpacked/vendor/etc/init/hw/init.mt6755.rc:62-65)
+# does one more thing in the same breath: `start spm_script`. That service is
+# `class core` + `oneshot` (vendor/etc/init/spm_script.rc, shipped by
+# proprietary-files.txt:209-210), and `class_start core` lives in AOSP's
+# `on boot` (system/core/rootdir/init.rc:768). Charger mode never queues
+# `on boot` -- init.cpp:821-827 queues early-init, init and charger and stops --
+# so /vendor/bin/spm_loader was never executed with the cable in and the
+# handset off, and sepolicy/safety/spm_loader.te:6 says what that costs:
+# "Opening /dev/spm read-only asks the kernel driver to load its PCM firmware."
+#
+# Without that firmware the SoC cannot enter its deep suspend state, which is
+# precisely what BoardConfig.mk's BOARD_CHARGER_ENABLE_SUSPEND was turned on
+# to obtain. The permission half of the fix shipped and the actuation half did
+# not.
+#
+# This must be its own `on charger` and not be folded into `on init`. A oneshot
+# started from `on init` would run again at `class_start core` on every normal
+# boot (Service::Start() only short-circuits on SVC_RUNNING, which a completed
+# oneshot does not have), loading the firmware twice. `on charger` runs only in
+# charger mode, where nothing else starts it.
+#
+# Ordering against AOSP's own `class_start charger` is fine and is not the
+# race the chown block above was written to fix: init.rc:777-778 is queued
+# first, so charger is forked before this oneshot, but charger's first
+# request_suspend(true) is seconds into its idle path, well after a oneshot
+# that only opens a device node has exited.
+on charger
+    start spm_script
+
 service charger /system/bin/charger
     class charger
     seclabel u:r:charger:s0
     user system
     group system graphics input wakelock
-    capabilities SYS_BOOT BLOCK_SUSPEND
+    # SYS_BOOT only. BLOCK_SUSPEND guards /sys/power/wake_lock, and Q's
+    # libsuspend charger path never opens it -- autosuspend_wakeup_count.cpp
+    # uses /sys/power/state and /sys/power/wakeup_count, which are plain DAC.
+    # system/sepolicy/public/charger.te:14-15 grants sys_tty_config and
+    # sys_boot and NOT block_suspend, so asking for it would be an AVC under
+    # Tier 2 in exchange for nothing. The `wakelock` supplementary group stays:
+    # that one is DAC on /sys/power/wake_lock (radio:wakelock 0660) and costs
+    # no capability.
+    capabilities SYS_BOOT
     file /dev/kmsg w

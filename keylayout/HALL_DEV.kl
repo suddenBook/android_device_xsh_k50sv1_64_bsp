@@ -1,7 +1,23 @@
-# Hall switch in the stylus silo. Stock uses KEY_SLEEP/KEY_WAKEUP from it to
-# blank and unblank the panel as the passive stylus is removed and reinserted,
-# paired with an OEM app. This port ships no stylus feature, and a marginal
-# hall switch that emits KEY_SLEEP would blank the screen unpredictably.
+# Hall switch in the stylus silo. The driver ADVERTISES KEY_SLEEP (142) and
+# KEY_WAKEUP (143); stock paired them with an OEM app that chimed and lit the
+# panel as the passive stylus is removed and reinserted. This port ships no
+# stylus feature.
+#
+# What the switch actually emits was measured on the handset (session 14). The
+# owner pulled the stylus out and pushed it back in twice while `getevent -lt`
+# ran on every input device. All four silo transitions produced the same thing
+# on /dev/input/event4 and nothing else anywhere:
+#
+#     EV_KEY  KEY_WAKEUP  DOWN
+#     EV_KEY  KEY_WAKEUP  UP        (same timestamp -- a momentary press)
+#     EV_SYN  SYN_REPORT
+#
+# KEY_SLEEP was never emitted, in either direction. So the concrete risk is not
+# the screen blanking, as an earlier revision of this comment assumed by reading
+# the advertised key set rather than the wire: under Generic.kl scan code 143
+# maps to WAKEUP, KeyEvent.isWakeKey() is true for it, and PhoneWindowManager
+# would light the display every single time the stylus moves in its silo,
+# including in a pocket. The conclusion is unchanged; only the reason is.
 #
 # This file therefore declares no keys at all. That is the only correct way to
 # drop a scan code: Android's key-layout grammar has no ignore verb, and

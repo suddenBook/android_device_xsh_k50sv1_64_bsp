@@ -30,7 +30,13 @@
 /dev/btif         0600  system     system
 /dev/stpgps       0660  gps        gps
 /dev/wmtWifi      0660  wifi       wifi
-/dev/ttyMT1       0660  system     system
+
+# NOT declared: /dev/ttyMT1. Stock's vendor/ueventd.rc has no ttyMT rule
+# either; this port added one and nothing on the device opens it.
+# wmt_launcher, wmt_loader and wlan_assistant open only /dev/stpwmt,
+# /dev/wmtdetect and /dev/wmtWifi, and the combo chip's UART is bound in the
+# kernel by the STP driver. The rule handed group `system` read/write on a raw
+# UART for no consumer, so it is removed rather than kept "for symmetry".
 
 # NOT declared: /dev/fm. The FM radio driver is deliberately not loaded (its
 # firmware was never extracted either), so the node never appears and the rule
@@ -82,7 +88,20 @@
 /dev/RT_Monitor  0660  system  system
 /dev/spm         0660  system  system
 /dev/mtgpio      0600  radio   root
-/dev/mtk-adc-cali 0600 root    root
+
+# NOT declared: /dev/mtk-adc-cali. 0600 root:root is exactly what ueventd
+# already applies to an unmatched node (system/core/init/devices.cpp:250-252
+# returns {0600, 0, 0}), so the rule only restated the default.
+
+# Shard ueventd's cold-boot /sys restorecon across the handler subprocesses it
+# already forks. ColdBoot::Run() (system/core/init/ueventd.cpp:243-266) walks
+# /sys and /sys/devices single-threaded in the parent unless this is set; with
+# it, :248-254 hands the two walks to the same subprocesses that are otherwise
+# idle, and WaitForSubProcesses() still gates /dev/.coldboot_done, so nothing
+# downstream can observe a partially restored /sys. ro.boottime.init.cold_boot_wait
+# is 303 ms of this device's 941 ms init on eight A53 cores; measure that pair
+# in kmsg ("Coldboot took ...") before and after if it is ever changed back.
+parallel_restorecon enabled
 
 # Deliberately NOT given permissions, so they keep ueventd's 0600 root root
 # default:
