@@ -80,12 +80,34 @@ include $(BUILD_SYSTEM)/base_rules.mk
 # PRODUCT_PACKAGES still lists the module in device.mk. That is deliberate and
 # it is not the build trigger: it is what makes PRODUCT_ENFORCE_PACKAGES_EXIST
 # (BoardConfig.mk) fail the build if this Android.mk ever stops being parsed.
-droidcore: $(LOCAL_BUILT_MODULE)
+#
+# ...and `droidcore` ALONE IS NOT ENOUGH, which is the second time this module
+# has been wired to something that never fires. droidcore DEPENDS ON the image
+# targets (build/make/core/main.mk); the images do not depend on it. This
+# project never builds droidcore -- tools/run-lineage-build.sh asks for exactly
+# bootimage, recoveryimage, systemimage and vendorimage, and the receipt records
+# that -- so after a complete build there was no k50sv1-xml-validation entry in
+# out/target/product/k50sv1_64_bsp/obj/ETC/ at all. The gate has never executed.
+#
+# The four image goals are therefore listed as well. GNU make accumulates
+# prerequisites for a target across rules as long as only one rule carries a
+# recipe, and build/make/core/Makefile (which defines all four) is included from
+# main.mk AFTER every Android.mk, so naming them here is legal and is the same
+# shape as build/make/target/product/gsi/Android.mk's `droidcore:` line.
+#
+# HOW TO TELL IT RAN, because "the build succeeded" does not:
+#   ls out/target/product/k50sv1_64_bsp/obj/ETC/ | grep k50sv1-xml-validation
+droidcore systemimage vendorimage bootimage recoveryimage: $(LOCAL_BUILT_MODULE)
 
 k50sv1_apn_fragment := $(LOCAL_PATH)/configs/apns-conf.xml
 k50sv1_apn_validator := $(LOCAL_PATH)/tools/validate-custom-apns.py
 k50sv1_default_apns := vendor/lineage/prebuilt/common/etc/apns-conf.xml
 k50sv1_internal_apns := frameworks/base/core/res/res/xml/apns.xml
+# $(shell find) runs at parse time and adds no dependency on the directories it
+# walks, so a NEWLY ADDED xml or rc file is not validated until something else
+# forces a kati re-run. In practice adding one always comes with a device.mk or
+# Android.mk edit, which is enough; it is stated here so the limit is known
+# rather than assumed away.
 k50sv1_xml_files := $(filter-out $(k50sv1_apn_fragment), \
     $(shell find $(LOCAL_PATH) -name '*.xml' -not -path '*/.git/*'))
 

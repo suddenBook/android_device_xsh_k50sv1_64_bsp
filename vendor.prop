@@ -44,6 +44,33 @@ persist.vendor.mtk.viwifi.enable=0
 # WFC could never turn on. The measurement is in the rc file's comment.
 persist.vendor.mtk.wfc.enable=0
 persist.vendor.mtk.ims.video.enable=0
+
+# MEASURED, AND IT MATTERS BEFORE THE NEXT VoWiFi/VoLTE ATTEMPT: the three
+# "system property" values MAL's RDS layer logs are NOT read from the
+# persist.vendor.* names this file sets.
+#
+#   MAL-RDS: [RU][ru_ims_ctrl_send_atcmd] (old:new) => wfc(0:0), volte(0:0),
+#            video(0:0), opid(2) | system property(0,0,0)
+#
+# vendor/lib/libmal_rds.so carries the literals persist.mtk.wfc.enable,
+# persist.mtk.volte.enable and persist.mtk.ims.video.enable -- the pre-Treble
+# spellings, with no `.vendor` segment -- alongside persist.mtk_epdg_support,
+# persist.mtk_mims_support, persist.radio.* and ro.mtk_*. On the handset all
+# three non-vendor names read EMPTY while their persist.vendor.* siblings read
+# 0/1, and RDS logs (0,0,0).
+#
+# Nothing is set here to close that gap, on purpose. The state RDS reports today
+# is the state this fixture is supposed to be in: video off, and VoLTE off
+# because CarrierConfig gives the CU/CMCC pair carrier_volte_available_bool=false
+# (verified live in `dumpsys carrier_config`), which is what makes MediaTek's own
+# stack write persist.vendor.mtk.volte.enable=0 after boot even though this file
+# and init.mt6755.rc both set 1. That is correct behaviour, not a lost setprop.
+#
+# The reason to record it anyway: when a home-network SIM finally makes
+# carrier_volte_available_bool true (WI-018/WI-029), "the property is 1" will be
+# true of the persist.vendor.* name and may still be empty for the name RDS
+# reads. Check the RDS line, not getprop, before concluding the property half of
+# the chain is satisfied.
 persist.vendor.mtk_rcs_ua_support=0
 persist.vendor.mtk_rtt_support=0
 # persist.vendor.mtk_ct_volte_support=1, exactly as stock sets it
@@ -71,8 +98,10 @@ persist.vendor.mtk_rtt_support=0
 #
 # So this is not a framework switch at all: it is the AP->modem transport for a
 # modem config item of the same name, written during IMS init. Stock sends "1"
-# to this exact modem build (MOLY.LR11.W1630.MD.MP.V191.4, which
-# ro.vendor.md_apps.load_verno above already pins), so "1" is known-good on this
+# to this exact modem build, MOLY.LR11.W1630.MD.MP.V191.4 -- which is what the
+# modem itself reports (`getprop gsm.version.baseband` on the handset), not
+# something a property pins; ro.vendor.md_apps.load_verno used to be cited here
+# and was decoration that nothing read. So "1" is known-good on this
 # hardware. Unset, the RIL takes the default "0" and tells the modem the
 # opposite of what stock tells it -- inside the one code path this port is
 # actively trying to fix.
@@ -287,11 +316,51 @@ ro.vendor.md_auto_setup_ims=0
 # the ePDG stack and not only to MAL.
 ro.vendor.md_prop_ver=1
 
-ro.vendor.net.upload.benchmark.default=blocking
-ro.vendor.md_apps.load_gencfg=GEN91_USER
-ro.vendor.md_apps.load_type=user
-ro.vendor.md_apps.load_verno=MOLY.LR11.W1630.MD.MP.V191.4
-ro.vendor.md_apps.support=1
+# SIXTEEN STOCK PROPERTIES WERE DELETED FROM THIS FILE, and the list is here so
+# nobody restores them from stock's build.prop a third time. Each was verified
+# dead by dumping `strings -a` from all 520 shipped blobs into one corpus and
+# searching for the key AND for its unprefixed tail (MediaTek reaches some
+# features through an indexed table in libmtkproperty.so/libmtkconfig.so rather
+# than by literal name, so the tail must be searched too), then searching all of
+# frameworks/, system/, hardware/, packages/, vendor/lineage/ and every shipped
+# .rc. Zero hits in every case:
+#
+#   ro.vendor.net.upload.benchmark.default   no reader even on stock; stock only
+#                                            WRITES it, from an init.rc line
+#                                            this port does not ship
+#   ro.vendor.md_apps.{load_gencfg,load_type,load_verno,support}
+#                                            stock's writer is
+#                                            vendor/etc/init/init.md_apps.rc,
+#                                            not shipped here
+#   ro.vendor.mediatek.platform              reader is stock's
+#                                            mediatek-framework.jar
+#   ro.vendor.mtk_aal_support                reader is MtkSettings.apk
+#   ro.vendor.mtk_agps_app                   reader is EngineerMode.apk
+#   ro.vendor.mtk_audio_alac_support         reader is MTK-patched framework.jar
+#   ro.vendor.mtk_audio_ape_support          ditto
+#   ro.vendor.mtk_audio_tuning_tool_ver      reader is EngineerMode.apk
+#   ro.vendor.mtk_besloudness_support        reader is MtkSettings.apk
+#   ro.vendor.mtk_camera_app_version         reader is Camera0.apk
+#   ro.vendor.mtk_emmc_support               reader is MTK-patched services.jar
+#   ro.vendor.mtk_f2fs_enable                no reader even on stock
+#   ro.vendor.mtk_gps_support                readers are Camera0.apk and
+#                                            MtkSettings.apk. NOT read by mnld,
+#                                            mtk_agpsd or lbs_hidl_service, the
+#                                            GNSS binaries this ROM does ship
+#
+# The ALAC/APE pair carries one extra instruction: configs/mtk_omx_core.cfg
+# already drops OMX.MTK.AUDIO.DECODER.{ALAC,APE} because libMtkOmxAlacDec.so and
+# libMtkOmxApeDec.so are not extracted. Restoring the properties would not
+# restore the codecs, and the codecs must not be restored to satisfy the
+# properties.
+#
+# Two neighbours that LOOK like they belong on that list and do not:
+#   ro.vendor.mtk_fd_support  is Fast Dormancy, not face detection, and
+#                             vendor/lib64/mtk-ril.so carries the literal.
+#   ro.vendor.wlan.gen        has no blob reader at all, and is still live:
+#                             init.connectivity.modules.rc substitutes it into
+#                             the wlan driver module path as ${ro.vendor.wlan.gen}.
+# A "no blob reads it" test is not sufficient on its own for either one.
 # ro.vendor.md_log_memdump_wait=15, exactly as stock sets it
 # (vendor/build.prop:394). Sole consumer, and it is a shipped one:
 # vendor/bin/ccci_mdinit, the modem bring-up daemon, which imports both
@@ -300,14 +369,6 @@ ro.vendor.md_apps.support=1
 # stock's, on a platform whose modem is the active problem. Added under this
 # file's own rule -- a stock property with a shipped consumer is not decoration.
 ro.vendor.md_log_memdump_wait=15
-ro.vendor.mediatek.platform=MT6755
-ro.vendor.mtk_aal_support=1
-ro.vendor.mtk_agps_app=1
-ro.vendor.mtk_audio_alac_support=1
-ro.vendor.mtk_audio_ape_support=1
-ro.vendor.mtk_audio_tuning_tool_ver=V2.2
-ro.vendor.mtk_besloudness_support=1
-ro.vendor.mtk_camera_app_version=1
 # The next three are stock values this tree had dropped. Each is here because a
 # shipped blob reads it, named below; none is here because stock happens to set
 # it. Consumers were established with `readelf -W --dyn-syms` for the property
@@ -340,10 +401,7 @@ ro.vendor.mtk_eccci_c2k=1
 # No eMBMS middleware ships, so nothing will call the API and the controller
 # simply reports the modem's real capability instead of a false negative.
 ro.vendor.mtk_embms_support=1
-ro.vendor.mtk_emmc_support=1
-ro.vendor.mtk_f2fs_enable=0
 ro.vendor.mtk_fd_support=1
-ro.vendor.mtk_gps_support=1
 ro.vendor.mtk_log_hide_gps=0
 ro.vendor.mtk_md1_support=10
 ro.vendor.mtk_pq_color_mode=1
