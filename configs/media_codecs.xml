@@ -77,9 +77,13 @@ Only the three quirks included above are recognized at this point:
 -->
 
 <MediaCodecs>
-    <Settings>
-        <Setting name="max-video-encoder-input-buffers" value="10" />
-    </Settings>
+    <!-- Stock's Settings block held one entry,
+         max-video-encoder-input-buffers=10, and it is dropped along with the
+         now-empty section. That key has no reader anywhere in Q; it appears
+         only in other vendors' media_codecs XML. The one global setting the
+         framework does consume is max-concurrent-instances, read from
+         MediaCodecList.getGlobalSettings() at MediaCodecInfo.java:1015-1017,
+         and this device does not need to override its default. -->
     <Include href="media_codecs_mediatek_audio.xml" />
     <Include href="media_codecs_mediatek_video.xml" />
     <!-- Stock also included media_codecs_google_audio.xml and

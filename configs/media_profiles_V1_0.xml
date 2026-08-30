@@ -45,6 +45,16 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
+<!-- The internal DTD below is inherited from AOSP, is stale, and is never
+     enforced: MediaProfiles.cpp:888-904 creates a plain expat parser and the
+     XML_SetParamEntityParsing call that would turn DTD handling on is
+     commented out with a FIXME saying expat is not built with -DXML_DTD. It
+     does not describe this document (EncoderProfile quality is not just
+     high|low, ImageEncoding quality 95 is outside its list, AudioEncoderCap
+     heaac/aaceld are absent from its name list although
+     MediaProfiles.cpp:46-51 sAudioEncoderNameMap accepts both, and
+     CamcorderProfiles has no cameraId ATTLIST at all). Do not "fix" the
+     document to match it. -->
 <!DOCTYPE MediaSettings [
 <!ELEMENT MediaSettings (CamcorderProfiles,
                          EncoderOutputFileFormat+,
@@ -521,5 +531,13 @@
         not perform any checks at all.
     -->
     <VideoDecoderCap name="wmv" enabled="true"/>
-    <AudioDecoderCap name="wma" enabled="true"/>
+    <!-- wma is false because this image has no WMA decoder: media_codecs_
+         mediatek_audio.xml:14-22 removes OMX.MTK.AUDIO.DECODER.WMA and
+         mtk_omx_core.cfg has no WMA line. MediaProfiles.cpp:435-441 registers
+         the cap only when enabled="true", and DecoderCapabilities.java:45,72
+         hands the result to any app through the public getAudioDecoders().
+         The element cannot be deleted: the DTD above makes it mandatory, and
+         the wmv line above it stays true because OMX.MTK.VIDEO.DECODER.VC1
+         really is present. -->
+    <AudioDecoderCap name="wma" enabled="false"/>
 </MediaSettings>
