@@ -195,6 +195,23 @@ endif
 # measured gain. Stock ships six roots here (plus a `lab` subdirectory) and none
 # of them is GTS Root R1; stock's set is carrier SUPL, not Google's.
 #
+# THREE OTHER CApath LITERALS in the same binary are deliberately not provided,
+# and the reason is worth stating because each looks like a gap:
+#   /vendor/etc/security/cacerts   - not shipped, and stock's is not carried
+#                                    over either. It is the generic-TLS path in
+#                                    the same helper, not the SUPL one; the SUPL
+#                                    profile is what agps_profiles_conf2.xml
+#                                    configures and it resolves to
+#                                    cacerts_supl (there is even a
+#                                    cacerts_supl/lab sibling literal).
+#   /system/etc/security/cacerts   - already exists and is fully populated by
+#                                    AOSP, so any fallback through it has ~130
+#                                    valid roots.
+#   /etc/ssl/cert.pem              - a desktop-OpenSSL default that exists on no
+#                                    Android device, stock included.
+# So the only unpopulated one is the vendor generic path, and nothing has been
+# observed taking it.
+#
 # REVISIT IF: a non-Google SUPL profile is configured in
 # agps_profiles_conf2.xml, or mtk_agpsd starts logging
 # "SSL_CTX_load_verify_locations() error" or a verify failure against
