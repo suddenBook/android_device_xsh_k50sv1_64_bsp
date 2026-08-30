@@ -907,8 +907,16 @@ if [[ -z "${SRC}" ]]; then
     SRC="${LINEAGE_ROOT}/../factory_image_unpacked"
 fi
 
-if [[ "${SRC}" != "adb" && ! -d "${SRC}" ]]; then
-    echo "Extraction source does not exist: ${SRC}" >&2
+# A zip is a FILE, so an earlier `! -d "${SRC}"` test rejected every OTA /
+# factory zip here and made both zip paths in this run unreachable -- including
+# the `unzip -p` branch of stage_gatekeeper_blob above, which had never once
+# executed. Both halves of a run accept a zip: extract_utils.sh:1517 unpacks it
+# into $TMPDIR/system_dump (converting *.new.dat.br and refusing an A/B
+# payload.bin), and stage_gatekeeper_blob probes three entry names for the
+# gatekeeper blob. adb, a directory and a .zip are the three supported forms.
+if [[ "${SRC}" != "adb" && ! -d "${SRC}" ]] &&
+        [[ ! -f "${SRC}" || "${SRC##*.}" != "zip" ]]; then
+    echo "Extraction source is not adb, a directory or a .zip: ${SRC}" >&2
     exit 1
 fi
 
