@@ -20,6 +20,29 @@
     <item name="ambient.on">0</item>
     <item name="screen.on">60</item>
     <item name="screen.full">295</item>
+    <!-- KNOWN GAP, recorded so the next reader does not have to rediscover it:
+         Bluetooth is never attributed to any app in the Settings battery
+         breakdown on this build, and these two keys are not what would fix it.
+         On Q their only consumer is PowerProfile.writePowerConstantToProto
+         (PowerProfile.java:641,644), i.e. a dumpsys proto field and nothing
+         else. The keys that drive blame are bluetooth.controller.idle/rx/tx,
+         read by BluetoothPowerCalculator.java:31-33; absent, they read 0, and
+         calculateApp()'s powerMah==0 fallback at :52-55 then computes zero for
+         every app. Unlike Wi-Fi, there is no estimator fallback:
+         BatteryStatsHelper.java:416-419 swaps WifiPowerCalculator for
+         WifiPowerEstimator when the chipset does not report energy, which is
+         why wifi.on/active/scan below are live, but :426-429 constructs
+         BluetoothPowerCalculator unconditionally.
+
+         The three keys are NOT added here because there is no measured value
+         for this handset and no AOSP reference to copy: AOSP's own
+         frameworks/base/core/res/res/xml/power_profile.xml does not contain
+         bluetooth.controller.* at all, and the only file in the platform that
+         does is frameworks/base/tools/powermodel/test-resource/
+         power_profile.xml:157-166, a unit-test fixture. Measure them (idle, rx
+         and tx controller current in mA, plus voltage in mV) before adding
+         them; do not paste a fixture's numbers. Cost of the gap is
+         misattributed battery blame only. -->
     <item name="bluetooth.active">60</item>
     <item name="bluetooth.on">3.24</item>
     <item name="wifi.on">4.7</item>
@@ -29,7 +52,29 @@
     <item name="audio">74</item>
     <item name="video">132</item>
     <item name="camera.flashlight">80</item>
-    <item name="camera.avg">0</item>
+    <!-- UNMEASURED PLACEHOLDER, not a measurement of this handset.
+
+         camera.avg was 0, and 0 here means the two cameras are blamed for
+         nothing at all: CameraPowerCalculator.java:29 reads this key and :43
+         computes cameraPowerMah as cameraTimeMs * value / 3600000, so a zero
+         makes every camera session free in Settings, Battery.
+
+         550 is AOSP's own example real-world value for this key, from the
+         comment on frameworks/base/core/res/res/xml/power_profile.xml:41;
+         that file states at :21-29 that its literal values are deliberately
+         incorrect dummies and that the example values live in the comments.
+         AOSP's power_profile_test.xml:94 uses 600, so the order of magnitude
+         is agreed.
+
+         COST IF WRONG: misattributed battery blame in the Settings battery
+         breakdown and in BatteryStats dumps. Nothing functional; this file is
+         accounting metadata only.
+
+         TO MEASURE: at a fixed brightness and airplane mode, read
+         /sys/class/power_supply/battery/current_now with the screen on and
+         idle, then again with a camera preview running, and take the
+         difference in mA. Do that on both camera ids and keep the larger. -->
+    <item name="camera.avg">550</item>
     <item name="gps.on">3</item>
     <item name="radio.active">82</item>
     <item name="radio.scanning">32</item>
