@@ -9,16 +9,18 @@
 # /system/bin/app_process32, i.e. zygote_exec. private/zygote.te:92 gives the
 # main zygote `zygote_exec:file rx_file_perms`; webview_zygote got nothing.
 # Measured on the live image: 16 denials across read/open/getattr, one set per
-# fork.
+# fork. (`private/zygote.te:110` in this tree -- :92 is the frozen
+# prebuilts/api/28.0 copy of the same line, which is not live policy.)
 #
 # Read only, never execute: private/webview_zygote.te:92 neverallows
 # `webview_zygote *:file execute_no_trans`, and the reopen is O_RDONLY.
 allow webview_zygote zygote_exec:file r_file_perms;
 
 # ART's Runtime reads its DeviceConfig flags in every zygote it initialises.
-# private/zygote.te:140-141 grants both property types to `zygote` and nothing
-# grants them to webview_zygote, so the flags silently fell back to defaults
-# and logged 28 denials. public/property.te:423-424 exempts both types from
+# private/zygote.te grants both property types to `zygote` and nothing grants
+# them to webview_zygote, so the flags silently fell back to defaults and logged
+# 34 denials -- 20 on the runtime_native type and 14 on runtime_native_boot,
+# counted from avc-raw.txt rather than from the deduplicated summary. public/property.te:423-424 exempts both types from
 # the read neverallow list, so this is a plain gap rather than a decision.
 get_prop(webview_zygote, device_config_runtime_native_prop)
 get_prop(webview_zygote, device_config_runtime_native_boot_prop)
