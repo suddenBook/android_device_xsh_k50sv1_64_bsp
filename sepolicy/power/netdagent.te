@@ -117,5 +117,7 @@ allow netdagent self:global_capability_class_set net_admin;
 allow netdagent proc_mtk_netdagent_arp:file { getattr open read };
 
 set_prop(netdagent, mtk_netdagent_prop)
-get_prop(netdagent, mtk_netdagent_config_prop)
+# get_prop(netdagent, mtk_netdagent_config_prop) removed with the type: the one
+# property behind it, ro.vendor.net.upload.benchmark.default, is gone from
+# vendor.prop and netdagent never read it (no such literal in the binary).
 get_prop(netdagent, hwservicemanager_prop)

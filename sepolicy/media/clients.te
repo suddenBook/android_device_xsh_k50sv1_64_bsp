@@ -80,10 +80,19 @@ allow {
 #             (ioctl file (((range 0x6704 0x6705)) 0x670b 0x671d 0x6732)))
 # Taking that list is not "trusting Stock": it is an enumerated interface, four
 # and five command numbers wide, not a range or a wildcard, and each domain gets
-# only its own set. What is deliberately NOT copied from Stock is its habit of
-# handing the same nodes to broad attributes -- it grants `appdomain` the whole
-# 0x6700..0x670e range on proc_ged, which is exactly the kind of blanket grant
-# this tree exists to avoid.
+# only its own set. That is the standard this tree holds proc_m4u to.
+#
+# proc_ged is deliberately NOT held to it, and the difference is evidence, not
+# laziness -- see media/graphics_stack.te for the working. An earlier revision
+# of this comment said Stock's appdomain grant on proc_ged "is exactly the kind
+# of blanket grant this tree exists to avoid" while graphics_stack.te granted
+# appdomain the identical range four files away. Two things were wrong with
+# that. Stock's grant is 0x6700-0x670e AND 0x6764-0x676a, not just the first
+# range; and 20 of those 22 values were subsequently proven to be real compiled
+# GED commands, 9 of them with a caller shipped in this image. The honest
+# statement is that proc_ged is a wide grant this tree keeps on purpose,
+# narrowed where it could be (r_file_perms not rw, isolated_app and
+# ephemeral_app excluded) but not in its command numbers.
 #
 # mediacodec previously had no ioctl permission at all, which was not a
 # theoretical gap: reproduced on the handset by running screenrecord,

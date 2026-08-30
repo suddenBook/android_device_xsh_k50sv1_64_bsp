@@ -14,8 +14,8 @@
 # property_type. They are kept for the day PRODUCT_SHIPPING_API_LEVEL is raised
 # above 27 -- full explanation at sepolicy/gnss/vendor_init.te.
 
-# vendor.prop: ro.vendor.mtk_aal_support, ro.vendor.mtk_pq_color_mode,
-#              ro.vendor.mtk_pq_support
+# vendor.prop: ro.vendor.mtk_pq_color_mode, ro.vendor.mtk_pq_support
+# (ro.vendor.mtk_aal_support was a third; it is deleted, unread by anything.)
 set_prop(vendor_init, mtk_pq_ro_prop)
 
 # NO "allow vendor_init sysfs_mtk_concurrency_scenario:file ..." -- deleted, not

@@ -3,7 +3,19 @@ vendor.gpsdbglog.                 u:object_r:mtk_gnss_runtime_prop:s0
 vendor.debug.gps.                 u:object_r:mtk_gnss_runtime_prop:s0
 persist.vendor.radio.mnl.prop     u:object_r:mtk_gnss_runtime_prop:s0 exact string
 
-ro.vendor.mtk_gps_support        u:object_r:mtk_gnss_ro_prop:s0 exact bool
-ro.vendor.mtk_agps_app           u:object_r:mtk_gnss_ro_prop:s0 exact bool
+# ro.vendor.mtk_gps_support and ro.vendor.mtk_agps_app used to sit here and are
+# gone: both were deleted from vendor.prop, and neither appears in any shipped
+# blob or anywhere in the source tree, in full or unprefixed form. Despite the
+# names, no part of the GNSS stack gates on them. mtk_gnss_ro_prop keeps the
+# two entries below, so the type and its set_prop/get_prop rules all stand.
 ro.vendor.mtk_log_hide_gps       u:object_r:mtk_gnss_ro_prop:s0 exact bool
+
+# DELIBERATELY UNSET, same shape as ro.vendor.globalpq.support in
+# sepolicy/media/property_contexts. Only lbs_hidl_service-impl.so reads
+# ro.vendor.mtk_hidl_consolidation, via libcutils property_get() with its own
+# default, and it is assigned nowhere in this build (empty on the handset,
+# absent from /vendor/build.prop). GNSS works unset -- lbs_hidl_service and
+# mnld are both up on the handset -- so the non-consolidated HIDL path is the
+# one this image uses. Kept declared so the type is pinned if it is ever
+# assigned; that assignment would go in vendor.prop, not here.
 ro.vendor.mtk_hidl_consolidation u:object_r:mtk_gnss_ro_prop:s0 exact bool

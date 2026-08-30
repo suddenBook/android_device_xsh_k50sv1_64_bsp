@@ -32,6 +32,31 @@ allow hal_thermal_default proc_mtk_thermal_zone:file r_file_perms;
 # hardware_properties` gets nothing, with no error raised anywhere.
 allow hal_thermal_default proc_stat:file r_file_perms;
 
+# NOT GRANTED, and specifically not as r_dir_file(mtk_thermal, sysfs_net):
+# /vendor/bin/thermal does carry seven interface operstate paths --
+#   /sys/class/net/{wlan0,p2p0,ap0,ccmni,ccemni0,ccemni1,ccemni2}/operstate
+# -- but that rule would grant the wrong type and still miss the right one.
+# Measured on the handset:
+#   * wlan0 and p2p0 resolve through /sys/class/net/<if> (a symlink, which this
+#     3.18 kernel leaves on the generic sysfs type) to
+#     /sys/devices/soc/180f0000.wifi/net/<if>/operstate, which is sysfs, NOT
+#     sysfs_net -- no genfscon covers /devices/soc. A real capture shows it:
+#       avc: denied { open } for path="/sys/devices/soc/180f0000.wifi/net/
+#            p2p0/type" tcontext=u:object_r:sysfs:s0 tclass=file
+#   * only ccmni* live under /devices/virtual/net (AOSP genfs_contexts:129) and
+#     so are sysfs_net -- but the names the binary hardcodes are the bare
+#     "ccmni" and "ccemni0..2", none of which exist here. The real interfaces
+#     are ccmni0..ccmni17, and "ccemni" is not a typo of ours: it is the string
+#     in the blob, for some other MTK board.
+# So the audited rule would open the ccmni* attributes the daemon never asks
+# for and leave the wlan0/p2p0 reads it does ask for still denied. Closing
+# those properly means either allow mtk_thermal sysfs:file r_file_perms -- the
+# whole generic sysfs, far too broad -- or a genfscon for
+# /devices/soc/180f0000.wifi/net, which would move the type out from under
+# every other reader of those files. Neither is worth doing without a denial:
+# the 303-record permissive capture has no mtk_thermal AVC of any kind, and the
+# daemon holds no operstate fd open on the live handset.
+
 # NOT GRANTED, pending evidence: Stock's compiled policy wires the whole media
 # stack into the thermal subsystem --
 #   (allow mtk_hal_camera  proc_thermal (file (getattr open read write)))

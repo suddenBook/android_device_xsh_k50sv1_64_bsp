@@ -53,10 +53,10 @@ allow epdg_wod mtk_wod_apn_data_file:file create_file_perms;
 allow epdg_wod mtk_wod_ipsec_data_file:dir rw_dir_perms;
 allow epdg_wod mtk_wod_ipsec_data_file:file create_file_perms;
 
-# /vendor/etc/ipsec/{wod_cust,wod_optr,wod_em}.conf. AOSP already grants every
-# domain read+map on vendor_configs_file:file, but not the directory search that
-# opening a path inside it needs.
-allow epdg_wod vendor_configs_file:dir search;
+# /vendor/etc/ipsec/{wod_cust,wod_optr,wod_em}.conf need no rule here.
+# public/domain.te:181 already grants every domain vendor_configs_file:dir
+# r_dir_perms, which subsumes the search this used to ask for, and :182 grants
+# the file read beside it.
 
 # A tun device for the tunnel's inner address, and the XFRM/route programming
 # that goes with it. epdg_wod creates and labels the interface; charon (ipsec)

@@ -17,7 +17,13 @@ allow gsm0710muxd mtk_radio_mux_device:lnk_file { create getattr read unlink };
 allow gsm0710muxd sysfs_mtk_ccci:dir r_dir_perms;
 allow gsm0710muxd sysfs_mtk_ccci:file r_file_perms;
 
-set_prop(gsm0710muxd, ctl_mtkrild_prop)
+# set_prop(gsm0710muxd, ctl_mtkrild_prop) was dead and is gone. The binary does
+# carry a ctl.stop, but the only service name beside it is the bare legacy
+# "ril-daemon" -- which init would check as ctl.ril-daemon, not as
+# ctl.vendor.ril-daemon-mtk (the sole property ctl_mtkrild_prop labels), and
+# which is not a service on this device anyway. The "ril-daemon-mtk started!"
+# string nearby is a log format, not a ctl target: the binary contains no
+# "vendor.ril-daemon-mtk" literal, unlike ccci_mdinit which does.
 set_prop(gsm0710muxd, mtk_ril_mux_prop)
 set_prop(gsm0710muxd, mtk_ril_mux_report_prop)
 set_prop(gsm0710muxd, mtk_vendor_radio_prop)

@@ -78,11 +78,17 @@ allow {
     hal_wifi_default
     hal_bluetooth_default
 } sysfs_dt_firmware_android:file r_file_perms;
+# hal_wifi_default and hal_bluetooth_default are deliberately absent from this
+# one: sysfs_mtk_boot_mode is declared `fs_type, sysfs_type` (radio/file.te:46),
+# and both already hold r_dir_file(<attr>, sysfs_type) from AOSP --
+# public/hal_wifi.te:8 and public/hal_bluetooth.te:18, reaching them through
+# hal_server_domain(hal_wifi_default, hal_wifi) and its bluetooth twin in
+# system/sepolicy/vendor/. hal_camera_default and hal_audio_default get no
+# sysfs grant from public/hal_camera.te or public/hal_audio.te at all, so they
+# still need naming here.
 allow {
     hal_camera_default
     hal_audio_default
-    hal_wifi_default
-    hal_bluetooth_default
 } sysfs_mtk_boot_mode:file r_file_perms;
 
 get_prop(hal_audio_default, mtk_radio_config_prop)

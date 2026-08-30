@@ -20,10 +20,14 @@ type mtk_vendor_radio_prop, property_type;
 # vendor_default_prop and being denied at every boot:
 #   vendor.net.handover.thlte    from mtkmal   (LTE<->WiFi handover threshold)
 #   vendor.cdma.ril.uicc.mccmnc  from mtkrild  (UICC operator, CDMA namespace)
-# public/domain.te:535 is
-#   neverallow { domain -init -vendor_init } vendor_default_prop:property_service set;
-# so an allow rule cannot close these -- the only correct fix is to give them a
-# device type, which is the pattern vendor/property.te already documents.
+# An allow rule on vendor_default_prop would in fact compile here --
+# public/domain.te:535 is wrapped in compatible_property_only() and this
+# product leaves PRODUCT_COMPATIBLE_PROPERTY false -- but it would hand these
+# two daemons every unlabelled vendor.*/persist.vendor.*/ro.vendor.* property
+# in the image to get two prefixes working. The device type is least privilege,
+# and it is the same discipline that keeps unnamespaced properties out of
+# default_prop, whose neverallow (domain.te:525) IS compiled and cannot be
+# worked around. This is the pattern vendor/property.te documents in full.
 type mtk_ril_handover_prop, property_type;
 type mtk_ril_cdma_prop, property_type;
 type mtk_telephony_sensitive_prop, property_type;
@@ -45,8 +49,13 @@ type ctl_mtk_volte_ua_prop, property_type;
 # publish anything:
 #   avc: denied { set } for property=vendor.net.ims.volte.pid
 #        scontext=u:r:volte_stack:s0 tcontext=u:object_r:vendor_default_prop:s0
-# Unlabelled it falls to vendor_default_prop, which volte_stack cannot set, so
-# under enforcing the IMS stack would silently lose its own state publication.
+# Unlabelled it falls to vendor_default_prop. That denial is real and was
+# measured, but note it is a permission denial, not a neverallow: domain.te:535
+# does not compile on this product (compatible_property_only(), see
+# vendor/property.te), so the alternative to typing would have been granting
+# volte_stack set on the whole vendor.* catch-all. Typed instead, on least
+# privilege -- the same reason unnamespaced properties get types to stay clear
+# of the default_prop neverallow at domain.te:525, which does compile.
 # Stock labels the whole `vendor.net.` prefix mtk_network_prop and grants its
 # rcs_volte_stack `set` on it; this tree scopes the type to the one subtree a
 # shipped daemon actually writes. The other reader that will matter is

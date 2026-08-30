@@ -42,9 +42,10 @@ allow hal_camera_default sysfs_batteryinfo:dir search;
 allow hal_camera_default proc_mtk_jpeg:file r_file_perms;
 allowxperm hal_camera_default proc_mtk_jpeg:file ioctl { 0x780b-0x780f };
 
-# /data/vendor itself stays vendor_data_file; search only, then the dedicated
-# dump type. Do not grant vendor_data_file create/write.
-allow hal_camera_default vendor_data_file:dir search;
+# /data/vendor itself stays vendor_data_file and needs no rule: public/
+# domain.te:228 already grants every domain vendor_data_file:dir
+# { getattr search }. Only the dedicated dump type is granted here. Do not
+# grant vendor_data_file create/write.
 allow hal_camera_default mtk_camera_dump_file:dir create_dir_perms;
 allow hal_camera_default mtk_camera_dump_file:file create_file_perms;
 

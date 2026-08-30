@@ -20,6 +20,21 @@ allow { uncrypt vold recovery } mtk_para_block_device:blk_file w_file_perms;
 allow { uncrypt recovery } mtk_para_block_device:blk_file r_file_perms;
 allow { uncrypt vold recovery } block_device:dir search;
 
+# Because the node carries a device type rather than misc_block_device, AOSP's
+# assertion at public/domain.te:604-617 does not reach it, and this partition
+# would otherwise be the one bootloader control block in the image that any new
+# vendor domain could be handed write access to without tripping anything.
+# Restate the platform's intent locally, over the writers this device actually
+# has. ccci_mdinit is the one addition to AOSP's list and it is evidence-based:
+# it links libsysenv.so, whose write_env_area writes MTK's boot-mode records
+# into this same partition (see ccci_mdinit.te). mtkrild used to hold write
+# here too and no longer does -- nothing in its dependency closure can write
+# the partition, so it was narrowed to r_file_perms rather than excepted.
+neverallow {
+    domain -init -vendor_init -ueventd -uncrypt -vold -recovery -fsck
+    -ccci_mdinit
+} mtk_para_block_device:blk_file { write append };
+
 # rilproxy reads the same CCCI state directory the rest of the modem stack
 # does. Stock's compiled policy:
 #   (allow rild sysfs_ccci (dir (search)))

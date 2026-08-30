@@ -18,5 +18,5 @@
 #   setprop vendor.powerhal.init 0
 set_prop(vendor_init, mtk_powerhal_prop)
 
-# vendor.prop: ro.vendor.net.upload.benchmark.default
-set_prop(vendor_init, mtk_netdagent_config_prop)
+# No set_prop(vendor_init, mtk_netdagent_config_prop): that type is gone with
+# the one dead property it labelled.

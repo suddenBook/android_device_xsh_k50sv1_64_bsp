@@ -26,9 +26,11 @@ allow ipsec self:capability2 wake_alarm;
 allow ipsec self:global_capability_class_set kill;
 
 # /vendor/etc/ipsec/{ipsec,strongswan}.conf, ipsec.d/cacerts/* and
-# ssl/openssl.cnf. AOSP already grants domain vendor_configs_file:file
-# { getattr map open read }; only the directory walk is missing.
-allow ipsec vendor_configs_file:dir r_dir_perms;
+# ssl/openssl.cnf need no rule here at all. public/domain.te:181-182 is
+#   allow domain vendor_configs_file:dir  r_dir_perms;
+#   allow domain vendor_configs_file:file { read open getattr map };
+# so BOTH halves are already platform-wide -- the directory walk was never the
+# missing piece an earlier revision of this comment claimed it was.
 
 # charon.ctl (the stroke control socket), the pid files, and the generated
 # wo_apn.conf that /vendor/etc/ipsec/ipsec.conf includes.
@@ -46,9 +48,15 @@ allow ipsec mtk_wod_apn_data_file:file rw_file_perms;
 allow ipsec epdg_wod:fd use;
 allow ipsec epdg_wod:unix_stream_socket { connectto read write };
 
-# `charon --debug` writes to the controlling terminal when started by hand from
-# a shell; harmless and Stock has it.
-allow ipsec devpts:chr_file { open read write };
+# DELIBERATELY ABSENT, do not restore:
+#   allow ipsec devpts:chr_file { open read write };
+# devpts is the shell/adbd pty type. charon terminates the operator's carrier
+# IKEv2 tunnel and holds the ePDG keying material; letting it read and write
+# the terminal of whoever happens to be on `adb shell` is a confidentiality
+# boundary crossing in both directions, for the sake of `charon --debug` run by
+# hand. The stdio charon is actually started with is already covered: epdg_wod
+# execs it and `allow ipsec epdg_wod:fd use` above carries the inherited
+# descriptors. Stock has the rule; that is not a reason to keep it.
 
 set_prop(ipsec, mtk_wod_prop)
 get_prop(ipsec, mtk_wfc_service_prop)

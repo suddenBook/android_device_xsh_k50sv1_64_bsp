@@ -96,10 +96,24 @@
 #   /dev/RT_Monitor 0660 system:system -- Stock: init, surfaceflinger, system_server
 #   /dev/touch      0660 root:system   -- Stock: system_server, system_app
 #   /dev/btif       0600 system:system -- no Stock user at all
-# All four exist on the handset and rootdir/vendor/ueventd.rc sets their DAC,
-# but nothing in this build opens them and the tier 1 capture shows no denial
-# for any of them. Labelling a node without a consumer only creates a type that
-# looks load-bearing.
+#   /dev/accdet     0600 root:root   -- the accessory-detect (headset) chardev,
+#                   major 242. It DOES have a consumer, unlike the four above:
+#                   /vendor/lib/hw/audio.primary.mt6755.so is the only blob in
+#                   the image that names it, alongside
+#                   /sys/bus/platform/drivers/Accdet_Driver/state. It is still
+#                   left unlabelled because DAC refuses it first and a label
+#                   would not change that: the node is 0600 root:root and the
+#                   audio HAL runs as hal_audio_default (audioserver, not
+#                   root), so every open fails at the permission check before
+#                   SELinux is consulted. Headset detection on this device runs
+#                   through the kernel switch class and uevents, not this node.
+#                   Deciding it rather than leaving it undecided: if headset
+#                   detect ever regresses, fix the DAC in
+#                   rootdir/vendor/ueventd.rc first and only then add a type.
+# All five exist on the handset and rootdir/vendor/ueventd.rc sets their DAC,
+# but nothing in this build successfully opens them and the tier 1 capture
+# shows no denial for any of them. Labelling a node without a reachable
+# consumer only creates a type that looks load-bearing.
 #
 # Nodes in Stock's file_contexts that DO NOT EXIST on this hardware, verified
 # with ls on the handset -- do not port their rules across:

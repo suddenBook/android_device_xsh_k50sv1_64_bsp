@@ -5,9 +5,16 @@ init_daemon_domain(ccci_mdinit)
 wakelock_use(ccci_mdinit)
 
 # Start only services present in this device's production init configuration.
+# init synthesises the permission check name as "ctl." + the VALUE passed to
+# ctl.start/ctl.stop (property_service.cpp CheckControlPropertyPerms), so the
+# service name has to appear as a literal in the binary. ccci_mdinit carries
+# ctl.start and ctl.stop plus exactly these targets: vendor.ccci_fsd,
+# vendor.ccci3_fsd, vendor.gsm0710muxd, vendor.ril-daemon-mtk, vendor.ril-proxy.
+# ctl_mtk_ccci_rpcd_prop is NOT among them -- the binary contains no
+# "ccci_rpcd" string at all, so that set_prop was dead and has been dropped.
+# vendor.ccci_rpcd is started from init.mt6755.rc, not by this daemon.
 set_prop(ccci_mdinit, ctl_mtk_ccci_fsd_prop)
 set_prop(ccci_mdinit, ctl_mtk_ccci3_fsd_prop)
-set_prop(ccci_mdinit, ctl_mtk_ccci_rpcd_prop)
 set_prop(ccci_mdinit, ctl_mtk_gsm0710muxd_prop)
 set_prop(ccci_mdinit, ctl_mtkrild_prop)
 set_prop(ccci_mdinit, ctl_mtk_rilproxy_prop)
@@ -46,4 +53,19 @@ allow ccci_mdinit proc_mtk_lk_env:file rw_file_perms;
 allow ccci_mdinit proc_cmdline:file r_file_perms;
 
 allow ccci_mdinit block_device:dir search;
+
+# Read AND write on the para partition -- the bootloader control block
+# (rootdir/etc/fstab.mt6755:85 maps by-name/para, mmcblk0p2, to /misc). The
+# write half is kept because this domain has a proven writer, unlike mtkrild:
+# ccci_mdinit's DT_NEEDED lists libsysenv.so directly, and that library is the
+# one that writes the partition --
+#   /vendor/lib{,64}/libsysenv.so   write_env_area, "error: write env area
+#                                   fail", "write env fail: %s", "write env
+#                                   sync fail: %s", and the path fragments
+#                                   "/dev/block/by-name" + "/para" it joins at
+#                                   runtime
+# MTK keeps its boot-mode/env records in that partition, which is why the modem
+# init daemon of all things touches it. Narrowing this to r_file_perms would
+# break the modem's boot-mode handshake; narrow the OTHER holder instead, which
+# is what was done. The neverallow in radio/clients.te pins the writer set.
 allow ccci_mdinit mtk_para_block_device:blk_file rw_file_perms;

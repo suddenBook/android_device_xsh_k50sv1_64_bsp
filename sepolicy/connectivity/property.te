@@ -2,7 +2,15 @@
 type mtk_wlan_nvram_ready_prop, property_type;
 
 # vendor.wlan.firmware.version is published by the Wi-Fi HAL once the firmware
-# banner is read back from the driver. It was landing on vendor_default_prop and
-# denied at every boot; public/domain.te:535 neverallows any domain but
-# init/vendor_init from setting that type, so the fix is a device type.
+# banner is read back from the driver. It was landing on AOSP's `vendor.` ->
+# vendor_default_prop catch-all (private/property_contexts:175) and denied at
+# every boot, so it is given a device type instead.
+#
+# Not because a neverallow forces it: public/domain.te:535 is inside
+# compatible_property_only() and this product does not compile it (see the long
+# note in sepolicy/vendor/property.te for the PRODUCT_COMPATIBLE_PROPERTY
+# chain). The device type is the right answer on least-privilege grounds -- the
+# catch-all covers every unlabelled vendor.* in the image -- and because the
+# unnamespaced twin, public/domain.te:525's default_prop neverallow, IS
+# compiled here (policy.conf:11852) and cannot be worked around at all.
 type mtk_wlan_prop, property_type;

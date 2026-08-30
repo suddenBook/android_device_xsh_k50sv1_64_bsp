@@ -9,12 +9,32 @@
 # NOT put a `typeattribute` -- or any macro that expands to one, which is every
 # net_domain() and hal_*_domain() -- in a file that sorts before file.te.
 
-# libmal_epdga.so reads persist.vendor.wo.* from inside mtkmal. Measured, 15
-# denials in the first boot after the ePDG stack shipped:
+# libmal_rds.so reads persist.net.wo.debug.* from inside mtkmal -- 26 of them,
+# the RAT/RSSI/SNR handover thresholds (persist.net.wo.debug.rdsrat,
+# .wifirssih/.wifirssil, .ltersrph/.ltersrpl, .rtp.plrth and the rest). That is
+# what this grant is for, and it is the only reason it is load-bearing.
+#
+# It is NOT justified by the 15 denials an earlier revision of this comment
+# cited:
 #   avc: denied { read open getattr } for comm="mtkmal"
 #        name="u:object_r:mtk_wod_persist_prop:s0" scontext=u:r:mtkmal:s0
+# The `name=` there is the property CONTEXT FILE
+# /dev/__properties__/u:object_r:mtk_wod_persist_prop:s0 -- one of the 136 files
+# in that directory on the handset -- not a property of that type. bionic's
+# __system_properties_init/__system_property_foreach opens every context file in
+# turn, so a process draws one such denial per type it cannot read whether or
+# not it ever reads a property. Proof that those 15 were artefacts: at the time
+# they were captured this type labelled only `persist.vendor.wo.`, a prefix that
+# appears in no shipped blob, so there was no property of the type to read.
 # Read-only: epdg_wod stays the only writer of that namespace.
 get_prop(mtkmal, mtk_wod_persist_prop)
+
+# persist.mtk_epdg_support -- the ePDG feature gate, read by mtkmal itself and
+# by libmal_epdga.so, the MAL ePDG entity that drives epdg_wod over the two
+# init-created sockets (see wod.te). Newly needed because that property is
+# labelled mtk_wfc_service_prop as of this change; before, it fell to
+# default_prop, which mtkmal could not read either.
+get_prop(mtkmal, mtk_wfc_service_prop)
 
 # ImsService (com.mediatek.ims, which runs in the `radio` domain) reads the
 # entitlement and operator-list half of the WFC namespace when it evaluates the

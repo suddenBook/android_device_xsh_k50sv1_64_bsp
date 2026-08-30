@@ -1,6 +1,27 @@
 # ePDG daemon state. Stock: mtk_wod_prop / persist_wod_prop.
-vendor.wo.                         u:object_r:mtk_wod_prop:s0
-persist.vendor.wo.                 u:object_r:mtk_wod_persist_prop:s0
+#
+# The prefixes are `net.wo.` and `persist.net.wo.` -- NOT the vendor-namespaced
+# forms an earlier revision of this file assumed. No shipped blob contains the
+# string "vendor.wo." or "persist.vendor.wo." anywhere, so those two entries
+# labelled nothing at all. What the blobs actually carry:
+#   /vendor/bin/epdg_wod           net.wo.ikev2if, net.wo.key.display,
+#                                  net.wo.key.dump, net.wo.port,
+#                                  net.wo.port_natt, persist.net.wo.debug.sv,
+#                                  and the composed form persist.net.wo.%s
+#   /vendor/lib64/libstrongswan.so the same five net.wo.* -- charon reads them
+#                                  for its IKEv2 interface and port overrides
+#   /vendor/lib/libmal_rds.so      26 persist.net.wo.debug.* RAT/RSSI/SNR
+#                                  thresholds, read from inside mtkmal
+#
+# Unlabelled these are not merely untyped, they are unwritable: net.wo.* falls
+# to AOSP's `net.` -> system_prop (private/property_contexts:18) and
+# persist.net.wo.* matches no plat prefix at all, so it falls to default_prop.
+# public/domain.te:525
+#   neverallow { domain -init -vendor_init } default_prop:property_service set;
+# is compiled on this product (policy.conf:11852), so no allow rule could ever
+# close that write -- a device type is the only correct fix.
+net.wo.                            u:object_r:mtk_wod_prop:s0
+persist.net.wo.                    u:object_r:mtk_wod_persist_prop:s0
 
 # WFC service-level configuration read by ImsService/WifiOffloadService and by
 # the ePDG daemons. persist.vendor.wfc.sys_wfc_support is deliberately NOT here
@@ -10,4 +31,15 @@ persist.vendor.mtk.wfc.mccmnc_list u:object_r:mtk_wfc_service_prop:s0
 persist.vendor.mtk_wfc_opt_in      u:object_r:mtk_wfc_service_prop:s0
 persist.vendor.entitlement_enabled u:object_r:mtk_wfc_service_prop:s0
 persist.vendor.entitlement.sesurl  u:object_r:mtk_wfc_service_prop:s0
-persist.vendor.net.wo.epdg_fqdn    u:object_r:mtk_wfc_service_prop:s0
+
+# The ePDG feature gate. Read by /vendor/bin/mtkmal, /vendor/bin/epdg_wod and
+# libmal_epdga.so / libmal.so / libmal_datamngr.so / libmal_rds.so / libmdfx.so
+# -- nine blobs carry the literal. It has no `vendor.` in its name, so it fell
+# to default_prop with the rest of the unmatched `persist.` namespace; it is a
+# read-only gate here, nothing in this image sets it (unset on the handset and
+# absent from /vendor/build.prop), so only the read side needs to work.
+# persist.vendor.net.wo.epdg_fqdn was removed from this block: `epdg_fqdn` is a
+# KEY inside /vendor/etc/ipsec/wod_optr.conf (105 occurrences, e.g.
+# "epdg_fqdn=epdg.epc.att.net"), never a property name, so the entry labelled
+# nothing.
+persist.mtk_epdg_support           u:object_r:mtk_wfc_service_prop:s0

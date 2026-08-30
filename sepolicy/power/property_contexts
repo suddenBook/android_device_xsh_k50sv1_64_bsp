@@ -2,4 +2,8 @@ persist.vendor.powerhal.                    u:object_r:mtk_powerhal_prop:s0
 vendor.powerhal.                            u:object_r:mtk_powerhal_prop:s0
 
 vendor.net.rndis.client                     u:object_r:mtk_netdagent_prop:s0 exact string
-ro.vendor.net.upload.benchmark.default      u:object_r:mtk_netdagent_config_prop:s0 exact string
+
+# ro.vendor.net.upload.benchmark.default was the only property this file ever
+# gave mtk_netdagent_config_prop, and it has been deleted from vendor.prop: no
+# blob and no source tree reads it, in full or unprefixed form. The type went
+# with it -- see power/property.te and netdagent.te.

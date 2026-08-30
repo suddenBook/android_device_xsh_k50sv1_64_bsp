@@ -3,9 +3,9 @@
 # beyond the plugin itself is already in public/hal_drm.te (execmem, tee_device,
 # ion_device, serialno_prop) except its own storage.
 
-# Reach the directory init created for it. /data/vendor itself keeps the
-# generic label, so this is search only -- no read of the directory listing.
-allow hal_drm_default vendor_data_file:dir search;
+# Reaching the directory init created for it needs no rule: /data/vendor keeps
+# the generic vendor_data_file label and public/domain.te:228 already grants
+# every domain vendor_data_file:dir { getattr search }.
 
 # The provisioned device identity, offline licence store and usage tables.
 allow hal_drm_default mediadrm_vendor_data_file:dir create_dir_perms;

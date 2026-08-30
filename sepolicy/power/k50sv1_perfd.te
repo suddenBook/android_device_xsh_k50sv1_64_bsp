@@ -22,6 +22,24 @@ allow k50sv1_perfd sysfs_leds:file r_file_perms;
 # particular not the userlimit_* set, which is libpowerhal's.
 allow k50sv1_perfd proc_mtk_power_ppm:file { getattr open read write };
 
+# No sysfs_leds:lnk_file rule is needed for the symlink in that path, and one
+# must not be added on the strength of AOSP's public/hal_light.te:6
+#   allow hal_light sysfs_leds:lnk_file read;
+# On this kernel that rule would be dead. /sys/class/leds/lcd-backlight is a
+# symlink to ../../devices/platform/leds-mt65xx/leds/lcd-backlight, and this
+# 3.18.119 kernel does not apply genfscon labels to symlinks in a genfs
+# filesystem at all -- they take the superblock SID. Measured on the handset:
+#   /sys/class/leds            u:object_r:sysfs_leds:s0   (dir, genfscon)
+#   /sys/class/leds/lcd-backlight  u:object_r:sysfs:s0    (the symlink)
+#   .../leds-mt65xx/leds/lcd-backlight/brightness  u:object_r:sysfs_leds:s0
+# with the same split visible at /sys/class/net/wlan0 under sysfs_net. The
+# symlink read is therefore already covered for every domain by
+# public/domain.te:201 `allow domain sysfs:lnk_file { getattr read }`. Live
+# confirmation: k50sv1_perfd runs as u:r:k50sv1_perfd:s0 with fd 5 open on the
+# resolved brightness file, and a 303-record permissive AVC capture contains no
+# sysfs_leds, lnk_file or perfd denial. Revisit only if this device is ever
+# moved to a kernel >= 4.6, where genfs symlink labelling changed.
+#
 # NOT GRANTED, and worth stating because each is one line away:
 #   * proc_mtk_power_perf_ioctl -- the ioctl path is libpowerhal's, and going
 #     through it would put two writers on the same PPM kicker.

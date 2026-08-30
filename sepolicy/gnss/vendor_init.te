@@ -57,6 +57,7 @@
 # matching set_prop(vendor_init, ...) in that type's directory -- only the reason
 # is different: it is insurance, not a fix.
 
-# vendor.prop: ro.vendor.mtk_gps_support, ro.vendor.mtk_agps_app,
-#              ro.vendor.mtk_log_hide_gps
+# vendor.prop: ro.vendor.mtk_log_hide_gps
+# (ro.vendor.mtk_gps_support and ro.vendor.mtk_agps_app were also here; both are
+# deleted, unread by anything. The type and this rule stay for the rest.)
 set_prop(vendor_init, mtk_gnss_ro_prop)

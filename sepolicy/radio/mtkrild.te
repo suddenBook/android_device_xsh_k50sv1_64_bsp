@@ -33,12 +33,26 @@ allow mtkrild sysfs_mtk_ccci:file r_file_perms;
 
 allow mtkrild proc_mtk_lk_env:file rw_file_perms;
 allow mtkrild block_device:dir search;
-allow mtkrild mtk_para_block_device:blk_file rw_file_perms;
+
+# READ ONLY on the para partition, which is the bootloader control block:
+# rootdir/etc/fstab.mt6755:85 maps by-name/para (mmcblk0p2) to /misc. The write
+# half was dropped after looking for a writer and finding none. The only proven
+# para writer in this image is libsysenv.so (write_env_area, "write env fail",
+# "write env sync fail", assembling /dev/block/by-name + /para at runtime), and
+# it is NOT in mtkrild's dependency closure: DT_NEEDED is libcutils, liblog,
+# librilmtk, libmtkrilutils, libc++, libc, libm, libdl, and walking those
+# transitively (25 libraries) reaches no libsysenv. mtkrild itself contains no
+# /dev/block string, no by-name path and no bare "para" token at all.
+# ccci_mdinit is the domain that really does write it -- see ccci_mdinit.te.
+allow mtkrild mtk_para_block_device:blk_file r_file_perms;
 
 set_prop(mtkrild, mtk_ril_active_md_prop)
 set_prop(mtkrild, mtk_ril_mux_report_prop)
 set_prop(mtkrild, mtk_muxreport_state_prop)
-set_prop(mtkrild, ctl_mtk_muxreport_prop)
+# set_prop(mtkrild, ctl_mtk_muxreport_prop) was dead and is gone: /vendor/bin/
+# mtkrild contains no "ctl." string whatsoever, and no "muxreport-daemon"
+# service name either, so it never starts or stops that service. It only
+# publishes the mux report STATE properties above, which is a different thing.
 set_prop(mtkrild, mtk_vendor_radio_prop)
 set_prop(mtkrild, mtk_telephony_sensitive_prop)
 get_prop(mtkrild, mtk_ril_mux_prop)
@@ -47,8 +61,12 @@ get_prop(mtkrild, mtk_modem_status_prop)
 get_prop(mtkrild, mtk_radio_config_prop)
 
 # vendor.cdma.ril.uicc.mccmnc is written on every SIM state change. It was
-# landing on vendor_default_prop, which public/domain.te:535 neverallows any
-# domain but init/vendor_init from setting, so it is typed instead.
+# landing on AOSP's `vendor.` -> vendor_default_prop catch-all and denied, so
+# it is typed instead. public/domain.te:535 is NOT what forces that -- it is
+# compatible_property_only() and does not compile on this product; the type is
+# least privilege over one prefix, and the same labelling discipline is what
+# keeps unnamespaced properties clear of the default_prop neverallow at
+# domain.te:525, which does compile. See sepolicy/vendor/property.te.
 set_prop(mtkrild, mtk_ril_cdma_prop)
 
 # DELIBERATELY LEFT DENIED, so that a future session does not "fix" it:

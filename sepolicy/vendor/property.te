@@ -4,6 +4,36 @@
 # over vendor.streamout. / vendor.streamin. / vendor.a2dp. / vendor.audiohal. /
 # persist.vendor.audiohal.  Without a device type these fall through AOSP's
 # `vendor.` -> vendor_default_prop catch-all
-# (system/sepolicy/private/property_contexts:171-176), which no vendor domain
-# is allowed to set.
+# (system/sepolicy/private/property_contexts:168-175).
+#
+# WHY THE DEVICE TYPE IS STILL RIGHT -- read this before "simplifying" any of
+# the five sites in this tree that used to say vendor_default_prop is
+# unsettable here. It is not, on this product:
+#   public/domain.te:535
+#     neverallow { domain -init -vendor_init } vendor_default_prop:property_service set;
+#   sits inside compatible_property_only(`...') (domain.te:528-536), and
+#   public/te_macros:487 expands that macro to nothing unless
+#   target_compatible_property is true or cts. This product sets
+#   PRODUCT_SHIPPING_API_LEVEL := 26 (via product_launched_with_o.mk, inherited
+#   at lineage_k50sv1_64_bsp.mk:78) and build/make/core/config.mk:645-652 only
+#   raises PRODUCT_COMPATIBLE_PROPERTY to true when that level is > 27, so it
+#   stays false. Confirmed against the built policy: the only occurrence of
+#   `vendor_default_prop` next to `neverallow` in
+#   out/.../sepolicy_neverallows_intermediates/policy.conf is inside a comment.
+#   A plain allow rule on vendor_default_prop WOULD compile here.
+# The types are kept anyway, for two reasons:
+#   1. Least privilege. vendor_default_prop is the catch-all behind five plat
+#      prefixes; granting set on it hands a domain every unlabelled vendor.*,
+#      persist.vendor.*, ro.vendor.*, odm.* and ro.hardware.* property in the
+#      image. A device type scopes the write to the prefixes one daemon owns,
+#      which is the whole point of the split and is what survives if the
+#      product ever raises its shipping API level.
+#   2. The analogous assertion for the unnamespaced catch-all IS compiled and
+#      is genuinely unfixable: public/domain.te:525
+#        neverallow { domain -init -vendor_init } default_prop:property_service set;
+#      sits OUTSIDE the compatible_property_only block and lands in the built
+#      policy at policy.conf:11852. Any property this tree fails to label that
+#      does not match a plat prefix falls there, and no allow rule can rescue
+#      it -- so labelling is the only mechanism that works uniformly across
+#      both catch-alls. Do not reason about one without the other.
 type mtk_audiohal_prop, property_type;

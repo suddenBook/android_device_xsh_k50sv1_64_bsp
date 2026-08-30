@@ -3,11 +3,31 @@ persist.vendor.sys.globalpq.    u:object_r:mtk_pq_config_prop:s0
 persist.vendor.sys.mtkaal.      u:object_r:mtk_pq_config_prop:s0
 vendor.debug.pq.                u:object_r:mtk_pq_config_prop:s0
 
+# DELIBERATELY UNSET. Nothing in this build assigns ro.vendor.globalpq.support
+# -- it is absent from /vendor/build.prop and reads back empty on the handset --
+# while libdpframework.so and vendor.mediatek.hardware.pq@2.3-impl.so both look
+# it up. Both use libcutils property_get(name, value, default), so an unset
+# property yields their compiled-in default and the Global PQ path stays off,
+# which is the wanted behaviour for this build. The declaration is kept so the
+# type is pinned if it is ever assigned; property_info_checker only validates
+# properties that are actually assigned, so an unassigned exact declaration is
+# not an error. Assigning it belongs in vendor.prop, not here.
 ro.vendor.globalpq.support      u:object_r:mtk_pq_ro_prop:s0 exact bool
-ro.vendor.mtk_aal_support       u:object_r:mtk_pq_ro_prop:s0 exact bool
+
+# ro.vendor.mtk_aal_support used to sit here and is gone: deleted from
+# vendor.prop because nothing reads it -- no literal and no unprefixed tail in
+# any shipped blob or anywhere in the source tree. The three entries that
+# remain keep mtk_pq_ro_prop and all of its rules alive.
 ro.vendor.mtk_pq_color_mode     u:object_r:mtk_pq_ro_prop:s0 exact int
 ro.vendor.mtk_pq_support        u:object_r:mtk_pq_ro_prop:s0 exact int
 
+# These two are `int`, not `bool`, on purpose: init's CheckType accepts only
+# "true"/"false"/"1"/"0" for bool (system/core/init/property_type.cpp:46-48), so
+# declaring them bool makes `setprop vendor.debug.sf.latch_unsignaled 2` -- the
+# usual tri-state debug form for these knobs -- fail the type check and be
+# rejected outright. hwcomposer.mt6755.so reads them with libcutils
+# property_get() and parses the string itself, so it has no bool contract to
+# honour. int accepts 0/1 as well, so nothing that worked before stops working.
 vendor.debug.sf.hwc_pid          u:object_r:mtk_hwc_runtime_prop:s0 exact int
-vendor.debug.sf.latch_unsignaled u:object_r:mtk_hwc_runtime_prop:s0 exact bool
-vendor.debug.sf.hdr_enable       u:object_r:mtk_hwc_runtime_prop:s0 exact bool
+vendor.debug.sf.latch_unsignaled u:object_r:mtk_hwc_runtime_prop:s0 exact int
+vendor.debug.sf.hdr_enable       u:object_r:mtk_hwc_runtime_prop:s0 exact int
