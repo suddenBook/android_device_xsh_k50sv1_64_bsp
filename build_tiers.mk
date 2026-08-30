@@ -90,7 +90,7 @@ endif
 #
 # CALLED_FROM_SETUP is .KATI_READONLY (config.mk:28-29) so a makefile cannot
 # fake it; WRITE_SOONG_VARIABLES is read only by soong_config.mk:18 and
-# dex_preopt_config.mk:85, both included at config.mk:1170, long after this
+# dex_preopt_config.mk:85, both included at config.mk:1172, long after this
 # file, so it is still pristine here.
 #
 # Rejected alternative: $(origin TARGET_BUILD_VARIANT), which is `file` in the

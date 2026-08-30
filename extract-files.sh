@@ -1,4 +1,16 @@
 #!/bin/bash
+#
+# OPERATIONAL WARNING, because the recovery path is not obvious: a FAILED run of
+# this script destroys the previous extraction. extract_utils' `extract()` moves
+# the whole existing vendor/xsh/k50sv1_64_bsp/proprietary/ into $TMPDIR when
+# CLEAN_VENDOR is true, and the EXIT trap rm -rf's $TMPDIR. Every blob_fixup
+# path below deliberately `exit 1`s on a mismatch (that is the point of the
+# pins), so one firing pin leaves the vendor tree half-populated AND takes the
+# last good copy with it. Pass -n to keep the existing tree instead of cleaning
+# it; that is the flag to use when re-running after a fixup change. HANDOFF trap
+# 27 is the other half of this: after any failed extraction, re-run to
+# completion and check the file count against proprietary-files.txt before
+# concluding anything about the list.
 
 set -e
 
@@ -852,7 +864,25 @@ function resolve_section() {
         return 0
     fi
 
+    # The guard is anchored; extract_utils' own section range is NOT (it is
+    # unanchored and case-insensitive, extract_utils.sh:1127). So a tag that is
+    # a strict PREFIX of another -- "media" against a future "media-hifi" --
+    # would pass this grep with a count of 1 while the sed opened at both
+    # headers and silently extracted the union, which is exactly the failure
+    # proprietary-files.txt's header claims is impossible. No pair collides
+    # among the current tags; the prefix test below keeps it that way.
     matches="$(grep -c -- "-- section: ${requested}\$" "${list}" || true)"
+    if [[ "${matches}" -eq 1 ]]; then
+        local prefixed
+        prefixed="$(sed -n 's/^#.*-- section: \([A-Za-z0-9_-]\{1,\}\)$/\1/p' "${list}" \
+            | grep -c -- "^${requested}." || true)"
+        if [[ "${prefixed}" -ne 0 ]]; then
+            echo "Section '${requested}' is a prefix of ${prefixed} other section tag(s)." >&2
+            echo "extract_utils' section range is unanchored, so this would extract their union." >&2
+            echo "Rename the tags so none is a prefix of another." >&2
+            exit 1
+        fi
+    fi
     if [[ "${matches}" -ne 1 ]]; then
         {
             echo "Unknown --section '${requested}'. Known sections:"

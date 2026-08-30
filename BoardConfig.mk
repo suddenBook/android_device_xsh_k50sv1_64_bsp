@@ -160,6 +160,12 @@ BOARD_MKBOOTIMG_ARGS += \
 BOARD_USES_RECOVERY_AS_BOOT := false
 BOARD_INCLUDE_RECOVERY_DTBO := true
 BOARD_PREBUILT_RECOVERY_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/recovery_dtbo
+# 16 MiB, matching the GPT. HEADROOM IS 11%: the produced recovery.img is
+# 14,970,156 bytes of the 16,777,216 available, with a 6,997,375-byte ramdisk.
+# Makefile's assert-max-image-size is a hard error, so anything that grows the
+# recovery ramdisk much -- a larger locale set, a font, an extra binary -- fails
+# the build rather than degrading. Check `ls -l $(PRODUCT_OUT)/recovery.img`
+# before adding to it.
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.mt6755
 
@@ -298,6 +304,14 @@ BOARD_VENDOR_SEPOLICY_DIRS += \
 # the HarmonyOS Sans Styles overlay: its Android.mk sits two levels under the
 # device root, and all-makefiles-under is one level deep
 # (definitions.mk:179-181), so the module never existed and nobody was told.
+# NOTE, because the failure message points at build/make and not at this file:
+# main.mk's check is BIDIRECTIONAL. It errors on a whitelisted name that is
+# absent from PRODUCT_PACKAGES just as it does on a PRODUCT_PACKAGES entry with
+# no module -- so this list is coupled to the exact PRODUCT_PACKAGES content of
+# vendor/lineage. An upstream change that lands LineageDarkTheme, LockClock,
+# WeatherProvider or powertop, or that drops one of the compatibility names,
+# becomes a hard error HERE. The answer is still to fix the module or update
+# this list, never to switch the enforcement off (HANDOFF trap 17).
 PRODUCT_ENFORCE_PACKAGES_EXIST := true
 
 # Turning it on found twelve entries that had been missing from every build so

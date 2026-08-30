@@ -1,6 +1,15 @@
 // See k50sv1_perfd.c for why this exists, what it is worth, and how to remove
 // it. It is deliberately a leaf: nothing depends on it and it depends on
 // nothing but liblog.
+// NOTE: no `init_rc:` here, and that is a coupling worth knowing about. The
+// `service vendor.k50sv1_perfd` block lives in
+// rootdir/etc/init/hw/init.mt6755.rc and is installed by its own
+// PRODUCT_COPY_FILES line in device.mk, not by this module. base_rules.mk's
+// my_init_rc_pairs is the mechanism that would normally tie the two together.
+// The consequence: deleting this module does not delete the service, and init
+// would then fail to start a missing binary on every boot. The rc block cannot
+// simply move here, because it is not a standalone file -- the PPM boost it
+// releases is driven from the same init.mt6755.rc triggers.
 cc_binary {
     name: "k50sv1_perfd",
     vendor: true,

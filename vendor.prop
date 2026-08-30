@@ -18,10 +18,6 @@
 # It is also the one persist.* key here that could never be re-asserted after a
 # stale /data, which is how it was found -- see the block at the end of this
 # file. Deleting beat guarding.
-# NOTE for whoever owns sepolicy: sepolicy/safety/property_contexts:5 and
-# sepolicy/safety/vendor_init.te:18 both name this key in comments. The
-# set_prop(vendor_init, mtk_wmt_prop) rule itself is still right for the rest of
-# the persist.vendor.connsys.* namespace; only the example is now stale.
 
 # Legacy MTK IMS. AOSP ImsManager owns the user setting, CarrierConfig owns
 # carrier availability. Diagnostic tiers ship the legacy MediaTek WFO/ePDG
@@ -309,7 +305,7 @@ ro.vendor.md_auto_setup_ims=0
 #
 # END of the md_mims_support note. The property below is unrelated to it.
 
-# ro.vendor.md_prop_ver (vendor/build.prop:60). The modem property-table
+# ro.vendor.md_prop_ver (vendor/build.prop:100). The modem property-table
 # revision, and not a cosmetic version string: eight shipped binaries carry the
 # name -- vendor/bin/{mtkmal,epdg_wod} and vendor/lib{,64}/{libmal,libmdfx,
 # libmal_rds}.so -- and epdg_wod is on that list, which is why it matters to

@@ -1,4 +1,23 @@
 # Canonical application-facing fingerprint from the Android-10 Pixel 4 XL dump.
 # Keep ro.system/vendor/odm/bootimage fingerprints generated from the real
 # Lineage build: those are partition provenance, not public model presentation.
+# ONE CONSEQUENCE TO KNOW BEFORE ANY OTA WORK STARTS. This value is a
+# build-invariant constant, so ota_from_target_files.py's BuildInfo.fingerprint
+# is the same string for every build of this device, and edify_generator.py's
+# AssertSomeFingerprint(source, target) therefore compares a string with itself.
+# An incremental OTA built from these target-files would pass its own
+# source-image guard on ANY build and then fail mid-write inside
+# block_image_update on a source-block hash mismatch, which is a far worse
+# failure than a rejected package. Nothing builds an OTA here today (HANDOFF
+# says so explicitly); if one ever is, it must be a FULL package, or the source
+# fingerprint must be overridden explicitly.
+#
+# It is also self-inconsistent with its own partition on tiers 1 and 2: the
+# build.prop beside it carries ro.build.version.incremental=eng.<user>.<date>,
+# ro.build.type=userdebug and ro.build.tags=test-keys, and
+# property_derive_build_fingerprint() does not reconcile them because this value
+# is non-empty. Three of the eight fields disagree. On Tier 3 only the
+# incremental field does. Those fields are TRUE statements about the build and
+# are deliberately not falsified to match; the Pixel identity that apps read is
+# carried by product.prop, which does not depend on this line.
 ro.build.fingerprint=google/coral/coral:10/QQ3A.200805.001/6578210:user/release-keys

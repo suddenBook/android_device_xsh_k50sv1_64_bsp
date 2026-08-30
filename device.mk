@@ -334,8 +334,12 @@ endif
 # in this block therefore moved to vendor.prop, which Q appends to
 # /vendor/build.prop automatically (build/make/core/Makefile:486-490):
 #   ro.hardware.egl, ro.frp.pst, ro.opengles.version,
-#   persist.radio.multisim.config, ro.telephony.{sim.count,default_network,
+#   persist.radio.multisim.config, ro.telephony.{default_network,
 #   iwlan_operation_mode}
+# ro.telephony.sim.count was in this list and did not move: it was DELETED, and
+# vendor.prop says why at length -- its one occurrence in the whole tree is a
+# declaration in TelephonyProperties.java with no reader. Naming it here as
+# "moved" sent one reader looking for it on /vendor.
 # ro.sf.lcd_density is gone entirely -- TARGET_SCREEN_DENSITY in BoardConfig.mk
 # is the first-class hook for it.
 #
