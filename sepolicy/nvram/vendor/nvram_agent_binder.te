@@ -11,15 +11,46 @@ hal_server_domain(nvram_agent_binder, hal_mtk_nvram)
 
 # INvram supports reads, writes and explicit full backup/restore operations.
 allow nvram_agent_binder self:global_capability_class_set { chown fowner fsetid };
-allow nvram_agent_binder mtk_nvram_storage_file:dir create_dir_perms;
-allow nvram_agent_binder mtk_nvram_storage_file:file create_file_perms;
-allow nvram_agent_binder mtk_nvram_storage_file:lnk_file { getattr read unlink };
-# Measure the destructive half so the attribute can be narrowed with evidence
-# instead of a guess; see attributes/attributes.te for why it is still this
-# wide. One boot's worth of records is the whole cost.
-auditallow nvram_agent_binder mtk_nvram_storage_file:dir { create rmdir rename };
-auditallow nvram_agent_binder mtk_nvram_storage_file:file { create unlink rename };
-auditallow nvram_agent_binder mtk_nvram_storage_file:lnk_file unlink;
+
+# THIS DOMAIN IS APP-REACHABLE, WHICH IS WHY IT IS NARROWER THAN nvram_daemon.
+# Its one client grant is hal_client_domain(radio, hal_mtk_nvram) and `radio` is
+# appdomain (system/sepolicy/private/radio.te), so com.android.phone and
+# com.mediatek.ims can drive INvram over HwBinder into this process.
+#
+# AP calibration keeps the full width: losing an accel/bt/gps/audio/camera/wlan
+# record costs a recalibration.
+allow nvram_agent_binder mtk_nvram_ap_cal_file:dir create_dir_perms;
+allow nvram_agent_binder mtk_nvram_ap_cal_file:file create_file_perms;
+allow nvram_agent_binder mtk_nvram_ap_cal_file:lnk_file { getattr read unlink };
+
+# The modem/identity records and the nvdata tree structure get READ AND WRITE
+# WITHOUT create, unlink, rename or rmdir. An app-reachable path may rewrite a
+# record in place; it may not add one, remove one, or restructure the tree.
+# mtk_nvdata_file is in this set on purpose -- it labels the /mnt/vendor/nvdata
+# mount root plus dm/, APCFG/{,APRDCL,APRDEB}, media/ and the AllFile / AllMap /
+# BackupFlag / RestoreFlag metadata, so create_dir_perms on it is "restructure
+# the nvdata tree", which nvram/vendor/clients.te refuses to every HAL.
+#
+# Backed by measurement, not by preference: across three boots of
+# eng.desmon.20260831.162649, one of them the first boot after a
+# userdata/metadata/cache wipe, the auditallow rules below produced ZERO
+# records (E-150). Nothing here removes an operation this daemon was observed
+# using. See attributes/attributes.te for the full reasoning and for why
+# nvram_daemon deliberately keeps the union.
+allow nvram_agent_binder { mtk_nvram_identity_file mtk_nvdata_file }:dir
+    { getattr open read search };
+allow nvram_agent_binder { mtk_nvram_identity_file mtk_nvdata_file }:file
+    rw_file_perms;
+allow nvram_agent_binder { mtk_nvram_identity_file mtk_nvdata_file }:lnk_file
+    { getattr read };
+
+# Kept, retargeted at what is still granted. If AP calibration ever really
+# needs a create this names it; and if the identity set needs one, it arrives
+# as a DENIAL instead, which is the point.
+auditallow nvram_agent_binder mtk_nvram_ap_cal_file:dir { create rmdir rename };
+auditallow nvram_agent_binder mtk_nvram_ap_cal_file:file { create unlink rename };
+auditallow nvram_agent_binder mtk_nvram_ap_cal_file:lnk_file unlink;
+auditallow nvram_agent_binder mtk_nvram_identity_file:file write;
 
 allow nvram_agent_binder block_device:dir search;
 allow nvram_agent_binder mtk_nvram_block_device:blk_file rw_file_perms;

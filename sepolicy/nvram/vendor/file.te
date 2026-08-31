@@ -15,11 +15,11 @@ type mtk_nvdata_file, file_type, data_file_type, mtk_nvram_storage_file;
 # /mnt/vendor beyond `dir search` (vendor/hal_sensors_default.te), so there is
 # no second claimant. The label exists so the accelerometer calibration record
 # is not indistinguishable from the rest of nvdata if one is ever needed.
-type mtk_accel_nvram_file, file_type, data_file_type, mtk_nvram_storage_file;
-type mtk_bt_nvram_file, file_type, data_file_type, mtk_nvram_storage_file;
-type mtk_gps_nvram_file, file_type, data_file_type, mtk_nvram_storage_file;
-type mtk_audio_nvram_file, file_type, data_file_type, mtk_nvram_storage_file;
-type mtk_camera_nvram_file, file_type, data_file_type, mtk_nvram_storage_file;
+type mtk_accel_nvram_file, file_type, data_file_type, mtk_nvram_storage_file, mtk_nvram_ap_cal_file;
+type mtk_bt_nvram_file, file_type, data_file_type, mtk_nvram_storage_file, mtk_nvram_ap_cal_file;
+type mtk_gps_nvram_file, file_type, data_file_type, mtk_nvram_storage_file, mtk_nvram_ap_cal_file;
+type mtk_audio_nvram_file, file_type, data_file_type, mtk_nvram_storage_file, mtk_nvram_ap_cal_file;
+type mtk_camera_nvram_file, file_type, data_file_type, mtk_nvram_storage_file, mtk_nvram_ap_cal_file;
 
 # mtk_nvram_storage_file is declared centrally in
 # sepolicy/attributes/attributes.te. Each storage type joins it directly in its

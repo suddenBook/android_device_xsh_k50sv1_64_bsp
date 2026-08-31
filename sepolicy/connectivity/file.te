@@ -1,7 +1,7 @@
 # WLAN calibration data and the kernel handoff device are kept separate from
 # generic vendor data and device nodes.
 type mtk_wmt_wifi_device, dev_type;
-type mtk_wlan_nvram_file, file_type, data_file_type, mtk_nvram_storage_file;
+type mtk_wlan_nvram_file, file_type, data_file_type, mtk_nvram_storage_file, mtk_nvram_ap_cal_file;
 
 # /data/vendor/wifi itself, so wpa_supplicant's name-mutation grant does not
 # have to be written against the generic vendor_data_file.

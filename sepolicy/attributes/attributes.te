@@ -118,11 +118,42 @@ hal_attribute(mtk_power)
 # write path. The attribute width alone is not the exposure -- width plus an
 # app-domain client is.
 #
-# Splitting it is the obvious answer and it is NOT taken here, because the
-# daemons' whole job is restoring exactly those partitions and nothing in a
-# permissive boot distinguishes "opened for write" from "created". Removing
-# `create` blind would break modem-identity restore in a way that surfaces as
-# a dead radio on a device with no source and no second copy of the data. The
-# auditallow beside each grant names which destructive operations are really
-# used on the first enforcing boot; narrow against that, not against a guess.
+# THE AUDITALLOW HAS NOW BEEN READ, AND THE SPLIT IS TAKEN. The instrumentation
+# below was added in 9673aa9 and is present in the flashed policy. `auditallow`
+# logs GRANTED accesses and does so under permissive as well as enforcing, so
+# the answer did not have to wait for Tier 2. Across three boots of
+# eng.desmon.20260831.162649 -- including the first boot after userdata,
+# metadata and cache were wiped -- the total number of nvram auditallow records
+# is ZERO (work/k50sv1-bringup/evidence/E-150.md). Twelve `avc: granted`
+# records exist in those captures and every one is vendor_init unlinking
+# `tasks`, an app reading `net_dns_prop`, or com.huawei.hwid executing
+# libmmkv.so. Neither daemon creates, unlinks, renames or rmdirs anything under
+# this attribute on an ordinary boot.
+#
+# So the split is by REACHABILITY, which is the axis that was always decidable:
+#
+#   nvram_daemon        started by init, reachable from nothing else. Keeps the
+#                       union at full width. It is the restore path, and the
+#                       one boot this measurement did NOT cover is a factory
+#                       nvdata reset, which is exactly when creation happens.
+#                       Narrowing the migrator would trade a real risk for no
+#                       gain, because no app can reach it.
+#   nvram_agent_binder  a HIDL server whose client set includes `radio`, which
+#                       is appdomain. It keeps full width on AP calibration and
+#                       drops create/unlink/rename/rmdir on the modem and
+#                       identity sets. An app-reachable path may now rewrite a
+#                       record in place; it may not add or remove one, and it
+#                       may not restructure the nvdata tree.
+#
+# The auditallow follows the narrowing rather than being deleted: if the modem
+# or identity set ever really needs a create, it lands as a denial on Tier 2
+# and as a granted record on Tier 1, and this comment is what to re-read.
 attribute mtk_nvram_storage_file;
+
+# AP-side calibration. Rewritable by anything that can reach INvram; losing a
+# record costs a recalibration, not an identity.
+attribute mtk_nvram_ap_cal_file;
+
+# Modem state and the MD_SBP operator RF profile, plus protect1/protect2, which
+# carry the IMEI. There is no factory server to restore any of it from.
+attribute mtk_nvram_identity_file;
