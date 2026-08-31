@@ -9,6 +9,7 @@
 #include <dlfcn.h>
 #include <errno.h>
 #include <hardware/hardware.h>
+#include <inttypes.h>
 #include <hardware/sensors.h>
 #include <log/log.h>
 #include <pthread.h>
@@ -67,6 +68,9 @@ static struct sensors_module_t *get_backend(int *error) {
   }
   return backend_module;
 }
+
+/* Defined at the bottom of this file; open_sensors needs its address. */
+extern struct sensors_module_t HAL_MODULE_INFO_SYM;
 
 static int open_sensors(const struct hw_module_t *module, const char *id,
                         struct hw_device_t **device) {
@@ -144,10 +148,11 @@ static void initialize_sensor_list(void) {
     return;
   }
   if (accelerometer_count != 1) {
+    /* sensor_t.flags is uint64_t under __LP64__ (sensors.h:518-522). */
     ALOGW("Found %d accelerometers in %d Stock sensor entries; exposing "
-          "handle %d (flags 0x%x)",
+          "handle %d (flags 0x%" PRIx64 ")",
           accelerometer_count, stock_count, accelerometer->handle,
-          accelerometer->flags);
+          (uint64_t)accelerometer->flags);
   }
 
   /*
