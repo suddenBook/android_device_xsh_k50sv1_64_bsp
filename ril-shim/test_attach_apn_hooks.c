@@ -232,7 +232,12 @@ static int testRollbackFailure(const RollbackFailureCase *testCase)
     originalCompleteBeforeSynthetic = atomic_load_explicit(
             &sOriginalCompleteCalls, memory_order_relaxed);
     if (testCase->residualComplete) {
-        callFixtureComplete(REISSUE_TOKEN);
+        callFixtureComplete(REISSUE_TOKEN_AT(sIaTokenSeq));
+        CHECK(atomic_load_explicit(&sOriginalCompleteCalls,
+                                   memory_order_relaxed) ==
+              originalCompleteBeforeSynthetic);
+        /* A token from earlier in the ring must be swallowed too. */
+        callFixtureComplete(REISSUE_TOKEN_AT(sIaTokenSeq + 1));
         CHECK(atomic_load_explicit(&sOriginalCompleteCalls,
                                    memory_order_relaxed) ==
               originalCompleteBeforeSynthetic);
@@ -332,6 +337,7 @@ typedef struct {
     int modemCognitive;
     int mtu;
     int canHandleIms;
+    RIL_Token token;
     struct timespec issuedAt;
 } CapturedIa;
 
@@ -359,7 +365,7 @@ static void captureRealRequest(int request, void *data, size_t datalen,
 
     (void)socketId;
     if (request != RIL_REQUEST_SET_INITIAL_ATTACH_APN ||
-        token != REISSUE_TOKEN) {
+        !isReissueToken(token)) {
         return;
     }
     if (datalen != sizeof(*ia)) {
@@ -372,6 +378,7 @@ static void captureRealRequest(int request, void *data, size_t datalen,
     }
     capture = &sCaptured[sCapturedCount++];
     memset(capture, 0, sizeof(*capture));
+    capture->token = token;
     copyText(capture->apn, sizeof(capture->apn), ia->apn);
     copyText(capture->protocol, sizeof(capture->protocol), ia->protocol);
     copyText(capture->roamingProtocol, sizeof(capture->roamingProtocol),
@@ -463,7 +470,7 @@ static void completeSyntheticRequest(void)
     }
     sOutstanding--;
     pthread_mutex_unlock(&sCaptureLock);
-    callFixtureComplete(REISSUE_TOKEN);
+    callFixtureComplete(REISSUE_TOKEN_AT(sIaTokenSeq));
 }
 
 static void *resetApnBurst(void *unused)
@@ -515,6 +522,7 @@ static int testApnLifetimeSingleFlightAndRate(void)
     MtkInitialAttachApn third;
     pthread_t bursts[4];
     int i;
+    int outstandingBeforeStale;
     int64_t issueSpacing;
     struct timespec pause = { .tv_sec = 0, .tv_nsec = 70000000L };
 
@@ -583,6 +591,27 @@ static int testApnLifetimeSingleFlightAndRate(void)
     callFixtureUnsol(RIL_UNSOL_RESET_ATTACH_APN);
     CHECK(waitForCapturedCount(4) == 0);
     CHECK(checkCaptured(&sCaptured[3], "third", 300) == 0);
+
+    /*
+     * Every issue carries a DISTINCT token, and a late completion of a
+     * timed-out request does not release the slot its successor holds.
+     *
+     * With one shared token this was the hole the bounded wait opened: the
+     * worker released the slot at 10 s without cancelling request A, issued B
+     * under the same token, and A's late completion then cleared the flag while
+     * B was still outstanding - so C went out and two or more requests were live
+     * in the vendor RIL under one identical token. Here sCaptured[2] is the
+     * timed-out one and sCaptured[3] is its successor; completing the stale
+     * token must leave sOutstanding untouched.
+     */
+    CHECK(sCaptured[2].token != sCaptured[3].token);
+    CHECK(isReissueToken(sCaptured[2].token));
+    CHECK(isReissueToken(sCaptured[3].token));
+    outstandingBeforeStale = sOutstanding;
+    callFixtureComplete(sCaptured[2].token);
+    CHECK(sOutstanding == outstandingBeforeStale);
+    /* And the current one still does release it. */
+    completeSyntheticRequest();
 
     fprintf(stderr, "APN deep-copy, single-flight, and rate limiting: PASS\n");
     return 0;

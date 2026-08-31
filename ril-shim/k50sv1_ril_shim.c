@@ -586,12 +586,58 @@ typedef enum {
 static _Atomic int sIaHookState = IA_HOOKS_DISABLED;
 
 /*
- * The token the re-issued request carries. Its VALUE is never interpreted -
- * only its identity, by completeHook. It must not be NULL and must not collide
- * with a real RequestInfo *, and the address of a file-static object cannot.
+ * The tokens the re-issued requests carry. Their VALUE is never interpreted -
+ * only their identity, by completeHook. They must not be NULL and must not
+ * collide with a real RequestInfo *, and the address of a file-static object
+ * cannot.
+ *
+ * A RING, not one object, because the in-flight slot is released on a timeout
+ * as well as on a completion (iaWorker below). With a single token that
+ * recovery broke its own invariant: the worker released the slot at 10 s
+ * WITHOUT cancelling request A, issued B under the same token, and then A's
+ * late completion cleared the flag while B was still outstanding - so a third
+ * request went out and two or more were live in the vendor RIL under one
+ * identical token. Each token now identifies exactly one issue, so a stale
+ * completion is still swallowed but no longer releases anyone else's slot.
+ *
+ * The ring must be long enough that it cannot wrap back onto a token that the
+ * timeout has not yet given up on; the static assert below pins that.
+ *
+ * Each element is a whole cache line rather than an int, and that is not
+ * padding for its own sake: librilproxy's RIL_onRequestComplete is known to
+ * read the token at +0x1c before validating it (which is why completeHook
+ * swallows ours), so any layer that indexes into a token must land inside the
+ * object rather than on unrelated shim statics.
  */
-static int sReissueTokenObject;
-#define REISSUE_TOKEN ((RIL_Token)&sReissueTokenObject)
+#define REISSUE_TOKEN_SLOTS 16
+_Static_assert((long)REISSUE_TOKEN_SLOTS * REISSUE_MIN_INTERVAL_NS >
+                       REISSUE_INFLIGHT_TIMEOUT_NS,
+               "the token ring can wrap onto a request the in-flight timeout "
+               "has not yet released");
+
+typedef struct {
+    char opaque[64];
+} ReissueToken;
+
+static ReissueToken sReissueTokens[REISSUE_TOKEN_SLOTS] __attribute__((aligned(16)));
+/* Index of the most recently issued token. Written and read under sIaLock. */
+static unsigned sIaTokenSeq;
+
+#define REISSUE_TOKEN_AT(i) ((RIL_Token)&sReissueTokens[(i) % REISSUE_TOKEN_SLOTS])
+
+/* Identity test only - no dereference, and no assumption about ordering
+ * between the array elements beyond what C guarantees for one object. */
+static bool isReissueToken(RIL_Token t)
+{
+    unsigned i;
+
+    for (i = 0; i < REISSUE_TOKEN_SLOTS; ++i) {
+        if (t == (RIL_Token)&sReissueTokens[i]) {
+            return true;
+        }
+    }
+    return false;
+}
 
 static pthread_mutex_t sIaLock = PTHREAD_MUTEX_INITIALIZER;
 /*
@@ -737,19 +783,34 @@ static void completeHook(RIL_Token t, RIL_Errno e, void *response,
 {
     ril_complete_fn realComplete;
 
-    if (t == REISSUE_TOKEN) {
+    if (isReissueToken(t)) {
+        bool current;
+
         /*
          * Ours. Swallow it: librilproxy's RIL_onRequestComplete dereferences
          * the token at +0x1c before it validates it, so this pointer must never
-         * reach it. Completion is also the single-flight hand-off: only after
-         * this request finishes may the worker issue the coalesced next one.
-         * This remains true even for a residual hook after failed rollback.
+         * reach it. That is unconditional, and remains true even for a residual
+         * hook after failed rollback.
+         *
+         * Releasing the single-flight slot is NOT unconditional. Only the token
+         * the worker most recently issued hands the slot on; a completion that
+         * arrives after the 10 s timeout already released its own slot belongs
+         * to a request the worker has stopped waiting for, and letting it
+         * signal would release whatever went out in its place.
          */
         pthread_mutex_lock(&sIaLock);
-        sIaRequestInFlight = false;
-        pthread_cond_signal(&sIaWake);
+        current = (t == REISSUE_TOKEN_AT(sIaTokenSeq));
+        if (current) {
+            sIaRequestInFlight = false;
+            pthread_cond_signal(&sIaWake);
+        }
         pthread_mutex_unlock(&sIaLock);
-        RLOGI("re-issued SET_INITIAL_ATTACH_APN completed, e=%d", (int)e);
+        if (current) {
+            RLOGI("re-issued SET_INITIAL_ATTACH_APN completed, e=%d", (int)e);
+        } else {
+            RLOGI("late completion of a timed-out re-issued "
+                  "SET_INITIAL_ATTACH_APN, e=%d; slot not released", (int)e);
+        }
         return;
     }
 
@@ -777,6 +838,18 @@ static void unsolHook(int unsolResponse, const void *data, size_t datalen,
         if (sIaCached[socketId]) {
             sIaPending[socketId] = true;
             pthread_cond_signal(&sIaWake);
+        } else {
+            /*
+             * Nothing to re-send yet. That is the EXPECTED state at every cold
+             * boot -- the IA cache is non-persistent (vendor.ril.radio.ia)
+             * while the password flag is persistent, so the vendor RIL writes
+             * its sentinel APN before the framework has sent a real one. Say so
+             * anyway: a cold-boot ordering inversion, where the URC storm
+             * outlives the framework's first SET_INITIAL_ATTACH_APN, would
+             * otherwise be indistinguishable from this and leave no record.
+             */
+            RLOGI("RIL_UNSOL_RESET_ATTACH_APN on socket %d with nothing cached "
+                  "yet; not re-sending", socketId);
         }
         pthread_mutex_unlock(&sIaLock);
     }
@@ -826,6 +899,7 @@ static void *iaWorker(void *unused)
 
     for (;;) {
         MtkInitialAttachApn outgoing;
+        RIL_Token token;
         int socketId = -1;
         int offset;
         int64_t waitUntilNs = 0;
@@ -927,6 +1001,8 @@ static void *iaWorker(void *unused)
         }
         sIaPending[socketId] = false;
         sIaRequestInFlight = true;
+        sIaTokenSeq++;
+        token = REISSUE_TOKEN_AT(sIaTokenSeq);
         sIaNextSocket = (socketId + 1) % SIM_COUNT;
         if (clock_gettime(CLOCK_MONOTONIC, &sIaLastIssue) == 0) {
             sIaLastIssueValid = true;
@@ -950,7 +1026,7 @@ static void *iaWorker(void *unused)
          * follows the same contract.
          */
         sRealOnRequest(RIL_REQUEST_SET_INITIAL_ATTACH_APN, &outgoing,
-                       sizeof(outgoing), REISSUE_TOKEN,
+                       sizeof(outgoing), token,
                        (RIL_SOCKET_ID)socketId);
         freeIaStrings(&outgoing);
     }
@@ -1378,17 +1454,39 @@ static bool rollbackGotHooks(const GotEntry *unsol, const GotEntry *complete)
  * or signal it: unsolHook and completeHook both become reachable only after
  * this function's caller publishes IA_HOOKS_ACTIVE.
  */
-static void initIaWake(void)
+/*
+ * Returns 0 only when sIaWake is genuinely on CLOCK_MONOTONIC. It must FAIL
+ * rather than fall back, because a silent fall-back is worse than no worker:
+ * the condvar would keep PTHREAD_COND_INITIALIZER's realtime clock while
+ * iaWorker builds every deadline from CLOCK_MONOTONIC, so a monotonic value
+ * compared against realtime is always in the past, pthread_cond_timedwait
+ * returns ETIMEDOUT immediately, and the in-flight recovery path becomes a hot
+ * loop emitting one RLOGE per iteration inside the RIL process. That is the
+ * same shape as the copyIa() failure this file already had to fix once.
+ */
+static int initIaWake(void)
 {
     pthread_condattr_t attr;
+    int rc;
 
-    if (pthread_condattr_init(&attr) != 0) {
-        return;
+    rc = pthread_condattr_init(&attr);
+    if (rc != 0) {
+        RLOGE("pthread_condattr_init failed: %s", strerror(rc));
+        return rc;
     }
-    if (pthread_condattr_setclock(&attr, CLOCK_MONOTONIC) == 0) {
-        (void)pthread_cond_init(&sIaWake, &attr);
+    rc = pthread_condattr_setclock(&attr, CLOCK_MONOTONIC);
+    if (rc == 0) {
+        rc = pthread_cond_init(&sIaWake, &attr);
+        if (rc != 0) {
+            RLOGE("pthread_cond_init(CLOCK_MONOTONIC) failed: %s",
+                  strerror(rc));
+        }
+    } else {
+        RLOGE("pthread_condattr_setclock(CLOCK_MONOTONIC) failed: %s",
+              strerror(rc));
     }
     (void)pthread_condattr_destroy(&attr);
+    return rc;
 }
 
 static int startIaWorker(void)
@@ -1397,7 +1495,10 @@ static int startIaWorker(void)
     pthread_t worker;
     int rc;
 
-    initIaWake();
+    rc = initIaWake();
+    if (rc != 0) {
+        return rc;
+    }
 
 #ifdef K50SV1_RIL_SHIM_HOST_TEST
     if (sGotTestControl.failWorkerCreate) {
@@ -1547,11 +1648,19 @@ static int patchOnRequest(const RIL_RadioFunctions *funcs)
 
     sRealOnRequest = funcs->onRequest;
     ((RIL_RadioFunctions *)funcs)->onRequest = onRequestShim;
-    /* Read back, the way writeGotValue does for the two GOT slots. A write
+    /* Read back, the way writeGotValue:1331 does for the two GOT slots. A write
      * into a page whose mapping is not what mappingProt reported would
      * otherwise be reported as success and leave sRealOnRequest published
-     * against a table that still holds the blob's own pointer. */
-    patched = (funcs->onRequest == onRequestShim);
+     * against a table that still holds the blob's own pointer.
+     *
+     * It has to be an atomic load, not `funcs->onRequest == onRequestShim`.
+     * That plain form was here and it verified nothing: the store and the load
+     * are the same object of the same type, so at -O2 - which is what Soong
+     * builds this at - clang forwards the stored value and folds the comparison
+     * to a constant true. Confirmed by compiling the pattern both ways: -O0
+     * emits a real compare, -O2 emits `movb $1`. */
+    patched = (__atomic_load_n((RIL_RequestFunc *)&funcs->onRequest,
+                               __ATOMIC_ACQUIRE) == onRequestShim);
 
     if ((oldProt & PROT_WRITE) == 0 &&
         mprotect((void *)page, span, oldProt) != 0) {
@@ -1641,10 +1750,24 @@ const RIL_RadioFunctions *RIL_Init(const struct RIL_Env *env, int argc,
      * so make the page writable first and put the original protection back.
      */
     if (patchOnRequest(sRealFuncs) != 0) {
-        /* Fail closed. Returning the real table would silently put the broken,
-         * destructive MediaTek capability switch back behind a Settings tap. */
+        /*
+         * Fail closed. Returning the real table would silently put the broken,
+         * destructive MediaTek capability switch back behind a Settings tap.
+         *
+         * What "closed" costs, traced rather than assumed, because the old
+         * wording ("a half-initialised telephony stack") understated it:
+         * /vendor/bin/hw/rilproxy does NOT null-check this return -- it does
+         * `blr x24` then `mov x0, x19; bl RIL_register` -- and
+         * librilproxy!RIL_register takes `cbz x19` straight to its epilogue
+         * after one priority-6 log line. So the handset BOOTS, does not crash
+         * and does not crash-loop; it comes up with binder alive, no IRadio
+         * service registered, and telephony dead until reboot, with one E line
+         * in the radio buffer naming the cause. RIL_SAP_Init still forwards, so
+         * BT-SAP survives. If this ever fires, that log line is the only
+         * symptom you will get.
+         */
         RLOGE("could not patch onRequest; refusing to expose the unsafe MTK "
-              "radio-capability path");
+              "radio-capability path. NO IRadio WILL BE REGISTERED THIS BOOT");
         return NULL;
     }
     sOnRequestPatched = true;
