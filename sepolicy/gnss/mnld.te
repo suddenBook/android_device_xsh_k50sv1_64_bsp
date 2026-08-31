@@ -39,10 +39,24 @@ get_prop(mnld, mtk_gnss_ro_prop)
 get_prop(mnld, mtk_wmt_prop)
 get_prop(mnld, mtk_nvram_ready_prop)
 
-# REVIEWED, kept: net_domain(mnld) above is broad -- it brings in the whole
-# public/net.te socket set plus netd access -- and the SUPL data path belongs
-# to mtk_agpsd, not to mnld. It is NOT narrowed here because the live handset
-# shows mnld holding a dozen sockets whose families could not be attributed
-# from /proc, and there is no AVC to argue from either way. Next session:
-# auditallow mnld self:{ tcp_socket udp_socket }, take a fix, and if nothing
-# fires replace net_domain(mnld) with the specific classes it does use.
+# REVIEWED, kept, AND NOW INSTRUMENTED: net_domain(mnld) above is broad -- it
+# brings in the whole public/net.te socket set plus netd access -- and the SUPL
+# data path belongs to mtk_agpsd, not to mnld. It is not narrowed on inference,
+# because the live handset shows mnld holding a dozen sockets whose families
+# could not be attributed from /proc and there is no AVC to argue from either
+# way.
+#
+# The auditallow below is what settles it, and it does NOT need Tier 2:
+# auditallow logs GRANTED accesses and fires under permissive as well. That is
+# the same instrument that closed WI-067 from three Tier-1 captures (E-150)
+# after the nvram note had spent four sessions waiting for an enforcing boot.
+#
+# `create` only, deliberately. It is a bounded, once-per-socket event, so a
+# GNSS daemon cannot flood the log with it, and it is the only permission that
+# answers the question -- if mnld never creates an INET socket, the whole
+# net_domain() call can be replaced by the specific classes it does use.
+#
+# READ THE FIRST BOOT AFTER THIS FLASHES. If nothing fires across a boot plus a
+# GPS fix, replace net_domain(mnld) with those classes and delete this block.
+auditallow mnld self:tcp_socket create;
+auditallow mnld self:udp_socket create;
