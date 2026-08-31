@@ -6,11 +6,21 @@
     <bool name="config_automatic_brightness_available">false</bool>
     <bool name="config_suspendWhenScreenOffDueToProximity">false</bool>
 
-    <!-- There is no wake-up/significant-motion sensor. DeviceIdleController
-         otherwise waits for a sensor that SensorManager cannot provide and
-         never enters normal deep Doze; the measured build reached only light
-         idle during more than 32 hours of screen-off time. The stationary
-         timeout path is the correct motion gate for this hardware. -->
+    <!-- There is no wake-up/significant-motion sensor.
+         DeviceIdleController.java:3568-3578 makes scheduleAlarmLocked() return
+         without scheduling ANYTHING when mUseMotionSensor is true and
+         mMotionSensor is null, with AOSP's own comment saying that "effectively
+         turns off normal execution of device idling". That is the 32-hours-in-
+         light-idle symptom this was measured against.
+
+         What the false value actually buys, stated correctly because an earlier
+         revision of this comment got it wrong: with the bool false,
+         stepIdleStateLocked takes the else at :3109-3120 and sets
+         mNotMoving = true unconditionally, so there is NO motion gate on the
+         deep-idle path at all. It is not "the stationary timeout path instead";
+         startMonitoringMotionLocked() at :3503 is a no-op either way, because
+         mMotionSensor is null in both configurations and mStationaryListeners
+         therefore never arms. Deep Doze on this chassis is time-based only. -->
     <bool name="config_autoPowerModeUseMotionSensor">false</bool>
 
     <!-- Wired-headset detection. There is no 3.5 mm jack; the USB-C port

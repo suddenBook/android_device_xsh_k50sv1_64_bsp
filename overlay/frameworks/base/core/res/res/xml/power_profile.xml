@@ -166,6 +166,14 @@
         <value>2</value>
     </array>
 
+    <!-- The five modem.controller.* keys are zero and that is CORRECT, unlike
+         the Bluetooth gap documented at the top of this file. They select
+         MobileRadioPowerCalculator's newer per-controller model; with them zero
+         it falls back to the legacy radio.active / radio.scanning / radio.on[]
+         path, and those three ARE set above. Cellular is attributed.
+
+         Said explicitly because five zeros immediately after a 23-line note
+         about the harm of a zeroed component reads like the same bug. -->
     <item name="modem.controller.sleep">0</item>
     <item name="modem.controller.idle">0</item>
     <item name="modem.controller.rx">0</item>
@@ -178,6 +186,19 @@
     </array>
     <item name="modem.controller.voltage">0</item>
 
+    <!-- GPS *is* the same shape as the Bluetooth gap, and unlike the modem keys
+         above it has no fallback worth the name. GnssPowerCalculator uses
+         gps.signalqualitybased[] when it is non-zero and otherwise charges
+         everything at the flat gps.on value, which is 3 mA, itself carried
+         over from the donor profile rather than measured here. So GNSS blame
+         exists but is a single donor constant with no signal-quality
+         differentiation.
+
+         Measuring it needs the same controlled unplugged run as the Bluetooth
+         values: one window with a GNSS fix held at strong signal, one at weak,
+         with the screen off and the modem idle. Until then leaving these at
+         zero is honest, because a guessed pair would be worse than the flat value:
+         because it would look measured. -->
     <array name="gps.signalqualitybased">
         <value>0</value>
         <value>0</value>

@@ -59,6 +59,13 @@
 # phase to be in. Do NOT add `encryptable=` here to "tidy" the state string:
 # that flips is_encryptable() back on and puts the FDE machinery back.
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata  /data                 ext4  noatime,nosuid,nodev,noauto_da_alloc          wait,check,formattable,quota
+# /cache is the one filesystem here that carries online `discard`, and it is
+# deliberately NOT covered by the no-trim invariant stated for nvdata below: it
+# holds no identity or calibration data and is wiped on every flash. AOSP's
+# guidance is to rely on periodic fstrim rather than online discard, so this is
+# an outlier inherited from stock rather than a policy. Left as it is because
+# changing it on a partition this build barely uses would be churn; recorded so
+# it is not misread as part of the nvdata rule.
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache     /cache                ext4  noatime,nosuid,nodev,noauto_da_alloc,discard  wait,check,formattable
 
 # MTK radio/calibration data filesystems. Never auto-format these identity and

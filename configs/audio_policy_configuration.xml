@@ -73,15 +73,30 @@
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="44100,48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
                 </mixPort>
+                <!-- AUDIO_CHANNEL_IN_VOICE_UPLINK and _VOICE_DNLINK are
+                     dropped from both input mixPorts. They came from stock and
+                     were inert: the input channel-mask converter silently
+                     discards them, and the live dump reports these ports as
+                     0x000c,0x0010 (STEREO, MONO) only. -->
                 <mixPort name="primary input" role="sink" maxOpenCount="1" maxActiveCount="1">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="8000,16000,32000,44100,48000"
-                             channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO,AUDIO_CHANNEL_IN_VOICE_UPLINK,AUDIO_CHANNEL_IN_VOICE_DNLINK"/>
+                             channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO"/>
                 </mixPort>
-                <mixPort name="voice tx" role="sink" maxOpenCount="1" maxActiveCount="1">
+                <!-- RENAMED from stock's "voice tx", which inverted the meaning
+                     of tx for every later reader. This port is role="sink" and
+                     its only route source is Voice Call In
+                     (AUDIO_DEVICE_IN_TELEPHONY_RX), i.e. it CAPTURES the
+                     downlink. AOSP's reference calls that mixPort "voice_rx"
+                     and reserves "voice_tx" for the role="source" port that
+                     feeds Telephony Tx (frameworks/av/services/audiopolicy/
+                     config/audio_policy_configuration.xml). mixPort names are
+                     opaque strings, so this is a rename with no behavioural
+                     effect; the route below is updated with it. -->
+                <mixPort name="voice rx" role="sink" maxOpenCount="1" maxActiveCount="1">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="8000,16000,32000,44100,48000"
-                             channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO,AUDIO_CHANNEL_IN_VOICE_UPLINK,AUDIO_CHANNEL_IN_VOICE_DNLINK"/>
+                             channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO"/>
                 </mixPort>
             </mixPorts>
             <devicePorts>
@@ -218,7 +233,7 @@
                        sources="Built-In Mic,Built-In Back Mic,Wired Headset Mic,BT SCO Headset Mic,incall_music_uplink"/>
                 <route type="mix" sink="primary input"
                        sources="Built-In Mic,Built-In Back Mic,Wired Headset Mic,BT SCO Headset Mic"/>
-                <route type="mix" sink="voice tx"
+                <route type="mix" sink="voice rx"
                        sources="Voice Call In"/>
             </routes>
 
