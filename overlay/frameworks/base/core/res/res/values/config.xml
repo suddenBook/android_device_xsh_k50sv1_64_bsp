@@ -139,6 +139,27 @@
          with no way to change it. -->
     <bool name="config_wifi_dual_band_support">true</bool>
 
+    <!-- Hardware-offloaded PNO. AOSP defaults this false (config.xml:576) and
+         its only reader, WificondScannerImpl.java:110, then runs every
+         screen-off saved-network scan on the host CPU instead of in the Wi-Fi
+         firmware.
+
+         True because the shipped driver implements it, not because other trees
+         set it: wlan_drv_gen2.ko exports mtk_cfg80211_sched_scan_start and
+         mtk_cfg80211_sched_scan_stop and emits cfg80211_sched_scan_results /
+         cfg80211_sched_scan_stopped, i.e. the full NL80211_CMD_START_SCHED_SCAN
+         path.
+
+         The failure mode if that is wrong is specific and observable: screen-off
+         auto-reconnect stops working. Check with
+             dumpsys wifi | grep numPnoScan
+         after a screen-off window away from a known network -
+         numPnoScanStartedOverOffload should be non-zero with
+         numPnoScanFailedOverOffload at zero. All four counters read 0 on the
+         predecessor image because it never disconnected while screen-off, so
+         this needs a deliberate window to measure. -->
+    <bool name="config_wifi_background_scan_support">true</bool>
+
     <!-- Tethering. AOSP ships all three of these arrays EMPTY
          (frameworks/base/core/res/res/values/config.xml:380-399), and
          Tethering.hasTetherableConfiguration() is false when they all are, so
@@ -255,6 +276,53 @@
          PowerHint.SUSTAINED_PERFORMANCE whenever the aggregate window state
          changes, with no reference to this resource. This overlay only stops
          the framework from denying that the mode exists. -->
+    <!-- Haptic waveforms for a single ERM rotor.
+
+         AOSP's defaults are LRA numbers and they are not a style choice: an
+         eccentric-rotating-mass motor needs roughly 20-30 ms of drive just to
+         reach a perceptible amplitude, so AOSP's 1 ms long-press pulse
+         (config.xml:1225-1229, "0,1,20,21") and 10 ms virtual-key pulse
+         (:1233-1237) produce nothing a hand can feel on this chassis. The
+         40 ms keyboard tap (:1241) is the only default that survives contact
+         with an ERM, and even it is at the edge.
+
+         These are not legacy leftovers. VibratorService.java:380 and :384 read
+         config_virtualKeyVibePattern and config_longPressVibePattern into the
+         FALLBACK effects used whenever the HAL cannot render a VibrationEffect
+         primitive, and PhoneWindowManager.java:2215-2219 reads
+         config_longPressVibePattern directly. This device ships
+         android.hardware.vibrator@1.0, which has no amplitude control at all,
+         so these on/off millisecond patterns are literally the whole haptic
+         vocabulary, and what the user feels IS this array.
+
+         Each array is on/off milliseconds starting with off. Long-press and
+         virtual key are collapsed to one pulse rather than AOSP's double,
+         because a rotor cannot stop and restart inside 20 ms; asking it to just
+         smears into a single longer buzz with a slower attack.
+
+         Tuned by mechanism, not by ear. An owner-present pass is the only way
+         to settle the exact durations, and they can be walked in 5 ms steps
+         without rebuilding anything else. -->
+    <integer-array name="config_longPressVibePattern">
+        <item>0</item>
+        <item>25</item>
+    </integer-array>
+    <integer-array name="config_virtualKeyVibePattern">
+        <item>0</item>
+        <item>20</item>
+    </integer-array>
+    <integer-array name="config_keyboardTapVibePattern">
+        <item>25</item>
+    </integer-array>
+    <!-- Clock tick and calendar date keep AOSP's shape. Both are a 125 ms
+         pause then a 30 ms pulse, and 30 ms is already inside the ERM's usable
+         range, so there is nothing to widen. Restated rather than omitted only
+         where a value changed; these two are deliberately NOT overridden.
+
+         config_safeModeEnabledVibePattern is likewise left alone: its first
+         pulse has the same 1 ms problem, but it fires once, in safe mode, and
+         is followed by a 500/600 ms pair that is unmissable. -->
+
     <bool name="config_sustainedPerformanceModeSupported">true</bool>
 
 </resources>

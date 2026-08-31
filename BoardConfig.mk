@@ -224,6 +224,39 @@ BOARD_PREBUILT_RECOVERY_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/recovery_dtbo
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.mt6755
 
+# MEASURED, not guessed. Makefile:188-191 turns this into ro.minui.pixel_format
+# in /vendor/default.prop, which Makefile:1851 concatenates into the recovery
+# ramdisk's /prop.default; minui/graphics.cpp:350-360 accepts only ABGR_8888,
+# RGBX_8888 and BGRA_8888 and leaves PixelFormat::UNKNOWN for anything else,
+# including unset. resources.cpp:201-320 then skips the channel swap when
+# decoding PNGs, so every recovery graphic renders with red and blue exchanged.
+# Neither this tree nor stock's recovery ramdisk set it.
+#
+# The value is per-device and cannot be inferred from the SoC -- MT6763 trees
+# in the wild use both RGBX_8888 and BGRA_8888. So it was read off this
+# handset's own recovery, booted on the running image
+# (minui/graphics_fbdev.cpp:87-94 prints it into /tmp/recovery.log):
+#
+#     fb0 reports (possibly inaccurate):
+#       vi.bits_per_pixel = 32
+#       vi.red.offset   =   0   .length =   8
+#       vi.green.offset =   8   .length =   8
+#       vi.blue.offset  =  16   .length =   8
+#
+# red at bit 0 is red in the FIRST byte, i.e. R,G,B,X in memory -> RGBX_8888.
+#
+# It is not recovery-only. AOSP's own comment at Makefile:183 says these
+# variables are "also needed under charger mode (via libminui)", which matters
+# here because BOARD_CHARGER_ENABLE_SUSPEND is set below.
+#
+# If recovery ever comes up BLACK rather than mis-coloured, this is the wrong
+# knob and TARGET_RECOVERY_UI_BLANK_UNBLANK_ON_INIT is the right one -- a
+# LineageOS-only variable (core/Makefile:1813 ->
+# ro.recovery.ui.blank_unblank_on_init, read at recovery_ui/screen_ui.cpp:381)
+# that the official LineageOS 17.1 MediaTek tree sets. Recovery renders
+# correctly today, so it is not set.
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+
 # Physical A-only GPT layout
 BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 4294967296

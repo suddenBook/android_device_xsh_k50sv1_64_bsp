@@ -435,6 +435,43 @@ ro.vendor.wlan.gen=gen2
 # LTE/GSM/WCDMA on protocol stack 1, GSM/WCDMA (WCDMA preferred) on fixed
 # protocol stack 2, and IWLAN in legacy mode. The RIL shim publishes the same
 # per-socket capability split and absorbs AOSP's impossible request to swap it.
+# BesLoudness, MediaTek's loudspeaker loudness/limiter stage.
+#
+# Set because a SHIPPED BLOB READS IT, not because stock did. The only
+# installed binary containing the literal is
+# vendor/lib/hw/audio.primary.mt6755.so, and its parameter payload is shipped
+# too: vendor/etc/audio_param/SoundEnhancement_{AudioParam,ParamUnitDesc}.xml.
+# With the property unset the HAL falls back to a compiled-in default, so the
+# tuning those two files describe was being ignored. This chassis has ONE
+# bottom speaker, which is exactly the case the stage exists for.
+#
+# It is a `persist.` property, so it can be A/B'd on a running handset with
+# setprop plus an audioserver restart before anyone believes it. That test is
+# an owner-present listening test and has not been done; the property is set to
+# the value the shipped parameter files were authored against.
+persist.vendor.audiohal.besloudness_state=1
+
+# MediaTek Picture Quality runtime defaults.
+#
+# Same rule: persist.vendor.sys.pq.bluelight.default is read by
+# vendor/lib64/hw/vendor.mediatek.hardware.pq@2.3-impl.so, which this tree
+# installs, declares in manifest.xml as
+# vendor.mediatek.hardware.pq@2.3::IPictureQuality, and already carries policy
+# for in sepolicy/media/mtk_hal_pq.te. The feature is enabled by
+# ro.vendor.mtk_pq_support=2 and ro.vendor.mtk_pq_color_mode=1 above and the
+# kernel has CONFIG_MTK_PQ_COLOR_MODE="DISP", so the HAL runs either way -- it
+# was just running on whatever is compiled in.
+#
+# These are stock's values, which is the only defensible starting point for
+# panel tuning nobody here can measure. All six are persist. and runtime
+# settable, so they can be walked back one at a time while looking at the panel.
+persist.vendor.sys.pq.bluelight.default=128
+persist.vendor.sys.pq.hdr.en=1
+persist.vendor.sys.pq.shp.idx=2
+persist.vendor.sys.pq.iso.shp.en=2
+persist.vendor.sys.pq.ultrares.en=2
+persist.vendor.sys.pq.adl.idx=0
+
 ro.hardware.egl=mali
 ro.frp.pst=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/frp
 ro.opengles.version=196610

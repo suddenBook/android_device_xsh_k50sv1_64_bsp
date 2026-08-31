@@ -9,13 +9,31 @@
          There is no LineageHardware backend at all: no COLOR_BALANCE, no display
          colour calibration, no outdoor mode, no CABC, no picture adjustment.
 
+         AND THE ONE BACKEND THAT COULD HAVE EXISTED DOES NOT. LineageOS ships
+         vendor.lineage.livedisplay@2.0-service-mediatek in
+         hardware/mediatek (lineage-17.1), whose DisplayColorCalibration drives
+         /sys/devices/platform/mtk_disp_mgr.0/rgb; the matching policy is
+         already in this checkout at device/lineage/sepolicy/mediatek/. The
+         surrounding evidence all pointed the right way: /dev/mtk_disp_mgr is
+         labelled here, CONFIG_MTK_AAL_SUPPORT=y, CONFIG_MTK_PQ_COLOR_MODE is
+         "DISP". So it was worth one command. Measured on the handset:
+
+             /sys/devices/platform/mtk_disp_mgr.0  exists
+             .../mtk_disp_mgr.0/rgb                does NOT exist
+             the directory holds only driver, driver_override, modalias,
+             power, subsystem, uevent
+
+         i.e. the platform device is bound and publishes no calibration
+         attribute. That HAL would find nothing. Do not clone hardware/mediatek
+         for this; re-run the ls if the kernel is ever replaced.
+
          The colour-temperature half is now served by AOSP instead. The device
          overlay sets config_nightDisplayAvailable=true (see the measurement in
          overlay/frameworks/base/core/res/res/values/config.xml), so Settings'
          Display menu carries AOSP's own Night Light entry, which
          display_settings.xml:44 lists alongside this one. LiveDisplay itself
          would defer to it anyway: ColorTemperatureController.java:84 computes
-         mUseTemperatureAdjustment = !mNightDisplayAvailable && (...), so with
+         mUseTemperatureAdjustment = !mNightDisplayAvailable AND (...), so with
          Night Light available LiveDisplay drives no temperature of its own.
 
          An earlier revision of this comment justified disabling LiveDisplay with
