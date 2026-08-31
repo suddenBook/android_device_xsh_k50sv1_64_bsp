@@ -27,7 +27,12 @@
 # InputReader resolve every one of them to AKEYCODE_UNKNOWN and drop it. Raw
 # events stay visible to getevent.
 #
-# Restoring the inline-remote mapping is now a real feature request rather than
-# a dead one, but it MUST be gated on re-testing the stuck-key fault with a
-# headset physically present: the old diagnosis assumed the comparator had
-# nothing attached to it, and that premise is also gone.
+# Restoring the inline-remote mapping is CLOSED, and not on the stuck-key
+# argument. The owner was asked directly with the headset inserted and does not
+# use the remote at all, so there is nothing to weigh the risk against. The keys
+# stay undeclared because they are unwanted, which is a reason that does not
+# depend on the disputed E-024/E-028 premise.
+#
+# If that ever changes, the risk has to be re-measured rather than inherited:
+# the old diagnosis assumed the comparator had nothing attached to it, and that
+# premise is gone (E-088).
