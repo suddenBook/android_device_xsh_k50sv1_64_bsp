@@ -276,42 +276,85 @@
          PowerHint.SUSTAINED_PERFORMANCE whenever the aggregate window state
          changes, with no reference to this resource. This overlay only stops
          the framework from denying that the mode exists. -->
-    <!-- NO HAPTIC OVERRIDES. AOSP's defaults are correct here and an attempt to
-         "fix them for an ERM rotor" made the haptics WEAKER, to the point the
-         owner reported the motor as dead. Reverted; the reasoning is kept so it
-         is not repeated.
+    <!-- Haptic pulse lengths, sized from THIS motor's measured perceptual
+         threshold. The first attempt at this was reverted because it was
+         guessed and made two of the three weaker; both the measurement and the
+         earlier mistake are recorded here so neither is repeated.
 
-         The premise was that AOSP's numbers are LRA-tuned and that a 1 ms
-         long-press pulse or a 10 ms virtual-key pulse cannot move an
-         eccentric-rotating-mass motor, which needs ~20-30 ms to spin up. Both
-         halves of that are true and the conclusion did not follow, because
-         these arrays are OFF/ON PAIRS and 1 and 10 are the FIRST elements:
+         HOW THE THRESHOLD WAS MEASURED. Durations were written straight to
+         /sys/class/timed_output/vibrator/enable, three seconds apart, and the
+         owner reported by hand:
 
-           config_longPressVibePattern    0, 1, 20, 21   off 0, ON 1, off 20, ON 21
-           config_virtualKeyVibePattern   0, 10, 20, 30  off 0, ON 10, off 20, ON 30
-           config_keyboardTapVibePattern  40             ON 40
+             500 / 200 / 100 / 60 ms   clear
+             40 ms                     slightly noticeable
+             30 / 20 ms                only felt if you concentrate
 
-         The pulse that does the work is the LAST one: 21 ms, 30 ms and 40 ms,
-         all of which are already inside an ERM's usable range. Replacing them
-         with single pulses of 25, 20 and 25 ms cut virtual-key drive from 40 ms
-         of total on-time to 20 ms and keyboard tap from 40 ms to 25 ms. Two of
-         the three got weaker.
+         So this ERM needs about 60 ms to be unambiguous, 40 ms is marginal, and
+         anything at or below 30 ms is effectively nothing.
 
-         Where these values actually land: this device ships
-         android.hardware.vibrator@1.0, whose AOSP impl returns
-         UNSUPPORTED_OPERATION from perform(), so every prebaked effect falls
-         back to these arrays (VibratorService.systemReady maps EFFECT_CLICK to
-         config_virtualKeyVibePattern and EFFECT_HEAVY_CLICK to
-         config_longPressVibePattern). Confirmed live: dumpsys vibrator shows
-         Prebaked{mEffectId=0, mFallback=true} from com.android.launcher3. So
-         they really are the whole haptic vocabulary, which is why getting
-         them wrong is immediately felt, and why changing them without a
-         measurement was the mistake.
+         WHY AOSP'S DEFAULTS ARE TOO SHORT HERE. They are LRA numbers, and they
+         are OFF/ON PAIRS, and the pulse that does the work is the LAST element:
 
-         If stronger haptics are wanted, measure first: write durations directly
-         to /sys/class/timed_output/vibrator/enable and find this motor's
-         perceptual threshold, then raise only the trailing ON element of each
-         array. Do not shorten anything. -->
+             config_longPressVibePattern    0, 1, 20, 21   -> a 21 ms pulse
+             config_virtualKeyVibePattern   0, 10, 20, 30  -> a 30 ms pulse
+             config_keyboardTapVibePattern  40             -> a 40 ms pulse
+
+         Against the scale above, 21 ms is imperceptible and 30 ms nearly so.
+         Only the keyboard tap was reliably felt. (The earlier revision of this
+         file misread 1 and 10 as the pulses, replaced all three with single
+         pulses of 25/20/25 ms, and thereby cut virtual-key drive from 40 ms of
+         total on-time to 20 and keyboard tap from 40 to 25. The owner reported
+         the motor as dead, which it effectively was.)
+
+         WHY SINGLE PULSES. AOSP's two-pulse shape is an LRA texture: an LRA
+         starts and stops in a few milliseconds, so 10-off-20-on reads as a
+         crisp double tick. A rotor cannot do that: it spends the first
+         ~20 ms spinning up and coasts on the way down, so the leading pulse is
+         wasted and the gap is filled by spin-down. One longer pulse is the
+         honest shape for this hardware.
+
+         WHERE THESE LAND, which is why getting them wrong is felt immediately:
+         this device ships android.hardware.vibrator@1.0, whose AOSP impl
+         returns UNSUPPORTED_OPERATION from perform(), so EVERY prebaked effect
+         falls back to these arrays. VibratorService.systemReady maps
+         EFFECT_CLICK to config_virtualKeyVibePattern and EFFECT_HEAVY_CLICK to
+         config_longPressVibePattern. Confirmed live: `dumpsys vibrator` shows
+         Prebaked{mEffectId=0, mFallback=true} from com.android.launcher3. The
+         intensity settings cannot compensate either: with no amplitude control
+         VibrationEffect.scale() leaves DEFAULT_AMPLITUDE alone, so pulse LENGTH
+         is the only lever this device has. -->
+    <!-- Long press / EFFECT_HEAVY_CLICK. Infrequent and should be definite, so
+         it gets the first duration the owner called clear. -->
+    <integer-array name="config_longPressVibePattern">
+        <item>0</item>
+        <item>60</item>
+    </integer-array>
+    <!-- Virtual key / EFFECT_CLICK, the common one. Between marginal (40) and
+         clear (60): noticeable without being heavy on every button press. -->
+    <integer-array name="config_virtualKeyVibePattern">
+        <item>0</item>
+        <item>50</item>
+    </integer-array>
+    <!-- Keyboard tap is deliberately LEFT AT AOSP'S 40 ms and not overridden.
+         It fires once per keystroke, so it is the one place where "slightly
+         noticeable" is the right answer and a 60 ms pulse plus this rotor's
+         spin-down would blur consecutive keys into a buzz. It is also the only
+         pattern the owner could reliably feel before this change.
+
+         config_clockTickVibePattern and config_calendarDateVibePattern
+         (125, 30) are likewise left alone. Their 30 ms pulse is below threshold
+         here, but both fire repeatedly while a picker is scrolled and
+         lengthening them would produce a continuous buzz rather than ticks.
+         Doing nothing is better than that.
+
+         config_safeModeEnabledVibePattern is left alone too: its leading 1 ms
+         has the same problem, but it is followed by a 500/600 ms pair that
+         nothing could miss, and it fires once.
+
+         THE VALUES ABOVE ARE THRESHOLD-DERIVED, NOT FEEL-TESTED. 60 and 50 are
+         the smallest numbers that clear the measurement; whether they feel
+         right is an owner call, and they move in 5 ms steps with no other
+         consequence. -->
 
     <bool name="config_sustainedPerformanceModeSupported">true</bool>
 
