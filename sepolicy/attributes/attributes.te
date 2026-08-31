@@ -86,12 +86,37 @@ hal_attribute(mtk_power)
 # attach themselves in their own `type` statements; see the directory note
 # above for why that is done here rather than with typeattribute.
 #
-# KNOWN WIDTH, deliberately not narrowed yet. The ten members span three trust
-# levels: AP calibration (accel/bt/gps/audio/camera/wlan), modem state
-# (mtk_modem_nvdata_file, mtk_modem_config_file = MD_SBP, which selects the
-# operator RF profile) and the protected partitions (mtk_protect_f_file,
-# mtk_protect_s_file on mmcblk0p8/p9, which carry IMEI). create_file_perms on
-# the attribute therefore lets either daemon rewrite all three.
+# KNOWN WIDTH, deliberately not narrowed yet. `sepolicy-analyze <policy>
+# attribute mtk_nvram_storage_file` returns ELEVEN members, not the ten this
+# comment used to claim, and the uncounted one is the broadest of all:
+#
+#   mtk_wlan_nvram_file  mtk_nvdata_file      mtk_accel_nvram_file
+#   mtk_bt_nvram_file    mtk_gps_nvram_file   mtk_audio_nvram_file
+#   mtk_camera_nvram_file
+#   mtk_modem_nvdata_file  mtk_modem_config_file
+#   mtk_protect_f_file     mtk_protect_s_file
+#
+# They span three trust levels: AP calibration (accel/bt/gps/audio/camera/wlan),
+# modem state (mtk_modem_nvdata_file, mtk_modem_config_file = MD_SBP, which
+# selects the operator RF profile) and the protected partitions
+# (mtk_protect_f_file, mtk_protect_s_file on mmcblk0p8/p9, which carry IMEI).
+# create_file_perms on the attribute therefore lets either daemon rewrite all
+# three.
+#
+# mtk_nvdata_file is the one that was missing from the count and it is the one
+# that matters most: it labels the /mnt/vendor/nvdata mount ROOT plus dm/,
+# APCFG/, APCFG/APRDCL, APCFG/APRDEB, media/ and the AllFile / AllMap /
+# BackupFlag / RestoreFlag metadata. It is what turns create_dir_perms into
+# "create, rename or rmdir arbitrary entries anywhere in the nvdata tree" --
+# precisely the capability nvram/vendor/clients.te refuses to every HAL. Start
+# the narrowing there.
+#
+# Second half, which the file did not state: nvram_agent_binder is a HIDL server
+# whose one client grant is hal_client_domain(radio, hal_mtk_nvram), and `radio`
+# is both coredomain and appdomain (private/radio.te). So com.android.phone and
+# com.mediatek.ims can drive INvram over binder and reach the protect1/protect2
+# write path. The attribute width alone is not the exposure -- width plus an
+# app-domain client is.
 #
 # Splitting it is the obvious answer and it is NOT taken here, because the
 # daemons' whole job is restoring exactly those partitions and nothing in a

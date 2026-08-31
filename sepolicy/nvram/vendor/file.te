@@ -6,6 +6,15 @@ type mtk_adc_calibration_device, dev_type;
 
 # NVRAM metadata and the physically present calibration categories.
 type mtk_nvdata_file, file_type, data_file_type, mtk_nvram_storage_file;
+# DELIBERATELY CONSUMER-LESS, like ctl_mtk_ccci_rpcd_prop and the four unused
+# mtk_ril_*_socket types. It has zero non-comment references: every sibling in
+# this file has exactly one grant in clients.te, and this one has none, because
+# HWMON_ACC appears in only three shipped blobs -- nvram_daemon and
+# libcustom_nvram.so 32/64 -- all of which already reach it through
+# mtk_nvram_storage_file. hal_sensors_default is deliberately kept off
+# /mnt/vendor beyond `dir search` (vendor/hal_sensors_default.te), so there is
+# no second claimant. The label exists so the accelerometer calibration record
+# is not indistinguishable from the rest of nvdata if one is ever needed.
 type mtk_accel_nvram_file, file_type, data_file_type, mtk_nvram_storage_file;
 type mtk_bt_nvram_file, file_type, data_file_type, mtk_nvram_storage_file;
 type mtk_gps_nvram_file, file_type, data_file_type, mtk_nvram_storage_file;

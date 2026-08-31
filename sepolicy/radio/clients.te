@@ -12,10 +12,23 @@
 #             vendor_init vendor_misc_writer vold recovery ueventd },
 # and that assertion is guarded by userdebug_or_eng(`-domain'). ccci_mdinit and
 # mtkrild both hold mtk_para_block_device (MTK stores its boot-mode flags in
-# the same partition), so relabelling would compile on tier 2 (userdebug) and
-# fail sepolicy_neverallows on tier 3 (user) -- exactly the kind of late
-# surprise this split is meant to avoid. Granting the platform's misc consumers
-# on the device type instead keeps both halves working with no neverallow risk.
+# the same partition), so relabelling would fail the build on EVERY tier,
+# immediately. Granting the platform's misc consumers on the device type
+# instead keeps both halves working with no neverallow risk.
+#
+# An earlier revision said it "would compile on tier 2 (userdebug) and fail
+# sepolicy_neverallows on tier 3 (user) -- exactly the kind of late surprise
+# this split is meant to avoid". The decision is right and that reason is not,
+# and it invites someone to "just try it on tier 2".
+# system/sepolicy/Android.mk:339 pins PRIVATE_TARGET_BUILD_VARIANT := user for
+# the neverallow policy.conf unconditionally, so userdebug_or_eng() never
+# expands there whatever tier is being built. Proof from this tree's own output:
+#   sepolicy_neverallows_intermediates/policy.conf:11922
+#       `domain` / "# exclude debuggable builds"     -- guard did NOT expand
+#   plat_sepolicy.cil_intermediates/plat_policy.conf:12009
+#       `-domain # exclude debuggable builds`        -- real variant, expanded
+# Anywhere else in this tree that reasons about tier-dependent neverallows is
+# wrong for the same reason.
 allow { uncrypt vold recovery } mtk_para_block_device:blk_file w_file_perms;
 allow { uncrypt recovery } mtk_para_block_device:blk_file r_file_perms;
 allow { uncrypt vold recovery } block_device:dir search;

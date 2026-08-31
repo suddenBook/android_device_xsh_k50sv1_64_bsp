@@ -153,36 +153,30 @@ BOARD_KERNEL_BASE := 0x40000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2
 
-# Turn MediaTek's SLUB debugging back off.
+# NOT ADDED: slub_debug=- , and the reason is worth keeping because the
+# argument for adding it was good and the premise was false.
 #
-# This is NOT ours to begin with: LK prepends its own arguments, and the live
-# /proc/cmdline carries `slub_max_order=0 slub_debug=OFZPU` from there, ahead of
-# everything this file contributes. OFZPU is F(sanity checks) + Z(red zones) +
-# P(poisoning) + U(store-user, i.e. an allocation stack trace kept per object),
-# with O meaning "skip caches whose minimum order would grow". That is a
-# permanent tax on every kmalloc and kfree, plus per-object memory, on eight
-# A53s and 4 GiB.
+# LK prepends `slub_max_order=0 slub_debug=OFZPU` to every boot, which reads as
+# sanity checks + red zones + poisoning + a per-object allocation stack trace on
+# every kmalloc and kfree, on eight A53s. The boot image's cmdline is appended
+# after LK's, mm/slub.c registers setup_slub_debug() with __setup, and
+# obsolete_checksetup() runs the handler once per occurrence left to right, so
+# a later `slub_debug=-` would win. All of that is true.
 #
-# We cannot edit LK's string -- lk is not in this project's flash set -- but we
-# do not have to. The boot image's cmdline is appended AFTER it (confirmed on
-# the handset: LK's arguments, then this file's `bootopt=`, then more LK
-# arguments), mm/slub.c registers setup_slub_debug() with __setup, and
-# obsolete_checksetup() runs the handler once per matching occurrence in
-# left-to-right order. The handler's first act on "-" is `slub_debug = 0`. So
-# the later assignment wins.
+# It buys nothing, because this kernel has `# CONFIG_SLUB_DEBUG is not set`
+# (/proc/config.gz on the handset). Without it setup_slub_debug() is not
+# compiled in at all and the `slub_debug` variable does not exist, so LK's
+# OFZPU has never been parsed either. Measured on the flashed image rather than
+# argued: red_zone, poison, store_user and sanity_checks do not exist as sysfs
+# attributes on ANY of the 230 slab caches, and /sys/kernel/slab/kmalloc-256 is
+# a symlink to :t-0000256 -- cache merging, which SLUB only does when debugging
+# is off for every cache.
 #
-# Ordering is safe with respect to the caches: parse_args() runs before
-# mm_init() in start_kernel(), so no SLUB cache exists yet when this is read.
-# `disable_higher_order_debug` stays 1 from the earlier parse and is inert once
-# slub_debug is 0.
-#
-# VERIFY AFTER FLASHING, because this is an argument-ordering claim about a
-# bootloader we do not build:
-#     grep -c 'red_zone' /sys/kernel/slab/*/red_zone   # expect all 0
-#     cat /sys/kernel/slab/kmalloc-256/store_user      # expect 0
-# If they still read 1, the appended argument is not reaching the parser and
-# this line should come out rather than stay as decoration.
-BOARD_KERNEL_CMDLINE += slub_debug=-
+# So the tax this would have removed was never being paid. Adding the argument
+# would have been decoration, and this tree does not carry arguments that do
+# nothing. The finding is the useful part: LK's slub_debug is inert, do not
+# spend a flash on it again.
+
 
 ifeq ($(K50SV1_SELINUX_PERMISSIVE),true)
 # Tier 1 keeps policy/domain transitions active while logging denials without
@@ -198,6 +192,10 @@ ifneq ($(K50SV1_BUILD_TIER),3)
 # already gone by the time anyone looks. 1 MiB is free on a 4 GiB device and
 # turns a post-hoc dmesg into evidence instead of a sample. Tier 3 keeps the
 # kernel default.
+#
+# MEASURED WORKING on the flashed image, unlike the slub_debug argument above:
+# CONFIG_LOG_BUF_SHIFT is 19 (512 KiB), and `dmesg | wc -c` reads 787 127 bytes
+# with the first line still `[    0.000000]`. A 512 KiB ring cannot hold that.
 BOARD_KERNEL_CMDLINE += log_buf_len=1M
 endif
 BOARD_MKBOOTIMG_ARGS += \
