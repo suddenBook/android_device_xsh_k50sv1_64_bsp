@@ -92,10 +92,38 @@
 
     <bool name="config_showNavigationBar">true</bool>
 
-    <!-- Redundant against AOSP Q, which already defaults to 60, and the panel
-         reports exactly one mode (dumpsys display: 720x1560 @ 60.0). Kept only
-         so the single-mode fact is stated somewhere; it is not fixing anything. -->
-    <integer name="config_defaultPeakRefreshRate">60</integer>
+    <!-- Near-ultrasound. AOSP defaults BOTH of these to true
+         (frameworks/base/core/res/res/values/config.xml:3244 and :3247), which
+         is a CDD claim that the microphones capture and the speaker emits
+         usable signal in the 18.5-20 kHz band. They are surfaced to apps as
+         AudioManager.PROPERTY_SUPPORT_MIC_NEAR_ULTRASOUND and
+         PROPERTY_SUPPORT_SPEAKER_NEAR_ULTRASOUND and are used for ultrasonic
+         pairing and presence detection.
+
+         Nothing here has ever measured it, and the hardware is a single bottom
+         speaker plus two MEMS microphones on a shanzhai MT6755 chassis whose
+         audio path this project has already found to be shipping stock
+         pre-processing UUIDs against the wrong library. This tree's rule is that
+         a declared capability needs evidence, so both go false: an app that
+         believes the claim and fails is worse than one that never tries.
+
+         Revisit only with a real sweep (play a 19 kHz tone through the
+         loudspeaker and record it on each mic), not by restoring the default. -->
+    <bool name="config_supportMicNearUltrasound">false</bool>
+    <bool name="config_supportSpeakerNearUltrasound">false</bool>
+
+    <!-- config_defaultPeakRefreshRate is deliberately NOT overridden. AOSP Q
+         already defaults it to 60 (frameworks/base/core/res/res/values/
+         config.xml:4158; readers DisplayModeDirector.java:572 and :599) and this
+         panel reports exactly one mode, 720x1560 @ 60.0. An override that
+         restates a default is a line a future reader has to verify for nothing.
+
+         And a stronger reason to keep this file free of them: framework-res is
+         built with the aapt2 auto-add-overlay flag
+         (frameworks/base/core/res/Android.bp:34-35),
+         so a MISSPELLED resource name here is silently ADDED rather than
+         rejected. Every name in this file has to be checked by hand against
+         upstream; the fewer there are, the likelier that stays true. -->
 
     <!-- Night Light. AOSP derives config_nightDisplayAvailable from
          config_setColorTransformAccelerated (config.xml:1009), which defaults
@@ -276,6 +304,8 @@
          PowerHint.SUSTAINED_PERFORMANCE whenever the aggregate window state
          changes, with no reference to this resource. This overlay only stops
          the framework from denying that the mode exists. -->
+    <bool name="config_sustainedPerformanceModeSupported">true</bool>
+
     <!-- Haptic pulse lengths, sized from THIS motor's measured perceptual
          threshold. The first attempt at this was reverted because it was
          guessed and made two of the three weaker; both the measurement and the
@@ -335,27 +365,64 @@
         <item>0</item>
         <item>50</item>
     </integer-array>
-    <!-- Keyboard tap is deliberately LEFT AT AOSP'S 40 ms and not overridden.
-         It fires once per keystroke, so it is the one place where "slightly
-         noticeable" is the right answer and a 60 ms pulse plus this rotor's
-         spin-down would blur consecutive keys into a buzz. It is also the only
-         pattern the owner could reliably feel before this change.
+    <!-- THERE IS NO SEPARATE KEYBOARD-TAP PULSE ON ANDROID 10, and an earlier
+         revision of this file was built on the belief that there is. It said
+         config_keyboardTapVibePattern was "deliberately LEFT AT AOSP'S 40 ms"
+         and reasoned about blurring consecutive keystrokes. That resource is
+         DEAD in Q: it is declared at frameworks/base/core/res/res/values/
+         config.xml:1241 with a java-symbol at symbols.xml:1714 and has ZERO
+         Java readers in frameworks/, packages/, lineage-sdk/ or vendor/lineage.
 
-         config_clockTickVibePattern and config_calendarDateVibePattern
-         (125, 30) are likewise left alone. Their 30 ms pulse is below threshold
-         here, but both fire repeatedly while a picker is scrolled and
-         lengthening them would produce a continuous buzz rather than ticks.
-         Doing nothing is better than that.
+         What actually happens: PhoneWindowManager.getVibrationEffect()
+         (services/core/java/com/android/server/policy/PhoneWindowManager.java:
+         6122-6127) maps KEYBOARD_TAP (the same constant as KEYBOARD_PRESS)
+         together with VIRTUAL_KEY, EDGE_RELEASE, CONFIRM and
+         GESTURE_START onto VibrationEffect.EFFECT_CLICK, and this vibrator@1.0
+         has no perform(), so VibratorService falls back to
+         config_virtualKeyVibePattern (VibratorService.java:379-380, :389).
 
-         config_safeModeEnabledVibePattern is left alone too: its leading 1 ms
-         has the same problem, but it is followed by a 500/600 ms pair that
-         nothing could miss, and it fires once.
+         So config_virtualKeyVibePattern IS the keystroke pulse. The 50 ms above
+         is what a keyboard tap fires at, and it is deliberately below the 60 ms
+         "clear" mark for exactly the reason the old comment gave: this rotor's
+         spin-down would blur consecutive keys. There is no second lever, and
+         overriding config_keyboardTapVibePattern would change nothing.
 
-         THE VALUES ABOVE ARE THRESHOLD-DERIVED, NOT FEEL-TESTED. 60 and 50 are
-         the smallest numbers that clear the measurement; whether they feel
-         right is an owner call, and they move in 5 ms steps with no other
-         consequence. -->
+         config_clockTickVibePattern is a real resource and is overridden below.
+         config_calendarDateVibePattern is read directly by
+         PhoneWindowManager:6134-6135 for CALENDAR_DATE and gets the same
+         treatment for the same reason.
 
-    <bool name="config_sustainedPerformanceModeSupported">true</bool>
+         config_safeModeEnabledVibePattern is left alone: its leading 1 ms has
+         the same problem, but it is followed by a 500/600 ms pair that nothing
+         could miss, and it fires once. -->
+
+    <!-- EFFECT_TICK / EFFECT_TEXTURE_TICK, i.e. the light feedback. This one
+         array drives eight haptic constants, not just the picker the earlier
+         comment named: VibratorService.java:385-386 builds tickEffect from it,
+         :391 and :394-395 map EFFECT_TICK and EFFECT_TEXTURE_TICK onto it, and
+         PhoneWindowManager.java:6106-6120 routes CONTEXT_CLICK,
+         TEXT_HANDLE_MOVE, CLOCK_TICK, KEYBOARD_RELEASE, VIRTUAL_KEY_RELEASE,
+         ENTRY_BUMP, DRAG_CROSSING and GESTURE_END through those two.
+
+         AOSP's 125, 30 is 125 ms of silence then a 30 ms pulse, and 30 ms is
+         inside this motor's "only if you concentrate" band, so six of those
+         eight one-shot constants currently produce nothing a hand can feel.
+
+         KEEP THE 125 ms LEAD-IN. It is not padding: while a picker is flung,
+         each new tick cancels the pending one before it fires, which is what
+         stops a continuous buzz. Raising only the pulse lifts the one-shots to
+         the measured "slightly noticeable" mark without touching that.
+
+         40 rather than 60 on purpose. These are the LIGHT constants; a 60 ms
+         pulse on a text-handle drag would read as a fault, not as feedback. -->
+    <integer-array name="config_clockTickVibePattern">
+        <item>125</item>
+        <item>40</item>
+    </integer-array>
+    <integer-array name="config_calendarDateVibePattern">
+        <item>125</item>
+        <item>40</item>
+    </integer-array>
+
 
 </resources>
