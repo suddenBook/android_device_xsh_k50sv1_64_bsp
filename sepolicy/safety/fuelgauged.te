@@ -24,9 +24,16 @@ r_dir_file(fuelgauged, sysfs_batteryinfo)
 # GRANTED accesses under permissive too, which is how WI-067 was closed from
 # three Tier-1 captures (E-150).
 #
-# READ THE FIRST BOOT AFTER THIS FLASHES, over a window long enough to include
-# several battery samples. If create never fires, delete both netlink_route
-# grants; if create fires but nlmsg_write does not, keep create_socket_perms
-# and drop nlmsg_write. Then delete this block.
+# FIRST READING, PARTIAL: zero records over 14 minutes of the session-17 image
+# including a full boot, with fuelgauged running the whole time (E-152). That is
+# suggestive and NOT yet enough -- this daemon is a periodic poller and the note
+# above is explicitly about a socket it might create and close between samples.
+# Do not narrow on fourteen minutes. Soak a boot-to-idle window of hours, and
+# note that the mnld half of the same experiment produced nothing across boot
+# and six records the instant its feature was used.
+#
+# THEN: if create never fires, delete both netlink_route grants; if create fires
+# but nlmsg_write does not, keep create_socket_perms and drop nlmsg_write. Then
+# delete this block.
 auditallow fuelgauged self:netlink_route_socket create;
 auditallow fuelgauged self:netlink_route_socket nlmsg_write;

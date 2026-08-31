@@ -39,24 +39,24 @@ get_prop(mnld, mtk_gnss_ro_prop)
 get_prop(mnld, mtk_wmt_prop)
 get_prop(mnld, mtk_nvram_ready_prop)
 
-# REVIEWED, kept, AND NOW INSTRUMENTED: net_domain(mnld) above is broad -- it
-# brings in the whole public/net.te socket set plus netd access -- and the SUPL
-# data path belongs to mtk_agpsd, not to mnld. It is not narrowed on inference,
-# because the live handset shows mnld holding a dozen sockets whose families
-# could not be attributed from /proc and there is no AVC to argue from either
-# way.
+# REVIEWED AND MEASURED: net_domain(mnld) is KEPT, and the premise that made it
+# look excessive is disproved. The comment here used to say the SUPL data path
+# belongs to mtk_agpsd rather than mnld, and that an auditallow would probably
+# show mnld creating no INET socket at all. It shows the opposite.
 #
-# The auditallow below is what settles it, and it does NOT need Tier 2:
-# auditallow logs GRANTED accesses and fires under permissive as well. That is
-# the same instrument that closed WI-067 from three Tier-1 captures (E-150)
-# after the nvram note had spent four sessions waiting for an enforcing boot.
+# Instrumented with `auditallow mnld self:{tcp,udp}_socket create` on the
+# session-17 image and read after the owner took a real GPS fix through a web
+# map (E-152):
 #
-# `create` only, deliberately. It is a bounded, once-per-socket event, so a
-# GNSS daemon cannot flood the log with it, and it is the only permission that
-# answers the question -- if mnld never creates an INET socket, the whole
-# net_domain() call can be replaced by the specific classes it does use.
+#     5 x  granted { create } ... tclass=tcp_socket
+#     1 x  granted { create } ... tclass=udp_socket
 #
-# READ THE FIRST BOOT AFTER THIS FLASHES. If nothing fires across a boot plus a
-# GPS fix, replace net_domain(mnld) with those classes and delete this block.
-auditallow mnld self:tcp_socket create;
-auditallow mnld self:udp_socket create;
+# Zero across boot alone; six the moment a fix was requested. So mnld does its
+# own SUPL/A-GPS network work and needs a real network domain. The auditallow is
+# removed because the question it was added to answer is answered.
+#
+# NOTE THE TRAP THIS ALMOST WALKED INTO. A boot-only reading would have shown
+# nothing and "proved" the grant unnecessary -- HANDOFF trap 34, a measurement
+# taken with the feature switched off, for the third time in this project. The
+# narrowing would have broken A-GPS in a way that only shows up as slow fixes.
+
