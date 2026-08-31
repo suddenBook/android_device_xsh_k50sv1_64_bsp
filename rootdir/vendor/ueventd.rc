@@ -42,6 +42,30 @@
 # firmware was never extracted either), so the node never appears and the rule
 # only described hardware this build does not bring up.
 
+# NOT declared: /dev/accdet, and this one was measured with the accessory
+# actually inserted rather than argued from a string.
+#
+# audio.primary.mt6755.so contains the literal `/dev/accdet` and runs as
+# `audioserver`, while the node is 0600 root:root -- the same shape as
+# /dev/mtk_sched, which four camera libraries name and the camera never opens
+# (E-144). With the owner's USB-C headset plugged in and routing working:
+#
+#   dumpsys input                SwitchValues: 94
+#     = SW_HEADPHONE_INSERT | SW_MICROPHONE_INSERT | SW_JACK_PHYSICAL_INSERT
+#   /proc/*/fd across every pid  nobody holds /dev/accdet
+#   logcat                       one line, from the KERNEL:
+#     [Accdet]ACC EINT 33 func :plug-in, cur_eint_state = 1  (kworker/u16:4)
+#   no Permission denied, no accdet error anywhere
+#   dumpsys media.audio_policy   `Wired Headset Mic` / AUDIO_DEVICE_IN_WIRED_HEADSET
+#                                / name h2w becomes AVAILABLE
+#   dumpsys audio                Devices: headset, and the owner confirms the
+#                                speaker goes silent on insertion
+#
+# So detection is entirely kernel-side: an EINT handler raises the switch and
+# publishes it on the ACCDET input device, which is what the framework reads
+# through config_useDevInputEventForAudioJack. The HAL's own accdet handle is on
+# no path this device uses. Do not add a rule from the string.
+
 # Modem and telephony audio
 /dev/ccci*        0660  radio  radio
 /dev/ttyC*        0660  radio  radio
