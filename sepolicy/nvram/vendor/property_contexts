@@ -1,0 +1,3 @@
+# See property.te for why none of these has a setter.
+ctl.nvram_daemon             u:object_r:ctl_mtk_nvram_daemon_prop:s0
+ctl.nvram-hidl-1-1           u:object_r:ctl_mtk_nvram_hidl_prop:s0

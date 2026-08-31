@@ -19,3 +19,8 @@ ro.vendor.mtk_log_hide_gps       u:object_r:mtk_gnss_ro_prop:s0 exact bool
 # one this image uses. Kept declared so the type is pinned if it is ever
 # assigned; that assignment would go in vendor.prop, not here.
 ro.vendor.mtk_hidl_consolidation u:object_r:mtk_gnss_ro_prop:s0 exact bool
+
+ctl.mnld                     u:object_r:ctl_mtk_mnld_prop:s0
+ctl.agpsd                    u:object_r:ctl_mtk_agpsd_prop:s0
+ctl.lbs_hidl_service         u:object_r:ctl_mtk_lbs_hidl_prop:s0
+ctl.gnss_service             u:object_r:ctl_mtk_gnss_svc_prop:s0

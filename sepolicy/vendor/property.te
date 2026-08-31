@@ -37,3 +37,10 @@
 #      it -- so labelling is the only mechanism that works uniformly across
 #      both catch-alls. Do not reason about one without the other.
 type mtk_audiohal_prop, property_type;
+
+# See nvram/vendor/property.te.
+type ctl_mtk_camerahalserver_prop, property_type;
+type ctl_mtk_sensors_svc_prop, property_type;
+type ctl_mtk_audio_svc_prop, property_type;
+type ctl_mtk_bluetooth_svc_prop, property_type;
+type ctl_mtk_usb_svc_prop, property_type;

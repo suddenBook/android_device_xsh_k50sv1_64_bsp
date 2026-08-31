@@ -9,3 +9,9 @@ type mtk_wod_persist_prop, property_type;
 # Deliberately NOT folded into mtk_ims_feature_prop: those are read by five
 # native IMS daemons that have no business in the WFC entitlement namespace.
 type mtk_wfc_service_prop, property_type;
+
+# wfca is `class core` in init.wfca.rc and epdg_wod is `class late_start` in
+# init.epdg_wod.rc; neither is disabled and neither name appears beside a ctl.
+# string in any shipped blob. See nvram/vendor/property.te.
+type ctl_mtk_wfca_prop, property_type;
+type ctl_mtk_epdg_wod_prop, property_type;

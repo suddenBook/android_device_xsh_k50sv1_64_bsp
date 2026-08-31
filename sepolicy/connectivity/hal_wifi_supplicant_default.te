@@ -22,7 +22,10 @@
 # created inside a wpa_data_file directory and inherits that type, so AOSP's
 # own wpa_data_file:sock_file create_file_perms covers it. Granting the generic
 # type would let wpa_supplicant put a socket anywhere under /data/vendor.
-# public/domain.te already gives every domain vendor_data_file:dir
-# { getattr search }, so only the three mutating permissions are needed here.
-allow hal_wifi_supplicant_default vendor_data_file:dir { write add_name remove_name };
-type_transition hal_wifi_supplicant_default vendor_data_file:dir wpa_data_file "sock";
+# Scoped to /data/vendor/wifi through its own type rather than to the generic
+# vendor_data_file -- see connectivity/file.te. `search` is restated because
+# public/domain.te's blanket vendor_data_file:dir { getattr search } does not
+# reach the new type.
+allow hal_wifi_supplicant_default mtk_wifi_vendor_data_file:dir
+    { getattr search write add_name remove_name };
+type_transition hal_wifi_supplicant_default mtk_wifi_vendor_data_file:dir wpa_data_file "sock";

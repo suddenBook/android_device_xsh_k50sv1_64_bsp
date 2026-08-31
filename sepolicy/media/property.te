@@ -1,3 +1,9 @@
 type mtk_pq_config_prop, property_type;
 type mtk_pq_ro_prop, property_type;
 type mtk_hwc_runtime_prop, property_type;
+
+# See nvram/vendor/property.te. vendor.media.omx is the `override` service this
+# tree ships in zz_vendor.media.omx.rc.
+type ctl_mtk_gpu_svc_prop, property_type;
+type ctl_mtk_pq_svc_prop, property_type;
+type ctl_mtk_omx_svc_prop, property_type;

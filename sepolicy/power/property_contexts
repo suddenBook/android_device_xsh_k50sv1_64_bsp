@@ -7,3 +7,7 @@ vendor.net.rndis.client                     u:object_r:mtk_netdagent_prop:s0 exa
 # gave mtk_netdagent_config_prop, and it has been deleted from vendor.prop: no
 # blob and no source tree reads it, in full or unprefixed form. The type went
 # with it -- see power/property.te and netdagent.te.
+
+ctl.netdagent                u:object_r:ctl_mtk_netdagent_prop:s0
+ctl.vendor.k50sv1_perfd      u:object_r:ctl_k50sv1_perfd_prop:s0
+ctl.power-hal-1-0            u:object_r:ctl_mtk_powerhal_svc_prop:s0

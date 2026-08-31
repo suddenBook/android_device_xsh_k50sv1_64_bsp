@@ -43,3 +43,6 @@ persist.vendor.entitlement.sesurl  u:object_r:mtk_wfc_service_prop:s0
 # "epdg_fqdn=epdg.epc.att.net"), never a property name, so the entry labelled
 # nothing.
 persist.mtk_epdg_support           u:object_r:mtk_wfc_service_prop:s0
+
+ctl.wfca                     u:object_r:ctl_mtk_wfca_prop:s0
+ctl.vendor.epdg_wod          u:object_r:ctl_mtk_epdg_wod_prop:s0

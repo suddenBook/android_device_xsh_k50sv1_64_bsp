@@ -1,3 +1,10 @@
 # Android Q property types; do not use post-Q vendor property macros here.
 type mtk_powerhal_prop, property_type;
 type mtk_netdagent_prop, property_type;
+
+# netdagent owns the priority-firewall helper; k50sv1_perfd holds the PPM
+# kicker and is started by init's `start` builtin from
+# `on property:sys.boot_completed=1`. See nvram/vendor/property.te.
+type ctl_mtk_netdagent_prop, property_type;
+type ctl_k50sv1_perfd_prop, property_type;
+type ctl_mtk_powerhal_svc_prop, property_type;

@@ -14,3 +14,16 @@ type mtk_wlan_nvram_ready_prop, property_type;
 # unnamespaced twin, public/domain.te:525's default_prop neverallow, IS
 # compiled here (policy.conf:11852) and cannot be worked around at all.
 type mtk_wlan_prop, property_type;
+
+# wlan_assistant pushes the Wi-Fi MAC and regulatory data out of NVRAM before
+# the driver comes up; restarting it at the wrong moment is what brought the
+# interface up with a random MAC and no 5 GHz (trap 12). See
+# nvram/vendor/property.te.
+#
+# NOT labelled here: ctl.wpa_supplicant, ctl.hostapd and
+# ctl.vendor.wifi_hal_legacy. All three are lazy HALs reached through
+# ctl.interface_start$<fqName>, which never takes the legacy door, so the
+# ctl_default_prop exposure is only to a `ctl.stop`. Labelling them is correct
+# and staged for a second pass -- supplicant has the most complex start path on
+# this device and a mistake there is user-visible Wi-Fi loss.
+type ctl_mtk_wlan_assistant_prop, property_type;

@@ -1,0 +1,33 @@
+# ctl.<service> control-property labels. NO domain is granted `set` on any of
+# them, and that is the whole rule rather than an omission.
+#
+# An unlabelled ctl.<name> falls through plat_property_contexts:116's `ctl.`
+# prefix to ctl_default_prop, and private/system_app.te:62,
+# private/system_server.te:595, private/usbd.te:12 and public/wificond.te:12 can
+# all set that type. init synthesises the check name as "ctl." + the VALUE of
+# ctl.start/ctl.stop/ctl.restart (property_service.cpp CheckControlPropertyPerms
+# tries that legacy door first and succeeds if EITHER door passes), so any
+# system_app could start and stop these vendor daemons. The newer
+# ctl.start$<name> door is already shut: ctl_start_prop, ctl_stop_prop and
+# ctl_restart_prop have no `set` grant anywhere in the linked policy.
+#
+# The setter survey behind "no set_prop": exactly five shipped artifacts in this
+# image contain any "ctl." string at all -- vendor/bin/ccci_mdinit,
+# vendor/lib/volte_imsm.so, vendor/lib/libmal_rilproxy.so, vendor/bin/gsm0710muxd
+# and system/framework/mediatek-telephony-common.jar -- and between them they
+# name only services this tree already labels. Every service below is started by
+# init from a `class` line, an `on property:` trigger or the `start` builtin, so
+# there is nothing to grant. If that ever changes, add exactly one set_prop()
+# and name the binary that carries the service-name literal, the way
+# radio/ccci_mdinit.te and radio/ims.te do.
+#
+# Lazy HALs are unaffected: hwservicemanager uses ctl.interface_start$<fqName>,
+# which is not one of the three names the legacy door is tried for.
+#
+# These two matter most. Both domains hold create_file_perms on
+# mtk_nvram_storage_file -- which spans mtk_protect_f_file and
+# mtk_protect_s_file, the IMEI-bearing protect1/protect2 partitions -- plus raw
+# rw_file_perms on mtk_nvram_block_device, mtk_nvdata_block_device and
+# mtk_proinfo_block_device.
+type ctl_mtk_nvram_daemon_prop, property_type;
+type ctl_mtk_nvram_hidl_prop, property_type;

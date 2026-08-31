@@ -3,3 +3,9 @@ vendor.streamin.           u:object_r:mtk_audiohal_prop:s0
 vendor.a2dp.               u:object_r:mtk_audiohal_prop:s0
 vendor.audiohal.           u:object_r:mtk_audiohal_prop:s0
 persist.vendor.audiohal.   u:object_r:mtk_audiohal_prop:s0
+
+ctl.camerahalserver          u:object_r:ctl_mtk_camerahalserver_prop:s0
+ctl.vendor.sensors-hal-2-0   u:object_r:ctl_mtk_sensors_svc_prop:s0
+ctl.vendor.audio-hal-2-0     u:object_r:ctl_mtk_audio_svc_prop:s0
+ctl.bluetooth-1-0            u:object_r:ctl_mtk_bluetooth_svc_prop:s0
+ctl.vendor.usb-hal-1-1       u:object_r:ctl_mtk_usb_svc_prop:s0

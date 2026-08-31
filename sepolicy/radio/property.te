@@ -72,3 +72,25 @@ type ctl_mtk_volte_ua_prop, property_type;
 # shipped daemon actually writes. The other reader that will matter is
 # ipsec_mon, which reads vendor.net.ims.ipsec.version -- see WI-018.
 type mtk_ims_net_prop, property_type;
+
+# ccci_mdinit is the only domain with write on mtk_para_block_device, the
+# bootloader control block (clients.te). mal-daemon coordinates the three VoLTE
+# daemons. See the header in nvram/vendor/property.te for why none of the
+# ctl_* types in this tree has a setter.
+#
+# NOT labelled here: ctl.ccci3_mdinit. That service no longer exists -- MD3 is
+# retired with the C2K stack -- so the name resolves to nothing whatever its
+# label.
+#
+# Also not labelled, deliberately: the three services whose real control channel
+# is a radio property rather than ctl.  mal-daemon is restarted by init from
+# `on property:vendor.ril.mal`, vendor.ril-daemon-mtk from vendor.ril.mtk and
+# vendor.ril-proxy from vendor.ril.rilproxy; all three properties are
+# mtk_vendor_radio_prop, which mtkmal, rild, mtkrild, gsm0710muxd and
+# vendor_init can set. Labelling ctl. shuts one door of two. It is still worth
+# shutting -- system_app can reach ctl_default_prop and none of those five --
+# but do not record it as full containment.
+type ctl_mtk_ccci_mdinit_prop, property_type;
+type ctl_mtk_mal_prop, property_type;
+type ctl_mtk_imsa_prop, property_type;
+type ctl_mtk_wfo_prop, property_type;

@@ -2,3 +2,22 @@
 # generic vendor data and device nodes.
 type mtk_wmt_wifi_device, dev_type;
 type mtk_wlan_nvram_file, file_type, data_file_type, mtk_nvram_storage_file;
+
+# /data/vendor/wifi itself, so wpa_supplicant's name-mutation grant does not
+# have to be written against the generic vendor_data_file.
+#
+# AOSP labels /data/vendor/wifi/wpa and .../hostapd but leaves the parent as
+# vendor_data_file (private/file_contexts:523), which also labels /data/vendor
+# and every other un-typed child of it -- live: hardware/, tombstones/, wifi/.
+# The old form granted `dir { write add_name remove_name }` on that type and put
+# the named type_transition on it too, so wpa_supplicant could create a
+# wpa_data_file directory called "sock" inside ANY of them and remove entries
+# there. Neither permission is needed outside its own directory.
+#
+# This type must stay reachable only from vendor domains. public/domain.te
+# neverallows coredomain any dir permission on a data_file_type outside a fixed
+# exemption list, and that list names the vendor_data_file TYPE, not an
+# attribute -- so a coredomain traverser here would be a build failure, not a
+# denial. Nothing traverses it today; if one ever appears, the correct answer is
+# to revert to the vendor_data_file grant rather than to add an exemption.
+type mtk_wifi_vendor_data_file, file_type, data_file_type;

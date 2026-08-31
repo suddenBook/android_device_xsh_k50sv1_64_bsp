@@ -31,3 +31,7 @@ ro.vendor.mtk_pq_support        u:object_r:mtk_pq_ro_prop:s0 exact int
 vendor.debug.sf.hwc_pid          u:object_r:mtk_hwc_runtime_prop:s0 exact int
 vendor.debug.sf.latch_unsignaled u:object_r:mtk_hwc_runtime_prop:s0 exact int
 vendor.debug.sf.hdr_enable       u:object_r:mtk_hwc_runtime_prop:s0 exact int
+
+ctl.gpu-1-0                  u:object_r:ctl_mtk_gpu_svc_prop:s0
+ctl.pq-2-2                   u:object_r:ctl_mtk_pq_svc_prop:s0
+ctl.vendor.media.omx         u:object_r:ctl_mtk_omx_svc_prop:s0

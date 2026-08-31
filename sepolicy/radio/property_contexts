@@ -65,3 +65,8 @@ ro.vendor.mtk_ril_mode       u:object_r:mtk_radio_config_prop:s0
 ro.vendor.mtk_md1_support    u:object_r:mtk_radio_config_prop:s0
 ro.vendor.mtk_md3_support    u:object_r:mtk_radio_config_prop:s0
 ro.vendor.mtk_md_sbp_custom_value u:object_r:mtk_radio_config_prop:s0
+
+ctl.ccci_mdinit              u:object_r:ctl_mtk_ccci_mdinit_prop:s0
+ctl.mal-daemon               u:object_r:ctl_mtk_mal_prop:s0
+ctl.mtk_hal_imsa             u:object_r:ctl_mtk_imsa_prop:s0
+ctl.mtk_hal_wfo              u:object_r:ctl_mtk_wfo_prop:s0

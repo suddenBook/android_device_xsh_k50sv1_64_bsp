@@ -19,3 +19,11 @@ vendor.thermal.manager.data               u:object_r:mtk_thermal_config_prop:s0
 # persist.vendor.connsys.coredump.mode was deleted from vendor.prop (no reader).
 persist.vendor.connsys.                   u:object_r:mtk_wmt_prop:s0
 vendor.connsys.                           u:object_r:mtk_wmt_prop:s0
+
+ctl.thermal                  u:object_r:ctl_mtk_thermal_prop:s0
+ctl.thermal_manager          u:object_r:ctl_mtk_thermal_manager_prop:s0
+ctl.thermalloadalgod         u:object_r:ctl_mtk_thermalloadalgod_prop:s0
+ctl.fuelgauged               u:object_r:ctl_mtk_fuelgauged_prop:s0
+ctl.spm_script               u:object_r:ctl_mtk_spm_loader_prop:s0
+ctl.wmt_loader               u:object_r:ctl_mtk_wmt_loader_prop:s0
+ctl.wmt_launcher             u:object_r:ctl_mtk_wmt_launcher_prop:s0

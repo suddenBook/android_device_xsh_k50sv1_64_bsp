@@ -47,10 +47,27 @@
 /dev/ttyC*        0660  radio  radio
 /dev/ccci_aud     0660  audio  audio
 
-# Active graphics allocator/GPU ABI. Keep Stock modes for first boot; tighten
-# only after measuring the proprietary gralloc/Mali access pattern.
+# Active graphics allocator/GPU ABI.
+#
+# These two are NOT one decision, and stock's identical 0666 hid that.
+#
+# /dev/mali0 keeps 0666 because AOSP grants it: public/app.te:212 is
+# `allow { appdomain -isolated_app } gpu_device:chr_file rw_file_perms`, i.e.
+# every app really does get read AND write.
+#
+# /dev/ion is 0664. AOSP's matching rule, public/app.te:302, is r_file_perms --
+# read only -- and no path on this image needs more. Measured rather than
+# assumed: exactly one shipped vendor ELF contains the literal "/dev/ion"
+# (hwcomposer.mt6755.so) and all five of its open sites are
+# `mov w1, wzr; bl __open_2`, i.e. flags 0 = O_RDONLY. Every other consumer
+# (gralloc.mt6755.so, libion_mtk.so, libgralloc_extra.so, all 32+64) imports
+# AOSP libion's ion_open, which is open(O_RDONLY|O_CLOEXEC) at
+# system/core/libion/ion.c:57. All 20 live /dev/ion fds on the handset report
+# flags=02400000, which on arm64 is O_CLOEXEC|O_LARGEFILE with access mode 0 --
+# across 8 app processes and every graphics/media server. ION_IOC_ALLOC works
+# on a read-only fd; an app is not in `graphics` and takes the other-read bit.
 /dev/mali0         0666  system  graphics
-/dev/ion           0666  system  graphics
+/dev/ion           0664  system  graphics
 /dev/mtk_disp_mgr  0660  system  graphics
 # 0660, not stock's 0644. This is the CVE-2020-0069 / MTK-su entry point, and
 # every SELinux grant in this tree is { ioctl open read } to three confined

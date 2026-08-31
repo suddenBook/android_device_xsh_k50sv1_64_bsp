@@ -7,9 +7,16 @@
 # AOSP only labels /data/vendor/wifi/wpa. This port's wpa_supplicant -O and
 # the MAL rewrite share /data/vendor/wifi/sock.
 #
-# This line covers only the init-created directory. wpa_supplicant deletes and
-# recreates it on every Wi-Fi off/on cycle, and a runtime-created directory
+# The sock line covers only the init-created directory. wpa_supplicant deletes
+# and recreates it on every Wi-Fi off/on cycle, and a runtime-created directory
 # takes its parent's type rather than file_contexts -- see the named
 # type_transition in hal_wifi_supplicant_default.te, which is the half that
 # survives a cycle. Both are needed; neither alone is enough.
+#
+# /data/vendor/wifi itself gets its own type so the supplicant's name-mutation
+# grant is not written against vendor_data_file, which also labels /data/vendor
+# and every other un-typed child of it. AOSP's longer wpa/ and hostapd/ entries
+# and the sock entry below still win: fc_sort orders by specificity, not by
+# file order.
+/data/vendor/wifi                         u:object_r:mtk_wifi_vendor_data_file:s0
 /data/vendor/wifi/sock(/.*)?              u:object_r:wpa_data_file:s0
