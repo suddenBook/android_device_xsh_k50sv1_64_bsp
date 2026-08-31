@@ -15,7 +15,7 @@ ifneq ($(filter k50sv1_64_bsp,$(TARGET_DEVICE)),)
 # overlays and RROs are parsed by aapt2, and manifest.xml /
 # compatibility_matrix.xml by assemble_vintf.
 #
-# This tree has 23 ordinary XML documents plus one intentional
+# This tree has 25 ordinary XML documents plus one intentional
 # one-element-per-line fragment. The ordinary documents are
 # handled below with xmllint. The fragment cannot be parsed as one XML document
 # and instead gets a stricter APN/TelephonyProvider semantic validator.
@@ -31,7 +31,7 @@ ifneq ($(filter k50sv1_64_bsp,$(TARGET_DEVICE)),)
 #   android.software.nfc.beam.xml  -> PRODUCT_COPY_FILES with a .xml
 #                                     destination -> copy-xml-file-checked
 #   manifest.xml, compatibility_matrix.xml -> assemble_vintf
-#   overlay/**.xml (4), overlay-tier3/**.xml (1),
+#   overlay/**.xml (6), overlay-tier3/**.xml (1),
 #   rro/HarmonyOSSansFont/**.xml (3) -> aapt2
 #
 # So this module is not the broad safety net the old comment described. It is
@@ -83,7 +83,8 @@ include $(BUILD_SYSTEM)/base_rules.mk
 #
 # PRODUCT_PACKAGES still lists the module in device.mk. That is deliberate and
 # it is not the build trigger: it is what makes PRODUCT_ENFORCE_PACKAGES_EXIST
-# (device.mk:499 -- NOT BoardConfig.mk; device.mk:467-479 explains why it has to
+# (the PRODUCT_ENFORCE_PACKAGES_EXIST assignment in device.mk -- NOT
+# BoardConfig.mk; the comment above it there explains why it has to
 # be there) fail the build if this Android.mk ever stops being parsed.
 #
 # ...and `droidcore` ALONE IS NOT ENOUGH, which is the second time this module
@@ -118,7 +119,8 @@ droidcore systemimage vendorimage bootimage recoveryimage: $(LOCAL_BUILT_MODULE)
 # $(BUILT_ASSEMBLED_FRAMEWORK_MANIFEST) -- Makefile:2906-2922, assemble_vintf
 # with `-c $(BUILT_VENDOR_MATRIX)` -- and its one ordinary consumer is
 # Makefile:2924 `droidcore: $(BUILT_ASSEMBLED_FRAMEWORK_MANIFEST)`. With only
-# bootimage/recoveryimage/systemimage/vendorimage requested (see :84-90 above),
+# bootimage/recoveryimage/systemimage/vendorimage requested (see the droidcore
+# paragraph above),
 # a matrix that demands a missing framework HAL builds clean on Tiers 1 and 2
 # and first fails on Tier 3, which is the one tier that runs a full release
 # flow.
@@ -129,7 +131,7 @@ droidcore systemimage vendorimage bootimage recoveryimage: $(LOCAL_BUILT_MODULE)
 # closes the other half.
 #
 # NAME THE PATH, NOT THE VARIABLE, and this is the third form of the same bug in
-# this one module (see :54-70 and :84-96 for the other two).
+# this one module (see the two paragraphs above for the other two).
 #
 # The previous line was `systemimage: $(BUILT_ASSEMBLED_FRAMEWORK_MANIFEST)`,
 # justified as "Makefile defines both the target and this variable, and is

@@ -192,7 +192,8 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 # system/core/lmkd/lmkd.c:2114, system/core/libprocessgroup/
 # processgroup.cpp:105 and frameworks/base/services/core/java/com/android/
 # server/am/MemoryStatUtil.java:54. That is the partition-ownership rule
-# device.mk:341-347 states, and this was the one key in the tree contradicting
+# device.mk's partition-ownership comment states, and this was the one key in
+# the tree contradicting
 # it. Inert either way, for the reason above; the point is that the file it
 # lands in should not have to be excused.
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \

@@ -68,6 +68,22 @@ PRODUCT_PACKAGES += \
 #   vibrator.default                          handheld_vendor.mk:28
 #   libvisualizer                             base_vendor.mk:62
 #
+# android.hardware.atrace@1.0-service is NOT listed, and this is the measured
+# reason rather than an omission. The AOSP default implementation manages
+# exactly four sysfs paths, in kTracingMap at
+# hardware/interfaces/atrace/1.0/default/AtraceDevice.cpp:38-52 -- "gfx" over
+# events/{mdss,sde,mali_systrace}/enable and "ion" over
+# events/kmem/ion_alloc_buffer_start/enable. NONE OF THE FOUR EXISTS ON THIS
+# KERNEL. Checked on the handset: all four `ls` calls return ENOENT, and there
+# is no *mali*, *gpu* or *disp* tracepoint group at all under
+# /sys/kernel/debug/tracing/events. Every path in that map is flagged non-fatal,
+# so the HAL would come up cleanly and advertise two categories that toggle
+# nothing -- a declared capability the hardware cannot deliver, which is the one
+# thing this tree refuses to ship. The MT6755 kernel does carry its own
+# `mtk_events` and `ccci` groups; a device-specific AtraceDevice built around
+# those would be real, and is not worth writing for a tier that already captures
+# what it needs from logcat.
+#
 # The seven modules migrated from prebuilt to AOSP source in the same change as
 # the seven added below are NOT listed either, for the same reason. The full
 # chain that pre-declares them is unconditional:
@@ -295,8 +311,16 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay-tier3
 endif
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
-PRODUCT_AAPT_CONFIG := normal
-PRODUCT_AAPT_PREF_CONFIG := xhdpi
+# `+=`, not `:=`. inherit-product appends an INHERIT_TAG to EVERY variable in
+# _product_var_list (build/make/core/product.mk:378-388), and both of these are
+# in that list (:116-117). A `:=` here therefore drops the tags that the two
+# inherit-product calls at the top of this file added, which is the exact
+# inverse of the rule stated in lineage_k50sv1_64_bsp.mk about pinning values
+# AFTER an inherit. It happens to be harmless today because neither inherited
+# file sets either variable -- but that is an assumption about two other files,
+# and nothing recorded it.
+PRODUCT_AAPT_CONFIG += normal
+PRODUCT_AAPT_PREF_CONFIG += xhdpi
 
 # PRODUCT_SYSTEM_DEFAULT_PROPERTIES, not PRODUCT_DEFAULT_PROPERTY_OVERRIDES.
 # On a full-Treble device BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED is true
