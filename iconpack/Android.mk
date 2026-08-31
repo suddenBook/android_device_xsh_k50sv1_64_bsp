@@ -18,6 +18,15 @@
 # be edited inside someone else's signed APK. This module carries the art for
 # the icons actually used plus a hand-authored appfilter.
 #
+# ART PROVENANCE. The 161 adaptive icons and the handful of legacy PNGs come
+# from com.origin.adaptive.icon 0.5.3 and com.origin.icon.pack 0.5.3, two APKs
+# the owner supplied, both signed by CN=WeiJun and both built on Jahir
+# Fiquitiva's Blueprint dashboard with Play Billing and licence-check code --
+# i.e. a paid icon application. The owner asked for this artwork on their own
+# handset and accepted that framing; THIS IMAGE IS A PERSONAL BUILD AND IS NOT
+# FOR REDISTRIBUTION. If that ever changes, the artwork has to be replaced or
+# licensed, and this module is the only thing that would need to change.
+#
 # Resource-only, so: no LOCAL_SRC_FILES, no LOCAL_CERTIFICATE override (it is
 # signed with the build's own key like any other in-tree package), no dex, and
 # nothing for dexopt to do.

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@drawable/miui_remote_background" />
+    <foreground android:drawable="@drawable/miui_remote_foreground" />
+</adaptive-icon>
