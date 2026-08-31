@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Landscape counterpart to values/dimens.xml's status_bar_height_landscape.
+
+         AOSP keeps these two in lockstep and this tree had only moved one of
+         them. values-land/dimens.xml:33 defines quick_qs_offset_height as a
+         reference to @dimen/status_bar_height_landscape, so it follows the
+         override to 25dp automatically. quick_qs_total_height at :34-35 is a
+         LITERAL 152dp, with AOSP's own comment saying it is "effectively
+         status_bar_height_landscape + 128" - i.e. 24 + 128, computed against the
+         AOSP value, not against ours.
+
+         AOSP's own cutout overlays do the same arithmetic by hand and prove the
+         rule: packages/overlays/DisplayCutoutEmulationTallOverlay/res/values-land/
+         config.xml:19-21 pairs 28dp with 156dp.
+
+         25 + 128 = 153. Consumers are SystemUI's
+         res/layout/quick_status_bar_expanded_header.xml:23,
+         QuickStatusBarHeader.java:444 and StatusBar.java:3006. Left at 152 the
+         quick-settings header is one dp short of its own offset in landscape.
+
+         Portrait needs no equivalent: values/dimens.xml's 48dp offset already
+         clears the 45dp status bar, and 176 = 48 + 128 is consistent. -->
+    <dimen name="quick_qs_total_height">153dp</dimen>
+</resources>
