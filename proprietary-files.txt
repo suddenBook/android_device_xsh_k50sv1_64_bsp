@@ -287,15 +287,26 @@ vendor/lib/hw/audio.primary.mt6755.so
 # second copy, the two halves register with different singletons,
 # IsSessionReady() never becomes true, and A2DP dies with no error. Keep.
 #
-# Kept as a PLAIN COPY, not a `-`-prefixed module. Nothing in this product's
-# graph names the module `audio.bluetooth.default`: the only requirer was the
-# generated k50sv1_64_bsp-vendor.mk entry that extract_utils emits BECAUSE of
-# the `-`, so the prefix was self-justifying. Dropping it removes the
-# `prefer: true` substitution -- which is what trap 4 in notes/HANDOFF.md is
-# about -- and, more usefully, removes the obligation to keep both Soong
-# variants of a module whose 64-bit half nothing can load. See the lib64 note
-# further down.
-vendor/lib/hw/audio.bluetooth.default.so
+# AND IT MUST STAY `-`-PREFIXED. This was tried as a plain copy on the reasoning
+# that nothing in this product's graph NAMES the module, which is true and
+# irrelevant: base_rules.mk:506-513 emits a module's install rule BEFORE
+# PRODUCT_PACKAGES filtering (HANDOFF trap 15's mechanism, second instance), so
+# AOSP's own system/bt/audio_bluetooth_hw module produces an install rule for
+# vendor/lib/hw/audio.bluetooth.default.so whether or not it is selected. A
+# PRODUCT_COPY_FILES entry to the same destination is then
+#   Makefile:28: error: overriding commands for target .../audio.bluetooth.default.so
+# which is exactly the intermediate failure HANDOFF trap 38 records for the
+# hwc2 adapters. Measured here, not inferred: the build failed on it.
+#
+# So the rule is: a blob whose basename matches an AOSP source module at the
+# same install path can only ever be a `-` module. `prefer: true` is what
+# resolves the collision.
+#
+# The 64-bit variant is NOT listed -- see the lib64 note further down for why
+# it cannot be loaded. A single-arch prefer:true prebuilt substitutes only the
+# arm variant; the arm64 source variant stays in the graph, is installed by
+# nothing, and now collides with nothing.
+-vendor/lib/hw/audio.bluetooth.default.so
 vendor/lib/vendor.mediatek.hardware.audio@5.1.so
 vendor/lib/libaudio_param_parser-vnd.so
 vendor/lib/libaudiocompensationfilter_vendor.so
@@ -325,17 +336,24 @@ vendor/lib/libspeech_enh_lib.so
 # sound/compress_offload.h, and bionic's generated uapi headers come from a far
 # newer kernel -- a mismatch that would be silent.
 #
-# WI-019 is abandoned, so "keep until WI-019" was a pointer at work that will
-# never happen: this can never move to source. The `-` is therefore dropped and
-# it is a plain copy. That is the fix notes/aosp-source-migration.md prescribes,
-# and it matters more here than for the Bluetooth module: external/tinycompress
-# EXPORTS HEADERS (export_include_dirs: ["include"]), extract_utils never emits
-# export_include_dirs on a prebuilt, and `prefer: true` substitutes graph-wide --
-# so this was trap 4's live instance in this tree. Latent only, because the sole
-# source consumers of those headers are Qualcomm audio HALs that are never built
-# here, but it would have bitten on `mma` in that directory, on checkbuild, or
-# the moment a composer 2.2/2.3 impl entered the product.
-vendor/lib/libtinycompress.so
+# WI-019 is abandoned, so "keep until WI-019" pointed at work that will never
+# happen: this can never move to source. But it CANNOT become a plain copy
+# either, for the reason spelled out on audio.bluetooth.default above --
+# external/tinycompress defines a `libtinycompress` module that installs to this
+# exact path, base_rules.mk emits its install rule before PRODUCT_PACKAGES
+# filtering, and a PRODUCT_COPY_FILES entry to the same destination is a
+# duplicate-target build error. notes/aosp-source-migration.md prescribed the
+# plain-copy fix and was wrong; it now says so.
+#
+# What that leaves standing is trap 4: external/tinycompress EXPORTS HEADERS
+# (export_include_dirs: ["include"]), extract_utils never emits
+# export_include_dirs on a prebuilt, and `prefer: true` substitutes graph-wide,
+# so any source consumer of those headers loses its include path. It is LATENT
+# here -- the only source consumers are Qualcomm audio HALs that are never
+# built -- and it is now known to be unavoidable without either patching
+# extract_utils or hand-editing the generated Android.bp, both of which are
+# worse than the latent hazard. Do not "fix" it by dropping the `-` again.
+-vendor/lib/libtinycompress.so
 vendor/lib/vendor.mediatek.hardware.mtkpower@1.0.so
 vendor/lib/vendor.mediatek.hardware.power@2.0.so
 # libeffects (the audio effect factory) and libeffectproxy are built from AOSP
@@ -366,9 +384,10 @@ vendor/lib/vendor.mediatek.hardware.power@2.0.so
 # vendor/lib64/libtinycompress.so and vendor/lib64/
 # libbluetooth_audio_session_mediatek.so.
 #
-# All three existed only to satisfy Soong's 32/64 variant matching for the two
-# `-`-prefixed modules above; with those now plain copies there is nothing to
-# match. None of the three can be loaded on this device:
+# The two `-`-prefixed modules above are single-arch now, which is legal:
+# Soong's prefer:true substitution is per-variant, so an arm-only prebuilt
+# replaces the arm variant and leaves the arm64 source variant in the graph,
+# installed by nothing. None of these three can be loaded on this device:
 #   * the only IBluetoothAudioProvidersFactory server is the ELF32
 #     android.hardware.audio@5.0-service-mediatek, and libhidl's passthrough
 #     loader globs the CALLER's ${LIB}/hw -- so a 64-bit audio.bluetooth.default
