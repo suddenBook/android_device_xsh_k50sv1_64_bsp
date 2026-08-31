@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Call recording. The code is already compiled into the shipped Dialer
+         (packages/apps/Dialer/java/com/android/dialer/callrecord/) and
+         CAPTURE_AUDIO_OUTPUT is already on its privapp allowlist; upstream just
+         ships the feature switched off. Both values are read through
+         getResources() at callrecord/impl/CallRecorderService.java:86 and :220,
+         so an overlay is all it takes.
+
+         FLIPPING THIS ALONE WOULD DO NOTHING HERE. LineageOS gates the record
+         button on a per-country allowlist as well, and the Netherlands is not
+         on it. See the companion overlay of xml/call_record_states.xml. Both
+         files are needed, and the owner asked for the feature explicitly.
+
+         audio_source 4 is VOICE_CALL, which captures uplink AND downlink. It is
+         not implemented on every MediaTek audio HAL and this one has not been
+         tested. IF A TEST CALL RECORDS ONLY YOUR OWN SIDE, this is why: fall
+         back to 1 (MIC), which on this chassis picks up the far end only
+         through earpiece leakage and is usually not worth keeping. Treat the
+         VOICE_CALL result as the go/no-go for the whole change. -->
+    <bool name="call_recording_enabled">true</bool>
+    <integer name="call_recording_audio_source">4</integer>
+</resources>
