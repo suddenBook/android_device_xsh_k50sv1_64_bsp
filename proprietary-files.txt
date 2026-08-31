@@ -286,7 +286,16 @@ vendor/lib/hw/audio.primary.mt6755.so
 # symbol and run in the SAME process, so building this one from source links a
 # second copy, the two halves register with different singletons,
 # IsSessionReady() never becomes true, and A2DP dies with no error. Keep.
--vendor/lib/hw/audio.bluetooth.default.so
+#
+# Kept as a PLAIN COPY, not a `-`-prefixed module. Nothing in this product's
+# graph names the module `audio.bluetooth.default`: the only requirer was the
+# generated k50sv1_64_bsp-vendor.mk entry that extract_utils emits BECAUSE of
+# the `-`, so the prefix was self-justifying. Dropping it removes the
+# `prefer: true` substitution -- which is what trap 4 in notes/HANDOFF.md is
+# about -- and, more usefully, removes the obligation to keep both Soong
+# variants of a module whose 64-bit half nothing can load. See the lib64 note
+# further down.
+vendor/lib/hw/audio.bluetooth.default.so
 vendor/lib/vendor.mediatek.hardware.audio@5.1.so
 vendor/lib/libaudio_param_parser-vnd.so
 vendor/lib/libaudiocompensationfilter_vendor.so
@@ -314,8 +323,19 @@ vendor/lib/libspeech_enh_lib.so
 # built, the contract here is a kernel-UAPI ioctl ABI (struct compr_config,
 # struct snd_codec) that MTK compiled against this 3.18 kernel's
 # sound/compress_offload.h, and bionic's generated uapi headers come from a far
-# newer kernel -- a mismatch that would be silent. Keep until WI-019.
--vendor/lib/libtinycompress.so
+# newer kernel -- a mismatch that would be silent.
+#
+# WI-019 is abandoned, so "keep until WI-019" was a pointer at work that will
+# never happen: this can never move to source. The `-` is therefore dropped and
+# it is a plain copy. That is the fix notes/aosp-source-migration.md prescribes,
+# and it matters more here than for the Bluetooth module: external/tinycompress
+# EXPORTS HEADERS (export_include_dirs: ["include"]), extract_utils never emits
+# export_include_dirs on a prebuilt, and `prefer: true` substitutes graph-wide --
+# so this was trap 4's live instance in this tree. Latent only, because the sole
+# source consumers of those headers are Qualcomm audio HALs that are never built
+# here, but it would have bitten on `mma` in that directory, on checkbuild, or
+# the moment a composer 2.2/2.3 impl entered the product.
+vendor/lib/libtinycompress.so
 vendor/lib/vendor.mediatek.hardware.mtkpower@1.0.so
 vendor/lib/vendor.mediatek.hardware.power@2.0.so
 # libeffects (the audio effect factory) and libeffectproxy are built from AOSP
@@ -342,8 +362,24 @@ vendor/lib/vendor.mediatek.hardware.power@2.0.so
 # a library whose AOSP source exports headers will silently break that
 # library's source consumers. Ship one only when the library is genuinely
 # SoC-modified.
--vendor/lib64/hw/audio.bluetooth.default.so
--vendor/lib64/libtinycompress.so
+# NOT extracted any more: vendor/lib64/hw/audio.bluetooth.default.so,
+# vendor/lib64/libtinycompress.so and vendor/lib64/
+# libbluetooth_audio_session_mediatek.so.
+#
+# All three existed only to satisfy Soong's 32/64 variant matching for the two
+# `-`-prefixed modules above; with those now plain copies there is nothing to
+# match. None of the three can be loaded on this device:
+#   * the only IBluetoothAudioProvidersFactory server is the ELF32
+#     android.hardware.audio@5.0-service-mediatek, and libhidl's passthrough
+#     loader globs the CALLER's ${LIB}/hw -- so a 64-bit audio.bluetooth.default
+#     has no possible opener
+#   * libbluetooth_audio_session_mediatek.so 64 was DT_NEEDed only by that
+#     64-bit impl and by the 64-bit BT-audio HAL impl deleted in vendor fec3f54
+#   * libtinycompress.so 64 was DT_NEEDed only by a 64-bit audio.primary that
+#     does not exist; the live one is 32-bit
+# Verified on the handset across 369 processes: zero /proc/*/maps hits for all
+# three, while the 32-bit audio.bluetooth.default.so and libtinycompress.so are
+# both mapped by the audio HAL service.
 # NONE of the six audio_policy xi:include fragments is extracted any more; they
 # are copied from frameworks/av/services/audiopolicy/config/ in device.mk.
 # Three of the stock copies (a2dp_in, bluetooth, r_submix) were byte-identical
@@ -584,7 +620,6 @@ vendor/lib64/hw/android.hardware.bluetooth@1.0-impl-mediatek.so
 # carried none of the `prefer: true` variant obligation that justifies the
 # second architecture elsewhere in this file.
 vendor/lib/hw/android.hardware.bluetooth.audio@2.0-impl-mediatek.so
-vendor/lib64/libbluetooth_audio_session_mediatek.so
 vendor/lib64/libbt-vendor.so
 vendor/lib64/libbluetooth_mtk.so
 vendor/lib64/libnvram.so
@@ -898,8 +933,6 @@ vendor/etc/ipsec/ipsec.d/cacerts/thawte.der
 # Media OMX / MTK codec service (active Stock codec service is 32-bit).  -- section: media
 # Use Lineage's source-built standard OMX service wrapper to avoid colliding
 # with the platform module; retain only the MTK implementation and codecs.
-vendor/bin/hw/vendor.mediatek.hardware.mtkcodecservice@1.1-service
-vendor/etc/init/vendor.mediatek.hardware.mtkcodecservice@1.1-service.rc
 # media_codecs.xml lives in configs/ instead: Stock's copy <Include>s
 # media_codecs_google_audio.xml and media_codecs_google_video_le.xml, which are
 # not on this partition and are not wanted (Q serves those software codecs from
@@ -907,7 +940,6 @@ vendor/etc/init/vendor.mediatek.hardware.mtkcodecservice@1.1-service.rc
 # The mediatek_* fragments below are still Stock and still extracted.
 vendor/etc/media_codecs_mediatek_video.xml
 vendor/etc/media_codecs_performance.xml
-vendor/lib/hw/vendor.mediatek.hardware.mtkcodecservice@1.1-impl.so
 vendor/lib/libMtkOmxCore.so
 vendor/lib/libMtkOmxMp3Dec.so
 vendor/lib/libMtkOmxVdecEx.so
@@ -922,7 +954,6 @@ vendor/lib/libvc1dec_sa.ca7.so
 vendor/lib/libvp8dec_sa.ca7.so
 vendor/lib/libvp8enc_sa.ca7.so
 vendor/lib/libvp9dec_sa.ca7.so
-vendor/lib/vendor.mediatek.hardware.mtkcodecservice@1.1.so
 
 # DRM / Widevine (Level 3, legacy drm@1.0 plugin path)  -- section: drm
 # The port serves DRM with AOSP's android.hardware.drm@1.0-impl/-service, which

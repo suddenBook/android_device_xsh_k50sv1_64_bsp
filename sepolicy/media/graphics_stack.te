@@ -59,10 +59,34 @@ allow {
     system_server
 } proc_ged:file r_file_perms;
 
+# SPLIT BY CALLER, not one grant for everyone. `appdomain -isolated_app
+# -ephemeral_app` expands to 19 domains here -- untrusted_app, untrusted_app_25,
+# untrusted_app_27, shell, su, nfc, secure_element, network_stack,
+# shared_relro and the rest -- and the inventory above shows that the ONLY
+# in-app caller is libgralloc_extra.so, whose four imports are
+# ged_ge_{alloc,get,set,query} = 0x6764/0x6765/0x6766/0x6769, all inside the
+# SECOND range. Every proven use of the first range belongs to
+# hwcomposer.mt6755.so, the mtk_hal_gpu service, or libMtkOmxVdecEx.so -- HAL
+# and media server domains, none of them an app.
+#
+# So the first range is granted to the eleven enumerated system/HAL domains and
+# withheld from apps. That removes 15 of 22 command numbers from every installed
+# app, contradicts nothing in the evidence above, and keeps this a 3.18
+# MediaTek driver with no source in this tree or the factory image.
+#
+# If it is wrong, the failure names itself: a denial with ioctlcmd=670x from a
+# named app domain, on a device where every app still holds gpu_device rw and
+# proc_ged read. That is a better position than discovering the same thing about
+# an unenumerated grant.
 allowxperm {
     appdomain
     -isolated_app
     -ephemeral_app
+} proc_ged:file ioctl {
+    0x6764-0x676a
+};
+
+allowxperm {
     bootanim
     cameraserver
     hal_camera_default

@@ -37,10 +37,20 @@ hal_client_domain(system_app, hal_mtk_mms)
 # system_server could never have loaded it. mediaserver is 32-bit and so not
 # impossible, but it maps no /vendor library whatsoever at runtime.
 #
-# The four mtkcodecservice files, its sepolicy domain, its rc file and its VINTF
-# declaration are therefore all removable. Left in place for now because that is
-# a vendor-interface change and this pass is already large; it is a clean
-# follow-up, not a hidden cost.
+# All of it is now removed: the four blobs (service, -impl.so, interface stub,
+# rc), the VINTF declaration, mtk_hal_codecservice.te, the exec and hwservice
+# labels, the two binder_call lines and the hal_attribute. Removing the blob
+# without the VINTF entry would have left a declared HAL nothing can serve, so
+# it was one commit.
+#
+# Provenance for the "no client" claim, independently reconfirmed: a
+# binary-inclusive grep for "mtkcodecservice" over the whole built image returns
+# only the four files themselves plus their labels and the manifest entry. The
+# same grep over the STOCK dump additionally returns vendor/lib/
+# libMtkOmxApeDec.so -- the one real client, which this tree deliberately does
+# not extract. lshal listed the interface in the not-registered column after 10 h
+# of uptime and there was no init.svc property for it, so the lazy service had
+# never once been asked for.
 
 # PQ client libraries read the same non-sensitive tuning switches locally.
 # Only the PQ service can modify the writable property group.

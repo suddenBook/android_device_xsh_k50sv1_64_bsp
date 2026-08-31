@@ -1,7 +1,6 @@
 type mtk_hal_gpu_hwservice, hwservice_manager_type;
 type mtk_hal_mms_hwservice, hwservice_manager_type;
 type mtk_hal_pq_hwservice, hwservice_manager_type;
-type mtk_hal_codecservice_hwservice, hwservice_manager_type;
 
 # HwBinder calls, returned references, callbacks and transferred buffer FDs.
 binder_call(hal_mtk_gpu_client, hal_mtk_gpu_server)
@@ -10,10 +9,7 @@ binder_call(hal_mtk_mms_client, hal_mtk_mms_server)
 binder_call(hal_mtk_mms_server, hal_mtk_mms_client)
 binder_call(hal_mtk_pq_client, hal_mtk_pq_server)
 binder_call(hal_mtk_pq_server, hal_mtk_pq_client)
-binder_call(hal_mtk_codecservice_client, hal_mtk_codecservice_server)
-binder_call(hal_mtk_codecservice_server, hal_mtk_codecservice_client)
 
 hal_attribute_hwservice(hal_mtk_gpu, mtk_hal_gpu_hwservice)
 hal_attribute_hwservice(hal_mtk_mms, mtk_hal_mms_hwservice)
 hal_attribute_hwservice(hal_mtk_pq, mtk_hal_pq_hwservice)
-hal_attribute_hwservice(hal_mtk_codecservice, mtk_hal_codecservice_hwservice)

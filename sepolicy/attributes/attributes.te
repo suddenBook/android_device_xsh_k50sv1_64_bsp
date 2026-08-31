@@ -49,9 +49,6 @@ hal_attribute(mtk_mms)
 #   vendor.mediatek.hardware.pq::IPictureQuality
 #       /vendor/bin/hw/vendor.mediatek.hardware.pq@2.2-service
 hal_attribute(mtk_pq)
-#   vendor.mediatek.hardware.mtkcodecservice::IMtkCodecService
-#       /vendor/bin/hw/vendor.mediatek.hardware.mtkcodecservice@1.1-service
-hal_attribute(mtk_codecservice)
 #   vendor.mediatek.hardware.nvram::INvram
 #       /vendor/bin/hw/vendor.mediatek.hardware.nvram@1.1-service
 hal_attribute(mtk_nvram)
