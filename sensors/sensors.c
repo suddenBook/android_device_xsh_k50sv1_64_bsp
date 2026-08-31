@@ -21,6 +21,7 @@ static struct sensors_module_t *backend_module;
 static int backend_error = -ENODEV;
 
 static pthread_once_t sensor_list_once = PTHREAD_ONCE_INIT;
+static struct sensor_t visible_sensor_storage;
 static const struct sensor_t *visible_sensor;
 static int visible_sensor_count;
 
@@ -81,7 +82,22 @@ static int open_sensors(const struct hw_module_t *module, const char *id,
     return error;
   }
 
-  return backend->common.methods->open(&backend->common, id, device);
+  int rc = backend->common.methods->open(&backend->common, id, device);
+  if (rc != 0 || device == NULL || *device == NULL) {
+    return rc;
+  }
+
+  /*
+   * Re-point the opened device at THIS module. The stock open() sets
+   * common.module to its own sensors_module_t, and a caller that enumerates
+   * through device->common.module->get_sensors_list rather than through the
+   * hw_get_module result would then walk the unfiltered stock list and see
+   * every phantom sensor this wrapper exists to hide. The HAL service here is
+   * a MediaTek prebuilt, so which of the two paths it takes cannot be settled
+   * by reading source; making both paths agree costs one store.
+   */
+  (*device)->module = &HAL_MODULE_INFO_SYM.common;
+  return 0;
 }
 
 static void initialize_sensor_list(void) {
@@ -99,24 +115,51 @@ static void initialize_sensor_list(void) {
     return;
   }
 
+  /*
+   * Prefer the NON-WAKE-UP accelerometer when the stock HAL lists more than
+   * one. MTK HALs commonly publish a wake-up and a non-wake-up entry for the
+   * same physical part, and the previous "exactly one or nothing" rule would
+   * then have taken this device from one working sensor to NO sensors at all --
+   * no auto-rotate, no shake gestures -- behind a single ALOGE, and
+   * permanently, because pthread_once never retries. Failing closed is right
+   * for a phantom sensor and wrong for the only real one.
+   */
   const struct sensor_t *accelerometer = NULL;
   int accelerometer_count = 0;
   for (int i = 0; i < stock_count; ++i) {
-    if (stock_sensors[i].type == SENSOR_TYPE_ACCELEROMETER) {
+    if (stock_sensors[i].type != SENSOR_TYPE_ACCELEROMETER) {
+      continue;
+    }
+    ++accelerometer_count;
+    if (accelerometer == NULL ||
+        ((accelerometer->flags & SENSOR_FLAG_WAKE_UP) != 0 &&
+         (stock_sensors[i].flags & SENSOR_FLAG_WAKE_UP) == 0)) {
       accelerometer = &stock_sensors[i];
-      ++accelerometer_count;
     }
   }
 
-  if (accelerometer_count != 1) {
-    ALOGE("Expected exactly one accelerometer, found %d", accelerometer_count);
+  if (accelerometer == NULL) {
+    ALOGE("No accelerometer in %d Stock sensor entries; exposing none",
+          stock_count);
     return;
   }
+  if (accelerometer_count != 1) {
+    ALOGW("Found %d accelerometers in %d Stock sensor entries; exposing "
+          "handle %d (flags 0x%x)",
+          accelerometer_count, stock_count, accelerometer->handle,
+          accelerometer->flags);
+  }
 
-  visible_sensor = accelerometer;
+  /*
+   * Copy rather than alias. visible_sensor used to point INTO the stock HAL's
+   * own array, which is only valid for as long as that HAL keeps it alive --
+   * an assumption about a blob, for the price of ~100 bytes.
+   */
+  visible_sensor_storage = *accelerometer;
+  visible_sensor = &visible_sensor_storage;
   visible_sensor_count = 1;
-  ALOGI("Exposing the sole accelerometer from %d Stock sensor entries",
-        stock_count);
+  ALOGI("Exposing accelerometer handle %d from %d Stock sensor entries",
+        visible_sensor_storage.handle, stock_count);
 }
 
 static int get_sensors_list(struct sensors_module_t *module,
