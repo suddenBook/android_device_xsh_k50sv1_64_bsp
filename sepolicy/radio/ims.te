@@ -156,7 +156,7 @@ allow mtkmal mtk_mal_mfi_socket:sock_file write;
 allow mtkrild mtk_mal_mfi_socket:sock_file write;
 allow mtkrild mtkmal:unix_stream_socket connectto;
 # No "allow mtkmal self:unix_stream_socket connectto": system/sepolicy/public/
-# domain.te:29 already grants every domain
+# domain.te:30 already grants every domain
 #   allow domain self:unix_stream_socket { create_stream_socket_perms connectto };
 allow mtkmal mtk_volte_imsa_socket:sock_file write;
 allow mtkmal volte_imcb:unix_stream_socket connectto;

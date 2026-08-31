@@ -134,6 +134,43 @@ allow hal_graphics_composer_default self:netlink_kobject_uevent_socket {
 set_prop(hal_graphics_composer_default, mtk_hwc_runtime_prop)
 get_prop(surfaceflinger, mtk_hwc_runtime_prop)
 
+# The composer runs MTK PQ in its own process, and both of these fire the first
+# time a camera preview builds a decoupled display buffer queue -- roughly two
+# minutes into a boot, and only if someone opens the camera. That is why an
+# early-boot AVC sweep never saw them and HANDOFF claimed a clean allowlist for
+# five sessions (evidence/E-149.md). Measured in the same millisecond as
+#   hwcomposer [DBQ] (q2) Buffer queue is created with size(3)
+#   PQ [PQSessionManager] m_PQSupport = 2 ... [PQConfig] PQService is ready
+#
+# IMapper. media/clients.te:7 already makes the composer a client of
+# vendor.mediatek.hardware.pq, that interface hands back a hidl_memory, and
+# libhidlmemory's mapMemory() must look up android.hidl.memory::IMapper before
+# it can map one. A DIRECT allow is the AOSP idiom for a domain that only MAPS
+# shared memory it did not allocate: system/sepolicy/public/hal_drm.te:7,
+# hal_cas.te:6 and hal_neuralnetworks.te:6 are all a bare allow, the type is
+# declared bare at public/hwservice.te:66 with no hal_attribute_hwservice closed
+# set, and private/app_neverallows.te annotates it "Designed for use by any
+# domain". public/domain.te:1317 restricts coredomain_hwservice `add`, not
+# `find`.
+#
+# Do NOT "make it consistent" with mtk_hal_mms below, which reaches the same
+# interface through hal_client_domain(mtk_hal_mms, hal_allocator). That macro
+# additionally grants IAllocator find and a binder edge to hal_allocator_default,
+# a coredomain -- and no IAllocator denial has ever been recorded from the
+# composer, because it allocates nothing. If one appears, THEN switch to the
+# macro.
+allow hal_graphics_composer_default hidl_memory_hwservice:hwservice_manager find;
+
+# boot_mode. The same libdpframework::PQConfig check that media/mtk_hal_mms.te:26
+# already grants, in a second process; identical node, identical two
+# permissions. The node has its own label (radio/file.te:45,
+# radio/genfs_contexts:6) and five other domains read it. The parent dirs stay
+# generic sysfs, which public/domain.te:248 lets every domain search.
+allow hal_graphics_composer_default sysfs_mtk_boot_mode:file {
+    open
+    read
+};
+
 # proc_ged is granted r_file_perms, NOT rw. Stock's compiled policy has
 #   (allow appdomain proc_ged (file (ioctl read write getattr lock append map open)))
 # and the same for surfaceflinger, mediacodec, mtk_hal_gpu and mtk_hal_camera,

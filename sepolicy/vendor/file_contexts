@@ -110,9 +110,11 @@
 #                   Deciding it rather than leaving it undecided: if headset
 #                   detect ever regresses, fix the DAC in
 #                   rootdir/vendor/ueventd.rc first and only then add a type.
-# All five exist on the handset and rootdir/vendor/ueventd.rc sets their DAC,
-# but nothing in this build successfully opens them and the tier 1 capture
-# shows no denial for any of them. Labelling a node without a reachable
+# All five exist on the handset. rootdir/vendor/ueventd.rc sets the DAC for four
+# of them and deliberately does NOT for /dev/accdet -- that file's own comment
+# (ueventd.rc:45-66) records the measurement with a headset in the port. Nothing
+# in this build successfully opens any of the five and the tier 1 capture shows
+# no denial for any of them. Labelling a node without a reachable
 # consumer only creates a type that looks load-bearing.
 #
 # Nodes in Stock's file_contexts that DO NOT EXIST on this hardware, verified
