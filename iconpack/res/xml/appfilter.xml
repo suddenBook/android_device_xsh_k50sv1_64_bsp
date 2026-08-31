@@ -10,18 +10,27 @@
      key IconPackProvider also stores is dead. An app that renames its launcher
      activity needs a second row here.
 
-     An app with no row keeps its own icon, unmodified: IconPack.getDrawable
-     returns null (:113-119) and CustomIconProvider falls back (:38-47). The
-     iconback / iconmask / iconupon compose path is unreachable on 17.1 because
-     CustomIconProvider passes appIcon == null, so a partly-populated pack looks
-     mixed rather than uniformly themed.
+     An app with no row keeps its OWN icon, unmodified: IconPack.getDrawable
+     returns null (:113-119) and CustomIconProvider falls back (:38-47). That is
+     the right outcome for a modern app, which already ships a proper adaptive
+     icon; overriding it with a flat bitmap from a pack would make it worse,
+     not better. This file therefore themes exactly two things: the applications
+     THIS ROM ships, whose stock icons are the ones worth replacing, and the
+     applications the supplied pack itself chose to map.
 
-     A row for an app that is NOT installed costs nothing and takes effect the
-     moment the app appears; the pack is pure data with no build-time dependency
-     on the target APK. -->
+     NOTHING HERE IS INVENTED. Every component in the first block was read off
+     the running handset with
+       cmd package query-activities -a android.intent.action.MAIN \
+                                    -c android.intent.category.LAUNCHER
+     except com.android.terminal, which is verified from its own manifest in
+     this tree. An earlier revision of this file carried 33 hand-written rows
+     for global applications such as Telegram, Spotify and Gmail; those
+     component names were guesses, and those applications ship perfectly good
+     adaptive icons of their own. They are gone. -->
 <resources>
 
-    <!-- Applications this ROM ships. All 20 launcher activities are covered. -->
+    <!-- Applications this ROM ships. All 20 launcher activities of the running
+         image, plus Terminal. -->
     <item component="ComponentInfo{com.android.calculator2/com.android.calculator2.Calculator}" drawable="miui_calculator" />
     <item component="ComponentInfo{com.android.camera2/com.android.camera.CameraLauncher}" drawable="miui_camera" />
     <item component="ComponentInfo{com.android.contacts/com.android.contacts.activities.PeopleActivity}" drawable="google_contacts" />
@@ -42,60 +51,11 @@
     <item component="ComponentInfo{org.lineageos.etar/com.android.calendar.AllInOneActivity}" drawable="google_calendar" />
     <item component="ComponentInfo{org.lineageos.jelly/org.lineageos.jelly.MainActivity}" drawable="miui_browser" />
     <item component="ComponentInfo{org.lineageos.recorder/org.lineageos.recorder.RecorderActivity}" drawable="op_recorder" />
-
-    <!-- Applications this build carries that gain a launcher entry only when
-         enabled, plus Lineage applications a later build may ship. A row for an
-         app that is not installed costs nothing. -->
     <item component="ComponentInfo{com.android.terminal/com.android.terminal.TerminalActivity}" drawable="fox_toolbox" />
-    <item component="ComponentInfo{com.android.providers.downloads.ui/com.android.providers.downloads.ui.DownloadList}" drawable="op_download" />
-    <item component="ComponentInfo{org.lineageos.updater/org.lineageos.updater.UpdatesActivity}" drawable="flyme_update" />
-    <item component="ComponentInfo{org.lineageos.backgrounds/org.lineageos.backgrounds.ui.SectionActivity}" drawable="coloros_theme" />
-    <item component="ComponentInfo{org.lineageos.customization/org.lineageos.customization.CustomizationActivity}" drawable="miui_thememanager" />
-    <item component="ComponentInfo{com.stevesoltys.seedvault/com.stevesoltys.seedvault.settings.SettingsActivity}" drawable="titaniumbackup" />
-    <item component="ComponentInfo{org.lineageos.snap/com.android.camera.CameraLauncher}" drawable="miui_camera" />
-    <item component="ComponentInfo{com.android.fmradio/com.android.fmradio.FmMainActivity}" drawable="miui_fm" />
-    <item component="ComponentInfo{org.lineageos.profiles/org.lineageos.profiles.ProfilesActivity}" drawable="miui_securitycenter" />
-    <item component="ComponentInfo{com.android.settings.intelligence/com.android.settings.intelligence.search.SearchActivity}" drawable="google_settings" />
-    <item component="ComponentInfo{com.huawei.hwid/com.huawei.hwid.core.activity.MainActivity}" drawable="huawei_appgallery" />
-
-    <!-- Global applications the supplied pack did not map. -->
-    <item component="ComponentInfo{org.telegram.messenger/org.telegram.ui.LaunchActivity}" drawable="telegram" />
-    <item component="ComponentInfo{org.telegram.messenger.web/org.telegram.ui.LaunchActivity}" drawable="telegram" />
-    <item component="ComponentInfo{com.spotify.music/com.spotify.music.MainActivity}" drawable="spotify" />
-    <item component="ComponentInfo{com.netflix.mediaclient/com.netflix.mediaclient.ui.launch.UIWebViewActivity}" drawable="netflix" />
-    <item component="ComponentInfo{com.google.android.gm/com.google.android.gm.ConversationListActivityGmail}" drawable="google_mail" />
-    <item component="ComponentInfo{com.google.android.apps.maps/com.google.android.maps.MapsActivity}" drawable="google_maps" />
-    <item component="ComponentInfo{com.google.android.apps.photos/com.google.android.apps.photos.home.HomeActivity}" drawable="google_photos" />
-    <item component="ComponentInfo{com.google.android.apps.docs/com.google.android.apps.docs.app.NewMainProxyActivity}" drawable="google_netdrive" />
-    <item component="ComponentInfo{com.google.android.youtube/com.google.android.apps.youtube.app.WatchWhileActivity}" drawable="google_youtube" />
-    <item component="ComponentInfo{com.google.android.apps.messaging/com.google.android.apps.messaging.ui.ConversationListActivity}" drawable="google_message" />
-    <item component="ComponentInfo{com.google.android.dialer/com.google.android.dialer.extensions.GoogleDialtactsActivity}" drawable="google_dialer" />
-    <item component="ComponentInfo{com.google.android.inputmethod.latin/com.android.inputmethod.latin.setup.SetupActivity}" drawable="gboard" />
-    <item component="ComponentInfo{com.google.android.apps.docs.editors.docs/com.google.android.apps.docs.editors.docs.app.NewMainProxyActivity}" drawable="google_documents" />
-    <item component="ComponentInfo{com.google.android.apps.nbu.files/com.google.android.apps.nbu.files.home.HomeActivity}" drawable="google_files" />
-    <item component="ComponentInfo{com.android.chrome/com.google.android.apps.chrome.Main}" drawable="google_chrome" />
-    <item component="ComponentInfo{com.instagram.android/com.instagram.mainactivity.MainActivity}" drawable="instagram" />
-    <item component="ComponentInfo{com.facebook.katana/com.facebook.katana.LoginActivity}" drawable="facebook" />
-    <item component="ComponentInfo{com.twitter.android/com.twitter.android.StartActivity}" drawable="twitter" />
-    <item component="ComponentInfo{com.amazon.mShop.android.shopping/com.amazon.mShop.home.HomeActivity}" drawable="amazon" />
-    <item component="ComponentInfo{com.valvesoftware.android.steam.community/com.valvesoftware.android.steam.community.SteamCommunityMainActivity}" drawable="steam" />
-    <item component="ComponentInfo{org.videolan.vlc/org.videolan.vlc.StartActivity}" drawable="vlc" />
-    <item component="ComponentInfo{com.opera.browser/com.opera.Opera}" drawable="opera" />
-    <item component="ComponentInfo{us.zoom.videomeetings/com.zipow.videobox.LauncherActivity}" drawable="zoom" />
-    <item component="ComponentInfo{org.wikipedia/org.wikipedia.main.MainActivity}" drawable="wikipedia" />
-    <item component="ComponentInfo{com.apple.android.music/com.apple.android.music.onboarding.activities.SplashActivity}" drawable="apple_music" />
-    <item component="ComponentInfo{com.tencent.mm/com.tencent.mm.ui.LauncherUI}" drawable="wechat" />
-    <item component="ComponentInfo{com.kakao.talk/com.kakao.talk.activity.SplashActivity}" drawable="kakaotalk" />
-    <item component="ComponentInfo{com.mojang.minecraftpe/com.mojang.minecraftpe.MainActivity}" drawable="minecraft" />
-    <item component="ComponentInfo{com.mxtech.videoplayer.pro/com.mxtech.videoplayer.pro.ActivityMediaList}" drawable="mx_player_pro" />
-    <item component="ComponentInfo{com.estrongs.android.pop/com.estrongs.android.pop.view.FileExplorerActivity}" drawable="es_explorer" />
-    <item component="ComponentInfo{com.apkpure.aegon/com.apkpure.aegon.main.activity.MainTabActivity}" drawable="apkpure" />
-    <item component="ComponentInfo{cm.aptoide.pt/cm.aptoide.pt.view.MainActivity}" drawable="aptoide" />
-    <item component="ComponentInfo{com.coolapk.market/com.coolapk.market.view.main.MainActivity}" drawable="coolapk" />
 
     <!-- The supplied pack's own mappings, carried verbatim. Mostly Chinese
          consumer applications; kept because a row costs nothing and they are
-         the reason the artwork exists. -->
+         what the artwork was drawn for. -->
     <item component="ComponentInfo{air.tv.douyu.android/tv.douyu.view.activity.launcher.DYLauncherActivity}" drawable="douyu" />
     <item component="ComponentInfo{air.tv.douyu.android/tv.douyu.view.activity.launcher.DYSplashLauncherActivity}" drawable="douyu" />
     <item component="ComponentInfo{cmb.pb/cmb.pb.app.mainframe.container.PBMainActivity}" drawable="cmb" />
@@ -172,6 +132,7 @@
     <item component="ComponentInfo{com.duowan.kiwi/com.duowan.kiwi.simpleactivity.SplashActivity}" drawable="huya" />
     <item component="ComponentInfo{com.fenbi.android.souti/com.fenbi.android.souti.WelcomeActivity}" drawable="huoxingsouti" />
     <item component="ComponentInfo{com.funtown.show.ui/com.funtown.show.ui.SplashActivity}" drawable="fangtang" />
+    <item component="ComponentInfo{com.google.android.apps.nbu.files/com.google.android.apps.nbu.files.home.HomeActivity}" drawable="google_files" />
     <item component="ComponentInfo{com.google.android.contacts/com.android.contacts.activities.PeopleActivity}" drawable="google_contacts" />
     <item component="ComponentInfo{com.google.android.googlequicksearchbox/com.google.android.googlequicksearchbox.VoiceSearchActivity}" drawable="google_voicesearch" />
     <item component="ComponentInfo{com.google.android.inputmethod.pinyin/com.google.android.apps.inputmethod.libs.framework.core.LauncherActivity}" drawable="google_pinyin" />
@@ -223,6 +184,7 @@
     <item component="ComponentInfo{com.MobileTicket/com.alipay.mobile.quinox.LauncherActivity}" drawable="tielu_12306" />
     <item component="ComponentInfo{com.MobileTicket/com.MobileTicket.MobileTicket}" drawable="tielu_12306" />
     <item component="ComponentInfo{com.MobileTicket/com.MobileTicket.ui.activity.WelcomeGuideActivity}" drawable="tielu_12306" />
+    <item component="ComponentInfo{com.mojang.minecraftpe/com.mojang.minecraftpe.MainActivity}" drawable="minecraft" />
     <item component="ComponentInfo{com.mt.mtxx.mtxx/com.mt.mtxx.mtxx}" drawable="meituxiuxiu" />
     <item component="ComponentInfo{com.mt.mtxx.mtxx/com.mt.mtxx.mtxx.MainActivity}" drawable="meituxiuxiu" />
     <item component="ComponentInfo{com.mt.mtxx.mtxx/com.mt.mtxx.mtxx.TopViewActivity}" drawable="meituxiuxiu" />
