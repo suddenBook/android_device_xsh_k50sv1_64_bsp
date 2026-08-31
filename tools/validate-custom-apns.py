@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """Validate the k50sv1 Lineage APN fragment and its merged runtime meaning."""
 

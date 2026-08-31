@@ -213,7 +213,7 @@ $(LOCAL_BUILT_MODULE): $(k50sv1_xml_files) $(XMLLINT) \
 	@echo "Validating $(words $(PRIVATE_XML_FILES)) device-tree XML files"
 	$(hide) $(XMLLINT) --noout $(PRIVATE_XML_FILES)
 	@echo "Validating the device APN fragment and merged database identities"
-	$(hide) python $(PRIVATE_APN_VALIDATOR) $(PRIVATE_DEFAULT_APNS) \
+	$(hide) python3 $(PRIVATE_APN_VALIDATOR) $(PRIVATE_DEFAULT_APNS) \
 	    $(PRIVATE_APN_FRAGMENT) $(PRIVATE_INTERNAL_APNS)
 	@echo "Validating $(words $(PRIVATE_INIT_RC_FILES)) device-tree init rc files"
 	$(hide) for rc in $(PRIVATE_INIT_RC_FILES); do \
