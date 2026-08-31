@@ -10,11 +10,14 @@ wakelock_use(ccci_mdinit)
 # service name has to appear as a literal in the binary. ccci_mdinit carries
 # ctl.start and ctl.stop plus exactly these targets: vendor.ccci_fsd,
 # vendor.ccci3_fsd, vendor.gsm0710muxd, vendor.ril-daemon-mtk, vendor.ril-proxy.
+# vendor.ccci3_fsd is no longer among the granted set: the MD3 service is gone
+# from this tree's init.cccifsd.rc, so `ctl.vendor.ccci3_fsd` now names nothing
+# and init would refuse it whatever its label. The binary still carries the
+# literal; that is a fact about the blob, not a requirement.
 # ctl_mtk_ccci_rpcd_prop is NOT among them -- the binary contains no
 # "ccci_rpcd" string at all, so that set_prop was dead and has been dropped.
 # vendor.ccci_rpcd is started from init.mt6755.rc, not by this daemon.
 set_prop(ccci_mdinit, ctl_mtk_ccci_fsd_prop)
-set_prop(ccci_mdinit, ctl_mtk_ccci3_fsd_prop)
 set_prop(ccci_mdinit, ctl_mtk_gsm0710muxd_prop)
 set_prop(ccci_mdinit, ctl_mtkrild_prop)
 set_prop(ccci_mdinit, ctl_mtk_rilproxy_prop)

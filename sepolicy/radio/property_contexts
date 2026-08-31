@@ -1,6 +1,5 @@
 # init service control labels checked for ctl.start/ctl.stop operations.
 ctl.vendor.ccci_fsd          u:object_r:ctl_mtk_ccci_fsd_prop:s0
-ctl.vendor.ccci3_fsd         u:object_r:ctl_mtk_ccci3_fsd_prop:s0
 ctl.vendor.ccci_rpcd         u:object_r:ctl_mtk_ccci_rpcd_prop:s0
 ctl.vendor.gsm0710muxd       u:object_r:ctl_mtk_gsm0710muxd_prop:s0
 ctl.vendor.ril-daemon-mtk    u:object_r:ctl_mtkrild_prop:s0

@@ -11,8 +11,6 @@ allow ccci_fsd mtk_ccci_cfg_file:dir create_dir_perms;
 allow ccci_fsd mtk_ccci_cfg_file:file create_file_perms;
 allow ccci_fsd mtk_ccci_lpm_file:dir create_dir_perms;
 allow ccci_fsd mtk_ccci_lpm_file:file create_file_perms;
-allow ccci_fsd mtk_ccci_md3_file:dir create_dir_perms;
-allow ccci_fsd mtk_ccci_md3_file:file create_file_perms;
 allow ccci_fsd mtk_modem_nvdata_file:dir create_dir_perms;
 allow ccci_fsd mtk_modem_nvdata_file:file create_file_perms;
 allow ccci_fsd mtk_protect_f_file:dir create_dir_perms;

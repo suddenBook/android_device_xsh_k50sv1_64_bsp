@@ -633,8 +633,10 @@ vendor/bin/muxreport
 vendor/bin/netdagent
 vendor/bin/nvram_daemon
 vendor/etc/init/gsm0710muxd.rc
-vendor/etc/init/init.cccifsd.rc
-vendor/etc/init/init.cccimdinit.rc
+# init.cccifsd.rc and init.cccimdinit.rc are NOT extracted. They are
+# device-owned under rootdir/etc/init/, with MediaTek's MD3 (C2K/CDMA) services
+# removed -- this chassis has no CDMA radio and vendor.ccci3_fsd was a
+# permanently blocked resident process. Their headers carry the measurements.
 vendor/etc/init/init.cccirpcd.rc
 vendor/etc/init/mtkrild.rc
 vendor/etc/init/muxreport.rc

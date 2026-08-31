@@ -1,0 +1,39 @@
+# CCCI modem-init, device-owned.
+#
+# Derived from stock /vendor/etc/init/init.cccimdinit.rc, which this tree used
+# to extract verbatim. It is owned here for the same reason init.volte_imcb.rc
+# is: the one difference from stock has to be visible in a diff rather than
+# buried in a blob_fixup sed.
+#
+# That difference: the MD3 half is gone. MD3 is MediaTek's C2K/CDMA2000
+# protocol stack and this chassis has no CDMA radio. Measured on the handset:
+#
+#   /sys/kernel/ccci/md_en            E-D-D-D-D (1->5)   only MD1 enabled
+#   /proc/config.gz                   CONFIG_MTK_MD3_SUPPORT=0
+#   ro.vendor.mtk_protocol1_rat_config Lf/Lt/W/T/G       no C2K
+#   ro.vendor.mtk_md3_support         unset
+#   /dev/ccci2_* /dev/ccci3_*         do not exist
+#   init.svc.ccci3_mdinit             stopped
+#
+# `ccci_mdinit 2` therefore ran at every boot, found nothing, and exited. The
+# two mkdirs it left behind (/mnt/vendor/nvdata/md3 and /data/vendor/md3) stayed
+# empty; the nvdata one is still dated from the factory image.
+#
+# The `insmod` lines stock carries here are commented out in stock too: ccci is
+# built into this kernel. They are simply dropped rather than carried as dead
+# comments.
+
+on post-fs-data
+    # Modem related device nodes
+    mkdir /mnt/vendor/nvdata/md  0770 root system
+
+    chown radio radio /sys/kernel/ccci/boot
+
+    mkdir /data/vendor/ccci_cfg 0770 system radio
+    restorecon /data/vendor/ccci_cfg
+
+service ccci_mdinit /vendor/bin/ccci_mdinit 0
+    user system
+    group radio system
+    class core
+    oneshot

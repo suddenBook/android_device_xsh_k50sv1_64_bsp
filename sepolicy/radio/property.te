@@ -13,7 +13,6 @@
 # granted them. If a modem-reset restart path is ever needed, add exactly one
 # set_prop() and say which binary carries the service-name literal.
 type ctl_mtk_ccci_fsd_prop, property_type;
-type ctl_mtk_ccci3_fsd_prop, property_type;
 type ctl_mtk_ccci_rpcd_prop, property_type;
 type ctl_mtk_gsm0710muxd_prop, property_type;
 type ctl_mtkrild_prop, property_type;

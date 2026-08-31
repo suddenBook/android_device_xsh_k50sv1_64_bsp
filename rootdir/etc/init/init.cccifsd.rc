@@ -1,0 +1,33 @@
+# CCCI modem filesystem daemon, device-owned.
+#
+# Derived from stock /vendor/etc/init/init.cccifsd.rc. Same reason for owning it
+# as init.cccimdinit.rc beside this file, and the same single difference: the
+# MD3 half is gone, because this chassis has no C2K modem. See that file's
+# header for the six measurements.
+#
+# `vendor.ccci3_fsd` was the worse of the two MD3 services. Unlike ccci3_mdinit
+# it is not oneshot, so it did not exit: it opened /dev/ccci_md3_sta and parked
+# in ccci_util_bc_read forever, waiting for a status broadcast from a modem that
+# will never boot. Measured after 10 h of uptime it held one device fd and one
+# socket, had accumulated 1 utime / 2 stime jiffies against the real instance's
+# 28 / 86, and cost ~2.8 MB RSS for nothing.
+#
+# Keep `vendor.ccci_fsd` exactly as stock has it -- MD1 needs it, and its
+# priority/ioprio lines are load-bearing for modem filesystem latency.
+
+on post-fs-data
+    mkdir /data/vendor/ccci_cfg 0770 system radio
+    restorecon /data/vendor/ccci_cfg
+    mkdir /data/vendor/mdlpm 0770 system radio
+    restorecon /data/vendor/mdlpm
+
+    restorecon_recursive /mnt/vendor/protect_f
+    restorecon_recursive /mnt/vendor/protect_s
+
+service vendor.ccci_fsd /vendor/bin/ccci_fsd 0
+    user radio
+    group radio system root
+    class core
+    priority -20
+    ioprio rt 4
+    oneshot
