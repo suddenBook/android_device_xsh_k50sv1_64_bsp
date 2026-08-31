@@ -131,9 +131,32 @@ endif
 # mechanism for LOCAL_OVERRIDES_PACKAGES). A tier-2 -> tier-3 `m` without a
 # clean output tree would therefore pack /vendor/bin/{charon,starter,stroke,
 # wfca,epdg_wod} and the strongSwan libraries into a release vendor.img, with no
-# diagnostic anywhere -- the exact stack Tier 3 exists to exclude. Only
-# main.mk's TARGET_PRODUCT/TARGET_BUILD_VARIANT comparison triggers an
-# installclean, and the tier changes neither.
+# diagnostic anywhere -- the exact stack Tier 3 exists to exclude.
+#
+# WHICH CASES THE UPSTREAM AUTO-INSTALLCLEAN ALREADY COVERS, because an earlier
+# version of this paragraph got it wrong twice. It said "only main.mk's
+# TARGET_PRODUCT/TARGET_BUILD_VARIANT comparison triggers an installclean, and
+# the tier changes neither". There is no such comparison in main.mk -- `grep
+# installclean build/make/core/*.mk` returns nothing. It is Soong's Go driver:
+# build/soong/ui/build/cleanbuild.go:133-137 builds
+# "PREVIOUS_BUILD_CONFIG := <product>-<variant>", compares it with the stamped
+# one, and calls installClean(), which at :109-115 removes productOut("system"),
+# productOut("vendor"), productOut("ramdisk"), productOut("recovery"),
+# productOut("root") and productOut("system_other").
+#
+# And the tier DOES change the variant for the case the paragraph was about:
+# tier 3 is `user` and tiers 1/2 are `userdebug` -- enforced 20 lines above --
+# so a 2 -> 3 switch already wipes productOut("vendor"), which is precisely the
+# staged strongSwan tree. That half is handled upstream.
+#
+# What the stamp is still for:
+#   * Tier 1 <-> Tier 2. Both are userdebug, so PREVIOUS_BUILD_CONFIG is
+#     unchanged and nothing is wiped. (They differ only in
+#     BOARD_KERNEL_CMDLINE, which ninja does rebuild, so this is defence
+#     rather than a known-bad case.)
+#   * DISABLE_AUTO_INSTALLCLEAN=true in the environment, which bypasses the
+#     whole mechanism at cleanbuild.go:160-163 and would then let the 2 -> 3
+#     case through after all.
 #
 # Until now the only thing preventing that was run-lineage-build.sh refusing
 # tier 3 without K50SV1_CLEAN_BUILD=1. That is one policy in one other file. The

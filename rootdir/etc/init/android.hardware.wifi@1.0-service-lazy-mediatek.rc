@@ -1,0 +1,36 @@
+# MediaTek's lazy Wi-Fi HAL, device-owned for one reason: the stock file
+# declares a single `interface` line while manifest.xml declares @1.3.
+#
+# hwservicemanager asks init to start a lazy HAL by setting
+# ctl.interface_start$<fqName>/<instance> with the REQUESTED name verbatim
+# (ServiceManager.cpp), and init resolves it by exact string match against the
+# set built from `interface` lines (Service::ParseInterface inserts
+# interface_name + "/" + instance). With only
+# `android.hardware.wifi@1.0::IWifi default` declared, a lookup of
+# @1.3::IWifi/default matches nothing and the caller spins in
+# getRawServiceInternal's unbounded one-second retry loop.
+#
+# It is benign on Android 10 -- HalDeviceManager only ever calls
+# V1_0.IWifi.getService() and reaches 1.1/1.2/1.3 through castFrom on the live
+# remote -- so nothing is broken today. It is fixed anyway because this is the
+# same trap this tree already closed for
+# vendor.mediatek.hardware.wifi.supplicant@2.0 in init.wmt.rc, and leaving one
+# of the two asymmetric reads as an oversight rather than a decision.
+#
+# Adding interface lines is purely additive: it only widens the set of names
+# init can match, and changes nothing about the service itself. Everything else
+# in this file is byte-for-byte stock, including `capabilities NET_ADMIN NET_RAW
+# SYS_MODULE` (the HAL insmods the wlan driver) and `group wifi gps` (the MTK
+# combo chip shares its coexistence path with GNSS).
+
+service vendor.wifi_hal_legacy /vendor/bin/hw/android.hardware.wifi@1.0-service-lazy-mediatek
+    interface android.hardware.wifi@1.0::IWifi default
+    interface android.hardware.wifi@1.1::IWifi default
+    interface android.hardware.wifi@1.2::IWifi default
+    interface android.hardware.wifi@1.3::IWifi default
+    oneshot
+    disabled
+    class hal
+    capabilities NET_ADMIN NET_RAW SYS_MODULE
+    user wifi
+    group wifi gps

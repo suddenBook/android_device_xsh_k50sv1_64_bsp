@@ -121,18 +121,29 @@ on post-fs
     rmdir /dev/cpuset/top-app
     rmdir /dev/cpuset
 
-    # Two AOSP HAL rc files this build installs still `writepid` into the tree
-    # removed just above -- android.hardware.drm@1.0-service.rc:8
-    # (/dev/cpuset/foreground/tasks) and
-    # android.hardware.graphics.composer@2.1-service.rc:7
-    # (/dev/cpuset/system-background/tasks). Each logs one
+    # THIRTY-THREE rc files this build installs still `writepid` into the tree
+    # removed just above, carrying 34 writepid lines between them -- not the two
+    # an earlier version of this comment named. Counted on the handset:
+    #   grep -lE 'writepid.*(cpuset|stune)' \
+    #       /vendor/etc/init/*.rc /system/etc/init/*.rc /init.rc | wc -l
+    # Nine are on the vendor side (audio, bluetooth, cas, drm, composer, AOSP's
+    # media.omx, camerahalserver, vndservicemanager, and this tree's own
+    # zz_vendor.media.omx override); the other 24 are AOSP's -- servicemanager,
+    # hwservicemanager, logd x2, lmkd, keystore, gatekeeperd, statsd,
+    # audioserver, cameraserver, mediaserver, mediametrics, mediaextractor,
+    # mediadrmserver, drmserver, bootanim, perfetto x2, heapprofd, iorapd,
+    # rss_hwm_reset, logcatd and the rest.
+    #
+    # The conclusion is unchanged and the arithmetic behind it is now right.
+    # Each writepid to a missing path costs one
     #   couldn't write <pid> to /dev/cpuset/...
-    # from init at its single start, and that is the whole cost: with no
-    # CONFIG_CPUSETS there is no scheduling placement to lose. They are left
-    # alone deliberately. zz_vendor.media.omx.rc drops the same line, but that
-    # override exists because the OMX service genuinely needed two more
-    # supplementary groups; writing two more override files for two log lines a
-    # boot would be more device surface than the noise is worth.
+    # from init at that service's start, and nothing else: with no
+    # CONFIG_CPUSETS there is no scheduling placement to lose. So the real bill
+    # is about 34 lines a boot rather than two -- and overriding 31 upstream rc
+    # files to remove them would be vastly more device surface than the noise is
+    # worth. They stay. zz_vendor.media.omx.rc drops its line only incidentally;
+    # that override exists because the OMX service genuinely needed two more
+    # supplementary groups.
     #
     # No rm for memcg: nothing in the tree writepids under /dev/memcg and both
     # leaves are empty on the live handset.

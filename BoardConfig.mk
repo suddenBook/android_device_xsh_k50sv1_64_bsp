@@ -20,6 +20,13 @@ TARGET_2ND_ARCH_VARIANT := armv8-a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a53
+# INERT on this device, kept as a statement of fact -- the same treatment
+# TARGET_NO_RADIOIMAGE and TARGET_KERNEL_ARCH get below and above. Both
+# consumers are unreachable once TARGET_IS_64_BIT is true, which TARGET_ARCH :=
+# arm64 makes it: soong_config.mk:9-14 only sets BINDER32BIT when the target is
+# NOT 64-bit, and config.mk:751-757's error only fires for a 32-bit target at
+# PRODUCT_SHIPPING_API_LEVEL >= 28 (this product is at 26 for the reason
+# recorded further down).
 TARGET_USES_64_BIT_BINDER := true
 
 # Platform
@@ -56,7 +63,7 @@ BOARD_VNDK_VERSION := current
 # Soong lets vendor Java compile against. Not inert -- five consumers:
 #   build/make/core/soong_config.mk:115      -> Soong DeviceSystemSdkVersions
 #   build/make/core/local_systemsdk.mk:17,45 -> restricts vendor Java targets
-#   build/make/core/board_config.mk:529-532  -> hard error if not in
+#   build/make/core/board_config.mk:530-532  -> hard error if not in
 #                                               PLATFORM_SYSTEMSDK_VERSIONS
 #   build/make/core/config.mk:748-749        -> hard error if < PRODUCT_SHIPPING_API_LEVEL
 #   system/libhidl/vintfdata/Android.mk:56   -> injected into the shipped
@@ -145,10 +152,53 @@ BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilt/dtb
 BOARD_KERNEL_BASE := 0x40000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2
+
+# Turn MediaTek's SLUB debugging back off.
+#
+# This is NOT ours to begin with: LK prepends its own arguments, and the live
+# /proc/cmdline carries `slub_max_order=0 slub_debug=OFZPU` from there, ahead of
+# everything this file contributes. OFZPU is F(sanity checks) + Z(red zones) +
+# P(poisoning) + U(store-user, i.e. an allocation stack trace kept per object),
+# with O meaning "skip caches whose minimum order would grow". That is a
+# permanent tax on every kmalloc and kfree, plus per-object memory, on eight
+# A53s and 4 GiB.
+#
+# We cannot edit LK's string -- lk is not in this project's flash set -- but we
+# do not have to. The boot image's cmdline is appended AFTER it (confirmed on
+# the handset: LK's arguments, then this file's `bootopt=`, then more LK
+# arguments), mm/slub.c registers setup_slub_debug() with __setup, and
+# obsolete_checksetup() runs the handler once per matching occurrence in
+# left-to-right order. The handler's first act on "-" is `slub_debug = 0`. So
+# the later assignment wins.
+#
+# Ordering is safe with respect to the caches: parse_args() runs before
+# mm_init() in start_kernel(), so no SLUB cache exists yet when this is read.
+# `disable_higher_order_debug` stays 1 from the earlier parse and is inert once
+# slub_debug is 0.
+#
+# VERIFY AFTER FLASHING, because this is an argument-ordering claim about a
+# bootloader we do not build:
+#     grep -c 'red_zone' /sys/kernel/slab/*/red_zone   # expect all 0
+#     cat /sys/kernel/slab/kmalloc-256/store_user      # expect 0
+# If they still read 1, the appended argument is not reaching the parser and
+# this line should come out rather than stay as decoration.
+BOARD_KERNEL_CMDLINE += slub_debug=-
+
 ifeq ($(K50SV1_SELINUX_PERMISSIVE),true)
 # Tier 1 keeps policy/domain transitions active while logging denials without
 # blocking first boot. Tiers 2 and 3 omit the argument and enforce policy.
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+endif
+
+ifneq ($(K50SV1_BUILD_TIER),3)
+# Diagnostic tiers only. The kernel ring is CONFIG_LOG_BUF_SHIFT-sized and this
+# kernel writes ~5.5 lines a second at idle, so `dmesg` on a long-running
+# handset covers roughly the last quarter-hour: every boot-time message, and
+# every init service-exit diagnostic (init logs to kmsg, not to logcat), is
+# already gone by the time anyone looks. 1 MiB is free on a 4 GiB device and
+# turns a post-hoc dmesg into evidence instead of a sample. Tier 3 keeps the
+# kernel default.
+BOARD_KERNEL_CMDLINE += log_buf_len=1M
 endif
 BOARD_MKBOOTIMG_ARGS += \
     --header_version 2 \
@@ -214,7 +264,7 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 # neither was the no-op that reads like.
 #
 # BOARD_AVB_ENABLE: the image-prop-dictionary generator tests it with
-# $(if $(BOARD_AVB_ENABLE),...) -- Makefile:1489-1528, thirteen consecutive
+# $(if $(BOARD_AVB_ENABLE),...) -- Makefile:1489-1531, nineteen consecutive
 # lines -- and $(if) is true for ANY non-empty value, `false` included. With it
 # set to the string `false` the build emitted, into every per-image prop
 # dictionary:

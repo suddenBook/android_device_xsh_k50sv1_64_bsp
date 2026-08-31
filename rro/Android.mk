@@ -6,6 +6,6 @@ LOCAL_PATH := $(call my-dir)
 # and because PRODUCT_ENFORCE_PACKAGES_EXIST is opt-in, naming one in
 # PRODUCT_PACKAGES fails SILENTLY: the package simply never installs. That is
 # how the HarmonyOS Sans Styles entry was missing from a build that reported
-# success. BoardConfig.mk now sets PRODUCT_ENFORCE_PACKAGES_EXIST so a repeat is
+# success. device.mk:499 now sets PRODUCT_ENFORCE_PACKAGES_EXIST so a repeat is
 # a build error, but this is the line that makes the overlays exist at all.
 include $(call all-makefiles-under,$(LOCAL_PATH))

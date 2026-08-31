@@ -8,12 +8,15 @@ ifneq ($(filter k50sv1_64_bsp,$(TARGET_DEVICE)),)
 # checks nothing". That is false on Android 10 and it was the whole stated
 # reason for this module: Makefile:35-36 routes every copy whose DESTINATION
 # ends in .xml through copy-xml-file-checked, and definitions.mk:2581-2586
-# runs $(XMLLINT) on it. A doubled hyphen in a copied XML is already a build
-# error without this rule. The overlays and RROs are parsed by aapt2, and
-# manifest.xml / compatibility_matrix.xml by assemble_vintf.
+# runs $(XMLLINT) on it (definitions.mk:2582-2587 is the define; :2581 is its
+# last comment line). A doubled hyphen in a copied XML is already a build
+# error without this rule -- and it fired on exactly that, in
+# configs/media_profiles_V1_0.xml, while this change set was being written. The
+# overlays and RROs are parsed by aapt2, and manifest.xml /
+# compatibility_matrix.xml by assemble_vintf.
 #
-# After adding the APN fragment, this tree has 22 ordinary XML documents plus
-# one intentional one-element-per-line fragment. The ordinary documents are
+# This tree has 23 ordinary XML documents plus one intentional
+# one-element-per-line fragment. The ordinary documents are
 # handled below with xmllint. The fragment cannot be parsed as one XML document
 # and instead gets a stricter APN/TelephonyProvider semantic validator.
 # Among the ordinary files, the accounting leaves exactly one residual file:
@@ -23,12 +26,13 @@ ifneq ($(filter k50sv1_64_bsp,$(TARGET_DEVICE)),)
 # It is installed by the Soong prebuilt_etc in permissions/Android.bp, and
 # prebuilt_etc is a plain copy rule -- there is no xmllint anywhere in the
 # Soong etc module. Every other file is already covered:
-#   configs/*.xml (8) + permissions/privapp-permissions-mtk-ims.xml +
+#   configs/*.xml (9) + permissions/privapp-permissions-mtk-ims.xml +
 #   permissions/handheld_core_hardware.xml + permissions/
 #   android.software.nfc.beam.xml  -> PRODUCT_COPY_FILES with a .xml
 #                                     destination -> copy-xml-file-checked
 #   manifest.xml, compatibility_matrix.xml -> assemble_vintf
-#   overlay/**.xml (4), rro/HarmonyOSSansFont/**.xml (3) -> aapt2
+#   overlay/**.xml (4), overlay-tier3/**.xml (1),
+#   rro/HarmonyOSSansFont/**.xml (3) -> aapt2
 #
 # So this module is not the broad safety net the old comment described. It is
 # a one-file backstop plus a cheap re-check of the rest, and it validates on
@@ -79,7 +83,8 @@ include $(BUILD_SYSTEM)/base_rules.mk
 #
 # PRODUCT_PACKAGES still lists the module in device.mk. That is deliberate and
 # it is not the build trigger: it is what makes PRODUCT_ENFORCE_PACKAGES_EXIST
-# (BoardConfig.mk) fail the build if this Android.mk ever stops being parsed.
+# (device.mk:499 -- NOT BoardConfig.mk; device.mk:467-479 explains why it has to
+# be there) fail the build if this Android.mk ever stops being parsed.
 #
 # ...and `droidcore` ALONE IS NOT ENOUGH, which is the second time this module
 # has been wired to something that never fires. droidcore DEPENDS ON the image
@@ -91,8 +96,10 @@ include $(BUILD_SYSTEM)/base_rules.mk
 #
 # The four image goals are therefore listed as well. GNU make accumulates
 # prerequisites for a target across rules as long as only one rule carries a
-# recipe, and build/make/core/Makefile (which defines all four) is included from
-# main.mk AFTER every Android.mk, so naming them here is legal and is the same
+# recipe, and the files that define all four -- Makefile for systemimage
+# (:792-793, :2394) and recoveryimage (:2072-2073), main.mk for bootimage
+# (:1576-1577) and vendorimage (:1558-1559) -- are read AFTER every Android.mk,
+# so naming them here is legal and is the same
 # shape as build/make/target/product/gsi/Android.mk's `droidcore:` line.
 #
 # HOW TO TELL IT RAN, because "the build succeeded" does not:
@@ -121,10 +128,30 @@ droidcore systemimage vendorimage bootimage recoveryimage: $(LOCAL_BUILT_MODULE)
 # i.e. this device's manifest.xml against the framework's matrix. This line
 # closes the other half.
 #
-# Legal for the same reason the line above is: build/make/core/Makefile defines
-# both `systemimage` (:792-793, :2394) and this variable, and is included from
-# main.mk after every Android.mk.
-systemimage: $(BUILT_ASSEMBLED_FRAMEWORK_MANIFEST)
+# NAME THE PATH, NOT THE VARIABLE, and this is the third form of the same bug in
+# this one module (see :54-70 and :84-96 for the other two).
+#
+# The previous line was `systemimage: $(BUILT_ASSEMBLED_FRAMEWORK_MANIFEST)`,
+# justified as "Makefile defines both the target and this variable, and is
+# included after every Android.mk". That argument is valid for a TARGET and
+# backwards for a VARIABLE. A target may be defined later; a variable used in a
+# prerequisite list may not, because ckati expands the whole rule line the
+# instant it reads it (build/kati/eval.cc:259-263, `stmt->lhs->Eval(this)` in
+# EvalRule). BUILT_ASSEMBLED_FRAMEWORK_MANIFEST is assigned at
+# build/make/core/Makefile:2906, and Makefile is included from main.mk:1491 --
+# 1044 lines after main.mk:447 includes every Android.mk. So the line reduced to
+# a bare `systemimage:`: no prerequisite, no recipe, and the check had never run.
+#
+# PRODUCT_OUT is defined during the Android.mk pass (envsetup.mk), and a
+# prerequisite whose own rule is defined later is legal, so the literal path
+# works. This is also the shape of the AOSP precedent the old comment cited:
+# build/make/target/product/gsi/Android.mk:38 is `droidcore: check-vndk-list`,
+# which names a target, never a variable.
+#
+# The general rule, because this module has now paid for it three times: in a
+# device Android.mk, the right-hand side of a `:` may contain literal paths and
+# target names only. Never an upstream $(VAR).
+systemimage: $(PRODUCT_OUT)/verified_assembled_framework_manifest.xml
 
 k50sv1_apn_fragment := $(LOCAL_PATH)/configs/apns-conf.xml
 k50sv1_apn_validator := $(LOCAL_PATH)/tools/validate-custom-apns.py

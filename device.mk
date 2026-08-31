@@ -133,6 +133,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/fstab.mt6755:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.mt6755 \
     $(LOCAL_PATH)/rootdir/etc/fstab.enableswap:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.enableswap \
     $(LOCAL_PATH)/rootdir/etc/init/android.hardware.sensors@2.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.sensors@2.0-service.rc \
+    $(LOCAL_PATH)/rootdir/etc/init/android.hardware.wifi@1.0-service-lazy-mediatek.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.wifi@1.0-service-lazy-mediatek.rc \
     $(LOCAL_PATH)/rootdir/etc/init/init.sensors.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.sensors.rc \
     $(LOCAL_PATH)/rootdir/etc/init/vendor.mediatek.hardware.mtkpower@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.mediatek.hardware.mtkpower@1.0-service.rc \
     $(LOCAL_PATH)/rootdir/etc/init/hw/init.mt6755.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.mt6755.rc \
@@ -238,7 +239,7 @@ PRODUCT_COPY_FILES += \
 #   * /vendor/bin/hw/wpa_supplicant is built with CONFIG_INTERWORKING and
 #     CONFIG_HS20 -- 203 ANQP / "HS 2.0" strings, including the GAS query and
 #     NAI Home Realm paths.
-#   * manifest.xml:156-160 declares android.hardware.wifi.supplicant@1.2, served
+#   * manifest.xml:177-181 declares android.hardware.wifi.supplicant@1.2, served
 #     by that same binary.
 #   * frameworks/opt/net/wifi WifiInjector.java:291,295 constructs
 #     PasspointManager and PasspointNetworkEvaluator UNCONDITIONALLY; the
@@ -332,7 +333,7 @@ endif
 # android.hardware.radio@1.0::IRadio/slot1, so that the second clause forced
 # legacy mode by itself and the property "changes nothing right now". That is
 # false and would have invited someone to delete it. `lshal` on the handset
-# reports the interfaceChain up to @1.4, and manifest.xml:103-113 in this same
+# reports the interfaceChain up to @1.4, and manifest.xml:128-141 in this same
 # repository declares @1.4::IRadio/slot1 -- so less(1.4) is FALSE and the
 # property is the only thing selecting legacy mode. Without it the device goes
 # straight to AP-assisted mode, where TransportManager constructs an
@@ -384,7 +385,11 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 # session lost the RIL shim's own "attach-APN re-send armed" line: the fix was
 # working and the line proving it had already scrolled.
 #
-# liblog resolves per-buffer keys first: `ro.logd.size.<name>` and
+# liblog resolves per-buffer keys with priority, though not first in program
+# order: properties.cpp:612 reads the global into `default_size`, :622 reads the
+# per-buffer key, and :624-625 falls back to the global only when the per-buffer
+# one is empty. The outcome is what matters here -- per-buffer wins. The keys
+# are `ro.logd.size.<name>` and
 # `persist.logd.size.<name>` before the global (properties.cpp:589-621,
 # __android_logger_get_buffer_size). So raise only the two that need it rather
 # than multiplying every buffer by 32. The cap is a maximum, not a
