@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Select the device icon pack by default.
+
+         IconPackStore.getCurrent() reads the com.android.launcher3.prefs
+         preference `pref_iconPackPackage` and falls back to
+         R.string.icon_pack_default_pkg, whose upstream value is the sentinel
+         "android" meaning "system icons"
+         (packages/apps/Trebuchet/iconloaderlib/res/values/lineage_config.xml:19,
+         read at IconPackStore.java:68). Overriding it here makes the pack the
+         default on a fresh /data while leaving Home settings -> Icon pack fully
+         functional: the user can still pick "System icons" or any pack they
+         install, and their choice wins because it is stored in the preference.
+
+         THE PATH MATTERS AND TWO NEARBY ONES DO NOT WORK.
+         * quickstep/res is a LOCAL_RESOURCE_DIR of the TrebuchetQuickStep
+           package (Trebuchet/Android.mk:217-219), which is the launcher
+           vendor/lineage actually ships, so DEVICE_PACKAGE_OVERLAYS reaches it
+           (package_internal.mk:135-159) and aapt2 takes the last -R.
+         * overlay/packages/apps/Trebuchet/res/... is SILENTLY IGNORED: that
+           res dir belongs to Launcher3CommonDepsLib, a static java library, and
+           Make applies DEVICE_PACKAGE_OVERLAYS only to BUILD_PACKAGE modules.
+         * overlay/packages/apps/Trebuchet/iconloaderlib/res/... does work, and
+           must not be used: SystemUI and PermissionController link that same
+           Soong android_library, so the override would leak into how THEY
+           render legacy app icons. -->
+    <string name="icon_pack_default_pkg" translatable="false">org.lineageos.iconpack.k50sv1</string>
+</resources>

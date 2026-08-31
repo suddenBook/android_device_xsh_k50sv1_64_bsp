@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.lineageos.iconpack.k50sv1"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <!-- Resource-only. android:hasCode="false" is what keeps this out of
+         dexopt entirely: there is no classes.dex to compile, so the pack costs
+         its art and nothing else at build or boot. -->
+    <application
+        android:label="@string/app_name"
+        android:hasCode="false">
+
+        <!-- Trebuchet discovers packs with queryIntentActivities over these two
+             actions (IconPackSettingsFragment.java:109-112).
+
+             IT MUST BE ENABLED. That call passes flags = 0, so
+             MATCH_DISABLED_COMPONENTS is not set and a disabled component is
+             never returned. Selecting this pack as the default does not need
+             the activity at all, because IconPackProvider resolves the
+             appfilter by package name. So a disabled one would still theme the
+             launcher while being ABSENT from Home settings, Icon pack, and a
+             user who switched to System icons could not switch back.
+
+             android:name points at the framework's own Activity because a
+             resource-only APK has no classes of its own. There is deliberately
+             no MAIN/LAUNCHER filter, so it does not appear in the app drawer;
+             the only way to reach it is an explicit theme-picker intent, which
+             opens an empty activity. -->
+        <activity
+            android:name="android.app.Activity"
+            android:enabled="true"
+            android:exported="true"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="com.novalauncher.THEME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.adw.launcher.icons.ACTION_PICK_ICON" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

@@ -481,6 +481,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     k50sv1_perfd
 
+# Icon pack for Trebuchet, selected by default through
+# overlay/packages/apps/Trebuchet/quickstep/res/values/lineage_config.xml.
+# Resource-only; see iconpack/Android.mk for why the art is rebuilt here instead
+# of shipping the supplied APK, whose appfilter maps one of this ROM's twenty
+# launcher activities.
+PRODUCT_PACKAGES += \
+    K50sv1IconPack
+
 # Build-time xmllint over every XML in this device tree. Not installed; it exists
 # so that an unparseable hand-written XML is a build failure instead of a
 # runtime one. See Android.mk.
