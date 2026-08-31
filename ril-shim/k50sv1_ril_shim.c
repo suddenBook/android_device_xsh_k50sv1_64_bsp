@@ -341,6 +341,30 @@ static bool fillFixedRadioCapability(RIL_SOCKET_ID socketId, int session,
     return true;
 }
 
+/*
+ * ProxyController always issues START before APPLY, so START is where the
+ * per-socket dedupe is cleared. Without this the dedupe never expires and a
+ * session id can collide across a system_server restart: the session counter is
+ * `new AtomicInteger(0)` inside system_server while rilproxy outlives it, so the
+ * first APPLY after a restart carries session 0 again. If session 0 had already
+ * been seen on that socket, the solicited response would go out with NO
+ * RIL_UNSOL_RADIO_CAPABILITY behind it, ProxyController's per-phone counter
+ * would never decrement, and the transaction would time out after 30 s and
+ * revert both RAFs -- i.e. selecting the slot-1 data subscription silently
+ * stops working until the next reboot.
+ */
+static void resetApplyDedupe(RIL_SOCKET_ID socketId)
+{
+    int index = (int)socketId;
+
+    if (index < 0 || index >= SIM_COUNT) {
+        return;
+    }
+    pthread_mutex_lock(&sRcLock);
+    sLastApplySessionValid[index] = false;
+    pthread_mutex_unlock(&sRcLock);
+}
+
 static bool shouldSendApplyUnsol(RIL_SOCKET_ID socketId, int session)
 {
     int index = (int)socketId;
@@ -402,6 +426,10 @@ static void setRadioCapability(const void *data, size_t datalen, RIL_Token t,
         rejectRadioCapabilityRequest(t, RIL_REQUEST_SET_RADIO_CAPABILITY,
                                      socketId, data, datalen);
         return;
+    }
+
+    if (request->phase == RC_PHASE_START) {
+        resetApplyDedupe(socketId);
     }
 
     /* FINISH carries the transaction result as an input. Preserve it; START and
@@ -652,6 +680,21 @@ static MtkInitialAttachApn sIaCache[SIM_COUNT];
 static bool sIaCached[SIM_COUNT];
 static bool sIaPending[SIM_COUNT];
 static bool sIaRequestInFlight;
+/*
+ * The in-flight deadline is LATCHED WHEN THE REQUEST IS ISSUED, not recomputed
+ * inside the wait. Recomputing it made the timeout dead in exactly the storm it
+ * exists for: unsolHook signals sIaWake on EVERY URC 3020 that finds a cache,
+ * the vendor RIL emits that URC roughly three times a second (740 in four
+ * minutes, see the header), and each signal restarted a fresh 10 s wait. A
+ * re-issued request that the vendor RIL accepted and never completed therefore
+ * held the slot for the rest of the boot with nothing logged, while
+ * IA_HOOKS_ACTIVE still read 1. Measured on the host harness with the timeout
+ * shortened to 400 ms and the request deliberately never completed: 1 re-issue
+ * at a 40/100/300 ms URC period, 5 at 600 ms -- i.e. it only worked when the
+ * storm was slower than the timeout, which is never.
+ * 0 means "not in flight"; only ever read while sIaRequestInFlight is true.
+ */
+static int64_t sIaInFlightDeadlineNs;
 static bool sIaLastIssueValid;
 static struct timespec sIaLastIssue;
 static int sIaNextSocket;
@@ -802,6 +845,7 @@ static void completeHook(RIL_Token t, RIL_Errno e, void *response,
         current = (t == REISSUE_TOKEN_AT(sIaTokenSeq));
         if (current) {
             sIaRequestInFlight = false;
+            sIaInFlightDeadlineNs = 0;
             pthread_cond_signal(&sIaWake);
         }
         pthread_mutex_unlock(&sIaLock);
@@ -943,23 +987,40 @@ static void *iaWorker(void *unused)
                  * unbounded wait here is indistinguishable from a healthy idle
                  * worker and was the one path in this file that could fail
                  * without logging.
+                 *
+                 * The deadline comes from sIaInFlightDeadlineNs, latched when
+                 * the request was issued. Do NOT recompute it here -- see the
+                 * comment on that variable for the measurement that shows why.
+                 * The expiry test is on the CLOCK, not on cond_timedwait's
+                 * return value, because the URC storm delivers a real signal
+                 * every ~333 ms and each one returns 0 rather than ETIMEDOUT.
                  */
                 struct timespec deadline;
+                struct timespec afterWait;
 
-                if (clock_gettime(CLOCK_MONOTONIC, &deadline) != 0) {
-                    RLOGE("clock_gettime(CLOCK_MONOTONIC) failed: %s; "
-                          "releasing the in-flight slot", strerror(errno));
+                if (sIaInFlightDeadlineNs == 0) {
+                    RLOGE("in-flight slot held with no deadline; releasing it");
                     sIaRequestInFlight = false;
                     continue;
                 }
-                nsToTimespec(timespecToNs(&deadline) +
-                             REISSUE_INFLIGHT_TIMEOUT_NS, &deadline);
-                if (pthread_cond_timedwait(&sIaWake, &sIaLock, &deadline) ==
-                        ETIMEDOUT && sIaRequestInFlight) {
+                nsToTimespec(sIaInFlightDeadlineNs, &deadline);
+                (void)pthread_cond_timedwait(&sIaWake, &sIaLock, &deadline);
+                if (!sIaRequestInFlight) {
+                    continue;
+                }
+                if (clock_gettime(CLOCK_MONOTONIC, &afterWait) != 0) {
+                    RLOGE("clock_gettime(CLOCK_MONOTONIC) failed: %s; "
+                          "releasing the in-flight slot", strerror(errno));
+                    sIaRequestInFlight = false;
+                    sIaInFlightDeadlineNs = 0;
+                    continue;
+                }
+                if (timespecToNs(&afterWait) >= sIaInFlightDeadlineNs) {
                     RLOGE("re-issued SET_INITIAL_ATTACH_APN never completed "
                           "within %ld ms; releasing the in-flight slot",
                           (long)(REISSUE_INFLIGHT_TIMEOUT_NS / 1000000L));
                     sIaRequestInFlight = false;
+                    sIaInFlightDeadlineNs = 0;
                 }
                 continue;
             }
@@ -1002,6 +1063,21 @@ static void *iaWorker(void *unused)
         sIaPending[socketId] = false;
         sIaRequestInFlight = true;
         sIaTokenSeq++;
+        {
+            struct timespec issuedAt;
+
+            if (clock_gettime(CLOCK_MONOTONIC, &issuedAt) == 0) {
+                sIaInFlightDeadlineNs = timespecToNs(&issuedAt) +
+                        REISSUE_INFLIGHT_TIMEOUT_NS;
+            } else {
+                /*
+                 * No usable clock: leave the deadline unset and let the wait
+                 * branch release the slot on its next pass rather than hold it
+                 * forever.
+                 */
+                sIaInFlightDeadlineNs = 0;
+            }
+        }
         token = REISSUE_TOKEN_AT(sIaTokenSeq);
         sIaNextSocket = (socketId + 1) % SIM_COUNT;
         if (clock_gettime(CLOCK_MONOTONIC, &sIaLastIssue) == 0) {
@@ -1618,6 +1694,21 @@ static void onRequestShim(int request, void *data, size_t datalen, RIL_Token t,
     sRealOnRequest(request, data, datalen, t, socketId);
 }
 
+/*
+ * The two _Static_asserts this file already carries pin RIL_RadioCapability and
+ * MtkInitialAttachApn. This one pins the field patchOnRequest WRITES INTO. The
+ * read-back after the store proves the store landed, not that offset 8 is
+ * onRequest -- a header change that reordered the struct would pass it while
+ * corrupting a different member. Trap 21 is the same lesson from the other
+ * side: MediaTek's RIL_RadioFunctions is LONGER than AOSP's, so its tail cannot
+ * be assumed, but the first three members are ABI between the blob and
+ * librilproxy and are what this file relies on.
+ */
+_Static_assert(offsetof(RIL_RadioFunctions, version) == 0,
+               "RIL_RadioFunctions.version moved");
+_Static_assert(offsetof(RIL_RadioFunctions, onRequest) == 8,
+               "RIL_RadioFunctions.onRequest moved; patchOnRequest writes it");
+
 static int patchOnRequest(const RIL_RadioFunctions *funcs)
 {
     uintptr_t field = (uintptr_t)&funcs->onRequest;
@@ -1628,6 +1719,22 @@ static int patchOnRequest(const RIL_RadioFunctions *funcs)
     bool patched;
 
     if (pageSize <= 0) {
+        return -1;
+    }
+    /*
+     * Check the table BEFORE writing to it. The version tripwire used to be
+     * consulted only after the patch had already landed, which is the wrong
+     * order for a tripwire. RIL_VERSION has been 6..15 across every AOSP
+     * release this blob could target; anything outside that is not a
+     * RIL_RadioFunctions and must not be written into.
+     */
+    if (funcs->version < 6 || funcs->version > 20) {
+        RLOGE("vendor RIL_RadioFunctions.version is %d; refusing to patch",
+              funcs->version);
+        return -1;
+    }
+    if (funcs->onRequest == NULL) {
+        RLOGE("vendor RIL_RadioFunctions.onRequest is NULL; refusing to patch");
         return -1;
     }
     page = field & ~(uintptr_t)(pageSize - 1);
@@ -1646,7 +1753,14 @@ static int patchOnRequest(const RIL_RadioFunctions *funcs)
         return -1;
     }
 
-    sRealOnRequest = funcs->onRequest;
+    /*
+     * Publish sRealOnRequest BEFORE the table store, with release ordering.
+     * Two plain stores to different objects can be reordered, and a blob thread
+     * that dispatches through the table in the window between them would enter
+     * onRequestShim and call a NULL sRealOnRequest. The pairing acquire load is
+     * the read-back below.
+     */
+    __atomic_store_n(&sRealOnRequest, funcs->onRequest, __ATOMIC_RELEASE);
     ((RIL_RadioFunctions *)funcs)->onRequest = onRequestShim;
     /* Read back, the way writeGotValue:1331 does for the two GOT slots. A write
      * into a page whose mapping is not what mappingProt reported would
