@@ -380,25 +380,36 @@ vendor/lib/vendor.mediatek.hardware.power@2.0.so
 # a library whose AOSP source exports headers will silently break that
 # library's source consumers. Ship one only when the library is genuinely
 # SoC-modified.
-# NOT extracted any more: vendor/lib64/hw/audio.bluetooth.default.so,
-# vendor/lib64/libtinycompress.so and vendor/lib64/
-# libbluetooth_audio_session_mediatek.so.
+# THESE THREE ARE DEAD WEIGHT SHIPPED ON PURPOSE. An audit that finds them
+# unreachable and deletes them breaks the build, so the reason is here rather
+# than left to be rediscovered.
 #
-# The two `-`-prefixed modules above are single-arch now, which is legal:
-# Soong's prefer:true substitution is per-variant, so an arm-only prebuilt
-# replaces the arm variant and leaves the arm64 source variant in the graph,
-# installed by nothing. None of these three can be loaded on this device:
+# `prefer: true` does not mean "substitute where you can". Soong resolves the
+# prebuilt for EVERY variant the AOSP source module has, so a single-arch
+# prebuilt of a dual-arch module is a hard bootstrap error:
+#
+#   error: system/bt/audio_bluetooth_hw/Android.bp:3:1: failed to find variation
+#   "android_arm64_armv8-a_cortex-a53" for module
+#   "prebuilt_audio.bluetooth.default" needed by "audio.bluetooth.default"
+#
+# and the two `-` modules above cannot lose their prefix either, for the
+# separate collision reason recorded there. So both lib64 halves stay, and
+# libbluetooth_audio_session_mediatek.so 64 stays with them because it is a hard
+# DT_NEEDED of the 64-bit audio.bluetooth.default.so and its absence would fail
+# the vendor ELF closure check.
+#
+# What is true about them, and does NOT justify removing them:
 #   * the only IBluetoothAudioProvidersFactory server is the ELF32
 #     android.hardware.audio@5.0-service-mediatek, and libhidl's passthrough
 #     loader globs the CALLER's ${LIB}/hw -- so a 64-bit audio.bluetooth.default
 #     has no possible opener
-#   * libbluetooth_audio_session_mediatek.so 64 was DT_NEEDed only by that
-#     64-bit impl and by the 64-bit BT-audio HAL impl deleted in vendor fec3f54
-#   * libtinycompress.so 64 was DT_NEEDed only by a 64-bit audio.primary that
-#     does not exist; the live one is 32-bit
+#   * libtinycompress.so 64 would be DT_NEEDed only by a 64-bit
+#     audio.primary.mt6755.so, which does not exist; the live one is 32-bit
 # Verified on the handset across 369 processes: zero /proc/*/maps hits for all
 # three, while the 32-bit audio.bluetooth.default.so and libtinycompress.so are
 # both mapped by the audio HAL service.
+-vendor/lib64/hw/audio.bluetooth.default.so
+-vendor/lib64/libtinycompress.so
 # NONE of the six audio_policy xi:include fragments is extracted any more; they
 # are copied from frameworks/av/services/audiopolicy/config/ in device.mk.
 # Three of the stock copies (a2dp_in, bluetooth, r_submix) were byte-identical
@@ -642,6 +653,7 @@ vendor/lib64/hw/android.hardware.bluetooth@1.0-impl-mediatek.so
 # second architecture elsewhere in this file.
 vendor/lib/hw/android.hardware.bluetooth.audio@2.0-impl-mediatek.so
 vendor/lib64/libbt-vendor.so
+vendor/lib64/libbluetooth_audio_session_mediatek.so
 vendor/lib64/libbluetooth_mtk.so
 vendor/lib64/libnvram.so
 vendor/lib64/libnvram_platform.so
