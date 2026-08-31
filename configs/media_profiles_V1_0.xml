@@ -486,16 +486,36 @@
         minFrameHeight="144" maxFrameHeight="1920"
         minFrameRate="15" maxFrameRate="30" />
 
+    <!-- 176x144 is the ceiling, not 800x480 / 640x480, and the difference is a
+         MediaRecorder session that validates and then fails at start().
+
+         StagefrightRecorder::checkVideoEncoderCapabilities() clamps the caller's
+         request INTO the range declared here and never re-checks it against the
+         codec list, so a 352x288 H.263 or a 640x480 MPEG-4 request passed
+         validation, reached MediaCodecList.findEncoderForFormat(), and got null.
+
+         Every encoder on this image for those two MIME types is capped at
+         176x144 and none declares can-swap-width-height:
+           vendor/etc/media_codecs_mediatek_video.xml  OMX.MTK.VIDEO.ENCODER.H263   size min=max=176x144
+           vendor/etc/media_codecs_mediatek_video.xml  OMX.MTK.VIDEO.ENCODER.MPEG4  size min=max=176x144
+           com.android.media.swcodec                   c2.android.h263.encoder      max 176x144
+           com.android.media.swcodec                   c2.android.mpeg4.encoder     max 176x144
+         (The 640x480 performance-point beside the MTK encoders' size limit is
+         stock's own contradiction; the size limit is what MediaCodecList reads.)
+
+         This is the same defect this file's header already fixed for the qvga
+         and cif CamcorderProfiles, one element lower down. h264 is untouched:
+         its 1920 ceiling is real and the header explains why it must stay. -->
     <VideoEncoderCap name="h263" enabled="true"
         minBitRate="64000" maxBitRate="2000000"
-        minFrameWidth="176" maxFrameWidth="800"
-        minFrameHeight="144" maxFrameHeight="480"
+        minFrameWidth="176" maxFrameWidth="176"
+        minFrameHeight="144" maxFrameHeight="144"
         minFrameRate="15" maxFrameRate="30" />
 
     <VideoEncoderCap name="m4v" enabled="true"
         minBitRate="64000" maxBitRate="4000000"
-        minFrameWidth="176" maxFrameWidth="640"
-        minFrameHeight="144" maxFrameHeight="480"
+        minFrameWidth="176" maxFrameWidth="176"
+        minFrameHeight="144" maxFrameHeight="144"
         minFrameRate="15" maxFrameRate="30" />
 
     <AudioEncoderCap name="aac" enabled="true"

@@ -84,6 +84,26 @@ Only the three quirks included above are recognized at this point:
          framework does consume is max-concurrent-instances, read from
          MediaCodecList.getGlobalSettings() at MediaCodecInfo.java:1015-1017,
          and this device does not need to override its default. -->
+    <!-- VP9 is deliberately absent from BOTH this chain and
+         configs/mtk_omx_core.cfg, and the two used to disagree.
+
+         mtk_omx_core.cfg registered OMX.MTK.VIDEO.DECODER.VP9 while stock's own
+         media_codecs_mediatek_video.xml (a blob, included below) has the
+         matching <MediaCodec> commented out - so the component was loadable and
+         invisible to MediaCodecList, i.e. registered for nothing. The cfg line
+         is now removed, which is the direction the evidence points:
+         libvcodecdrv.so exports vp9_sw_dec_get_multicore_codec and no vp9
+         hardware entry point, so MediaTek's VP9 on this part is a MULTICORE
+         SOFTWARE decoder, not a VPU path. There is no hardware win to recover,
+         and c2.android.vpx.decoder from com.android.media.swcodec already
+         serves VP9. Stock reached the same conclusion by commenting it out.
+
+         Reversing this needs three things together, not one: own
+         media_codecs_mediatek_video.xml here (it is still the one unreviewed
+         blob in the codec triangle, and it also carries stock's own
+         size-max=176x144-beside-performance-point-640x480 contradiction on the
+         H.263/MPEG-4 encoders), restore the cfg line, and measure VP9 decode
+         against c2.android.vpx.decoder on real content. -->
     <Include href="media_codecs_mediatek_audio.xml" />
     <Include href="media_codecs_mediatek_video.xml" />
     <!-- Stock also included media_codecs_google_audio.xml and

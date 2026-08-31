@@ -359,8 +359,12 @@ vendor/lib/vendor.mediatek.hardware.power@2.0.so
 # a2dp_in_audio_policy_configuration.xml both declare <module name="a2dp">, and
 # configs/audio_policy_configuration.xml xi:includes only the _in one, so the
 # other could never be parsed.
+# vendor/etc/audio_effects.xml is NOT extracted. It is device-owned at
+# configs/audio_effects.xml, because three of its lines named MediaTek
+# pre-processing UUIDs for an AOSP library, which silently disabled AEC, NS and
+# AGC on every VOICE_COMMUNICATION capture. The file's own header has the
+# detail.
 vendor/etc/audio_device.xml
-vendor/etc/audio_effects.xml
 vendor/etc/audio_em.xml
 vendor/etc/audio_param/AudioParamOptions.xml
 vendor/etc/audio_param/BtInfo_AudioParam.xml
