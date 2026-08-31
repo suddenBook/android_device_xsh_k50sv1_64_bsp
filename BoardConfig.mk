@@ -222,6 +222,61 @@ BOARD_PREBUILT_RECOVERY_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/recovery_dtbo
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.mt6755
 
+# TARGET_RECOVERY_UI_SCREEN_WIDTH IS DELIBERATELY UNSET, AND THAT IS WHY THE
+# RECOVERY WIPE MENU IS PLAIN ENGLISH TEXT. Measured, not assumed -- setting it
+# was tried in this tree and overflows the partition.
+#
+# The five "E:Failed to load bitmap ..._text" lines in /tmp/recovery.log are
+# caused by this variable, NOT by an upstream gap. An earlier revision of this
+# project recorded them as "upstream, not this tree ... every LineageOS 17.1
+# device logs them"; that is false for any device that sets this.
+#
+# Mechanism, in AOSP's own words at core/Makefile:1657-1660: the ten background
+# text images are generated ONLY if this is defined, and :1661-1665 auto-defaults
+# it for xxxhdpi and xxhdpi ONLY. This panel is xhdpi (TARGET_SCREEN_DENSITY 320
+# lands in the ">= 280 -> xhdpi" bucket at :1631-1636), so the block at
+# :1667-1698 never ran. Five of the ten have no prebuilt anywhere in
+# bootable/recovery/res-*dpi, so screen_ui.cpp:968-975 leaves them null,
+# GraphicMenu::Validate fails at :1487-1493, and the menu degrades to text.
+#
+# WHY IT STAYS UNSET. With `TARGET_RECOVERY_UI_SCREEN_WIDTH := 720` the build
+# fails, hard:
+#
+#     error: recovery.img too large (17732908 > 16777216)
+#
+# The generator renders EVERY locale in bootable/recovery/tools/recovery_l10n/res
+# into one tall strip per string, and it has no locale filter -- the command at
+# core/Makefile:1732-1738 passes only image_width, text_name, font_dir,
+# resource_dir and output_file. PRODUCT_LOCALES does not reach it. The ten
+# images come to 3.5 MB, against ~600 KB of prebuilts they replace, and
+# recovery.img was already at 89% of 16 MiB. 956 KB over.
+#
+# The only device-side way to get a GRAPHIC wipe menu here would be
+# TARGET_RECOVERY_DEVICE_DIRS plus a hand-made English-only res-xhdpi/images set
+# for the five missing strings (~50 KB). Not done: the menu is legible as text,
+# recovery is entered rarely on a handset that is flashed over fastboot, and
+# hand-maintained PNGs are a permanent cost for a cosmetic win. Trimming the
+# locale set instead would be an upstream change.
+
+# Ship recovery.img whole rather than as a patch against boot.img.
+#
+# Unset, make and releasetools pick DIFFERENT diff tools for the same artifact:
+# core/Makefile:2364-2369 selects bsdiff because BOARD_INCLUDE_RECOVERY_DTBO is
+# true (AOSP explains why at :1793-1795 -- boot and recovery hold different
+# numbers of entries), while releasetools/common.py:2304-2331 reads only
+# full_recovery_image / no_gzip_recovery_ramdisk / system_root_image and so
+# picks imgdiff. imgdiff refuses mismatched chunk counts
+# (applypatch/imgdiff.cpp:1375-1392) and common.py:1861-1864 downgrades that to
+# a WARNING and writes a null patch -- a silently broken recovery on the first
+# OTA this project ever builds.
+#
+# This device also gains nothing from the patch today: no OTA package is built,
+# and `grep -c recovery-from-boot installed-files.txt` is 0, i.e. the 7 MB
+# recovery_from_boot.p is regenerated on every build, charged against
+# BOARD_SYSTEMIMAGE_PARTITION_SIZE by Makefile:2389-2392, and never installed.
+# With this set, Makefile:2383-2384 skips the diff entirely.
+BOARD_USES_FULL_RECOVERY_IMAGE := true
+
 # MEASURED, not guessed. Makefile:188-191 turns this into ro.minui.pixel_format
 # in /vendor/default.prop, which Makefile:1851 concatenates into the recovery
 # ramdisk's /prop.default; minui/graphics.cpp:350-360 accepts only ABGR_8888,
