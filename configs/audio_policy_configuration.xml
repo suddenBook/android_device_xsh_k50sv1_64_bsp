@@ -207,10 +207,19 @@
                      with an untested port it would route to a HAL path that does
                      not exist and go silent. Add the port only together with a
                      measurement that shows the bit actually asserting. -->
+                <!-- AUDIO_CHANNEL_IN_VOICE_UPLINK and _VOICE_DNLINK were dropped
+                     from the two mixPorts in 593972f and left here, which made
+                     this file disagree with itself. They are not in
+                     InputChannelConverter::mTable
+                     (frameworks/av/media/libmedia/TypeConverter.cpp:262-275,
+                     which carries only the _MONO and _CALL_MONO forms), and
+                     TypeConverter::maskFromString silently SKIPS a token it
+                     cannot convert (TypeConverter.h:170-182), so they were
+                     never reaching the policy engine from here either. -->
                 <devicePort tagName="Voice Call In" type="AUDIO_DEVICE_IN_VOICE_CALL" role="source">
                      <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="8000,16000,32000,44100,48000"
-                             channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO,AUDIO_CHANNEL_IN_VOICE_UPLINK,AUDIO_CHANNEL_IN_VOICE_DNLINK"/>
+                             channelMasks="AUDIO_CHANNEL_IN_MONO,AUDIO_CHANNEL_IN_STEREO"/>
                 </devicePort>
             </devicePorts>
             <!-- route declaration, i.e. list all available sources for a given sink -->
