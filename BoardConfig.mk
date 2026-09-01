@@ -125,7 +125,12 @@ TARGET_KERNEL_SOURCE := kernel/xsh/k50sv1_64_bsp
 TARGET_KERNEL_CONFIG := k50sv1_64_bsp_stock_defconfig
 TARGET_KERNEL_ADDITIONAL_CONFIG := k50sv1_64_bsp_source.fragment
 TARGET_KERNEL_CLANG_COMPILE := false
-TARGET_KERNEL_ADDITIONAL_FLAGS := LOCALVERSION= KBUILD_SYMTYPES=1
+# The MTK 3.18 DCT is Python 2 code.  Do not let the host's unversioned
+# `python` decide which interpreter runs it: Android 10 carries the matching
+# hermetic 2.7.5 prebuilt, and passing the lowercase variable here reaches the
+# legacy kernel makefile's $(python) invocation.
+K50_DCT_PYTHON := $(abspath prebuilts/python/linux-x86/2.7.5/bin/python2.7)
+TARGET_KERNEL_ADDITIONAL_FLAGS := LOCALVERSION= KBUILD_SYMTYPES=1 python=$(K50_DCT_PYTHON)
 BOARD_KERNEL_IMAGE_NAME := Image.gz
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilt/dtb
