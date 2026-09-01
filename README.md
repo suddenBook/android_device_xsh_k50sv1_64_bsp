@@ -8,7 +8,9 @@ Verified baseline:
 - MT6755 BSP/ABI, MT6750-class E2 performance bin
 - arm64 with 32-bit secondary ABI; 4 GiB LPDDR3
 - legacy A-only GPT; separate boot/recovery; no dynamic partitions or AVB
-- Stock Linux 3.18.119 prebuilt kernel and Android DT table
+- source-built Linux 3.18.119 from `kernel/xsh/k50sv1_64_bsp`, with the exact
+  stock Android DT table and recovery DTBO retained for the first experiment;
+  the old prebuilt kernel remains only as a rollback asset
 - 720x1560 at 60 Hz; FT8057 touch; IMX145 + GC5025 HAL1 cameras
 - one working rear flash LED and one rotor (ERM) vibrator
 - three-position tray: two SIM slots in DSDS plus a removable microSD slot,
@@ -65,6 +67,12 @@ plus `SHA256SUMS`; it does not build or publish an OTA package. Recovery's
 explicit sideload mode remains available, but normal Tier 3 Android boots do
 not expose ADB in the default USB configuration. Authenticated non-root ADB can
 still be enabled deliberately in Developer options.
+
+Every tier uses the same stock-ABI base config plus the fitted-hardware source
+fragment. A build is stageable only after the final `vmlinux`, `Image.gz`,
+generated config and all 368 proprietary-module symbol/CRC relationships pass
+the source-kernel ABI gate; boot and recovery continue to carry identical
+kernel bytes.
 
 Tier 1 intentionally retains policy/domain transitions and AVC logging while
 allowing denials, so it is the correct first bring-up target. Do not treat a
