@@ -123,10 +123,7 @@ DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_SOURCE := kernel/xsh/k50sv1_64_bsp
 TARGET_KERNEL_CONFIG := k50sv1_64_bsp_stock_defconfig
-# Single-variable bootloop control: this standalone fragment is resolved to the
-# production source config with only CONFIG_USB_CC_WUSB3801X disabled.  Restore
-# k50sv1_64_bsp_source.fragment immediately after staging the diagnostic build.
-TARGET_KERNEL_ADDITIONAL_CONFIG := k50sv1_64_bsp_wusb_off.fragment
+TARGET_KERNEL_ADDITIONAL_CONFIG := k50sv1_64_bsp_source.fragment
 TARGET_KERNEL_CLANG_COMPILE := false
 # The MTK 3.18 DCT is Python 2 code.  Do not let the host's unversioned
 # `python` decide which interpreter runs it: Android 10 carries the matching
