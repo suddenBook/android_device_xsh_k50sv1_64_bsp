@@ -116,36 +116,17 @@ DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml
 # build and passes; PRODUCT_ENFORCE_VINTF_MANIFEST is true here, derived from
 # PRODUCT_SHIPPING_API_LEVEL=26 (config.mk:658-665, :673-682).
 
-# Kernel and boot image
-# Read only by vendor/lineage/config/BoardConfigKernel.mk:48-52. The previous
-# comment said that file "runs only when Lineage builds a kernel from source"
-# and that the value is therefore inert. Both halves are wrong.
-#
-# BoardConfigKernel.mk is included unconditionally for this product:
-#   build/make/core/config.mk:237-239   ifneq ($(LINEAGE_BUILD),) ->
-#                                       include BoardConfigLineage.mk
-#   BoardConfigLineage.mk:6             include BoardConfigKernel.mk
-# LINEAGE_BUILD is set and exported by check_product() (build/make/envsetup.sh:
-# 145-150) for any TARGET_PRODUCT beginning `lineage_`, which this one does, so
-# the guard is always satisfied here. TARGET_PREBUILT_KERNEL only blanks
-# TARGET_KERNEL_SOURCE (BoardConfigKernel.mk:44-46); it does not skip :48-52.
-#
-# What :48-52 actually does:
-#   TARGET_KERNEL_ARCH := $(strip $(TARGET_KERNEL_ARCH))
-#   ifeq ($(TARGET_KERNEL_ARCH),)
-#   KERNEL_ARCH := $(TARGET_ARCH)      <- arm64 anyway, from line 5 of this file
-#   else
-#   KERNEL_ARCH := $(TARGET_KERNEL_ARCH)
-#   endif
-# So the line runs on every build and computes the same KERNEL_ARCH=arm64 that
-# unsetting it would. It is REDUNDANT WITH TARGET_ARCH, not inert -- a real
-# difference, because "inert" invites setting it to any value, and a wrong
-# value here would silently pick a different KERNEL_TOOLCHAIN
-# (BoardConfigKernel.mk:71-72,83) and a different dtbo path (:136), and is
-# exported to Soong via BoardConfigSoong.mk:5. Kept for WI-019 as an explicit
-# statement; it must keep matching TARGET_ARCH.
+# Source kernel and stock device-tree containers. The stock kernel remains in
+# prebuilt/ only as a rollback asset. Boot and recovery deliberately share one
+# GCC 4.9-built, ABI-gated Image.gz; the first source experiment retains the
+# exact stock header DT table and recovery DTBO and never writes odmdtbo.
 TARGET_KERNEL_ARCH := arm64
-TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
+TARGET_KERNEL_SOURCE := kernel/xsh/k50sv1_64_bsp
+TARGET_KERNEL_CONFIG := k50sv1_64_bsp_stock_defconfig
+TARGET_KERNEL_ADDITIONAL_CONFIG := k50sv1_64_bsp_source.fragment
+TARGET_KERNEL_CLANG_COMPILE := false
+TARGET_KERNEL_ADDITIONAL_FLAGS := LOCALVERSION= KBUILD_SYMTYPES=1
+BOARD_KERNEL_IMAGE_NAME := Image.gz
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilt/dtb
 
