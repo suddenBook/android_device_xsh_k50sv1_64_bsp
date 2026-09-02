@@ -489,6 +489,39 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     K50sv1IconPack
 
+# Camera app: LineageOS Snap, which drives the MediaTek HAL1 through the
+# Camera1 API. Without this line the product falls back to AOSP Camera2
+# (build/make/target/product/handheld_product.mk:27), and that app was the
+# whole "camera quality" defect (E-171):
+#
+#   * Camera2 (com.android.camera2) only uses the Camera2 API, which on this
+#     device@1.0 HAL is frameworks/base's LEGACY shim. The shim's request
+#     template picks the fps range "with highest max value, tiebreak on higher
+#     min value" (LegacyMetadataMapper.java:1370-1380) -> (30000,30000). The
+#     MTK AE then caps its P-line at index 93 = 1/33 s @ ISO 231 (AeAlgo
+#     "[getAEMaxISO()] u4MaxISO:231 ... u4Shutter:29996", "The AE index is at
+#     the boundary Idx:93 ... Max:93"), 1.5 EV under stock's 1/20 s @ ISO 396
+#     in the same room, 3 EV under on the front sensor. Snap's
+#     CameraUtil.getPhotoPreviewFpsRange() (CameraUtil.java:1179-1215) picks
+#     the widest range covering 30 fps, i.e. the HAL default (5000,30000) with
+#     dynamic-frame-rate, whose ceiling is 1/10 s @ ISO 782 (measured, E3/E5).
+#   * Camera2 decodes and re-encodes every JPEG through Bitmap.compress
+#     (TaskCompressImageToJpeg.java:205-215) because the MTK HAL rotates the
+#     pixels for `rotation=90` while the app compares its crop against the
+#     unrotated ImageReader size (TaskImageContainer.java:274-280): the HAL's
+#     q85 4:2:2 JPEG becomes a q95 4:2:0 JFIF/ICC file (owner's photo carries
+#     APP0+ICC and no MTK APP5-8 debug segments). Snap stores the HAL bytes and
+#     asks for jpeg-quality 100 (pref_camera_jpegquality_default).
+#
+# Snap sets LOCAL_OVERRIDES_PACKAGES := Camera2 (packages/apps/Snap/Android.mk:
+# 49), so listing it here also removes Camera2 and its privapp whitelist.
+# Known residual, not fixable here: both apps default to the largest area,
+# 3840x2176, which the HAL interpolates above the sensor's 3280x2464 readout
+# (MtkCam/ParamsManager "[updateDefaultParams2_ByQuery] cap(3280,2464)");
+# pick 3264x2448 in Snap's settings (E-171, WI-086).
+PRODUCT_PACKAGES += \
+    Snap
+
 # Build-time xmllint over every XML in this device tree. Not installed; it exists
 # so that an unparseable hand-written XML is a build failure instead of a
 # runtime one. See Android.mk.
