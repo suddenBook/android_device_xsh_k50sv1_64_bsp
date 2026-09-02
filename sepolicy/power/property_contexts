@@ -9,5 +9,4 @@ vendor.net.rndis.client                     u:object_r:mtk_netdagent_prop:s0 exa
 # with it -- see power/property.te and netdagent.te.
 
 ctl.netdagent                u:object_r:ctl_mtk_netdagent_prop:s0
-ctl.vendor.k50sv1_perfd      u:object_r:ctl_k50sv1_perfd_prop:s0
 ctl.power-hal-1-0            u:object_r:ctl_mtk_powerhal_svc_prop:s0

@@ -13,7 +13,7 @@
      LCD and AOSP does not consume them.
 
      This file is BatteryStats accounting metadata. It does not select CPU
-     frequencies or change the screen-on k50sv1_perfd/PowerHAL policy.
+     frequencies or change the screen-on PPM/PowerHAL policy.
 -->
 <device name="Android">
     <item name="none">0</item>

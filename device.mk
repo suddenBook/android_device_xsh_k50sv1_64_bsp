@@ -11,10 +11,9 @@ include $(LOCAL_PATH)/build_tiers.mk
 # k50sv1_64_bsp-vendor.mk only carries the matching PRODUCT_SOONG_NAMESPACES
 # filter line, which is the FILTER described above and not the declaration.
 # Listing this directory here just duplicated that filter.
-# k50sv1_perfd and sensors.mt6755 therefore live in the root namespace and
-# are global module names; add a soong_namespace{} here if that ever needs to
-# change, rather than re-adding a line that advertises isolation the tree does
-# not have.
+# sensors.mt6755 therefore lives in the root namespace and is a global module
+# name; add a soong_namespace{} here if that ever needs to change, rather than
+# re-adding a line that advertises isolation the tree does not have.
 
 $(call inherit-product-if-exists, vendor/xsh/k50sv1_64_bsp/k50sv1_64_bsp-vendor.mk)
 
@@ -451,8 +450,6 @@ endif
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     log.tag.MTK_FG=S
 
-# Screen-on maximum performance. One leaf daemon; see perfd/k50sv1_perfd.c for
-# why it exists, what it measured, and the six-site recipe to remove it.
 # The two HWC2 adapters, built from unmodified AOSP source instead of shipped as
 # blobs. They MUST be named here explicitly, and finding out why cost a build:
 #
@@ -478,8 +475,11 @@ PRODUCT_PACKAGES += \
     libhwc2on1adapter \
     libhwc2onfbadapter
 
-PRODUCT_PACKAGES += \
-    k50sv1_perfd
+# Screen-on maximum performance is kernel policy, not a package: the source
+# kernel's CONFIG_MTK_PPM_LCMON_BOOST (arch/arm64/configs/
+# k50sv1_64_bsp_source.fragment) pins PPM's PERF_SERV to the platform maximum
+# perf index while the panel is unblanked and releases it on blank. It replaced
+# the k50sv1 perf daemon that used to be listed here (E-032/E-033/E-167).
 
 # Icon pack for Trebuchet, selected by default through
 # overlay/packages/apps/Trebuchet/quickstep/res/values/lineage_config.xml.

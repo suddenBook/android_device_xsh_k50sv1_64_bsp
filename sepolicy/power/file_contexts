@@ -4,4 +4,3 @@
 /(vendor|system/vendor)/bin/netdagent u:object_r:netdagent_exec:s0
 
 /data/vendor/powerhal(/.*)? u:object_r:mtk_powerhal_data_file:s0
-/(vendor|system/vendor)/bin/k50sv1_perfd u:object_r:k50sv1_perfd_exec:s0

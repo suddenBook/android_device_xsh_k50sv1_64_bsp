@@ -172,13 +172,6 @@ on post-fs
     chmod 0660 /proc/ppm/root_cluster
     chown system system /proc/ppm/policy_status
     chmod 0660 /proc/ppm/policy_status
-    # k50sv1_perfd's two nodes. The kernel creates them root:root 0664, so
-    # a system daemon can read but not write. See perfd/k50sv1_perfd.c.
-    chown system system /proc/ppm/policy/perfserv_perf_idx
-    chmod 0660 /proc/ppm/policy/perfserv_perf_idx
-    chown system system /proc/ppm/policy/perfserv_max_perf_idx
-    chmod 0440 /proc/ppm/policy/perfserv_max_perf_idx
-
     chown system system /proc/ppm/policy/userlimit_min_cpu_freq
     chmod 0660 /proc/ppm/policy/userlimit_min_cpu_freq
     chown system system /proc/ppm/policy/userlimit_max_cpu_freq
@@ -567,50 +560,18 @@ on property:sys.boot_completed=1
     write /sys/block/${dev.mnt.blk.data:-mmcblk0}/queue/read_ahead_kb 128
     write /sys/block/${dev.mnt.blk.data:-mmcblk0}/queue/nr_requests 256
     write /sys/block/${dev.mnt.blk.data:-mmcblk0}/queue/iostats 0
-    start vendor.k50sv1_perfd
 
-# Screen-on maximum performance. Started at boot_completed rather than earlier
-# so it cannot compete with the boot-time cluster pin above, which it would
-# otherwise release the first time it saw the panel dark during boot.
-#
-# See device/xsh/k50sv1_64_bsp/perfd/k50sv1_perfd.c for why a daemon is needed
-# at all -- the short version is that the PowerHAL's INTERACTION lock lasts
-# 235-705 ms rather than the 5 s it is configured for, and that no PPM policy
-# can be released by screen-off, so the screen-state edge has to come from
-# userspace. That file also carries the removal recipe -- six sites, not the
-# three this comment used to imply.
-# Release the pin if the daemon ever stops. init's `stop` is SIGKILL
-# (system/core/init/service.cpp), so the daemon cannot clean up after itself
-# with a signal handler -- and without this, stopping it while the panel is lit
-# leaves perfserv_perf_idx at maximum FOREVER. Reproduced on the handset: stop
-# the service with the screen on, blank the panel, and 18 s later
-# perfserv_perf_idx is still 5616 with all eight cores online. That is the worst
-# possible state for battery, produced by trying to turn the feature off.
-#
-# `stopped` does NOT cover a crash, and an earlier version of this comment said
-# it did. Service::Reap() publishes "stopped" only under
-# flags_ & (SVC_DISABLED | SVC_RESET) (system/core/init/service.cpp:376); a
-# non-oneshot, non-disabled service that dies falls through to :411 and
-# publishes "restarting", then "running". So a crash never fires this trigger.
-# Nothing is lost by that: `pinned` starts at -1 in the daemon, so the restarted
-# process re-applies the pin on its first tick rather than the trigger releasing
-# it. The trigger exists for the deliberate `stop` case above, which is the one
-# that would otherwise leave the pin latched forever.
-#
-# vendor_init already holds proc_mtk_power_ppm:file write
-# (sepolicy/vendor/vendor_init.te:70), so this needs no new rule.
-on property:init.svc.vendor.k50sv1_perfd=stopped
-    write /proc/ppm/policy/perfserv_perf_idx 0
-
-service vendor.k50sv1_perfd /vendor/bin/k50sv1_perfd
-    class late_start
-    user system
-    group system
-    disabled
-    seclabel u:r:k50sv1_perfd:s0
-    # Not oneshot: it is a loop, and if it ever dies the handset silently
-    # reverts to the INTERACTION-only behaviour with no other symptom. Let init
-    # restart it.
+# Screen-on maximum performance needs nothing here. It is kernel policy:
+# CONFIG_MTK_PPM_LCMON_BOOST (kernel arch/arm64/configs/
+# k50sv1_64_bsp_source.fragment, drivers/misc/mediatek/base/power/ppm_v1/src/
+# mt_ppm_policy_perfserv.c) makes PPM's PERF_SERV policy request the platform
+# maximum perf index on FB_BLANK_UNBLANK and drop it on FB_BLANK_POWERDOWN,
+# from the same FB notifier PPM_POLICY_LCM_OFF uses. The userspace daemon that
+# used to be started above at boot_completed, with its chown of
+# /proc/ppm/policy/perfserv_*, its SELinux domain and its stop trigger, went
+# with it. Tunables (root only): /proc/ppm/policy/perfserv_lcmon_boost (1/0)
+# and perfserv_lcmon_perf_idx (0 = platform maximum). See E-032/E-033/E-167
+# and the kernel file's header.
 
 
 # ---- power-off charging -------------------------------------------------
