@@ -103,17 +103,15 @@
 /dev/Vcodec        0660  media   system
 /dev/sw_sync       0664  system  graphics
 
-# Camera nodes present on this board. "Present" means the node exists, which is
-# weaker than it looks: MediaTek's kd_camera_hw creates MAINAF and SUBAF
-# unconditionally, so /dev/SUBAF is not evidence that the front camera has a
-# focus motor -- a punch-hole selfie module is usually fixed-focus, and the HAL1
-# parameter string advertises the identical focus-mode-values for both devices,
-# so that is not evidence either. Labelling a node that turns out to be inert
-# costs nothing; asserting the hardware from it would be wrong.
+# Camera nodes present on this board. The prebuilt kernel's kd_camera_hw
+# created MAINAF and SUBAF unconditionally, which was never evidence that the
+# punch-hole selfie module has a focus motor (it is fixed-focus; the HAL1
+# parameter string advertises identical focus-mode-values for both devices).
+# The source kernel builds only the fitted DW9761AF MAINAF and refuses SUBAF
+# (kernel b593c4ab07e, 68cf1cf20d5), so there is no /dev/SUBAF to label.
 /dev/CAM_CAL_DRV1          0660  system  camera
 /dev/CAM_CAL_DRV2          0660  system  camera
 /dev/MAINAF                0660  system  camera
-/dev/SUBAF                 0660  system  camera
 /dev/camera-fdvt           0660  system  camera
 /dev/camera-isp            0660  system  camera
 /dev/kd_camera_flashlight  0660  system  camera
@@ -146,8 +144,10 @@ parallel_restorecon enabled
 
 # Deliberately NOT given permissions, so they keep ueventd's 0600 root root
 # default:
-#   /dev/silead_fp, /dev/silead_spi  - the FP driver probes but no fingerprint
-#                                      sensor is fitted and no FP HAL is built
+#   /dev/silead_fp, /dev/silead_spi  - existed on the prebuilt kernel, whose
+#                                      shared config probed the FP driver; the
+#                                      source kernel has no CONFIG_SILEAD_FP and
+#                                      no fingerprint sensor is fitted (E-173)
 #   /dev/mt6605                      - NFC controller node, no NFC hardware
 #   /dev/block/mmcblk0*, /dev/misc-sd, /dev/devmap, /dev/emmcrpmb0
 #                                    - stock opens these group-system for MTK
