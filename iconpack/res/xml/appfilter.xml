@@ -33,6 +33,7 @@
          image, plus Terminal. -->
     <item component="ComponentInfo{com.android.calculator2/com.android.calculator2.Calculator}" drawable="miui_calculator" />
     <item component="ComponentInfo{com.android.camera2/com.android.camera.CameraLauncher}" drawable="miui_camera" />
+    <item component="ComponentInfo{org.lineageos.snap/com.android.camera.CameraLauncher}" drawable="miui_camera" />
     <item component="ComponentInfo{com.android.contacts/com.android.contacts.activities.PeopleActivity}" drawable="miui_contacts" />
     <item component="ComponentInfo{com.android.deskclock/com.android.deskclock.DeskClock}" drawable="miui_clock" />
     <item component="ComponentInfo{com.android.dialer/com.android.dialer.main.impl.MainActivity}" drawable="miui_dialer" />
