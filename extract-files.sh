@@ -335,6 +335,31 @@ function patch_wfo_jar() {
         # avoids an upstream ims-common fork, and preserves live WFC toggles
         # without the invalid MtkImsManager cast.
         #
+        # ...but NOT from the properties alone. The broadcast arrives BEFORE the
+        # property changes: ImsConfigImpl.setFeatureValue() first stores the
+        # value (ImsConfigProvider.update() sends IMS_FEATURE_CHANGED from that
+        # store, with phone_id/item/value extras) and only then calls
+        # turnOnVolte()/turnOffVolte() -> IMtkRadioEx.setVendorSetting(11) ->
+        # rild, which is the process that writes persist.vendor.mtk.volte.enable
+        # (no Java class in the jar or in ImsService.apk writes it). So a
+        # receiver that re-reads the property hands MAL the PREVIOUS value, and
+        # MAL drives the modem from that: measured on the handset 2026-09-03
+        # with the CU SIM and carrier_volte_available_bool overridden true --
+        # VoLTE switch OFF tap -> rds_set_ui_param volte(1) -> AT+EIMSVOLTE=1 ->
+        # onRequestImsSwitch isImsOn=true -> AT+EIMS=1 -> +EIMS: 1; switch ON
+        # tap -> volte(0) -> AT+EIMSVOLTE=0 -> AT+EIMS=0 -> +EIMS: 0. Inverted,
+        # every time (session-19 ims report, section 3.4).
+        #
+        # Hence the receiver still refreshes every flag from the properties
+        # (the constructor's boot-time read is untouched, and the other three
+        # flags have not changed) and then lets the intent's own extras win for
+        # the one item that did change: applyImsFeatureChange(phone_id, item,
+        # value) stores value==1 into mIsVolteEnabled (item 0), mIsVilteEnabled
+        # (item 1) or mIsWfcEnabled (item 2, ImsConfig.FeatureConstants) before
+        # the profile is pushed. Intents without the extras (-1 defaults) or with
+        # an out-of-range phone id fall back to the property values, exactly as
+        # before.
+        #
         # There is a second reason this receiver must do real work. With WFC off,
         # MAL still asked WFO for five RSSI thresholds (-85/-75/-78/-88/-90).
         # RssiMonitoringProcessor turned each into a ConnectivityManager
@@ -381,6 +406,28 @@ replacement = r'''
 
     invoke-static {v0}, Lcom/mediatek/wfo/impl/WifiOffloadService;->access$6000(Lcom/mediatek/wfo/impl/WifiOffloadService;)V
 
+    const/4 v4, -0x1
+
+    const-string v1, "phone_id"
+
+    invoke-virtual {p2, v1, v4}, Landroid/content/Intent;->getIntExtra(Ljava/lang/String;I)I
+
+    move-result v1
+
+    const-string v2, "item"
+
+    invoke-virtual {p2, v2, v4}, Landroid/content/Intent;->getIntExtra(Ljava/lang/String;I)I
+
+    move-result v2
+
+    const-string v3, "value"
+
+    invoke-virtual {p2, v3, v4}, Landroid/content/Intent;->getIntExtra(Ljava/lang/String;I)I
+
+    move-result v3
+
+    invoke-virtual {v0, v1, v2, v3}, Lcom/mediatek/wfo/impl/WifiOffloadService;->applyImsFeatureChange(III)V
+
     invoke-virtual {v0}, Lcom/mediatek/wfo/impl/WifiOffloadService;->unregisterAllRssiMonitoring()V
 
     iget-object v0, p0, Lcom/mediatek/wfo/impl/WifiOffloadService$3;->this$0:Lcom/mediatek/wfo/impl/WifiOffloadService;
@@ -406,8 +453,9 @@ private = '.method private updateFeatureValue()V'
 accessor_sig = ('.method static synthetic access$6000('
                 'Lcom/mediatek/wfo/impl/WifiOffloadService;)V')
 cleanup_sig = '.method unregisterAllRssiMonitoring()V'
+apply_sig = '.method applyImsFeatureChange(III)V'
 if (service.count(private) != 1 or 'access$6000' in service
-        or cleanup_sig in service
+        or cleanup_sig in service or apply_sig in service
         or 'goto_k50sv1_rssi_registration_done' in service):
     raise SystemExit('unexpected updateFeatureValue declaration')
 accessor = r'''.method static synthetic access$6000(Lcom/mediatek/wfo/impl/WifiOffloadService;)V
@@ -447,7 +495,71 @@ cleanup = r'''.method unregisterAllRssiMonitoring()V
 .end method
 
 '''
-service = service.replace(private, accessor + cleanup + private, 1)
+# The intent's value for the item that changed wins over the (not yet
+# rewritten) persist property. Item ids are ImsConfig.FeatureConstants:
+# 0 VoLTE, 1 ViLTE, 2 VoWiFi; 3 (ViWiFi) has no flag in this service and the
+# -1 defaults of a bare intent are ignored. Registers: v0 = enabled/mSimCount,
+# v1 = scratch/array, p1 = phoneId, p2 = item, p3 = value.
+apply = r'''.method applyImsFeatureChange(III)V
+    .registers 6
+    .param p1, "phoneId"    # I
+    .param p2, "item"    # I
+    .param p3, "value"    # I
+
+    if-ltz p1, :cond_k50sv1_apply_done
+
+    iget v0, p0, Lcom/mediatek/wfo/impl/WifiOffloadService;->mSimCount:I
+
+    if-ge p1, v0, :cond_k50sv1_apply_done
+
+    if-ltz p3, :cond_k50sv1_apply_done
+
+    const/4 v1, 0x1
+
+    if-ne p3, v1, :cond_k50sv1_apply_off
+
+    const/4 v0, 0x1
+
+    goto :goto_k50sv1_apply_store
+
+    :cond_k50sv1_apply_off
+    const/4 v0, 0x0
+
+    :goto_k50sv1_apply_store
+    if-nez p2, :cond_k50sv1_apply_not_volte
+
+    iget-object v1, p0, Lcom/mediatek/wfo/impl/WifiOffloadService;->mIsVolteEnabled:[Z
+
+    aput-boolean v0, v1, p1
+
+    goto :cond_k50sv1_apply_done
+
+    :cond_k50sv1_apply_not_volte
+    const/4 v1, 0x1
+
+    if-ne p2, v1, :cond_k50sv1_apply_not_vilte
+
+    iget-object v1, p0, Lcom/mediatek/wfo/impl/WifiOffloadService;->mIsVilteEnabled:[Z
+
+    aput-boolean v0, v1, p1
+
+    goto :cond_k50sv1_apply_done
+
+    :cond_k50sv1_apply_not_vilte
+    const/4 v1, 0x2
+
+    if-ne p2, v1, :cond_k50sv1_apply_done
+
+    iget-object v1, p0, Lcom/mediatek/wfo/impl/WifiOffloadService;->mIsWfcEnabled:[Z
+
+    aput-boolean v0, v1, p1
+
+    :cond_k50sv1_apply_done
+    return-void
+.end method
+
+'''
+service = service.replace(private, accessor + cleanup + apply + private, 1)
 
 rssi_old = r'''.method protected onRssiMonitorRequest(II[I)V
     .registers 9
@@ -495,6 +607,9 @@ PYEOF
         if [[ "$(grep -c -F -- '->access$6000' "${receiver}")" -ne 1 || \
               "$(grep -c -F '.method static synthetic access$6000' "${service}")" -ne 1 || \
               "$(grep -c -F '.method private updateFeatureValue()V' "${service}")" -ne 1 || \
+              "$(grep -c -F -- '->applyImsFeatureChange(III)V' "${receiver}")" -ne 1 || \
+              "$(grep -c -F '.method applyImsFeatureChange(III)V' "${service}")" -ne 1 || \
+              "$(grep -c -F -- 'Landroid/content/Intent;->getIntExtra(Ljava/lang/String;I)I' "${receiver}")" -ne 3 || \
               "$(grep -c -F -- '->unregisterAllRssiMonitoring()V' "${receiver}")" -ne 1 || \
               "$(grep -c -F '.method unregisterAllRssiMonitoring()V' "${service}")" -ne 1 || \
               "$(grep -c -F -x '    :goto_k50sv1_rssi_registration_done' "${service}")" -ne 1 ]]; then
@@ -610,13 +725,13 @@ WFOSIMEOF
         unzip -tq "${patch_dir}/mediatek-wfo-legacy.jar" >/dev/null
         dex_sha="$(sha256sum "${patch_dir}/classes.dex" | awk '{ print $1 }')"
         if [[ "${dex_sha}" != \
-              "95f0be95eec46c729d560bd9992f8437b662d4fb2ce46ca6d0df08d430d67e62" ]]; then
+              "3cba479094c66e2685afa47dc11b9d68681e1576639b783ad07ed8b594c98e67" ]]; then
             echo "Non-reproducible patched WFO classes.dex: ${dex_sha}" >&2
             exit 1
         fi
         jar_sha="$(sha256sum "${patch_dir}/mediatek-wfo-legacy.jar" | awk '{ print $1 }')"
         if [[ "${jar_sha}" != \
-              "899a5149c2ca85a1d2bfadf02fcb419a860133becc9c9716d1482b1438bef3c2" ]]; then
+              "a0dbdcf9b3b5fe9fa678a03da4853e34958de09ca1adca28747e6e7ded30ecca" ]]; then
             echo "Non-reproducible patched mediatek-wfo-legacy.jar: ${jar_sha}" >&2
             exit 1
         fi
