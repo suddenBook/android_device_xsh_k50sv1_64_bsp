@@ -17,6 +17,48 @@
         <boolean name="carrier_use_ims_first_for_emergency_bool" value="false"/>
     </carrier_config>
 
+    <!-- China Mobile (carrier id 1435) and China Unicom (carrier id 1436). The
+         owner wants the Enhanced 4G LTE (VoLTE) and Wi-Fi calling switches on
+         these SIMs, as stock shows them (owner instruction, E-170; it supersedes
+         E-112's "do not advertise CU VoLTE").
+
+         WHY two bools: neither AOSP's carrier_config_carrierid_1435/1436
+         asset nor stock's MtkCarrierConfig asset sets an IMS key. Stock shows
+         the switches because MediaTek patches the framework defaults:
+         MtkCarrierConfigManager.putDefault() (mediatek-telephony-base.jar)
+         sets carrier_volte_available_bool and carrier_wfc_ims_available_bool
+         true for EVERY SIM. LineageOS runs the unpatched CarrierConfigManager
+         (both default false, CarrierConfigManager.java:3278/3289), so
+         ImsManager.isVolteEnabledByPlatform()/isWfcEnabledByPlatform()
+         (ImsManager.java:622-637/1281-1296) are false, Settings hides both
+         rows (Enhanced4gLtePreferenceController.java:74-85,
+         MobileNetworkUtils.java:114-134) and the framework actively turns IMS
+         off (updateImsServiceConfig: turnOffIms). Measured live (E-170): an
+         in-memory override of exactly these two keys made both rows appear on
+         the CU and CMCC pages and made the framework request IMS
+         (updateVolteFeatureValue: available = true -> turnOnIms). MediaTek's
+         dynamic IMS switch already grants volte=1/wfc=1 resource capability to
+         460-00 and 460-01 (ImsConfigManager: Set res capability), so nothing
+         else in the vendor stack gates these carriers.
+
+         Everything else stays at the AOSP default: VoLTE on by default
+         (enhanced_4g_lte_on_by_default_bool), Wi-Fi calling off until the
+         user turns it on (carrier_default_wfc_ims_enabled_bool), both
+         editable. This advertises device capability only; whether CU/CMCC
+         register IMS while roaming is the network's decision.
+
+         MNC lists: TelephonyProvider carrier_list.textpb canonical_id 1435
+         (46000/46002/46007/46008) and 1436 (46001/46009), widened by
+         MediaTek's OperatorUtils OP01 (adds 46004) and OP02 (adds 46006). -->
+    <carrier_config mcc="460" imsi="460(00|02|04|07|08).*">
+        <boolean name="carrier_volte_available_bool" value="true"/>
+        <boolean name="carrier_wfc_ims_available_bool" value="true"/>
+    </carrier_config>
+    <carrier_config mcc="460" imsi="460(01|06|09).*">
+        <boolean name="carrier_volte_available_bool" value="true"/>
+        <boolean name="carrier_wfc_ims_available_bool" value="true"/>
+    </carrier_config>
+
     <!-- Vodafone NL carrier ID 20. The cid filter is broken above, so mirror
          TelephonyProvider's exact allocated IMSI prefixes for 20404. Stock's
          MtkCarrierConfig enables these WFC keys, E-091 proves home-network

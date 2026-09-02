@@ -55,18 +55,21 @@ persist.vendor.mtk.ims.video.enable=0
 # three non-vendor names read EMPTY while their persist.vendor.* siblings read
 # 0/1, and RDS logs (0,0,0).
 #
-# Nothing is set here to close that gap, on purpose. The state RDS reports today
-# is the state this fixture is supposed to be in: video off, and VoLTE off
-# because CarrierConfig gives the CU/CMCC pair carrier_volte_available_bool=false
-# (verified live in `dumpsys carrier_config`), which is what makes MediaTek's own
-# stack write persist.vendor.mtk.volte.enable=0 after boot even though this file
-# and init.mt6755.rc both set 1. That is correct behaviour, not a lost setprop.
+# Nothing is set here to close that gap, on purpose. Until the CMCC/CU
+# CarrierConfig fragments (overlay/packages/apps/CarrierConfig/res/xml/vendor.xml)
+# are on the handset, CarrierConfig gives the CU/CMCC pair
+# carrier_volte_available_bool=false (verified live in `dumpsys carrier_config`),
+# ImsManager.updateImsServiceConfig turns IMS off, and MediaTek's stack writes
+# persist.vendor.mtk.volte.enable=0 after boot even though this file and
+# init.mt6755.rc both set 1. That is the framework's decision, not a lost
+# setprop; with the fragments the framework keeps VoLTE on and the value stays 1.
 #
-# The reason to record it anyway: when a home-network SIM finally makes
-# carrier_volte_available_bool true (WI-018/WI-029), "the property is 1" will be
-# true of the persist.vendor.* name and may still be empty for the name RDS
-# reads. Check the RDS line, not getprop, before concluding the property half of
-# the chain is satisfied.
+# CORRECTION (E-170, measured 2026-09-03): the RDS "system property(w,v,c)"
+# column DOES track persist.vendor.mtk.volte.enable -- it read (0,1,0) within
+# 30 ms of SET_VOLTE_ENABLE ON flipping the property to 1, and (0,0,0) after
+# OFF. What RDS acts on is not that column but the value WifiOffloadService
+# pushes through rds_set_ui_param(); see the WFO note in init.mt6755.rc and
+# E-170 for the ordering defect in that push (WI-085).
 persist.vendor.mtk_rcs_ua_support=0
 persist.vendor.mtk_rtt_support=0
 # persist.vendor.mtk_ct_volte_support=1, exactly as stock sets it

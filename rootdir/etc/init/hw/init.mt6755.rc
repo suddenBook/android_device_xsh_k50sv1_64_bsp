@@ -464,9 +464,10 @@ on property:ro.persistent_properties.ready=true
     # the general name, so all three must be restated. This preserves the no-VT
     # and real-WFC/carrier-gate contract across a dirty /data.
     # persist.dbg.volte_avail_ovr
-    # is gone from both places: VoLTE availability now comes from the filtered
-    # CarrierConfig overlay, visible to every reader of the carrier key rather
-    # than only isVolteEnabledByPlatform().
+    # is gone from both places: VoLTE availability now comes from the
+    # per-carrier CarrierConfig overlay (CMCC, CU, Vodafone NL), visible to
+    # every reader of the carrier key rather than only
+    # isVolteEnabledByPlatform().
     #
     # The four persist.dbg.* keys below resolve to plat default_prop through
     # plat_property_contexts' `*` catch-all, and vendor_init may set them only
