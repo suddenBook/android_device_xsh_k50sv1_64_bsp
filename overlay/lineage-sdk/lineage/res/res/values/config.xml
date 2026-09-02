@@ -85,10 +85,11 @@
          that "matrix keys cannot wake this SoC at any configuration", on the
          reasoning that MTK's kpd_pdrv_suspend() writes KP_EN=0 so the keypad
          block cannot assert its SPM wake source. The premise was right and the
-         conclusion was wrong: the block is only disabled BECAUSE of that write,
-         and rootdir/etc/init/hw/init.mt6755.rc now sets
-         /sys/bus/platform/drivers/mtk-kpd/kpd_call_state to 2, which makes both
-         the suspend and resume hooks skip it. KP_EN stays 1 across suspend.
+         conclusion was wrong: the block was only disabled BECAUSE of that write.
+         The source kernel's kpd driver no longer makes it (E-168,
+         kpd_pdrv_suspend() leaves the block enabled unconditionally; the
+         `kpd_call_state=2` escape hatch init used to write for the prebuilt
+         kernel is inert and gone). KP_EN stays 1 across suspend.
 
          Confirmed on the handset, end to end:
            * nine suspend/resume cycles logged the call_status == 2 branch and

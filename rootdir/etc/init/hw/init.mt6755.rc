@@ -214,53 +214,21 @@ on post-fs
     chmod 0664 /sys/bus/platform/drivers/mem_bw_ctrl/concurrency_scenario
     chown media media /sys/bus/platform/drivers/mem_bw_ctrl/concurrency_scenario
 
-    # ---- keypad suspend fix -------------------------------------------------
+    # ---- keypad suspend ----------------------------------------------------
     #
-    # This is the fix for the stuck Volume Up.
-    #
-    # MTK's kpd driver disables the whole keypad block across suspend:
-    #     kpd_pdrv_suspend()  -> kpd_wakeup_src_setting(0) -> mt_reg_sync_writew(0, KP_EN)
-    # while the keypad IRQ is EDGE-triggered (this board's DTB has
-    # interrupts = <0 0xa4 2>, GIC_SPI 164 IRQ_TYPE_EDGE_FALLING) and the
-    # driver's idea of which keys are down is a pure software shadow,
-    # kpd_keymap_state[], written only from kpd_keymap_handler() and never
-    # re-synchronised on resume. So a key transition that happens inside the
-    # suspend window is lost permanently: the shadow still says "Volume Up is
-    # down", the input core reports only transitions, and further presses of a
-    # key it believes is already down produce nothing.
-    #
-    # From there the visible symptoms follow: PhoneWindowManager latches
-    # mA11yShortcutChordVolumeUpKeyTriggered on a VOLUME_UP down with no
-    # matching up, folds it into mPowerKeyHandled, and never calls
-    # wakeUpFromPowerKey() - the power button stops lighting the screen.  Held
-    # long enough from there, the PMIC's own long-press reset fires, which is
-    # the occasional reboot.  It reproduces on the Stock ROM because the driver
-    # is the same.
-    #
-    # kpd_call_state is MTK's own escape hatch, meant for "a call is ringing,
-    # do not kill the keypad".  With it set to 2 BOTH kpd_pdrv_suspend() and
-    # kpd_pdrv_resume() skip kpd_wakeup_src_setting() entirely, KP_EN stays 1
-    # across suspend, no edge is ever lost and no shadow ever goes stale.  This
-    # is also what mainline does - drivers/input/keyboard/mt6779-keypad.c has no
-    # PM callbacks at all and simply never disables the block.  call_status is
-    # referenced nowhere else in the driver except this attribute's show/store,
-    # so there is no other behaviour riding on it.
-    #
-    # Cost: the keypad scanner keeps running off the 32 kHz clock in suspend,
-    # which is microamps.
-    #
-    # Consequence worth knowing: with KP_EN left on, WAKE_SRC_R12_KP_IRQ_B is in
-    # the default SPM suspend mask, so the volume keys become a real wake
-    # source.  LineageOS's "volume buttons wake device" should therefore work
-    # after this change - it could not before, at any configuration, and the
-    # tree documented it as impossible.  Re-test it; the framework still gates
-    # it on LineageSettings VOLUME_WAKE_SCREEN, which is off by default.
-    #
-    # The node is a driver attribute, root:root 0644, generic sysfs label.
-    # vendor_init already holds { sysfs_type -sysfs_usermodehelper }:file
-    # rw_file_perms from system/sepolicy/public/vendor_init.te:167, so this
-    # needs no new type and no new rule.
-    write /sys/bus/platform/drivers/mtk-kpd/kpd_call_state 2
+    # Nothing to write here any more. The prebuilt kernel's kpd driver disabled
+    # the whole keypad block across suspend (kpd_pdrv_suspend() ->
+    # kpd_wakeup_src_setting(0) -> KP_EN=0) while its IRQ is edge-triggered and
+    # its key state is a software shadow never re-read on resume, so a Volume Up
+    # edge inside the suspend window was lost for good (E-024/E-028). This tree
+    # used MTK's escape hatch, `kpd_call_state=2`, to make both PM hooks skip
+    # that write. The source kernel leaves KP_EN on unconditionally and re-reads
+    # the shadow on resume (E-168, drivers/input/keyboard/mediatek/kpd.c
+    # kpd_pdrv_suspend/resume), so the attribute is inert and the write is gone.
+    # Consequences that stay true: WAKE_SRC_R12_KP_IRQ_B is in the SPM suspend
+    # mask, so the volume keys are a real wake source and LineageOS's "volume
+    # buttons wake device" works; the scanner runs off the 32 kHz clock in
+    # suspend, which is microamps.
 
     # ---- interactive governor ----------------------------------------------
     #
