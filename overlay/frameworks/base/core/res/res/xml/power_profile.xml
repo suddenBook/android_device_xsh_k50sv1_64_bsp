@@ -2,8 +2,9 @@
 <!--
      MT6750 power profile adapted to this handset.
 
-     The owner supplied a Vivo-tuned MT6750 profile and physically inspected
-     this handset's battery label: nominal capacity is 4000 mAh. The CPU
+     The owner supplied a Vivo-tuned MT6750 profile. The installed cell is
+     printed 3.8 V / 12.16 Wh = 3200 mAh nominal (teardown, E-176; this
+     supersedes E-104's 4000 mAh label reading). The CPU
      topology and OPPs below are this handset's measured values, not the
      donor's. Android 10 no longer reads the donor's single cpu.speeds /
      cpu.active arrays, so its active-current curve is linearly interpolated by
@@ -150,8 +151,12 @@
         <value>0</value>
     </array>
 
-    <!-- Nominal capacity printed on the battery and physically verified by the owner. -->
-    <item name="battery.capacity">4000</item>
+    <!-- Nominal capacity from the cell's own printing: 3.8 V / 12.16 Wh = 3200 mAh
+         (teardown, E-176). Keep this equal to the kernel's Q_MAX_POS_25 in
+         mt_battery_meter.h, which is what the driver exports as charge_full;
+         a disagreement makes BatteryStats' mAh and the gauge's percentage
+         describe two different packs. -->
+    <item name="battery.capacity">3200</item>
 
     <item name="wifi.controller.idle">0</item>
     <item name="wifi.controller.rx">0</item>

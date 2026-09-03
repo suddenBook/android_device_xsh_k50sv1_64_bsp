@@ -24,8 +24,12 @@
 # __system_properties_init/__system_property_foreach opens every context file in
 # turn, so a process draws one such denial per type it cannot read whether or
 # not it ever reads a property. Proof that those 15 were artefacts: at the time
-# they were captured this type labelled only `persist.vendor.wo.`, a prefix that
-# appears in no shipped blob, so there was no property of the type to read.
+# they were captured this type labelled only `persist.vendor.wo.` while nothing
+# had yet been proven to read it. That prefix IS real -- libmal_rds.so's
+# property-name mapper substitutes it for persist.net.wo. whenever
+# ro.vendor.md_prop_ver >= 1, which vendor.prop:331 sets -- so mtkmal reads
+# persist.vendor.wo.* and this grant is live, not vestigial. See the comment at
+# the top of vowifi/property_contexts.
 # Read-only: epdg_wod stays the only writer of that namespace.
 get_prop(mtkmal, mtk_wod_persist_prop)
 

@@ -1,9 +1,20 @@
 # ePDG daemon state. Stock: mtk_wod_prop / persist_wod_prop.
 #
-# The prefixes are `net.wo.` and `persist.net.wo.` -- NOT the vendor-namespaced
-# forms an earlier revision of this file assumed. No shipped blob contains the
-# string "vendor.wo." or "persist.vendor.wo." anywhere, so those two entries
-# labelled nothing at all. What the blobs actually carry:
+# The namespace is split BY READER, and both halves are needed. An earlier
+# revision of this file deleted the vendor-namespaced entries after grepping the
+# blobs for "persist.vendor.wo." and finding nothing -- but the trailing dot is
+# supplied at runtime by a strcat, so the literal never appears with it.
+# `strings vendor/lib/libmal_rds.so` returns MediaTek's property-name mapper set
+# verbatim: persist.net.wo (matched prefix), persist.vendor.wo (substituted
+# prefix), the generic persist / persist.vendor pair, ro.vendor and vendor.
+# The mapper is gated on ro.vendor.md_prop_ver >= 1 and vendor.prop:331 sets it
+# to 1, so mtkmal's reads go to persist.vendor.wo.* while epdg_wod and
+# libstrongswan, which carry no mapper, read persist.net.wo.* verbatim. This is
+# the same mechanism vendor.prop:543-545 already documents for
+# persist.vendor.radio.msimmode, and it is why vendor.ril.volte. and
+# vendor.net.handover. in sepolicy/radio/property_contexts are right too. Only
+# libmal.so and libmal_rds.so carry the mapper -- do not generalise it.
+# What the blobs actually carry:
 #   /vendor/bin/epdg_wod           net.wo.ikev2if, net.wo.key.display,
 #                                  net.wo.key.dump, net.wo.port,
 #                                  net.wo.port_natt, persist.net.wo.debug.sv,
@@ -22,6 +33,7 @@
 # close that write -- a device type is the only correct fix.
 net.wo.                            u:object_r:mtk_wod_prop:s0
 persist.net.wo.                    u:object_r:mtk_wod_persist_prop:s0
+persist.vendor.wo.                 u:object_r:mtk_wod_persist_prop:s0
 
 # WFC service-level configuration read by ImsService/WifiOffloadService and by
 # the ePDG daemons. persist.vendor.wfc.sys_wfc_support is deliberately NOT here
