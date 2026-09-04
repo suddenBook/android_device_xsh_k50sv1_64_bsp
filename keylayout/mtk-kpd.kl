@@ -20,10 +20,14 @@
 # interceptPowerKeyDown().
 #
 # And it does work now. Earlier revisions recorded that the keypad could never
-# wake this SoC because kpd_pdrv_suspend() clears KP_EN; init.mt6755.rc now sets
-# kpd_call_state=2, which makes both PM hooks skip that write, and the owner has
-# confirmed on the handset that Volume Up wakes the display from suspend. See
-# E-024 and E-028.
+# wake this SoC because kpd_pdrv_suspend() clears KP_EN. The SOURCE kernel's kpd
+# driver no longer makes that write (E-168): KP_EN stays on across suspend and
+# the shadow key state is re-read on resume, so the kpd_call_state=2 escape
+# hatch init.mt6755.rc used to write for the PREBUILT kernel is inert and gone
+# (init.mt6755.rc:220-232, and the matching note in
+# overlay/lineage-sdk/lineage/res/res/values/config.xml). The owner has
+# confirmed on the handset that Volume Up wakes the display from suspend.
+# See E-024, E-028 and E-168.
 
 key 114   VOLUME_DOWN
 key 115   VOLUME_UP

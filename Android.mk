@@ -200,6 +200,29 @@ k50sv1_init_rc_files := $(shell find $(LOCAL_PATH)/rootdir $(LOCAL_PATH)/recover
     -name '*.rc' -not -name 'ueventd.rc' -not -path '*/.git/*')
 k50sv1_passwd_file := $(call intermediates-dir-for,ETC,passwd)/passwd
 
+# prebuilt/SHA256SUMS was written, is correct, and was verified by NOTHING: the
+# only instruction to check it lived in prebuilt/README.md, addressed to a
+# human, after every build. These three files decide whether the handset boots,
+# and stock.dtb is the device tree it ACTUALLY runs -- BOARD_PREBUILT_DTBIMAGE_DIR
+# means the DTB built from kernel/xsh/k50sv1_64_bsp is discarded.
+k50sv1_prebuilt_dir := $(LOCAL_PATH)/prebuilt
+k50sv1_prebuilt_files := $(k50sv1_prebuilt_dir)/SHA256SUMS \
+    $(k50sv1_prebuilt_dir)/kernel $(k50sv1_prebuilt_dir)/dtb/stock.dtb \
+    $(k50sv1_prebuilt_dir)/recovery_dtbo
+
+# The ril-shim GOT hooks intercept MediaTek's destructive SIM-switch
+# transaction, which makes them the most safety-critical hand-written code in
+# this tree, and their two host tests were run only when somebody remembered.
+k50sv1_ril_shim_tests := $(LOCAL_PATH)/ril-shim/run-host-tests.sh
+k50sv1_ril_shim_srcs := $(wildcard $(LOCAL_PATH)/ril-shim/*.c)
+
+# The HarmonyOS font family lives in vendor/lineage because SystemFonts.java:313
+# reads one hardcoded path (see the header of
+# work/k50sv1-bringup/tools/apply-upstream-patches.sh). A repo sync reverts it
+# silently and the build still reports success -- which has already happened
+# once. PRODUCT_ENFORCE_PACKAGES_EXIST cannot catch it: it checks module names.
+k50sv1_fonts_customization := vendor/lineage/prebuilt/common/etc/fonts_customization.xml
+
 $(LOCAL_BUILT_MODULE): PRIVATE_XML_FILES := $(k50sv1_xml_files)
 $(LOCAL_BUILT_MODULE): PRIVATE_APN_FRAGMENT := $(k50sv1_apn_fragment)
 $(LOCAL_BUILT_MODULE): PRIVATE_APN_VALIDATOR := $(k50sv1_apn_validator)
@@ -207,11 +230,16 @@ $(LOCAL_BUILT_MODULE): PRIVATE_DEFAULT_APNS := $(k50sv1_default_apns)
 $(LOCAL_BUILT_MODULE): PRIVATE_INTERNAL_APNS := $(k50sv1_internal_apns)
 $(LOCAL_BUILT_MODULE): PRIVATE_INIT_RC_FILES := $(k50sv1_init_rc_files)
 $(LOCAL_BUILT_MODULE): PRIVATE_PASSWD_FILE := $(k50sv1_passwd_file)
+$(LOCAL_BUILT_MODULE): PRIVATE_PREBUILT_DIR := $(k50sv1_prebuilt_dir)
+$(LOCAL_BUILT_MODULE): PRIVATE_RIL_SHIM_TESTS := $(k50sv1_ril_shim_tests)
+$(LOCAL_BUILT_MODULE): PRIVATE_FONTS_CUSTOMIZATION := $(k50sv1_fonts_customization)
 $(LOCAL_BUILT_MODULE): $(k50sv1_xml_files) $(XMLLINT) \
                        $(k50sv1_apn_fragment) $(k50sv1_apn_validator) \
                        $(k50sv1_default_apns) $(k50sv1_internal_apns) \
                        $(k50sv1_init_rc_files) $(HOST_INIT_VERIFIER) \
-                       $(k50sv1_passwd_file)
+                       $(k50sv1_passwd_file) $(k50sv1_prebuilt_files) \
+                       $(k50sv1_ril_shim_tests) $(k50sv1_ril_shim_srcs) \
+                       $(k50sv1_fonts_customization)
 	@echo "Validating $(words $(PRIVATE_XML_FILES)) device-tree XML files"
 	$(hide) $(XMLLINT) --noout $(PRIVATE_XML_FILES)
 	@echo "Validating the device APN fragment and merged database identities"
@@ -221,6 +249,14 @@ $(LOCAL_BUILT_MODULE): $(k50sv1_xml_files) $(XMLLINT) \
 	$(hide) for rc in $(PRIVATE_INIT_RC_FILES); do \
 	    $(HOST_INIT_VERIFIER) $$rc $(PRIVATE_PASSWD_FILE) || exit 1; \
 	done
+	@echo "Verifying the prebuilt boot artefacts against prebuilt/SHA256SUMS"
+	$(hide) (cd $(PRIVATE_PREBUILT_DIR) && sha256sum -c SHA256SUMS)
+	@echo "Verifying the upstream fonts_customization.xml carries the harmonyos family"
+	$(hide) grep -q 'name="harmonyos"' $(PRIVATE_FONTS_CUSTOMIZATION) || { \
+	    echo "$(PRIVATE_FONTS_CUSTOMIZATION) has no harmonyos family; re-run" >&2; \
+	    echo "work/k50sv1-bringup/tools/apply-upstream-patches.sh" >&2; exit 1; }
+	@echo "Running the RIL shim host tests"
+	$(hide) $(PRIVATE_RIL_SHIM_TESTS)
 	$(hide) mkdir -p $(dir $@) && touch $@
 
 k50sv1_xml_files :=
@@ -230,6 +266,11 @@ k50sv1_default_apns :=
 k50sv1_internal_apns :=
 k50sv1_init_rc_files :=
 k50sv1_passwd_file :=
+k50sv1_prebuilt_dir :=
+k50sv1_prebuilt_files :=
+k50sv1_ril_shim_tests :=
+k50sv1_ril_shim_srcs :=
+k50sv1_fonts_customization :=
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 endif

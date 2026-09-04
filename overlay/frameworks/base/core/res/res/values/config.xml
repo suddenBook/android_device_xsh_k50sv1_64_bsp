@@ -240,6 +240,18 @@
          a tray phone. -->
     <bool name="config_hotswapCapable">true</bool>
 
+    <!-- CellBroadcastReceiver.apk IS installed (10 MB, /system/priv-app) but
+         upstream comments its LAUNCHER category out
+         (packages/apps/CellBroadcastReceiver/AndroidManifest.xml:71-75) and
+         tells the device to set this instead. Both readers, Settings'
+         EmergencyBroadcastPreferenceController.java:85-99 and
+         MobileNetworkSettings.java:1137, hide the entry on AOSP's false
+         (config.xml:2495), so the app had no entry point at all: no alert
+         history, no reminder setting, no way to opt out of test and exercise
+         alerts. Alerts themselves still fired; only the UI was unreachable.
+         On the Dutch networks this handset roams on that is NL-Alert. -->
+    <bool name="config_cellBroadcastAppLinks">true</bool>
+
     <!-- Bind the Android 10 MTK MMTEL service through AOSP ImsResolver. Voice
          over LTE and voice over Wi-Fi are device capabilities; carrier config
          and provisioning remain the second gate. Video telephony is omitted -

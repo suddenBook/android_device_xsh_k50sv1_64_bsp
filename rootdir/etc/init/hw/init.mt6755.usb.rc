@@ -20,12 +20,16 @@ on fs
     write /sys/class/android_usb/android0/f_ffs/aliases adb
 
 on boot
-    write /sys/class/android_usb/android0/iManufacturer XSH
+    # All three from properties, as AOSP's own recovery init.rc:136-137 does.
+    # iManufacturer was the literal XSH while iProduct expands through
+    # ro.product.model, which this product sets to "Pixel 4 XL" -- so a USB host
+    # was shown a manufacturer and a product that contradict each other.
+    write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
     write /sys/class/android_usb/android0/iProduct ${ro.product.model}
     write /sys/class/android_usb/android0/iSerial ${ro.serialno}
     write /sys/class/android_usb/android0/f_rndis/wceis 1
-    write /sys/class/android_usb/android0/f_rndis/manufacturer XSH
-    write /sys/class/android_usb/android0/f_rndis/vendorID 18D1
+    write /sys/class/android_usb/android0/f_rndis/manufacturer ${ro.product.manufacturer}
+    write /sys/class/android_usb/android0/f_rndis/vendorID 18d1
 
 # The common AOSP init.usb.rc owns none, adb and accessory/audio modes. This
 # file supplies the standard data modes expected from a platform USB rc.
