@@ -40,14 +40,24 @@
              is IDLE. Both counters are wiped each round, so nothing that
              counts failures can ever accumulate.
 
-             What does work is the delay itself. Omitting max_retries makes the
-             sequence never terminate, so the context stays RETRYING instead of
-             going FAILED, being re-requested, and resetting; and
-             getRetryTimer() clamps to the LAST entry once mRetryCount runs
-             past the array, so the tail repeats at 30 minutes rather than
-             stopping. VoLTE still recovers on its own the moment the network
-             will carry it: on a home network the first attempt succeeds and
-             none of this is ever reached.
+             What does work is `max_retries=infinite` plus the delays.
+             `infinite` is the ONLY thing that sets RetryManager.mRetryForever
+             (RetryManager.java:278-279), and mRetryForever is the only way out
+             of the NO_RETRY at :579. Omitting max_retries does NOT mean
+             infinite: reset() zeroes mMaxRetryCount (:615) and :315-318 then
+             raises it to the number of delay entries, so the sequence still
+             terminates and still cycles through FAILED. That is what the first
+             version of this block got wrong.
+
+             With mRetryForever the context stays RETRYING, trySetupData() no
+             longer re-enters the IDLE branch that calls setWaitingApns(), and
+             getRetryTimer() (:414-429) clamps mRetryCount past the end of the
+             array to its LAST entry, so the tail genuinely repeats at 30
+             minutes, the same tail AOSP gives `default`. VoLTE still
+             recovers on its own the moment the network will carry it: a RAT or
+             data-registration change runs setupDataOnAllConnectableApns(),
+             which resets the sequence, and on a home network the first attempt
+             succeeds and none of this is ever reached.
 
              Do not raise carrier_data_call_apn_delay_default_long to get the
              same effect. RetryManager applies mInterApnDelay to every APN
@@ -56,7 +66,7 @@
         <string-array name="carrier_data_call_retry_config_strings" num="4">
             <item value="default:default_randomization=2000,5000,10000,20000,40000,80000:5000,160000:5000,320000:5000,640000:5000,1280000:5000,1800000:5000"/>
             <item value="mms:default_randomization=2000,5000,10000,20000,40000,80000:5000,160000:5000,320000:5000,640000:5000,1280000:5000,1800000:5000"/>
-            <item value="ims:default_randomization=2000,5000,10000,30000,60000,300000:5000,900000:5000,1800000:5000"/>
+            <item value="ims:max_retries=infinite,default_randomization=2000,5000,10000,30000,60000,300000:5000,900000:5000,1800000:5000"/>
             <item value="others:max_retries=3, 5000, 5000, 5000"/>
         </string-array>
     </carrier_config>
