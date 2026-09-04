@@ -17,6 +17,13 @@
 # vendor.prop: ro.vendor.mtk_pq_color_mode, ro.vendor.mtk_pq_support
 # (ro.vendor.mtk_aal_support was a third; it is deleted, unread by anything.)
 set_prop(vendor_init, mtk_pq_ro_prop)
+# Same insurance, and this one has assigned keys today: vendor.prop:471-476
+# sets six persist.vendor.sys.pq.* values. /vendor/build.prop keys are loaded
+# by vendor_init, which runs CheckPermissions() per key
+# (property_service.cpp:726), so without this the six are dropped with "Do not
+# have permissions to set ..." the moment PRODUCT_SHIPPING_API_LEVEL rises past
+# 27 and not_compatible_property stops covering it.
+set_prop(vendor_init, mtk_pq_config_prop)
 
 # NO "allow vendor_init sysfs_mtk_concurrency_scenario:file ..." -- deleted, not
 # forgotten.

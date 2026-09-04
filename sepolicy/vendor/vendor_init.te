@@ -132,3 +132,7 @@ allow vendor_init proc_mtk_power_ppm:file write;
 # rc issues that setprop, so by the criterion in BoardConfig.mk it belongs here
 # rather than in sepolicy/private.
 set_prop(vendor_init, vold_prop)
+# vendor.prop:455 assigns persist.vendor.audiohal.besloudness_state, so this
+# one is load-bearing for the same reason as mtk_pq_config_prop in
+# media/vendor_init.te.
+set_prop(vendor_init, mtk_audiohal_prop)

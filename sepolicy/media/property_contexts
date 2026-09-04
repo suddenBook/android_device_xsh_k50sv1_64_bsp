@@ -35,3 +35,10 @@ vendor.debug.sf.hdr_enable       u:object_r:mtk_hwc_runtime_prop:s0 exact int
 ctl.gpu-1-0                  u:object_r:ctl_mtk_gpu_svc_prop:s0
 ctl.pq-2-2                   u:object_r:ctl_mtk_pq_svc_prop:s0
 ctl.vendor.media.omx         u:object_r:ctl_mtk_omx_svc_prop:s0
+# vendor.mediatek.hardware.mms@1.5-service.rc declares `service mms-1-5`, and
+# an unlabelled ctl.<name> falls to ctl_default_prop, which system_app,
+# system_server, usbd and wificond can all set (see nvram/vendor/property.te
+# for the doctrine). mtk_hal_mms is the one device-owned MTK HAL system_app
+# already has a binder edge to, so leaving this unlabelled let any system-UID
+# app stop it.
+ctl.mms-1-5                  u:object_r:ctl_mtk_mms_svc_prop:s0

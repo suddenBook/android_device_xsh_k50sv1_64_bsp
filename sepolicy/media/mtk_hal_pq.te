@@ -16,9 +16,15 @@ hal_server_domain(mtk_hal_pq, hal_mtk_pq)
 # cannot show the open mode.
 allow mtk_hal_pq graphics_device:chr_file { getattr ioctl open read write };
 
-# AAL probes the framework sensor manager.  With the truthful device sensor
-# contract this returns no light sensor; no sensor device access is granted.
-allow mtk_hal_pq fwk_sensor_hwservice:hwservice_manager find;
+# NO fwk_sensor_hwservice grant. AAL is the ambient-light-adaptive display
+# path and this chassis has no light sensor, so there is nothing for the probe
+# to find; and the grant could not have worked in any case. It is half of a
+# pair: fwk_sensor_hwservice is served by system_server, so ISensorManager also
+# needs binder_call(mtk_hal_pq, system_server), which this tree does not grant
+# and should not. gnss/mnld.te:33-35 and vendor/hal_camera_default.te:26-32
+# both grant the pair and say why it is mandatory. Completing it here would be
+# widening policy to reach a sensor that does not exist; the `find` alone just
+# succeeded and then failed on the first transaction.
 
 hal_client_domain(mtk_hal_pq, hal_allocator)
 

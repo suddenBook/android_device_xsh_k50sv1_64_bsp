@@ -7,3 +7,4 @@ type mtk_hwc_runtime_prop, property_type;
 type ctl_mtk_gpu_svc_prop, property_type;
 type ctl_mtk_pq_svc_prop, property_type;
 type ctl_mtk_omx_svc_prop, property_type;
+type ctl_mtk_mms_svc_prop, property_type;

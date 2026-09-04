@@ -53,9 +53,28 @@ auditallow nvram_agent_binder mtk_nvram_ap_cal_file:lnk_file unlink;
 auditallow nvram_agent_binder mtk_nvram_identity_file:file write;
 
 allow nvram_agent_binder block_device:dir search;
-allow nvram_agent_binder mtk_nvram_block_device:blk_file rw_file_perms;
-allow nvram_agent_binder mtk_nvdata_block_device:blk_file rw_file_perms;
-allow nvram_agent_binder mtk_proinfo_block_device:blk_file rw_file_perms;
+
+# These three undo, at the block layer, the containment the twenty lines above
+# build at the file layer: a raw pwrite() to mtk_nvdata_block_device IS
+# "restructure the nvdata tree", from a domain whose client set includes
+# `radio` -- which is both coredomain and appdomain, so com.android.phone and
+# com.mediatek.ims reach INvram into here. No AOSP neverallow covers it;
+# public/domain.te:434 names the generic block_device type, not these.
+#
+# Not narrowed yet, on purpose. E-150's zero-record measurement covered the
+# FILE-layer operations only; nothing has ever measured whether this daemon
+# writes the partitions raw, and MTK's NVRAM backup/restore path is exactly
+# where it would. Losing it silently would cost the modem identity, which is
+# not a thing to guess about on this handset. So: keep the grant, and make the
+# write half audited, which is the same auditallow-then-narrow method the rest
+# of this file used. If a boot plus a userdata wipe plus a modem-identity
+# restore produce ZERO records, drop the write and keep r_file_perms.
+allow nvram_agent_binder {
+    mtk_nvram_block_device mtk_nvdata_block_device mtk_proinfo_block_device
+}:blk_file rw_file_perms;
+auditallow nvram_agent_binder {
+    mtk_nvram_block_device mtk_nvdata_block_device mtk_proinfo_block_device
+}:blk_file { write append };
 # No *_block_device:lnk_file rule: the /dev/block/platform/.../by-name/*
 # aliases are always labelled block_device. ueventd applies the by-name
 # file_contexts entry to the *device node* via
