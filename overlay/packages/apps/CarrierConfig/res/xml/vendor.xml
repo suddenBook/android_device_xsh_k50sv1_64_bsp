@@ -15,6 +15,50 @@
          registered IMS calls are selected by a separate useImsForCall path. -->
     <carrier_config>
         <boolean name="carrier_use_ims_first_for_emergency_bool" value="false"/>
+
+        <!-- Give the IMS APN type its own retry curve. Device-wide on purpose:
+             an IMS PDN that cannot come up is not carrier-specific.
+
+             Without this, `ims` falls into the catch-all `others` bucket,
+             which AOSP ships as `max_retries=3, 5000, 5000, 5000`: three
+             attempts five seconds apart, then RetryManager returns NO_RETRY,
+             DcTracker marks the context FAILED, and the next IMS network
+             request starts the whole thing over from zero. Measured on this
+             handset with a China Unicom SIM roaming in the Netherlands, where
+             the IMS PDN is rejected with mFailCause=31 (+CME ERROR 4361):
+             194 setup attempts in 27.5 minutes, one every 8.5 s, forever.
+             4218 `mApnType=ims mState=CONNECTING` against 6 for `default`.
+             It woke the modem about twice a second and was the single largest
+             standby drain on the image (E-180).
+
+             Two things that look like the fix and are NOT, both checked in
+             frameworks/opt/telephony: a smaller max_retries, and
+             carrier_data_call_permanent_failure_strings. Neither can work,
+             because RetryManager.setWaitingApns() calls configureRetry() AND
+             `apn.setPermanentFailed(false)` on every APN in the list, and
+             DcTracker:1612 calls it from trySetupData() whenever the context
+             is IDLE. Both counters are wiped each round, so nothing that
+             counts failures can ever accumulate.
+
+             What does work is the delay itself. Omitting max_retries makes the
+             sequence never terminate, so the context stays RETRYING instead of
+             going FAILED, being re-requested, and resetting; and
+             getRetryTimer() clamps to the LAST entry once mRetryCount runs
+             past the array, so the tail repeats at 30 minutes rather than
+             stopping. VoLTE still recovers on its own the moment the network
+             will carry it: on a home network the first attempt succeeds and
+             none of this is ever reached.
+
+             Do not raise carrier_data_call_apn_delay_default_long to get the
+             same effect. RetryManager applies mInterApnDelay to every APN
+             type, so it would also delay `default` reconnecting after an
+             ordinary coverage blip. -->
+        <string-array name="carrier_data_call_retry_config_strings" num="4">
+            <item value="default:default_randomization=2000,5000,10000,20000,40000,80000:5000,160000:5000,320000:5000,640000:5000,1280000:5000,1800000:5000"/>
+            <item value="mms:default_randomization=2000,5000,10000,20000,40000,80000:5000,160000:5000,320000:5000,640000:5000,1280000:5000,1800000:5000"/>
+            <item value="ims:default_randomization=2000,5000,10000,30000,60000,300000:5000,900000:5000,1800000:5000"/>
+            <item value="others:max_retries=3, 5000, 5000, 5000"/>
+        </string-array>
     </carrier_config>
 
     <!-- China Mobile (carrier id 1435) and China Unicom (carrier id 1436). The
