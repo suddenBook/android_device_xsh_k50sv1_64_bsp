@@ -9,8 +9,27 @@ import sys
 import xml.etree.ElementTree as ET
 
 
-CANONICAL_MASK = "|".join(str(value) for value in range(1, 21))
-EXPECTED_MASK = 1048575
+# TelephonyManager.NETWORK_TYPE_* values this modem can actually be on, plus
+# IWLAN for the Wi-Fi-calling PDN. The CDMA family (4 CDMA, 5 EVDO_0,
+# 6 EVDO_A, 7 1xRTT, 12 EVDO_B, 14 EHRPD) is deliberately absent, and so are
+# 11 IDEN and 20 NR, which this hardware does not have.
+#
+# The CDMA exclusion is load-bearing, not tidiness. DcTracker.createDataProfile()
+# (:5085-5093) chooses the DataProfile type from this mask alone: 0 gives
+# TYPE_COMMON, a mask that ServiceState.bearerBitmapHasCdma() accepts gives
+# TYPE_3GPP2, anything else gives TYPE_3GPP. With the old 1|2|...|20 mask the
+# IMS profile went out as TYPE_3GPP2 and mtkrild answered every SETUP_DATA_CALL
+# with RIL_E_REQUEST_NOT_SUPPORTED (error 6), because this build has no C2K
+# stack. Measured on the handset; see E-181.
+CANONICAL_MASK_VALUES = (1, 2, 3, 8, 9, 10, 13, 15, 16, 17, 18, 19)
+CANONICAL_MASK = "|".join(str(value) for value in CANONICAL_MASK_VALUES)
+EXPECTED_MASK = 0
+for _value in CANONICAL_MASK_VALUES:
+    EXPECTED_MASK |= 1 << (_value - 1)
+# The RIL radio technologies DcTracker treats as CDMA, as
+# TelephonyManager.NETWORK_TYPE_* values (ServiceState:253-260 mapped back
+# through networkTypeToRilRadioTechnology).
+CDMA_NETWORK_TYPES = frozenset((4, 5, 6, 7, 12, 14))
 COMMON_ATTRIBUTES = {
     "carrier",
     "mcc",
@@ -163,7 +182,7 @@ def parse_fragment(path):
 
 def parse_network_mask(value):
     if value != CANONICAL_MASK:
-        fail("network_type_bitmask must be the canonical 1|2|...|20 string")
+        fail("network_type_bitmask must be the canonical %s string" % CANONICAL_MASK)
     tokens = value.split("|")
     if any(not token.isdigit() or token == "0" for token in tokens):
         fail("network_type_bitmask contains a non-decimal or zero token")
@@ -174,7 +193,10 @@ def parse_network_mask(value):
     for number in numbers:
         mask |= 1 << (number - 1)
     if mask != EXPECTED_MASK or 18 not in numbers:
-        fail("network_type_bitmask does not encode 1048575 with IWLAN")
+        fail("network_type_bitmask does not encode %d with IWLAN" % EXPECTED_MASK)
+    if CDMA_NETWORK_TYPES & set(numbers):
+        fail("network_type_bitmask names a CDMA technology, which makes "
+             "DcTracker build a TYPE_3GPP2 profile that mtkrild rejects")
     return mask
 
 
