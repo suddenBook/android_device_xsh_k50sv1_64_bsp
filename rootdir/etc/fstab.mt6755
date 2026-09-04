@@ -58,7 +58,8 @@
 # UserManager.isUserUnlocked() is simply always true because there is no locked
 # phase to be in. Do NOT add `encryptable=` here to "tidy" the state string:
 # that flips is_encryptable() back on and puts the FDE machinery back.
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata  /data                 ext4  noatime,nosuid,nodev,noauto_da_alloc          wait,check,formattable,quota
+# F2FS evaluation: periodic vold FITRIM; keep flush barriers and crash recovery.
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata  /data  f2fs  noatime,nosuid,nodev,nodiscard  wait,check,formattable,quota
 # /cache is the one filesystem here that carries online `discard`, and it is
 # deliberately NOT covered by the no-trim invariant stated for nvdata below: it
 # holds no identity or calibration data and is wiped on every flash. AOSP's

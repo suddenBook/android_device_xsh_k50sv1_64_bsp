@@ -306,11 +306,12 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 
 # Filesystems
 TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
 TARGET_COPY_OUT_VENDOR := vendor
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
 
 # Android Q requires the XML audio policy format. The device supplies a
 # physical-hardware-filtered audio_policy_configuration.xml.
