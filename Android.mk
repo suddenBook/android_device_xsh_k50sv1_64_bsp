@@ -210,11 +210,18 @@ k50sv1_prebuilt_files := $(k50sv1_prebuilt_dir)/SHA256SUMS \
     $(k50sv1_prebuilt_dir)/kernel $(k50sv1_prebuilt_dir)/dtb/stock.dtb \
     $(k50sv1_prebuilt_dir)/recovery_dtbo
 
-# The ril-shim GOT hooks intercept MediaTek's destructive SIM-switch
-# transaction, which makes them the most safety-critical hand-written code in
-# this tree, and their two host tests were run only when somebody remembered.
-k50sv1_ril_shim_tests := $(LOCAL_PATH)/ril-shim/run-host-tests.sh
-k50sv1_ril_shim_srcs := $(wildcard $(LOCAL_PATH)/ril-shim/*.c)
+# The ril-shim host tests are NOT run from this recipe, and that is deliberate:
+# they need a C compiler, and a ninja recipe runs with the build's sanitised
+# PATH, which has no `cc`. Measured, by putting them here first: the build ran
+# for 35 minutes and then failed at 86% with
+#   run-host-tests.sh: line 25: cc: command not found
+# The script honours ${CC}, so passing a prebuilt clang would work, but the only
+# name that resolves is the version-pinned prebuilts/clang/host/linux-x86/
+# clang-r353983d, and hardcoding a toolchain revision here buys a gate that
+# breaks on the next toolchain bump. They run instead from
+# work/k50sv1-bringup/tools/run-lineage-build.sh, in a normal shell, alongside
+# the module-ABI gate -- which is where this project already keeps its most
+# consequential check for the same reason.
 
 # The HarmonyOS font family lives in vendor/lineage because SystemFonts.java:313
 # reads one hardcoded path (see the header of
@@ -231,14 +238,12 @@ $(LOCAL_BUILT_MODULE): PRIVATE_INTERNAL_APNS := $(k50sv1_internal_apns)
 $(LOCAL_BUILT_MODULE): PRIVATE_INIT_RC_FILES := $(k50sv1_init_rc_files)
 $(LOCAL_BUILT_MODULE): PRIVATE_PASSWD_FILE := $(k50sv1_passwd_file)
 $(LOCAL_BUILT_MODULE): PRIVATE_PREBUILT_DIR := $(k50sv1_prebuilt_dir)
-$(LOCAL_BUILT_MODULE): PRIVATE_RIL_SHIM_TESTS := $(k50sv1_ril_shim_tests)
 $(LOCAL_BUILT_MODULE): PRIVATE_FONTS_CUSTOMIZATION := $(k50sv1_fonts_customization)
 $(LOCAL_BUILT_MODULE): $(k50sv1_xml_files) $(XMLLINT) \
                        $(k50sv1_apn_fragment) $(k50sv1_apn_validator) \
                        $(k50sv1_default_apns) $(k50sv1_internal_apns) \
                        $(k50sv1_init_rc_files) $(HOST_INIT_VERIFIER) \
                        $(k50sv1_passwd_file) $(k50sv1_prebuilt_files) \
-                       $(k50sv1_ril_shim_tests) $(k50sv1_ril_shim_srcs) \
                        $(k50sv1_fonts_customization)
 	@echo "Validating $(words $(PRIVATE_XML_FILES)) device-tree XML files"
 	$(hide) $(XMLLINT) --noout $(PRIVATE_XML_FILES)
@@ -255,8 +260,6 @@ $(LOCAL_BUILT_MODULE): $(k50sv1_xml_files) $(XMLLINT) \
 	$(hide) grep -q 'name="harmonyos"' $(PRIVATE_FONTS_CUSTOMIZATION) || { \
 	    echo "$(PRIVATE_FONTS_CUSTOMIZATION) has no harmonyos family; re-run" >&2; \
 	    echo "work/k50sv1-bringup/tools/apply-upstream-patches.sh" >&2; exit 1; }
-	@echo "Running the RIL shim host tests"
-	$(hide) $(PRIVATE_RIL_SHIM_TESTS)
 	$(hide) mkdir -p $(dir $@) && touch $@
 
 k50sv1_xml_files :=
@@ -268,8 +271,6 @@ k50sv1_init_rc_files :=
 k50sv1_passwd_file :=
 k50sv1_prebuilt_dir :=
 k50sv1_prebuilt_files :=
-k50sv1_ril_shim_tests :=
-k50sv1_ril_shim_srcs :=
 k50sv1_fonts_customization :=
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
