@@ -21,6 +21,15 @@ COMMON_ATTRIBUTES = {
     "roaming_protocol",
     "network_type_bitmask",
 }
+# One row per MCC/MNC the CarrierConfig overlay advertises VoLTE for. A
+# carrier with the switch and no ims-typed APN gets an empty waiting list
+# and MISSING_UNKNOWN_APN (DcTracker:1605-1610), so the two lists move
+# together; check-carrier-config-overlay.py owns the other half.
+#
+# The MNC sits in the MIDDLE of each label on purpose. custom_apns.py
+# matches carrier names as substrings, so "... IMS" and "... IMS 46002"
+# would make the merge emit the longer row twice; the substring check
+# below is what enforces it.
 EXPECTED_ROWS = [
     (
         "k50sv1: Vodafone NL IMS",
@@ -39,7 +48,7 @@ EXPECTED_ROWS = [
         "中国电信",
     ),
     (
-        "k50sv1: China Mobile IMS",
+        "k50sv1: China Mobile 46000 IMS",
         "460",
         "00",
         "ims",
@@ -47,9 +56,57 @@ EXPECTED_ROWS = [
         "",
     ),
     (
-        "k50sv1: China Unicom IMS",
+        "k50sv1: China Mobile 46002 IMS",
+        "460",
+        "02",
+        "ims",
+        "",
+        "",
+    ),
+    (
+        "k50sv1: China Mobile 46004 IMS",
+        "460",
+        "04",
+        "ims",
+        "",
+        "",
+    ),
+    (
+        "k50sv1: China Mobile 46007 IMS",
+        "460",
+        "07",
+        "ims",
+        "",
+        "",
+    ),
+    (
+        "k50sv1: China Mobile 46008 IMS",
+        "460",
+        "08",
+        "ims",
+        "",
+        "",
+    ),
+    (
+        "k50sv1: China Unicom 46001 IMS",
         "460",
         "01",
+        "ims",
+        "",
+        "",
+    ),
+    (
+        "k50sv1: China Unicom 46006 IMS",
+        "460",
+        "06",
+        "ims",
+        "",
+        "",
+    ),
+    (
+        "k50sv1: China Unicom 46009 IMS",
+        "460",
+        "09",
         "ims",
         "",
         "",
@@ -85,8 +142,9 @@ def parse_fragment(path):
     if "\r" in text:
         fail("custom APN fragment must use LF line endings")
     lines = text.splitlines(True)
-    if len(lines) != 4 or any(not line.strip() for line in lines):
-        fail("custom APN fragment must contain exactly four non-empty lines")
+    if len(lines) != len(EXPECTED_ROWS) or any(not line.strip() for line in lines):
+        fail("custom APN fragment must contain exactly %d non-empty lines"
+             % len(EXPECTED_ROWS))
     if any(not line.endswith("\n") for line in lines):
         fail("every custom APN row must end on its own physical line")
 
@@ -185,14 +243,15 @@ def validate_rows(rows):
         identities.append(database_identity(row))
 
     if actual != EXPECTED_ROWS:
-        fail("custom APN identities or order differ from the four approved rows")
-    if len(set(carriers)) != 4:
+        fail("custom APN identities or order differ from the %d approved rows"
+             % len(EXPECTED_ROWS))
+    if len(set(carriers)) != len(EXPECTED_ROWS):
         fail("custom carrier labels are not unique")
     for left_index, left in enumerate(carriers):
         for right_index, right in enumerate(carriers):
             if left_index != right_index and left in right:
                 fail("custom carrier labels have a substring collision")
-    if len(set(identities)) != 4:
+    if len(set(identities)) != len(EXPECTED_ROWS):
         fail("custom APNs collide under TelephonyProvider database identity")
     return carriers, identities
 
@@ -241,8 +300,9 @@ def main(argv):
         fail("faithfully merged APN document is invalid: %s" % error)
     base_count = len(default_root.findall("apn"))
     merged_count = len(merged_root.findall("apn"))
-    if merged_count != base_count + 4:
-        fail("merged APN row count is not clean-base plus four")
+    if merged_count != base_count + len(EXPECTED_ROWS):
+        fail("merged APN row count is not clean-base plus %d"
+             % len(EXPECTED_ROWS))
     for carrier in carriers:
         if sum(1 for row in merged_root.findall("apn")
                if row.get("carrier") == carrier) != 1:
@@ -252,7 +312,7 @@ def main(argv):
     print("status=PASS")
     print("base_rows=%d" % base_count)
     print("internal_rows=%d" % len(internal_root.findall("apn")))
-    print("custom_rows=4")
+    print("custom_rows=%d" % len(EXPECTED_ROWS))
     print("merged_rows=%d" % merged_count)
     print("network_type_bitmask=%d" % EXPECTED_MASK)
     print("merged_sha256=%s" % hashlib.sha256(merged_bytes).hexdigest())
