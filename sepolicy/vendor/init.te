@@ -87,16 +87,12 @@ allow init sysfs_mtk_power_cpu_control:file setattr;
 # the "no vendor_file for coredomain" rule precisely for firmware loading.
 r_dir_file(kernel, mtk_firmware_file)
 
-# NOT GRANTED, deliberately. Still firing on the flashed build (boot capture
-# work/k50sv1-bringup/evidence/tier1-avc-20260823-boot), and confirmed harmless there --
-# Wi-Fi and BT both come up:
-#   avc: denied { dac_override } for comm="mtk_wmtd_worker"
-#        scontext=u:r:kernel:s0 tcontext=u:r:kernel:s0 tclass=capability
-# system/sepolicy/public/kernel.te:130 is
-#   neverallow kernel self:global_capability_class_set { dac_override dac_read_search };
-# so an allow here would fail sepolicy_neverallows in an enforcing build. The
-# firmware load succeeds anyway (Wi-Fi and BT come up); the denial is left
-# visible rather than dontaudit'ed so it is not mistaken for a policy gap.
+# The historical mtk_wmtd_worker dac_override records have no identified
+# file operation yet (WI-068). AHB WLAN does not establish the old SDIO auto-K
+# explanation, and successful operation in Permissive is not Enforcing proof.
+# AOSP public/kernel.te neverallows kernel dac_override/dac_read_search.
+# Keep the record visible and trace the operation; do not add a capability
+# grant or classify an unidentified access as harmless.
 
 # ALSO NOT GRANTED, and not dontaudit'ed. Still firing once per boot on the
 # flashed build; the /dev/{stune,cpuset,memcg,cg2_bpf} cleanup in

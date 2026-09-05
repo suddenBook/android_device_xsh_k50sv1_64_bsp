@@ -167,25 +167,12 @@
          with no way to change it. -->
     <bool name="config_wifi_dual_band_support">true</bool>
 
-    <!-- Hardware-offloaded PNO. AOSP defaults this false (config.xml:576) and
-         its only reader, WificondScannerImpl.java:110, then runs every
-         screen-off saved-network scan on the host CPU instead of in the Wi-Fi
-         firmware.
-
-         True because the shipped driver implements it, not because other trees
-         set it: wlan_drv_gen2.ko exports mtk_cfg80211_sched_scan_start and
-         mtk_cfg80211_sched_scan_stop and emits cfg80211_sched_scan_results /
-         cfg80211_sched_scan_stopped, i.e. the full NL80211_CMD_START_SCHED_SCAN
-         path.
-
-         The failure mode if that is wrong is specific and observable: screen-off
-         auto-reconnect stops working. Check with
-             dumpsys wifi | grep numPnoScan
-         after a screen-off window away from a known network -
-         numPnoScanStartedOverOffload should be non-zero with
-         numPnoScanFailedOverOffload at zero. All four counters read 0 on the
-         predecessor image because it never disconnected while screen-off, so
-         this needs a deliberate window to measure. -->
+    <!-- Enable disconnected hardware PNO through cfg80211 scheduled scan.
+         Gen2 implements the start/stop callbacks and reports scan results.
+         AOSP Q wificond sends this through its default nl80211 path;
+         numPnoScan*OverOffload measures a separate Offload HAL and is not
+         an acceptance gate for this driver. Runtime proof needs a successful
+         scheduled-scan request/result cycle and screen-off reconnect (WI-072). -->
     <bool name="config_wifi_background_scan_support">true</bool>
 
     <!-- Tethering. AOSP ships all three of these arrays EMPTY
