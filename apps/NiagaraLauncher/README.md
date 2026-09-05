@@ -3,6 +3,9 @@
 The user-supplied `Niagara_Launcher_v1.16.27-release.apk` is installed as
 `/system/priv-app/NiagaraLauncher/NiagaraLauncher.apk`. The source APK is tracked
 here unchanged; `SHA256SUMS` records its exact bytes.
+The device's one-level Make discovery includes `apps/Android.mk`, which then
+includes this application's module. The first full graph generation exposed
+the missing intermediate makefile; the source integration now supplies it.
 
 | Field | Verified value |
 | --- | --- |
