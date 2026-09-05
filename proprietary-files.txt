@@ -569,7 +569,7 @@ vendor/lib64/libmtkcutils.so
 vendor/lib64/libmtkproperty.so
 vendor/lib64/libmtkrillog.so
 vendor/lib64/libmtkrilutils.so
-vendor/lib64/libmtktinyxml.so
+# libmtktinyxml uses the AOSP non-STL TinyXML sources under the RIL's SONAME.
 vendor/lib64/libmtkutils.so
 vendor/lib64/libratconfig.so
 vendor/lib64/librilmtk.so

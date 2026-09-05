@@ -132,6 +132,7 @@ PRODUCT_PACKAGES += \
     libnbaio_mono \
     librilutils \
     libsensorndkbridge \
+    libmtktinyxml \
     libtinycompress \
     libtinyxml \
     sensors.mt6755 \
