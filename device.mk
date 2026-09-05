@@ -22,6 +22,15 @@ $(call inherit-product-if-exists, vendor/xsh/k50sv1_64_bsp/k50sv1_64_bsp-vendor.
 # chromium-webview's `webview`, which is what media_product.mk asks for.
 $(call inherit-product-if-exists, vendor/google_webview/webview.mk)
 
+# Niagara is an additional privileged HOME app. The inherited TrebuchetQuickStep
+# remains the initial default, using Q's system preferred-apps configuration.
+PRODUCT_PACKAGES += NiagaraLauncher
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/permissions/privapp-permissions-niagara.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-niagara.xml \
+    $(LOCAL_PATH)/permissions/default-permissions-niagara.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/default-permissions/default-permissions-niagara.xml \
+    $(LOCAL_PATH)/configs/preferred-apps-trebuchet.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/preferred-apps/preferred-apps-trebuchet.xml
+
 # The Stock IMS APK directly references the first two MTK contracts. Its
 # absolute-path extension plugin imports ims-common plus MTK telephony/telecom
 # classes. These six are the complete MTK type closure and must be boot jars so
