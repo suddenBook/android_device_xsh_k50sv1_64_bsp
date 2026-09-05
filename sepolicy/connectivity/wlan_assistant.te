@@ -12,22 +12,6 @@ allow wlan_assistant mtk_wmt_wifi_device:chr_file { getattr open read write };
 allow wlan_assistant mnt_vendor_file:dir search;
 allow wlan_assistant mtk_wlan_nvram_file:file { getattr open read };
 
-# Retain the narrow Stock AGPS notification contract without granting general
-# networking or access to AGPS data directories.
-#
-# Two socket paths, because Stock uses the one under /data/vendor/agps_supl and
-# this tree had only modelled the /dev/socket one:
-#   (allow wlan_assistant agpsd_data_file (dir (search)))
-#   (allow wlan_assistant agpsd_data_file (sock_file (write)))
-# agpsd_data_file is /data/vendor/agps_supl, i.e. mtk_agps_data_file here, and
-# gnss/mtk_agpsd.te already lets mtk_agpsd create sock_files in it. Only the
-# directory search and the single sock_file write are added -- no read of the
-# AGPS payload files.
-allow wlan_assistant mtk_agpsd_socket:sock_file write;
-allow wlan_assistant mtk_agps_data_file:dir search;
-allow wlan_assistant mtk_agps_data_file:sock_file write;
-allow wlan_assistant mtk_agpsd:unix_dgram_socket sendto;
-
 set_prop(wlan_assistant, mtk_wlan_nvram_ready_prop)
 
 # /dev/wmtWifi is the WLAN function's power switch on the combo chip: a write
