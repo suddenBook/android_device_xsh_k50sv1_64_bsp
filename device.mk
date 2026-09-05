@@ -94,8 +94,10 @@ PRODUCT_PACKAGES += \
 #   libaudiopreprocessing libwebrtc_audio_preprocessing
 #                                             media_vendor.mk:25,26
 PRODUCT_PACKAGES += \
+    android.hardware.audio@5.0-service-mediatek \
     android.hardware.audio.effect@5.0-impl \
     android.hardware.bluetooth@1.0-service \
+    android.hardware.bluetooth.audio@2.0-impl \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service \
     android.hardware.gatekeeper@1.0-impl \
@@ -119,15 +121,18 @@ PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-service \
     android.hardware.audio.common-util.vendor \
     android.hardware.audio.common@5.0-util.vendor \
+    audio.bluetooth.default \
     audio.r_submix.default \
     audio.usb.default \
     libalsautils \
+    libbluetooth_audio_session \
     libeffectsconfig.vendor \
     libkeystore-engine-wifi-hidl \
     libkeystore-wifi-hidl \
     libnbaio_mono \
     librilutils \
     libsensorndkbridge \
+    libtinycompress \
     libtinyxml \
     sensors.mt6755 \
     wlan_assistant

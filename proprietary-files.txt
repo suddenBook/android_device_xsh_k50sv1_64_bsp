@@ -27,20 +27,11 @@
 #   registration control; restoration must include both blobs, VINTF and policy
 #   as one measured change.
 #
-# A leading '-' packages a Stock library as a preferred prebuilt module. For
-# modules that also exist in AOSP, keep every real Stock 32/64 variant, without
-# exception. Soong resolves a `prefer: true` prebuilt against the source module
-# by variation, so a prebuilt that omits one architecture cannot satisfy a
-# source module that builds both, and the build dies at bootstrap:
-#
-#   error: hardware/interfaces/graphics/composer/2.1/default/Android.bp:1:1:
-#   failed to find variation "android_arm_armv8-a_cortex-a53" for module
-#   "prebuilt_android.hardware.graphics.composer@2.1-impl" needed by
-#   "android.hardware.graphics.composer@2.1-impl"
-#
-# "the second variant has no loader on this device" is a true statement about
-# the hardware and an invalid reason to drop it. Blobs with no AOSP counterpart
-# have no such constraint and may ship whichever architectures are real.
+# AOSP wrapper libraries and the audio service are selected in device.mk.
+# Do not reintroduce same-named preferred prebuilts: they replace source modules
+# throughout the build graph and hide their exported headers. A preferred
+# prebuilt retained for a hardware-specific implementation must provide every
+# architecture variant requested by its source counterpart.
 
 # Graphics / Mali  -- section: graphics
 vendor/bin/hw/vendor.mediatek.hardware.gpu@1.0-service
@@ -197,43 +188,12 @@ vendor/firmware/pcm_suspend_m.bin
 vendor/firmware/pcm_suspend_r.bin
 
 # Audio (active Stock service is 32-bit)  -- section: audio
-vendor/bin/hw/android.hardware.audio@5.0-service-mediatek
-vendor/etc/init/android.hardware.audio@5.0-service-mediatek.rc
 vendor/lib/hw/android.hardware.audio@5.0-impl-mediatek.so
 vendor/lib/hw/audio.primary.mt6755.so
-# audio.bluetooth.default: the ONE audio blob that is genuinely MTK-modified,
-# and the reason is a single DT_NEEDED. It links
-# libbluetooth_audio_session_mediatek.so; AOSP's
-# system/bt/audio_bluetooth_hw/Android.bp:18 links libbluetooth_audio_session,
-# which is NOT installed on this device -- only MediaTek's renamed fork is. The
-# two are the same code (the blob's DWARF paths show MTK only moved the file and
-# the SONAME), but they each carry their own
-# BluetoothAudioSessionInstance::GetSessionInstance() singleton. Both this
-# module and android.hardware.bluetooth.audio@2.0-impl-mediatek.so import that
-# symbol and run in the SAME process, so building this one from source links a
-# second copy, the two halves register with different singletons,
-# IsSessionReady() never becomes true, and A2DP dies with no error. Keep.
-#
-# AND IT MUST STAY `-`-PREFIXED. This was tried as a plain copy on the reasoning
-# that nothing in this product's graph NAMES the module, which is true and
-# irrelevant: base_rules.mk:506-513 emits a module's install rule BEFORE
-# PRODUCT_PACKAGES filtering (HANDOFF trap 15's mechanism, second instance), so
-# AOSP's own system/bt/audio_bluetooth_hw module produces an install rule for
-# vendor/lib/hw/audio.bluetooth.default.so whether or not it is selected. A
-# PRODUCT_COPY_FILES entry to the same destination is then
-#   Makefile:28: error: overriding commands for target .../audio.bluetooth.default.so
-# which is exactly the intermediate failure HANDOFF trap 38 records for the
-# hwc2 adapters. Measured here, not inferred: the build failed on it.
-#
-# So the rule is: a blob whose basename matches an AOSP source module at the
-# same install path can only ever be a `-` module. `prefer: true` is what
-# resolves the collision.
-#
-# The 64-bit variant is NOT listed -- see the lib64 note further down for why
-# it cannot be loaded. A single-arch prefer:true prebuilt substitutes only the
-# arm variant; the arm64 source variant stays in the graph, is installed by
-# nothing, and now collides with nothing.
--vendor/lib/hw/audio.bluetooth.default.so
+# The service shell compiles AOSP service.cpp with device-owned init settings.
+# Bluetooth Audio Provider 2.0, audio.bluetooth.default and their shared session
+# library migrate together; both halves use libbluetooth_audio_session.so.
+# Retain the MediaTek audio core and primary HAL below.
 vendor/lib/vendor.mediatek.hardware.audio@5.1.so
 vendor/lib/libaudio_param_parser-vnd.so
 vendor/lib/libaudiocompensationfilter_vendor.so
@@ -244,43 +204,15 @@ vendor/lib/libaudioprimarydevicehalifclient.so
 vendor/lib/libaudiotoolkit_vendor.so
 vendor/lib/libbessound_hd_mtk_vendor.so
 vendor/lib/libblisrc32_vendor.so
-vendor/lib/libbluetooth_audio_session_mediatek.so
 vendor/lib/libbluetooth_mtk_pure.so
 vendor/lib/libcvsd_mtk.so
 vendor/lib/libmsbc_mtk.so
 vendor/lib/libmtklimiter_vendor.so
 vendor/lib/libmtkshifter_vendor.so
 vendor/lib/libspeech_enh_lib.so
-# libtinycompress: cannot be built in this tree at all.
-# external/tinycompress/Android.bp:21 declares header_libs:
-# ["generated_kernel_headers"], which vendor/lineage/build/soong/Android.bp:45
-# implements by running `make -C $(TARGET_KERNEL_SOURCE) headers_install`. This
-# device sets TARGET_PREBUILT_KERNEL and never sets TARGET_KERNEL_SOURCE, so the
-# generated command is `make -C  O=...`, an empty -C. It does not fire today
-# only because `prefer: true` means the source module is never built. Even if it
-# built, the contract here is a kernel-UAPI ioctl ABI (struct compr_config,
-# struct snd_codec) that MTK compiled against this 3.18 kernel's
-# sound/compress_offload.h, and bionic's generated uapi headers come from a far
-# newer kernel -- a mismatch that would be silent.
-#
-# WI-019 is abandoned, so "keep until WI-019" pointed at work that will never
-# happen: this can never move to source. But it CANNOT become a plain copy
-# either, for the reason spelled out on audio.bluetooth.default above --
-# external/tinycompress defines a `libtinycompress` module that installs to this
-# exact path, base_rules.mk emits its install rule before PRODUCT_PACKAGES
-# filtering, and a PRODUCT_COPY_FILES entry to the same destination is a
-# duplicate-target build error. notes/aosp-source-migration.md prescribed the
-# plain-copy fix and was wrong; it now says so.
-#
-# What that leaves standing is trap 4: external/tinycompress EXPORTS HEADERS
-# (export_include_dirs: ["include"]), extract_utils never emits
-# export_include_dirs on a prebuilt, and `prefer: true` substitutes graph-wide,
-# so any source consumer of those headers loses its include path. It is LATENT
-# here -- the only source consumers are Qualcomm audio HALs that are never
-# built -- and it is now known to be unavoidable without either patching
-# extract_utils or hand-editing the generated Android.bp, both of which are
-# worse than the latent hazard. Do not "fix" it by dropping the `-` again.
--vendor/lib/libtinycompress.so
+# libtinycompress builds with headers exported by TARGET_KERNEL_SOURCE.
+# The MTK primary HAL uses the standard 12-byte ARM compr_config and 120-byte
+# snd_codec; the current kernel exports the matching compress ioctl layout.
 vendor/lib/vendor.mediatek.hardware.mtkpower@1.0.so
 vendor/lib/vendor.mediatek.hardware.power@2.0.so
 # libeffects (the audio effect factory) and libeffectproxy are built from AOSP
@@ -307,36 +239,6 @@ vendor/lib/vendor.mediatek.hardware.power@2.0.so
 # a library whose AOSP source exports headers will silently break that
 # library's source consumers. Ship one only when the library is genuinely
 # SoC-modified.
-# THESE THREE ARE DEAD WEIGHT SHIPPED ON PURPOSE. An audit that finds them
-# unreachable and deletes them breaks the build, so the reason is here rather
-# than left to be rediscovered.
-#
-# `prefer: true` does not mean "substitute where you can". Soong resolves the
-# prebuilt for EVERY variant the AOSP source module has, so a single-arch
-# prebuilt of a dual-arch module is a hard bootstrap error:
-#
-#   error: system/bt/audio_bluetooth_hw/Android.bp:3:1: failed to find variation
-#   "android_arm64_armv8-a_cortex-a53" for module
-#   "prebuilt_audio.bluetooth.default" needed by "audio.bluetooth.default"
-#
-# and the two `-` modules above cannot lose their prefix either, for the
-# separate collision reason recorded there. So both lib64 halves stay, and
-# libbluetooth_audio_session_mediatek.so 64 stays with them because it is a hard
-# DT_NEEDED of the 64-bit audio.bluetooth.default.so and its absence would fail
-# the vendor ELF closure check.
-#
-# What is true about them, and does NOT justify removing them:
-#   * the only IBluetoothAudioProvidersFactory server is the ELF32
-#     android.hardware.audio@5.0-service-mediatek, and libhidl's passthrough
-#     loader globs the CALLER's ${LIB}/hw -- so a 64-bit audio.bluetooth.default
-#     has no possible opener
-#   * libtinycompress.so 64 would be DT_NEEDed only by a 64-bit
-#     audio.primary.mt6755.so, which does not exist; the live one is 32-bit
-# Verified on the handset across 369 processes: zero /proc/*/maps hits for all
-# three, while the 32-bit audio.bluetooth.default.so and libtinycompress.so are
-# both mapped by the audio HAL service.
--vendor/lib64/hw/audio.bluetooth.default.so
--vendor/lib64/libtinycompress.so
 # NONE of the six audio_policy xi:include fragments is extracted any more; they
 # are copied from frameworks/av/services/audiopolicy/config/ in device.mk.
 # Three of the stock copies (a2dp_in, bluetooth, r_submix) were byte-identical
@@ -566,18 +468,10 @@ vendor/firmware/ROMv2_lm_patch_1_1_hdr.bin
 vendor/firmware/WIFI_RAM_CODE_6755
 vendor/firmware/WMT_SOC.cfg
 vendor/lib64/hw/android.hardware.bluetooth@1.0-impl-mediatek.so
-# 32-bit only, and that is not an oversight. IBluetoothAudioProvidersFactory is
-# registered by exactly one process -- hardware/interfaces/audio/common/
-# all-versions/default/service/service.cpp -- which on this device is the ELF32
-# android.hardware.audio@5.0-service-mediatek, and libhidl's passthrough loader
-# globs <fqname>-impl*.so under the CALLER's own ${LIB}/hw. Confirmed live:
-# /proc/<audio-hal-pid>/maps maps /vendor/lib/hw/...-impl-mediatek.so and no
-# process on the handset maps the lib64 copy. Being a plain copy it also
-# carried none of the `prefer: true` variant obligation that justifies the
-# second architecture elsewhere in this file.
-vendor/lib/hw/android.hardware.bluetooth.audio@2.0-impl-mediatek.so
+# Bluetooth Audio Provider 2.0 and its session library are built from AOSP
+# together with audio.bluetooth.default. The MediaTek Bluetooth transport
+# implementation above and its controller libraries remain hardware-specific.
 vendor/lib64/libbt-vendor.so
-vendor/lib64/libbluetooth_audio_session_mediatek.so
 vendor/lib64/libbluetooth_mtk.so
 vendor/lib64/libnvram.so
 vendor/lib64/libnvram_platform.so

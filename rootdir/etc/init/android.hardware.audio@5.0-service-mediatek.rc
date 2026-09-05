@@ -1,0 +1,15 @@
+on post-fs-data
+    mkdir /data/vendor/audiohal 0771 system audio
+
+service vendor.audio-hal-2-0 /vendor/bin/hw/android.hardware.audio@5.0-service-mediatek
+    class hal
+    user audioserver
+    group audio camera drmrpc inet media mediadrm net_bt net_bt_admin net_bw_acct wakelock system sdcard_rw
+    capabilities BLOCK_SUSPEND SYS_NICE
+    ioprio rt 4
+    writepid /dev/cpuset/foreground/tasks /dev/stune/foreground/tasks
+    # AudioFlinger restarts this service when its HAL connection is lost.
+    oneshot
+    interface android.hardware.audio@5.0::IDevicesFactory default
+    interface android.hardware.audio.effect@5.0::IEffectsFactory default
+    interface android.hardware.bluetooth.audio@2.0::IBluetoothAudioProvidersFactory default
