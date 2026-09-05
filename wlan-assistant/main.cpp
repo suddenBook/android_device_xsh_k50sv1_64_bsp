@@ -19,6 +19,7 @@
 #include <vector>
 #include <cctype>
 #include <cstdint>
+#include <cstdlib>
 
 #include <android-base/file.h>
 #include <android-base/logging.h>
@@ -306,5 +307,9 @@ int wlan_files_monitor() {
 }
 
 int main(int /* argc */, char** /* argv */) {
+    if (!SetProperty("vendor.mtk.nvram.ready", "0")) {
+        LOG(ERROR) << "Cannot clear calibration readiness";
+        return EXIT_FAILURE;
+    }
     return wlan_files_monitor();
 }
