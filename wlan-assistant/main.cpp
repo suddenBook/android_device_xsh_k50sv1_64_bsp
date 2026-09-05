@@ -5,10 +5,7 @@
 
 #define LOG_TAG "WLAN-ASSISTANT"
 
-#include <linux/fs.h>
-#include <linux/inotify.h>
 #include <sys/inotify.h>
-#include <sys/ioctl.h>
 #include <sys/stat.h>
 
 #include <dirent.h>
@@ -20,6 +17,8 @@
 
 #include <string>
 #include <vector>
+#include <cctype>
+#include <cstdint>
 
 #include <android-base/file.h>
 #include <android-base/logging.h>
@@ -70,7 +69,14 @@ bool get_custom_mac_address(std::vector<char>& mac) {
     }
 
     mac_str = Trim(mac_str);
-    if (mac_str.length() >= 17) {
+    if (mac_str.length() == 17) {
+        for (size_t i = 0; i < mac_str.size(); ++i) {
+            if (i % 3 == 2 ? mac_str[i] != ':'
+                           : !std::isxdigit(static_cast<unsigned char>(mac_str[i]))) {
+                LOG(ERROR) << "Invalid custom MAC address";
+                return false;
+            }
+        }
         LOG(DEBUG) << "MAC ADDR = " << mac_str;
         mac.resize(6);
         for (int i = 0; i < 6; i++) {
@@ -85,7 +91,7 @@ bool get_custom_mac_address(std::vector<char>& mac) {
 
 bool write_nvram(const std::string& filename) {
     struct stat stat_nvram;
-    int nvram_size = 0;
+    size_t nvram_size = 0;
 
     /* sleep 1 more second in case that daemon is still writing */
     for (int i = 0; i < MAX_RETRY_COUNT; i++) {
@@ -94,7 +100,13 @@ bool write_nvram(const std::string& filename) {
             sleep(1);
             continue;
         }
-        nvram_size = stat_nvram.st_size - 2;
+        // The WMT file-buffer callback receives a 16-bit payload length.
+        if (!S_ISREG(stat_nvram.st_mode) || stat_nvram.st_size <= 2 ||
+            stat_nvram.st_size - 2 > UINT16_MAX) {
+            LOG(ERROR) << "Invalid NVRAM file type or length";
+            return false;
+        }
+        nvram_size = static_cast<size_t>(stat_nvram.st_size - 2);
 
         LOG(DEBUG) << "nvram size = " << nvram_size;
         if (nvram_size > 0 && (nvram_size & 0x0ff) == 0) break;
@@ -112,9 +124,8 @@ bool write_nvram(const std::string& filename) {
         return false;
     }
 
-    if (nvram_data.length() < static_cast<size_t>(nvram_size)) {
-        LOG(DEBUG) << "short read on nvram file (" << nvram_data.length() << " of " << nvram_size
-                   << ")";
+    if (nvram_data.length() != nvram_size + 2) {
+        LOG(ERROR) << "NVRAM file changed while reading";
         return false;
     }
 
@@ -131,11 +142,8 @@ bool write_nvram(const std::string& filename) {
     if (!write_data_to_driver(acnvram)) {
         LOG(DEBUG) << "write nvram to driver error";
         return false;
-    } else {
-        SetProperty("vendor.mtk.nvram.ready", "1");
     }
-
-    return true;
+    return SetProperty("vendor.mtk.nvram.ready", "1");
 }
 
 int file_event_hander(int inot_fd, int wd, struct inotify_event* event, const std::string& path,
@@ -169,7 +177,7 @@ std::string get_custom_nvram_file_name() {
     return filename;
 }
 
-void* wlan_files_monitor(void* /* pdata */) {
+int wlan_files_monitor() {
     LOG(DEBUG) << "Running wlan_files_monitor";
 
     LOG(DEBUG) << "Start to wait wmtWifi ready";
@@ -178,19 +186,24 @@ void* wlan_files_monitor(void* /* pdata */) {
     struct stat stat_buf;
     if (stat(WIFI_LOADER_DEV, &stat_buf) == -1) {
         LOG(DEBUG) << "stat WIFI_LOADER_DEV fail";
-        return nullptr;
+        return EXIT_FAILURE;
     }
     if (!S_ISCHR(stat_buf.st_mode)) {
         LOG(DEBUG) << WIFI_LOADER_DEV << " is not a char device";
-        return nullptr;
+        return EXIT_FAILURE;
     }
 
     int inot_fd = inotify_init();
     if (inot_fd < 0) {
         LOG(DEBUG) << "inotify_init error";
-        return nullptr;
+        return EXIT_FAILURE;
     }
     int dev_wd = inotify_add_watch(inot_fd, WIFI_LOADER_DEV, FILE_REMOVE_MASK);
+    if (dev_wd < 0) {
+        PLOG(ERROR) << "Cannot watch Wi-Fi device";
+        close(inot_fd);
+        return EXIT_FAILURE;
+    }
 
     std::string nvram_filename = get_custom_nvram_file_name();
     std::string just_filename = nvram_filename.substr(strlen(WIFI_NVRAM_PATH) + 1);
@@ -201,7 +214,11 @@ void* wlan_files_monitor(void* /* pdata */) {
     while (access(nvram_filename.c_str(), R_OK) < 0) sleep(1);
 
     int nvram_wd = inotify_add_watch(inot_fd, nvram_filename.c_str(), WATCH_FILE_MASK);
-    write_nvram(nvram_filename);
+    if (nvram_wd < 0 || !write_nvram(nvram_filename)) {
+        LOG(ERROR) << "Cannot initialize Wi-Fi calibration; restarting";
+        close(inot_fd);
+        return EXIT_FAILURE;
+    }
 
     std::string boot_mode = GetProperty("ro.bootmode", "-1");
     LOG(DEBUG) << "read boot mode:" << boot_mode;
@@ -227,16 +244,28 @@ void* wlan_files_monitor(void* /* pdata */) {
 
         int readlen = select(inot_fd + 1, &inot_fd_set, nullptr, nullptr, &timeout);
         if (readlen < 0 && errno == EINTR) continue;
+        if (readlen < 0) {
+            PLOG(ERROR) << "Cannot wait for calibration changes";
+            break;
+        }
 
         if (!readlen) {
             LOG(DEBUG) << "will sync to driver, changed " << std::hex << changed;
-            if (changed & NVRAM_CHANGED) write_nvram(nvram_filename);
+            if ((changed & NVRAM_CHANGED) && !write_nvram(nvram_filename)) {
+                LOG(ERROR) << "Cannot update Wi-Fi calibration; restarting";
+                break;
+            }
             changed = 0;
             timeout_sec = MAX_WAIT_SECOND;
             continue;
         }
 
         ssize_t readbytes = read(inot_fd, buf, sizeof(buf));
+        if (readbytes < 0 && errno == EINTR) continue;
+        if (readbytes <= 0) {
+            PLOG(ERROR) << "Cannot read calibration change event";
+            break;
+        }
         ssize_t offset = 0;
 
         while (readbytes > offset) {
@@ -244,6 +273,10 @@ void* wlan_files_monitor(void* /* pdata */) {
             offset += sizeof(struct inotify_event) + event->len;
 
             if (event->mask & IN_IGNORED) continue;
+            if (event->mask & IN_Q_OVERFLOW) {
+                changed |= NVRAM_CHANGED;
+                continue;
+            }
 
             if (event->wd == dev_wd && (event->mask & FILE_REMOVE_MASK)) {
                 LOG(DEBUG) << "/dev/wmtWifi was removed, need to exit";
@@ -254,20 +287,24 @@ void* wlan_files_monitor(void* /* pdata */) {
             if (event->wd == nvram_wd) {
                 nvram_wd =
                         file_event_hander(inot_fd, nvram_wd, event, WIFI_NVRAM_PATH, just_filename);
+                if (nvram_wd < 0) {
+                    PLOG(ERROR) << "Cannot re-establish calibration watch";
+                    running = false;
+                    break;
+                }
                 changed |= NVRAM_CHANGED;
             }
         }
         if (changed > 0) timeout_sec = 1;
     }
 
-    if (dev_wd > 0) inotify_rm_watch(inot_fd, dev_wd);
-    if (nvram_wd > 0) inotify_rm_watch(inot_fd, nvram_wd);
+    if (dev_wd >= 0) inotify_rm_watch(inot_fd, dev_wd);
+    if (nvram_wd >= 0) inotify_rm_watch(inot_fd, nvram_wd);
     close(inot_fd);
 
-    return nullptr;
+    return boot_mode.find(BOOT_META_STR) == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
 int main(int /* argc */, char** /* argv */) {
-    wlan_files_monitor(nullptr);
-    return 0;
+    return wlan_files_monitor();
 }
