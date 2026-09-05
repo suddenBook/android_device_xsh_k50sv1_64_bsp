@@ -45,63 +45,10 @@
 # Graphics / Mali  -- section: graphics
 vendor/bin/hw/vendor.mediatek.hardware.gpu@1.0-service
 vendor/etc/init/vendor.mediatek.hardware.gpu@1.0-service.rc
-# All three 32-bit HIDL impls stay, but only ONE of them is actually used.
-#
-# mapper@2.0 is: manifest.xml declares it <transport arch="32+64">passthrough,
-# so a 32-bit client loads the 32-bit impl in-process, which opens the 32-bit
-# gralloc.mt6755.so.
-#
-# allocator@2.0 is NOT, contrary to what this comment used to claim. The
-# manifest declares it <transport>hwbinder and the built
-# vendor/bin/hw/android.hardware.graphics.allocator@2.0-service is ELF64, so
-# nothing ever loads a 32-bit allocator impl -- clients reach the 64-bit
-# service over hwbinder.
-#
-# composer@2.1 is not either: also hwbinder, also 64-bit only, and Stock has no
-# 32-bit hwcomposer.mt6755.so for it to open. Its two libhwc2on*adapter
-# dependencies are dead in 32-bit for the same reason.
-#
-# So two of these 32-bit files are dead weight and cannot be dropped while the
-# three -impl entries stay modules: they exist to satisfy Soong's variant
-# matching for a `prefer: true` prebuilt, per the architecture note in the
-# header. The way to actually remove them is to stop packaging those three as
-# modules at all -- none is required by any base or Lineage product makefile,
-# so a plain copy entry (or building the AOSP source) would install exactly
-# what the device needs with no variant constraint. That is WI-012 work, not a
-# drive-by change, because the three -impl blobs ARE SoC code.
-#
-# The two libhwc2on*adapter libraries are gone from this list entirely, and that
-# is the FIRST prebuilt this tree has actually migrated to source rather than
-# staged. The evidence, because a display-stack change deserves it:
-#
-#   * They are UNMODIFIED AOSP. `strings | grep -ci 'mediatek\|mtk'` is 0 for
-#     all four copies that used to be here.
-#   * AOSP's source is in this tree at hardware/interfaces/graphics/composer/
-#     2.1/utils/hwc2on{1,fb}adapter, both cc_library_shared + vendor: true.
-#   * It is ALREADY BUILT: .../composer/2.1/default/Android.bp:23-24 lists both
-#     as shared_libs of android.hardware.graphics.composer@2.1-service, which
-#     device.mk ships. `prefer: true` was substituting the prebuilt for a
-#     library the build produces anyway -- and that substitution was the only
-#     thing hiding a duplicate-install collision on the same install path.
-#     Dropping the `-` prefix without dropping the blob is therefore NOT the
-#     fix; it fails the build at
-#       Makefile:28: error: overriding commands for target
-#       out/.../vendor/lib/libhwc2on1adapter.so
-#     which is how this was found.
-#   * The ABI surface is two symbols. `nm -D --undefined-only` on the prebuilt
-#     android.hardware.graphics.composer@2.1-impl.so shows it imports exactly
-#       android::HWC2On1Adapter::HWC2On1Adapter(hwc_composer_device_1*)
-#       android::HWC2OnFbAdapter::HWC2OnFbAdapter(framebuffer_device_t*)
-#     and nothing else. Both classes derive from `hwc2_device_t` (a stable C
-#     struct of function pointers that the constructor fills in), so everything
-#     after construction crosses a C boundary, not a C++ one. The AOSP headers
-#     declare both constructors with those exact parameter types.
-#
-# If the display ever comes up black after this, the rollback is to restore the
-# four lines with a leading `-` and `prefer: true`; see notes/aosp-source-migration.md.
--vendor/lib/hw/android.hardware.graphics.allocator@2.0-impl.so
--vendor/lib/hw/android.hardware.graphics.composer@2.1-impl.so
--vendor/lib/hw/android.hardware.graphics.mapper@2.0-impl.so
+# Allocator 2.0, mapper 2.0 and composer 2.1 wrappers build from AOSP source.
+# Their HIDL and gralloc/HWC C interfaces retain these MT6755 implementations.
+# Both mapper architectures are required by passthrough clients. The composer
+# and its HWC2 adapters now use the same source headers and object layouts.
 vendor/lib/hw/gralloc.mt6755.so
 vendor/lib/egl/libGLES_mali.so
 vendor/lib/libdpframework.so
@@ -122,9 +69,6 @@ vendor/lib/vendor.mediatek.hardware.mms@1.3.so
 vendor/lib/vendor.mediatek.hardware.mms@1.4.so
 vendor/lib/vendor.mediatek.hardware.mms@1.5.so
 vendor/lib/vendor.mediatek.hardware.pq@2.0.so
--vendor/lib64/hw/android.hardware.graphics.allocator@2.0-impl.so
--vendor/lib64/hw/android.hardware.graphics.composer@2.1-impl.so
--vendor/lib64/hw/android.hardware.graphics.mapper@2.0-impl.so
 vendor/lib64/hw/gralloc.mt6755.so
 vendor/lib64/hw/hwcomposer.mt6755.so
 vendor/lib64/egl/libGLES_mali.so
