@@ -130,7 +130,14 @@ TARGET_KERNEL_CLANG_COMPILE := false
 # hermetic 2.7.5 prebuilt, and passing the lowercase variable here reaches the
 # legacy kernel makefile's $(python) invocation.
 K50_DCT_PYTHON := $(abspath prebuilts/python/linux-x86/2.7.5/bin/python2.7)
-TARGET_KERNEL_ADDITIONAL_FLAGS := LOCALVERSION= KBUILD_SYMTYPES=1 python=$(K50_DCT_PYTHON)
+# The source DT overlay tools generate their parser inside KERNEL_OBJ. Use
+# Android's pinned lexer/parser tools through absolute paths; Soong's restricted
+# PATH intentionally does not expose the host's bison or flex.
+TARGET_KERNEL_ADDITIONAL_FLAGS := LOCALVERSION= KBUILD_SYMTYPES=1 \
+    python=$(K50_DCT_PYTHON) \
+    HOSTLEX=$(abspath prebuilts/build-tools/linux-x86/bin/flex) \
+    HOSTYACC=$(abspath prebuilts/build-tools/linux-x86/bin/bison) \
+    BISON_PKGDATADIR=$(abspath prebuilts/build-tools/common/bison)
 BOARD_KERNEL_IMAGE_NAME := Image.gz
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilt/dtb
