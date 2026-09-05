@@ -124,6 +124,7 @@ PRODUCT_PACKAGES += \
     audio.bluetooth.default \
     audio.r_submix.default \
     audio.usb.default \
+    gatekeeper.default \
     libalsautils \
     libbluetooth_audio_session \
     libeffectsconfig.vendor \
