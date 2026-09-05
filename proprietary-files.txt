@@ -101,7 +101,7 @@ vendor/lib64/vendor.mediatek.hardware.pq@2.2.so
 vendor/lib64/vendor.mediatek.hardware.pq@2.3.so
 
 # Sensors (MIR3DA is the only usable Android sensor)  -- section: sensors
-vendor/bin/hw/android.hardware.sensors@2.0-service-mediatek:vendor/bin/hw/android.hardware.sensors@2.0-service
+# The Sensors 2.0 FMQ service builds from device/sensors-hal sources.
 vendor/lib64/hw/sensors.mt6755.so:vendor/lib64/hw/sensors.mt6755.stock.so
 vendor/lib64/libaedv.so
 vendor/lib64/libksensor.so

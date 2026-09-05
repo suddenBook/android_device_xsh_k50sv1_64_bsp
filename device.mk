@@ -133,6 +133,7 @@ PRODUCT_PACKAGES += \
     libnbaio_mono \
     librilutils \
     libsensorndkbridge \
+    android.hardware.sensors@2.0-service \
     libmtktinyxml \
     libtinycompress \
     libtinyxml \

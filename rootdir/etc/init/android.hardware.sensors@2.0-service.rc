@@ -1,33 +1,5 @@
-# The MTK sensors HAL 2.0 service takes wake locks and could not.
-#
-# /vendor/bin/hw/android.hardware.sensors@2.0-service DT_NEEDEDs libpower.so
-# and carries the string "Repeat initialize, collect wakelock thread": the
-# HAL 2.0 contract gives the implementation a WakeLockQueue and expects it to
-# hold a wake lock while a WAKE_UP sensor's events are in flight.
-#
-# Two separate things are needed for that and both were missing here:
-#
-#   * `capabilities BLOCK_SUSPEND`. Without a capabilities line at all,
-#     service.cpp:296 keeps capabilities across the uid change only
-#     `if (capabilities_ && uid_)`, so the setuid(system) at :320-324 drops
-#     the whole set and :339-344 drops the inheritable set too.
-#   * group `wakelock`. /sys/power/wake_lock is radio:wakelock 0660
-#     (system/core/rootdir/init.rc:296-299), so the DAC gate is a supplementary
-#     group, not the capability.
-#
-# AOSP's own reference rc for the sensors HAL has exactly this pair --
-# hardware/interfaces/sensors/1.0/default/android.hardware.sensors@1.0-service.rc:4-5
-# is `group system wakelock uhid` + `capabilities BLOCK_SUSPEND`. `uhid` is
-# omitted here: it exists for the 1.0 default's dynamic-sensor (HID) support,
-# which this HAL does not implement and this chassis has no hardware for.
-#
-# `context_hub` from the upstream 2.0 rc is likewise omitted: there is no CHRE
-# on this SoC.
-#
-# The SELinux half is sepolicy/vendor/hal_sensors_default.te's wakelock_use();
-# AOSP's public/hal_sensors.te does not grant it, so both halves are
-# device-owned. Under Tier 1 the DAC failure is the visible one; under Tier 2
-# the missing policy would be too.
+# Sensors 2.0 FMQ wake-up events require both the wakelock group and
+# BLOCK_SUSPEND capability; the board SELinux rule grants wakelock_use().
 service vendor.sensors-hal-2-0 /vendor/bin/hw/android.hardware.sensors@2.0-service
     class hal
     user system
