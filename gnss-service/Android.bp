@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: Apache-2.0
+cc_binary {
+    name: "android.hardware.gnss@2.0-service-k50",
+    defaults: ["hidl_defaults"],
+    vendor: true,
+    relative_install_path: "hw",
+    compile_multilib: "64",
+    init_rc: ["android.hardware.gnss@2.0-service-k50.rc"],
+    srcs: ["service.cpp"],
+    shared_libs: [
+        "android.hardware.gnss@2.0",
+        "libbinder",
+        "libhidlbase",
+        "libhidltransport",
+        "liblog",
+        "libutils",
+    ],
+}
