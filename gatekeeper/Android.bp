@@ -1,0 +1,22 @@
+// Copyright 2026 The LineageOS Project
+// SPDX-License-Identifier: Apache-2.0
+
+cc_library_shared {
+    name: "gatekeeper.default",
+    vendor: true,
+    relative_install_path: "hw",
+    compile_multilib: "64",
+    notice: "LICENSE",
+    srcs: ["module.cpp"],
+    shared_libs: [
+        "libcrypto",
+        "libgatekeeper",
+    ],
+    static_libs: ["libscrypt_static"],
+    header_libs: ["libhardware_headers"],
+    cflags: [
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+    ],
+}
