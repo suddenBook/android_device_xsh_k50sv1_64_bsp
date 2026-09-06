@@ -147,7 +147,8 @@ PRODUCT_PACKAGES += \
     libtinycompress \
     libtinyxml \
     sensors.mt6755 \
-    wlan_assistant
+    wlan_assistant \
+    wmt_loader
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/agps_profiles_conf2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/agps_profiles_conf2.xml \

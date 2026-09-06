@@ -443,7 +443,7 @@ vendor/bin/hw/android.hardware.wifi@1.0-service-lazy-mediatek
 vendor/bin/hw/hostapd
 vendor/bin/hw/wpa_supplicant
 vendor/bin/wmt_launcher
-vendor/bin/wmt_loader
+# wmt_loader is built from device-owned source in wmt-loader/.
 # android.hardware.wifi@1.0-service-lazy-mediatek.rc is NOT extracted. It is
 # device-owned under rootdir/etc/init/, with the three missing `interface` lines
 # the manifest's @1.3 declaration needs for a lazy start.
