@@ -15,3 +15,17 @@ cc_library_headers {
     export_generated_headers: ["k50_tinycompress_kernel_includes"],
     vendor_available: true,
 }
+
+cc_library_shared {
+    name: "libtinycompress_k50",
+    stem: "libtinycompress",
+    overrides: ["libtinycompress"],
+    vendor: true,
+    compile_multilib: "both",
+    srcs: ["src/compress.c", "src/utils.c"],
+    export_include_dirs: ["src/include"],
+    header_libs: ["k50_tinycompress_kernel_headers"],
+    shared_libs: ["libcutils", "libutils"],
+    cflags: ["-Wall", "-Werror", "-Wno-macro-redefined", "-Wno-unused-function"],
+    notice: "src/NOTICE",
+}

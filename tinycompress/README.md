@@ -1,9 +1,10 @@
 # Source Tinycompress for the K50
 
-The device module compiles the existing external/tinycompress sources for
+The device Soong module compiles the pinned external/tinycompress sources for
 both ARM and ARM64. It installs libtinycompress.so with that same ELF SONAME.
-No implementation or installed vendor ABI is renamed, and no source snapshot
-or precompiled library is copied into this directory.
+UPSTREAM.json records the original revision and file hashes; the two C sources,
+public header and NOTICE are imported without edits. Soong supplies a supported
+library stem; Android Q's Make source-library rule forbids changing that stem.
 
 The upstream Lineage module exports all generated ARM64 kernel headers to
 both architectures. During the actual third full-build attempt, Bionic's
@@ -19,7 +20,8 @@ audio ioctl layouts without importing its ARM64 signal context into ARM code.
 Kernel header and exporter-script changes invalidate the generated output.
 
 The module uses the same two C sources, include directory, compiler warnings,
-shared dependencies and upstream NOTICE. The K50 does not enable Lineage's
+shared dependencies and upstream NOTICE. Its overrides declaration removes the
+upstream module from product selection. The K50 does not enable Lineage's
 optional extended-compress-format flag. Selecting libtinycompress_k50 in the
 product avoids compiling/installing the upstream module as a second provider.
 The ordinary four-image build and subsequent ELF/handset audio checks validate

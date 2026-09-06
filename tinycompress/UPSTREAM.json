@@ -1,0 +1,11 @@
+{
+  "source_project": "external/tinycompress",
+  "revision": "848ec3ad67cc414294d18776a2b4d644be95fd64",
+  "files": {
+    "compress.c": "56aab25bc923d28b90afbbcba9e3509964edf92bf07b6a756990ddc59a67c7f7",
+    "utils.c": "b2fa4419715e2fbe30da84726bf2e52dac40afadbaef02b60c358ed32b1f3ba8",
+    "include/tinycompress/tinycompress.h": "690fe4eb05f94a7d5322e53580764295a84a3f924d06fbf0d20352727a751364",
+    "NOTICE": "0ca7d1bbcab3abbbf0b76d0c31697f30a558a8770a1446259c98a0bdbc9ecad9"
+  },
+  "local_source_changes": []
+}
