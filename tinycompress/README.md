@@ -1,28 +1,24 @@
-# Source Tinycompress for the K50
+# Kernel audio headers for Tinycompress
 
-The device Soong module compiles the pinned external/tinycompress sources for
-both ARM and ARM64. It installs libtinycompress.so with that same ELF SONAME.
-UPSTREAM.json records the original revision and file hashes; the two C sources,
-public header and NOTICE are imported without edits. Soong supplies a supported
-library stem; Android Q's Make source-library rule forbids changing that stem.
+The existing external/tinycompress module compiles its original two C sources
+for ARM and ARM64. A one-line local integration patch selects this device's
+k50_tinycompress_kernel_headers module; its source and installed
+libtinycompress.so ABI remain unchanged.
 
-The upstream Lineage module exports all generated ARM64 kernel headers to
-both architectures. During the actual third full-build attempt, Bionic's
-32-bit signal.h selected the generated ARM64 asm/sigcontext.h and failed on
-its 128-bit register type. Changing that type would still expose the wrong
-signal-context layout to an ARM client.
+The generic Lineage header module exports all generated ARM64 kernel headers
+to both architectures. The actual third full-build attempt failed because
+Bionic's 32-bit signal.h selected ARM64 asm/sigcontext.h. Changing its register
+type would still expose the wrong signal-context layout to ARM clients.
 
-The device header module runs the existing kernel headers_install flow, then
-exports only its sanitized sound/asound.h, sound/compress_params.h and
-sound/compress_offload.h. Bionic supplies the remaining generic and per-ABI
-headers. Both consumers therefore retain the current source kernel's compressed
-audio ioctl layouts without importing its ARM64 signal context into ARM code.
-Kernel header and exporter-script changes invalidate the generated output.
+This device generator runs the existing kernel headers_install flow, then
+exports only sanitized sound/asound.h, sound/compress_params.h and
+sound/compress_offload.h. Bionic supplies generic and per-ABI headers. Both
+consumers therefore retain the current source kernel's compressed-audio ioctl
+layouts without importing ARM64 signal context into ARM code.
 
-The module uses the same two C sources, include directory, compiler warnings,
-shared dependencies and upstream NOTICE. Its overrides declaration removes the
-upstream module from product selection. The K50 does not enable Lineage's
-optional extended-compress-format flag. Selecting libtinycompress_k50 in the
-product avoids compiling/installing the upstream module as a second provider.
-The ordinary four-image build and subsequent ELF/handset audio checks validate
-the actual installed output.
+The exact external/tinycompress change is retained in the bring-up work
+repository at upstream/tinycompress-kernel-headers.patch, against
+848ec3ad67cc414294d18776a2b4d644be95fd64. It is committed on a local source branch
+and captured by the full Android repo manifest. No remote push is required.
+A separate provider with the same installed filename was rejected by Android
+Q's duplicate install-rule check even with module overrides, so it is not used.
