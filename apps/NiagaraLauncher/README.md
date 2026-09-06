@@ -76,9 +76,17 @@ preference's match set.
 The selected component is
 `com.android.launcher3/com.android.launcher3.lineage.LineageLauncher`, from the
 base manifest merged into the inherited `TrebuchetQuickStep` module. The default
-is initialized on fresh data; the HOME role migration reads this existing home
-preference. PackageManager preserves a preferred activity when setup-wizard
-completion removes candidates from the original set.
+is initialized on fresh data. Q does not migrate this preference into the HOME
+role: actual clean-data testing showed the role's priority fallback replacing it
+with SetupWizard, then returning no winner after setup because both launchers
+have equal priority.
+
+The PermissionController overlay therefore supplies
+`config_defaultHome=com.android.launcher3`. It requires the paired local
+PermissionController source patch recorded in the bring-up repository's
+`upstream/permissioncontroller-default-home.patch`. That patch selects the
+configured package from eligible HOME candidates when no role holder exists.
+Existing qualified role holders are retained by the normal role controller.
 
 This is a regular preferred activity. The user can choose Niagara later in
 Settings and retain that choice after reboot. Existing user defaults are

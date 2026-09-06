@@ -90,9 +90,8 @@
              Consequence: KM_TAG_ROOT_OF_TRUST, hardware-enforced key
              authorisations and attestation are all software claims. Anything
              that must be genuinely hardware-bound has to look elsewhere. The
-             gatekeeper HAL is the same story, which is why extract-files.sh
-             pins libSoftGatekeeper.so by hash rather than the
-             gatekeeper.default.so symlink to it. -->
+             gatekeeper HAL is also software-only. This device now builds
+             its Gatekeeper service and software implementation from source. -->
         <name>android.hardware.keymaster</name>
         <transport>hwbinder</transport>
         <fqname>@3.0::IKeymasterDevice/default</fqname>
