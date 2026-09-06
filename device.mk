@@ -144,7 +144,7 @@ PRODUCT_PACKAGES += \
     libsensorndkbridge \
     android.hardware.sensors@2.0-service \
     libmtktinyxml \
-    libtinycompress \
+    libtinycompress_k50 \
     libtinyxml \
     sensors.mt6755 \
     wlan_assistant

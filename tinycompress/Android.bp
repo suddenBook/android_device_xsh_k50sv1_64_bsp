@@ -1,0 +1,17 @@
+// Export the current kernel's audio ABI without replacing Bionic's per-ABI asm headers.
+lineage_generator {
+    name: "k50_tinycompress_kernel_includes",
+    cmd: "$(PATH_OVERRIDE_SOONG) $(KERNEL_MAKE_CMD) $(KERNEL_MAKE_FLAGS) -C $(TARGET_KERNEL_SOURCE) O=$(KERNEL_BUILD_OUT_PREFIX)$(genDir) ARCH=$(KERNEL_ARCH) $(KERNEL_CROSS_COMPILE) headers_install && " +
+        "mkdir -p $(genDir)/sound-uapi/sound && " +
+        "cp $(genDir)/usr/include/sound/asound.h $(genDir)/usr/include/sound/compress_params.h $(genDir)/usr/include/sound/compress_offload.h $(genDir)/sound-uapi/sound/",
+    export_include_dirs: ["sound-uapi"],
+    dep_root: "$(TARGET_KERNEL_SOURCE)",
+    dep_files: ["Makefile", "include/**/*", "arch/$(KERNEL_ARCH)/include/**/*", "scripts/**/*"],
+}
+
+cc_library_headers {
+    name: "k50_tinycompress_kernel_headers",
+    generated_headers: ["k50_tinycompress_kernel_includes"],
+    export_generated_headers: ["k50_tinycompress_kernel_includes"],
+    vendor_available: true,
+}
