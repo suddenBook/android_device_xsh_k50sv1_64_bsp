@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Q's HOME role initialization must retain the intended initial launcher
-         while SetupWizard owns the higher-priority HOME intent. Existing role
-         holders, including a later user choice of Niagara, are preserved. -->
-    <string name="config_defaultHome" translatable="false">com.android.launcher3</string>
-</resources>
