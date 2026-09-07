@@ -1,0 +1,181 @@
+# Exact, reviewed denials preserved in raw boot and feature captures.
+#
+# Format: source -> target : class permission [| key=value ...]
+# One permission per record. Qualifiers are literal subsets of property,
+# service, interface, path, dev, name, app, ioctlcmd and permissive fields from
+# the raw line. They are not regular expressions or cross-product families -- a glob
+# character here is matched literally, and until the read -a fix in
+# classify-avc-denials.sh it was not (the unquoted `for token in ${required}`
+# also ran pathname expansion). A new tuple or a changed required qualifier
+# must fail until the exact denial and its mechanism are reviewed.
+#
+# Matching is SUBSET, in one direction only: every qualifier a rule names must
+# be present, and a denial carrying further qualifiers the rule does not name
+# still matches. A rule with no qualifier section therefore accepts that tuple
+# with any qualifiers at all.
+
+# Settings native-service enumeration and optional memory diagnostics.
+system_app -> apex_service : service_manager find | service=apexservice
+system_app -> apexd : binder call
+system_app -> idmap : binder call
+system_app -> installd : binder call
+system_app -> netd : binder call
+system_app -> storaged : binder call
+system_app -> system_suspend : binder call
+system_app -> system_suspend_control_service : service_manager find | service=suspend_control
+system_app -> vold : binder call
+system_app -> wificond : binder call
+
+# CLOSED in source and live on 20260829: system_app -> proc_pagetypeinfo is
+# GRANTED in sepolicy/private/system_app.te. Do not put it back on this list.
+#
+# CLOSED in source and live on 20260829: hal_memtrack_default -> debugfs
+# ion/clients/clients_summary {getattr,open,read} is GRANTED on
+# debugfs_mtk_ion_clients_summary. Do not put the unlabeled debugfs tuple
+# back on this list.
+#
+# CLOSED and live on 20260829.124338: /data/vendor/wifi/sock is
+# wpa_data_file. AOSP already allows hal_wifi_supplicant_default that type
+# {dir,file,sock_file} create. Do not grant vendor_data_file sock create.
+#
+# GRANTED in sepolicy/private/dexoptanalyzer.te (later-AOSP lock on boot.art).
+# Do not put dexoptanalyzer -> system_file : file lock on this list.
+
+# Google Play services/device fingerprinting. Access remains denied rather than
+# exposing generic kernel and hardware identifiers to an app domain.
+priv_app -> device : dir open
+priv_app -> proc_interrupts : file getattr
+priv_app -> proc_interrupts : file open
+priv_app -> proc_modules : file getattr
+priv_app -> proc_modules : file open
+# WAS `priv_app -> sysfs : dir open` with no qualifier section. Read against the
+# subset rule stated in this header, an unqualified tuple "accepts that tuple
+# with any qualifiers at all" -- i.e. it allowlisted ANY priv_app opening ANY
+# directory labelled sysfs, from any app, at any path. sysfs is the single
+# largest generic label on the device; that entry could not fail. Replaced with
+# the two paths the not-a-defect list in HANDOFF actually justifies: the wlan
+# MAC fingerprinting probe, whose two files already appear as qualified `file`
+# rules immediately below.
+#
+# CONSEQUENCE, recorded deliberately rather than discovered later: the one other
+# sysfs dir open in the record -- `path=/sys/block dev=sysfs
+# app=com.google.android.gms`, in evidence/tier1-avc-20260823-postfix -- is a
+# block-device enumeration probe, NOT the wlan MAC probe, and is no longer
+# covered. If it recurs it will be reported as unexpected, which is the point:
+# it is a different probe and deserves its own review, not a blanket rule.
+priv_app -> sysfs : dir open | path=/sys/devices/soc/180f0000.wifi/net/wlan0 app=com.google.android.gms
+# The /sys/block probe the note above predicted would recur DID recur, was
+# reviewed, and is added here qualified rather than blanket. It is Play
+# services enumerating block devices (comm="IntentService[D"), the same class of
+# hardware fingerprinting as the /proc/interrupts and /proc/modules probes
+# above, and correct to deny for the same reason. Note what is NOT covered: any
+# other path, and any other app.
+priv_app -> sysfs : dir open | path=/sys/block app=com.google.android.gms
+priv_app -> sysfs : dir open | path=/sys/devices/soc/180f0000.wifi/net/p2p0 app=com.google.android.gms
+priv_app -> sysfs : file getattr | path=/sys/devices/soc/180f0000.wifi/net/wlan0/address app=com.google.android.gms
+priv_app -> sysfs : file open | path=/sys/devices/soc/180f0000.wifi/net/wlan0/address app=com.google.android.gms
+priv_app -> sysfs : file open | path=/sys/devices/soc/180f0000.wifi/net/p2p0/type dev=sysfs app=com.google.android.gms
+priv_app -> sysfs_android_usb : file getattr
+priv_app -> sysfs_android_usb : file open
+
+# GMS Chromium and lowpool diagnostics probe protected property areas and the
+# memtrack HAL. Keep boot, Bluetooth, APEX/BPF and direct HAL state behind the
+# framework boundary; Tier 2 must prove the app tolerates their enforced absence.
+priv_app -> apexd_prop : file getattr | path=/dev/__properties__/u:object_r:apexd_prop:s0 dev=tmpfs app=com.google.android.gms
+priv_app -> apexd_prop : file open | path=/dev/__properties__/u:object_r:apexd_prop:s0 dev=tmpfs app=com.google.android.gms
+priv_app -> bluetooth_prop : file getattr | path=/dev/__properties__/u:object_r:bluetooth_prop:s0 dev=tmpfs app=com.google.android.gms
+priv_app -> bluetooth_prop : file open | path=/dev/__properties__/u:object_r:bluetooth_prop:s0 dev=tmpfs app=com.google.android.gms
+priv_app -> bootloader_boot_reason_prop : file getattr | path=/dev/__properties__/u:object_r:bootloader_boot_reason_prop:s0 dev=tmpfs app=com.google.android.gms
+priv_app -> bootloader_boot_reason_prop : file open | path=/dev/__properties__/u:object_r:bootloader_boot_reason_prop:s0 dev=tmpfs app=com.google.android.gms
+priv_app -> boottime_prop : file getattr | path=/dev/__properties__/u:object_r:boottime_prop:s0 dev=tmpfs app=com.google.android.gms
+priv_app -> boottime_prop : file open | path=/dev/__properties__/u:object_r:boottime_prop:s0 dev=tmpfs app=com.google.android.gms
+priv_app -> bpf_progs_loaded_prop : file open | path=/dev/__properties__/u:object_r:bpf_progs_loaded_prop:s0 dev=tmpfs app=com.google.android.gms
+priv_app -> hal_memtrack_default : binder call | app=com.google.android.gms
+priv_app -> hal_memtrack_hwservice : hwservice_manager find | interface=android.hardware.memtrack::IMemtrack
+
+# HMS Core's dynamically installed fwkit reads /proc/stat twice to decide
+# whether its silent-upgrade worker may run. AOSP Q deliberately classifies
+# proc_stat as a non-API for priv_app (private/priv_app.te) and refuses it. The
+# app catches IOException and computes usage=0, so the updater remains usable;
+# granting this to the shared priv_app domain would widen every privileged app.
+priv_app -> proc_stat : file getattr | path=/proc/stat app=com.huawei.hwid
+priv_app -> proc_stat : file open | path=/proc/stat app=com.huawei.hwid
+
+# libpowerhal stats a caller's /proc/<pid> directory to name the process for the
+# per-application boost table, which this build ships empty. /proc/<pid> carries
+# the label of the domain the process runs in, so the denial reads as
+# hal_power_default -> system_app / priv_app / mediacodec : dir getattr.
+# The codec's custom performance scene still registers, configures and enables
+# after this optional name lookup fails; the per-app table remains empty.
+# HANDOFF's
+# "Things that are NOT defects" list documents this as a deliberate refusal --
+# but the refusal was never written down HERE, so the classifier reported it as
+# an unexpected denial: a documented non-defect that failed the gate.
+hal_power_default -> system_app : dir getattr
+hal_power_default -> priv_app : dir getattr
+hal_power_default -> mediacodec : dir getattr
+# The /proc/<pid> inode carries the label of the domain running there, so each
+# new CALLER domain is a new tuple. hal_camera_default was missing only because
+# no verification run had ever opened the camera (E-149).
+hal_power_default -> hal_camera_default : dir getattr
+
+# WI-068's kernel dac_override operation remains unidentified. Do not classify
+# it as expected from successful operation in Permissive or an SDIO hypothesis.
+# Android's cgroups.json probes unsupported cgroup2 module autoload on this
+# built-in-only 3.18 kernel.
+init -> kernel : system module_request
+
+# MediaProvider walks /data/cache looking for orphan media. AOSP already
+# dontaudits only getattr on cache_recovery_file (private/mediaprovider.te);
+# open/read leak past that incomplete suppression. Recovery command files are
+# not media; keep the refusal visible rather than granting or dontaudit'ing.
+# Qualify the userdata-side path so a scan of /cache/recovery is reviewed
+# separately if it ever appears.
+mediaprovider -> cache_recovery_file : dir open | path=/data/cache/recovery app=com.android.providers.media
+mediaprovider -> cache_recovery_file : dir read | name=recovery app=com.android.providers.media
+
+# HMS Core is an ordinary /product/app (untrusted_app) after E-122. Its fwkit
+# still probes /proc/stat; AOSP Q neverallows all_untrusted_apps that file for
+# the non-getattr/open half and grants none of getattr/open either. The app
+# catches IOException. Do not grant -- that would also widen every untrusted
+# app. The older priv_app rows above stay for a privileged HMS payload.
+untrusted_app -> proc_stat : file getattr | path=/proc/stat app=com.huawei.hwid
+untrusted_app -> proc_stat : file open | path=/proc/stat app=com.huawei.hwid
+
+# com.android.phone (radio) reports GL driver-load stats through
+# GraphicsEnv::sendGpuStatsLocked -> IGpuService.setGpuStats (FLAG_ONEWAY).
+# AOSP Q grants binder_call(gpuservice) to untrusted_app_all / priv_app /
+# platform_app / system_app / ephemeral_app, not to radio, even though radio
+# is app_domain and can find gpu_service (app_api_service). GraphicsEnv
+# continues if the transact fails; Phone UI and telephony do not need this.
+# Do not grant -- that would widen radio to a stats daemon AOSP left closed.
+radio -> gpuservice : binder call
+
+# Same mechanism, second domain. MediaProvider renders thumbnails, so
+# GraphicsEnv reports its driver load the same way. mediaprovider is
+# app_domain (system/sepolicy/private/mediaprovider.te:7) but is not on Q's
+# gpuservice binder_call list either: the grants are priv_app.te:54,
+# ephemeral_app.te:51, adbd.te:112 and dumpstate.te:29, and nothing names
+# mediaprovider. Denying it loses telemetry and nothing else.
+mediaprovider -> gpuservice : binder call | app=com.android.providers.media
+
+# Vendor libpowerhal reads the camera process comm string only for diagnostics.
+# A failed open leaves an empty name and preserves the hint handle/lifecycle;
+# both camera preview/JPEG paths pass with these refusals under Enforcing.
+# Camera PIDs vary. Only the comm read is expected; other file reads/writes fail.
+hal_power_default -> hal_camera_default : dir search | dev=proc
+hal_power_default -> hal_camera_default : file open | dev=proc
+hal_power_default -> hal_camera_default : file read | dev=proc name=comm
+
+# Tier-2 startup review: ../evidence/device-review-20260907/tier2-live/startup-denials.md.
+# Neither legacy service exists. Both callers ignore these control failures and
+# continue through the installed modem/RIL startup path. Keep the refusals visible.
+ccci_mdinit -> ctl_start_prop : property_service set | property=ctl.start$emdlogger1 permissive=0
+gsm0710muxd -> ctl_stop_prop : property_service set | property=ctl.stop$ril-daemon permissive=0
+
+# The selected agpsd (SHA256 176b475d...7b6059a) probes /mnt/vendor/nvcfg for
+# optional agps_nvram.txt overrides. All three nvcfg directories are absent;
+# EACCES and ENOENT take the same successful initialization continuation.
+# This qualifier describes that reviewed startup event, not nvdata calibration
+# access. Revisit if its blob, call site or nvcfg layout changes.
+mtk_agpsd -> mnt_vendor_file : dir search | dev=tmpfs name=vendor permissive=0

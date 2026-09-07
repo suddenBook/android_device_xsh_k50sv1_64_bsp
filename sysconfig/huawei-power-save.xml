@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Doze / App Standby whitelist for the preinstalled Huawei payload.
+
+     SystemConfig parses allow-in-power-save only when the containing
+     directory was registered with ALLOW_ALL (SystemConfig.java:664 guarded by
+     `allowAll`). /system/etc/sysconfig is one such directory (:358); the
+     vendor and odm sysconfig dirs are NOT, so this file must stay on /system.
+     DeviceIdleController.java:2009 reads the resulting set, which is what
+     PowerManager.isIgnoringBatteryOptimizations() reports true for.
+
+     allow-in-power-save (not -except-idle) exempts the package from both deep
+     Doze and App Standby. This is the system whitelist, so it survives a
+     /data wipe and does not appear as a user-removable entry in Settings.
+-->
+<config>
+    <allow-in-power-save package="com.huawei.hwid" />
+    <allow-in-power-save package="com.huawei.appmarket" />
+</config>

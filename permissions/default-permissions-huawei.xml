@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Default runtime-permission grants for the preinstalled Huawei payload.
+
+     Read by DefaultPermissionGrantPolicy from /system/etc/default-permissions
+     (frameworks/base/.../pm/permission/DefaultPermissionGrantPolicy.java:1390).
+     That policy grants ONLY permissions whose protectionLevel is `dangerous`
+     -- isPermissionDangerous() drops everything else -- and only for packages
+     already on the system image, which both of these are (/product/app).
+
+     Every permission below was taken from the shipped APK's own
+     uses-permission list and cross-checked against the protectionLevel in
+     frameworks/base/core/res/AndroidManifest.xml for THIS platform (API 29).
+     Permissions the APKs request that do not exist on Q (POST_NOTIFICATIONS,
+     READ_MEDIA_*, BLUETOOTH_CONNECT/SCAN/ADVERTISE, QUERY_ALL_PACKAGES,
+     SCHEDULE_EXACT_ALARM, ...) are deliberately absent: naming a permission
+     the platform does not define is a no-op that only makes this file lie.
+
+     fixed="false" keeps every grant revocable in Settings. Do not set
+     fixed="true" here: that takes the toggle away from the owner, which is a
+     bigger change than "granted on first boot" and is not what was asked for.
+-->
+<exceptions>
+    <!-- HMS Core 6.16.2.342, targetSdk 31 -->
+    <exception package="com.huawei.hwid">
+        <permission name="android.permission.ACCESS_BACKGROUND_LOCATION" fixed="false" />
+        <permission name="android.permission.ACCESS_COARSE_LOCATION" fixed="false" />
+        <permission name="android.permission.ACCESS_FINE_LOCATION" fixed="false" />
+        <permission name="android.permission.ACTIVITY_RECOGNITION" fixed="false" />
+        <permission name="android.permission.CAMERA" fixed="false" />
+        <permission name="android.permission.GET_ACCOUNTS" fixed="false" />
+        <permission name="android.permission.READ_CALENDAR" fixed="false" />
+        <permission name="android.permission.READ_CONTACTS" fixed="false" />
+        <permission name="android.permission.READ_EXTERNAL_STORAGE" fixed="false" />
+        <permission name="android.permission.READ_PHONE_STATE" fixed="false" />
+        <permission name="android.permission.READ_SMS" fixed="false" />
+        <permission name="android.permission.WRITE_CALENDAR" fixed="false" />
+        <permission name="android.permission.WRITE_EXTERNAL_STORAGE" fixed="false" />
+    </exception>
+
+    <!-- AppGallery 16.5.1.301, targetSdk 34 -->
+    <exception package="com.huawei.appmarket">
+        <permission name="android.permission.READ_EXTERNAL_STORAGE" fixed="false" />
+        <permission name="android.permission.READ_PHONE_STATE" fixed="false" />
+        <permission name="android.permission.WRITE_EXTERNAL_STORAGE" fixed="false" />
+    </exception>
+</exceptions>

@@ -198,6 +198,26 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/mtk-kpd.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/mtk-kpd.kl \
     $(LOCAL_PATH)/permissions/privapp-permissions-mtk-ims.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-mtk-ims.xml
 
+# Preinstalled Huawei payload: first-boot runtime grants and a Doze exemption.
+#
+# Both packages ship in /product/app (see vendor/huawei/hms), i.e. on the
+# system image but NOT privileged. That is what bounds this: the
+# default-permissions file below can only carry `dangerous` permissions, and
+# the many signature/privileged ones these APKs also request
+# (INSTALL_PACKAGES, MANAGE_APPOPS, MASTER_CLEAR, READ_PRIVILEGED_PHONE_STATE,
+# ...) are NOT granted and cannot be from here. Granting those would mean
+# moving both APKs into priv-app and whitelisting each one; on Q a priv-app
+# holding an unwhitelisted privileged permission fails the boot-time
+# privapp-permissions check, so that is a deliberate non-goal.
+#
+# sysconfig must land on /system: SystemConfig only honours
+# allow-in-power-save from directories registered with ALLOW_ALL, and the
+# vendor/odm sysconfig dirs are not among them.
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/permissions/default-permissions-huawei.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/default-permissions/default-permissions-huawei.xml \
+    $(LOCAL_PATH)/sysconfig/huawei-power-save.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/huawei-power-save.xml
+
+
 # Diagnostics retain the legacy MediaTek ePDG stack for controlled WFC
 # bring-up. Tier 3 omits both service definitions together with the filtered
 # binaries/libraries/config in legacy-vowifi-vendor-filter.mk. WFO, IMSA,
