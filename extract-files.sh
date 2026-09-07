@@ -202,6 +202,8 @@ function patch_wfo_jar() {
     local jar="$1"
     local expected_jar_sha="18fe7a0a3c72ba07e487ed9ac40538bdff8dfc3d2baf33784148f553128f4f7b"
     local expected_dex_sha="b0a961ffcc71ba2c0909ce2111b0bdc26adaf816c8652d60dd83b4d9aa729449"
+    local patched_jar_sha="56639a07068b462e657c3239af32d5cda9024dd8a88c7674ebcb1b32d1d2c317"
+    local patched_dex_sha="29596dd5b5fb8c2b543171ccf4616efd86939b7cbf8bb896e6c9e03047e59137"
     local baksmali_jar="${LINEAGE_ROOT}/prebuilts/tools-lineage/common/smali/baksmali.jar"
     local smali_jar="${LINEAGE_ROOT}/prebuilts/tools-lineage/common/smali/smali.jar"
     local jar_sha
@@ -209,11 +211,14 @@ function patch_wfo_jar() {
     local patch_dir
 
     jar_sha="$(sha256sum "${jar}" | awk '{ print $1 }')"
+    if [[ "${jar_sha}" == "${patched_jar_sha}" ]]; then
+        return 0
+    fi
     if [[ "${jar_sha}" != "${expected_jar_sha}" ]]; then
-        echo "Refusing to patch an unknown mediatek-wfo-legacy.jar: ${jar_sha}" >&2
+        echo "Refusing mediatek-wfo-legacy.jar ${jar_sha}; re-extract from Stock" >&2
         return 1
     fi
-    for tool in java unzip zip; do
+    for tool in java python3 unzip zip; do
         if ! command -v "${tool}" >/dev/null 2>&1; then
             echo "Missing WFO patch dependency: ${tool}" >&2
             return 1
@@ -652,6 +657,97 @@ WFOSIMEOF
         # static booleans and cannot throw. An earlier note claiming it had to be
         # neutralised was wrong.
 
+        # Check WFO's remote Binder calls before the inherited Stub reads the
+        # parcel or invokes a method. The concrete class is loaded from this
+        # jar; its duplicated Stub is shadowed by the bootclasspath copy.
+        # Standard phone permissions preserve phone/system and authorized shell
+        # callers. Other Binder transactions, including INTERFACE_TRANSACTION,
+        # retain the superclass behavior. Never clear the caller's identity.
+        python3 - "${service}" \
+            "${patch_dir}/smali/com/mediatek/wfo/IWifiOffloadService\$Stub.smali" <<'WFOAUTHEOF'
+import re
+import sys
+
+path, stub_path = sys.argv[1:]
+src = open(path).read()
+stub = open(stub_path).read()
+expected_transactions = {
+    'registerForHandoverEvent': 1, 'unregisterForHandoverEvent': 2,
+    'getRatType': 3, 'getDisconnectCause': 4, 'setEpdgFqdn': 5,
+    'updateCallState': 6, 'isWifiConnected': 7, 'updateRadioState': 8,
+    'setMccMncAllowList': 9, 'getMccMncAllowList': 10,
+    'factoryReset': 11, 'setWifiOff': 12,
+}
+transactions = re.findall(
+    r'^\.field static final TRANSACTION_(\w+):I = (0x[0-9a-f]+)$', stub, re.M)
+if (len(transactions) != len(expected_transactions)
+        or {name: int(code, 16) for name, code in transactions}
+        != expected_transactions):
+    raise SystemExit('unexpected WFO Binder transaction map')
+for declaration in (
+    '.class public Lcom/mediatek/wfo/impl/WifiOffloadService;',
+    '.super Lcom/mediatek/wfo/IWifiOffloadService$Stub;',
+    '.field private mContext:Landroid/content/Context;',
+):
+    if src.splitlines().count(declaration) != 1:
+        raise SystemExit('unexpected WFO declaration: ' + declaration)
+if re.search(r'^\.method .* onTransact\(', src, re.M):
+    raise SystemExit('WifiOffloadService already overrides onTransact')
+
+guard = r'''.method public onTransact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z
+    .locals 3
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Landroid/os/RemoteException;
+        }
+    .end annotation
+
+    packed-switch p1, :pswitch_data_k50sv1_wfo_permission
+
+    goto :goto_k50sv1_wfo_dispatch
+
+    :pswitch_k50sv1_wfo_read
+    const-string v1, "android.permission.READ_PRIVILEGED_PHONE_STATE"
+
+    goto :goto_k50sv1_wfo_enforce
+
+    :pswitch_k50sv1_wfo_modify
+    const-string v1, "android.permission.MODIFY_PHONE_STATE"
+
+    :goto_k50sv1_wfo_enforce
+    iget-object v0, p0, Lcom/mediatek/wfo/impl/WifiOffloadService;->mContext:Landroid/content/Context;
+
+    const-string v2, "WifiOffloadService"
+
+    invoke-virtual {v0, v1, v2}, Landroid/content/Context;->enforceCallingOrSelfPermission(Ljava/lang/String;Ljava/lang/String;)V
+
+    :goto_k50sv1_wfo_dispatch
+    invoke-super {p0, p1, p2, p3, p4}, Lcom/mediatek/wfo/IWifiOffloadService$Stub;->onTransact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z
+
+    move-result v0
+
+    return v0
+
+    :pswitch_data_k50sv1_wfo_permission
+    .packed-switch 0x1
+        :pswitch_k50sv1_wfo_read
+        :pswitch_k50sv1_wfo_read
+        :pswitch_k50sv1_wfo_read
+        :pswitch_k50sv1_wfo_read
+        :pswitch_k50sv1_wfo_modify
+        :pswitch_k50sv1_wfo_modify
+        :pswitch_k50sv1_wfo_read
+        :pswitch_k50sv1_wfo_modify
+        :pswitch_k50sv1_wfo_modify
+        :pswitch_k50sv1_wfo_read
+        :pswitch_k50sv1_wfo_modify
+        :pswitch_k50sv1_wfo_modify
+    .end packed-switch
+.end method
+'''
+open(path, 'w').write(src.rstrip() + '\n\n' + guard)
+WFOAUTHEOF
+
         java -jar "${smali_jar}" assemble -j 1 \
             "${patch_dir}/smali" -o "${patch_dir}/classes.dex"
 
@@ -664,14 +760,12 @@ WFOSIMEOF
         )
         unzip -tq "${patch_dir}/mediatek-wfo-legacy.jar" >/dev/null
         dex_sha="$(sha256sum "${patch_dir}/classes.dex" | awk '{ print $1 }')"
-        if [[ "${dex_sha}" != \
-              "3cba479094c66e2685afa47dc11b9d68681e1576639b783ad07ed8b594c98e67" ]]; then
+        if [[ "${dex_sha}" != "${patched_dex_sha}" ]]; then
             echo "Non-reproducible patched WFO classes.dex: ${dex_sha}" >&2
             exit 1
         fi
         jar_sha="$(sha256sum "${patch_dir}/mediatek-wfo-legacy.jar" | awk '{ print $1 }')"
-        if [[ "${jar_sha}" != \
-              "a0dbdcf9b3b5fe9fa678a03da4853e34958de09ca1adca28747e6e7ded30ecca" ]]; then
+        if [[ "${jar_sha}" != "${patched_jar_sha}" ]]; then
             echo "Non-reproducible patched mediatek-wfo-legacy.jar: ${jar_sha}" >&2
             exit 1
         fi
