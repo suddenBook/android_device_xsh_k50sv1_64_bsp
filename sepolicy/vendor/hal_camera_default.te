@@ -21,6 +21,17 @@ hal_client_domain(hal_camera_default, hal_graphics_allocator)
 # hal_graphics_mapper_hwservice:find, so the standalone rule that used to be
 # here is now redundant.)
 
+# FeaturePipeGpuN performs EGL processing inside the camera provider. The
+# WI-023 preview/video sweep opens /dev/mali0 and submits Mali version/memory
+# ioctls (0x8000, 0x8005, 0x8007); GPU buffers also need mmap access.
+allow hal_camera_default gpu_device:chr_file { getattr ioctl map open read write };
+
+# AOSP EGL initialization reads ISurfaceFlingerConfigs::hasWideColorDisplay
+# and hasHDRDisplay (frameworks/native/opengl/libs/EGL/egl_display.cpp).
+# Declare the client so the configstore policy supplies discovery and Binder
+# access; the same FeaturePipeGpuN path produced the live Binder denial.
+hal_client_domain(hal_camera_default, hal_configstore)
+
 # MTK's Mtkcam@SensorProvider feeds accelerometer data to 3A and to the
 # rotation/EIS metadata path through android.frameworks.sensorservice@1.0::
 # ISensorManager, which system_server serves. AOSP's vendor/hal_camera_default.te
