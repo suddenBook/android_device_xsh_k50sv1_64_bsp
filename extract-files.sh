@@ -821,9 +821,10 @@ function blob_fixup() {
             fi
             ;;
         vendor/lib/libcam.paramsmgr.so)
-            # Limit the production 32-bit picture tables to sensor-native
-            # widths: IMX145 keeps 13 entries; GC5025 keeps 12, including
-            # 2592x1944. Both defaults and all focus metadata stay intact.
+            # Limit the picture tables to 12 IMX145 and 11 GC5025 entries.
+            # JPEG dimensions of the removed 3264x1836 and 2592x1944 modes
+            # are 3264x1840 and 2592x1952, respectively.
+            # Both defaults and all focus metadata stay intact.
             python3 - "$2" <<'CAMERASIZEEOF' || exit 1
 import hashlib
 from pathlib import Path
@@ -832,8 +833,8 @@ import sys
 
 path = Path(sys.argv[1])
 input_sha = "c718ded972a72928e293e40f0079dd50834955f9948d003a98033f331bb79f64"
-output_sha = "2f39358d81dba05992202069729b9ea1d3095b047cc23f617bc7ace8f38d47f8"
-count_updates = {0x48748: 13, 0x8c9d4: 12}  # Thumb movs r3, #count
+output_sha = "25fe4a83ce842d4b532a6f77ae223a8aa526652eb623d018b126f6aae2365f02"
+count_updates = {0x48748: 12, 0x8c9d4: 11}  # Thumb movs r3, #count
 sizes = (
     "320x240", "640x480", "1024x768", "1280x720", "1280x768",
     "1280x960", "1600x1200", "1920x1088", "2048x1536", "2560x1440",
