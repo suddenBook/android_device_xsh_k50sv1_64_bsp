@@ -1,0 +1,114 @@
+Input stack: resolved key maps, the ACCDET ghost device, and the stuck-key chain
+audited_at=2026-08-23T14:30:00+02:00
+handset=192.168.1.251:5555, LineageOS 17.1 Tier 1, eng.desmon.20260823.025344
+
+## 1. Every input device was resolving to Generic.kl
+
+dumpsys input, before the fix:
+
+    1: HALL_DEV   KeyLayoutFile: /system/usr/keylayout/Generic.kl
+    2: mtk-tpd    KeyLayoutFile: (none, pure touchscreen)
+    3: ACCDET     KeyLayoutFile: /system/usr/keylayout/Generic.kl
+    4: fts_ts     KeyLayoutFile: /system/usr/keylayout/Generic.kl
+    5: mtk-kpd    KeyLayoutFile: /system/usr/keylayout/Generic.kl
+
+/vendor/usr/keylayout contained only HALL_DEV.kl and /vendor/usr/idc did not
+exist. HALL_DEV.kl was present and readable yet still unused: its only line was
+
+    key 143 UNKNOWN
+
+getKeyCodeByLabel("UNKNOWN") returns AKEYCODE_UNKNOWN == 0, and
+KeyLayoutMap::Parser::parseKey() rejects a zero keycode with BAD_VALUE
+(frameworks/native/libs/input/KeyLayoutMap.cpp:267-272). One bad line
+invalidates the whole file, KeyMap::load() falls through to Generic.kl, and
+Generic.kl maps 142/143 to SLEEP/WAKEUP -- exactly the behaviour the file was
+written to suppress.
+
+## 2. What each device actually advertises (getevent -pl)
+
+    mtk-kpd   KEY_HOME(102) KEY_VOLUMEDOWN(114) KEY_VOLUMEUP(115)
+              KEY_POWER(116) KEY_RESTART(408)
+    ACCDET    KEY_VOLUMEDOWN(114) KEY_VOLUMEUP(115) KEY_PLAYPAUSE(164)
+              KEY_VOICECOMMAND(582)
+              SW_HEADPHONE_INSERT SW_MICROPHONE_INSERT SW_LINEOUT_INSERT
+              SW_JACK_PHYSICAL_INSERT
+    fts_ts    KEY_W E I O S L Z C V M, KEY_UP/DOWN/LEFT/RIGHT, KEY_POWER(116)
+    HALL_DEV  KEY_SLEEP(142) KEY_WAKEUP(143)
+
+Under Generic.kl: 102 became MOVE_HOME (the keypad has no home switch), the
+Focaltech gesture set became literal letters and D-pad presses, and ACCDET's
+inline-remote keys became real volume events.
+
+The owner confirmed the chassis has no 3.5 mm jack. /sys/class/switch contains
+only fps and otg_state -- no h2w -- so WiredAccessoryManager never sees a
+headset and audio routes to the speaker correctly. ACCDET is therefore a pure
+ghost: an ADC comparator on jack pins that are not fitted, wired to the volume
+keycodes.
+
+## 3. The stuck Volume Up chain, end to end
+
+Read out of frameworks/base PhoneWindowManager.java for this exact release:
+
+  4433  case KEYCODE_VOLUME_UP, down, interactive:
+            mA11yShortcutChordVolumeUpKeyTriggered = true
+  4446  cleared only on the VOLUME_UP *up* event
+  1161  mPowerKeyHandled = hungUp
+              || mScreenshotChordVolumeDownKeyTriggered
+              || mA11yShortcutChordVolumeUpKeyTriggered
+              || gesturedServiceIntercepted
+  1163  if (!mPowerKeyHandled) { ... wakeUpFromPowerKey(...) }
+
+A VOLUME_UP down with no matching up latches the flag forever, so
+interceptPowerKeyDown() sets mPowerKeyHandled and never calls
+wakeUpFromPowerKey(). That is the reported "power button does not light the
+screen". Holding VOL_UP + POWER from there reaches the PMIC long-press reset
+(CONFIG_ONEKEY_REBOOT_NORMAL_MODE=y, RG_PWRKEY_RST_EN=1), which is the reported
+occasional reboot. And because the input core only reports transitions, further
+physical Volume Up presses emit nothing at all -- the reported "volume up does
+nothing while volume down still works".
+
+Root cause is below userspace. MTK's kpd driver diffs each scan against a
+cached kpd_keymap_state[], kpd_pdrv_suspend() writes KP_EN=0, and
+kpd_pdrv_resume() re-enables the block without re-reading KP_MEM or resetting
+that cache; the keypad IRQ is an edge-triggered one-shot from the debounce FSM,
+so a transition inside the suspend window is lost permanently. The kernel is
+prebuilt, so this is not fixable in the device tree.
+
+Two candidate originators remain -- mtk-kpd and ACCDET -- and they are
+distinguishable only while the fault is present, by reading EVIOCGKEY per
+device. tools/keystate-probe does that; tools/capture-stuck-key-fault.sh wraps
+it with the framework-side view.
+
+Also relevant: matrix keys can never wake this SoC from suspend, because
+KP_EN=0 means the keypad block cannot assert its SPM wake source. Only the
+PMIC-sourced power key can (CONFIG_KPD_PWRKEY_USE_PMIC=y,
+CONFIG_KPD_PWRKEY_USE_EINT unset). LineageOS's "volume buttons wake device"
+option therefore cannot work on this hardware regardless of configuration --
+this is not a missing keylayout flag.
+
+## 4. Baseline from keystate-probe (fault NOT present)
+
+    /dev/input/event0 ACCDET    0 key(s) asserted
+    /dev/input/event1 mtk-kpd   0 key(s) asserted
+    /dev/input/event2 fts_ts    0 key(s) asserted
+    /dev/input/event3 mtk-tpd   0 key(s) asserted
+    /dev/input/event4 HALL_DEV  0 key(s) asserted
+
+## 5. The fix, validated live
+
+Four key layouts were staged in /data/system/devices/keylayout (Q's user
+repository, searched after /odm and /vendor -- InputDevice.cpp:110-126) and the
+handset rebooted. dumpsys input after:
+
+    3: ACCDET   KeyLayoutFile: /data/system/devices/keylayout/ACCDET.kl
+    4: mtk-kpd  KeyLayoutFile: /data/system/devices/keylayout/mtk-kpd.kl
+    5: fts_ts   KeyLayoutFile: /data/system/devices/keylayout/fts_ts.kl
+
+This proves two things at once: the three-line no-flag mtk-kpd.kl parses, and a
+comment-only key layout is valid and IS selected, which is the only correct way
+to drop a scan code.
+
+The first version of mtk-kpd.kl written in this session carried "WAKE" on all
+three keys and would have been rejected: Android 10's FLAGS[] table
+(frameworks/native/include/input/InputEventLabels.h:405-411) contains only
+VIRTUAL, FUNCTION and GESTURE. WAKE was removed from the grammar years ago.

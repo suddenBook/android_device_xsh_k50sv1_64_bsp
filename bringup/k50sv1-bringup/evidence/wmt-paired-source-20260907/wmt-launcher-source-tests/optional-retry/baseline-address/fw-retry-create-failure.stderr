@@ -1,0 +1,5 @@
+Source launcher ready on session=72623859790382856
+Accepted srh_patch session=72623859790382856 transaction=101 result=0 records=2
+Power initialization completed on attempt 1
+Firmware log control failed: Input/output error
+test: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work/wmt-launcher/test_launcher.c:649: int main(int, char **): Assertion `state.log_create_attempts == 3 && state.log_creates == 2 && state.log_enables == 2 && state.log_failures == 1 && state.log_disables == 1' failed.

@@ -1,0 +1,9 @@
+{
+  "kernel.config.sha256": true,
+  "kernel.module_symvers.sha256": true,
+  "kernel.module.wmt_drv.installed_sha256": true,
+  "kernel.module.wmt_chrdev_wifi.installed_sha256": true,
+  "kernel.module.wlan_drv_gen2.installed_sha256": true,
+  "kernel.module.bt_drv.installed_sha256": true,
+  "kernel.module.gps_drv.installed_sha256": true
+}

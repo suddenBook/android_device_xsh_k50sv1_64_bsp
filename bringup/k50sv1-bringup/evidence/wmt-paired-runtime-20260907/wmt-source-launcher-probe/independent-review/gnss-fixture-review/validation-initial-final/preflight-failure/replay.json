@@ -1,0 +1,26 @@
+{
+  "error": {
+    "type": "RuntimeError",
+    "message": "Injected command failure at search-package-before"
+  },
+  "fixture": {
+    "status": "PASS",
+    "search_restore_required": false
+  },
+  "calls": [
+    {
+      "step": "search-package-before",
+      "args": [
+        "shell",
+        "dumpsys package com.google.android.googlequicksearchbox"
+      ]
+    },
+    {
+      "step": "restore-home-after-gnss",
+      "args": [
+        "shell",
+        "input keyevent KEYCODE_HOME"
+      ]
+    }
+  ]
+}

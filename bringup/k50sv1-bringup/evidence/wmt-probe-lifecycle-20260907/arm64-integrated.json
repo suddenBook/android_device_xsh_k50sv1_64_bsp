@@ -1,0 +1,94 @@
+{
+  "status": "PASS",
+  "kernel_revision": "372a643505f6b0aab0b3adbd150ecb9d9291d8d9",
+  "base_revision": "54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb",
+  "generated_headers": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/kernel-obj-build14-snapshot",
+  "config_sha256": "ac35f0a14387ac96ae2955e6cde3747bd2dfa3cbc8a252cb5bcd68739b73c12a",
+  "rows": [
+    {
+      "source": "drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.c",
+      "source_sha256": "6354fce240ed1b3e02ed8665c1388645a40bf52270fda6595a0353476cdee729",
+      "exit_code": 0,
+      "saved_command_sha256": "87e60669d95f1543d5c094906af6f2bf8751fc1c02c8826ea9c1af70519248fa",
+      "command_file": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.command.json",
+      "command_sha256": "b45307c70bc7e5a8a9227e28f70b33c5ea38a0c9b1a8c77da1902f78539f119d",
+      "object": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.o",
+      "object_sha256": "019a8c3face0c5f43deb1a30b31082a08e75982c7e0c5bb4492f474cf6245589",
+      "log": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.compile.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "drivers/misc/mediatek/connectivity/source/common/common_detect/mtk_wcn_stub_alps.c",
+      "source_sha256": "df57a6f03673d5c3ce2d290a618022249e76d1335b144123d05c77d8f61dc1a1",
+      "exit_code": 0,
+      "saved_command_sha256": "149ab8ef159a54a125b4c5c78f6cea5555f23d74ecfc77c75c8b94f0f37d40c4",
+      "command_file": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/source/common/common_detect/mtk_wcn_stub_alps.command.json",
+      "command_sha256": "1949955d9cf7dcf6d8629fdaf72da00923becf9434238b67841c56f0b4f963de",
+      "object": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/source/common/common_detect/mtk_wcn_stub_alps.o",
+      "object_sha256": "e7a83457fe6e5d99ce90dbdd165b2491e6ea764bef56a5f3ff506d2f82183697",
+      "log": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/source/common/common_detect/mtk_wcn_stub_alps.compile.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "source_sha256": "a844fbb553981ea2dd62ee34c27fce02e24887a87681835919213eb936e21698",
+      "exit_code": 0,
+      "saved_command_sha256": "c1ef94194e704e054d9a575c2878a86b43df262ca03dec388625c3c069309ffd",
+      "command_file": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.command.json",
+      "command_sha256": "a73d5d147e84a75de7c483796636c9355f98ea37d3b6a02b07df650e594d5c65",
+      "object": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.o",
+      "object_sha256": "9c7801bffdfb9ba3031e2139abbafe5972494c7186f461e5047e2d02b4371d1c",
+      "log": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.compile.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+      "source_sha256": "77ec1040a15dbc8b3f3008c392b20613d66c35624192d4800210a0f81a14a5cf",
+      "exit_code": 0,
+      "saved_command_sha256": "bbfd507430bea7ef198fe07af279567781c845fcfc54d96dff9ea76e5fa9bd15",
+      "command_file": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.command.json",
+      "command_sha256": "cebeeb73c241a85e58cdd9a49f72087e5e2ee29d4c364dd274b7c82519146c7c",
+      "object": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.o",
+      "object_sha256": "e440a0e0bee4252602d96148b6d19c02733f7a6635ecf9d33f82eb5b563fe374",
+      "log": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.compile.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c",
+      "source_sha256": "ceb42e2909bd2917a1658f59778a1b187e717b9b51db441b02db3bdab9e02913",
+      "exit_code": 0,
+      "saved_command_sha256": "72aca8f22a21327a4b80e028a2f53e116dd8f1c51b809855571d6437af449d44",
+      "command_file": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.command.json",
+      "command_sha256": "9c0e42c545f0293697c8167433a685d5613df5eac191624771d3ee3996d94732",
+      "object": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.o",
+      "object_sha256": "88d52c796aa7370b38a9688bc73368192719adddac582cc882d228d4691d8cd9",
+      "log": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.compile.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c",
+      "source_sha256": "586458d8f51fa92949ac9b1e83f0bc717531c23b5eb7ac505acd4789666315c3",
+      "exit_code": 0,
+      "saved_command_sha256": "0c2a826f92d551922256bd1d8fa6f4f15d0205e3681b45ea5ea6f030d8e4a159",
+      "command_file": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.command.json",
+      "command_sha256": "c4668a5043e7142e607689e9b224d30087fc9b52743f23e2639c1ec68e6e7cbe",
+      "object": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.o",
+      "object_sha256": "ae92376a83d7e35956513a4a9ac073ca22d14ac1616bd6dc0df55d9f3c371600",
+      "log": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.compile.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/wmt_plat_alps.c",
+      "source_sha256": "f898e27c63210005e29a4ba5cf3f87ad4a1d93ffe2ce4793f92a9a527e36d804",
+      "exit_code": 0,
+      "saved_command_sha256": "72c39488caba6cb7cc018dd31ae7b92dde3ffb0d779b325525f969c53925fd03",
+      "command_file": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/source/common/common_main/platform/wmt_plat_alps.command.json",
+      "command_sha256": "6f17fd21c614b900709d84366c22d883f0de59d4f556850b5d6c981ea1cfe15c",
+      "object": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/source/common/common_main/platform/wmt_plat_alps.o",
+      "object_sha256": "544aa2e6a5348827c03da136eecfb6819f5bbe6a1d944a1cbcbe0507f63b9289",
+      "log": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-arm64/drivers/misc/mediatek/connectivity/source/common/common_main/platform/wmt_plat_alps.compile.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": "Production GCC 4.9 command flags and generated headers from build14; the later full clean build verifies complete final linkage."
+}

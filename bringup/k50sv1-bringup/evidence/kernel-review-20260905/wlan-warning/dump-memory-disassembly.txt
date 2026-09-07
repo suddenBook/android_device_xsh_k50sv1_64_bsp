@@ -1,0 +1,102 @@
+
+/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/kernel-review-20260905/build-project/lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/lib/modules/wlan_drv_gen2.ko:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000160 <kalSetCpuNumFreq+0xa8>:
+	...
+			160: R_AARCH64_ABS64	.rodata.str1.8
+
+0000000000000168 <dumpMemory8IEOneLine>:
+     168:	d11043ff 	sub	sp, sp, #0x410
+     16c:	a9bb7bfd 	stp	x29, x30, [sp,#-80]!
+     170:	910003fd 	mov	x29, sp
+     174:	f90023f9 	str	x25, [sp,#64]
+     178:	58000859 	ldr	x25, 280 <dumpMemory8IEOneLine+0x118>
+     17c:	a90153f3 	stp	x19, x20, [sp,#16]
+     180:	a9025bf5 	stp	x21, x22, [sp,#32]
+     184:	a90363f7 	stp	x23, x24, [sp,#48]
+     188:	aa0003f3 	mov	x19, x0
+     18c:	aa0103f6 	mov	x22, x1
+     190:	f9400320 	ldr	x0, [x25]
+     194:	2a0203f4 	mov	w20, w2
+     198:	f9022fa0 	str	x0, [x29,#1112]
+     19c:	b4000641 	cbz	x1, 264 <dumpMemory8IEOneLine+0xfc>
+     1a0:	52800001 	mov	w1, #0x0                   	// #0
+     1a4:	d2808002 	mov	x2, #0x400                 	// #1024
+     1a8:	910163a0 	add	x0, x29, #0x58
+     1ac:	52804015 	mov	w21, #0x200                 	// #512
+     1b0:	94000000 	bl	0 <memset>
+			1b0: R_AARCH64_CALL26	memset
+     1b4:	58000762 	ldr	x2, 2a0 <dumpMemory8IEOneLine+0x138>
+     1b8:	aa1303e3 	mov	x3, x19
+     1bc:	910163a0 	add	x0, x29, #0x58
+     1c0:	d2808001 	mov	x1, #0x400                 	// #1024
+     1c4:	2a1403e4 	mov	w4, w20
+     1c8:	94000000 	bl	0 <snprintf>
+			1c8: R_AARCH64_CALL26	snprintf
+     1cc:	2a0003f3 	mov	w19, w0
+     1d0:	7108029f 	cmp	w20, #0x200
+     1d4:	1a959295 	csel	w21, w20, w21, ls
+     1d8:	340001d5 	cbz	w21, 210 <dumpMemory8IEOneLine+0xa8>
+     1dc:	58000678 	ldr	x24, 2a8 <dumpMemory8IEOneLine+0x140>
+     1e0:	d2800014 	mov	x20, #0x0                   	// #0
+     1e4:	52808017 	mov	w23, #0x400                 	// #1024
+     1e8:	38746ac3 	ldrb	w3, [x22,x20]
+     1ec:	4b1302e1 	sub	w1, w23, w19
+     1f0:	aa1803e2 	mov	x2, x24
+     1f4:	910163a0 	add	x0, x29, #0x58
+     1f8:	91000694 	add	x20, x20, #0x1
+     1fc:	8b334000 	add	x0, x0, w19, uxtw
+     200:	94000000 	bl	0 <snprintf>
+			200: R_AARCH64_CALL26	snprintf
+     204:	0b000273 	add	w19, w19, w0
+     208:	6b1402bf 	cmp	w21, w20
+     20c:	54fffee8 	b.hi	1e8 <dumpMemory8IEOneLine+0x80>
+     210:	58000502 	ldr	x2, 2b0 <dumpMemory8IEOneLine+0x148>
+     214:	52808001 	mov	w1, #0x400                 	// #1024
+     218:	58000503 	ldr	x3, 2b8 <dumpMemory8IEOneLine+0x150>
+     21c:	4b130021 	sub	w1, w1, w19
+     220:	910163a0 	add	x0, x29, #0x58
+     224:	8b334000 	add	x0, x0, w19, uxtw
+     228:	94000000 	bl	0 <snprintf>
+			228: R_AARCH64_CALL26	snprintf
+     22c:	580004a0 	ldr	x0, 2c0 <dumpMemory8IEOneLine+0x158>
+     230:	910163a1 	add	x1, x29, #0x58
+     234:	94000000 	bl	0 <printk>
+			234: R_AARCH64_CALL26	printk
+     238:	f9422fa1 	ldr	x1, [x29,#1112]
+     23c:	f9400320 	ldr	x0, [x25]
+     240:	eb00003f 	cmp	x1, x0
+     244:	540001c1 	b.ne	27c <dumpMemory8IEOneLine+0x114>
+     248:	a94153f3 	ldp	x19, x20, [sp,#16]
+     24c:	a9425bf5 	ldp	x21, x22, [sp,#32]
+     250:	a94363f7 	ldp	x23, x24, [sp,#48]
+     254:	f94023f9 	ldr	x25, [sp,#64]
+     258:	a8c57bfd 	ldp	x29, x30, [sp],#80
+     25c:	911043ff 	add	sp, sp, #0x410
+     260:	d65f03c0 	ret
+     264:	58000161 	ldr	x1, 290 <dumpMemory8IEOneLine+0x128>
+     268:	528009a2 	mov	w2, #0x4d                  	// #77
+     26c:	58000163 	ldr	x3, 298 <dumpMemory8IEOneLine+0x130>
+     270:	580000c0 	ldr	x0, 288 <dumpMemory8IEOneLine+0x120>
+     274:	94000000 	bl	0 <printk>
+			274: R_AARCH64_CALL26	printk
+     278:	17ffffca 	b	1a0 <dumpMemory8IEOneLine+0x38>
+     27c:	94000000 	bl	0 <__stack_chk_fail>
+			27c: R_AARCH64_CALL26	__stack_chk_fail
+	...
+			280: R_AARCH64_ABS64	__stack_chk_guard
+			288: R_AARCH64_ABS64	.rodata.str1.8+0x60
+			290: R_AARCH64_ABS64	.rodata+0x30
+			298: R_AARCH64_ABS64	.rodata.str1.8+0x80
+			2a0: R_AARCH64_ABS64	.rodata.str1.8+0x90
+			2a8: R_AARCH64_ABS64	.rodata.str1.8+0xa0
+			2b0: R_AARCH64_ABS64	.rodata.str1.8+0xa8
+			2b8: R_AARCH64_ABS64	.rodata.str1.8+0xb0
+			2c0: R_AARCH64_ABS64	.rodata.str1.8+0xb8
+
+00000000000002c8 <dumpMemory8>:
+     2c8:	d10203ff 	sub	sp, sp, #0x80
+     2cc:	a9057bfd 	stp	x29, x30, [sp,#80]

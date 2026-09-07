@@ -1,0 +1,331 @@
+{
+  "source_inputs": [
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work/wmt-launcher/firmware.h",
+      "sha256": "cccea4a74d48bf310c704084f496a5d342f64b73cb61ac7b8aebf465a773fbc2"
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work/wmt-launcher/firmware.c",
+      "sha256": "24094ba87ae2ee01b2e471720c449b692fc3ac02c541304bd3e13554986a880a"
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work/wmt-launcher/test_firmware.c",
+      "sha256": "c7aa7722e564f612bbb85431e1069f3cd1936d2b5000d50a233fec9b4ba0a470"
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work/wmt-launcher/patch.h",
+      "sha256": "d41885eb0f25deb42e8fc1ebaee3ce94e623ebfd4af53ec2aea11c2ef8c782e2"
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work/wmt-launcher/patch.c",
+      "sha256": "3c6e2b4f27f308cf8dad06e7b1735a8568f72555c718967241cb6be3726a6d26"
+    }
+  ],
+  "firmware_inputs": [
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/firmware/ROMv2_lm_patch_1_0_hdr.bin",
+      "sha256": "7a58e99fdcab239f133be92da999f8733878617191bb1f5caa1096d91ad8e1a2",
+      "header_hex": "3230323030363239313934353137610a414c50538a008a0022000600"
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/firmware/ROMv2_lm_patch_1_1_hdr.bin",
+      "sha256": "cb7ba98c5c73705eb03a6ec11b78a3b1cce6069132b1f267d50079f2b1b594fd",
+      "header_hex": "3230323030363239313934353137610a414c50538a008a0021000af0"
+    }
+  ],
+  "reference_path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-contract-20260907/reference-review/extracted.json",
+  "reference_sha256": "c5edec92df621f74e49f315e85d9bfb715568adb0bec4e2355d7a6b3ad17414a",
+  "runner_path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/firmware-run.py",
+  "runner_sha256": "2a8010cfd657f296f73f5f7325b4911e474b9155547c46d92325d26612f7864f",
+  "compiler": "clang version 22.1.8\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin\n",
+  "compile_command": [
+    "/usr/bin/clang",
+    "-std=gnu11",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fno-omit-frame-pointer",
+    "-fsanitize=address,undefined",
+    "-fno-sanitize-recover=all",
+    "-I",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/firmware-first-address/sources",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/firmware-first-address/sources/patch.c",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/firmware-first-address/sources/firmware.c",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/firmware-first-address/sources/test_firmware.c",
+    "-Wl,--wrap=openat",
+    "-Wl,--wrap=fstat",
+    "-Wl,--wrap=read",
+    "-Wl,--wrap=readdir",
+    "-Wl,--wrap=close",
+    "-Wl,--wrap=closedir",
+    "-Wl,--wrap=malloc",
+    "-Wl,--wrap=lseek",
+    "-o",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/firmware-first-address/test_firmware"
+  ],
+  "compile_returncode": 0,
+  "rom_fixtures": "synthetic; no retained ROM firmware is present",
+  "run_command": [
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/firmware-first-address/test_firmware",
+    "/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/firmware/ROMv2_lm_patch_1_0_hdr.bin",
+    "/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/firmware/ROMv2_lm_patch_1_1_hdr.bin",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/firmware-first-address/temporary"
+  ],
+  "sanitizer_options": {
+    "ASAN_OPTIONS": "detect_leaks=1:halt_on_error=1:abort_on_error=1",
+    "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1"
+  },
+  "test_returncode": 0,
+  "binary_sha256": "4267c1f68583ba2e116bafbf2a37a844fd58904325c9b3f724b0204620bf5c1f",
+  "cases": [
+    {
+      "case": "normal-real-headers-low-byte-and-order",
+      "passed": true
+    },
+    {
+      "case": "normal-no-candidates",
+      "passed": true
+    },
+    {
+      "case": "normal-incomplete",
+      "passed": true
+    },
+    {
+      "case": "normal-duplicate",
+      "passed": true
+    },
+    {
+      "case": "normal-inconsistent-count",
+      "passed": true
+    },
+    {
+      "case": "normal-mismatch-skips-metadata",
+      "passed": true
+    },
+    {
+      "case": "normal-ten-reverse-created-versions-by-sequence",
+      "passed": true
+    },
+    {
+      "case": "normal-all-short-header-lengths",
+      "passed": true
+    },
+    {
+      "case": "normal-invalid-count-sequence-nibbles",
+      "passed": true
+    },
+    {
+      "case": "normal-255-byte-basename",
+      "passed": true
+    },
+    {
+      "case": "normal-open-error",
+      "passed": true
+    },
+    {
+      "case": "normal-fstat-error",
+      "passed": true
+    },
+    {
+      "case": "normal-read-error",
+      "passed": true
+    },
+    {
+      "case": "normal-partial-then-error",
+      "passed": true
+    },
+    {
+      "case": "normal-readdir-error",
+      "passed": true
+    },
+    {
+      "case": "normal-close-error",
+      "passed": true
+    },
+    {
+      "case": "normal-closedir-error",
+      "passed": true
+    },
+    {
+      "case": "normal-eintr-retry",
+      "passed": true
+    },
+    {
+      "case": "normal-partial-read-reassembly",
+      "passed": true
+    },
+    {
+      "case": "filesystem-invalid-arguments-and-directory",
+      "passed": true
+    },
+    {
+      "case": "filesystem-directory-candidates",
+      "passed": true
+    },
+    {
+      "case": "filesystem-fifo-candidates-no-block",
+      "passed": true
+    },
+    {
+      "case": "filesystem-broken-symlink-candidates",
+      "passed": true
+    },
+    {
+      "case": "filesystem-regular-symlinks-keep-entry-basename",
+      "passed": true
+    },
+    {
+      "case": "synthetic-rom-empty-success",
+      "passed": true
+    },
+    {
+      "case": "synthetic-rom-all-five-types-low-byte-address",
+      "passed": true
+    },
+    {
+      "case": "synthetic-rom-wmt-type-four-alone",
+      "passed": true
+    },
+    {
+      "case": "synthetic-rom-duplicate-type",
+      "passed": true
+    },
+    {
+      "case": "synthetic-rom-all-invalid-types-including-original-five",
+      "passed": true
+    },
+    {
+      "case": "synthetic-rom-missing-header27-high-nibble",
+      "passed": true
+    },
+    {
+      "case": "synthetic-rom-all-short-header-lengths",
+      "passed": true
+    },
+    {
+      "case": "synthetic-rom-mismatch-skips-invalid-metadata",
+      "passed": true
+    },
+    {
+      "case": "synthetic-rom-wifi-header-and-bt-marker-newline",
+      "passed": true
+    },
+    {
+      "case": "synthetic-rom-wifi-multiple-role-version-consistency",
+      "passed": true
+    },
+    {
+      "case": "synthetic-bt-absent-optional-markers",
+      "passed": true
+    },
+    {
+      "case": "synthetic-bt-unrecognized-text",
+      "passed": true
+    },
+    {
+      "case": "synthetic-bt-start-without-end",
+      "passed": true
+    },
+    {
+      "case": "synthetic-bt-end-without-start",
+      "passed": true
+    },
+    {
+      "case": "synthetic-bt-reversed-markers",
+      "passed": true
+    },
+    {
+      "case": "synthetic-bt-truncated-end-marker",
+      "passed": true
+    },
+    {
+      "case": "synthetic-bt-debug-fallback-first-fourteen-bytes",
+      "passed": true
+    },
+    {
+      "case": "synthetic-bt-neptune-precedes-debug-fallback",
+      "passed": true
+    },
+    {
+      "case": "synthetic-bt-text-outside-markers-excluded",
+      "passed": true
+    },
+    {
+      "case": "synthetic-bt-binary-markers-and-bounded-nul-text",
+      "passed": true
+    },
+    {
+      "case": "synthetic-bt-version-truncates-to-ninety-one",
+      "passed": true
+    },
+    {
+      "case": "synthetic-bt-multiple-role-version-consistency",
+      "passed": true
+    },
+    {
+      "case": "synthetic-bt-one-mib-boundary-and-oversize",
+      "passed": true
+    },
+    {
+      "case": "synthetic-rom-open-error",
+      "passed": true
+    },
+    {
+      "case": "synthetic-rom-fstat-error",
+      "passed": true
+    },
+    {
+      "case": "synthetic-rom-read-error",
+      "passed": true
+    },
+    {
+      "case": "synthetic-rom-partial-then-error",
+      "passed": true
+    },
+    {
+      "case": "synthetic-rom-readdir-error",
+      "passed": true
+    },
+    {
+      "case": "synthetic-rom-close-error",
+      "passed": true
+    },
+    {
+      "case": "synthetic-rom-closedir-error",
+      "passed": true
+    },
+    {
+      "case": "synthetic-bt-allocation-error",
+      "passed": true
+    },
+    {
+      "case": "synthetic-bt-seek-error",
+      "passed": true
+    },
+    {
+      "case": "synthetic-bt-final-read-error",
+      "passed": true
+    },
+    {
+      "case": "synthetic-bt-file-grew-after-stat",
+      "passed": true
+    },
+    {
+      "case": "synthetic-rom-eintr-retry",
+      "passed": true
+    },
+    {
+      "case": "synthetic-rom-partial-read-reassembly",
+      "passed": true
+    },
+    {
+      "passed": 60,
+      "failed": 0,
+      "rom_fixtures": "synthetic"
+    }
+  ],
+  "source_stable": true,
+  "passed": true
+}

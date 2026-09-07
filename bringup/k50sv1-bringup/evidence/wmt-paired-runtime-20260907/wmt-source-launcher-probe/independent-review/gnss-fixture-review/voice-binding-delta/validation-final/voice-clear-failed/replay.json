@@ -1,0 +1,95 @@
+{
+  "error": {
+    "type": "RuntimeError",
+    "message": "Injected failure at pause-system-voice-binding"
+  },
+  "fixture": {
+    "status": "PASS",
+    "search_restore_required": false,
+    "voice_restore_required": true,
+    "errors": [],
+    "restored_voice_settings": {
+      "voice_recognition_service": "com.google.android.googlequicksearchbox/com.google.android.voicesearch.serviceapi.GoogleRecognitionService",
+      "voice_interaction_service": "com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService"
+    }
+  },
+  "calls": [
+    {
+      "step": "search-package-before",
+      "args": [
+        "shell",
+        "dumpsys package com.google.android.googlequicksearchbox"
+      ]
+    },
+    {
+      "step": "search-launcher-component",
+      "args": [
+        "shell",
+        "cmd package resolve-activity --brief --user 0 -n com.google.android.googlequicksearchbox/.SearchActivity"
+      ]
+    },
+    {
+      "step": "wake-before-isolation",
+      "args": [
+        "shell",
+        "input keyevent KEYCODE_WAKEUP; wm dismiss-keyguard"
+      ]
+    },
+    {
+      "step": "original-voice_recognition_service",
+      "args": [
+        "shell",
+        "settings get secure voice_recognition_service"
+      ]
+    },
+    {
+      "step": "original-voice_interaction_service",
+      "args": [
+        "shell",
+        "settings get secure voice_interaction_service"
+      ]
+    },
+    {
+      "step": "pause-system-voice-binding",
+      "args": [
+        "shell",
+        "settings put secure voice_interaction_service ''"
+      ]
+    },
+    {
+      "step": "restore-voice_recognition_service",
+      "args": [
+        "shell",
+        "settings put secure voice_recognition_service com.google.android.googlequicksearchbox/com.google.android.voicesearch.serviceapi.GoogleRecognitionService"
+      ]
+    },
+    {
+      "step": "restored-voice_recognition_service",
+      "args": [
+        "shell",
+        "settings get secure voice_recognition_service"
+      ]
+    },
+    {
+      "step": "restore-voice_interaction_service",
+      "args": [
+        "shell",
+        "settings put secure voice_interaction_service com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService"
+      ]
+    },
+    {
+      "step": "restored-voice_interaction_service",
+      "args": [
+        "shell",
+        "settings get secure voice_interaction_service"
+      ]
+    },
+    {
+      "step": "restore-home-after-gnss",
+      "args": [
+        "shell",
+        "input keyevent KEYCODE_HOME"
+      ]
+    }
+  ]
+}

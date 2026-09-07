@@ -1,0 +1,87 @@
+{
+  "scope": "initial standalone kernel milestone; later Android build and staging are recorded in android/summary.json; no target mount, flash or performance test",
+  "kernel_base": "281fee8e77f0e3b4813b58782dcf47c496624b28",
+  "kernel_candidate": "c2e1759a396e0c876872fbd205e35f26d91ddb61",
+  "kernel_candidate_tree": "1cf30d0e1959740edebc890e90229e3a4659975f",
+  "device_base": "b2937ab213e10434584886bd7c58a165c7dc1021",
+  "device_candidate": "5f4b0db1c0320d4b2a8d6a40df5f7d929be14c48",
+  "device_candidate_tree": "7b284e7988e03f86c7fc6788073d74e1e99c4a37",
+  "donor": "7dcbebc5490b10bb5b9e136918fa56bf9dcfed32",
+  "f2fs_tools": "d7a235fc0ca8f9f2908aaa3693e584a5bba5dcae",
+  "build_exit": 0,
+  "abi_exit": 0,
+  "patch_apply_check_exit": 0,
+  "build_argv": [
+    "make",
+    "-j32",
+    "O=/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/kernel-out",
+    "ARCH=arm64",
+    "CROSS_COMPILE=/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-",
+    "LOCALVERSION=",
+    "KBUILD_SYMTYPES=1",
+    "python=/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/prebuilts/python/linux-x86/2.7.5/bin/python2.7",
+    "Image.gz",
+    "modules"
+  ],
+  "artifacts": [
+    {
+      "path": "work/.capture-staging/f2fs-assessment-20260905/kernel-out/.config",
+      "bytes": 105543,
+      "sha256": "a8785a70e79d991b184af54c4408e02ea2cbaec641fa66516ef94b593f79a3b9"
+    },
+    {
+      "path": "work/.capture-staging/f2fs-assessment-20260905/kernel-out/Module.symvers",
+      "bytes": 410857,
+      "sha256": "a3ae2d7aa9459eba11732e1cacd71d8ea987c9da0ef7c60b5f96a01a6d83933d"
+    },
+    {
+      "path": "work/.capture-staging/f2fs-assessment-20260905/kernel-out/vmlinux",
+      "bytes": 186147144,
+      "sha256": "a50cbeffdbf943c573e7ca7ba7df1835193b015c5c0b9fed91760575085dfd9a"
+    },
+    {
+      "path": "work/.capture-staging/f2fs-assessment-20260905/kernel-out/arch/arm64/boot/Image",
+      "bytes": 17992464,
+      "sha256": "3fb5144809feb05061609022460ceab9c0fc9d64c94918160b544d29a61d6593"
+    },
+    {
+      "path": "work/.capture-staging/f2fs-assessment-20260905/kernel-out/arch/arm64/boot/Image.gz",
+      "bytes": 7549793,
+      "sha256": "df43c073b2c7a58cafcf1b4693a7c78bcd21eddba14a487836d22877beb085df"
+    }
+  ],
+  "host_tools": [
+    {
+      "path": "lineage-17.1/out/host/linux-x86/bin/make_f2fs",
+      "bytes": 526944,
+      "sha256": "352e64596899e5c9fa142ad0b2a447fbec6d0c67637dc121d74221640b781b5f"
+    },
+    {
+      "path": "lineage-17.1/out/host/linux-x86/bin/fsck.f2fs",
+      "bytes": 639440,
+      "sha256": "02aab0dd855c0a989f0a1b3b849f4785b8900cede4d576dcedc422ceae9b3abb"
+    },
+    {
+      "path": "lineage-17.1/out/host/linux-x86/bin/sload_f2fs",
+      "bytes": 6403056,
+      "sha256": "2ce550609dec73ac2fea8c3797c52d7f8ad3aaac46b51e130ef71ec849629c1a"
+    }
+  ],
+  "patches": [
+    {
+      "path": "work/k50sv1-bringup/experiments/f2fs/device/0001-storage-prepare-data-only-F2FS-evaluation-with-nativ.patch",
+      "bytes": 2772,
+      "sha256": "5c4d9407f9948fbe027427bc421529090a6ef81ceb2ef3bbcc2f1477da4290e2"
+    },
+    {
+      "path": "work/k50sv1-bringup/experiments/f2fs/kernel/0001-f2fs-port-the-AOSP-merged-July-2019-3.18-stable-snap.patch",
+      "bytes": 511719,
+      "sha256": "47d857b65f64593e0499b5f6d23bdd6347ffeede4b2463a9b7e215527e493a58"
+    },
+    {
+      "path": "work/k50sv1-bringup/experiments/f2fs/kernel/0002-config-enable-an-isolated-F2FS-candidate-without-cha.patch",
+      "bytes": 1772,
+      "sha256": "6990d66882709756fdca55c34db0d2f10128c628624e4df62b9be4694dce28db"
+    }
+  ]
+}

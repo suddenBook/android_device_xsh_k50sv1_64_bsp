@@ -1,0 +1,274 @@
+[
+  {
+    "step": "search-package-before",
+    "exit_code": 0
+  },
+  {
+    "step": "search-launcher-component",
+    "exit_code": 0
+  },
+  {
+    "step": "pause-observed-search-request-source",
+    "exit_code": 0
+  },
+  {
+    "step": "reset-old-probe-process",
+    "exit_code": 0
+  },
+  {
+    "step": "old-probe-process-absent",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-0",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-1",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-2",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-3",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-4",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-5",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-6",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-7",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-8",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-9",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-10",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-11",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-12",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-13",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-14",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-15",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-16",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-17",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-18",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-19",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-20",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-21",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-22",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-23",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-24",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-25",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-26",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-27",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-28",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-29",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-30",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-31",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-32",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-33",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-34",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-35",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-36",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-37",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-38",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-39",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-40",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-41",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-42",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-43",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-44",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-45",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-46",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-47",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-48",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-49",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-50",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-51",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-52",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-53",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-54",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-55",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-56",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-57",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-58",
+    "exit_code": 0
+  },
+  {
+    "step": "gps-idle-observation-59",
+    "exit_code": 0
+  },
+  {
+    "step": "restore-search-availability",
+    "exit_code": 0
+  },
+  {
+    "step": "search-package-restored",
+    "exit_code": 0
+  },
+  {
+    "step": "restore-home-after-gnss",
+    "exit_code": 0
+  }
+]

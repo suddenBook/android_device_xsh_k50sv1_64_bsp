@@ -1,0 +1,6 @@
+--------- beginning of main
+--------- beginning of system
+09-07 11:28:31.680  6773  6773 I K50P2pProbe: create_accepted
+09-07 11:28:32.187  6773  6773 I K50P2pProbe: formed=true owner=true clients=0
+09-07 11:28:36.695  6773  6773 I K50P2pProbe: remove_accepted
+09-07 11:28:36.706  6773  6773 I K50P2pProbe: RESULT PASS reason=group_removed formed=true cleanup_pending=false

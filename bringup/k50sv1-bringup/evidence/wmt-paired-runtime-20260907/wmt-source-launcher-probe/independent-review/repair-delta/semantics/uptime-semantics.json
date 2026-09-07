@@ -1,0 +1,10 @@
+{
+  "first_line": 23,
+  "kernel_revision": "4192fb6ae88e057bb2abb0f464cf6b4cb64697de",
+  "last_line": 31,
+  "meaning": "/proc/uptime reads get_monotonic_boottime and truncates nanoseconds to hundredths; adding one centisecond gives a strict observation upper bound.",
+  "review_scope": "Only the time-base and formatting statements relevant to the repaired probe.",
+  "source": "sources/kernel/xsh/k50sv1_64_bsp/fs/proc/uptime.c",
+  "source_clean": true,
+  "source_sha256": "a4f4174576d039811bb79ff66880a5e158494507defdb32c4b5c8770069c76d9"
+}

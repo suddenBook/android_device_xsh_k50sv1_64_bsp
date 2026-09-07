@@ -1,0 +1,987 @@
+{
+  "created_utc": "2026-09-07T00:38:06.594497+00:00",
+  "kernel_revision": "372a643505f6b0aab0b3adbd150ecb9d9291d8d9",
+  "base_revision": "54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb",
+  "probe_original_revision": "da0a099216d01913e1f57ee691eadafacbefa5c5",
+  "worktree_clean": true,
+  "changed_file_sha256": {
+    "drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.c": "6354fce240ed1b3e02ed8665c1388645a40bf52270fda6595a0353476cdee729",
+    "drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.h": "4c0da0d4afcc160738d5835194cfa85abace92d7a05c58262d20b122d940c349",
+    "drivers/misc/mediatek/connectivity/source/common/common_detect/mtk_wcn_stub_alps.c": "df57a6f03673d5c3ce2d290a618022249e76d1335b144123d05c77d8f61dc1a1",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c": "a844fbb553981ea2dd62ee34c27fce02e24887a87681835919213eb936e21698",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c": "77ec1040a15dbc8b3f3008c392b20613d66c35624192d4800210a0f81a14a5cf",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/platform/include/mtk_wcn_consys_hw.h": "2f9d4777b9fbde76e0b04513b4710ad012e91c31105d350b94991a809f825ab7",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c": "ceb42e2909bd2917a1658f59778a1b187e717b9b51db441b02db3bdab9e02913",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c": "586458d8f51fa92949ac9b1e83f0bc717531c23b5eb7ac505acd4789666315c3",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/platform/wmt_plat_alps.c": "f898e27c63210005e29a4ba5cf3f87ad4a1d93ffe2ce4793f92a9a527e36d804",
+    "drivers/misc/mediatek/connectivity/source/common/test/README_wmt_callback_lifetime.md": "72d1a735f8d290417312493d3e2f820a88c1d06e3efec71a05993e98f9b3a792",
+    "drivers/misc/mediatek/connectivity/source/common/test/README_wmt_platform_init.md": "12a63ffc18261e7e24c1eee9e5edcb1f062a4a5e579a478c5940ecf659c4530d",
+    "drivers/misc/mediatek/connectivity/source/common/test/README_wmt_probe_lifecycle.md": "56d1f3738ffba92a80b56ecbe9973f9d3f80d2deeb670a59b4dd7a8be5882383",
+    "drivers/misc/mediatek/connectivity/source/common/test/test_wmt_callback_lifetime.py": "765be4f25b38ab42d2141e91a3a76f5d5d55418d4d6cd85a5cb0cda7053571fb",
+    "drivers/misc/mediatek/connectivity/source/common/test/test_wmt_platform_init.py": "0e38df786efad6d97e7aa2b2dbed8ee1026e35ee987e8b64f0f8636939594679",
+    "drivers/misc/mediatek/connectivity/source/common/test/test_wmt_probe_lifecycle.py": "41fea452b5aac8c3b8ccfbf953e39cb0f7a1aec61e869e5ad99bcf99cc48d777",
+    "drivers/misc/mediatek/connectivity/source/common/test/wmt_callback_lifetime_host.c": "c6940717e7bcc4801910cfb6294064216d7db2d738ffb36b8b920ac266af5c98",
+    "drivers/misc/mediatek/connectivity/source/common/test/wmt_lib_init_host.c": "392c8a5f00a8f0eebf4df46d20579c1b6b2e9525560fb0a5b5b63bded30665e4",
+    "drivers/misc/mediatek/connectivity/source/common/test/wmt_outer_init_host.c": "0315bd348899243fabce40b610a55b8f428f2676fce9eedd706c41137b2f75a4",
+    "drivers/misc/mediatek/connectivity/source/common/test/wmt_platform_init_host.c": "5b049bcd270e142e5e772a7b89dc78b9ba29b2160a8c0d6bdc44ec0c7d27d516",
+    "drivers/misc/mediatek/connectivity/source/common/test/wmt_probe_lifecycle_host.c": "940eb9a895683c02a155ea5bcf2cbbb7b2d5d6b79eb88c937386a64e98e22fbd",
+    "drivers/misc/mediatek/connectivity/source/common/test/wmt_shutdown_host.c": "a9cfa2555a85e1ce9ac6f68b3eadfc11f04b38e54d92137deb9541bac97033a9"
+  },
+  "original_probe_sources_unchanged_by_integration": true,
+  "integrated_checks": [
+    {
+      "name": "complete-platform-address",
+      "passed": 23,
+      "total": 23,
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-platform-address/result.json",
+      "result_sha256": "649b3d1ea73a6b79b489aead5951049613f72e0155f6b2235ab67f12e5e7251f",
+      "source_and_fixture_hashes_verified": true
+    },
+    {
+      "name": "complete-callback-thread",
+      "passed": 19,
+      "total": 19,
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/complete-callback-thread/result.json",
+      "result_sha256": "5935743db513743ab91e696678b8f17d37b25863376c24f4e7db0162ff945bca",
+      "source_and_fixture_hashes_verified": true
+    }
+  ],
+  "compiled_production_objects": 7,
+  "baseline_failure_categories": {
+    "assertion": 51,
+    "undefined-behavior-sanitizer": 1,
+    "address-sanitizer": 2
+  },
+  "artifacts": [
+    {
+      "path": "author-validation.json",
+      "source": "wmt-probe-lifecycle-tests/final-validation.json",
+      "sha256": "3ea9fb46a4abe668ceffeeb955aefd674b90e64abeba4ab5d7fe974efaffbe0f"
+    },
+    {
+      "path": "candidate.json",
+      "source": "wmt-probe-lifecycle-tests/candidate-final/result.json",
+      "sha256": "dc2ffb9170fc9ebf7f148a02da8b43eee371ac2ca966de9fb8c25e98eab74863"
+    },
+    {
+      "path": "baseline.json",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/result.json",
+      "sha256": "31067108caaa3cde27c5c63e0c61b721daac6c18c3db9fd741641732d4f4d153"
+    },
+    {
+      "path": "platform-author.json",
+      "source": "wmt-probe-lifecycle-tests/platform-final/result.json",
+      "sha256": "315195066f890023d41e46624964286741c404405be00e5009c7d7bf8d156ac1"
+    },
+    {
+      "path": "platform-overlay.json",
+      "source": "wmt-probe-lifecycle-tests/platform-integration-final/result.json",
+      "sha256": "b475de56fed41236a359feb88f1f649d66e10138a96572effde6a744fc1481a9"
+    },
+    {
+      "path": "platform-overlay-binding.json",
+      "source": "wmt-probe-lifecycle-tests/platform-integration-overlay.json",
+      "sha256": "944495c881a91ae17084aac8f5cf3280d25242bb7b080d9c04e81c273e6d2800"
+    },
+    {
+      "path": "platform-integrated.json",
+      "source": "wmt-platform-integration-tests/complete-platform-address/result.json",
+      "sha256": "649b3d1ea73a6b79b489aead5951049613f72e0155f6b2235ab67f12e5e7251f"
+    },
+    {
+      "path": "callback-integrated.json",
+      "source": "wmt-platform-integration-tests/complete-callback-thread/result.json",
+      "sha256": "5935743db513743ab91e696678b8f17d37b25863376c24f4e7db0162ff945bca"
+    },
+    {
+      "path": "arm64-integrated.json",
+      "source": "wmt-platform-integration-tests/complete-arm64/result.json",
+      "sha256": "34d8aaa1e87332c9f0f1128a697b44074445924f09135157157b9e0c601bfdb4"
+    },
+    {
+      "path": "compile-wmt-integrated-batch.py",
+      "source": "compile-wmt-integrated-batch.py",
+      "sha256": "08d4a42d11398e3ad0c793f0aa482303f4a232e037e16ae0526912e4abe3eb68"
+    },
+    {
+      "path": "capture-wmt-platform-state.py",
+      "source": "capture-wmt-platform-state.py",
+      "sha256": "beb330dc7f7f1e453dfb786b54968a8f6c83a852e6caea25fd7da3d474aa8970"
+    },
+    {
+      "path": "baseline-logs/successful-probe-remove.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/successful-probe-remove.txt",
+      "sha256": "5f97118ce1ace600476121c839707e8b972654f517c98a59e693d024cc038c48"
+    },
+    {
+      "path": "baseline-logs/remove-before-probe.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/remove-before-probe.txt",
+      "sha256": "946823e881551752d1e4ca9cefd625860d88f4bd204ce611cd41c6c6b2fd9d3a"
+    },
+    {
+      "path": "baseline-logs/repeated-hardware-deinit.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/repeated-hardware-deinit.txt",
+      "sha256": "5f97118ce1ace600476121c839707e8b972654f517c98a59e693d024cc038c48"
+    },
+    {
+      "path": "baseline-logs/duplicate-hardware-init.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/duplicate-hardware-init.txt",
+      "sha256": "5f97118ce1ace600476121c839707e8b972654f517c98a59e693d024cc038c48"
+    },
+    {
+      "path": "baseline-logs/driver-register-enomem.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/driver-register-enomem.txt",
+      "sha256": "58a68ccbe6779e81540921bb4f1088f587aff05f5738758ad2237844a4ae5b37"
+    },
+    {
+      "path": "baseline-logs/driver-register-ebusy.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/driver-register-ebusy.txt",
+      "sha256": "7163d3029cd76780a7d038d783202d1fbaa281a302c2b789f40284cb4dfbd98b"
+    },
+    {
+      "path": "baseline-logs/driver-groups-rollback.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/driver-groups-rollback.txt",
+      "sha256": "f1a80acf3a84a7e86c03d79ff6c0b3c062ce0f90117c783c2c6975ee1f53441c"
+    },
+    {
+      "path": "baseline-logs/driver-groups-rollback-after-probe-failure.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/driver-groups-rollback-after-probe-failure.txt",
+      "sha256": "ed85e153235359057b4402c0f97180ef461ba4fb4a5cb543d4411bd47f4f2ba0"
+    },
+    {
+      "path": "baseline-logs/no-matching-device.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/no-matching-device.txt",
+      "sha256": "7c28fe40078459b2fb0cbea9baddfe6159a77b33db3d282d1ddac12007ff08ed"
+    },
+    {
+      "path": "baseline-logs/probe-null-device.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/probe-null-device.txt",
+      "sha256": "7e024a03ebfc7f28ebbc48bb6d0b3c68830d1e7043f27072082d56d2aaaccb6c"
+    },
+    {
+      "path": "baseline-logs/probe-missing-device-node.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/probe-missing-device-node.txt",
+      "sha256": "d412f2cd8d97eca9fb455dd75ed0af5c7455f687fbc279eabe529fba978b8932"
+    },
+    {
+      "path": "baseline-logs/missing-register-resource-0.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/missing-register-resource-0.txt",
+      "sha256": "6477c53760ca656280821c7738eba074f91815e4d3d8f5e682d7847b8409a2f0"
+    },
+    {
+      "path": "baseline-logs/missing-register-resource-1.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/missing-register-resource-1.txt",
+      "sha256": "6477c53760ca656280821c7738eba074f91815e4d3d8f5e682d7847b8409a2f0"
+    },
+    {
+      "path": "baseline-logs/missing-register-resource-2.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/missing-register-resource-2.txt",
+      "sha256": "544cc99b84d0fb82930acdfa58c443a391299bc013934ba63ad1dcf435e49e35"
+    },
+    {
+      "path": "baseline-logs/missing-register-resource-3.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/missing-register-resource-3.txt",
+      "sha256": "6477c53760ca656280821c7738eba074f91815e4d3d8f5e682d7847b8409a2f0"
+    },
+    {
+      "path": "baseline-logs/register-devres-allocation-0.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/register-devres-allocation-0.txt",
+      "sha256": "4c5c29cbeb2de96c24e78dccc15d13d716796afea76f589f122f4d4ce099fbed"
+    },
+    {
+      "path": "baseline-logs/register-devres-allocation-1.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/register-devres-allocation-1.txt",
+      "sha256": "4c5c29cbeb2de96c24e78dccc15d13d716796afea76f589f122f4d4ce099fbed"
+    },
+    {
+      "path": "baseline-logs/register-devres-allocation-2.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/register-devres-allocation-2.txt",
+      "sha256": "4c5c29cbeb2de96c24e78dccc15d13d716796afea76f589f122f4d4ce099fbed"
+    },
+    {
+      "path": "baseline-logs/register-devres-allocation-3.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/register-devres-allocation-3.txt",
+      "sha256": "4c5c29cbeb2de96c24e78dccc15d13d716796afea76f589f122f4d4ce099fbed"
+    },
+    {
+      "path": "baseline-logs/register-ioremap-failure-0.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/register-ioremap-failure-0.txt",
+      "sha256": "4c5c29cbeb2de96c24e78dccc15d13d716796afea76f589f122f4d4ce099fbed"
+    },
+    {
+      "path": "baseline-logs/register-ioremap-failure-1.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/register-ioremap-failure-1.txt",
+      "sha256": "4c5c29cbeb2de96c24e78dccc15d13d716796afea76f589f122f4d4ce099fbed"
+    },
+    {
+      "path": "baseline-logs/register-ioremap-failure-2.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/register-ioremap-failure-2.txt",
+      "sha256": "0c7967c201c82793401f5ecb3969bb2b31b628c77b050fbd382563e646975c3f"
+    },
+    {
+      "path": "baseline-logs/register-ioremap-failure-3.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/register-ioremap-failure-3.txt",
+      "sha256": "4c5c29cbeb2de96c24e78dccc15d13d716796afea76f589f122f4d4ce099fbed"
+    },
+    {
+      "path": "baseline-logs/clock-devres-allocation.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/clock-devres-allocation.txt",
+      "sha256": "ed85e153235359057b4402c0f97180ef461ba4fb4a5cb543d4411bd47f4f2ba0"
+    },
+    {
+      "path": "baseline-logs/clock-provider-enoent.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/clock-provider-enoent.txt",
+      "sha256": "ed85e153235359057b4402c0f97180ef461ba4fb4a5cb543d4411bd47f4f2ba0"
+    },
+    {
+      "path": "baseline-logs/clock-provider-deferred.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/clock-provider-deferred.txt",
+      "sha256": "ed85e153235359057b4402c0f97180ef461ba4fb4a5cb543d4411bd47f4f2ba0"
+    },
+    {
+      "path": "baseline-logs/emi-base-missing.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/emi-base-missing.txt",
+      "sha256": "ae07597ac752dcc5cfd5838c988c6eefb0a3ec22effe34a144cfc6afe82b6120"
+    },
+    {
+      "path": "baseline-logs/emi-size-zero.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/emi-size-zero.txt",
+      "sha256": "6477c53760ca656280821c7738eba074f91815e4d3d8f5e682d7847b8409a2f0"
+    },
+    {
+      "path": "baseline-logs/emi-clear-map-failure.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/emi-clear-map-failure.txt",
+      "sha256": "90f78ab65b5a31bc7a49f6277b6a5b5a328f222a9e3f6c53cc370dcb1c70f2df"
+    },
+    {
+      "path": "baseline-logs/coredump-map-failure.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/coredump-map-failure.txt",
+      "sha256": "4c5c29cbeb2de96c24e78dccc15d13d716796afea76f589f122f4d4ce099fbed"
+    },
+    {
+      "path": "baseline-logs/coredump-region-too-small.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/coredump-region-too-small.txt",
+      "sha256": "6477c53760ca656280821c7738eba074f91815e4d3d8f5e682d7847b8409a2f0"
+    },
+    {
+      "path": "baseline-logs/regulator-devres-allocation-0.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/regulator-devres-allocation-0.txt",
+      "sha256": "4c5c29cbeb2de96c24e78dccc15d13d716796afea76f589f122f4d4ce099fbed"
+    },
+    {
+      "path": "baseline-logs/regulator-devres-allocation-1.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/regulator-devres-allocation-1.txt",
+      "sha256": "4c5c29cbeb2de96c24e78dccc15d13d716796afea76f589f122f4d4ce099fbed"
+    },
+    {
+      "path": "baseline-logs/regulator-devres-allocation-2.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/regulator-devres-allocation-2.txt",
+      "sha256": "4c5c29cbeb2de96c24e78dccc15d13d716796afea76f589f122f4d4ce099fbed"
+    },
+    {
+      "path": "baseline-logs/regulator-devres-allocation-3.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/regulator-devres-allocation-3.txt",
+      "sha256": "4c5c29cbeb2de96c24e78dccc15d13d716796afea76f589f122f4d4ce099fbed"
+    },
+    {
+      "path": "baseline-logs/regulator-provider-failure-0.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/regulator-provider-failure-0.txt",
+      "sha256": "2c4f383514cc80062303479bb4ea5dc2b2d4b1a067601c856b05fda3016e0e32"
+    },
+    {
+      "path": "baseline-logs/regulator-provider-failure-1.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/regulator-provider-failure-1.txt",
+      "sha256": "2c4f383514cc80062303479bb4ea5dc2b2d4b1a067601c856b05fda3016e0e32"
+    },
+    {
+      "path": "baseline-logs/regulator-provider-failure-2.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/regulator-provider-failure-2.txt",
+      "sha256": "2c4f383514cc80062303479bb4ea5dc2b2d4b1a067601c856b05fda3016e0e32"
+    },
+    {
+      "path": "baseline-logs/regulator-provider-failure-3.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/regulator-provider-failure-3.txt",
+      "sha256": "2c4f383514cc80062303479bb4ea5dc2b2d4b1a067601c856b05fda3016e0e32"
+    },
+    {
+      "path": "baseline-logs/pinctrl-devres-allocation.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/pinctrl-devres-allocation.txt",
+      "sha256": "4c5c29cbeb2de96c24e78dccc15d13d716796afea76f589f122f4d4ce099fbed"
+    },
+    {
+      "path": "baseline-logs/pinctrl-provider-enomem.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/pinctrl-provider-enomem.txt",
+      "sha256": "4c5c29cbeb2de96c24e78dccc15d13d716796afea76f589f122f4d4ce099fbed"
+    },
+    {
+      "path": "baseline-logs/pinctrl-provider-deferred.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/pinctrl-provider-deferred.txt",
+      "sha256": "2c4f383514cc80062303479bb4ea5dc2b2d4b1a067601c856b05fda3016e0e32"
+    },
+    {
+      "path": "baseline-logs/optional-pinctrl-absent.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/optional-pinctrl-absent.txt",
+      "sha256": "8480be11cace6b84dd695f505bf0071011cdbee0c694488cb021ff223f8f3953"
+    },
+    {
+      "path": "baseline-logs/gps-pinmux-property.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/gps-pinmux-property.txt",
+      "sha256": "5f97118ce1ace600476121c839707e8b972654f517c98a59e693d024cc038c48"
+    },
+    {
+      "path": "baseline-logs/gps-pins-fallback.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/gps-pins-fallback.txt",
+      "sha256": "5f97118ce1ace600476121c839707e8b972654f517c98a59e693d024cc038c48"
+    },
+    {
+      "path": "baseline-logs/gps-phandle-absent.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/gps-phandle-absent.txt",
+      "sha256": "8480be11cace6b84dd695f505bf0071011cdbee0c694488cb021ff223f8f3953"
+    },
+    {
+      "path": "baseline-logs/gps-child-absent.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/gps-child-absent.txt",
+      "sha256": "5f97118ce1ace600476121c839707e8b972654f517c98a59e693d024cc038c48"
+    },
+    {
+      "path": "baseline-logs/gps-properties-absent.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/gps-properties-absent.txt",
+      "sha256": "5f97118ce1ace600476121c839707e8b972654f517c98a59e693d024cc038c48"
+    },
+    {
+      "path": "baseline-logs/wifi-gpio-provider-deferred.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/wifi-gpio-provider-deferred.txt",
+      "sha256": "2c4f383514cc80062303479bb4ea5dc2b2d4b1a067601c856b05fda3016e0e32"
+    },
+    {
+      "path": "baseline-logs/optional-wifi-gpio-absent.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/optional-wifi-gpio-absent.txt",
+      "sha256": "5f97118ce1ace600476121c839707e8b972654f517c98a59e693d024cc038c48"
+    },
+    {
+      "path": "baseline-logs/coredump-restore-reuses-mapping.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/coredump-restore-reuses-mapping.txt",
+      "sha256": "5f97118ce1ace600476121c839707e8b972654f517c98a59e693d024cc038c48"
+    },
+    {
+      "path": "baseline-logs/coredump-unmap-is-idempotent.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/coredump-unmap-is-idempotent.txt",
+      "sha256": "5f97118ce1ace600476121c839707e8b972654f517c98a59e693d024cc038c48"
+    },
+    {
+      "path": "baseline-logs/framework-failure-before-probe.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/framework-failure-before-probe.txt",
+      "sha256": "ed9dc14c340d7bd092a4760e81a1c99cf9df2bd0733e9c5cd358af8bd8c57392"
+    },
+    {
+      "path": "baseline-logs/legacy-ops-allow-unbound-registration.txt",
+      "source": "wmt-probe-lifecycle-tests/baseline-final/legacy-ops-allow-unbound-registration.txt",
+      "sha256": "cbfec07ec9be11b767308d08890c692c42fa00dc52814f513a52add795571ea2"
+    },
+    {
+      "path": "test_wmt_probe_lifecycle.py",
+      "source": "wmt-platform-batch-kernel-work/drivers/misc/mediatek/connectivity/source/common/test/test_wmt_probe_lifecycle.py",
+      "sha256": "41fea452b5aac8c3b8ccfbf953e39cb0f7a1aec61e869e5ad99bcf99cc48d777"
+    },
+    {
+      "path": "wmt_probe_lifecycle_host.c",
+      "source": "wmt-platform-batch-kernel-work/drivers/misc/mediatek/connectivity/source/common/test/wmt_probe_lifecycle_host.c",
+      "sha256": "940eb9a895683c02a155ea5bcf2cbbb7b2d5d6b79eb88c937386a64e98e22fbd"
+    },
+    {
+      "path": "README_wmt_probe_lifecycle.md",
+      "source": "wmt-platform-batch-kernel-work/drivers/misc/mediatek/connectivity/source/common/test/README_wmt_probe_lifecycle.md",
+      "sha256": "56d1f3738ffba92a80b56ecbe9973f9d3f80d2deeb670a59b4dd7a8be5882383"
+    },
+    {
+      "path": "build16-platform-state/driver-listing.stderr.txt",
+      "source": "runtime/build16-platform-state/driver-listing.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "build16-platform-state/driver-listing.txt",
+      "source": "runtime/build16-platform-state/driver-listing.txt",
+      "sha256": "9de182195b0340042a3b6d82455a5d36894f7985714bf349d8285542fc236adb"
+    },
+    {
+      "path": "build16-platform-state/driver-state.stderr.txt",
+      "source": "runtime/build16-platform-state/driver-state.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "build16-platform-state/driver-state.txt",
+      "source": "runtime/build16-platform-state/driver-state.txt",
+      "sha256": "21af0aab495a5492aefa3e4b86b54f05d59716c26de8fafd44ef207a56141ad3"
+    },
+    {
+      "path": "build16-platform-state/identity-after.stderr.txt",
+      "source": "runtime/build16-platform-state/identity-after.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "build16-platform-state/identity-after.txt",
+      "source": "runtime/build16-platform-state/identity-after.txt",
+      "sha256": "e236a7294eaa7343c91ea020bc89311fe69445584cb0a82e457b4a0d382c6de6"
+    },
+    {
+      "path": "build16-platform-state/identity-before.stderr.txt",
+      "source": "runtime/build16-platform-state/identity-before.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "build16-platform-state/identity-before.txt",
+      "source": "runtime/build16-platform-state/identity-before.txt",
+      "sha256": "e236a7294eaa7343c91ea020bc89311fe69445584cb0a82e457b4a0d382c6de6"
+    },
+    {
+      "path": "build16-platform-state/module-hash.stderr.txt",
+      "source": "runtime/build16-platform-state/module-hash.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "build16-platform-state/module-hash.txt",
+      "source": "runtime/build16-platform-state/module-hash.txt",
+      "sha256": "93a3ed784982a3fac968dbf0845e8b9844db10cc306d12d3a99bba46f42be273"
+    },
+    {
+      "path": "build16-platform-state/modules.stderr.txt",
+      "source": "runtime/build16-platform-state/modules.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "build16-platform-state/modules.txt",
+      "source": "runtime/build16-platform-state/modules.txt",
+      "sha256": "a03e9e64becb98bc8ab37631dcb2a90e6fda9a59e84c69c8382a0d8028f98328"
+    },
+    {
+      "path": "build16-platform-state/result.json",
+      "source": "runtime/build16-platform-state/result.json",
+      "sha256": "9d88dbfe7e4335008ae50b22d45b48e182e94fde8348d4f63415341792383006"
+    },
+    {
+      "path": "independent-review/E-source-context.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/E-source-context.txt",
+      "sha256": "3bcc62742e89d0dee5b6a82893670c8776b0565a9238636ca32f8b56145e959e"
+    },
+    {
+      "path": "independent-review/artifact-sha256.json",
+      "source": "wmt-probe-lifecycle-tests/independent-review/artifact-sha256.json",
+      "sha256": "134ed9af2d1a53462eff9c7fe904a80afedf41f0a4434fe16ceae912aee01abb"
+    },
+    {
+      "path": "independent-review/composed-old-bridge-control/callback-assert-before-devres.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/composed-old-bridge-control/callback-assert-before-devres.txt",
+      "sha256": "8afd6b45e8d4ff215c5a296494fc657a9b6cfb50359b717550489026dd5cfc92"
+    },
+    {
+      "path": "independent-review/composed-old-bridge-control/callback-clock-before-devres.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/composed-old-bridge-control/callback-clock-before-devres.txt",
+      "sha256": "8afd6b45e8d4ff215c5a296494fc657a9b6cfb50359b717550489026dd5cfc92"
+    },
+    {
+      "path": "independent-review/composed-old-bridge-control/callback-thermal-before-devres.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/composed-old-bridge-control/callback-thermal-before-devres.txt",
+      "sha256": "8afd6b45e8d4ff215c5a296494fc657a9b6cfb50359b717550489026dd5cfc92"
+    },
+    {
+      "path": "independent-review/composed-old-bridge-control/compile.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/composed-old-bridge-control/compile.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "independent-review/composed-old-bridge-control/fixture.c",
+      "source": "wmt-probe-lifecycle-tests/independent-review/composed-old-bridge-control/fixture.c",
+      "sha256": "221f8c60242fa14e5fdb0553e054e0b065a91bf1946c360da2c992e0f98e8861"
+    },
+    {
+      "path": "independent-review/composed-old-bridge-control/result.json",
+      "source": "wmt-probe-lifecycle-tests/independent-review/composed-old-bridge-control/result.json",
+      "sha256": "dcf8effaa70e476d4fbb2affe7e939633f5081b2ec25af72f30a10ac3fd42821"
+    },
+    {
+      "path": "independent-review/composed-thread/callback-assert-before-devres.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/composed-thread/callback-assert-before-devres.txt",
+      "sha256": "1a243232ac40b87e44a2403816ba65b1dc19827fd5467ae30e1e685493a4acdb"
+    },
+    {
+      "path": "independent-review/composed-thread/callback-clock-before-devres.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/composed-thread/callback-clock-before-devres.txt",
+      "sha256": "0ea2db2c265914e44e3cff7b3b1fe8018e526dad3341cc0f57217e06a4d11e1d"
+    },
+    {
+      "path": "independent-review/composed-thread/callback-thermal-before-devres.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/composed-thread/callback-thermal-before-devres.txt",
+      "sha256": "580692808cd730ab79a925c6bde28b25d8400d7f4dd2344a743bd4b43d1de252"
+    },
+    {
+      "path": "independent-review/composed-thread/compile.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/composed-thread/compile.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "independent-review/composed-thread/fixture.c",
+      "source": "wmt-probe-lifecycle-tests/independent-review/composed-thread/fixture.c",
+      "sha256": "419dddc789455c899f0a62fa02e952ad6d26fd795cd7e018529105e55739cb5e"
+    },
+    {
+      "path": "independent-review/composed-thread/result.json",
+      "source": "wmt-probe-lifecycle-tests/independent-review/composed-thread/result.json",
+      "sha256": "bdfa0699b9ae3ef59e8b0c2d0e2d7e0eff1f01bf8e4bf88998020b8779ec5504"
+    },
+    {
+      "path": "independent-review/extended-first-address/compile.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/extended-first-address/compile.txt",
+      "sha256": "8ef7290e1db5773f0399236ca8520411de89bab6bd5e68877020d1afbf7aeb69"
+    },
+    {
+      "path": "independent-review/extended-first-address/fixture.c",
+      "source": "wmt-probe-lifecycle-tests/independent-review/extended-first-address/fixture.c",
+      "sha256": "d8ca8c2af46580266c54ca11a05d89a6534cfb738763609562223c52e609fb4c"
+    },
+    {
+      "path": "independent-review/extended-second-address/compile.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/extended-second-address/compile.txt",
+      "sha256": "e0dd972b4a35666e57402e17c670eee09a8cfd47f2152106b38f1bf6b3bf33e4"
+    },
+    {
+      "path": "independent-review/extended-second-address/fixture.c",
+      "source": "wmt-probe-lifecycle-tests/independent-review/extended-second-address/fixture.c",
+      "sha256": "4aee3adee442050561e1962654918fbc2f6d8b7ac48e17633410a79c999eaede"
+    },
+    {
+      "path": "independent-review/extended-third-address/callback-assert-before-devres.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/extended-third-address/callback-assert-before-devres.txt",
+      "sha256": "1a243232ac40b87e44a2403816ba65b1dc19827fd5467ae30e1e685493a4acdb"
+    },
+    {
+      "path": "independent-review/extended-third-address/callback-clock-before-devres.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/extended-third-address/callback-clock-before-devres.txt",
+      "sha256": "0ea2db2c265914e44e3cff7b3b1fe8018e526dad3341cc0f57217e06a4d11e1d"
+    },
+    {
+      "path": "independent-review/extended-third-address/callback-thermal-before-devres.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/extended-third-address/callback-thermal-before-devres.txt",
+      "sha256": "580692808cd730ab79a925c6bde28b25d8400d7f4dd2344a743bd4b43d1de252"
+    },
+    {
+      "path": "independent-review/extended-third-address/compile.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/extended-third-address/compile.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "independent-review/extended-third-address/duplicate-probe-keeps-binding.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/extended-third-address/duplicate-probe-keeps-binding.txt",
+      "sha256": "bf1c74f374a83f1bea40d265dbd726c49d406fafaf9cf7ae564aa9c59545efd5"
+    },
+    {
+      "path": "independent-review/extended-third-address/exact-coredump-region.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/extended-third-address/exact-coredump-region.txt",
+      "sha256": "bd0ef95b42ea1fd0eb94900c04d4ad13eee8b6e397181840a66bba1071575fde"
+    },
+    {
+      "path": "independent-review/extended-third-address/fixture.c",
+      "source": "wmt-probe-lifecycle-tests/independent-review/extended-third-address/fixture.c",
+      "sha256": "419dddc789455c899f0a62fa02e952ad6d26fd795cd7e018529105e55739cb5e"
+    },
+    {
+      "path": "independent-review/extended-third-address/framework-clock-enomem.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/extended-third-address/framework-clock-enomem.txt",
+      "sha256": "936f3d33e0caa189d414b7ca817bff0c886aa2f3c7ac696f9af00e9d506e0078"
+    },
+    {
+      "path": "independent-review/extended-third-address/framework-pm-deferred.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/extended-third-address/framework-pm-deferred.txt",
+      "sha256": "b97f35c202ca53549ceeb2a6b9efcaf855b5ffd7bfc787c61d155e4d4c00d759"
+    },
+    {
+      "path": "independent-review/extended-third-address/framework-pm-other-error.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/extended-third-address/framework-pm-other-error.txt",
+      "sha256": "ed86567d410ce57d21261e9b68aa1561392ecaeb6a20288e036e716e7f0d09e9"
+    },
+    {
+      "path": "independent-review/extended-third-address/platform-rejects-deferred-probe.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/extended-third-address/platform-rejects-deferred-probe.txt",
+      "sha256": "ba90cde7e0c243062a7ef5633afa5b65757c66a41b1d930336a82e80ab7a14e4"
+    },
+    {
+      "path": "independent-review/extended-third-address/required-regulator-enodev.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/extended-third-address/required-regulator-enodev.txt",
+      "sha256": "16eb56900f4046a5e5b39aecc2fd79c8dbe103e92f3276cdefbc0ab6de9d5242"
+    },
+    {
+      "path": "independent-review/extended-third-address/result.json",
+      "source": "wmt-probe-lifecycle-tests/independent-review/extended-third-address/result.json",
+      "sha256": "0cabdba81cbf0fc5b9413789aa977562041e76ba4752d26defe8159f507333aa"
+    },
+    {
+      "path": "independent-review/probe54-address/clock-devres-allocation.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/clock-devres-allocation.txt",
+      "sha256": "4e7fecfc5ca10f7620ba7c536886867d18ee1ada8eb789ba8bb03be29cf5af45"
+    },
+    {
+      "path": "independent-review/probe54-address/clock-provider-deferred.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/clock-provider-deferred.txt",
+      "sha256": "e6e96d11f26368571de222526de525147cf2a027697631b30548cc4859a63707"
+    },
+    {
+      "path": "independent-review/probe54-address/clock-provider-enoent.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/clock-provider-enoent.txt",
+      "sha256": "19882f8b17e45db49f8120345cb3084e2ad856dce555ccd6b16a8bc4efe0231b"
+    },
+    {
+      "path": "independent-review/probe54-address/compile.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/compile.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "independent-review/probe54-address/coredump-map-failure.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/coredump-map-failure.txt",
+      "sha256": "1cf1add34654cce15321a2eecbcd5b817ed8c5606bbff84704ff8a5bca79d5a7"
+    },
+    {
+      "path": "independent-review/probe54-address/coredump-region-too-small.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/coredump-region-too-small.txt",
+      "sha256": "83b93384518be05b87540045287a44af3cc66ebf08856e08a5946914e9fd3658"
+    },
+    {
+      "path": "independent-review/probe54-address/coredump-restore-reuses-mapping.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/coredump-restore-reuses-mapping.txt",
+      "sha256": "1d818664e38bc1a2f5d2684048ff5cb57df2957625bbae0088600681f46b05f8"
+    },
+    {
+      "path": "independent-review/probe54-address/coredump-unmap-is-idempotent.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/coredump-unmap-is-idempotent.txt",
+      "sha256": "1d818664e38bc1a2f5d2684048ff5cb57df2957625bbae0088600681f46b05f8"
+    },
+    {
+      "path": "independent-review/probe54-address/driver-groups-rollback-after-probe-failure.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/driver-groups-rollback-after-probe-failure.txt",
+      "sha256": "53ecf343c300dbe663e3b16bbfdbe32a4e5a5a49f8e1934c5f889c05c9d74ba7"
+    },
+    {
+      "path": "independent-review/probe54-address/driver-groups-rollback.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/driver-groups-rollback.txt",
+      "sha256": "118813325928784ecfff66b1b2c8874e758fd77fa7cd8d6d6b4431bd2a4da79e"
+    },
+    {
+      "path": "independent-review/probe54-address/driver-register-ebusy.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/driver-register-ebusy.txt",
+      "sha256": "4733c1727e8e003b847edf96153cfc7ab36cb9275359f9aefe18d49f2b55f808"
+    },
+    {
+      "path": "independent-review/probe54-address/driver-register-enomem.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/driver-register-enomem.txt",
+      "sha256": "be36fa5f7ae843d1c621c13f5d6ebc16c1815a9743134ad800487c8abf091d02"
+    },
+    {
+      "path": "independent-review/probe54-address/duplicate-hardware-init.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/duplicate-hardware-init.txt",
+      "sha256": "1d818664e38bc1a2f5d2684048ff5cb57df2957625bbae0088600681f46b05f8"
+    },
+    {
+      "path": "independent-review/probe54-address/emi-base-missing.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/emi-base-missing.txt",
+      "sha256": "292091752acc450ec45ed8b865c3bca4f1c90230065abefbb4cb34de1a57c334"
+    },
+    {
+      "path": "independent-review/probe54-address/emi-clear-map-failure.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/emi-clear-map-failure.txt",
+      "sha256": "1cf1add34654cce15321a2eecbcd5b817ed8c5606bbff84704ff8a5bca79d5a7"
+    },
+    {
+      "path": "independent-review/probe54-address/emi-size-zero.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/emi-size-zero.txt",
+      "sha256": "83b93384518be05b87540045287a44af3cc66ebf08856e08a5946914e9fd3658"
+    },
+    {
+      "path": "independent-review/probe54-address/fixture.c",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/fixture.c",
+      "sha256": "3818ffc7f91306e36c3121d0162e808e879932344e113fb696c5373bfae87556"
+    },
+    {
+      "path": "independent-review/probe54-address/framework-failure-before-probe.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/framework-failure-before-probe.txt",
+      "sha256": "53dc0deb48ffd2fe5b6f0bb73408ebd417aa70d7638eac70a12d8d202159762d"
+    },
+    {
+      "path": "independent-review/probe54-address/gps-child-absent.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/gps-child-absent.txt",
+      "sha256": "1d818664e38bc1a2f5d2684048ff5cb57df2957625bbae0088600681f46b05f8"
+    },
+    {
+      "path": "independent-review/probe54-address/gps-phandle-absent.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/gps-phandle-absent.txt",
+      "sha256": "1d818664e38bc1a2f5d2684048ff5cb57df2957625bbae0088600681f46b05f8"
+    },
+    {
+      "path": "independent-review/probe54-address/gps-pinmux-property.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/gps-pinmux-property.txt",
+      "sha256": "1d818664e38bc1a2f5d2684048ff5cb57df2957625bbae0088600681f46b05f8"
+    },
+    {
+      "path": "independent-review/probe54-address/gps-pins-fallback.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/gps-pins-fallback.txt",
+      "sha256": "1d818664e38bc1a2f5d2684048ff5cb57df2957625bbae0088600681f46b05f8"
+    },
+    {
+      "path": "independent-review/probe54-address/gps-properties-absent.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/gps-properties-absent.txt",
+      "sha256": "1d818664e38bc1a2f5d2684048ff5cb57df2957625bbae0088600681f46b05f8"
+    },
+    {
+      "path": "independent-review/probe54-address/legacy-ops-allow-unbound-registration.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/legacy-ops-allow-unbound-registration.txt",
+      "sha256": "15db7210055173706675f038d72d8c117d9f3d4eb157fb852db00953cf4e71ad"
+    },
+    {
+      "path": "independent-review/probe54-address/missing-register-resource-0.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/missing-register-resource-0.txt",
+      "sha256": "76e6c3dc3a789026d7e087c4f2a94aa2daaf72e8ff2717a27a5974b2edf473b0"
+    },
+    {
+      "path": "independent-review/probe54-address/missing-register-resource-1.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/missing-register-resource-1.txt",
+      "sha256": "95f89a781b4a8ad46c514b4e87f4d85a6733d1f6686ee2deacc1f02f69177ad4"
+    },
+    {
+      "path": "independent-review/probe54-address/missing-register-resource-2.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/missing-register-resource-2.txt",
+      "sha256": "1553632d0df753e091b47abb8097ce1b212e3e6d7e38684a20b4826d6c8949fd"
+    },
+    {
+      "path": "independent-review/probe54-address/missing-register-resource-3.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/missing-register-resource-3.txt",
+      "sha256": "1a68e70795a70bbc34e25a463f430204a117a6a0c357241569a115aea417096a"
+    },
+    {
+      "path": "independent-review/probe54-address/no-matching-device.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/no-matching-device.txt",
+      "sha256": "029d34558efeaea76b6f310a76e22e45ef7e71801bd71cdba4cfeeb60e070662"
+    },
+    {
+      "path": "independent-review/probe54-address/optional-pinctrl-absent.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/optional-pinctrl-absent.txt",
+      "sha256": "0202530ca9eeab43e10738bba61967a4ddaa86294d957a106fc54e978b1e086a"
+    },
+    {
+      "path": "independent-review/probe54-address/optional-wifi-gpio-absent.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/optional-wifi-gpio-absent.txt",
+      "sha256": "1d818664e38bc1a2f5d2684048ff5cb57df2957625bbae0088600681f46b05f8"
+    },
+    {
+      "path": "independent-review/probe54-address/pinctrl-devres-allocation.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/pinctrl-devres-allocation.txt",
+      "sha256": "12b16a66b3c4b07195414fc3656864dc8c6dfc7051097cd9f0c164d10ff2944f"
+    },
+    {
+      "path": "independent-review/probe54-address/pinctrl-provider-deferred.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/pinctrl-provider-deferred.txt",
+      "sha256": "cbf22dbfcfad2ca2c0b0ddc37ffbca7a97474ab5b5df1958333b3b4213d28b0b"
+    },
+    {
+      "path": "independent-review/probe54-address/pinctrl-provider-enomem.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/pinctrl-provider-enomem.txt",
+      "sha256": "12b16a66b3c4b07195414fc3656864dc8c6dfc7051097cd9f0c164d10ff2944f"
+    },
+    {
+      "path": "independent-review/probe54-address/probe-missing-device-node.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/probe-missing-device-node.txt",
+      "sha256": "53dc0deb48ffd2fe5b6f0bb73408ebd417aa70d7638eac70a12d8d202159762d"
+    },
+    {
+      "path": "independent-review/probe54-address/probe-null-device.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/probe-null-device.txt",
+      "sha256": "069a5f554a554a31a9ff157d7a0f75b569336c7891336c6fd9f9d48d9671c884"
+    },
+    {
+      "path": "independent-review/probe54-address/register-devres-allocation-0.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/register-devres-allocation-0.txt",
+      "sha256": "a84a48548f26b27226fd84ccbdc21ad4418891f3c8cc63c0878caa89fe9019f8"
+    },
+    {
+      "path": "independent-review/probe54-address/register-devres-allocation-1.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/register-devres-allocation-1.txt",
+      "sha256": "5ac376be0d05a4ca37a882dde1ffd7245056e1547da5bdfa8d692534c9dd9cff"
+    },
+    {
+      "path": "independent-review/probe54-address/register-devres-allocation-2.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/register-devres-allocation-2.txt",
+      "sha256": "1a58349d29021ce18c787820b446af0fc67880be93dde4d818a496b66b3c03a7"
+    },
+    {
+      "path": "independent-review/probe54-address/register-devres-allocation-3.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/register-devres-allocation-3.txt",
+      "sha256": "091cfb57980fc6c74a16efa63986d850c0418f4f8ceb5d90db9a916f016e8bbf"
+    },
+    {
+      "path": "independent-review/probe54-address/register-ioremap-failure-0.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/register-ioremap-failure-0.txt",
+      "sha256": "a84a48548f26b27226fd84ccbdc21ad4418891f3c8cc63c0878caa89fe9019f8"
+    },
+    {
+      "path": "independent-review/probe54-address/register-ioremap-failure-1.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/register-ioremap-failure-1.txt",
+      "sha256": "5ac376be0d05a4ca37a882dde1ffd7245056e1547da5bdfa8d692534c9dd9cff"
+    },
+    {
+      "path": "independent-review/probe54-address/register-ioremap-failure-2.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/register-ioremap-failure-2.txt",
+      "sha256": "1a58349d29021ce18c787820b446af0fc67880be93dde4d818a496b66b3c03a7"
+    },
+    {
+      "path": "independent-review/probe54-address/register-ioremap-failure-3.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/register-ioremap-failure-3.txt",
+      "sha256": "091cfb57980fc6c74a16efa63986d850c0418f4f8ceb5d90db9a916f016e8bbf"
+    },
+    {
+      "path": "independent-review/probe54-address/regulator-devres-allocation-0.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/regulator-devres-allocation-0.txt",
+      "sha256": "1cf1add34654cce15321a2eecbcd5b817ed8c5606bbff84704ff8a5bca79d5a7"
+    },
+    {
+      "path": "independent-review/probe54-address/regulator-devres-allocation-1.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/regulator-devres-allocation-1.txt",
+      "sha256": "eeff085f373b99cdd82d162d76448bda6512f0f895820ea8a6b24706fa9e2564"
+    },
+    {
+      "path": "independent-review/probe54-address/regulator-devres-allocation-2.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/regulator-devres-allocation-2.txt",
+      "sha256": "afd69990e0c9305e67051ecd2c5efff04c83d7063964dd943dfa36462f6bca93"
+    },
+    {
+      "path": "independent-review/probe54-address/regulator-devres-allocation-3.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/regulator-devres-allocation-3.txt",
+      "sha256": "4d2d5e517e002ee827d065224f53831544ea8d27ad66d9fa5402e33dbbd2e1fa"
+    },
+    {
+      "path": "independent-review/probe54-address/regulator-provider-failure-0.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/regulator-provider-failure-0.txt",
+      "sha256": "e3ea56bbd812b73356b04843cacffa4fa2e55036f9b1e5aafd8d3f0fa571029c"
+    },
+    {
+      "path": "independent-review/probe54-address/regulator-provider-failure-1.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/regulator-provider-failure-1.txt",
+      "sha256": "e5b0733b1e2a6b02e39198e21f7ac0ae07b53528c4963d9e4cf80d708cd3a3ff"
+    },
+    {
+      "path": "independent-review/probe54-address/regulator-provider-failure-2.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/regulator-provider-failure-2.txt",
+      "sha256": "d040e62211032fb062ca54735e440f0ede74946923bb2d2f483d267eaf2fa04a"
+    },
+    {
+      "path": "independent-review/probe54-address/regulator-provider-failure-3.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/regulator-provider-failure-3.txt",
+      "sha256": "0e7821fcb90b85fb178f2c89cd0b36907573de0b2fe2d4fc924ef26d73f5942d"
+    },
+    {
+      "path": "independent-review/probe54-address/remove-before-probe.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/remove-before-probe.txt",
+      "sha256": "069a5f554a554a31a9ff157d7a0f75b569336c7891336c6fd9f9d48d9671c884"
+    },
+    {
+      "path": "independent-review/probe54-address/repeated-hardware-deinit.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/repeated-hardware-deinit.txt",
+      "sha256": "1d818664e38bc1a2f5d2684048ff5cb57df2957625bbae0088600681f46b05f8"
+    },
+    {
+      "path": "independent-review/probe54-address/result.json",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/result.json",
+      "sha256": "c8285557c557a8d14c3e5f9172f9831298b3b79e63a876519153f5fd255961ab"
+    },
+    {
+      "path": "independent-review/probe54-address/successful-probe-remove.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/successful-probe-remove.txt",
+      "sha256": "1d818664e38bc1a2f5d2684048ff5cb57df2957625bbae0088600681f46b05f8"
+    },
+    {
+      "path": "independent-review/probe54-address/wifi-gpio-provider-deferred.txt",
+      "source": "wmt-probe-lifecycle-tests/independent-review/probe54-address/wifi-gpio-provider-deferred.txt",
+      "sha256": "c96a2c43cde37da62e27e51ac86360f88d95e64f1b0e9a2ef84b54bb739bf673"
+    },
+    {
+      "path": "independent-review/review.json",
+      "source": "wmt-probe-lifecycle-tests/independent-review/review.json",
+      "sha256": "39fde7cd250a9678dbd731c7e3d6fb9cb95ab0ab99288d7b35809a11bb1b8241"
+    },
+    {
+      "path": "independent-review/review.md",
+      "source": "wmt-probe-lifecycle-tests/independent-review/review.md",
+      "sha256": "55d33dcfbbc429c37f7fdaf6266bde23619570ebb51fcdeaecc3e80a748a5bab"
+    },
+    {
+      "path": "independent-review/review_extension.c",
+      "source": "wmt-probe-lifecycle-tests/independent-review/review_extension.c",
+      "sha256": "af38dd6d679295a63274df4028fd1dc863cdd6c01d1ab18c5b48f5aa5f1e1bc6"
+    },
+    {
+      "path": "independent-review/reviewed-production.diff",
+      "source": "wmt-probe-lifecycle-tests/independent-review/reviewed-production.diff",
+      "sha256": "0849ece59505bac09269b82bd5ae251718a6a3926f5eb6c2a3b0050ece81695c"
+    },
+    {
+      "path": "independent-review/run_extended_review.py",
+      "source": "wmt-probe-lifecycle-tests/independent-review/run_extended_review.py",
+      "sha256": "79ec76be654885794a7a0e795a53a0b513bb92f7542dc5922a9d879762438117"
+    }
+  ],
+  "status": "SOURCE_AND_REVIEW_PASS",
+  "installed": false,
+  "limitations": [
+    "Host tests model serialized constructor/destructor protocols, not device MMIO or whole-driver concurrency.",
+    "MT6755 preserves errors from its entered WMT probe; no matching device or framework failure before WMT probe gives -ENODEV.",
+    "Failed/deferred fixed-device probes require a later explicit WMT init retry; automatic provider retry is not promised.",
+    "The platform fixture uses legacy abstract ops. The separate probe fixture executes the actual MT6755-required path.",
+    "Other IC private resources, optional callbacks unused by MT6755, runtime power sequencing and EMI-MPU restoration remain outside this patch."
+  ],
+  "independent_review": {
+    "result": "independent-review/review.json",
+    "sha256": "39fde7cd250a9678dbd731c7e3d6fb9cb95ab0ab99288d7b35809a11bb1b8241",
+    "outcome": "PASS: no finding with confidence >=80 in requested target scope",
+    "checks": [
+      {
+        "name": "probe54-address",
+        "passed": 54,
+        "total": 54,
+        "sanitizer": "address,undefined",
+        "result": {
+          "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/independent-review/probe54-address/result.json",
+          "sha256": "c8285557c557a8d14c3e5f9172f9831298b3b79e63a876519153f5fd255961ab",
+          "size": 10991
+        }
+      },
+      {
+        "name": "extended-third-address",
+        "passed": 10,
+        "total": 10,
+        "sanitizer": "address,undefined",
+        "result": {
+          "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/independent-review/extended-third-address/result.json",
+          "sha256": "0cabdba81cbf0fc5b9413789aa977562041e76ba4752d26defe8159f507333aa",
+          "size": 13841
+        }
+      },
+      {
+        "name": "composed-thread",
+        "passed": 3,
+        "total": 3,
+        "sanitizer": "thread",
+        "result": {
+          "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/independent-review/composed-thread/result.json",
+          "sha256": "bdfa0699b9ae3ef59e8b0c2d0e2d7e0eff1f01bf8e4bf88998020b8779ec5504",
+          "size": 12930
+        }
+      },
+      {
+        "name": "composed-old-bridge-control",
+        "passed": 0,
+        "total": 3,
+        "sanitizer": "address,undefined",
+        "result": {
+          "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/independent-review/composed-old-bridge-control/result.json",
+          "sha256": "dcf8effaa70e476d4fbb2affe7e939633f5081b2ec25af72f30a10ac3fd42821",
+          "size": 13731
+        }
+      }
+    ]
+  }
+}

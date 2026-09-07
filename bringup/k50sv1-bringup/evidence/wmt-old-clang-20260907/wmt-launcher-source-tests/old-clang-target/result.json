@@ -1,0 +1,69 @@
+{
+  "status": "PASS",
+  "rows": [
+    {
+      "label": "baseline",
+      "file": "main.c",
+      "exit_code": 0,
+      "source_sha256": "40159f3e1f6faf8f0f65d562f44bb4b550e6aaa102988701a31443a36fa27189",
+      "stripped_object_sha256": "360daec1c873f2273687dd0c62ef979c5867eaa570d5feeed2025a79916f5922"
+    },
+    {
+      "label": "baseline",
+      "file": "firmware.c",
+      "exit_code": 0,
+      "source_sha256": "24094ba87ae2ee01b2e471720c449b692fc3ac02c541304bd3e13554986a880a",
+      "stripped_object_sha256": "f2901d266597139f3c9b2c7a95a9fcb310ec839eb52e514254f1ee8d715103a0"
+    },
+    {
+      "label": "baseline",
+      "file": "protocol.c",
+      "exit_code": 0,
+      "source_sha256": "6fd2fbc0667d3bc6ffafaf441924ed06bb20c5d37f964bef34018d01319f6877",
+      "stripped_object_sha256": "235adee002de8eab31da77a13da88350ad36ca6440da5d96728121f2b08f1d94"
+    },
+    {
+      "label": "baseline",
+      "file": "patch.c",
+      "exit_code": 0,
+      "source_sha256": "3c6e2b4f27f308cf8dad06e7b1735a8568f72555c718967241cb6be3726a6d26",
+      "stripped_object_sha256": "7e91c44ca497a6a15da19a04ca0f3782b8235e5872be0b657f191556b0db410f"
+    },
+    {
+      "label": "candidate",
+      "file": "main.c",
+      "exit_code": 0,
+      "source_sha256": "c22b556570b0caab52e7cac6f7fbd4582baf90451d18573c6cb4442e6f2f7868",
+      "stripped_object_sha256": "360daec1c873f2273687dd0c62ef979c5867eaa570d5feeed2025a79916f5922"
+    },
+    {
+      "label": "candidate",
+      "file": "firmware.c",
+      "exit_code": 0,
+      "source_sha256": "5aa483075b07ae1cc132bae69ec0aad90855b75cfbc9ee7974e8d613069a413d",
+      "stripped_object_sha256": "f2901d266597139f3c9b2c7a95a9fcb310ec839eb52e514254f1ee8d715103a0"
+    },
+    {
+      "label": "candidate",
+      "file": "protocol.c",
+      "exit_code": 0,
+      "source_sha256": "6fd2fbc0667d3bc6ffafaf441924ed06bb20c5d37f964bef34018d01319f6877",
+      "stripped_object_sha256": "235adee002de8eab31da77a13da88350ad36ca6440da5d96728121f2b08f1d94"
+    },
+    {
+      "label": "candidate",
+      "file": "patch.c",
+      "exit_code": 0,
+      "source_sha256": "3c6e2b4f27f308cf8dad06e7b1735a8568f72555c718967241cb6be3726a6d26",
+      "stripped_object_sha256": "7e91c44ca497a6a15da19a04ca0f3782b8235e5872be0b657f191556b0db410f"
+    }
+  ],
+  "debug_stripped_object_identical": {
+    "main.c": true,
+    "firmware.c": true,
+    "protocol.c": true,
+    "patch.c": true
+  },
+  "baseline_warning_override": "Only baseline adds -Wno-error=missing-braces; candidate retains the complete real Soong -Werror flags",
+  "compiler": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build-project/lineage-17.1/prebuilts/clang/host/linux-x86/clang-r353983c1/bin/clang"
+}

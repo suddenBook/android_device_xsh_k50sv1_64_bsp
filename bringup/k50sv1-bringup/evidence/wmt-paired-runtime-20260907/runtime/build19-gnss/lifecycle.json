@@ -1,0 +1,20 @@
+{
+  "status": "PASS_PROBE_LIFECYCLE",
+  "boot_id": "617ecc06-c2fc-404f-9af7-57a370fc85ce",
+  "probe_removed_from_active_gps_receivers": true,
+  "independent_followup_request": [],
+  "driver_open_close_evidence": [
+    "4,47291,2437517916,-; (6)[644:mnld]GPS_open: major 191 minor 0 (pid 644)",
+    "4,47303,2437521424,-; (2)[644:mnld][GPS] [W]GPS_open: WMT turn on GPS OK!",
+    "4,47304,2437521439,-; (2)[644:mnld][GPS] [W]GPS_open: gps_hold_wake_lock(1)",
+    "4,48926,2557539438,-; (4)[644:mnld]GPS_close: major 191 minor 0 (pid 644)",
+    "4,48936,2557541112,-; (4)[644:mnld][GPS] [W]GPS_close: WMT turn off GPS OK!",
+    "4,48937,2557541121,-; (4)[644:mnld][GPS] [W]GPS_close: gps_hold_wake_lock(0)"
+  ],
+  "raw_sha256": {
+    "kernel-interval.txt": "cce26311c3c920eb600d4f46c3fa4c2df1a985e128eae41ec1df49d146f2954b",
+    "location-after.txt": "cdab05db08a2efc613ee958b2c36276f68b9ef28c4984f2433480f0f99c0b97e",
+    "result.json": "57adaa872ac8b5d217bdd9741a4c98c904e433f45cf5cb140d902761ce7adec9"
+  },
+  "limitation": "Probe request removal and observed driver close/reopen; independent active requests remain attributed separately. No global GPS-idle or positioning claim."
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "file": "IMG_20260907_124831.jpg",
+    "bytes": 2039637,
+    "sha256": "d9426b0d2c22788bae7e8eb2a61dcc360933e2525beaa8090d9434fbfddf66e1",
+    "format": "JPEG",
+    "width": 3264,
+    "height": 2448,
+    "orientation": 1,
+    "decoded": true
+  },
+  {
+    "file": "IMG_20260907_125051.jpg",
+    "bytes": 2264256,
+    "sha256": "25d66a961bc53dfed2e852c57062c55ad58d73da905e5cc082aac1f749a10ddc",
+    "format": "JPEG",
+    "width": 3264,
+    "height": 2448,
+    "orientation": 1,
+    "decoded": true
+  },
+  {
+    "file": "IMG_20260907_125107.jpg",
+    "bytes": 1354114,
+    "sha256": "0c4274b9907212080d67cd751a1cd5a5649184281f416bc79a3ceadd6671dd57",
+    "format": "JPEG",
+    "width": 2560,
+    "height": 1920,
+    "orientation": 1,
+    "decoded": true
+  }
+]

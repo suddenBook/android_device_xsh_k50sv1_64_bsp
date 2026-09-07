@@ -1,0 +1,30 @@
+{
+  "status": "HOST_VERIFIED_PRODUCT_BUILD_PENDING",
+  "candidate": "21271fe81127fbbba0dc43c231230702ed8db5b6",
+  "baseline": "5ca689a77fa203a80125dea949a627171ab69e25",
+  "files": {
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/include/wmt_lib.h": "7afbee1b2e65e1c4be15a7ed80e1d6662bdec10012158596163878f18102cc27",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_exp.c": "64d8869ead726ab1935d774a0293ebf0642b866fa31fc6ecffcbc2091da48bbc",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c": "6465bac5b7fef36b9a7639ff3e31e6f71e562c7dd99f8cda41bfd645b1936a37",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dbg.c": "d633060dbac3d49d2e9250925d94b358310c6d8cb10f718487b046ac6033b3b3",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c": "6b1c2064039d7df5da266c4c10ead58cd9eec097594da389301bfa9d3082a8f5",
+    "drivers/misc/mediatek/connectivity/source/common/test/README_wmt_operation.md": "41d3e5122192ae70fc9f23b87e766d1e9a4965910cc6b6e7752692f3a2abdd24",
+    "drivers/misc/mediatek/connectivity/source/common/test/test_wmt_operation.py": "e5995b35ff858bc7cb282754a26fb27facc63cba78e163a07b3fd7c5b63ed23a",
+    "drivers/misc/mediatek/connectivity/source/common/test/wmt_operation_threads.c": "2fd126358b872f423d21cf7742c200bb3639f13429b0f50854208681d14e13af"
+  },
+  "directed": {
+    "baseline_passed": 4,
+    "candidate_passed": 20,
+    "total": 20
+  },
+  "thread": {
+    "baseline": "ThreadSanitizer result read versus next request initialization race",
+    "candidate_passed": 1,
+    "total": 1,
+    "requests": 2000,
+    "senders": 2,
+    "consumers": 1
+  },
+  "arm64_translation_units_passed": 4,
+  "scope": "Extracted production source with controlled host scheduling and ARM64 compilation; installed validation remains required."
+}

@@ -1,0 +1,404 @@
+[    0.001222] recovery filesystem table
+[    0.001345] =========================
+[    0.001356]   0 /system  ext4 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system 0
+[    0.007269]   1 /vendor  ext4 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/vendor 0
+[    0.009618]   2 /data  f2fs /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata 0
+[    0.017318]   3 /cache  ext4 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache 0
+[    0.019896]   4 /mnt/vendor/protect_f  ext4 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect1 0
+[    0.022535]   5 /mnt/vendor/protect_s  ext4 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect2 0
+[    0.025157]   6 /mnt/vendor/nvdata  ext4 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/nvdata 0
+[    0.027997]   7 auto  auto /devices/mtk-msdc.0/11240000.msdc1* 0
+[    0.028342]   8 auto  auto /devices/soc/11270000.usb3_xhci* 0
+[    0.028407]   9 /persistent  emmc /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/frp 0
+[    0.036067]   10 /misc  emmc /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/para 0
+[    0.042579]   11 /boot  emmc /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/boot 0
+[    0.048263]   12 /recovery  emmc /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/recovery 0
+[    0.054104]   13 /tmp  ramdisk ramdisk 0
+[    0.054409]
+[    0.057051] I:[libfs_mgr]superblock s_max_mnt_count:65535,/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache
+[    0.063168] I:[libfs_mgr]check_fs(): mount(/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache,/cache,ext4)=0: Success
+[    0.120897] I:[libfs_mgr]check_fs(): unmount(/cache) succeeded
+[    0.121161] I:[libfs_mgr]Not running /system/bin/e2fsck on /dev/block/mmcblk0p29 (executable not in system image)
+[    0.134954] I:[libfs_mgr]__mount(source=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache,target=/cache,type=ext4)=0: Success
+[    0.137663] I:Got 3 arguments from /cache/recovery/command
+[    0.139990] /system/bin/recovery: unrecognized option `--wipe_data'
+[    0.140085] /system/bin/recovery: unrecognized option `--reason=f2fs-v2-runtime-validation'
+[    0.142208] Loading make_device from librecovery_ui_ext.so
+[    0.142878] I:vkeys: could not open /sys/board_properties/virtualkeys.mtk-tpd
+[    0.142968] I:vkeys: could not open /sys/board_properties/virtualkeys.fts_ts
+[    0.143603] I:Brightness: 127 (50%)
+[    0.148708] Failed to find/open a drm device: No such file or directory
+[    0.148903] fb0 reports (possibly inaccurate):
+[    0.148917]   vi.bits_per_pixel = 32
+[    0.148926]   vi.red.offset   =   0   .length =   8
+[    0.148934]   vi.green.offset =   8   .length =   8
+[    0.148941]   vi.blue.offset  =  16   .length =   8
+[    0.160414] framebuffer: 0 (720 x 1560)
+[    0.885840]           erasing_text: en (91 x 38 @ 1365)
+[    0.889587]        no_command_text: en (166 x 38 @ 1365)
+[    0.892647]             error_text: en (66 x 38 @ 1365)
+[    0.897372] E:Failed to load bitmap cancel_wipe_data_text (error -1)
+[    0.897400] E:Failed to load bitmap factory_data_reset_text (error -1)
+[    0.897437] E:Failed to load bitmap try_again_text (error -1)
+[    0.897469] E:Failed to load bitmap wipe_data_confirmation_text (error -1)
+[    0.897502] E:Failed to load bitmap wipe_data_menu_header_text (error -1)
+[    1.069397] I:Starting recovery (pid 270) on Sat Sep  5 12:37:54 2026
+[    1.069432] I:
+[    1.069439] I:locale is [en-US]
+[    1.072879] SELinux:  Skipping /product_file_contexts:  empty file
+[    1.072976] SELinux:  Skipping /odm_file_contexts:  empty file
+[    1.073102] SELinux: Loaded file_contexts
+[    1.078164] [libfs_mgr]Running /system/bin/fsck.f2fs -a /dev/block/mmcblk0p30
+[    1.080751] Cannot log to file /dev/fscklogs/log
+[    1.640277] [libfs_mgr]__mount(source=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata,target=/data,type=f2fs)=0: Success
+[    1.712825] stage is []
+[    1.712864] reason is [f2fs-v2-runtime-validation]
+[    2.357801] I:VolumeManager initialized
+[    2.363607]        installing_text: en (304 x 38 @ 1596)
+[    2.370591] Command: "/system/bin/recovery" "--wipe_data" "--reason=f2fs-v2-runtime-validation"
+[    2.370625]
+[    2.370921] ro.boot.bootreason=rtc
+[    2.370998] ro.boottime.adbd=3840882307
+[    2.371007] ro.boottime.init=1096
+[    2.371013] ro.boottime.init.selinux=141
+[    2.371018] ro.boottime.init.cold_boot_wait=621
+[    2.371026] ro.boottime.charger=2062469615
+[    2.371031] ro.boottime.ueventd=1413694153
+[    2.371036] ro.boottime.recovery=2065263768
+[    2.371141] ro.config.ringtone=Orion.ogg
+[    2.371150] ro.config.alarm_alert=Hassium.ogg
+[    2.371156] ro.config.per_app_memcg=false
+[    2.371161] ro.config.notification_sound=Argon.ogg
+[    2.375052] ro.dalvik.vm.native.bridge=0
+[    2.375078] dalvik.vm.isa.arm.variant=cortex-a53
+[    2.375085] dalvik.vm.isa.arm.features=default
+[    2.375091] dalvik.vm.isa.arm64.variant=cortex-a53
+[    2.375096] dalvik.vm.isa.arm64.features=default
+[    2.375102] dalvik.vm.dexopt.secondary=true
+[    2.375107] dalvik.vm.usejit=true
+[    2.375112] dalvik.vm.heapsize=512m
+[    2.375117] dalvik.vm.lockprof.threshold=500
+[    2.375122] dalvik.vm.dex2oat-Xms=64m
+[    2.375130] dalvik.vm.dex2oat-Xmx=512m
+[    2.375136] dalvik.vm.heapmaxfree=16m
+[    2.375141] dalvik.vm.heapminfree=8m
+[    2.375146] dalvik.vm.heapstartsize=8m
+[    2.375151] dalvik.vm.minidebuginfo=true
+[    2.375156] dalvik.vm.appimageformat=lz4
+[    2.375161] dalvik.vm.usejitprofiles=true
+[    2.375166] dalvik.vm.heapgrowthlimit=192m
+[    2.375171] dalvik.vm.image-dex2oat-Xms=64m
+[    2.375176] dalvik.vm.image-dex2oat-Xmx=64m
+[    2.375181] dalvik.vm.dex2oat-minidebuginfo=true
+[    2.375186] dalvik.vm.heaptargetutilization=0.6
+[    2.375192] dalvik.vm.dex2oat-max-image-block-size=524288
+[    2.375197] dalvik.vm.dex2oat-resolve-startup-strings=true
+[    2.375202] debug.atrace.tags.enableflags=0
+[    2.375209] ro.sf.lcd_density=320
+[    2.375214] ro.adb.secure=0
+[    2.375220] ro.com.google.clientidbase=android-google
+[    2.375225] ro.frp.pst=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/frp
+[    2.375230] ro.hwui.use_vulkan=
+[    2.375235] ro.vndk.version=29
+[    2.375240] ro.wifi.channels=
+[    2.375245] ro.allow.mock.location=0
+[    2.375250] ro.board.platform=mt6755
+[    2.375255] ro.build.id=QQ3A.200805.001
+[    2.375260] ro.build.date=Sat Sep  5 13:44:37 CEST 2026
+[    2.375267] ro.build.date.utc=1788608677
+[    2.375272] ro.build.host=AtomMan-G7-PT
+[    2.375277] ro.build.tags=test-keys
+[    2.375282] ro.build.type=userdebug
+[    2.375287] ro.build.user=desmond
+[    2.375292] ro.build.flavor=lineage_k50sv1_64_bsp-userdebug
+[    2.375297] ro.build.display.id=QQ3A.200805.001
+[    2.375302] ro.build.product=k50sv1_64_bsp
+[    2.375308] ro.build.version.sdk=29
+[    2.375313] ro.build.version.base_os=
+[    2.375318] ro.build.version.release=10
+[    2.375323] ro.build.version.codename=REL
+[    2.375328] ro.build.version.incremental=eng.desmon.20260905.134458
+[    2.375333] ro.build.version.preview_sdk=0
+[    2.375338] ro.build.version.all_codenames=REL
+[    2.375343] ro.build.version.security_patch=2023-02-05
+[    2.375348] ro.build.version.preview_sdk_fingerprint=REL
+[    2.375353] ro.build.version.min_supported_target_sdk=23
+[    2.375358] ro.build.description=coral-user 10 QQ3A.200805.001 6578210 release-keys
+[    2.375363] ro.build.characteristics=default
+[    2.375370] ro.build.system_root_image=false
+[    2.375376] ro.minui.pixel_format=RGBX_8888
+[    2.375381] ro.bionic.arch=arm64
+[    2.375386] ro.bionic.2nd_arch=arm
+[    2.375391] ro.bionic.cpu_variant=cortex-a53
+[    2.375396] ro.bionic.2nd_cpu_variant=cortex-a53
+[    2.375401] ro.iorapd.enable=false
+[    2.375406] ro.secure=1
+[    2.375411] ro.system.build.id=QQ3A.200805.001
+[    2.375416] ro.system.build.date=Sat Sep  5 13:44:37 CEST 2026
+[    2.375421] ro.system.build.date.utc=1788608677
+[    2.375426] ro.system.build.tags=test-keys
+[    2.375431] ro.system.build.type=userdebug
+[    2.375436] ro.system.build.version.sdk=29
+[    2.375441] ro.system.build.version.release=10
+[    2.375446] ro.system.build.version.incremental=eng.desmon.20260905.134458
+[    2.375464] ro.system.build.fingerprint=XSH/lineage_k50sv1_64_bsp/k50sv1_64_bsp:10/QQ3A.200805.001/desmond09051344:userdebug/test-keys
+[    2.375471] ro.treble.enabled=true
+[    2.375476] ro.zygote=zygote64_32
+[    2.375481] ro.carrier=unknown
+[    2.375486] ro.lineage.build.version=17.1
+[    2.375491] ro.lineage.build.version.plat.rev=0
+[    2.375496] ro.lineage.build.version.plat.sdk=9
+[    2.375501] ro.lineage.device=k50sv1_64_bsp
+[    2.375506] ro.lineage.display.version=17.1-20260905-UNOFFICIAL-k50sv1_64_bsp
+[    2.375511] ro.lineage.version=17.1-20260905-UNOFFICIAL-k50sv1_64_bsp
+[    2.375515] ro.lineage.releasetype=UNOFFICIAL
+[    2.375521] ro.product.cpu.abi=arm64-v8a
+[    2.375526] ro.product.cpu.abilist=arm64-v8a,armeabi-v7a,armeabi
+[    2.375530] ro.product.cpu.abilist32=armeabi-v7a,armeabi
+[    2.375535] ro.product.cpu.abilist64=arm64-v8a
+[    2.375540] ro.product.odm.name=lineage_k50sv1_64_bsp
+[    2.375545] ro.product.odm.brand=XSH
+[    2.375550] ro.product.odm.model=F212
+[    2.375555] ro.product.odm.device=k50sv1_64_bsp
+[    2.375563] ro.product.odm.manufacturer=XSH
+[    2.375568] ro.product.name=coral
+[    2.375574] ro.product.board=k50sv1_64_bsp
+[    2.375579] ro.product.brand=google
+[    2.375584] ro.product.model=Pixel 4 XL
+[    2.375589] ro.product.device=coral
+[    2.375594] ro.product.locale=en-US
+[    2.375599] ro.product.system.name=lineage_k50sv1_64_bsp
+[    2.375604] ro.product.system.brand=XSH
+[    2.375609] ro.product.system.model=F212
+[    2.375613] ro.product.system.device=k50sv1_64_bsp
+[    2.375618] ro.product.system.manufacturer=XSH
+[    2.375624] ro.product.vendor.name=lineage_k50sv1_64_bsp
+[    2.375628] ro.product.vendor.brand=XSH
+[    2.375633] ro.product.vendor.model=F212
+[    2.375638] ro.product.vendor.device=k50sv1_64_bsp
+[    2.375643] ro.product.vendor.manufacturer=XSH
+[    2.375648] ro.product.product.name=coral
+[    2.375653] ro.product.product.brand=google
+[    2.375658] ro.product.product.model=Pixel 4 XL
+[    2.375663] ro.product.product.device=coral
+[    2.375668] ro.product.product.manufacturer=Google
+[    2.375673] ro.product.manufacturer=Google
+[    2.375678] ro.product.first_api_level=26
+[    2.375683] ro.baseband=unknown
+[    2.375688] ro.bootmode=recovery
+[    2.375693] ro.hardware=mt6755
+[    2.375698] ro.opengles.version=196610
+[    2.375703] ro.revision=0
+[    2.375708] ro.bootimage.build.date=Sat Sep 5 13:44:37 CEST 2026
+[    2.375713] ro.bootimage.build.date.utc=1788608677
+[    2.375718] ro.bootimage.build.fingerprint=XSH/lineage_k50sv1_64_bsp/k50sv1_64_bsp:10/QQ3A.200805.001/desmond09051344:userdebug/test-keys
+[    2.375723] ro.telephony.default_network=9,0
+[    2.375728] ro.telephony.iwlan_operation_mode=legacy
+[    2.375733] ro.bootloader=unknown
+[    2.375738] ro.debuggable=1
+[    2.375743] ro.modversion=17.1-20260905-UNOFFICIAL-k50sv1_64_bsp
+[    2.375748] ro.postinstall.fstab.prefix=/system
+[    2.375753] ro.lineagelegal.url=https://lineageos.org/legal
+[    2.375758] ro.storage_manager.enabled=true
+[    2.375763] ro.property_service.version=2
+[    2.375768] ro.control_privapp_permissions=log
+[    2.375773] ro.actionable_compatible_property.enabled=false
+[    2.375778] init.svc.adbd=running
+[    2.375783] init.svc.charger=running
+[    2.375788] init.svc.ueventd=running
+[    2.375793] init.svc.recovery=running
+[    2.375798] init.svc.fastbootd=stopped
+[    2.375803] media.recorder.show_manufacturer_and_model=true
+[    2.375808] persist.adb.nonblocking_ffs=0
+[    2.375813] persist.dbg.vt_avail_ovr=0
+[    2.375818] persist.dbg.wfc_avail_ovr=0
+[    2.375823] persist.dbg.wfc_avail_ovr0=0
+[    2.375828] persist.dbg.wfc_avail_ovr1=0
+[    2.375832] keyguard.no_require_sim=true
+[    2.375838] tombstoned.max_tombstone_count=50
+[    2.376410] ro.boot.mode=recovery
+[    2.376424] ro.boot.dtb_idx=0
+[    2.376433] ro.boot.selinux=permissive
+[    2.376439] ro.boot.dtbo_idx=0
+[    2.376444] ro.boot.hardware=mt6755
+[    2.376449] ro.boot.veritymode=enforcing
+[    2.376454] ro.boot.boot_devices=bootdevice,11230000.mmc
+[    2.376459] ro.boot.meta_log_disable=0
+[    2.376479] ro.boot.verifiedbootstate=orange
+[    2.376577] sys.usb.ffs.ready=1
+[    2.376587] sys.usb.ffs.aio_compat=1
+[    2.376631] ro.build.fingerprint=google/coral/coral:10/QQ3A.200805.001/6578210:user/release-keys
+[    2.376795] ro.gsid.image_running=0
+[    2.377097] log.tag.MTK_FG=S
+[    2.377107] log.tag.stats_log=I
+[    2.377113] ro.logd.size=1M
+[    2.377118] ro.logd.size.main=8M
+[    2.377125] ro.logd.size.radio=32M
+[    2.377130] ro.logd.size.stats=64K
+[    2.377480] persist.vendor.audiohal.besloudness_state=1
+[    2.377689] ro.vendor.mtk_log_hide_gps=0
+[    2.377894] persist.vendor.mtk.ims.video.enable=0
+[    2.377903] persist.vendor.mtk.wfc.enable=0
+[    2.377909] persist.vendor.mtk.vilte.enable=0
+[    2.377915] persist.vendor.mtk.volte.enable=1
+[    2.377922] persist.vendor.mtk.viwifi.enable=0
+[    2.378047] ro.vendor.md_auto_setup_ims=0
+[    2.378055] ro.vendor.mtk_telephony_add_on_policy=0
+[    2.378061] persist.vendor.wfc.sys_wfc_support=1
+[    2.378068] persist.vendor.ims_support=1
+[    2.378073] persist.vendor.mims_support=1
+[    2.378078] persist.vendor.vilte_support=0
+[    2.378083] persist.vendor.volte_support=1
+[    2.378090] persist.vendor.viwifi_support=0
+[    2.378096] persist.vendor.mtk_rtt_support=0
+[    2.378101] persist.vendor.mtk_wfc_support=1
+[    2.378106] persist.vendor.mtk_rcs_ua_support=0
+[    2.378111] persist.vendor.mtk_ct_volte_support=1
+[    2.378116] persist.vendor.mtk_dynamic_ims_switch=1
+[    2.378529] persist.vendor.sys.pq.adl.idx=0
+[    2.378537] persist.vendor.sys.pq.hdr.en=1
+[    2.378543] persist.vendor.sys.pq.iso.shp.en=2
+[    2.378548] persist.vendor.sys.pq.shp.idx=2
+[    2.378555] persist.vendor.sys.pq.ultrares.en=2
+[    2.378561] persist.vendor.sys.pq.bluelight.default=128
+[    2.378631] ro.vendor.mtk_pq_support=2
+[    2.378639] ro.vendor.mtk_pq_color_mode=1
+[    2.378710] ro.vendor.md_prop_ver=1
+[    2.378718] ro.vendor.mtk_ril_mode=c6m_3rild
+[    2.378724] ro.vendor.mtk_md1_support=10
+[    2.379344] persist.vendor.radio.fd.r8.counter=150
+[    2.379369] persist.vendor.radio.fd.off.r8.counter=50
+[    2.379375] persist.vendor.radio.fd.off.counter=50
+[    2.379381] persist.vendor.radio.fd.counter=150
+[    2.379386] persist.vendor.radio.msimmode=dsds
+[    2.379391] persist.vendor.radio.mtk_ps2_rat=W/G
+[    2.379396] persist.vendor.radio.mtk_dsbp_support=1
+[    2.380309] persist.debug.dalvik.vm.core_platform_api_policy=just-warn
+[    2.380383] ro.persistent_properties.ready=true
+[    2.380445] pm.dexopt.boot=verify
+[    2.380454] pm.dexopt.ab-ota=speed-profile
+[    2.380460] pm.dexopt.shared=speed
+[    2.380466] pm.dexopt.install=speed-profile
+[    2.380473] pm.dexopt.inactive=verify
+[    2.380478] pm.dexopt.bg-dexopt=speed-profile
+[    2.380483] pm.dexopt.first-boot=quicken
+[    2.380563] persist.radio.multisim.config=dsds
+[    2.380721] ro.boot.serialno=0123456789ABCDEF
+[    2.380730] ro.serialno=0123456789ABCDEF
+[    2.380777] service.adb.root=1
+[    2.380785] security.perf_harden=1
+[    2.380926] net.bt.name=Android
+[    2.380935] net.tethering.noprovisioning=true
+[    2.380940] sys.usb.state=adb
+[    2.380945] sys.usb.controller=musb-hdrc
+[    2.380952] persist.sys.dun.override=0
+[    2.380958] persist.sys.usb.config=adb
+[    2.380963] persist.sys.dalvik.vm.lib.2=libart.so
+[    2.381000] sys.usb.config=adb
+[    2.381008] sys.usb.configfs=0
+[    2.381431] ro.odm.build.id=QQ3A.200805.001
+[    2.381440] ro.odm.build.date=Sat Sep  5 13:44:37 CEST 2026
+[    2.381446] ro.odm.build.date.utc=1788608677
+[    2.381451] ro.odm.build.tags=test-keys
+[    2.381458] ro.odm.build.type=userdebug
+[    2.381464] ro.odm.build.version.sdk=29
+[    2.381469] ro.odm.build.version.release=10
+[    2.381474] ro.odm.build.version.incremental=eng.desmon.20260905.134458
+[    2.381479] ro.odm.build.fingerprint=XSH/lineage_k50sv1_64_bsp/k50sv1_64_bsp:10/QQ3A.200805.001/desmond09051344:userdebug/test-keys
+[    2.381485] ro.odm.product.cpu.abilist=arm64-v8a,armeabi-v7a,armeabi
+[    2.381492] ro.odm.product.cpu.abilist32=armeabi-v7a,armeabi
+[    2.381497] ro.odm.product.cpu.abilist64=arm64-v8a
+[    2.381515] ro.vendor.wlan.gen=gen2
+[    2.381522] ro.vendor.build.id=QQ3A.200805.001
+[    2.381527] ro.vendor.build.date=Sat Sep  5 13:44:37 CEST 2026
+[    2.381532] ro.vendor.build.date.utc=1788608677
+[    2.381537] ro.vendor.build.tags=test-keys
+[    2.381542] ro.vendor.build.type=userdebug
+[    2.381547] ro.vendor.build.version.sdk=29
+[    2.381552] ro.vendor.build.version.release=10
+[    2.381557] ro.vendor.build.version.incremental=eng.desmon.20260905.134458
+[    2.381565] ro.vendor.build.fingerprint=XSH/lineage_k50sv1_64_bsp/k50sv1_64_bsp:10/QQ3A.200805.001/desmond09051344:userdebug/test-keys
+[    2.381570] ro.vendor.build.security_patch=2020-08-05
+[    2.381575] ro.vendor.radio.max.multisim=dsds
+[    2.381581] ro.vendor.product.cpu.abilist=arm64-v8a,armeabi-v7a,armeabi
+[    2.381586] ro.vendor.product.cpu.abilist32=armeabi-v7a,armeabi
+[    2.381591] ro.vendor.product.cpu.abilist64=arm64-v8a
+[    2.381596] ro.vendor.mtk_ps1_rat=Lf/Lt/W/T/G
+[    2.381600] ro.vendor.mtk_eccci_c2k=1
+[    2.381605] ro.vendor.mtk_fd_support=1
+[    2.381610] ro.vendor.mtk_lte_support=1
+[    2.381615] ro.vendor.mtk_c2k_lte_mode=0
+[    2.381620] ro.vendor.sim_me_lock_mode=0
+[    2.381625] ro.vendor.mtk_embms_support=1
+[    2.381630] ro.vendor.mtk_zsdhdr_support=1
+[    2.381635] ro.vendor.md_log_memdump_wait=15
+[    2.381640] ro.vendor.mtk_world_phone_policy=0
+[    2.381645] ro.vendor.mtk_config_max_dram_size=0x800000000
+[    2.381650] ro.vendor.mtk_protocol1_rat_config=Lf/Lt/W/T/G
+[    2.381655] ro.vendor.mtk_md_world_mode_support=1
+[    2.381660] ro.vendor.mtk_external_sim_only_slots=0
+[    2.381665] ro.vendor.mtk_flight_mode_power_off_md=1
+[    2.381670] ro.hardware.egl=mali
+[    2.381711]
+[    2.381720]
+[    2.381726] -- Wiping data...
+[    2.418138] Formatting /data...
+[   11.266097]
+[   11.266135] 	F2FS-tools: mkfs.f2fs Ver: 1.12.0 (2018-11-12)
+[   11.266143]
+[   11.266148] Info: Disable heap-based policy
+[   11.266154] Info: Debug level = 1
+[   11.266159] Info: Trim is enabled
+[   11.266164] Info: Set conf for android
+[   11.266169] 	Info: No support kernel version!
+[   11.266174] Info: Segments per section = 1
+[   11.266179] Info: Sections per zone = 1
+[   11.266184] Info: sector size = 512
+[   11.266189] Info: total sectors = 108150751 (52807 MB)
+[   11.266194] Info: zone aligned segment0 blkaddr: 512
+[   11.266199] Info: add quota type = 0 => 4
+[   11.266204] Info: add quota type = 1 => 5
+[   11.266209] Info: [/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata] Discarding device
+[   11.266215] Info: Secure Discarded 0 MB
+[   11.266220] [f2fs_init_sit_area: 537] 	Filling sit area at offset 0x00600000
+[   11.266225] [f2fs_init_nat_area: 571] 	Filling nat area at offset 0x00a00000
+[   11.266230] [f2fs_write_root_inode:1147] 	Writing root inode (hot node), 15e00 0 200 at offset 0x00089600
+[   11.266236] [f2fs_write_default_quota:1223] 	Writing quota data, at offset 00016401, 00016402
+[   11.266241] [f2fs_write_qf_inode:1319] 	Writing quota inode (hot node), 15e00 0 200 at offset 0x00089601
+[   11.266246] [f2fs_write_default_quota:1223] 	Writing quota data, at offset 00016403, 00016404
+[   11.266251] [f2fs_write_qf_inode:1319] 	Writing quota inode (hot node), 15e00 0 200 at offset 0x00089602
+[   11.266256] [f2fs_update_nat_root:1373] 	Writing nat root, at offset 0x00000a00
+[   11.266261] [f2fs_add_default_dentry_root:1569] 	Writing default dentry root, at offset 0x00016400
+[   11.266266] Info: Overprovision ratio = 0.870%
+[   11.266271] Info: Overprovision segments = 463 (GC reserved = 237)
+[   11.266276] [f2fs_write_check_point_pack: 712] 	Writing main segments, cp at offset 0x00000200
+[   11.266281] [f2fs_write_check_point_pack: 849] 	Writing Segment summary for HOT/WARM/COLD_DATA, at offset 0x00000201
+[   11.266287] [f2fs_write_check_point_pack: 876] 	Writing Segment summary for HOT_NODE, at offset 0x00000202
+[   11.266292] [f2fs_write_check_point_pack: 888] 	Writing Segment summary for WARM_NODE, at offset 0x00000203
+[   11.266297] [f2fs_write_check_point_pack: 899] 	Writing Segment summary for COLD_NODE, at offset 0x00000204
+[   11.266320] [f2fs_write_check_point_pack: 907] 	Writing cp page2, at offset 0x00000205
+[   11.266326] [f2fs_write_check_point_pack: 927] 	Writing NAT bits pages, at offset 0x000003fe
+[   11.266332] [f2fs_write_check_point_pack: 948] 	Writing cp page 1 of checkpoint pack 2, at offset 0x00000400
+[   11.266337] [f2fs_write_check_point_pack: 967] 	Writing cp page 2 of checkpoint pack 2, at offset 0x00000405
+[   11.266342] [f2fs_write_super_block:1000] 	Writing super block, at offset 0x00000000
+[   11.266347] Info: format successful
+[   11.295193] Formatting /cache...
+[   11.399331] mke2fs 1.44.4 (18-Aug-2018)
+[   11.452320] Discarding device blocks:   4096/110592             done                            
+[   11.452938] Creating filesystem with 110592 4k blocks and 110592 inodes
+[   11.452957] Filesystem UUID: 2baed809-e8cb-49d0-8556-2d8760ba9465
+[   11.452966] Superblock backups stored on blocks: 
+[   11.452974] 	32768, 98304
+[   11.452979]
+[   11.453041] Allocating group tables: 0/4   done                            
+[   11.453272] Writing inode tables: 0/4   done                            
+[   11.479748] Creating journal (4096 blocks): done
+[   11.605825] Writing superblocks and filesystem accounting information: 0/4   done
+[   11.605861]
+[   11.609732] I:[libfs_mgr]superblock s_max_mnt_count:65535,/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache
+[   11.612406] I:[libfs_mgr]check_fs(): mount(/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache,/cache,ext4)=0: Success
+[   11.650614] I:[libfs_mgr]check_fs(): unmount(/cache) succeeded
+[   11.650739] I:[libfs_mgr]Not running /system/bin/e2fsck on /dev/block/mmcblk0p29 (executable not in system image)
+[   11.653596] I:[libfs_mgr]__mount(source=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache,target=/cache,type=ext4)=0: Success
+[   11.691137] Data wipe complete.
+[   11.702192] I:Saving locale "en-US"

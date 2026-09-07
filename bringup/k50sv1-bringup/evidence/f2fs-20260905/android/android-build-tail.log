@@ -1,0 +1,25 @@
+[ 99% 110365/110387] Copy init script: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/target/product/k50sv1_64_bsp/system/etc/init/wifi-events.rc
+[ 99% 110366/110387] Install: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/target/product/k50sv1_64_bsp/system/framework/wifi-service.jar
+[ 99% 110367/110387] build /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/target/product/k50sv1_64_bsp/obj/NOTICE.xml
+[ 99% 110368/110387] build /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/target/product/k50sv1_64_bsp/obj/NOTICE.xml.gz
+[ 99% 110369/110387] build /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/target/product/k50sv1_64_bsp/system/etc/NOTICE.xml.gz
+[ 99% 110370/110387] //frameworks/base/packages/SystemUI:SystemUI r8 [common]
+[ 99% 110371/110387] //frameworks/base/packages/SystemUI:SystemUI align [common]
+[ 99% 110372/110387] Copy: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/target/common/obj/APPS/SystemUI_intermediates/proguard_dictionary
+[ 99% 110373/110387] //frameworks/base/packages/SystemUI:SystemUI dexpreopt strip [common]
+[ 99% 110374/110387] /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/soong/host/linux-x86/bin/merge_zips /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/soong/.intermediates/frameworks/base/packages/SystemUI/SystemUI/android_common/SystemUI-unsigned.apk /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/soong/.intermediates/frameworks/base/packages/SystemUI/SystemUI/android_common/dexpreopt/SystemUI.jar /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/soong/.intermediates/frameworks/base/packages/SystemUI/SystemUI/android_common/package-res.apk
+[ 99% 110375/110387] //frameworks/base/packages/SystemUI:SystemUI signapk [common]
+[ 99% 110376/110387] Copy: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/target/product/k50sv1_64_bsp/obj/APPS/SystemUI_intermediates/package.apk
+[ 99% 110377/110387] Install: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/target/product/k50sv1_64_bsp/system/product/priv-app/SystemUI/SystemUI.apk
+[ 99% 110378/110387] //frameworks/base/packages/SystemUI:SystemUI dexpreopt [common]
+[ 99% 110379/110387] Copy: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/target/product/k50sv1_64_bsp/system/product/priv-app/SystemUI/oat/arm64/SystemUI.vdex
+[ 99% 110380/110387] Copy: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/target/product/k50sv1_64_bsp/system/product/priv-app/SystemUI/oat/arm64/SystemUI.odex
+[ 99% 110381/110387] build /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/target/product/k50sv1_64_bsp/obj/NOTICE_PRODUCT.xml
+[ 99% 110382/110387] build /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/target/product/k50sv1_64_bsp/obj/NOTICE_PRODUCT.xml.gz
+[ 99% 110383/110387] build /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/target/product/k50sv1_64_bsp/system/product/etc/NOTICE.xml.gz
+[ 99% 110384/110387] Verifying framework VINTF manifest.
+[ 99% 110385/110387] Installed file list: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/target/product/k50sv1_64_bsp/installed-files.txt
+[ 99% 110386/110387] Target system fs image: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/target/product/k50sv1_64_bsp/obj/PACKAGING/systemimage_intermediates/system.img
+[100% 110387/110387] Install system fs image: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/target/product/k50sv1_64_bsp/system.img
+Saved manifest to /tmp/tmp.7BPz2YBU6M/android-manifest.xml
+Atomic clean-build receipt: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/out/target/product/k50sv1_64_bsp/K50SV1-BUILD-RECEIPT

@@ -1,0 +1,52 @@
+{
+  "status": "INSTALLED_RUNTIME_VERIFIED_AND_ADOPTED",
+  "build_incremental": "eng.desmon.20260906.180106",
+  "build_clean_output": true,
+  "tasks_completed": 110566,
+  "build_receipt_sha256": "280dd5f8d028118dd5752d041e152cf6a36f91f1d063e9a77bc7e588fbe570c2",
+  "flash_receipt_sha256": "e1f18fad5a73ceded586c79eea536c93b950dbb6cd6fb926e3c3cbf3b1a4267d",
+  "kernel": "6bf146744374c1e7ad97eb33fab73d9947a007a0",
+  "device": "b1bb4d170db16e0c43cfb1cdd2b72709dcf3439b",
+  "vendor": "af72cc5e335cee76e5745744ed743ae229286593",
+  "product_loader_sha256": "c3083c0aea4487b5c0bab3d3777200a5b45aea47faeae8014bcaf983fb9206c5",
+  "native_cases_passed": 23,
+  "native_cases_total": 23,
+  "installed_files_verified": 29,
+  "source_module_files_byte_identical_to_build10": true,
+  "elf_closure": "PASS",
+  "elf_closure_log_sha256": "4652caca34bda885e9661b08367bc91bed7ebc7894ef2f3cf3a769e517c9d516",
+  "first_boot_id": "b94e0976-b778-4f94-9613-2dcf86e18691",
+  "normal_reboot_id": "d158c364-bb76-43e3-afb7-3962a6a3dfbb",
+  "kernel_taint": 0,
+  "verifier": {
+    "first-boot": {
+      "passed": 223,
+      "failed": 1,
+      "unread": 5,
+      "evidence_fatal": 0,
+      "raw_sha256": "b2afa2a21ab903a70b23d22c6a59763defcc0c99dc6bee98c42cc2eafb1c4349",
+      "failures": [
+        "FAIL  Calendar did not become the resumed package"
+      ],
+      "scope": "Tier 1 Permissive diagnostic image; IMS home-network checks unavailable"
+    },
+    "normal-reboot": {
+      "passed": 224,
+      "failed": 1,
+      "unread": 3,
+      "evidence_fatal": 0,
+      "raw_sha256": "eb3a72c142cd0ba34aff129bbbe64e7e67be28a443dd8d79606bbb127e7a7aa7",
+      "failures": [
+        "FAIL  unexpected AVC: priv_app -> sysfs : file open | path=/sys/devices/soc/180f0000.wifi/net/wlan0/type dev=sysfs app=com.google.android.gms permissive=1"
+      ],
+      "scope": "Tier 1 Permissive diagnostic image; IMS home-network checks unavailable"
+    }
+  },
+  "calendar_permission_event": "Owner confirmed manually accepting the storage dialog; normal-reboot Calendar passes without another grant.",
+  "remaining_limits": [
+    "Known GMS WLAN sysfs AVC remains WI-023.",
+    "No Enforcing readiness claim.",
+    "No measured Bluetooth headphone audio route or outdoor GNSS position.",
+    "Retained WMT launcher command protocol and remaining kernel/source candidates require continued work."
+  ]
+}

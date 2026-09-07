@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "boot_id": "99548c91-dc1f-4dee-81e7-ef82e7a72d70",
+  "setup_before": [
+    "0",
+    "0",
+    "1"
+  ],
+  "manual_home_setter_called": false,
+  "first_resolution": "priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=true\ncom.android.launcher3/.lineage.LineageLauncher\n",
+  "normalized_component": "com.android.launcher3/com.android.launcher3.lineage.LineageLauncher",
+  "first_launch": "Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME,android.intent.category.DEFAULT] }\nWarning: Activity not started, intent has been delivered to currently running top-most instance.\nStatus: ok\nLaunchState: UNKNOWN (0)\nActivity: com.android.launcher3/.lineage.LineageLauncher\nTotalTime: 0\nWaitTime: 7\nComplete\n",
+  "resumed_after_waking": [
+    "mResumedActivity: ActivityRecord{2c20678 u0 com.android.launcher3/.lineage.LineageLauncher t3}"
+  ],
+  "home_role_holders": [
+    "com.android.launcher3"
+  ],
+  "automatic_role_assignment": "   153.823  1619  1880 I RoleControllerServiceImpl: Adding package as default/fallback role holder, package: com.android.launcher3, role: android.app.role.HOME\n",
+  "first_collection_screen_state": "sleeping",
+  "fixture_correction": "Normalize abbreviated ComponentName and observe the UI after waking; the original resolver and launch records are unchanged.",
+  "first_result_sha256": "ffcf59c0db26ec497b74e8287cf15c72d08d13546ae93a9ee348baf674558e75"
+}

@@ -1,0 +1,43 @@
+{
+  "smali_classes_compared": 2751,
+  "changed_classes": [
+    "com/mediatek/ims/MtkImsService.smali"
+  ],
+  "changes": [
+    "private final mContext field",
+    "constructor stores the supplied Context",
+    "onTransact standard permission guard"
+  ],
+  "all_existing_smali_instructions_unchanged": true,
+  "existing_code1_ImsService_permission_check_unchanged": true,
+  "unchanged_non_dex_apk_entries": 38,
+  "unsigned_apk": true,
+  "transactions": {
+    "1": "android.permission.MODIFY_PHONE_STATE",
+    "2": "android.permission.MODIFY_PHONE_STATE",
+    "3": "android.permission.MODIFY_PHONE_STATE",
+    "4": "android.permission.READ_PRIVILEGED_PHONE_STATE",
+    "5": "android.permission.READ_PRIVILEGED_PHONE_STATE",
+    "6": "android.permission.MODIFY_PHONE_STATE",
+    "7": "android.permission.MODIFY_PHONE_STATE",
+    "8": "android.permission.MODIFY_PHONE_STATE",
+    "9": "android.permission.MODIFY_PHONE_STATE",
+    "10": "android.permission.MODIFY_PHONE_STATE",
+    "11": "android.permission.MODIFY_PHONE_STATE",
+    "12": "android.permission.MODIFY_PHONE_STATE",
+    "13": "android.permission.READ_PRIVILEGED_PHONE_STATE",
+    "14": "android.permission.READ_PRIVILEGED_PHONE_STATE",
+    "15": "android.permission.READ_PRIVILEGED_PHONE_STATE",
+    "16": "android.permission.MODIFY_PHONE_STATE",
+    "17": "android.permission.MODIFY_PHONE_STATE",
+    "18": "android.permission.READ_PRIVILEGED_PHONE_STATE",
+    "19": "android.permission.READ_PRIVILEGED_PHONE_STATE",
+    "20": "android.permission.MODIFY_PHONE_STATE",
+    "21": "android.permission.MODIFY_PHONE_STATE",
+    "22": "android.permission.MODIFY_PHONE_STATE",
+    "23": "android.permission.MODIFY_PHONE_STATE",
+    "24": "android.permission.MODIFY_PHONE_STATE"
+  },
+  "interface_and_other_transactions": "default goto invoke-super, inspected in onTransact.smali",
+  "sha256_smali_diff": "c0fe04206211df95118f4a24b252bf38e259ab9df070fc5de4147274516e772e"
+}

@@ -1,0 +1,6 @@
+--------- beginning of main
+--------- beginning of system
+   676.434  7644  7644 I K50CameraProbe: BEGIN cameraCount=2
+   679.051  7644  7644 I K50CameraProbe: CAMERA_RESULT id=0 facing=0 width=640 height=480 format=NV21 frames=23 textureUpdates=22 malformed=0 monotonic=true elapsedMs=2465 status=PASS
+   682.134  7644  7644 I K50CameraProbe: CAMERA_RESULT id=1 facing=1 width=640 height=480 format=NV21 frames=56 textureUpdates=56 malformed=0 monotonic=true elapsedMs=2401 status=PASS
+   682.516  7644  7644 I K50CameraProbe: SUMMARY status=PASS completed=2 cameraCount=2 error=none

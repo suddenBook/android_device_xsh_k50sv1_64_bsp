@@ -1,0 +1,60 @@
+--------- beginning of main
+--------- beginning of system
+09-06 14:39:15.721 14716 14716 I K50GraphicsProbe: START pid=14716 java_is64bit=false device_32bit_abis=[armeabi-v7a, armeabi] duration_ms=5000
+09-06 14:39:15.783 14716 14716 I K50GraphicsProbe: SURFACE created valid=true
+09-06 14:39:15.785 14716 14716 I K50GraphicsProbe: SURFACE changed width=720 height=1374 format=1
+09-06 14:39:15.787 14716 14741 I K50GraphicsProbe: NATIVE_START pointer_bits=32 compiled_abi=armeabi-v7a api=26 expected_frames=24
+09-06 14:39:15.787 14716 14741 I K50GraphicsProbe: WINDOW width=720 height=1374 format=1
+09-06 14:39:15.799 14716 14741 I K50GraphicsProbe: BUFFER frame=0 phase=red width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:15.803 14716 14741 I K50GraphicsProbe: POST frame=0 result=0
+09-06 14:39:15.905 14716 14741 I K50GraphicsProbe: BUFFER frame=1 phase=red width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:15.907 14716 14741 I K50GraphicsProbe: POST frame=1 result=0
+09-06 14:39:16.008 14716 14741 I K50GraphicsProbe: BUFFER frame=2 phase=red width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:16.010 14716 14741 I K50GraphicsProbe: POST frame=2 result=0
+09-06 14:39:16.110 14716 14741 I K50GraphicsProbe: BUFFER frame=3 phase=red width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:16.112 14716 14741 I K50GraphicsProbe: POST frame=3 result=0
+09-06 14:39:16.212 14716 14741 I K50GraphicsProbe: BUFFER frame=4 phase=red width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:16.214 14716 14741 I K50GraphicsProbe: POST frame=4 result=0
+09-06 14:39:16.314 14716 14741 I K50GraphicsProbe: BUFFER frame=5 phase=red width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:16.316 14716 14741 I K50GraphicsProbe: POST frame=5 result=0
+09-06 14:39:16.416 14716 14741 I K50GraphicsProbe: BUFFER frame=6 phase=red width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:16.417 14716 14741 I K50GraphicsProbe: POST frame=6 result=0
+09-06 14:39:16.518 14716 14741 I K50GraphicsProbe: BUFFER frame=7 phase=red width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:16.519 14716 14741 I K50GraphicsProbe: POST frame=7 result=0
+09-06 14:39:16.619 14716 14741 I K50GraphicsProbe: BUFFER frame=8 phase=green width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:16.620 14716 14741 I K50GraphicsProbe: POST frame=8 result=0
+09-06 14:39:16.721 14716 14741 I K50GraphicsProbe: BUFFER frame=9 phase=green width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:16.722 14716 14741 I K50GraphicsProbe: POST frame=9 result=0
+09-06 14:39:16.823 14716 14741 I K50GraphicsProbe: BUFFER frame=10 phase=green width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:16.824 14716 14741 I K50GraphicsProbe: POST frame=10 result=0
+09-06 14:39:16.925 14716 14741 I K50GraphicsProbe: BUFFER frame=11 phase=green width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:16.926 14716 14741 I K50GraphicsProbe: POST frame=11 result=0
+09-06 14:39:17.026 14716 14741 I K50GraphicsProbe: BUFFER frame=12 phase=green width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:17.028 14716 14741 I K50GraphicsProbe: POST frame=12 result=0
+09-06 14:39:17.128 14716 14741 I K50GraphicsProbe: BUFFER frame=13 phase=green width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:17.129 14716 14741 I K50GraphicsProbe: POST frame=13 result=0
+09-06 14:39:17.230 14716 14741 I K50GraphicsProbe: BUFFER frame=14 phase=green width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:17.231 14716 14741 I K50GraphicsProbe: POST frame=14 result=0
+09-06 14:39:17.332 14716 14741 I K50GraphicsProbe: BUFFER frame=15 phase=green width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:17.333 14716 14741 I K50GraphicsProbe: POST frame=15 result=0
+09-06 14:39:17.433 14716 14741 I K50GraphicsProbe: BUFFER frame=16 phase=checkerboard width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:17.435 14716 14741 I K50GraphicsProbe: POST frame=16 result=0
+09-06 14:39:17.535 14716 14741 I K50GraphicsProbe: BUFFER frame=17 phase=checkerboard width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:17.536 14716 14741 I K50GraphicsProbe: POST frame=17 result=0
+09-06 14:39:17.637 14716 14741 I K50GraphicsProbe: BUFFER frame=18 phase=checkerboard width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:17.638 14716 14741 I K50GraphicsProbe: POST frame=18 result=0
+09-06 14:39:17.738 14716 14741 I K50GraphicsProbe: BUFFER frame=19 phase=checkerboard width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:17.740 14716 14741 I K50GraphicsProbe: POST frame=19 result=0
+09-06 14:39:17.840 14716 14741 I K50GraphicsProbe: BUFFER frame=20 phase=checkerboard width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:17.841 14716 14741 I K50GraphicsProbe: POST frame=20 result=0
+09-06 14:39:17.942 14716 14741 I K50GraphicsProbe: BUFFER frame=21 phase=checkerboard width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:17.943 14716 14741 I K50GraphicsProbe: POST frame=21 result=0
+09-06 14:39:18.044 14716 14741 I K50GraphicsProbe: BUFFER frame=22 phase=checkerboard width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:18.045 14716 14741 I K50GraphicsProbe: POST frame=22 result=0
+09-06 14:39:18.145 14716 14741 I K50GraphicsProbe: BUFFER frame=23 phase=checkerboard width=720 height=1374 stride=720 format=1 pointer_bits=32
+09-06 14:39:18.146 14716 14741 I K50GraphicsProbe: POST frame=23 result=0
+09-06 14:39:18.147 14716 14741 I K50GraphicsProbe: NATIVE_SUMMARY result=PASS posted=24 expected=24 errors=0 pointer_bits=32
+09-06 14:39:18.147 14716 14716 I K50GraphicsProbe: RENDER_RETURN rc=0
+09-06 14:39:18.169 14716 14716 I K50GraphicsProbe: PIXELCOPY result=PASS code=0 bitmap=64x64 samples_argb=ffe02020,ff20c0e0,ff20c0e0,ffe02020 expected_argb=ffe02020,ff20c0e0,ff20c0e0,ffe02020 tolerance=12
+09-06 14:39:20.725 14716 14716 I K50GraphicsProbe: SUMMARY result=PASS native_rc=0 pixelcopy=PASS java_is64bit=false elapsed_ms=5004 reason=deadline
+09-06 14:39:21.222 14716 14739 I K50GraphicsProbe: WATCHDOG_EXIT pid=14716

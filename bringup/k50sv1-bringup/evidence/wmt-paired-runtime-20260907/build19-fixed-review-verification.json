@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "manifest": "wmt-source-launcher-probe/independent-review/patch-consumption-review/final-artifact-sha256.json",
+      "sha256": "c213bb2ef63e4ed4a630209b103ac53aa4523536a0ea54f33baa4a93efe23ee6",
+      "files": 51
+    },
+    {
+      "manifest": "wmt-source-launcher-probe/independent-review/gnss-fixture-review/final-artifact-sha256.json",
+      "sha256": "2244f03d94cef40cb6e2802a3f0d58136aecdd49e92b9364c93dda95a330d1f6",
+      "files": 391
+    },
+    {
+      "manifest": "wmt-source-launcher-probe/runtime-readout/SHA256SUMS",
+      "sha256": "a9b0d382621f8f16f7ca753f08bc49627ff1b4cb41edb45bd684d13accea8b6d",
+      "files": 3
+    },
+    {
+      "manifest": "wmt-source-launcher-probe/runtime-readout/input-sha256.json",
+      "sha256": "da7d7f938753aec6b2cb51645888ac107667683e609755d2fa20da70e711c1d0",
+      "files": 425
+    }
+  ]
+}

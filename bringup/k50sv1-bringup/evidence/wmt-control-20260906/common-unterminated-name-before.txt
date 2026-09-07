@@ -1,0 +1,55 @@
+=================================================================
+==2844567==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7bd8882f0928 at pc 0x7fd88b30cb29 bp 0x7fff45528030 sp 0x7fff455277a8
+READ of size 257 at 0x7bd8882f0928 thread T0
+    #0 0x7fd88b30cb28  (/usr/lib/libasan.so.8+0x10cb28) (BuildId: 9984d9525c58ce2da97a0c6855b72ef802ee1bbe)
+    #1 0x7fd88b3382be in vsnprintf (/usr/lib/libasan.so.8+0x1382be) (BuildId: 9984d9525c58ce2da97a0c6855b72ef802ee1bbe)
+    #2 0x000000402d6a in mock_log ../wmt-control-tests/metadata-before-final/test.c:104
+    #3 0x00000040344f in run_ioctl ../wmt-control-tests/metadata-before-final/test.c:404
+    #4 0x000000403752 in put ../wmt-control-tests/metadata-before-final/test.c:470
+    #5 0x000000404648 in common_case ../wmt-control-tests/metadata-before-final/test.c:552
+    #6 0x00000040a7fc in main ../wmt-control-tests/metadata-before-final/test.c:796
+    #7 0x7fd88a627c8d  (/usr/lib/libc.so.6+0x27c8d) (BuildId: 46554afd5282a7de42075035b9bdaac8968c6e03)
+    #8 0x7fd88a627dca in __libc_start_main (/usr/lib/libc.so.6+0x27dca) (BuildId: 46554afd5282a7de42075035b9bdaac8968c6e03)
+    #9 0x0000004022f4 in _start (/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-control-tests/metadata-before-final/test+0x4022f4) (BuildId: 8a0d4fec79f4d0dcb0aea33646b788c29736db65)
+
+Address 0x7bd8882f0928 is located in stack of thread T0 at offset 296 in frame
+    #0 0x0000004030c8 in run_ioctl ../wmt-control-tests/metadata-before-final/test.c:357
+
+  This frame has 2 object(s):
+    [32, 296) 'wMtPatchInfo' (line 381)
+    [368, 632) 'wmtRomPatchInfo' (line 421) <== Memory access at offset 296 partially underflows this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow ../wmt-control-tests/metadata-before-final/test.c:104 in mock_log
+Shadow bytes around the buggy address:
+  0x7bd8882f0680: f5 f5 f5 f5 f5 f5 f5 f5 f3 f3 f3 f3 f3 f3 f3 f3
+  0x7bd8882f0700: f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3
+  0x7bd8882f0780: f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3
+  0x7bd8882f0800: f1 f1 f1 f1 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7bd8882f0880: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7bd8882f0900: 00 00 00 00 00[f2]f2 f2 f2 f2 f2 f2 f2 f2 00 00
+  0x7bd8882f0980: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7bd8882f0a00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 f3
+  0x7bd8882f0a80: f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3
+  0x7bd8882f0b00: f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3
+  0x7bd8882f0b80: f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3 f3
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==2844567==ABORTING

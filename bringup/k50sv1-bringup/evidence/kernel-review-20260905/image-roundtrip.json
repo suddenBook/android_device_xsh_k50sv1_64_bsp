@@ -1,0 +1,16 @@
+[
+  {
+    "part": "boot",
+    "bytes": 8430888,
+    "sha256": "008aca4e1658a1ce88953a88a587c0b2a692bf2b91cf65c6d10b197bb61a874a",
+    "roundtrip_sha256": "008aca4e1658a1ce88953a88a587c0b2a692bf2b91cf65c6d10b197bb61a874a",
+    "exact_match": true
+  },
+  {
+    "part": "recovery",
+    "bytes": 14761260,
+    "sha256": "6c4d59e1c0d3510ed1380563624a49327f1097ddbdbceb3873f30248c15a8d0a",
+    "roundtrip_sha256": "6c4d59e1c0d3510ed1380563624a49327f1097ddbdbceb3873f30248c15a8d0a",
+    "exact_match": true
+  }
+]

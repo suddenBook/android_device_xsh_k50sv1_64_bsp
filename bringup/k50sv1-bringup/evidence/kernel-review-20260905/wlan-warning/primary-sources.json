@@ -1,0 +1,18 @@
+{
+  "sony-tuba_defconfig": {
+    "url": "https://github.com/SonyCustoms/kernel_sony_tuba/blob/9171e8bd34dae219a4af6ceb76ed276c3fb96893/arch/arm64/configs/tuba_defconfig",
+    "sha256": "44a719fc92735147b1c00242619bb6642250f796ded9d3bf7556ba524c0c3895"
+  },
+  "sony-gl_init.c": {
+    "url": "https://github.com/SonyCustoms/kernel_sony_tuba/blob/9171e8bd34dae219a4af6ceb76ed276c3fb96893/drivers/misc/mediatek/connectivity/wlan/gen2/os/linux/gl_init.c",
+    "sha256": "3ad59147b844255d0727034abca428f5ef094f366ec39aa96bcc5ba2b257c057"
+  },
+  "sony-dump.c": {
+    "url": "https://github.com/SonyCustoms/kernel_sony_tuba/blob/9171e8bd34dae219a4af6ceb76ed276c3fb96893/drivers/misc/mediatek/connectivity/wlan/gen2/common/dump.c",
+    "sha256": "6825a5599d1fa01b0d3e81556f31e76d44c3cdb368bcad6301c9762265b3fa7f"
+  },
+  "linux-3.18.119-vsprintf.c": {
+    "url": "https://github.com/gregkh/linux/blob/v3.18.119/lib/vsprintf.c",
+    "sha256": "7cd77a383ebbe33c480bee77f1170eb1cfb6906667839681a968f53f49e392d1"
+  }
+}

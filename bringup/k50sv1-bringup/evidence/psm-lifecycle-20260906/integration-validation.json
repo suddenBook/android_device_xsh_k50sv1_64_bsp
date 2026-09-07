@@ -1,0 +1,86 @@
+{
+  "commit": "e978fd0b2954377d2398c362b1cc2396d3fcb818",
+  "production_modified": false,
+  "worktree_clean": true,
+  "diff_check": true,
+  "integration_range_diff_check": {
+    "status": 2,
+    "output": "drivers/misc/mediatek/connectivity/source/common/test/README_psm_lifecycle.md:34: new blank line at EOF.\n"
+  },
+  "lifecycle_cases": 41,
+  "expected_command_observations": 20,
+  "test_suites": [
+    {
+      "evidence": "wmt-buffer-tests/psm-integration-osal",
+      "total": 12,
+      "verified": 12,
+      "result_sha256": "9857450eef3fb4b2750316ce8b3b16ae3526a431fae9c33bd481c29dcc493aac",
+      "source_hashes_current": true,
+      "assertion_review": "Production-derived C assertions checked resource ownership, state, failure unwind and reader ordering."
+    },
+    {
+      "evidence": "wmt-buffer-tests/psm-integration-address",
+      "total": 22,
+      "verified": 22,
+      "result_sha256": "381f8897fcd17d67e5b26368b3d5f226acc0cb9732b611f853d04ca912c4f102",
+      "source_hashes_current": true,
+      "assertion_review": "Production-derived C assertions checked resource ownership, state, failure unwind and reader ordering."
+    },
+    {
+      "evidence": "wmt-buffer-tests/psm-integration-thread",
+      "total": 7,
+      "verified": 7,
+      "result_sha256": "e1eb948f2db5f20f4083239710e2975d87854a4b2e0d1ca6ab391b877da4f18b",
+      "source_hashes_current": true,
+      "assertion_review": "Production-derived C assertions checked resource ownership, state, failure unwind and reader ordering."
+    },
+    {
+      "evidence": "wmt-buffer-tests/psm-integration-command-identity",
+      "total": 20,
+      "verified": 20,
+      "result_sha256": "a5ec80d7222e3d35e5aeb2b5272434f69e0c095edb04229a350b830728c596fb",
+      "source_hashes_current": true,
+      "assertion_review": "Expected result fields checked independently for every observation; production_fix remains false.",
+      "purpose": "expected observations, not a production protocol fix",
+      "stale_acceptance_observations": 8
+    }
+  ],
+  "arm64_objects": [
+    {
+      "source": "linux/osal.c",
+      "source_sha256": "366b1171b2d308e40002411710788d0899d34c5d094f87e45338bd61f96e88d2",
+      "object_sha256": "cc160bb22b0fd5aaafddfee130e573a94903e7bd4617fe4b2720c92cbc0e8d8e",
+      "object_bytes": 256840,
+      "elf": "AArch64 ELF64 relocatable",
+      "warnings": 0,
+      "command_sha256": "6426532f08db6d36c95f66721329ecc873d55783526680b911b99712aecd6e8d"
+    },
+    {
+      "source": "core/psm_core.c",
+      "source_sha256": "3525879f0e2e69618b96f5b06606f2adaca01400274dcc94eed84902051ad792",
+      "object_sha256": "eb9967e88fc6a62a7863a8931b889b61f7517121d6097e19be6f36d40fc5b46f",
+      "object_bytes": 394768,
+      "elf": "AArch64 ELF64 relocatable",
+      "warnings": 0,
+      "command_sha256": "28d3f7c4c17610a9aa23a86a165eb8f5de1e21331462d092b3ff917d70f93b22"
+    }
+  ],
+  "compiler_version": "real-aarch64-linux-android-gcc (GCC) 4.9.x 20150123 (prerelease)",
+  "snapshot_config_sha256": "ac35f0a14387ac96ae2955e6cde3747bd2dfa3cbc8a252cb5bcd68739b73c12a",
+  "combined_source_sha256": {
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/psm_core.c": "3525879f0e2e69618b96f5b06606f2adaca01400274dcc94eed84902051ad792",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/include/psm_core.h": "3d5944f25676735bb0452a1545d4ef58ae34e9d379035b8d030b3fe08daa2e85",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/osal.c": "366b1171b2d308e40002411710788d0899d34c5d094f87e45338bd61f96e88d2",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/include/osal.h": "aaadabe631a6761dcc5f57772867bcfe9f39fdbac2ea868e7fe949be4cafadb3",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c": "a1b99dbdbcad46e69a750f1f6611985060b117bfdc9b6786e99ee1332dd544ee",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/include/wmt_lib.h": "7db6494c9bec4ed8052a94453d520075364c2450d2aaf7bcb4e6ff1db8ab7aa3",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c": "8634b98c399de5df964377f37c32ba122a2aefd3d0a5c2faef5a0c7f00ed9d63"
+  },
+  "limits": [
+    "No full buffer-suite rerun; no new buffer concern identified.",
+    "OSAL/PSM host tests disable LeakSanitizer and use explicit allocation/resource-count assertions.",
+    "Host scheduling, timer and RCU models do not prove full kernel or handset behavior.",
+    "Command identity tests characterize stale replies; they do not change or repair the production protocol.",
+    "ARM64 checks compile two units with snapshot GCC 4.9 and -Werror; no link or device test."
+  ]
+}

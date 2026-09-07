@@ -1,0 +1,34 @@
+{
+  "boot_id": "7727bc38-2767-482a-afe6-96d5d0322873",
+  "first_sequence": 0,
+  "last_sequence": 44878,
+  "records": 44879,
+  "missing_sequences": 0,
+  "first_seconds": 0.0,
+  "last_seconds": 647.489426,
+  "recognized_faults": [],
+  "swap_initialization": [
+    [
+      1732,
+      11479627,
+      " (1)[1:init]Adding 1962660k swap on /dev/block/zram0.  Priority:-1 extents:1 across:1962660k SS"
+    ]
+  ],
+  "streams": [
+    {
+      "path": "runtime/build10-first-boot-early/continuous-kmsg.txt",
+      "sha256": "351fe2dd60c07461604154a2fe70bb66843537cea1b94a00338ab75dbe6e63ea",
+      "records": 35873,
+      "first_seq": 0,
+      "last_seq": 35872
+    },
+    {
+      "path": "runtime/build10-first-boot-continued/continuous-kmsg.txt",
+      "sha256": "e3bc22327d7bd61e9f5e69552be442fd218e15a2c8c8a9d15b761d698fa4c571",
+      "records": 19663,
+      "first_seq": 25216,
+      "last_seq": 44878
+    }
+  ],
+  "collector_limitation": "Initial collector stopped at the unsupported Android Q get-role-holders shell command. Its raw failed run is retained. The replacement stream overlaps its last 10657 records; every duplicate matched and the combined kernel sequence has no gaps."
+}

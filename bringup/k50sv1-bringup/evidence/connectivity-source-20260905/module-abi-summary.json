@@ -1,0 +1,74 @@
+{
+  "kernel_head": "2fa898562dbe6b41893e99f7dc1bc68b414b3813",
+  "candidate_head": "6e550d85b9f52ddfdb7beb57582efca688029e49",
+  "kernel_artifacts_unchanged": {
+    ".config": true,
+    "include/generated/autoconf.h": true,
+    "include/generated/utsrelease.h": true,
+    "Module.symvers": true,
+    "vmlinux": true,
+    "arch/arm64/boot/Image.gz": true
+  },
+  "modules": {
+    "bt_drv.ko": {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/project/vendor/mediatek/kernel_modules/connectivity/bt/legacy/bt_drv.ko",
+      "sha256": "6235b789e8ab4a989253b131169217ade37b9a5bea37bf420433b5664087094f",
+      "size": 256504,
+      "vermagic": "3.18.119 SMP preempt mod_unload modversions aarch64",
+      "depends": "wmt_drv",
+      "license": "Dual BSD/GPL",
+      "srcversion": "533BB7E5866E52F63B9ACCB",
+      "signer": ""
+    },
+    "wmt_drv.ko": {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/project/vendor/mediatek/kernel_modules/connectivity/common/wmt_drv.ko",
+      "sha256": "3d91d88c45d892647a5f9ec5fa47422c440808ec370c71768e712a47f4036e9a",
+      "size": 11744872,
+      "vermagic": "3.18.119 SMP preempt mod_unload modversions aarch64",
+      "depends": "",
+      "license": "GPL\nGPL\nGPL",
+      "srcversion": "533BB7E5866E52F63B9ACCB",
+      "signer": ""
+    },
+    "gps_drv.ko": {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/project/vendor/mediatek/kernel_modules/connectivity/gps/gps_drv.ko",
+      "sha256": "33d57b040780e5b47c90864cb50c1bf066387668ad635921db6aca652a8979d3",
+      "size": 101408,
+      "vermagic": "3.18.119 SMP preempt mod_unload modversions aarch64",
+      "depends": "wmt_drv",
+      "license": "GPL",
+      "srcversion": "533BB7E5866E52F63B9ACCB",
+      "signer": ""
+    },
+    "wmt_chrdev_wifi.ko": {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/project/vendor/mediatek/kernel_modules/connectivity/wlan/adaptor/wmt_chrdev_wifi.ko",
+      "sha256": "e8dd4defd2e07d80c4ed167db3f9b24aca8746dc0c599d60970181ac601cbeac",
+      "size": 334600,
+      "vermagic": "3.18.119 SMP preempt mod_unload modversions aarch64",
+      "depends": "wmt_drv",
+      "license": "Dual BSD/GPL",
+      "srcversion": "593B6C5D9FB7BDEA736AAEE",
+      "signer": ""
+    },
+    "wlan_drv_gen2.ko": {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/project/vendor/mediatek/kernel_modules/connectivity/wlan/core/gen2/wlan_drv_gen2.ko",
+      "sha256": "6c6536235fc0095c5d430e227ca50bad5af0d27927d4c2921d395e8422cc1e76",
+      "size": 32281152,
+      "vermagic": "3.18.119 SMP preempt mod_unload modversions aarch64",
+      "depends": "wmt_drv,wmt_chrdev_wifi",
+      "license": "GPL",
+      "srcversion": "533BB7E5866E52F63B9ACCB",
+      "signer": ""
+    }
+  },
+  "import_count": 568,
+  "unique_import_count": 369,
+  "unique_builtin_imports": 340,
+  "unique_inter_module_imports": 29,
+  "errors": [],
+  "wlan_with_four_stock_modules": {
+    "import_count": 213,
+    "errors": []
+  },
+  "scope": "Offline exported-symbol CRC, undefined-symbol coverage and vermagic comparison; no module is loaded."
+}

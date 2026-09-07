@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<roles version="-1" packagesHash="EEB18B4887F59544DE4CC3229F878B139EE1455A87962208F5D940FF9745ADE3">
+  <role name="android.app.role.CALL_SCREENING" />
+  <role name="android.app.role.SMS">
+    <holder name="com.android.messaging" />
+  </role>
+  <role name="android.app.role.DIALER">
+    <holder name="com.android.dialer" />
+  </role>
+  <role name="android.app.role.HOME">
+    <holder name="org.lineageos.setupwizard" />
+  </role>
+  <role name="android.app.role.ASSISTANT" />
+  <role name="android.app.role.EMERGENCY">
+    <holder name="com.android.emergency" />
+  </role>
+  <role name="android.app.role.CALL_REDIRECTION" />
+  <role name="android.app.role.BROWSER">
+    <holder name="org.lineageos.jelly" />
+  </role>
+</roles>

@@ -1,0 +1,6 @@
+{
+  "status": "ADOPTED",
+  "previous_revision": "a87ec4a76bfd03d1760609a043b9b71e91d4254c",
+  "revision": "5ca689a77fa203a80125dea949a627171ab69e25",
+  "validation": "Build 13 fresh and normal boot, 29 installed files, radio/GNSS/P2P, 19 calibration/firmware hashes, final HOME/grants and complete early streams; verifier limits retained."
+}

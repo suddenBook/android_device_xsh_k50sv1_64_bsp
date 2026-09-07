@@ -1,0 +1,549 @@
+{
+  "tools": {
+    "old_dtc": {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/baseline/dtc_overlay",
+      "sha256": "f3b30188a97bb4aed36236bd043098c569c0c5b775677cbaeed1194cdd41f0f9"
+    },
+    "old_ufdt": {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/baseline/ufdt_apply_overlay",
+      "sha256": "2223e63bcd0ab18789a33ebe43ce932218d7f7cb0b42ea356aeba6ecca499eb3"
+    },
+    "new_dtc": {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/kbuild-output/scripts/dtc/dtc_overlay",
+      "sha256": "be0e8f12ccf8eda82e7e5440970e97024218c2e471f5ec4260e258c0278811d5"
+    },
+    "new_ufdt": {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/kbuild-output/scripts/dtc/ufdt_apply_overlay",
+      "sha256": "c42d80824d66f461c89ef787a79f5eefd111cd3edae4c2af52a46b323729fa0b"
+    }
+  },
+  "commands": [
+    {
+      "label": "mt6755-old",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/baseline/dtc_overlay",
+        "-@",
+        "-O",
+        "dtb",
+        "-b",
+        "0",
+        "-o",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/mt6755.old.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build-project/lineage-17.1/out/target/product/k50sv1_64_bsp/obj/KERNEL_OBJ/arch/arm64/boot/dts/.mt6755.dtb.dts.tmp"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "mt6755-new",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/kbuild-output/scripts/dtc/dtc_overlay",
+        "-@",
+        "-H",
+        "both",
+        "-O",
+        "dtb",
+        "-b",
+        "0",
+        "-o",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/mt6755.new.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build-project/lineage-17.1/out/target/product/k50sv1_64_bsp/obj/KERNEL_OBJ/arch/arm64/boot/dts/.mt6755.dtb.dts.tmp"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "k50sv1_64_bsp-old",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/baseline/dtc_overlay",
+        "-@",
+        "-O",
+        "dtb",
+        "-b",
+        "0",
+        "-o",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/k50sv1_64_bsp.old.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build-project/lineage-17.1/out/target/product/k50sv1_64_bsp/obj/KERNEL_OBJ/arch/arm64/boot/dts/.k50sv1_64_bsp.dtb.dts.tmp"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "k50sv1_64_bsp-new",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/kbuild-output/scripts/dtc/dtc_overlay",
+        "-@",
+        "-H",
+        "both",
+        "-O",
+        "dtb",
+        "-b",
+        "0",
+        "-o",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/k50sv1_64_bsp.new.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build-project/lineage-17.1/out/target/product/k50sv1_64_bsp/obj/KERNEL_OBJ/arch/arm64/boot/dts/.k50sv1_64_bsp.dtb.dts.tmp"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "merge-old-inputs-old",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/baseline/ufdt_apply_overlay",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/mt6755.old.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/k50sv1_64_bsp.old.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/merge-old-inputs-old.dtb"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "merge-old-inputs-new",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/baseline/ufdt_apply_overlay",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/mt6755.new.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/k50sv1_64_bsp.new.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/merge-old-inputs-new.dtb"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "merge-new-inputs-old",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/kbuild-output/scripts/dtc/ufdt_apply_overlay",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/mt6755.old.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/k50sv1_64_bsp.old.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/merge-new-inputs-old.dtb"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "merge-new-inputs-new",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/kbuild-output/scripts/dtc/ufdt_apply_overlay",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/mt6755.new.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/k50sv1_64_bsp.new.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/merge-new-inputs-new.dtb"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "dtc-bad-option-old",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/baseline/dtc_overlay",
+        "--not-a-dtc-option"
+      ],
+      "rc": 1
+    },
+    {
+      "label": "dtc-bad-option-new",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/kbuild-output/scripts/dtc/dtc_overlay",
+        "--not-a-dtc-option"
+      ],
+      "rc": 1
+    },
+    {
+      "label": "dtc-missing-input-old",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/baseline/dtc_overlay",
+        "-O",
+        "dtb",
+        "-o",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/rejected.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/file-does-not-exist"
+      ],
+      "rc": 1
+    },
+    {
+      "label": "dtc-missing-input-new",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/kbuild-output/scripts/dtc/dtc_overlay",
+        "-O",
+        "dtb",
+        "-o",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/rejected.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/file-does-not-exist"
+      ],
+      "rc": 1
+    },
+    {
+      "label": "dtc-invalid-input-old",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/baseline/dtc_overlay",
+        "-O",
+        "dtb",
+        "-o",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/rejected.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/invalid.dts"
+      ],
+      "rc": 1
+    },
+    {
+      "label": "dtc-invalid-input-new",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/kbuild-output/scripts/dtc/dtc_overlay",
+        "-O",
+        "dtb",
+        "-o",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/rejected.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/invalid.dts"
+      ],
+      "rc": 1
+    },
+    {
+      "label": "dtc-output-directory-old",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/baseline/dtc_overlay",
+        "-I",
+        "dtb",
+        "-O",
+        "dtb",
+        "-o",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/directory",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/mt6755.old.dtb"
+      ],
+      "rc": 1
+    },
+    {
+      "label": "dtc-output-directory-new",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/kbuild-output/scripts/dtc/dtc_overlay",
+        "-I",
+        "dtb",
+        "-O",
+        "dtb",
+        "-o",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/directory",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/mt6755.old.dtb"
+      ],
+      "rc": 1
+    },
+    {
+      "label": "ufdt-usage-old",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/baseline/ufdt_apply_overlay"
+      ],
+      "rc": 1
+    },
+    {
+      "label": "ufdt-usage-new",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/kbuild-output/scripts/dtc/ufdt_apply_overlay"
+      ],
+      "rc": 1
+    },
+    {
+      "label": "ufdt-missing-base-old",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/baseline/ufdt_apply_overlay",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/file-does-not-exist",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/k50sv1_64_bsp.old.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/rejected.dtb"
+      ],
+      "rc": 1
+    },
+    {
+      "label": "ufdt-missing-base-new",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/kbuild-output/scripts/dtc/ufdt_apply_overlay",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/file-does-not-exist",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/k50sv1_64_bsp.old.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/rejected.dtb"
+      ],
+      "rc": 1
+    },
+    {
+      "label": "ufdt-missing-overlay-old",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/baseline/ufdt_apply_overlay",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/mt6755.old.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/file-does-not-exist",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/rejected.dtb"
+      ],
+      "rc": 1
+    },
+    {
+      "label": "ufdt-missing-overlay-new",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/kbuild-output/scripts/dtc/ufdt_apply_overlay",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/mt6755.old.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/file-does-not-exist",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/rejected.dtb"
+      ],
+      "rc": 1
+    },
+    {
+      "label": "ufdt-invalid-base-old",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/baseline/ufdt_apply_overlay",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/invalid.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/k50sv1_64_bsp.old.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/rejected.dtb"
+      ],
+      "rc": 1
+    },
+    {
+      "label": "ufdt-invalid-base-new",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/kbuild-output/scripts/dtc/ufdt_apply_overlay",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/invalid.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/k50sv1_64_bsp.old.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/rejected.dtb"
+      ],
+      "rc": 1
+    },
+    {
+      "label": "ufdt-output-directory-old",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/baseline/ufdt_apply_overlay",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/mt6755.old.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/k50sv1_64_bsp.old.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/directory"
+      ],
+      "rc": 1
+    },
+    {
+      "label": "ufdt-output-directory-new",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/kbuild-output/scripts/dtc/ufdt_apply_overlay",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/mt6755.old.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/k50sv1_64_bsp.old.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/directory"
+      ],
+      "rc": 1
+    },
+    {
+      "label": "small-base",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/kbuild-output/scripts/dtc/dtc_overlay",
+        "-@",
+        "-H",
+        "both",
+        "-O",
+        "dtb",
+        "-o",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/small-base.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/small-base.dts"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "small-overlay",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/kbuild-output/scripts/dtc/dtc_overlay",
+        "-@",
+        "-H",
+        "both",
+        "-O",
+        "dtb",
+        "-o",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/small-overlay.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/small-overlay.dts"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "unresolved-overlay",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/kbuild-output/scripts/dtc/dtc_overlay",
+        "-@",
+        "-H",
+        "both",
+        "-O",
+        "dtb",
+        "-o",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/unresolved-overlay.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/unresolved-overlay.dts"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "ufdt-unresolved-symbol-old",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/baseline/ufdt_apply_overlay",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/small-base.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/unresolved-overlay.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/rejected.dtb"
+      ],
+      "rc": -11
+    },
+    {
+      "label": "ufdt-unresolved-symbol-new",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/kbuild-output/scripts/dtc/ufdt_apply_overlay",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/small-base.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/unresolved-overlay.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/rejected.dtb"
+      ],
+      "rc": 1
+    },
+    {
+      "label": "ufdt-delayed-write-error-old",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/baseline/ufdt_apply_overlay",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/small-base.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/small-overlay.dtb",
+        "/dev/full"
+      ],
+      "rc": 0
+    },
+    {
+      "label": "ufdt-delayed-write-error-new",
+      "argv": [
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/kbuild-output/scripts/dtc/ufdt_apply_overlay",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/small-base.dtb",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/host-tools-kernel-work/scripts/dtc/.host-tools-validation/comparison-final/small-overlay.dtb",
+        "/dev/full"
+      ],
+      "rc": 1
+    }
+  ],
+  "checks": [
+    {
+      "label": "mt6755-old",
+      "pass": true,
+      "rc": 0,
+      "bytes": 68590,
+      "sha256": "7238ba93ab8d56d282be216195720d558023ce601b76bb99e23cf1c82ac92fdd",
+      "baseline_sha256": "7238ba93ab8d56d282be216195720d558023ce601b76bb99e23cf1c82ac92fdd",
+      "input_sha256": "e028d81169c8f177b4dddee20d98c10e61f725b65049bcfe251d1f9849994862"
+    },
+    {
+      "label": "mt6755-new",
+      "pass": true,
+      "rc": 0,
+      "bytes": 68590,
+      "sha256": "7238ba93ab8d56d282be216195720d558023ce601b76bb99e23cf1c82ac92fdd",
+      "baseline_sha256": "7238ba93ab8d56d282be216195720d558023ce601b76bb99e23cf1c82ac92fdd",
+      "input_sha256": "e028d81169c8f177b4dddee20d98c10e61f725b65049bcfe251d1f9849994862"
+    },
+    {
+      "label": "k50sv1_64_bsp-old",
+      "pass": true,
+      "rc": 0,
+      "bytes": 34627,
+      "sha256": "ec5cf27cd38358212890f2917040d6a31216c9b27b598de35f9428ddb0d411c1",
+      "baseline_sha256": "ec5cf27cd38358212890f2917040d6a31216c9b27b598de35f9428ddb0d411c1",
+      "input_sha256": "9c7795451488da048a5134fa94a02637a38c41dc754c8eb3b55ccadcb4c95526"
+    },
+    {
+      "label": "k50sv1_64_bsp-new",
+      "pass": true,
+      "rc": 0,
+      "bytes": 34627,
+      "sha256": "ec5cf27cd38358212890f2917040d6a31216c9b27b598de35f9428ddb0d411c1",
+      "baseline_sha256": "ec5cf27cd38358212890f2917040d6a31216c9b27b598de35f9428ddb0d411c1",
+      "input_sha256": "9c7795451488da048a5134fa94a02637a38c41dc754c8eb3b55ccadcb4c95526"
+    },
+    {
+      "label": "merge-old-inputs-old",
+      "pass": true,
+      "rc": 0,
+      "bytes": 103217,
+      "sha256": "cf70ef55b484bb38969bf68011ed1bcfda6993751d47080ca3f48db32b568ae3",
+      "baseline_sha256": "cf70ef55b484bb38969bf68011ed1bcfda6993751d47080ca3f48db32b568ae3"
+    },
+    {
+      "label": "merge-old-inputs-new",
+      "pass": true,
+      "rc": 0,
+      "bytes": 103217,
+      "sha256": "cf70ef55b484bb38969bf68011ed1bcfda6993751d47080ca3f48db32b568ae3",
+      "baseline_sha256": "cf70ef55b484bb38969bf68011ed1bcfda6993751d47080ca3f48db32b568ae3"
+    },
+    {
+      "label": "merge-new-inputs-old",
+      "pass": true,
+      "rc": 0,
+      "bytes": 103217,
+      "sha256": "cf70ef55b484bb38969bf68011ed1bcfda6993751d47080ca3f48db32b568ae3",
+      "baseline_sha256": "cf70ef55b484bb38969bf68011ed1bcfda6993751d47080ca3f48db32b568ae3"
+    },
+    {
+      "label": "merge-new-inputs-new",
+      "pass": true,
+      "rc": 0,
+      "bytes": 103217,
+      "sha256": "cf70ef55b484bb38969bf68011ed1bcfda6993751d47080ca3f48db32b568ae3",
+      "baseline_sha256": "cf70ef55b484bb38969bf68011ed1bcfda6993751d47080ca3f48db32b568ae3"
+    },
+    {
+      "label": "dtc-bad-option",
+      "pass": true,
+      "old": 1,
+      "new": 1
+    },
+    {
+      "label": "dtc-missing-input",
+      "pass": true,
+      "old": 1,
+      "new": 1
+    },
+    {
+      "label": "dtc-invalid-input",
+      "pass": true,
+      "old": 1,
+      "new": 1
+    },
+    {
+      "label": "dtc-output-directory",
+      "pass": true,
+      "old": 1,
+      "new": 1
+    },
+    {
+      "label": "ufdt-usage",
+      "pass": true,
+      "old": 1,
+      "new": 1
+    },
+    {
+      "label": "ufdt-missing-base",
+      "pass": true,
+      "old": 1,
+      "new": 1
+    },
+    {
+      "label": "ufdt-missing-overlay",
+      "pass": true,
+      "old": 1,
+      "new": 1
+    },
+    {
+      "label": "ufdt-invalid-base",
+      "pass": true,
+      "old": 1,
+      "new": 1
+    },
+    {
+      "label": "ufdt-output-directory",
+      "pass": true,
+      "old": 1,
+      "new": 1
+    },
+    {
+      "label": "small-base-compile",
+      "pass": true,
+      "rc": 0
+    },
+    {
+      "label": "small-overlay-compile",
+      "pass": true,
+      "rc": 0
+    },
+    {
+      "label": "unresolved-overlay-compile",
+      "pass": true,
+      "rc": 0
+    },
+    {
+      "label": "ufdt-unresolved-symbol",
+      "pass": true,
+      "old": -11,
+      "new": 1
+    },
+    {
+      "label": "ufdt-delayed-write-error",
+      "pass": true,
+      "old": 0,
+      "new": 1
+    }
+  ],
+  "passed": true
+}

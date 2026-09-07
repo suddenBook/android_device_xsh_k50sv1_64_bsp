@@ -1,0 +1,18 @@
+PRAGMA journal_mode=DELETE;
+PRAGMA synchronous=FULL;
+PRAGMA page_size=4096;
+CREATE TABLE atomic_test(id INTEGER PRIMARY KEY, value INTEGER NOT NULL, payload BLOB NOT NULL);
+BEGIN IMMEDIATE;
+INSERT INTO atomic_test VALUES(1,0,zeroblob(4096)),(2,0,zeroblob(4096)),(3,0,zeroblob(4096));
+COMMIT;
+BEGIN IMMEDIATE; UPDATE atomic_test SET value=1; COMMIT;
+BEGIN IMMEDIATE; UPDATE atomic_test SET value=2; COMMIT;
+BEGIN IMMEDIATE; UPDATE atomic_test SET value=3; COMMIT;
+BEGIN IMMEDIATE; UPDATE atomic_test SET value=4; COMMIT;
+BEGIN IMMEDIATE; UPDATE atomic_test SET value=5; COMMIT;
+BEGIN IMMEDIATE; UPDATE atomic_test SET value=6; COMMIT;
+BEGIN IMMEDIATE; UPDATE atomic_test SET value=7; COMMIT;
+BEGIN IMMEDIATE; UPDATE atomic_test SET value=8; COMMIT;
+BEGIN IMMEDIATE; UPDATE atomic_test SET value=9; COMMIT;
+BEGIN IMMEDIATE; UPDATE atomic_test SET value=10; COMMIT;
+PRAGMA integrity_check; SELECT count(*), min(value), max(value), sum(length(payload)) FROM atomic_test;

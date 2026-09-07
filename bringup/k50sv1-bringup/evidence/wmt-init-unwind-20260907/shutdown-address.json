@@ -1,0 +1,117 @@
+{
+  "passed": 16,
+  "total": 16,
+  "cases": [
+    {
+      "case": "queued-active-payload-release",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "queued-wifi-worker-payload-release",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "completed-retained-sender-delays-clear",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "timed-out-retained-sender-delays-clear",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "preborrowed-submit-refused-after-close",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "unsubmitted-borrower-delays-clear",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "enqueue-and-wakeup-serialize-with-close",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "wifi-handoff-refused-after-close",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "active-worker-finishes-before-clear",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "late-reset-and-checkout-after-clear",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "final-recycle-finishes-before-clear",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "failed-init-before-pool-stays-closed",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "failed-init-after-pool-stays-closed",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "failed-worker-start-stays-closed",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "pool-can-reopen-after-complete-teardown",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "reset-drain-finishes-before-clear",
+      "exit_code": 0,
+      "passed": true
+    }
+  ],
+  "source_sha256": {
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c": "e8ffd080b7926531a92317abb918a50e1b4da53e72c60cf54bfb796f9102b5ec",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/include/osal.h": "aaadabe631a6761dcc5f57772867bcfe9f39fdbac2ea868e7fe949be4cafadb3",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/include/wmt_core.h": "5b31206a73da32a97f779327947ada485e91db0a20f7cd351ba54064f740e6e4",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/include/wmt_lib.h": "7db6494c9bec4ed8052a94453d520075364c2450d2aaf7bcb4e6ff1db8ab7aa3"
+  },
+  "runner_sha256": "340af7db9608af02fe4d177e9fa05378dcf05dd1ba1a7e96e821cd8f72785db2",
+  "host_sha256": "62d7a8f92a81aaf6e4240c4644ec2de7987ddd2d4663732bc1a7474d560cd35d",
+  "fixture_sha256": "f2762afbaf19edf1702157187a45d319a54c0d8db5406ae734e886c20de942aa",
+  "compiler": [
+    "cc",
+    "-std=gnu11",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-function",
+    "-Wno-unused-but-set-variable",
+    "-Wno-unused-variable",
+    "-Wno-unused-parameter",
+    "-pthread",
+    "-fsanitize=address,undefined",
+    "-fno-sanitize-recover=all",
+    "-fno-omit-frame-pointer",
+    "-no-pie",
+    "../wmt-lib-init-tests/shutdown-final/fixture.c",
+    "-o",
+    "../wmt-lib-init-tests/shutdown-final/fixture"
+  ],
+  "sanitizer": "address,undefined"
+}

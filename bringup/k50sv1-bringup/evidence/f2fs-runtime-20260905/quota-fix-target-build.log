@@ -1,0 +1,27 @@
+  CHK     include/config/kernel.release
+  GEN     ./Makefile
+  CHK     include/generated/uapi/linux/version.h
+  CHK     include/generated/utsrelease.h
+  Using /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/kernel as source for kernel
+  CC      scripts/mod/empty.o
+  CC      kernel/bounds.s
+  CC      scripts/mod/devicetable-offsets.s
+  GEN     include/generated/bounds.h
+  CC      arch/arm64/kernel/asm-offsets.s
+  MKELF   scripts/mod/elfconfig.h
+  GEN     scripts/mod/devicetable-offsets.h
+  HOSTCC  scripts/mod/sumversion.o
+  GEN     include/generated/asm-offsets.h
+  CALL    /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/kernel/scripts/checksyscalls.sh
+  HOSTCC  scripts/mod/modpost.o
+/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/kernel/scripts/mod/modpost.c: In function ‘match’:
+/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/kernel/scripts/mod/modpost.c:792:30: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+  792 |                         here = strstr(sym, bare);
+      |                              ^
+  HOSTCC  scripts/mod/file2alias.o
+  VDSOA   arch/arm64/kernel/vdso/gettimeofday.o
+  VDSOL   arch/arm64/kernel/vdso/vdso.so.dbg
+  VDSOSYM include/generated/vdso-offsets.h
+  HOSTLD  scripts/mod/modpost
+  CC      fs/f2fs/inline.o
+  CC      fs/f2fs/file.o

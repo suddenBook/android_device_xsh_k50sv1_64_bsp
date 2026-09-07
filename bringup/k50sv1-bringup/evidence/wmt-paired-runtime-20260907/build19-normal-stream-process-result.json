@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "unit": "k50sv1-build19-normal-reboot.service",
+  "state": {
+    "ActiveState": "inactive",
+    "SubState": "dead",
+    "InvocationID": "",
+    "MainPID": "0",
+    "Result": "success",
+    "ExecMainStatus": "0"
+  }
+}

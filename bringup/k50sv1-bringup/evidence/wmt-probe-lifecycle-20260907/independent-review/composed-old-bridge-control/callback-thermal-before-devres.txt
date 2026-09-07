@@ -1,0 +1,2 @@
+result=0 expected=0 registered=1 bound=1 maps=4
+fixture: composed-old-bridge-control/fixture.c:452: require_handles_withdrawn: Assertion `atomic_load(&review_active_callbacks) == 0 && "devres release while callback is active"' failed.

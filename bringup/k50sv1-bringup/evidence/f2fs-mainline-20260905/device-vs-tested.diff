@@ -1,0 +1,7 @@
+diff --git a/rootdir/etc/fstab.mt6755 b/rootdir/etc/fstab.mt6755
+index ea87721..0e355dd 100644
+--- a/rootdir/etc/fstab.mt6755
++++ b/rootdir/etc/fstab.mt6755
+@@ -61 +61 @@
+-# F2FS evaluation: periodic vold FITRIM; keep flush barriers and crash recovery.
++# F2FS userdata: periodic vold FITRIM; keep flush barriers and crash recovery.

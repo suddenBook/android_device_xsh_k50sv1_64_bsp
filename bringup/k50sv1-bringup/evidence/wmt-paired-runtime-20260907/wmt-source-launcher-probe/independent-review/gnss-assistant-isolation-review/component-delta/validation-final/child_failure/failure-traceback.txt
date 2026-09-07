@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "frozen-component-wrapper", line 100, in <module>
+  File "/usr/lib/python3.14/subprocess.py", line 509, in check_returncode
+    raise CalledProcessError(self.returncode, self.args, self.stdout,
+                             self.stderr)
+subprocess.CalledProcessError: Command '['python3', '/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-source-launcher-probe/independent-review/gnss-assistant-isolation-review/component-delta/final-snapshot/run-build19-gnss.py']' returned non-zero exit status 1.

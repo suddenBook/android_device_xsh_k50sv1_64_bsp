@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "stage": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/tier1-source-stack-20260907-wmt-buffers-lifecycle",
+  "steps": [
+    {
+      "step": "build16-native-providers",
+      "exit_code": 0
+    },
+    {
+      "step": "build16-stage",
+      "exit_code": 0
+    },
+    {
+      "step": "build16-stage-verification",
+      "exit_code": 0
+    }
+  ]
+}

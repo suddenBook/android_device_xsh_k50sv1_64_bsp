@@ -1,0 +1,18 @@
+u:r:fsck:s0|u:object_r:block_device:s0|blk_file|ioctl
+u:r:fsck:s0|u:object_r:block_device:s0|blk_file|open
+u:r:fsck:s0|u:object_r:block_device:s0|blk_file|read
+u:r:fsck:s0|u:object_r:block_device:s0|blk_file|write
+u:r:init:s0|u:r:kernel:s0|system|module_request
+u:r:kernel:s0|u:r:kernel:s0|capability|dac_override
+u:r:mtk_hal_imsa:s0|u:r:radio:s0|binder|call
+u:r:mtkmal:s0|u:r:mtkmal:s0|capability2|wake_alarm
+u:r:mtkmal:s0|u:r:mtkmal:s0|udp_socket|create
+u:r:mtkmal:s0|u:r:mtkmal:s0|udp_socket|ioctl
+u:r:mtkrild:s0|u:object_r:mtk_mal_mfi_socket:s0|sock_file|write
+u:r:mtkrild:s0|u:r:mtkmal:s0|unix_stream_socket|connectto
+u:r:radio:s0|u:r:mtk_hal_imsa:s0|binder|call
+u:r:radio:s0|u:r:mtk_hal_imsa:s0|binder|transfer
+u:r:rild:s0|u:object_r:mtk_ril_vsim_socket:s0|sock_file|write
+u:r:volte_imcb:s0|u:object_r:device:s0|chr_file|open
+u:r:volte_imcb:s0|u:object_r:device:s0|chr_file|read write
+u:r:volte_stack:s0|u:object_r:mtk_volte_stack_socket:s0|sock_file|write

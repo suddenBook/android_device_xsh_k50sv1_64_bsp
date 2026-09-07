@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/home/desmond/Android/Sdk/platform-tools/adb",
+    "-s",
+    "0123456789ABCDEF",
+    "shell",
+    "ping -I wlan0 -c 250 -i 0.01 -W 1 192.168.1.1"
+  ],
+  "exit_code": 0,
+  "purpose": "Bounded local-router traffic to satisfy the existing WMT 200-packet/3-second thermal query condition; no thermal controls changed",
+  "sha256": "a3b7772c1a43d29dc65cc846491c42ef5a3d36c1d9037b8396062fb5e63d3dfe"
+}

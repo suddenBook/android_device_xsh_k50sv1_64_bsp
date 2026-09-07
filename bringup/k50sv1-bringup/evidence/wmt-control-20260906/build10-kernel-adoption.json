@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "repository": "lineage-17.1/kernel/xsh/k50sv1_64_bsp",
+  "previous_head": "c51f45108d8477cbc6bb2e3ea91457e24ab4fe26",
+  "adopted_head": "6bf146744374c1e7ad97eb33fab73d9947a007a0",
+  "clean": true,
+  "tested_build": 10,
+  "boot_id": "3f13b68e-ad4f-483c-b3d4-988220064794",
+  "device_and_vendor_still_adopted_from_build": 9
+}

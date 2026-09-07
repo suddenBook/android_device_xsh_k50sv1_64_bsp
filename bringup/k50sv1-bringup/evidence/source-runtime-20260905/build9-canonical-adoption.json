@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "timestamp_utc": "2026-09-06T13:59:32.931622+00:00",
+  "projects": [
+    {
+      "path": "kernel/xsh/k50sv1_64_bsp",
+      "before": "2fa898562dbe6b41893e99f7dc1bc68b414b3813",
+      "after": "c51f45108d8477cbc6bb2e3ea91457e24ab4fe26",
+      "clean": true,
+      "method": "fast-forward to tested source commit"
+    },
+    {
+      "path": "device/xsh/k50sv1_64_bsp",
+      "before": "45453dde8579b7393e5bd2c34397e5b8aeb27c58",
+      "after": "e8bf2d2dca22f0cb49ee44de248184f8a051e521",
+      "clean": true,
+      "method": "fast-forward to tested source commit"
+    },
+    {
+      "path": "vendor/xsh/k50sv1_64_bsp",
+      "before": "d0a5c9090107f6522f99ec99746f0017da094765",
+      "after": "c72e2fe3845ef767cc629dc7bc011a1d960884aa",
+      "clean": true,
+      "method": "fast-forward to tested source commit"
+    },
+    {
+      "path": "external/tinycompress",
+      "before": "848ec3ad67cc414294d18776a2b4d644be95fd64",
+      "after": "5f2b0e56e3c96607e9822cccfd5b54cb3c2a6f7e",
+      "clean": true,
+      "method": "fast-forward to tested source commit"
+    },
+    {
+      "path": "packages/apps/PermissionController",
+      "before": "d90ff6d3d7d15775edfc853dd59bf1e7f3e06f25",
+      "after": "aabed6d98fde9e4212be2e2005386ff180bad1aa",
+      "clean": true,
+      "method": "fast-forward to tested source commit"
+    }
+  ],
+  "known_limits": [
+    "Build-9 normal verifier retains a GMS wlan0/type AVC and a Calendar focus race following a delayed DeskClock permission request.",
+    "Roaming SIMs do not prove home-network IMS registration.",
+    "No Enforcing, outdoor GNSS fix or Bluetooth audio listening claim."
+  ]
+}

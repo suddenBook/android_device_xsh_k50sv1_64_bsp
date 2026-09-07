@@ -1,0 +1,44 @@
+From 96d953a804a5ccfae28d74d71da048603e23c66d Mon Sep 17 00:00:00 2001
+From: Huixiaqing Liu <huixiaqingliu@outlook.com>
+Date: Mon, 7 Sep 2026 07:56:11 +0200
+Subject: [PATCH 1/8] vendor: stop extracting the superseded modem RIL init
+ file
+
+---
+ k50sv1_64_bsp-vendor.mk                |   1 -
+ proprietary/vendor/etc/init/mtkrild.rc | Bin 1050 -> 0 bytes
+ 2 files changed, 1 deletion(-)
+ delete mode 100644 proprietary/vendor/etc/init/mtkrild.rc
+
+diff --git a/k50sv1_64_bsp-vendor.mk b/k50sv1_64_bsp-vendor.mk
+index fe91849..1b74faa 100644
+--- a/k50sv1_64_bsp-vendor.mk
++++ b/k50sv1_64_bsp-vendor.mk
+@@ -175,7 +175,6 @@ PRODUCT_COPY_FILES += \
+     vendor/xsh/k50sv1_64_bsp/proprietary/vendor/etc/init/init.volte_stack.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.volte_stack.rc \
+     vendor/xsh/k50sv1_64_bsp/proprietary/vendor/etc/init/init.volte_ua.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.volte_ua.rc \
+     vendor/xsh/k50sv1_64_bsp/proprietary/vendor/etc/init/mtk_agpsd_p.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/mtk_agpsd_p.rc \
+-    vendor/xsh/k50sv1_64_bsp/proprietary/vendor/etc/init/mtkrild.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/mtkrild.rc \
+     vendor/xsh/k50sv1_64_bsp/proprietary/vendor/etc/init/muxreport.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/muxreport.rc \
+     vendor/xsh/k50sv1_64_bsp/proprietary/vendor/etc/init/nvram_daemon.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/nvram_daemon.rc \
+     vendor/xsh/k50sv1_64_bsp/proprietary/vendor/etc/init/rilproxy.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/rilproxy.rc \
+diff --git a/proprietary/vendor/etc/init/mtkrild.rc b/proprietary/vendor/etc/init/mtkrild.rc
+deleted file mode 100644
+index 4ebc0951a6a49f7c62f150fd35e0e8c79a031221..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+HcmV?d00001
+
+literal 1050
+zcmXR;Eh@`QPE{yN%}dEI(ksf$(M?HA&CSo#%`M4R(1!@?CuQd8=ays_W#*)CDJUo?
+zB<Ca+7c1l@X6Avp#retEsU-@zAbEx2lA_eaTm>^T1BIge{1Szt#FWf@3}r?{sxv06
+z4rHrtW^OT&DpOLEO4Cu)f*hz&Tv=R_nv3jCu(|oExkRhYEy>m`Ex}Ztms%2^RDxkN
+zM7b_%NPyjfM?-FY3JESsEJ@BpaSzrA0edtzF$YB@*daIqB{wlgHxY|RaVRe<&O{AF
+z+^zsAMGX-AYKcuAxk<!0A-6cOAigv+Hy)Cp4KV`*GcluTL3KMg3=vvNi&Klhc><gi
+z(u?v-3m~~eAvrNQBUK?Y50r^Ai<1=+OH(rQ6^c`m6N^&fi{OlMg`E6!Xi8NmPs~ou
+z$xqG(8<vt;oS2l83dx=Md8x%2`6XOj`FRQjMfnA(MJ1J1kem$4;Ci_w*|vsYZN(*t
+KMJ3qtJ{JH>7+<ac
+
+-- 
+2.55.0
+

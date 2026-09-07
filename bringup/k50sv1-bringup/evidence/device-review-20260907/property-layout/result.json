@@ -1,0 +1,108 @@
+{
+  "scope": "Host diagnostic re-sign of the real clean build23 archive; no release receipt and never flashed",
+  "raw_build23_target_files_sha256": "f7f4e7c9de47c9441e2d785c1d7c6497bff46965c767942fda3104c6aee8fbf1",
+  "diagnostic_signed_target_files_sha256": "7e38a226dcbadd874b839cd9ef4412bdf06c0d375ab9971ac617c2f8f314da3c",
+  "first_stage_boot_property_files": [],
+  "signed_property_entries": {
+    "SYSTEM/etc/prop.default": {
+      "bytes": 1349,
+      "sha256": "7969892dade3339b5ec3baee553596bbdd57a474e72ef3a6c1879a5870f87bbf",
+      "symlink": false,
+      "security_properties": {
+        "ro.secure": [
+          "1"
+        ],
+        "ro.debuggable": [
+          "0"
+        ],
+        "ro.adb.secure": [
+          "1"
+        ],
+        "persist.sys.usb.config": [
+          "mtp"
+        ],
+        "ro.allow.mock.location": [
+          "0"
+        ],
+        "ro.control_privapp_permissions": [
+          "enforce"
+        ],
+        "persist.dbg.wfc_avail_ovr": [
+          "0"
+        ],
+        "persist.dbg.wfc_avail_ovr0": [
+          "0"
+        ],
+        "persist.dbg.wfc_avail_ovr1": [
+          "0"
+        ]
+      },
+      "comment_dev_tag_lines": []
+    },
+    "RECOVERY/RAMDISK/prop.default": {
+      "bytes": 48768,
+      "sha256": "dc90313a809035b7ce21a2339ebf14e28a0b4e00bad848ecdde9546c2091cc17",
+      "symlink": false,
+      "security_properties": {
+        "ro.secure": [
+          "1"
+        ],
+        "ro.debuggable": [
+          "0"
+        ],
+        "ro.adb.secure": [
+          "1"
+        ],
+        "persist.sys.usb.config": [
+          "mtp"
+        ],
+        "ro.allow.mock.location": [
+          "0"
+        ],
+        "ro.control_privapp_permissions": [
+          "enforce"
+        ],
+        "persist.dbg.wfc_avail_ovr": [
+          "0"
+        ],
+        "persist.dbg.wfc_avail_ovr0": [
+          "0"
+        ],
+        "persist.dbg.wfc_avail_ovr1": [
+          "0"
+        ]
+      },
+      "comment_dev_tag_lines": [
+        "# ro.build.type=userdebug and ro.build.tags=test-keys, and"
+      ]
+    },
+    "SYSTEM/build.prop": {
+      "bytes": 4183,
+      "sha256": "e5e0ddd9d8f55d589b34d180152d452c1a5deb744870bb476d83593a7f7f266e",
+      "symlink": false,
+      "security_properties": {},
+      "comment_dev_tag_lines": [
+        "# ro.build.type=userdebug and ro.build.tags=test-keys, and"
+      ]
+    },
+    "ROOT/default.prop": {
+      "bytes": 23,
+      "sha256": "958fad083e08fc0c22b1ecf549f95105122504f7df989f789575995d53cf8094",
+      "symlink": true,
+      "target": "system/etc/prop.default"
+    },
+    "RECOVERY/RAMDISK/default.prop": {
+      "bytes": 12,
+      "sha256": "ab88b0a559931dd0fd2ab33adcbb4c4459683e3c149769ce33e9ac043ada29cd",
+      "symlink": true,
+      "target": "prop.default"
+    }
+  },
+  "actual_signed_properties_result": "Tier-3 effective Android-Q SYSTEM/VENDOR/ODM/PRODUCT plus BOOT/RECOVERY property contract: PASS",
+  "verifier_sha256": "5fd6d93dd9e026520025b0cceef2deab506179aab8f7ce36e6339d90d05ac829",
+  "host_fixtures_log_sha256": "6a7209f2948fab34b22bb8a9f489c945a0f9d28b4e03e5b9d9c6ea200e3b3ebf",
+  "primary_sources": [
+    "https://android.googlesource.com/platform/build/+/refs/tags/android-10.0.0_r47/core/Makefile#228",
+    "https://android.googlesource.com/platform/system/core/+/refs/tags/android-10.0.0_r47/init/property_service.cpp#882"
+  ]
+}

@@ -1,0 +1,1 @@
+line 339: run_ioctl(WMT_IOCTL_SET_STP_MODE, 0x23) == -ENOMEM

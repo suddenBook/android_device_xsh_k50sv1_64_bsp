@@ -1,0 +1,67 @@
+profile	zone	trip_count	base_poll_ms	active_temp_type_cooler	available_path	unavailable_cooler	ignored_nonempty_slots
+ht120.mtc	/proc/driver/thermal/tzcpu	1	200	108000/0/mtktscpu-sysrst	yes		
+ht120.mtc	/proc/driver/thermal/tzpmic	1	1000	145000/0/mtktspmic-sysrst	yes		
+ht120.mtc	/proc/driver/thermal/tzbattery	1	1000	120000/0/mtktsbattery-sysrst	yes		
+ht120.mtc	/proc/driver/thermal/tzpa	1	2000	120000/0/mtk-cl-shutdown01	yes		
+ht120.mtc	/proc/driver/thermal/tzwmt	1	5000	120000/0/mtktswmt-sysrst	yes		
+ht120.mtc	/proc/driver/thermal/tzbts	1	1000	100000/0/mtktsAP-sysrst	yes		90000/0/mtk-cl-shutdown00;52000/0/mtk-cl-cam00
+ht120.mtc	/proc/driver/thermal/tz6311	1	1000	120000/0/mtk-cl-kshutdown04	no		
+ht120.mtc	/proc/driver/thermal/tzbtspa	1	1000	120000/0/mtk-cl-shutdown02	yes		95000/0/mtk-cl-mdoff;85000/0/mtk-cl-noIMS;78000/0/mtk-cl-mutt03;76000/0/mtk-cl-mutt02;74000/0/mtk-cl-mutt01;72000/0/mtk-cl-mutt00;49000/0/abcct_lcmoff;40000/0/abcct
+ht120.mtc	/proc/driver/thermal/tzts1	1	1000	108000/0/mtk-cl-kshutdown00	yes		
+ht120.mtc	/proc/driver/thermal/tzts2	1	1000	108000/0/mtk-cl-kshutdown01	yes		
+ht120.mtc	/proc/driver/thermal/tzts3	1	1000	108000/0/mtk-cl-kshutdown02	yes		
+ht120.mtc	/proc/driver/thermal/tzts4	1	1000	108000/0/mtk-cl-kshutdown03	yes		
+thermal.conf	/proc/driver/thermal/tzcpu	3	200	108000/0/mtktscpu-sysrst;61000/0/cpu_adaptive_0;58000/0/cpu_adaptive_1	yes		
+thermal.conf	/proc/driver/thermal/tzpmic	1	1000	145000/0/mtktspmic-sysrst	yes		
+thermal.conf	/proc/driver/thermal/tzbattery	1	1000	60000/0/mtktsbattery-sysrst	yes		
+thermal.conf	/proc/driver/thermal/tzpa	1	2000	120000/0/mtk-cl-kshutdown01	yes		
+thermal.conf	/proc/driver/thermal/tzwmt	1	5000	120000/0/mtktswmt-sysrst	yes		
+thermal.conf	/proc/driver/thermal/tzbts	3	1000	100000/0/mtktsAP-sysrst;90000/0/mtk-cl-kshutdown00;52000/0/mtk-cl-cam00	yes		
+thermal.conf	/proc/driver/thermal/tz6311	1	1000	120000/0/mtktsbuck-sysrst	no		
+thermal.conf	/proc/driver/thermal/tzbtspa	7	1000	120000/0/mtk-cl-kshutdown02;95000/0/mtk-cl-mdoff;85000/0/mtk-cl-noIMS;78000/0/mtk-cl-mutt03;76000/0/mtk-cl-mutt02;74000/0/mtk-cl-mutt01;72000/0/mtk-cl-mutt00	yes		49000/0/abcct_lcmoff;40000/0/abcct
+thermal.off.conf	/proc/driver/thermal/tzcpu	3	200	117000/0/mtktscpu-sysrst;105000/0/mtk-cl-kshutdown00;85000/0/cpu_adaptive_0	yes		
+thermal.off.conf	/proc/driver/thermal/tzpmic	1	1000	145000/0/mtktspmic-sysrst	yes		
+thermal.off.conf	/proc/driver/thermal/tzbattery	1	1000	60000/0/mtktsbattery-sysrst	yes		
+thermal.off.conf	/proc/driver/thermal/tzpa	1	1000	120000/0/mtktspa-sysrst	yes		
+thermal.off.conf	/proc/driver/thermal/tzabb	1	0	117000/0/mtktsabb-sysrst	no	mtktsabb-sysrst	
+thermal.off.conf	/proc/driver/thermal/tzwmt	1	1000	120000/0/mtktswmt-sysrst	yes		
+thermal.off.conf	/proc/driver/thermal/tzbts	1	1000	90000/0/mtk-cl-kshutdown01	yes		
+thermal.off.conf	/proc/driver/thermal/tz6311	1	1000	120000/0/mtktsbuck-sysrst	no		
+thermal.off.conf	/proc/driver/thermal/tzbtspa	1	1000	200000/0/mtk-cl-backlight01	yes		
+thermal.off.conf	/proc/driver/thermal/tzts1	0	0		yes		
+thermal.off.conf	/proc/driver/thermal/tzts2	0	0		yes		
+thermal.off.conf	/proc/driver/thermal/tzts3	0	0		yes		
+thermal.off.conf	/proc/driver/thermal/tzts4	0	0		yes		
+thermal_meta.conf	/proc/driver/thermal/tzcpu	2	200	108000/0/mtktscpu-sysrst;30000/0/cpu_adaptive_0	yes		
+thermal_meta.conf	/proc/driver/thermal/tzpmic	1	1000	145000/0/mtktspmic-sysrst	yes		
+thermal_meta.conf	/proc/driver/thermal/tzbattery	1	1000	60000/0/mtktsbattery-sysrst	yes		
+thermal_meta.conf	/proc/driver/thermal/tzpa	1	2000	120000/0/mtk-cl-kshutdown01	yes		
+thermal_meta.conf	/proc/driver/thermal/tzwmt	1	5000	120000/0/mtktswmt-sysrst	yes		
+thermal_meta.conf	/proc/driver/thermal/tzbts	3	1000	100000/0/mtktsAP-sysrst;90000/0/mtk-cl-kshutdown00;52000/0/mtk-cl-cam00	yes		
+thermal_meta.conf	/proc/driver/thermal/tz6311	1	1000	120000/0/mtk-cl-kshutdown04	no		
+thermal_meta.conf	/proc/driver/thermal/tzbtspa	7	1000	120000/0/mtk-cl-kshutdown02;95000/0/mtk-cl-mdoff;85000/0/mtk-cl-noIMS;78000/0/mtk-cl-mutt03;76000/0/mtk-cl-mutt02;74000/0/mtk-cl-mutt01;72000/0/mtk-cl-mutt00	yes		49000/0/abcct_lcmoff;34000/0/abcct
+thermal_meta.conf	/proc/driver/thermal/tzts1	0	1000		yes		108000/0/mtk-cl-kshutdown00
+thermal_policy_00	/proc/driver/thermal/tzcpu	3	200	108000/0/mtktscpu-sysrst;61000/0/cpu_adaptive_0;58000/0/cpu_adaptive_1	yes		
+thermal_policy_00	/proc/driver/thermal/tzpmic	1	1000	145000/0/mtktspmic-sysrst	yes		
+thermal_policy_00	/proc/driver/thermal/tzbattery	1	1000	60000/0/mtktsbattery-sysrst	yes		
+thermal_policy_00	/proc/driver/thermal/tzpa	1	2000	120000/0/mtk-cl-kshutdown01	yes		
+thermal_policy_00	/proc/driver/thermal/tzwmt	1	5000	120000/0/mtktswmt-sysrst	yes		
+thermal_policy_00	/proc/driver/thermal/tzbts	3	1000	100000/0/mtktsAP-sysrst;90000/0/mtk-cl-kshutdown00;52000/0/mtk-cl-cam00	yes		
+thermal_policy_00	/proc/driver/thermal/tz6311	1	1000	120000/0/mtktsbuck-sysrst	no		
+thermal_policy_00	/proc/driver/thermal/tzbtspa	7	1000	120000/0/mtk-cl-kshutdown02;95000/0/mtk-cl-mdoff;85000/0/mtk-cl-noIMS;78000/0/mtk-cl-mutt03;76000/0/mtk-cl-mutt02;74000/0/mtk-cl-mutt01;72000/0/mtk-cl-mutt00	yes		49000/0/abcct_lcmoff;34000/0/abcct
+thermal_policy_01	/proc/driver/thermal/tzcpu	3	200	108000/0/mtktscpu-sysrst;61000/0/cpu_adaptive_0;58000/0/cpu_adaptive_1	yes		
+thermal_policy_01	/proc/driver/thermal/tzpmic	1	1000	145000/0/mtktspmic-sysrst	yes		
+thermal_policy_01	/proc/driver/thermal/tzbattery	1	1000	60000/0/mtktsbattery-sysrst	yes		
+thermal_policy_01	/proc/driver/thermal/tzpa	1	2000	120000/0/mtk-cl-kshutdown01	yes		
+thermal_policy_01	/proc/driver/thermal/tzwmt	1	5000	120000/0/mtktswmt-sysrst	yes		
+thermal_policy_01	/proc/driver/thermal/tzbts	3	1000	100000/0/mtktsAP-sysrst;90000/0/mtk-cl-kshutdown00;50000/0/mtk-cl-cam00	yes		
+thermal_policy_01	/proc/driver/thermal/tz6311	1	1000	120000/0/mtktsbuck-sysrst	no		
+thermal_policy_01	/proc/driver/thermal/tzbtspa	7	1000	120000/0/mtk-cl-kshutdown02;95000/0/mtk-cl-mdoff;85000/0/mtk-cl-noIMS;78000/0/mtk-cl-mutt03;76000/0/mtk-cl-mutt02;74000/0/mtk-cl-mutt01;72000/0/mtk-cl-mutt00	yes		49000/0/abcct_lcmoff;34000/0/abcct
+thermal_policy_02	/proc/driver/thermal/tzcpu	3	200	108000/0/mtktscpu-sysrst;61000/0/cpu_adaptive_0;58000/0/cpu_adaptive_1	yes		
+thermal_policy_02	/proc/driver/thermal/tzpmic	1	1000	145000/0/mtktspmic-sysrst	yes		
+thermal_policy_02	/proc/driver/thermal/tzbattery	1	1000	60000/0/mtktsbattery-sysrst	yes		
+thermal_policy_02	/proc/driver/thermal/tzpa	1	2000	120000/0/mtk-cl-kshutdown01	yes		
+thermal_policy_02	/proc/driver/thermal/tzwmt	1	5000	120000/0/mtktswmt-sysrst	yes		
+thermal_policy_02	/proc/driver/thermal/tzbts	3	1000	100000/0/mtktsAP-sysrst;90000/0/mtk-cl-kshutdown00;52000/0/mtk-cl-cam00	yes		
+thermal_policy_02	/proc/driver/thermal/tz6311	1	1000	120000/0/mtktsbuck-sysrst	no		
+thermal_policy_02	/proc/driver/thermal/tzbtspa	7	1000	120000/0/mtk-cl-kshutdown02;95000/0/mtk-cl-mdoff;85000/0/mtk-cl-noIMS;78000/0/mtk-cl-mutt03;76000/0/mtk-cl-mutt02;74000/0/mtk-cl-mutt01;72000/0/mtk-cl-mutt00	yes		49000/0/abcct_lcmoff;40000/0/abcct

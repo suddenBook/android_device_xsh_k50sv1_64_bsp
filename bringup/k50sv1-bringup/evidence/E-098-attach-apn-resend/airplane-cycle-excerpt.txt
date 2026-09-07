@@ -1,0 +1,34 @@
+08-25 09:12:02.002  4582  4595 D RIL-DATA: IA: defineAttachApnIfIACacheExisted but not main socket
+08-25 09:12:03.641  2063  2851 D RILJ    : [1531]> RIL_REQUEST_SET_INITIAL_ATTACH_APNDataProfile=0/0/0/cmnet///0/0/0/0/true/21/0/0/0/false/false [SUB1]
+08-25 09:12:03.642  4674  4674 I k50sv1-ril-shim: cached initial-attach APN for socket 1 (apn=cmnet, auth=0)
+08-25 09:12:03.643  4674  4696 D RfxRoot : processMessage() msg = [type=REQUEST, source=GSM, dest=GSM, pId=SET_INITIAL_ATTACH_APN(111), pToken=784371531, id=SET_INITIAL_ATTACH_APN(111), token=2059, slotId=1,             error = 0, isSentOnCdmaCapabilitySlot = 2, pTimeStamp = 534054536877], handler = 0x7fa7004f00, RpDataController
+08-25 09:12:03.643  4674  4696 D RP_DC   : Handle request SET_INITIAL_ATTACH_APN
+08-25 09:12:03.643  4582  4604 D RILC    : SOCKET RIL_SOCKET_2 REQUEST: SET_INITIAL_ATTACH_APN length:96
+08-25 09:12:03.643  4582  4604 D RILC-MTK: SET_INITIAL_ATTACH_APN pRI=0x79c9800cc0 p=0x79c98e3780 dispatched to RIL_CMD2_PROXY_1
+08-25 09:12:03.678  4582  4601 I RILC-MTK: proxy id:9, proxyName: RIL_CMD2_PROXY_1, SET_INITIAL_ATTACH_APN pRI=0x79c9800cc0 p=0x79c98e3780 execute on RIL_CMD2_PROXY_1 using channel 9
+08-25 09:12:03.678  4582  4601 D RIL     : onRequest: SET_INITIAL_ATTACH_APN, datalen = 88, radioState:0
+08-25 09:12:03.679  4674  4696 D RfxRoot : processMessage() msg = [type=RESPONSE, source=GSM, dest=GSM, pId=SET_INITIAL_ATTACH_APN(111), pToken=784371531, id=SET_INITIAL_ATTACH_APN(111), token=2060, slotId=1,             error = 0, isSentOnCdmaCapabilitySlot = 0, pTimeStamp = 534054536877], handler = 0x7fa7004f00, RpDataController
+08-25 09:12:03.679  4674  4696 D RP_DC   : Handle response SET_INITIAL_ATTACH_APN.
+08-25 09:12:03.680  2063  2427 D RILJ    : [1531]< RIL_REQUEST_SET_INITIAL_ATTACH_APN  [SUB1]
+08-25 09:12:17.114  4582  4595 E RIL-DATA: IA: defineAttachApnIfIACacheExisted empty IA property
+08-25 09:12:17.115  4582  4595 E RIL-DATA: IA: defineAttachApnIfIACacheExisted empty IA due to password
+08-25 09:12:17.115  4582  4595 E RIL-DATA: IA: defineAttachApnIfIACacheExisted IA depend on SIM loaded
+08-25 09:12:17.115  4582  4595 D RIL-DATA: IA: defineAttachApnIfIACacheExisted clear IA cache and IA ICCID
+08-25 09:12:17.138  4582  4595 I AT      : AT> AT+CGDCONT=0,"IP","this_is_an_invalid_apn",,0,0,0,0,0,0 (RIL_CMD_READER_3, tid:523324460368)
+08-25 09:12:17.253  4582  4595 D RIL-DATA: IA: defineAttachApnIfIACacheExisted but not main socket
+08-25 09:12:17.582  4582  4636 I AT      : AT< +EAPN: "this_is_an_invalid_apn" (RIL_URC_READER, tid:0)
+08-25 09:12:17.582  4582  4636 D RIL-DATA: rilDataUnsolicited request timed callback onAttachApnReset to RIL_CMD_PROXY_4
+08-25 09:12:17.587  4582  4596 D RIL-DATA: isIaInvalid: line is  0,"IP","this_is_an_invalid_apn",,0,0,0,2,0,0
+08-25 09:12:17.596  4582  4596 D RIL-DATA: onAttachApnReset: invalid IA, clean cache and send RIL_UNSOL_RESET_ATTACH_APN
+08-25 09:12:17.599  4674  4696 E RILC-RP : resetAttachApnInd: mtkRadioExService[0]->mRadioIndicationMtk == NULL
+08-25 09:12:17.600  4674  4698 I k50sv1-ril-shim: RIL_UNSOL_RESET_ATTACH_APN on socket 0 -> re-sending SET_INITIAL_ATTACH_APN (apn=live.vodafone.com)
+08-25 09:12:17.600  4674  4696 D RfxRoot : processMessage() msg = [type=REQUEST, source=GSM, dest=GSM, pId=SET_INITIAL_ATTACH_APN(111), pToken=0, id=SET_INITIAL_ATTACH_APN(111), token=2178, slotId=0,             error = 0, isSentOnCdmaCapabilitySlot = 2, pTimeStamp = 548012574800], handler = 0x7fa7004780, RpDataController
+08-25 09:12:17.600  4674  4696 D RP_DC   : Handle request SET_INITIAL_ATTACH_APN
+08-25 09:12:17.601  4582  4604 D RILC    : SOCKET RIL_SOCKET_1 REQUEST: SET_INITIAL_ATTACH_APN length:160
+08-25 09:12:17.601  4582  4604 D RILC-MTK: SET_INITIAL_ATTACH_APN pRI=0x79c9800f90 p=0x79c990e000 dispatched to RIL_CMD_PROXY_1
+08-25 09:12:17.601  4582  4595 I RILC-MTK: proxy id:3, proxyName: RIL_CMD_PROXY_1, SET_INITIAL_ATTACH_APN pRI=0x79c9800f90 p=0x79c990e000 execute on RIL_CMD_PROXY_1 using channel 3
+08-25 09:12:17.601  4582  4595 D RIL     : onRequest: SET_INITIAL_ATTACH_APN, datalen = 88, radioState:10
+08-25 09:12:17.617  4582  4595 D RIL-DATA: isIaInvalid: line is  0,"IP","this_is_an_invalid_apn",,0,0,0,2,0,0
+08-25 09:12:17.656  4674  4696 D RfxRoot : processMessage() msg = [type=RESPONSE, source=GSM, dest=GSM, pId=SET_INITIAL_ATTACH_APN(111), pToken=0, id=SET_INITIAL_ATTACH_APN(111), token=2179, slotId=0,             error = 0, isSentOnCdmaCapabilitySlot = 1, pTimeStamp = 548012574800], handler = 0x7fa7004780, RpDataController
+08-25 09:12:17.656  4674  4696 D RP_DC   : Handle response SET_INITIAL_ATTACH_APN.
+08-25 09:12:17.656  4674  4696 I k50sv1-ril-shim: re-issued SET_INITIAL_ATTACH_APN completed, e=0

@@ -1,0 +1,74 @@
+Physical camera-hole / status-bar overlay decision
+audited_at=2026-08-23T06:02:00+02:00
+device=720x1560 LCD, physical/product density 320 dpi
+live_user_override=256 dpi
+
+## Proven geometry contract
+
+Current Lineage uses AOSP's 24 dp status bar. With the owner's persisted
+256-dpi display override, WindowManager reports a 38-pixel top/stable inset:
+
+    mStable=[0,38][720,1560]
+
+Stock framework-res for this exact build uses:
+
+    status_bar_height_portrait = 40dp
+    status_bar_height_landscape = @status_bar_height_portrait
+    quick_qs_offset_height = 48dp
+    config_mainBuiltInDisplayCutout = ""
+    config_mainBuiltInDisplayCutoutRectApproximation =
+        @config_mainBuiltInDisplayCutout
+
+Stock MtkSystemUI references the framework status-bar height directly, has
+zero status-bar top padding and no OEM hardcoded camera-hole spacer. Its
+cutout spacer follows ordinary AOSP DisplayCutout state.
+
+The source fix therefore overlays only:
+
+    status_bar_height_portrait = 40dp
+    status_bar_height_landscape = 40dp
+
+It intentionally leaves quick_qs at the existing AOSP 48 dp default and leaves
+all cutout path/rect/fill resources unchanged. At product/default 320 dpi the
+bar is 80 px, exactly matching Stock. At the current user-forced 256 dpi it is
+64 px. User density state is not converted into a product resource.
+
+## Why no synthetic DisplayCutout path is declared
+
+Live WindowManager reports empty DisplayCutout bounds and zero safe insets.
+No cutout emulation overlay is active. The safe screencap was black because
+the handset was asleep; even an illuminated framebuffer capture cannot show a
+physical LCD aperture because it captures rendered pixels, not the camera and
+opaque panel hole. The workspace contains no perspective-corrected front-panel
+photograph from this exact handset.
+
+Inventing a center/radius from another clone would alter application safe
+insets, rotation, SystemUI center spacing and letterboxing with false geometry.
+The clean first build reproduces Stock's reserved height only. A real cutout
+path requires a square-on photograph containing all active display corners,
+perspective correction to 720x1560, and measured center/radius including the
+black decoration ring plus a small safety margin.
+
+## Static validation
+
+The targeted framework-res build succeeds. Its final resource table contains:
+
+    dimen/status_bar_height_portrait  40.000000dp
+    dimen/status_bar_height_landscape 40.000000dp
+    dimen/quick_qs_offset_height      48.000000dp
+      land -> @status_bar_height_landscape
+    string/config_mainBuiltInDisplayCutout ""
+    bool/config_fillMainBuiltInDisplayCutout false
+
+## Post-flash gates
+
+* Record `wm density`: expect stable top 64 px at 256 dpi or 80 px at 320 dpi.
+* DisplayCutout bounds/safeInsets must remain zero until physical measurement.
+* Inspect time, notifications, signal and battery against the real hole on
+  white/bright backgrounds, lock screen, heads-up notifications and open QS.
+* Test left, center and right Lineage clock modes. Center clock may collide
+  because no measured center cutout is declared; keep the default left clock
+  if it does.
+* Rotate ordinary and fullscreen applications through 90 and 270 degrees.
+  Stock also lacks a side safe inset in landscape; any unacceptable physical
+  obstruction is evidence to measure and implement a real path later.

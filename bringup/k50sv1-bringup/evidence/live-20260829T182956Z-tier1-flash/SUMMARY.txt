@@ -1,0 +1,14 @@
+flash_receipt=tier1-20260829T182956Z.txt
+flash_receipt_sha256=120730a02c0dceb08e9ef4ed1408f7d48f45942810bb0ac1bbc630f34e2fd043
+stage=tier1-20260829T182925Z
+stage_contract_sha256=7e41548cc1077ec86282e061f546b07159c269bc23c357dc8c30685c2a4e4020
+incremental=eng.desmon.20260829.195610
+boot1=work/.capture-staging/tier1-verify-20260829T183446Z
+boot1_result=202/1/4 plus 4 evidence-fatal (OOBE)
+boot1_unparsed=0 expected=13 unexpected=0
+boot2=work/.capture-staging/tier1-verify-cycle2-20260829T184330Z
+boot2_result=209/1/3 evidence-fatal=0
+boot2_unparsed=0 expected=12 unexpected=0
+pstore_sticky=same FAULT hashes; WI-030
+huawei_product_app=PASS
+evidence=E-138

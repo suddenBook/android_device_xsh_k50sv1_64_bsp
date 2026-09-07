@@ -1,0 +1,25 @@
+{
+  "exit_code": 1,
+  "phase": "first-boot",
+  "command": [
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build-project/work/k50sv1-bringup/tools/verify-post-flash.sh",
+    "0123456789ABCDEF",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/tier1-source-stack-20260907-wmt-platform-lifecycle",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/source-stack-wmt-platform-lifecycle-flash-receipt.txt",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build17-first-boot",
+    "cu-slot0-cmcc-slot1",
+    "preflash-predecessor"
+  ],
+  "started_epoch": 1788746424.9304357,
+  "finished_epoch": 1788746491.1634247,
+  "verifier_sha256": "5eae4bcc9fdbc646a580151da5330653da94551ed5c0efe0b62eb869a39b30a8",
+  "log_sha256": "ef5f8d44202e55cfa461858b243699c807cdf410fd1a53b3c1ebaf83a7397ad1",
+  "capture": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build17-first-boot",
+  "summary": {
+    "passed": 226,
+    "failed": 0,
+    "unread": 5,
+    "evidence_fatal": 0,
+    "informational": 22
+  }
+}

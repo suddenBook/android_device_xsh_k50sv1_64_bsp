@@ -1,0 +1,13 @@
+[1m/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/old-clang-target/baseline-source/main.c:258:59: [0m[0;1;35mwarning: [0m[1msuggest braces around initialization of subobject [-Wmissing-braces][0m
+    struct wmt_cmd2_record records[WMT_CMD2_PATCH_MAX] = {0};
+[0;1;32m                                                          ^
+[0m[0;32m                                                          {}
+[0m[1m/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/old-clang-target/baseline-source/main.c:259:44: [0m[0;1;35mwarning: [0m[1msuggest braces around initialization of subobject [-Wmissing-braces][0m
+    struct wmt_firmware_result firmware = {0};
+[0;1;32m                                           ^
+[0m[0;32m                                           {}
+[0m[1m/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/old-clang-target/baseline-source/main.c:386:42: [0m[0;1;35mwarning: [0m[1msuggest braces around initialization of subobject [-Wmissing-braces][0m
+    struct optional_controls controls = {0};
+[0;1;32m                                         ^
+[0m[0;32m                                         {}
+[0m3 warnings generated.

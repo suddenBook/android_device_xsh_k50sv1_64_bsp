@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "probes": [
+    {
+      "package": "local.k50.gnssprobe",
+      "sha256": "4c05c313b80ea3caab92036fe8c2f164dc0bc943e56c35d9996a1cb6964cedfb",
+      "installed_path": "/data/app/local.k50.gnssprobe-x77A441Lcfwuhbydqw_Ozg==/base.apk"
+    },
+    {
+      "package": "local.k50.p2pprobe",
+      "sha256": "0dbe0a93f149c12518d05823da564af57297d5bab0c3869bb969eaab201aebe5",
+      "installed_path": "/data/app/local.k50.p2pprobe-BVTK9qk9Z9GVVQ28BtnPvA==/base.apk"
+    }
+  ],
+  "wifi_restored": true,
+  "restored_after_probe_installation": true,
+  "requires_normal_reboot_to_load_store": true
+}

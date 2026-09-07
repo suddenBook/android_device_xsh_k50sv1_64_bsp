@@ -1,0 +1,406 @@
+ACTIVITY MANAGER ACTIVITIES (dumpsys activity activities)
+Display #0 (activities from top to bottom):
+
+  Stack #12: type=standard mode=fullscreen
+  isSleeping=true
+  mBounds=Rect(0, 0 - 0, 0)
+    Task id #21
+    mBounds=Rect(0, 0 - 0, 0)
+    mMinWidth=-1
+    mMinHeight=-1
+    mLastNonFullscreenBounds=null
+    * TaskRecord{b1123b9 #21 A=com.android.permissioncontroller U=0 StackId=12 sz=1}
+      userId=0 effectiveUid=u0a63 mCallingUid=0 mUserSetupComplete=true mCallingPackage=com.android.shell
+      affinity=com.android.permissioncontroller
+      intent={act=android.intent.action.MANAGE_DEFAULT_APP flg=0x10000000 cmp=com.android.permissioncontroller/com.android.packageinstaller.role.ui.DefaultAppActivity}
+      mActivityComponent=com.android.permissioncontroller/com.android.packageinstaller.role.ui.DefaultAppActivity
+      autoRemoveRecents=false isPersistable=true numFullscreen=1 activityType=1
+      rootWasReset=false mNeverRelinquishIdentity=true mReuseTask=false mLockTaskAuth=LOCK_TASK_AUTH_PINNABLE
+      Activities=[ActivityRecord{87e5abb u0 com.android.permissioncontroller/com.android.packageinstaller.role.ui.DefaultAppActivity t21}]
+      askedCompatMode=false inRecents=true isAvailable=true
+      mRootProcess=ProcessRecord{944c3fe 2720:com.android.permissioncontroller/u0a63}
+      stackId=12
+      hasBeenVisible=false mResizeMode=RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION mSupportsPictureInPicture=false isResizeable=true lastActiveTime=2191707 (inactive for 102s)
+      * Hist #0: ActivityRecord{87e5abb u0 com.android.permissioncontroller/com.android.packageinstaller.role.ui.DefaultAppActivity t21}
+          packageName=com.android.permissioncontroller processName=com.android.permissioncontroller
+          launchedFromUid=0 launchedFromPackage=com.android.shell userId=0
+          app=ProcessRecord{944c3fe 2720:com.android.permissioncontroller/u0a63}
+          Intent { act=android.intent.action.MANAGE_DEFAULT_APP flg=0x10000000 cmp=com.android.permissioncontroller/com.android.packageinstaller.role.ui.DefaultAppActivity (has extras) }
+          frontOfTask=true task=TaskRecord{b1123b9 #21 A=com.android.permissioncontroller U=0 StackId=12 sz=1}
+          taskAffinity=com.android.permissioncontroller
+          mActivityComponent=com.android.permissioncontroller/com.android.packageinstaller.role.ui.DefaultAppActivity
+          baseDir=/system/priv-app/PermissionController/PermissionController.apk
+          dataDir=/data/user_de/0/com.android.permissioncontroller
+          stateNotNeeded=false componentSpecified=false mActivityType=standard
+          compat={320dpi} labelRes=0x7f11002b icon=0x7f0800a9 theme=0x7f1201c7
+          mLastReportedConfigurations:
+           mGlobalConfig={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} s.29}
+           mOverrideConfig={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} s.1}
+          CurrentConfiguration={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} s.1}
+          taskDescription: label="null" icon=null iconResource=0 iconFilename=null primaryColor=fff5f5f5
+           backgroundColor=fffafafa
+           statusBarColor=ffe0e0e0
+           navigationBarColor=ffffffff
+          launchFailed=false launchCount=0 lastLaunchTime=-1m42s563ms
+          haveState=true icicle=Bundle[mParcelledData.dataSize=4420]
+          state=STOPPED stopped=true delayedResume=false finishing=false
+          keysPaused=false inHistory=true visible=false sleeping=true idle=true mStartingWindowState=STARTING_WINDOW_NOT_SHOWN
+          fullscreen=true noDisplay=false immersive=false launchMode=0
+          frozenBeforeDestroy=false forceNewConfig=false
+          mActivityType=standard
+          resizeMode=RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION
+          mLastReportedMultiWindowMode=false mLastReportedPictureInPictureMode=false
+
+    Running activities (most recent first):
+      TaskRecord{b1123b9 #21 A=com.android.permissioncontroller U=0 StackId=12 sz=1}
+        Run #0: ActivityRecord{87e5abb u0 com.android.permissioncontroller/com.android.packageinstaller.role.ui.DefaultAppActivity t21}
+
+    mLastPausedActivity: ActivityRecord{87e5abb u0 com.android.permissioncontroller/com.android.packageinstaller.role.ui.DefaultAppActivity t21}
+
+  Stack #0: type=home mode=fullscreen
+  isSleeping=true
+  mBounds=Rect(0, 0 - 0, 0)
+
+    Task id #9
+    mBounds=Rect(0, 0 - 0, 0)
+    mMinWidth=-1
+    mMinHeight=-1
+    mLastNonFullscreenBounds=null
+    * TaskRecord{108c135 #9 I=com.android.launcher3/.lineage.LineageLauncher U=0 StackId=0 sz=1}
+      userId=0 effectiveUid=u0a113 mCallingUid=0 mUserSetupComplete=true mCallingPackage=null
+      intent={act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10800100 cmp=com.android.launcher3/.lineage.LineageLauncher}
+      mActivityComponent=com.android.launcher3/.lineage.LineageLauncher
+      autoRemoveRecents=false isPersistable=false numFullscreen=1 activityType=2
+      rootWasReset=false mNeverRelinquishIdentity=true mReuseTask=false mLockTaskAuth=LOCK_TASK_AUTH_PINNABLE
+      Activities=[ActivityRecord{406c60e u0 com.android.launcher3/.lineage.LineageLauncher t9}]
+      askedCompatMode=false inRecents=true isAvailable=true
+      stackId=0
+      hasBeenVisible=true mResizeMode=RESIZE_MODE_RESIZEABLE mSupportsPictureInPicture=false isResizeable=true lastActiveTime=1440687 (inactive for 853s)
+      * Hist #0: ActivityRecord{406c60e u0 com.android.launcher3/.lineage.LineageLauncher t9}
+          packageName=com.android.launcher3 processName=com.android.launcher3
+          launchedFromUid=0 launchedFromPackage=null userId=0
+          app=ProcessRecord{9ae67bf 1387:com.android.launcher3/u0a113}
+          Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10800100 cmp=com.android.launcher3/.lineage.LineageLauncher }
+          frontOfTask=true task=TaskRecord{108c135 #9 I=com.android.launcher3/.lineage.LineageLauncher U=0 StackId=0 sz=1}
+          taskAffinity=null
+          mActivityComponent=com.android.launcher3/.lineage.LineageLauncher
+          baseDir=/system/product/priv-app/TrebuchetQuickStep/TrebuchetQuickStep.apk
+          dataDir=/data/user/0/com.android.launcher3
+          stateNotNeeded=true componentSpecified=false mActivityType=home
+          compat={320dpi} labelRes=0x7f120085 icon=0x7f0f0002 theme=0x7f13000a
+          mLastReportedConfigurations:
+           mGlobalConfig={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} s.35}
+           mOverrideConfig={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=home mAlwaysOnTop=undefined mRotation=ROTATION_0} s.2}
+          CurrentConfiguration={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=home mAlwaysOnTop=undefined mRotation=ROTATION_0} s.2}
+          RequestedOverrideConfiguration={0.0 ?mcc?mnc ?localeList ?layoutDir ?swdp ?wdp ?hdp ?density ?lsize ?long ?ldr ?wideColorGamut ?orien ?uimode ?night ?touch ?keyb/?/? ?nav/? winConfig={ mBounds=Rect(0, 0 - 0, 0) mAppBounds=null mWindowingMode=undefined mDisplayWindowingMode=undefined mActivityType=home mAlwaysOnTop=undefined mRotation=undefined}}
+          taskDescription: label="null" icon=null iconResource=0 iconFilename=null primaryColor=fff5f5f5
+           backgroundColor=fffafafa
+           statusBarColor=0
+           navigationBarColor=0
+          launchFailed=false launchCount=0 lastLaunchTime=-37m45s522ms
+          haveState=false icicle=null
+          state=STOPPED stopped=true delayedResume=false finishing=false
+          keysPaused=false inHistory=true visible=false sleeping=true idle=true mStartingWindowState=STARTING_WINDOW_NOT_SHOWN
+          fullscreen=true noDisplay=false immersive=false launchMode=2
+          frozenBeforeDestroy=false forceNewConfig=false
+          mActivityType=home
+           nowVisible=false lastVisibleTime=-16m14s535ms
+          connections=com.android.server.wm.ActivityServiceConnectionsHolder@83f5edf
+          resizeMode=RESIZE_MODE_RESIZEABLE
+          mLastReportedMultiWindowMode=false mLastReportedPictureInPictureMode=false
+
+    Running activities (most recent first):
+      TaskRecord{108c135 #9 I=com.android.launcher3/.lineage.LineageLauncher U=0 StackId=0 sz=1}
+        Run #0: ActivityRecord{406c60e u0 com.android.launcher3/.lineage.LineageLauncher t9}
+
+    mLastPausedActivity: ActivityRecord{406c60e u0 com.android.launcher3/.lineage.LineageLauncher t9}
+
+  Stack #11: type=standard mode=fullscreen
+  isSleeping=true
+  mBounds=Rect(0, 0 - 0, 0)
+
+    Task id #20
+    mBounds=Rect(0, 0 - 0, 0)
+    mMinWidth=-1
+    mMinHeight=-1
+    mLastNonFullscreenBounds=null
+    * TaskRecord{a73075f #20 I=com.google.android.googlequicksearchbox/.SearchActivity U=0 StackId=11 sz=1}
+      userId=0 effectiveUid=u0a61 mCallingUid=0 mUserSetupComplete=true mCallingPackage=com.android.shell
+      intent={flg=0x10000000 cmp=com.google.android.googlequicksearchbox/.SearchActivity}
+      origActivity=com.google.android.googlequicksearchbox/.SearchActivity
+      mActivityComponent=com.google.android.googlequicksearchbox/com.google.android.apps.search.googleapp.activity.GoogleAppActivity
+      autoRemoveRecents=false isPersistable=true numFullscreen=1 activityType=1
+      rootWasReset=false mNeverRelinquishIdentity=true mReuseTask=false mLockTaskAuth=LOCK_TASK_AUTH_PINNABLE
+      Activities=[ActivityRecord{3378094 u0 com.google.android.googlequicksearchbox/.SearchActivity t20}]
+      askedCompatMode=false inRecents=true isAvailable=true
+      mRootProcess=ProcessRecord{21d64f0 13167:com.google.android.googlequicksearchbox:googleapp/u0a61}
+      stackId=11
+      hasBeenVisible=true mResizeMode=RESIZE_MODE_RESIZEABLE mSupportsPictureInPicture=false isResizeable=true lastActiveTime=1319209 (inactive for 975s)
+      * Hist #0: ActivityRecord{3378094 u0 com.google.android.googlequicksearchbox/.SearchActivity t20}
+          packageName=com.google.android.googlequicksearchbox processName=com.google.android.googlequicksearchbox:googleapp
+          launchedFromUid=0 launchedFromPackage=com.android.shell userId=0
+          app=ProcessRecord{21d64f0 13167:com.google.android.googlequicksearchbox:googleapp/u0a61}
+          Intent { flg=0x10000000 cmp=com.google.android.googlequicksearchbox/.SearchActivity }
+          frontOfTask=true task=TaskRecord{a73075f #20 I=com.google.android.googlequicksearchbox/.SearchActivity U=0 StackId=11 sz=1}
+          taskAffinity=null
+          mActivityComponent=com.google.android.googlequicksearchbox/com.google.android.apps.search.googleapp.activity.GoogleAppActivity
+          baseDir=/data/app/com.google.android.googlequicksearchbox-bgf7oa6mtu9qnFO46jeQsw==/base.apk
+          dataDir=/data/user/0/com.google.android.googlequicksearchbox
+          splitDir=[/data/app/com.google.android.googlequicksearchbox-bgf7oa6mtu9qnFO46jeQsw==/split_config.xhdpi.apk]
+          stateNotNeeded=false componentSpecified=true mActivityType=standard
+          compat={320dpi} labelRes=0x7f152c59 icon=0x7f110010 theme=0x7f160c61
+          mLastReportedConfigurations:
+           mGlobalConfig={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} s.29}
+           mOverrideConfig={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} s.1}
+          CurrentConfiguration={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} s.1}
+          taskDescription: label="null" icon=null iconResource=0 iconFilename=null primaryColor=ff0b57d0
+           backgroundColor=ffffffff
+           statusBarColor=0
+           navigationBarColor=0
+          launchFailed=false launchCount=0 lastLaunchTime=-16m17s211ms
+          haveState=true icicle=Bundle[mParcelledData.dataSize=51724]
+          state=STOPPED stopped=true delayedResume=false finishing=false
+          keysPaused=false inHistory=true visible=false sleeping=true idle=true mStartingWindowState=STARTING_WINDOW_NOT_SHOWN
+          fullscreen=true noDisplay=false immersive=false launchMode=1
+          frozenBeforeDestroy=false forceNewConfig=false
+          mActivityType=standard
+           nowVisible=false lastVisibleTime=-16m15s745ms
+          resizeMode=RESIZE_MODE_RESIZEABLE
+          mLastReportedMultiWindowMode=false mLastReportedPictureInPictureMode=false
+
+    Running activities (most recent first):
+      TaskRecord{a73075f #20 I=com.google.android.googlequicksearchbox/.SearchActivity U=0 StackId=11 sz=1}
+        Run #0: ActivityRecord{3378094 u0 com.google.android.googlequicksearchbox/.SearchActivity t20}
+
+    mLastPausedActivity: ActivityRecord{3378094 u0 com.google.android.googlequicksearchbox/.SearchActivity t20}
+
+  Stack #1: type=standard mode=fullscreen
+  isSleeping=true
+  mBounds=Rect(0, 0 - 0, 0)
+
+    Task id #10
+    mBounds=Rect(0, 0 - 0, 0)
+    mMinWidth=-1
+    mMinHeight=-1
+    mLastNonFullscreenBounds=null
+    * TaskRecord{634cf39 #10 A=com.android.settings U=0 StackId=1 sz=2}
+      userId=0 effectiveUid=1000 mCallingUid=0 mUserSetupComplete=true mCallingPackage=com.android.shell
+      affinity=com.android.settings
+      intent={act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 pkg=com.android.settings cmp=com.android.settings/.Settings}
+      origActivity=com.android.settings/.Settings
+      mActivityComponent=com.android.settings/.homepage.SettingsHomepageActivity
+      autoRemoveRecents=false isPersistable=true numFullscreen=2 activityType=1
+      rootWasReset=false mNeverRelinquishIdentity=true mReuseTask=false mLockTaskAuth=LOCK_TASK_AUTH_PINNABLE
+      Activities=[ActivityRecord{52ce1c9 u0 com.android.settings/.Settings t10}, ActivityRecord{8d699c6 u0 com.android.settings/.bluetooth.DevicePickerActivity t10}]
+      askedCompatMode=false inRecents=true isAvailable=true
+      mRootProcess=ProcessRecord{ab5c97e 5160:com.android.settings/1000}
+      stackId=1
+      hasBeenVisible=true mResizeMode=RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION mSupportsPictureInPicture=false isResizeable=true lastActiveTime=255213 (inactive for 2039s)
+      * Hist #1: ActivityRecord{8d699c6 u0 com.android.settings/.bluetooth.DevicePickerActivity t10}
+          packageName=com.android.settings processName=com.android.settings
+          launchedFromUid=0 launchedFromPackage=com.android.shell userId=0
+          app=ProcessRecord{ab5c97e 5160:com.android.settings/1000}
+          Intent { act=android.bluetooth.devicepicker.action.LAUNCH flg=0x10400000 cmp=com.android.settings/.bluetooth.DevicePickerActivity }
+          frontOfTask=false task=TaskRecord{634cf39 #10 A=com.android.settings U=0 StackId=1 sz=2}
+          taskAffinity=com.android.settings
+          mActivityComponent=com.android.settings/.bluetooth.DevicePickerActivity
+          baseDir=/system/product/priv-app/Settings/Settings.apk
+          dataDir=/data/user_de/0/com.android.settings
+          stateNotNeeded=false componentSpecified=false mActivityType=standard
+          compat={320dpi} labelRes=0x7f120593 icon=0x7f0f0002 theme=0x7f1302ab
+          mLastReportedConfigurations:
+           mGlobalConfig={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} s.29}
+           mOverrideConfig={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} s.1}
+          CurrentConfiguration={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} s.1}
+          taskDescription: label="null" icon=null iconResource=0 iconFilename=null primaryColor=fff5f5f5
+           backgroundColor=fffafafa
+           statusBarColor=ffe0e0e0
+           navigationBarColor=0
+          launchFailed=false launchCount=0 lastLaunchTime=-34m14s735ms
+          haveState=true icicle=Bundle[mParcelledData.dataSize=3288]
+          state=STOPPED stopped=true delayedResume=false finishing=false
+          keysPaused=false inHistory=true visible=false sleeping=true idle=true mStartingWindowState=STARTING_WINDOW_REMOVED
+          fullscreen=true noDisplay=false immersive=false launchMode=0
+          frozenBeforeDestroy=false forceNewConfig=false
+          mActivityType=standard
+           nowVisible=false lastVisibleTime=-34m13s965ms
+          resizeMode=RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION
+          mLastReportedMultiWindowMode=false mLastReportedPictureInPictureMode=false
+      * Hist #0: ActivityRecord{52ce1c9 u0 com.android.settings/.Settings t10}
+          packageName=com.android.settings processName=com.android.settings
+          launchedFromUid=0 launchedFromPackage=com.android.shell userId=0
+          app=ProcessRecord{ab5c97e 5160:com.android.settings/1000}
+          Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 pkg=com.android.settings cmp=com.android.settings/.Settings }
+          frontOfTask=true task=TaskRecord{634cf39 #10 A=com.android.settings U=0 StackId=1 sz=2}
+          taskAffinity=com.android.settings
+          mActivityComponent=com.android.settings/.homepage.SettingsHomepageActivity
+          baseDir=/system/product/priv-app/Settings/Settings.apk
+          dataDir=/data/user_de/0/com.android.settings
+          stateNotNeeded=false componentSpecified=false mActivityType=standard
+          compat={320dpi} labelRes=0x7f120d83 icon=0x7f0f0002 theme=0x7f1302ac
+          mLastReportedConfigurations:
+           mGlobalConfig={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} s.29}
+           mOverrideConfig={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} s.1}
+          CurrentConfiguration={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} s.1}
+          taskDescription: label="null" icon=null iconResource=0 iconFilename=null primaryColor=fff5f5f5
+           backgroundColor=fffafafa
+           statusBarColor=ffe0e0e0
+           navigationBarColor=0
+          launchFailed=false launchCount=0 lastLaunchTime=-36m37s600ms
+          haveState=true icicle=Bundle[mParcelledData.dataSize=7380]
+          state=STOPPED stopped=true delayedResume=false finishing=false
+          keysPaused=false inHistory=true visible=false sleeping=true idle=true mStartingWindowState=STARTING_WINDOW_REMOVED
+          fullscreen=true noDisplay=false immersive=false launchMode=2
+          frozenBeforeDestroy=false forceNewConfig=false
+          mActivityType=standard
+           nowVisible=false lastVisibleTime=-36m36s469ms
+          resizeMode=RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION
+          mLastReportedMultiWindowMode=false mLastReportedPictureInPictureMode=false
+
+    Running activities (most recent first):
+      TaskRecord{634cf39 #10 A=com.android.settings U=0 StackId=1 sz=2}
+        Run #1: ActivityRecord{8d699c6 u0 com.android.settings/.bluetooth.DevicePickerActivity t10}
+        Run #0: ActivityRecord{52ce1c9 u0 com.android.settings/.Settings t10}
+
+    mLastPausedActivity: ActivityRecord{8d699c6 u0 com.android.settings/.bluetooth.DevicePickerActivity t10}
+
+  Stack #5: type=standard mode=fullscreen
+  isSleeping=true
+  mBounds=Rect(0, 0 - 0, 0)
+
+    Task id #14
+    mBounds=Rect(0, 0 - 0, 0)
+    mMinWidth=-1
+    mMinHeight=-1
+    mLastNonFullscreenBounds=null
+    * TaskRecord{83d283b #14 A=org.lineageos.etar.task U=0 StackId=5 sz=1}
+      userId=0 effectiveUid=u0a126 mCallingUid=0 mUserSetupComplete=true mCallingPackage=com.android.shell
+      affinity=org.lineageos.etar.task
+      intent={act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 pkg=org.lineageos.etar cmp=org.lineageos.etar/com.android.calendar.AllInOneActivity}
+      mActivityComponent=org.lineageos.etar/com.android.calendar.AllInOneActivity
+      autoRemoveRecents=false isPersistable=true numFullscreen=1 activityType=1
+      rootWasReset=false mNeverRelinquishIdentity=true mReuseTask=false mLockTaskAuth=LOCK_TASK_AUTH_PINNABLE
+      Activities=[ActivityRecord{ac825c5 u0 org.lineageos.etar/com.android.calendar.AllInOneActivity t14}]
+      askedCompatMode=false inRecents=true isAvailable=true
+      mRootProcess=ProcessRecord{cee4b58 5427:org.lineageos.etar/u0a126}
+      stackId=5
+      hasBeenVisible=true mResizeMode=RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION mSupportsPictureInPicture=false isResizeable=true lastActiveTime=239517 (inactive for 2054s)
+      * Hist #0: ActivityRecord{ac825c5 u0 org.lineageos.etar/com.android.calendar.AllInOneActivity t14}
+          packageName=org.lineageos.etar processName=org.lineageos.etar
+          launchedFromUid=0 launchedFromPackage=com.android.shell userId=0
+          app=ProcessRecord{cee4b58 5427:org.lineageos.etar/u0a126}
+          Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 pkg=org.lineageos.etar cmp=org.lineageos.etar/com.android.calendar.AllInOneActivity }
+          frontOfTask=true task=TaskRecord{83d283b #14 A=org.lineageos.etar.task U=0 StackId=5 sz=1}
+          taskAffinity=org.lineageos.etar.task
+          mActivityComponent=org.lineageos.etar/com.android.calendar.AllInOneActivity
+          baseDir=/system/product/app/Etar/Etar.apk
+          dataDir=/data/user/0/org.lineageos.etar
+          stateNotNeeded=false componentSpecified=false mActivityType=standard
+          compat={320dpi} labelRes=0x7f10003a icon=0x7f0e0002 theme=0x7f1100f4
+          mLastReportedConfigurations:
+           mGlobalConfig={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} s.29}
+           mOverrideConfig={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} s.1}
+          CurrentConfiguration={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} s.1}
+          taskDescription: label="null" icon=null iconResource=0 iconFilename=null primaryColor=ff41c3b1
+           backgroundColor=fffafafa
+           statusBarColor=ff388d7f
+           navigationBarColor=ff000000
+          launchFailed=false launchCount=0 lastLaunchTime=-36m28s942ms
+          haveState=true icicle=Bundle[mParcelledData.dataSize=4256]
+          state=STOPPED stopped=true delayedResume=false finishing=false
+          keysPaused=false inHistory=true visible=false sleeping=true idle=true mStartingWindowState=STARTING_WINDOW_REMOVED
+          fullscreen=true noDisplay=false immersive=false launchMode=2
+          frozenBeforeDestroy=false forceNewConfig=false
+          mActivityType=standard
+           nowVisible=false lastVisibleTime=-34m15s806ms
+          resizeMode=RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION
+          mLastReportedMultiWindowMode=false mLastReportedPictureInPictureMode=false
+
+    Running activities (most recent first):
+      TaskRecord{83d283b #14 A=org.lineageos.etar.task U=0 StackId=5 sz=1}
+        Run #0: ActivityRecord{ac825c5 u0 org.lineageos.etar/com.android.calendar.AllInOneActivity t14}
+
+    mLastPausedActivity: ActivityRecord{ac825c5 u0 org.lineageos.etar/com.android.calendar.AllInOneActivity t14}
+
+  Stack #4: type=standard mode=fullscreen
+  isSleeping=true
+  mBounds=Rect(0, 0 - 0, 0)
+
+    Task id #13
+    mBounds=Rect(0, 0 - 0, 0)
+    mMinWidth=-1
+    mMinHeight=-1
+    mLastNonFullscreenBounds=null
+    * TaskRecord{24a9f1c #13 A=com.android.deskclock U=0 StackId=4 sz=1}
+      userId=0 effectiveUid=u0a122 mCallingUid=0 mUserSetupComplete=true mCallingPackage=com.android.shell
+      affinity=com.android.deskclock
+      intent={act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 pkg=com.android.deskclock cmp=com.android.deskclock/.DeskClock}
+      mActivityComponent=com.android.deskclock/.DeskClock
+      autoRemoveRecents=false isPersistable=true numFullscreen=1 activityType=1
+      rootWasReset=false mNeverRelinquishIdentity=true mReuseTask=false mLockTaskAuth=LOCK_TASK_AUTH_PINNABLE
+      Activities=[ActivityRecord{f5fb4a7 u0 com.android.deskclock/.DeskClock t13}]
+      askedCompatMode=false inRecents=true isAvailable=true
+      mRootProcess=ProcessRecord{1e87725 5359:com.android.deskclock/u0a122}
+      stackId=4
+      hasBeenVisible=true mResizeMode=RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION mSupportsPictureInPicture=false isResizeable=true lastActiveTime=105266 (inactive for 2189s)
+      * Hist #0: ActivityRecord{f5fb4a7 u0 com.android.deskclock/.DeskClock t13}
+          packageName=com.android.deskclock processName=com.android.deskclock
+          launchedFromUid=0 launchedFromPackage=com.android.shell userId=0
+          app=ProcessRecord{1e87725 5359:com.android.deskclock/u0a122}
+          Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 pkg=com.android.deskclock cmp=com.android.deskclock/.DeskClock }
+          frontOfTask=true task=TaskRecord{24a9f1c #13 A=com.android.deskclock U=0 StackId=4 sz=1}
+          taskAffinity=com.android.deskclock
+          mActivityComponent=com.android.deskclock/.DeskClock
+          baseDir=/system/product/app/DeskClock/DeskClock.apk
+          dataDir=/data/user/0/com.android.deskclock
+          stateNotNeeded=false componentSpecified=false mActivityType=standard
+          compat={320dpi} labelRes=0x7f1201a7 icon=0x7f0f0002 theme=0x7f1301a4
+          mLastReportedConfigurations:
+           mGlobalConfig={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} s.29}
+           mOverrideConfig={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} s.1}
+          CurrentConfiguration={1.0 460mcc65535mnc [zh_CN] ldltr sw360dp w360dp h687dp 320dpi nrml long port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1560) mAppBounds=Rect(0, 70 - 720, 1464) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} s.1}
+          taskDescription: label="null" icon=null iconResource=0 iconFilename=null primaryColor=ff212121
+           backgroundColor=ff303030
+           statusBarColor=66000000
+           navigationBarColor=66000000
+          launchFailed=false launchCount=0 lastLaunchTime=-36m31s406ms
+          haveState=true icicle=Bundle[mParcelledData.dataSize=3964]
+          state=STOPPED stopped=true delayedResume=false finishing=false
+          keysPaused=false inHistory=true visible=false sleeping=true idle=true mStartingWindowState=STARTING_WINDOW_REMOVED
+          fullscreen=true noDisplay=false immersive=false launchMode=2
+          frozenBeforeDestroy=false forceNewConfig=false
+          mActivityType=standard
+           nowVisible=false lastVisibleTime=-36m30s728ms
+          resizeMode=RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION
+          mLastReportedMultiWindowMode=false mLastReportedPictureInPictureMode=false
+
+    Running activities (most recent first):
+      TaskRecord{24a9f1c #13 A=com.android.deskclock U=0 StackId=4 sz=1}
+        Run #0: ActivityRecord{f5fb4a7 u0 com.android.deskclock/.DeskClock t13}
+
+    mLastPausedActivity: ActivityRecord{f5fb4a7 u0 com.android.deskclock/.DeskClock t13}
+
+ ResumedActivity:ActivityRecord{87e5abb u0 com.android.permissioncontroller/com.android.packageinstaller.role.ui.DefaultAppActivity t21}
+
+  ResumedActivity: ActivityRecord{87e5abb u0 com.android.permissioncontroller/com.android.packageinstaller.role.ui.DefaultAppActivity t21}
+
+ActivityStackSupervisor state:
+  topDisplayFocusedStack=ActivityStack{1b345ac stackId=12 type=standard mode=fullscreen visible=true translucent=false, 1 tasks}
+  displayId=0 stacks=6
+   mHomeStack=ActivityStack{c0a25f5 stackId=0 type=home mode=fullscreen visible=false translucent=true, 1 tasks}
+   mPreferredTopFocusableStack=ActivityStack{1b345ac stackId=12 type=standard mode=fullscreen visible=true translucent=false, 1 tasks}
+   mLastFocusedStack=ActivityStack{1b345ac stackId=12 type=standard mode=fullscreen visible=true translucent=false, 1 tasks}
+  mCurTaskIdForUser={0=21}
+  mUserStackInFront={}
+  isHomeRecentsComponent=true  KeyguardController:
+    mKeyguardShowing=true
+    mAodShowing=false
+    mKeyguardGoingAway=false
+    Occluded=false DismissingKeyguardActivity=null at display=0
+    mDismissalRequested=false
+    mVisibilityTransactionDepth=0
+  LockTaskController
+    mLockTaskModeState=NONE
+    mLockTaskModeTasks=
+    mLockTaskPackages (userId:packages)=
+      u0:[]

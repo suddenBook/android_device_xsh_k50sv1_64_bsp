@@ -1,0 +1,9 @@
+checked 21 cases (threads=0,cam=0,firmware=0)
+checked 23 cases (threads=0,cam=0,firmware=1)
+checked 22 cases (threads=0,cam=1,firmware=0)
+checked 24 cases (threads=0,cam=1,firmware=1)
+checked 22 cases (threads=1,cam=0,firmware=0)
+checked 24 cases (threads=1,cam=0,firmware=1)
+checked 23 cases (threads=1,cam=1,firmware=0)
+checked 25 cases (threads=1,cam=1,firmware=1)
+184/184 cases pass; failures: []

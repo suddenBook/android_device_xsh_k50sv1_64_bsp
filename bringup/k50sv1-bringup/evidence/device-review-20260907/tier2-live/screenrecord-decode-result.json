@@ -1,0 +1,8 @@
+{
+  "decode": "PASS",
+  "ffprobe_count_frames": 336,
+  "decoded_frames_passthrough": 336,
+  "distinct_frame_hashes": 288,
+  "initial_default_fps_output_frames": 191,
+  "note": "The initial frame-hash export used default frame synchronization; the accepted export uses fps_mode passthrough and preserves every decoded frame."
+}

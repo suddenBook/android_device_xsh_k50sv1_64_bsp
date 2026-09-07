@@ -1,0 +1,104 @@
+{
+  "files": [
+    {
+      "path": "characterization.json",
+      "sha256": "969c35adee1bac3d68dc7f4dff0aff4ab8f6e61974e96a9935ced951520f0131",
+      "size": 2440
+    },
+    {
+      "path": "characterize",
+      "sha256": "8b631c2da7844a084e68d6252637f26ac295bf6b39ef0115beeeabb261b5131f",
+      "size": 2633600
+    },
+    {
+      "path": "characterize.c",
+      "sha256": "e6451d32c4439337a98efe26294a7f1d05c597a1a5fe5d5c9f6fc832ffd05bc1",
+      "size": 4653
+    },
+    {
+      "path": "compile.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "compile.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "host-include/android/log.h",
+      "sha256": "aea6900963ddbb25bd7021faea1ce1e3f42bc8d97dee2fbdb172784b3652fbb0",
+      "size": 233
+    },
+    {
+      "path": "host-include/cutils/properties.h",
+      "sha256": "beaecd006919443214d6384c54ae09fd0c195b6034928fbd0213ffa8594f7e9e",
+      "size": 213
+    },
+    {
+      "path": "initial-source-manifest.json",
+      "sha256": "7d4888ad24ded2ca5600f664395e2f09a7a4c658c5c7e556265dded7cee1a26d",
+      "size": 3353
+    },
+    {
+      "path": "initial-sources/firmware.c",
+      "sha256": "24094ba87ae2ee01b2e471720c449b692fc3ac02c541304bd3e13554986a880a",
+      "size": 8617
+    },
+    {
+      "path": "initial-sources/firmware.h",
+      "sha256": "cccea4a74d48bf310c704084f496a5d342f64b73cb61ac7b8aebf465a773fbc2",
+      "size": 1365
+    },
+    {
+      "path": "initial-sources/include/linux/mtk_wmt_cmd.h",
+      "sha256": "4ea77989d01fa91b6cf2377aea59f679f02b3c9714b3052fa3ac014a2eec5c13",
+      "size": 1859
+    },
+    {
+      "path": "initial-sources/main.c",
+      "sha256": "8e3183760c80208b42d475b17f1fe7d3367151f9c7bd7f7a6c6d87583dfa5623",
+      "size": 14827
+    },
+    {
+      "path": "initial-sources/patch.c",
+      "sha256": "3c6e2b4f27f308cf8dad06e7b1735a8568f72555c718967241cb6be3726a6d26",
+      "size": 2586
+    },
+    {
+      "path": "initial-sources/patch.h",
+      "sha256": "d41885eb0f25deb42e8fc1ebaee3ce94e623ebfd4af53ec2aea11c2ef8c782e2",
+      "size": 1258
+    },
+    {
+      "path": "initial-sources/protocol.c",
+      "sha256": "6fd2fbc0667d3bc6ffafaf441924ed06bb20c5d37f964bef34018d01319f6877",
+      "size": 5712
+    },
+    {
+      "path": "initial-sources/protocol.h",
+      "sha256": "95b5bdbe531428a13ae8637c0d5152cd1aa8169c71ab6894c7902d57666328cb",
+      "size": 907
+    },
+    {
+      "path": "review.json",
+      "sha256": "90c56460dc96c8132d17a35abee67a64c01f081186a6a4c5fff0c0ae9c2bcc4e",
+      "size": 10146
+    },
+    {
+      "path": "review.md",
+      "sha256": "757d5f17de3b4d3f747cd56cb98c501a0a2ea6c13d51a777f528195dfdb90d19",
+      "size": 4088
+    },
+    {
+      "path": "test.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "path": "test.stdout",
+      "sha256": "b9cfc218d59165b7b9174149c7a31f2fbc08a1b4e2cbcf556cbcdde6eaeacc4f",
+      "size": 348
+    }
+  ]
+}

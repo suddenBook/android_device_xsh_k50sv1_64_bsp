@@ -1,0 +1,62 @@
+uid=0(root) gid=0(root) groups=0(root),1004(input),1007(log),1011(adb),1015(sdcard_rw),1028(sdcard_r),3001(net_bt_admin),3002(net_bt),3003(inet),3006(net_bw_stats),3009(readproc),3011(uhid) context=u:r:su:s0
+XSH/lineage_k50sv1_64_bsp/k50sv1_64_bsp:10/QQ3A.200805.001/desmond09042321:userdebug/test-keys
+eng.desmon.20260904.232131
+0123456789ABCDEF
+mt6755
+1
+Linux version 3.18.119 (nobody@android-build) (gcc version 4.9.x 20150123 (prerelease) (GCC) ) #1 SMP PREEMPT Fri Sep 4 23:26:10 CEST 2026
+rootfs / rootfs rw,seclabel 0 0
+tmpfs /dev tmpfs rw,seclabel,nosuid,relatime,mode=755 0 0
+devpts /dev/pts devpts rw,seclabel,relatime,mode=600 0 0
+proc /proc proc rw,relatime,gid=3009,hidepid=2 0 0
+sysfs /sys sysfs rw,seclabel,relatime 0 0
+selinuxfs /sys/fs/selinux selinuxfs rw,relatime 0 0
+tmpfs /mnt tmpfs rw,seclabel,nosuid,nodev,noexec,relatime,mode=755,gid=1000 0 0
+tmpfs /apex tmpfs rw,seclabel,nosuid,nodev,noexec,relatime,mode=755 0 0
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system / ext4 ro,seclabel,nodev,relatime 0 0
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/vendor /vendor ext4 ro,seclabel,relatime 0 0
+none /dev/cpuctl cgroup rw,nosuid,nodev,noexec,relatime,cpu 0 0
+none /acct cgroup rw,nosuid,nodev,noexec,relatime,cpuacct 0 0
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system /apex/com.android.tzdata@290000000 ext4 ro,seclabel,relatime 0 0
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system /apex/com.android.tzdata ext4 ro,seclabel,relatime 0 0
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system /apex/com.android.runtime@1 ext4 ro,seclabel,relatime 0 0
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system /apex/com.android.runtime ext4 ro,seclabel,relatime 0 0
+none /config configfs rw,nosuid,nodev,noexec,relatime 0 0
+pstore /sys/fs/pstore pstore rw,seclabel,nosuid,nodev,noexec,relatime 0 0
+debugfs /sys/kernel/debug debugfs rw,seclabel,relatime 0 0
+tracefs /sys/kernel/debug/tracing tracefs rw,seclabel,relatime 0 0
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata /data ext4 rw,seclabel,nosuid,nodev,noatime,noauto_da_alloc,data=ordered 0 0
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache /cache ext4 rw,seclabel,nosuid,nodev,noatime,discard,noauto_da_alloc,data=ordered 0 0
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect1 /mnt/vendor/protect_f ext4 rw,seclabel,nosuid,nodev,noatime,nodelalloc,noauto_da_alloc,commit=1,data=ordered 0 0
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect2 /mnt/vendor/protect_s ext4 rw,seclabel,nosuid,nodev,noatime,nodelalloc,noauto_da_alloc,commit=1,data=ordered 0 0
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/nvdata /mnt/vendor/nvdata ext4 rw,seclabel,nosuid,nodev,noatime,noauto_da_alloc,commit=1,data=ordered 0 0
+adb /dev/usb-ffs/adb functionfs rw,relatime 0 0
+tmpfs /storage tmpfs rw,seclabel,nosuid,nodev,noexec,relatime,mode=755,gid=1000 0 0
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system /apex/com.android.conscrypt@299900000 ext4 ro,seclabel,nodev,relatime 0 0
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system /apex/com.android.conscrypt ext4 ro,seclabel,nodev,relatime 0 0
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system /apex/com.android.media.swcodec@290000000 ext4 ro,seclabel,nodev,relatime 0 0
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system /apex/com.android.media.swcodec ext4 ro,seclabel,nodev,relatime 0 0
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system /apex/com.android.resolv@290000000 ext4 ro,seclabel,nodev,relatime 0 0
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system /apex/com.android.resolv ext4 ro,seclabel,nodev,relatime 0 0
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system /apex/com.android.media@290000000 ext4 ro,seclabel,nodev,relatime 0 0
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system /apex/com.android.media ext4 ro,seclabel,nodev,relatime 0 0
+/data/media /mnt/runtime/default/emulated sdcardfs rw,nosuid,nodev,noexec,noatime,fsuid=1023,fsgid=1023,gid=1015,multiuser,mask=6,derive_gid,default_normal,unshared_obb 0 0
+/data/media /storage/emulated sdcardfs rw,nosuid,nodev,noexec,noatime,fsuid=1023,fsgid=1023,gid=1015,multiuser,mask=6,derive_gid,default_normal,unshared_obb 0 0
+/data/media /mnt/runtime/read/emulated sdcardfs rw,nosuid,nodev,noexec,noatime,fsuid=1023,fsgid=1023,gid=9997,multiuser,mask=23,derive_gid,default_normal,unshared_obb 0 0
+/data/media /mnt/runtime/write/emulated sdcardfs rw,nosuid,nodev,noexec,noatime,fsuid=1023,fsgid=1023,gid=9997,multiuser,mask=7,derive_gid,default_normal,unshared_obb 0 0
+/data/media /mnt/runtime/full/emulated sdcardfs rw,nosuid,nodev,noexec,noatime,fsuid=1023,fsgid=1023,gid=9997,multiuser,mask=7,derive_gid,default_normal,unshared_obb 0 0
+Current Battery Service state:
+  AC powered: false
+  USB powered: true
+  Wireless powered: false
+  Max charging current: 500000
+  Max charging voltage: 5000000
+  Charge counter: 3200000
+  status: 5
+  health: 2
+  present: true
+  level: 100
+  scale: 100
+  voltage: 4372
+  temperature: 270
+  technology: Li-ion

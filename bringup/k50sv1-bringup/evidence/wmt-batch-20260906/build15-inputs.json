@@ -1,0 +1,49 @@
+{
+  "epoch": 1788726532.7703805,
+  "changes": [
+    {
+      "repository": "work",
+      "previous": "b1730420c83a8d2f142a068d4c331174614dc7cd",
+      "updated": "e9cdc8fdd28af27628afb27fc5c373e9406c46d1",
+      "clean": true
+    },
+    {
+      "repository": "lineage-17.1/kernel/xsh/k50sv1_64_bsp",
+      "previous": "21271fe81127fbbba0dc43c231230702ed8db5b6",
+      "updated": "5f2194a7f8cb2b8f3e87c113f779352e1d0e0873",
+      "clean": true
+    }
+  ],
+  "inputs": [
+    {
+      "repository": "work",
+      "revision": "e9cdc8fdd28af27628afb27fc5c373e9406c46d1",
+      "clean": true
+    },
+    {
+      "repository": "lineage-17.1/kernel/xsh/k50sv1_64_bsp",
+      "revision": "5f2194a7f8cb2b8f3e87c113f779352e1d0e0873",
+      "clean": true
+    },
+    {
+      "repository": "lineage-17.1/device/xsh/k50sv1_64_bsp",
+      "revision": "5df42aaa47d931c1c1bdbb45b7c36bacc59b6adf",
+      "clean": true
+    },
+    {
+      "repository": "lineage-17.1/vendor/xsh/k50sv1_64_bsp",
+      "revision": "af72cc5e335cee76e5745744ed743ae229286593",
+      "clean": true
+    },
+    {
+      "repository": "lineage-17.1/external/tinycompress",
+      "revision": "5f2b0e56e3c96607e9822cccfd5b54cb3c2a6f7e",
+      "clean": true
+    },
+    {
+      "repository": "lineage-17.1/packages/apps/PermissionController",
+      "revision": "494e742ae919032755e7f9cac086d42c884de061",
+      "clean": true
+    }
+  ]
+}

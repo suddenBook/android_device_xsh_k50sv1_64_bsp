@@ -1,0 +1,40 @@
+09-04 00:39:44.297   780   822 D RILMUXD : 2519:extract_frames(): Writing 39 byte frame received on channel 5 to /dev/pts/4
+09-04 00:39:44.297   780   822 D RILMUXD : 2542:extract_frames(): write() returned. Written 39/39 bytes of frame to /dev/pts/4,count 0
+09-04 00:39:44.297   780   822 V RILMUXD : 2547:extract_frames(): fsync() failed (-1, 22 - Invalid argument)
+09-04 00:39:44.297   780   822 V RILMUXD : 1450:destroy_frame(): frame_data ptr=0xF3A0F000, frame_len=39
+09-04 00:39:44.297   780   822 V RILMUXD : 1474:gsm0710_base_buffer_get_frame(): Enter: depth_level=0
+09-04 00:39:44.297   780   822 V RILMUXD : 1496:gsm0710_base_buffer_get_frame(): Leave. No start frame 0xf9 found in bytes stored in GSM0710 buffer
+09-04 00:39:44.297   780   822 V RILMUXD : 2802:extract_frames(): Leave
+09-04 00:39:44.297   780   822 V RILMUXD : 2820:assemble_frame_thread(): assemble_frame_thread put to sleep. GSM0710 buffer stored 0, newdataready: 0
+09-04 00:39:44.297   837   877 D AT      : AT read end: 39
+09-04 00:39:44.297   837   877 I AT      : AT< +ETHERMAL: 3, 40, -127, 0, 32767, 1 (RIL_CMD_READER_3, tid:485187824976)
+09-04 00:39:44.298   837   877 D AT      : AT read start
+09-04 00:39:44.298   780   823 D RILMUXD : 611:syslogdump(): <s  f9 15 ef 0d 0d 0a 4f 4b 0d 0a d5 f9 
+09-04 00:39:44.298   780   823 V RILMUXD : 1407:gsm0710_buffer_write(): Enter
+09-04 00:39:44.298   780   823 V RILMUXD : 1408:gsm0710_buffer_write(): GSM0710 buffer (up-to-date): free 4096, stored 0
+09-04 00:39:44.298   780   823 D RILMUXD : 1430:gsm0710_buffer_write(): GSM0710 buffer (up-to-date): written 12, free 4084, stored 12
+09-04 00:39:44.298   780   823 V RILMUXD : 1438:gsm0710_buffer_write(): Leave
+09-04 00:39:44.298   780   823 V RILMUXD : 3090:thread_serial_device_read(): Leave, keep watching
+09-04 00:39:44.298   780   823 V RILMUXD : 3019:thread_serial_device_read(): Enter
+09-04 00:39:44.298   780   823 V RILMUXD : 3033:thread_serial_device_read(): Serial Data
+09-04 00:39:44.298   780   822 V RILMUXD : 2823:assemble_frame_thread(): assemble_frame_thread awoken. GSM0710 buffer stored 12, newdataready: 1
+09-04 00:40:54.388   837   841 I AT      : AT> AT+ETHERMAL (RIL_CMD_READER_3, tid:485187824976)
+09-04 00:41:04.398   837   841 I AT      : AT> AT+ETHERMAL (RIL_CMD_READER_3, tid:485187824976)
+09-04 00:41:14.408   837   841 I AT      : AT> AT+ETHERMAL (RIL_CMD_READER_3, tid:485187824976)
+09-04 00:41:24.418   837   841 I AT      : AT> AT+ETHERMAL (RIL_CMD_READER_3, tid:485187824976)
+09-04 00:41:34.428   837   841 I AT      : AT> AT+ETHERMAL (RIL_CMD_READER_3, tid:485187824976)
+09-04 00:41:44.439   837   841 I AT      : AT> AT+ETHERMAL (RIL_CMD_READER_3, tid:485187824976)
+09-04 00:41:54.454   837   841 I AT      : AT> AT+ETHERMAL (RIL_CMD_READER_3, tid:485187824976)
+09-04 00:42:04.470   837   841 I AT      : AT> AT+ETHERMAL (RIL_CMD_READER_3, tid:485187824976)
+09-04 00:42:14.487   837   841 I AT      : AT> AT+ETHERMAL (RIL_CMD_READER_3, tid:485187824976)
+09-04 00:42:24.505   837   841 I AT      : AT> AT+ETHERMAL (RIL_CMD_READER_3, tid:485187824976)
+09-04 00:42:34.521   837   841 I AT      : AT> AT+ETHERMAL (RIL_CMD_READER_3, tid:485187824976)
+09-04 00:42:44.539   837   841 I AT      : AT> AT+ETHERMAL (RIL_CMD_READER_3, tid:485187824976)
+09-04 00:42:54.556   837   841 I AT      : AT> AT+ETHERMAL (RIL_CMD_READER_3, tid:485187824976)
+09-04 00:43:04.572   837   841 I AT      : AT> AT+ETHERMAL (RIL_CMD_READER_3, tid:485187824976)
+09-04 00:43:14.585   837   841 I AT      : AT> AT+ETHERMAL (RIL_CMD_READER_3, tid:485187824976)
+09-04 00:43:24.601   837   841 I AT      : AT> AT+ETHERMAL (RIL_CMD_READER_3, tid:485187824976)
+09-04 00:44:04.654   837   841 I AT      : AT> AT+ETHERMAL (RIL_CMD_READER_3, tid:485187824976)
+09-04 00:44:14.669   837   841 I AT      : AT> AT+ETHERMAL (RIL_CMD_READER_3, tid:485187824976)
+09-04 00:44:24.685   837   841 I AT      : AT> AT+ETHERMAL (RIL_CMD_READER_3, tid:485187824976)
+09-04 00:44:34.701   837   841 I AT      : AT> AT+ETHERMAL (RIL_CMD_READER_3, tid:485187824976)

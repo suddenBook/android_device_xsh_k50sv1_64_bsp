@@ -37,6 +37,17 @@ Save as `.repo/local_manifests/k50sv1_64_bsp.xml`:
 </manifest>
 ```
 
+`vendor/huawei/hms` additionally carries a change of its own that is not in
+whatever copy of that payload you obtain, so it is kept as a patch here:
+
+    bringup/patches/0001-vendor-huawei-hms-install-as-privileged-product-apps.patch
+
+It installs both APKs, and their separately installed JNI libraries, to
+`/product/priv-app` instead of `/product/app`. Apply it with `git am` inside
+`vendor/huawei/hms` after the payload is in place. Without it the two packages
+are ordinary apps and `permissions/privapp-permissions-huawei.xml` has no
+effect, because a non-privileged package never reaches the whitelist at all.
+
 `vendor/huawei/hms` and `vendor/gapps` have to be supplied separately.
 `lineage_k50sv1_64_bsp.mk` calls `$(error ...)` for each if it is missing, so a
 build without them fails immediately and by name rather than quietly producing

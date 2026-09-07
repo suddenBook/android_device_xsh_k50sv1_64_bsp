@@ -1,0 +1,13 @@
+1788760179.840:57 { getattr } for comm="IntentService[M" path="/data/local/tmp" dev="mmcblk0p30" ino=62 scontext=u:r:mediaprovider:s0:c512,c768 tcontext=u:object_r:shell_data_file:s0 tclass=dir permissive=1 b/77925342 app=com.android.providers.media
+1788760239.160:58 { getattr } for comm="IntentService[M" path="/data/local/tmp" dev="mmcblk0p30" ino=62 scontext=u:r:mediaprovider:s0:c512,c768 tcontext=u:object_r:shell_data_file:s0 tclass=dir permissive=1 b/77925342 app=com.android.providers.media
+1788760725.680:59 { getattr } for comm="mtkPowerManager" path="/proc/489" dev="proc" ino=14593 scontext=u:r:hal_power_default:s0 tcontext=u:r:hal_camera_default:s0 tclass=dir permissive=1
+1788762525.990:62 { getattr } for comm="mtkPowerManager" path="/proc/489" dev="proc" ino=14593 scontext=u:r:hal_power_default:s0 tcontext=u:r:hal_camera_default:s0 tclass=dir permissive=1 duplicate messages suppressed
+1788763021.340:63 { read write } for comm="FeaturePipeGpuN" name="mali0" dev="tmpfs" ino=12379 scontext=u:r:hal_camera_default:s0 tcontext=u:object_r:gpu_device:s0 tclass=chr_file permissive=1
+1788763021.340:64 { open } for comm="FeaturePipeGpuN" path="/dev/mali0" dev="tmpfs" ino=12379 scontext=u:r:hal_camera_default:s0 tcontext=u:object_r:gpu_device:s0 tclass=chr_file permissive=1
+1788763021.340:65 { getattr } for comm="FeaturePipeGpuN" path="/dev/mali0" dev="tmpfs" ino=12379 scontext=u:r:hal_camera_default:s0 tcontext=u:object_r:gpu_device:s0 tclass=chr_file permissive=1
+1788763021.340:66 { ioctl } for comm="FeaturePipeGpuN" path="/dev/mali0" dev="tmpfs" ino=12379 ioctlcmd=8000 scontext=u:r:hal_camera_default:s0 tcontext=u:object_r:gpu_device:s0 tclass=chr_file permissive=1
+1788763021.340:67 { call } for comm="FeaturePipeGpuN" scontext=u:r:hal_camera_default:s0 tcontext=u:r:hal_configstore_default:s0 tclass=binder permissive=1
+1788763126.190:68 { getattr } for comm="mtkPowerManager" path="/proc/489" dev="proc" ino=14593 scontext=u:r:hal_power_default:s0 tcontext=u:r:hal_camera_default:s0 tclass=dir permissive=1
+1788763162.910:69 { ioctl } for comm="FeaturePipeGpuN" path="/dev/mali0" dev="tmpfs" ino=12379 ioctlcmd=8005 scontext=u:r:hal_camera_default:s0 tcontext=u:object_r:gpu_device:s0 tclass=chr_file permissive=1
+1788763162.910:70 { read write } for comm="FeaturePipeGpuN" path="/dev/mali0" dev="tmpfs" ino=12379 scontext=u:r:hal_camera_default:s0 tcontext=u:object_r:gpu_device:s0 tclass=chr_file permissive=1
+1788763638.740:71 { ioctl } for comm="FeaturePipeGpuN" path="/dev/mali0" dev="tmpfs" ino=12379 ioctlcmd=8007 scontext=u:r:hal_camera_default:s0 tcontext=u:object_r:gpu_device:s0 tclass=chr_file permissive=1

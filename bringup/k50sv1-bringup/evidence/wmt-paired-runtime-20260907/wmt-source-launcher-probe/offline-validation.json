@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "utc": "2026-09-07T04:07:57.803915+00:00",
+  "validation": "AST, 21 synthetic fixture tests including unchanged stale-PID case through real capture, guarded signal shell syntax only",
+  "adb_executed": false,
+  "fixture_subprocesses_blocked": true,
+  "shell_syntax_exit_code": 0,
+  "test_exit_code": 0,
+  "original_version_preserved": "archive/f24e5657",
+  "original_run_sha256": "f24e5657c3638dd12ef0d599b1928d168dd54df5ed5a93083e4b0da04afa25d2",
+  "stale_pid_capture_status": "INCONCLUSIVE",
+  "original_stale_pid_fixture_unchanged": true,
+  "clock_source_semantics": "independent-review/repair-delta/semantics/source-semantics.json",
+  "clock_source_semantics_sha256": "7aee793197456f6f6f8421a5387dcddc052b188cf97a4651e5d2e80e9acc8988",
+  "sha256": {
+    "run.py": "c60e1cf9c96154f9a47119920eb8f7fa930045fa9781f8d1434816159b2eb069",
+    "offline_validate.py": "37b5324e18ff49664e6949ddb14d3725506d69ae1caf7b4e1cf60fa97302c0bc",
+    "README.md": "85b564f3b3438bad4ad92e59215330e661dcb2001c9f0684f0e33c1e167848aa",
+    "offline-validation.log": "84bb141a31598d8a89f8c0c525a950ab3ef6bd6d4c2222dd521950a175ffc182",
+    "offline-signal-command.sh.txt": "943f3b7750462fbc131a7ac6c9f4dab70207c951938646803c0750db4ff7dffb",
+    "fixtures/retained-old-process.log": "03a0bc20ca72c4de550a08e39c508f8db855dba42f5f05825bf22276c452c06c",
+    "birth-bound-repair.diff": "9c6e49325b7b64f077ba756a4a2fb512410e53946bbf38afafda1c1ed364d206"
+  }
+}

@@ -1,0 +1,6 @@
+total 0
+lrwxrwxrwx 1 root root    0 2026-09-07 02:26 18070000.consys -> ../../../../devices/soc/18070000.consys
+--w------- 1 root root 4096 2026-09-07 02:26 bind
+lrwxrwxrwx 1 root root    0 2026-09-07 02:26 module -> ../../../../module/wmt_drv
+--w------- 1 root root 4096 2026-09-07 02:26 uevent
+--w------- 1 root root 4096 2026-09-07 02:26 unbind

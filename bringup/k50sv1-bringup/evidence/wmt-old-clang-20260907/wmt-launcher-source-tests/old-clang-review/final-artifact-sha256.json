@@ -1,0 +1,148 @@
+{
+  "files": [
+    {
+      "path": "build18-diagnostic-excerpt.txt",
+      "sha256": "ac128f57347378b43fcb0e900e62e33d6f7d27a8bcbb1cfac85a536dd8452785"
+    },
+    {
+      "path": "candidate-sources/firmware.c",
+      "sha256": "5aa483075b07ae1cc132bae69ec0aad90855b75cfbc9ee7974e8d613069a413d"
+    },
+    {
+      "path": "candidate-sources/firmware.h",
+      "sha256": "cccea4a74d48bf310c704084f496a5d342f64b73cb61ac7b8aebf465a773fbc2"
+    },
+    {
+      "path": "candidate-sources/include/linux/mtk_wmt_cmd.h",
+      "sha256": "4ea77989d01fa91b6cf2377aea59f679f02b3c9714b3052fa3ac014a2eec5c13"
+    },
+    {
+      "path": "candidate-sources/main.c",
+      "sha256": "c22b556570b0caab52e7cac6f7fbd4582baf90451d18573c6cb4442e6f2f7868"
+    },
+    {
+      "path": "candidate-sources/patch.c",
+      "sha256": "3c6e2b4f27f308cf8dad06e7b1735a8568f72555c718967241cb6be3726a6d26"
+    },
+    {
+      "path": "candidate-sources/patch.h",
+      "sha256": "d41885eb0f25deb42e8fc1ebaee3ce94e623ebfd4af53ec2aea11c2ef8c782e2"
+    },
+    {
+      "path": "candidate-sources/protocol.c",
+      "sha256": "6fd2fbc0667d3bc6ffafaf441924ed06bb20c5d37f964bef34018d01319f6877"
+    },
+    {
+      "path": "candidate-sources/protocol.h",
+      "sha256": "95b5bdbe531428a13ae8637c0d5152cd1aa8169c71ab6894c7902d57666328cb"
+    },
+    {
+      "path": "final-review.json",
+      "sha256": "c6b509c07d746f0a2a30a18a8b252644a9c48f554040c2b9e6386b44b77615ae"
+    },
+    {
+      "path": "final-review.md",
+      "sha256": "5b6be7097a46e58c9af4c42af83072a7707a1d99bd41e81209112b9a56d59515"
+    },
+    {
+      "path": "independent-strip/baseline-firmware.o",
+      "sha256": "f2901d266597139f3c9b2c7a95a9fcb310ec839eb52e514254f1ee8d715103a0"
+    },
+    {
+      "path": "independent-strip/baseline-main.o",
+      "sha256": "360daec1c873f2273687dd0c62ef979c5867eaa570d5feeed2025a79916f5922"
+    },
+    {
+      "path": "independent-strip/baseline-patch.o",
+      "sha256": "7e91c44ca497a6a15da19a04ca0f3782b8235e5872be0b657f191556b0db410f"
+    },
+    {
+      "path": "independent-strip/baseline-protocol.o",
+      "sha256": "235adee002de8eab31da77a13da88350ad36ca6440da5d96728121f2b08f1d94"
+    },
+    {
+      "path": "independent-strip/candidate-firmware.o",
+      "sha256": "f2901d266597139f3c9b2c7a95a9fcb310ec839eb52e514254f1ee8d715103a0"
+    },
+    {
+      "path": "independent-strip/candidate-main.o",
+      "sha256": "360daec1c873f2273687dd0c62ef979c5867eaa570d5feeed2025a79916f5922"
+    },
+    {
+      "path": "independent-strip/candidate-patch.o",
+      "sha256": "7e91c44ca497a6a15da19a04ca0f3782b8235e5872be0b657f191556b0db410f"
+    },
+    {
+      "path": "independent-strip/candidate-protocol.o",
+      "sha256": "235adee002de8eab31da77a13da88350ad36ca6440da5d96728121f2b08f1d94"
+    },
+    {
+      "path": "independent-strip/replay-first-main.o",
+      "sha256": "360daec1c873f2273687dd0c62ef979c5867eaa570d5feeed2025a79916f5922"
+    },
+    {
+      "path": "independent-strip/replay-first-normalization.json",
+      "sha256": "d77c85ff2ceda56b4c42ef3e79eeb01349db96d0c2c8a0099b2f2e9878481472"
+    },
+    {
+      "path": "independent-strip/result.json",
+      "sha256": "ee9bfef9c94fd547c2fa30809739c892e810b4796c756ce363068fd1d74338f2"
+    },
+    {
+      "path": "initial-artifact-sha256.json",
+      "sha256": "f0b7acc9869d4443a9ac40276b7a59e7e293f3d3333e3bc5f382321bca3983ce"
+    },
+    {
+      "path": "initial-review.json",
+      "sha256": "23d18c14cdb7285acfb28b11904c925955a5c2211554da89f9066151f5d6998d"
+    },
+    {
+      "path": "initial-review.md",
+      "sha256": "30add33c0fd715eeab4b6bc84baebed97a1ce3c3bffac49e65cc5946715ca737"
+    },
+    {
+      "path": "initial-sources/firmware.c",
+      "sha256": "24094ba87ae2ee01b2e471720c449b692fc3ac02c541304bd3e13554986a880a"
+    },
+    {
+      "path": "initial-sources/firmware.h",
+      "sha256": "cccea4a74d48bf310c704084f496a5d342f64b73cb61ac7b8aebf465a773fbc2"
+    },
+    {
+      "path": "initial-sources/include/linux/mtk_wmt_cmd.h",
+      "sha256": "4ea77989d01fa91b6cf2377aea59f679f02b3c9714b3052fa3ac014a2eec5c13"
+    },
+    {
+      "path": "initial-sources/main.c",
+      "sha256": "40159f3e1f6faf8f0f65d562f44bb4b550e6aaa102988701a31443a36fa27189"
+    },
+    {
+      "path": "initial-sources/patch.c",
+      "sha256": "3c6e2b4f27f308cf8dad06e7b1735a8568f72555c718967241cb6be3726a6d26"
+    },
+    {
+      "path": "initial-sources/patch.h",
+      "sha256": "d41885eb0f25deb42e8fc1ebaee3ce94e623ebfd4af53ec2aea11c2ef8c782e2"
+    },
+    {
+      "path": "initial-sources/protocol.c",
+      "sha256": "6fd2fbc0667d3bc6ffafaf441924ed06bb20c5d37f964bef34018d01319f6877"
+    },
+    {
+      "path": "initial-sources/protocol.h",
+      "sha256": "95b5bdbe531428a13ae8637c0d5152cd1aa8169c71ab6894c7902d57666328cb"
+    },
+    {
+      "path": "original-main-soong-command.txt",
+      "sha256": "ee5c55e67c8e794310754141270147d95f3914fb16bb381299a07fe01ea2285a"
+    },
+    {
+      "path": "reviewed-change.diff",
+      "sha256": "947cf019573175ed900d9f1aa6d7a8184847e36c84521540e996e94b663e1eec"
+    },
+    {
+      "path": "verify-final.py",
+      "sha256": "367638f03e0dd053a54bf7f3b72122da9106ba3df9180110c470d87bb60a4581"
+    }
+  ]
+}

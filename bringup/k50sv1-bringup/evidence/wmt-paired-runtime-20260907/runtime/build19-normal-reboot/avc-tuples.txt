@@ -1,0 +1,12 @@
+init -> kernel : system module_request
+mediaprovider -> shell_data_file : dir getattr
+mtkrild -> radio_prop : property_service set
+priv_app -> device : dir open
+priv_app -> proc_interrupts : file getattr
+priv_app -> proc_interrupts : file open
+priv_app -> proc_modules : file getattr
+priv_app -> proc_modules : file open
+priv_app -> sysfs : dir open
+priv_app -> sysfs : file open
+priv_app -> sysfs_android_usb : file open
+wfca -> wfca : capability dac_override

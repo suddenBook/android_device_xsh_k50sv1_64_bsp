@@ -1,0 +1,13 @@
+PASS allocation
+PASS long-name
+PASS missing
+PASS empty
+PASS directory
+PASS large-file
+PASS buffer-allocation
+PASS read-error
+PASS short-read
+PASS eof
+PASS security
+PASS fallback-success
+12/12 cases pass; failures: []

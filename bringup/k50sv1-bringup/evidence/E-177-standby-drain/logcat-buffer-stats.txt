@@ -1,0 +1,196 @@
+size/num main               radio              events             system             crash              stats              security           kernel             Total
+Total    124778526/955943   607326791/7044093  1918260/46188      5610331/31932      0/0                0/0                0/0                187637518/1969300  927271426/10047456
+Now      67090349/596810    67102029/614174    1029937/29400      4780486/23470                                                               1036256/13625      141039057/1277479
+Logspan  22:46:44.59(49.9%) 16:05:53.676(38.5%)22:36:47.887(96.2%)22:46:16.395                                                                18:27.264          22:46:44.848
+Overhead 100511709          101495773          2676337            6094806                                                                     1799256            213590268
+
+Chattiest UIDs in main log buffer:                           Size   +/-  Pruned
+UID   PACKAGE                                               BYTES           NUM
+1001  radio                                              21332288  -38%  285619
+0     root                                               21332044  +24%   56472
+1000  system                                             13442572  +67%     728
+  PID/UID   COMMAND LINE                                       "             "
+ 3767/1000  /vendor/bin/volte_imcb                        5420180           351
+  379/1000 ...ndor.mediatek.hardware.mtkpower@1.0-service 3550194
+  887/1000  system_server                                 1977109
+  553/1000 .../hw/vendor.mediatek.hardware.pq@2.2-service 1055314
+ 3764/1000  /vendor/bin/volte_stack                        420715            16
+  542/1000  /vendor/bin/thermal                            314233             4
+11261/1000  com.android.settings                           167742            13
+10130 com.huawei.hwid                                     2722810  +67%     327
+1041  audioserver                                         2101768  +72%      70
+10067 com.google.android.gms                              1723789  +67%     158
+10075 com.android.vending                                 1139318  +60%     663
+10072 com.google.android.googlequicksearchbox              938591  +63%     102
+1047  cameraserver                                         537985  +60%     388
+10070 com.google.android.setupwizard                       465046  +50%
+10113 org.lineageos.snap                                   220606  3.0X
+
+
+Chattiest UIDs in radio log buffer:                          Size   +/-  Pruned
+UID   PACKAGE                                               BYTES           NUM
+0     root                                               33556053  -40% 2979481
+1001  radio                                              33542771  3.2X  227031
+
+
+Chattiest UIDs in events log buffer:                         Size   +/-  Pruned
+UID   PACKAGE                                               BYTES           NUM
+1000  system                                               567308  +11%     313
+  PID/UID   COMMAND LINE                                       "             "
+  887/1000  system_server                                  551508           307
+13585/1000  com.android.settings                            10046             2
+1001  radio                                                153088  +11%      65
+0     root                                                 113025  -43%    2716
+10130 com.huawei.hwid                                       54940  +13%       5
+10070 com.google.android.setupwizard                        53826  +13%
+10067 com.google.android.gms                                28108  +8.0%     49
+10112 com.android.launcher3                                 14249  +8.3%
+10115 com.android.systemui                                   9891  +13%       1
+10071 com.android.packageinstaller                           5879
+10065 com.google.android.apps.pixelmigrate                   5756             6
+
+
+Chattiest UIDs in system log buffer:                         Size   +/-  Pruned
+UID   PACKAGE                                               BYTES           NUM
+1000  system                                              4691649  +0.3%    148
+
+
+Chattiest PIDs:                                              Size        Pruned
+  PID/UID   COMMAND LINE                                    BYTES           NUM
+ 1838/1001  com.android.phone                            29766384        132605
+  780/1001  /vendor/bin/gsm0710muxd                      29137345       2448794
+  837/0     /system/bin/init                             23706091        589447
+  410/1001  /vendor/bin/mtkmal                           13255734        193629
+  887/1000  system_server                                 7222117           455
+ 2357/1001  com.mediatek.ims                              6866462         51441
+ 3767/1000  /vendor/bin/volte_imcb                        5421080           351
+  913/1001  /vendor/bin/hw/rilproxy                       3615427        109432
+  379/1000 ...ndor.mediatek.hardware.mtkpower@1.0-service 3550625             1
+  357/1041 ...android.hardware.audio@5.0-service-mediatek 2093879             8
+  571/0     /vendor/bin/epdg_wod                          1614450             8
+  553/1000 .../hw/vendor.mediatek.hardware.pq@2.2-service 1056322             1
+15773/10067 com.google.android.gms.persistent              742523            42
+ 3765/0     /vendor/bin/volte_ua                           716524          4069
+  535/1047  /vendor/bin/hw/camerahalserver                 533916           409
+ 1913/10070 com.google.android.setupwizard                 521872             5
+ 3764/1000  /vendor/bin/volte_stack                        420787            16
+  406/1001  /vendor/bin/ccci_fsd                           414322          4060
+  408/1001  /vendor/bin/ccci_rpcd                          407424          4060
+16782/10067 com.google.android.gms                         385707            86
+21493/10130 com.huawei.hwid.core                           370356            75
+24242/10130 com.huawei.hwid.core                           365170            69
+12607/10072 com.google.android.googlequicksearchbox:search 358482            63
+ 4602/10130 com.huawei.hwid.core                           329192           145
+31800/10130 com.huawei.hwid.core                           325035            13
+  377/1001 ...hw/vendor.mediatek.hardware.imsa@1.0-service 320139         10228
+  542/1000  /vendor/bin/thermal                            315052             4
+15736/10067 com.google.android.gms                         305148             6
+
+
+Chattiest TIDs:                                              Size        Pruned
+  TID/UID   COMM                                            BYTES           NUM
+  822/0     /vendor/bin/gsm0710muxd                      17164561       1386713
+ 2318/1001  DcHandlerThread                              15540997         52995
+  842/0     /vendor/bin/mtkrild                          15180470        291883
+ 1838/1001  com.android.phone                            13463136         70003
+  823/0     /vendor/bin/gsm0710muxd                       7388958        612930
+ 2357/1001  com.mediatek.ims                              6491249         36836
+  872/0     /vendor/bin/mtkrild                           6241597         14446
+  545/1001  /vendor/bin/mtkmal                            6139647         64271
+ 3767/1000  /vendor/bin/volte_imcb                        4638406
+  825/0     /vendor/bin/gsm0710muxd                       3728207        425995
+  934/1001  Ril Proxy Main                                3512288        105818
+  392/1000  mtkPowerManager                               3431323
+  479/1001  /vendor/bin/mtkmal                            2779495         41096
+  481/1001  /vendor/bin/mtkmal                            2415063         36021
+  788/1041  CCCIReadThread                                1810650
+  878/0     /vendor/bin/mtkrild                           1303389        243633
+  696/1000  PQServiceHAL                                   836800
+ 3793/1000  /vendor/bin/volte_imcb                         782674           351
+  555/1001  /vendor/bin/mtkmal                             778475         12967
+  739/0     /vendor/bin/epdg_wod                           671568
+  919/1000  batterystats-wo                                666072
+ 1481/1000  ClientModeImpl                                 625106
+  620/1001  /vendor/bin/mtkmal                             522738         14098
+ 1913/10070 com.google.android.setupwizard                 498458             5
+  829/0     /vendor/bin/gsm0710muxd                        471950         16243
+ 2462/1000  Binder:887_D                                   429405             8
+ 3781/1000  /vendor/bin/volte_stack                        420787            16
+  406/1001  /vendor/bin/ccci_fsd                           414322          4060
+  408/1001  /vendor/bin/ccci_rpcd                          407424          4060
+  841/0     /vendor/bin/mtkrild                            376908         14287
+ 2305/1001  HwBinder:1838_1                                350202          4098
+ 3786/0     /vendor/bin/volte_ua                           334808          1728
+
+
+Chattiest events log buffer TAGs:                            Size         Prune
+    TAG/UID   TAGNAME                                       BYTES           NUM
+   1006       liblog                                       130653          2774
+  20003       dvm_lock_sample                              130587           464
+  30047/1000  am_pss                                        96280
+ 524292       sysui_multi_action                            70472            13
+   1003       auditd                                        67475
+  50105/1001  pdp_setup_fail                                66129
+ 230000       service_manager_stats                         51702
+  30043/1000  am_set_resumed_activity                       25219
+  30005/1000  am_create_activity                            24916
+  30066/1000  am_add_to_stopping                            24432
+  30013/1000  am_pause_activity                             22360
+  30014/1000  am_proc_start                                 19841
+  30018/1000  am_destroy_activity                           19287
+  30001/1000  am_finish_activity                            16361
+ 525000/1000  commit_sys_config_file                        14320
+  30057       am_on_create_called                           13528
+  30060       am_on_destroy_called                          13318
+  30006/1000  am_restart_activity                           12744
+  51100/1000  netstats_mobile_sample                        12423
+  51101/1000  netstats_wifi_sample                          12423
+  30022       am_on_resume_called                           11783
+  30021       am_on_paused_called                           11560
+  30065       am_on_top_resumed_lost_called                 11397
+  30064       am_on_top_resumed_gained_called               10478
+  30049       am_on_stop_called                             10202
+  30059       am_on_start_called                            10118
+  30035/1000  am_schedule_service_restart                    9601
+  30023/1000  am_kill                                        9493
+ 230001       service_manager_slow                           8852
+  30011/1000  am_proc_died                                   7541
+1397638484    snet_event_log                                 7183
+ 204005/10067 c2dm                                           7104
+
+
+Chattiest TAGs:                                              Size
+  TID/PID/UID   LOG_TAG NAME                                BYTES
+      780       RILMUXD                                  29025691
+     1838/1001  DCT-C-0                                  10506725
+                MFI-Conn                                 10035602
+     1838/1001  DC-C-1                                    7419631
+      410/1001  MAL-RDS                                   7099577
+     1838/1001  DC-C-3                                    6537137
+     2357/1001  Bundle                                    6110733
+                MFI-RDS                                   4998314
+                MFI-DATAMNGR                              4121538
+     1838/1001  Dcc-C-0                                   3623278
+  392/379/1000  libPowerHal                               3293182
+      410/1001  MAL-Daemon                                3185835
+     3767/1000  VoLTE IMCB-2                              2803256
+      887/1000  ActivityManager                           2539915
+      410/1001  MAL-DATAMNGR                              2349325
+      837/0     AT                                        2231378
+     3767/1000  VoLTE IMCB-0                              1834988
+      571/0     [epdg_wo]                                 1614144
+      837/0     RIL-DATA                                  1559768
+  788/357/1041  SpeechMessengerECCCI_Read                 1062222
+                PQ                                         836545
+  934/913/1001  RfxRoot                                    796817
+3793/3767/1000  VoLTE IMCB-CM                              781936
+  788/357/1041  SpeechMessengerECCCI                       747546
+  934/913/1001  RP_DC                                      677628
+  919/887/1000  KernelCpuSpeedReader                       659889
+      887/1000  BatteryStatsService                        654070
+      887/1000  ConnectivityService                        638898
+                <NULL>                                     601293
+      837/0     RILC-MTK                                   523422
+                dex2oat                                    504545
+         /10075 Finsky:background                          497114
+

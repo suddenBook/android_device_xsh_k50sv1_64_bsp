@@ -1,0 +1,166 @@
+{
+  "revisions": {
+    "kernel": "4192fb6ae88e057bb2abb0f464cf6b4cb64697de",
+    "device": "2cbfa92e64e2b01461de512e4feb2c5676406125"
+  },
+  "compiler": [
+    "clang",
+    "-D_GNU_SOURCE",
+    "-std=gnu11",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-function",
+    "-Wno-unused-parameter",
+    "-Wno-pointer-sign",
+    "-Wno-macro-redefined",
+    "-fno-omit-frame-pointer",
+    "-no-pie",
+    "-pthread",
+    "-fsanitize=thread",
+    "-I/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work/wmt-launcher",
+    "-I/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work/wmt-launcher/include",
+    "-I/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work/wmt-launcher/test-include",
+    "-I/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-paired-integration-tests/thread-final",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-paired-integration-tests/thread-final/broker.c",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-paired-integration-tests/service_bridge.c",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work/wmt-launcher/protocol.c",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work/wmt-launcher/patch.c",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work/wmt-launcher/firmware.c",
+    "-o",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-paired-integration-tests/thread-final/test"
+  ],
+  "sanitizer": "thread",
+  "compile_exit_code": 0,
+  "cases": [
+    {
+      "case": "factory",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "cancel-first",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "duplicate",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "missing-firmware",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "all-rom",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "close-pending",
+      "exit_code": 0,
+      "passed": true
+    }
+  ],
+  "kernel_source_sha256": {
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c": "f51e6d77c43c0219ccc4711bb0f33bf118aa75e2ff571a4fc8628b01626a789f",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/include/wmt_lib.h": "95103005034c3039db01233bb23f1eb3e961e1fd811bb221ffa29e03eb6bdc27",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c": "ffa88ab507072777690543478722ea58d721890ef4dc5fbd6f0507b5d0a470b1",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_ctrl.c": "6da54fed31854565de606dd3684fde1d40b87f74b237d0a4ac4b76835a983a25",
+    "drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.c": "bcddd32fe13be5d1a688a6ccb26171c85c492e3a30148df8800b0b9c036ad354",
+    "include/uapi/linux/mtk_wmt_cmd.h": "4ea77989d01fa91b6cf2377aea59f679f02b3c9714b3052fa3ac014a2eec5c13",
+    "mm/util.c": "e8c2564f6dd9e6adff0e43bf6889300029b631900b852beef9137ebaa210d683"
+  },
+  "device_source_sha256": {
+    "wmt-launcher/Android.bp": "2e6896cd7fc0a5daf075e4d5a6a9c42e77e1c73dff2ba1684b01053d1ac14b5f",
+    "wmt-launcher/README.md": "245c152ab3d067e354639eb6cf3074418f34465da7f0558892860a050daa6164",
+    "wmt-launcher/README_firmware.md": "3201dab2320e2c87c48c97542a3481d0e8ef2c6307037d4b29af2bb47e44deda",
+    "wmt-launcher/README_protocol.md": "831a6b5f9c56288f8d89a948008af1d63c6f41d3594a847ba0d7a02e8c4805ce",
+    "wmt-launcher/firmware.c": "24094ba87ae2ee01b2e471720c449b692fc3ac02c541304bd3e13554986a880a",
+    "wmt-launcher/firmware.h": "cccea4a74d48bf310c704084f496a5d342f64b73cb61ac7b8aebf465a773fbc2",
+    "wmt-launcher/include/linux/mtk_wmt_cmd.h": "4ea77989d01fa91b6cf2377aea59f679f02b3c9714b3052fa3ac014a2eec5c13",
+    "wmt-launcher/main.c": "40159f3e1f6faf8f0f65d562f44bb4b550e6aaa102988701a31443a36fa27189",
+    "wmt-launcher/patch.c": "3c6e2b4f27f308cf8dad06e7b1735a8568f72555c718967241cb6be3726a6d26",
+    "wmt-launcher/patch.h": "d41885eb0f25deb42e8fc1ebaee3ce94e623ebfd4af53ec2aea11c2ef8c782e2",
+    "wmt-launcher/protocol.c": "6fd2fbc0667d3bc6ffafaf441924ed06bb20c5d37f964bef34018d01319f6877",
+    "wmt-launcher/protocol.h": "95b5bdbe531428a13ae8637c0d5152cd1aa8169c71ab6894c7902d57666328cb",
+    "wmt-launcher/test-include/android/log.h": "96f0d71621821ab4b7dd9483831a4dde3796e62e982f19bb0dc17556cf87a7b8",
+    "wmt-launcher/test-include/cutils/properties.h": "1a5aa5e38d3821e22495a3b7613e186b7b3c923f907f2585eec383e10c860ace",
+    "wmt-launcher/test_firmware.c": "c7aa7722e564f612bbb85431e1069f3cd1936d2b5000d50a233fec9b4ba0a470",
+    "wmt-launcher/test_launcher.c": "1acd01ee2ffa117e804ef4110f691f5d056b174f1cc4ac6831de58718bf4dc9a",
+    "wmt-launcher/test_launcher.py": "7f582b72cb283d767ea79d4c002829a27ff4e2cbd909d1fcb995998e9716637e",
+    "wmt-launcher/test_patch.c": "bb5560764b2f1be7ea423e3687d9fc4aea8d6c6d6e7050139bc32ebc7ba339d3",
+    "wmt-launcher/test_protocol.c": "6a3b832876b4f1327f29f25919f0b5cdbf163e1375a4012651c0649d5dd589c2"
+  },
+  "firmware_sha256": {
+    "ROMv2_lm_patch_1_0_hdr.bin": "7a58e99fdcab239f133be92da999f8733878617191bb1f5caa1096d91ad8e1a2",
+    "ROMv2_lm_patch_1_1_hdr.bin": "cb7ba98c5c73705eb03a6ec11b78a3b1cce6069132b1f267d50079f2b1b594fd"
+  },
+  "expected_patch_metadata": [
+    [
+      1,
+      "ROMv2_lm_patch_1_1_hdr.bin",
+      [
+        0,
+        0,
+        10,
+        240
+      ],
+      "20200629194517a"
+    ],
+    [
+      2,
+      "ROMv2_lm_patch_1_0_hdr.bin",
+      [
+        0,
+        0,
+        6,
+        0
+      ],
+      "20200629194517a"
+    ]
+  ],
+  "harness_sha256": {
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-paired-integration-tests/run.py": "365cef40f8f62ab83eaca943e9b54f1ed8dc708631c085f30da79050f919e28f",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-paired-integration-tests/service_bridge.c": "a68ab98adeefd79bb0bf5d78b0c2138180e3ad1feddb2899fe69ece16daab11b",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-paired-integration-tests/broker_bridge.c": "18540e0bb03eb2458bf6c5fbf66207dbb0c27f630f7eb50980ffeeb79c04c1b3",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-paired-batch-kernel-work/drivers/misc/mediatek/connectivity/source/common/test/test_wmt_command_v2.py": "112452a0e9081e1920f6dd0fb9074bf2ef8581e251cf76616c8350c17faef5fa",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-paired-batch-kernel-work/drivers/misc/mediatek/connectivity/source/common/test/wmt_command_v2_host.c": "ee3b9b8657be3544dca2d91a67c0aa84bab7207f94994f5f8d9eb1e4cfdceb91",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-paired-batch-kernel-work/drivers/misc/mediatek/connectivity/source/common/test/test_wmt_buffers.py": "551d7c2a82853376e0eb866ffaf192a7bb3bb16bb0407200e9c588df434f8596"
+  },
+  "boundary": "Actual full userspace source, broker, VFS cases and metadata consumers; host allocation/user-copy/completion/property/hardware adapters; no RF or real kernel scheduling claim.",
+  "passed": 6,
+  "total": 6,
+  "status": "PASS",
+  "artifacts": {
+    "all-rom/ROMv2_lm_patch_1_0_hdr.bin": "7a58e99fdcab239f133be92da999f8733878617191bb1f5caa1096d91ad8e1a2",
+    "all-rom/ROMv2_lm_patch_1_1_hdr.bin": "cb7ba98c5c73705eb03a6ec11b78a3b1cce6069132b1f267d50079f2b1b594fd",
+    "all-rom/soc1_0_ram_integration_0.bin": "43ddeca43d91805f0597c2c5db3dc808f15b90eb964915c43cade1cee78ad1c6",
+    "all-rom/soc1_0_ram_integration_1.bin": "cef59968dedf9f749014b364b9a7a87df62ad8d5fcb50ac0f8f1840d8c080e6b",
+    "all-rom/soc1_0_ram_integration_2.bin": "fae39fbae5d7d1d3e3693971fcd676254e725088b8130402c376fb78689d505e",
+    "all-rom/soc1_0_ram_integration_3.bin": "312b7267c02eadc6471f270f7c758e5d638a34484f2d81ade25363a00d83c1e5",
+    "all-rom/soc1_0_ram_integration_4.bin": "d996f6c699a15c116c0a9fa290ef4c2f219c9714d2f51893154c2e70aa25b72a",
+    "all-rom.stderr": "8415657d8f8d8e40b2458bcec74a5a6b5ca38c592c437e6e668e8831e8d1dbaf",
+    "all-rom.stdout": "1692efdbb8d6fbc37801bbe9857854f04c4d9bf27105d31ddd2fc5c5ffee6f9a",
+    "broker.c": "99711af763e254ee01e552ef5a6223fbdf2bd77f911aa773f255de5b6fa2813e",
+    "cancel-first.stderr": "d2c09507d5f187ebd48b01f5f7c017a96e2f0ded77c4b32024ba6076ac8dae44",
+    "cancel-first.stdout": "04cf4e53465aa471036e9ac3df399827c74d74006d455c76d1703ae534cb4a03",
+    "close-pending.stderr": "a7a23baf4b5cc4af0a17fe6f39c257c42bb28e40a4c95b709a5f55b770046ca0",
+    "close-pending.stdout": "31de980ae0b608e2e38a6c13d1f0a66e609d900972a136ff17b212b53c0c5a8e",
+    "compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "duplicate.stderr": "7166b37a9828e837a08450d5fcd7d398e7d60c62c2508461640523850b99e610",
+    "duplicate.stdout": "f204e2b97f2a4cdd5b0143a2b6c6ea429f6536575caa8fa73cee7d498cd23404",
+    "expected_firmware.h": "e6fb7a3de97bd266551639fb9ec794e230c8fbea18cb71f965c12cb83fadadb4",
+    "factory/ROMv2_lm_patch_1_0_hdr.bin": "7a58e99fdcab239f133be92da999f8733878617191bb1f5caa1096d91ad8e1a2",
+    "factory/ROMv2_lm_patch_1_1_hdr.bin": "cb7ba98c5c73705eb03a6ec11b78a3b1cce6069132b1f267d50079f2b1b594fd",
+    "factory.stderr": "1205dec3b3ee6b5bfc9f6871bd2b59d926159659204b51b0be5e41a97c8c018e",
+    "factory.stdout": "457336cc1e293fac536d9a1ca9d90dbcd695c514908dd9d53b4c2f30e1dbce9a",
+    "missing-firmware.stderr": "3495478f487b4713a745d8412530fcd58768ce70c9537833d3982c2145e35042",
+    "missing-firmware.stdout": "ad2373c6b600dc7a5dbcbb1f676e720c9374bd7f29d85c8f699b723430163376",
+    "test": "8d27fc464f0c92a6501ff7cad8c50270fc015fb6b2cf8c841fc8c742aaa0f464"
+  }
+}

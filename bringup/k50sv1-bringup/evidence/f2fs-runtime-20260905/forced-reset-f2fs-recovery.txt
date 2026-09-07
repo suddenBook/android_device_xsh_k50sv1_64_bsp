@@ -1,0 +1,953 @@
+[32m[    0.306420] [33m(5)[1:swapper/0]WARNING[0m: CPU: 5 PID: 1 at /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/kernel/xsh/k50sv1_64_bsp/fs/sysfs/dir.c:31 sysfs_warn_dup+0x64/0x84()
+[32m[    0.354956] [33m(5)[1:swapper/0]WARNING[0m: CPU: 5 PID: 1 at /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/kernel/xsh/k50sv1_64_bsp/net/wireless/reg.c:511 regulatory_init+0x9c/0x1e0()
+[32m[    2.461020] [33m(7)[290:init]init[0m: [libfs_mgr]Running /system/bin/fsck.f2fs -a /dev/block/mmcblk0p30
+[32m[    2.496276] [33m(0)[290:init]fsck.f2fs[0m: Info: Fix the reported corruption.\x0a
+[32m[    2.496355] [33m(0)[290:init]fsck.f2fs[0m: \x09Info: No support kernel version!\x0a
+[32m[    2.496372] [33m(0)[290:init]fsck.f2fs[0m: Info: Segments per section = 1\x0a
+[32m[    2.496387] [33m(0)[290:init]fsck.f2fs[0m: Info: Sections per zone = 1\x0a
+[32m[    2.496402] [33m(0)[290:init]fsck.f2fs[0m: Info: sector size = 512\x0a
+[32m[    2.496417] [33m(0)[290:init]fsck.f2fs[0m: Info: total sectors = 108150751 (52807 MB)\x0a
+[32m[    2.496432] [33m(0)[290:init]fsck.f2fs[0m: Info: MKFS version\x0a
+[32m[    2.496447] [33m(0)[290:init]fsck.f2fs[0m:   "3.18.119 #1 SMP PREEMPT Sat Sep 5 01:30:00 CEST 2026"\x0a
+[32m[    2.496462] [33m(0)[290:init]fsck.f2fs[0m: Info: FSCK version\x0a
+[32m[    2.496477] [33m(0)[290:init]fsck.f2fs[0m:   from "3.18.119 #1 SMP PREEMPT Sat Sep 5 01:30:00 CEST 2026"\x0a
+[32m[    2.496493] [33m(0)[290:init]fsck.f2fs[0m:     to "3.18.119 #1 SMP PREEMPT Sat Sep 5 01:30:00 CEST 2026"\x0a
+[32m[    2.496509] [33m(0)[290:init]fsck.f2fs[0m: Info: superblock features = 481 :  encrypt verity quota_ino\x0a
+[32m[    2.496525] [33m(0)[290:init]fsck.f2fs[0m: Info: superblock encrypt level = 0, salt = 00000000000000000000000000000000\x0a
+[32m[    2.496540] [33m(0)[290:init]fsck.f2fs[0m: Info: total FS sectors = 108150744 (52807 MB)\x0a
+[32m[    2.496555] [33m(0)[290:init]fsck.f2fs[0m: Info: CKPT version = 6be771cc\x0a
+[32m[    2.496571] [33m(0)[290:init]fsck.f2fs[0m: Info: checkpoint state = c4 :  nat_bits crc compacted_summary sudden-power-off\x0a
+[32m[    2.496586] [33m(0)[290:init]fsck.f2fs[0m: Info: No error was reported\x0a
+[32m[    2.634855] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.635001] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.635019] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.635105] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.635120] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.635206] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.635221] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.635306] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.635320] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.635408] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.635422] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.637451] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.637488] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.637588] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.637603] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.637690] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.637704] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.637791] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.637806] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.637892] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.637907] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.637996] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.638012] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.638138] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.638154] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.638256] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.638265] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.638347] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.638361] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.638450] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.638464] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.638551] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.638565] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.638653] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.638667] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.638755] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.638769] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.638857] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.638871] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.638959] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.638974] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.639066] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.639079] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.639169] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.639183] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.639272] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.639286] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.639375] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.639388] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.639478] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.639492] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.639602] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.639617] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.639708] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.639723] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.639813] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.639827] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.639920] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.639933] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.640024] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.640038] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.640129] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.640143] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.640234] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.640248] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.640341] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.640355] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.640447] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.640461] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.640553] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.640567] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.640659] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.640673] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.640768] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.640782] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.640874] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.640888] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.640981] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.640995] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.641088] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.641102] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.641196] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.641209] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.641305] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.641319] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.641413] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.641428] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.641522] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.641536] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.641633] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.641647] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.641742] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.641756] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.641851] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.641865] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.641960] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.641974] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.642091] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.642108] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.642205] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.642219] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.642316] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.642330] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.642426] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.642440] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.642541] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.642554] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.642651] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.642665] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.642762] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.642775] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.642872] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.642886] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.642984] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.642998] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.643096] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.643110] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.643208] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.643222] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.643321] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.643335] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.643436] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.643450] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.643549] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.643563] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.643662] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.643676] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.643775] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.643789] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.643889] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.643903] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.644003] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.644017] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.644117] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.644131] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.644231] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.644245] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.644348] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.644362] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.644463] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.644477] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.644578] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.644592] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.644693] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.644707] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.644808] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.644822] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.644924] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.644938] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.645041] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.645055] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.645157] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.645171] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.645277] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.645290] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.645393] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.645407] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.645510] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.645524] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.645627] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.645641] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.645744] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.645759] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.645862] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.645876] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.645984] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.645998] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.646102] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.646116] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.646224] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.646238] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.646411] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.646436] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.646549] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.646565] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.646671] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.646685] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.646791] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.646805] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.646911] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.646924] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.647031] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.647045] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.647151] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.647165] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.647274] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.647288] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.647395] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.647409] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.647516] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.647530] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.647637] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.647651] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.647758] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.647772] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.647880] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.647894] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.648002] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.648016] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.648124] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.648138] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.648250] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.648267] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.648379] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.648393] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.648503] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.648517] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.648626] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.648640] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.648749] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.648763] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.648872] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.648886] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.648998] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.649012] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.649122] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.649136] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.649249] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.649262] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.649373] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.649387] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.649498] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.649512] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.649623] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.649637] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.649748] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.649762] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.649877] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.649894] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.650010] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.650024] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.650136] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.650150] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.650265] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.650279] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.650391] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.650405] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.650519] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.650533] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.650646] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.650661] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.650775] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.650788] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.650906] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.650920] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.651034] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.651048] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.651165] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.651179] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.651296] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.651310] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.651425] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.651439] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.651557] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.651574] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.651693] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.651706] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.652221] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.652246] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.652370] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.652385] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.652502] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.652516] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.652633] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.652647] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.652767] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.652781] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.652899] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.652913] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.653030] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.653044] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.653161] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.653176] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.653296] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.653316] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.653438] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.653452] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.653570] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.653583] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.653702] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.653716] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.653837] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.653851] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.653969] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.653983] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.654102] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.654117] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.654236] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.654250] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.654373] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.654387] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.654507] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.654521] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.654641] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.654655] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.654775] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.654790] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.654913] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.654934] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.655059] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.655074] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.655197] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.655210] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.655331] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.655345] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.655489] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.655504] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.655628] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.655642] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.655765] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.655778] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.655900] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.655914] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.656039] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.656053] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.656175] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.656189] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.656425] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.656444] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.656571] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.656585] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.656710] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.656730] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.656859] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.656873] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.656997] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.657011] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.657135] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.657149] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.657276] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.657290] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.657417] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.657431] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.657556] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.657570] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.657696] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.657709] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.657835] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.657849] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.657979] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.657993] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.658120] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.658133] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.658260] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.658274] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.658404] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.658421] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.658552] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.658566] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.658692] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.658706] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.658834] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.658848] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.658975] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.658989] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.659117] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.659131] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.659259] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.659272] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.659401] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.659415] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.659546] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.659560] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.659688] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.659703] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.659832] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.659846] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.659977] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.659994] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.660128] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.660142] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.660272] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.660286] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.660415] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.660429] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.660559] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.660572] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.660706] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.660720] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.660852] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.660867] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.660998] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.661011] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.661142] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.661156] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.661288] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.661302] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.661433] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.661447] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.661582] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.661599] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.661735] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.661749] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.661884] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.661897] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.662030] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.662044] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.662177] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.662191] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.662324] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.662338] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.662471] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.662485] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.662618] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.662632] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.662766] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.662780] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.662914] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.662928] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.663065] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.663079] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.663214] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.663231] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.663373] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.663387] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.663523] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.663536] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.663672] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.663686] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.663822] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.663836] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.663963] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 1, err = 0
+[32m[    2.664084] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 3, err = 0
+[32m[    2.664100] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.664226] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.664315] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.664329] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.664453] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.664542] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.664555] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.664679] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.664766] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.664779] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.664904] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.664995] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.665009] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.665133] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.665220] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.665234] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.665358] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.665445] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.665459] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.665586] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.665674] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.665688] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.665813] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.665902] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.665915] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.666040] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.666128] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.666142] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.666266] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.666414] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.666431] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.666561] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.666656] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.666673] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.666803] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.666892] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.666906] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.667030] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.667121] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.667136] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.667260] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.667349] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.667363] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.667488] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.667578] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.667591] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.667716] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.667806] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.667819] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.667943] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.668033] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.668046] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.668171] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.668264] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.668281] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.668409] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.668500] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.668513] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.668638] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.668729] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.668743] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.668867] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.668959] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.668972] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.669096] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.669187] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.669201] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.669325] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.669417] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.669435] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.669563] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.669654] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.669668] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.669793] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.669885] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.669898] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.670023] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.670117] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.670131] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.670256] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.670349] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.670363] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.670489] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.670582] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.670596] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.670721] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.670813] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.670827] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.670951] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.671044] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.671060] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.671188] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.671302] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.671320] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.671459] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.671557] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.671574] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = bb1, name = durable.db, inline = 1
+[32m[    2.672710] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = bb1 (i_size: recover) recovered = 274, err = 0
+[32m[    2.672732] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.674843] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.674867] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.674975] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 2, err = 0
+[32m[    2.674990] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.675089] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.675103] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.675203] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.675217] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.675317] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.675330] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.675433] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.675447] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.675548] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.675562] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.675662] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.675676] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.675777] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.675791] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.675892] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.675906] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.676009] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.676023] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.676124] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.676138] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.676241] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.676255] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.676462] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.676482] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.676594] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.676611] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.676718] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.676732] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.676838] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.676852] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.676955] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.676968] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.677071] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.677085] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.677189] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.677202] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.677307] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.677320] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.677427] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.677441] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.677548] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.677561] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.677666] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.677680] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.677785] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.677798] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.677903] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.677917] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.678026] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.678040] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.678145] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.678159] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.678265] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.678283] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.678394] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.678409] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.678515] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.678529] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.678635] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.678649] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.678755] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.678769] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.678877] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.678890] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.678998] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.679011] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.679119] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.679133] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.679241] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.679255] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.679366] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.679380] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.679488] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.679502] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.679611] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.679624] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.679734] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.679751] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.679864] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.679878] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.679987] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.680001] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.680111] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.680124] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.680234] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.680248] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.680360] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.680374] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.680485] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.680498] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.680609] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.680623] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.680733] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.680747] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.680860] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.680877] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.680990] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.681004] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.681116] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.681130] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.681241] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.681255] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.681369] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.681383] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.681495] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.681509] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.681622] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.681636] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.681750] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.681767] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.681880] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.681893] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.682007] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.682021] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.682134] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.682148] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.682261] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.682275] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.682391] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.682405] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.682519] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.682533] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.682650] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.682663] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.682778] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.682792] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.682907] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.682921] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.683039] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.683055] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.683170] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.683184] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.683639] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.683665] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.683792] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.683806] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.683924] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.683939] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.684056] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.684070] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.684187] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.684201] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.684319] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.684333] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.684450] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.684463] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.684580] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.684595] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.684713] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.684727] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.684848] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.684862] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.684982] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.684996] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.685114] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.685128] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.685247] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.685261] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.685380] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.685394] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.685512] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.685526] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.685645] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.685659] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.685780] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.685794] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.685916] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.685930] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.686050] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.686064] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.686185] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.686199] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.686390] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.686416] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.686543] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.686557] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.686679] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.686693] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.686814] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.686828] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.686950] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.686963] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.687088] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.687102] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.687240] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.687256] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.687378] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.687392] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.687516] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.687530] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.687654] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.687668] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.687791] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.687804] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.687928] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.687941] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.688066] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.688079] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.688207] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.688225] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.688353] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.688367] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.688491] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.688505] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.688629] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.688643] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.688771] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.688784] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.688910] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.688924] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.689049] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.689063] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.689189] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.689203] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.689332] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.689345] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.689472] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.689486] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.689612] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.689626] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.689757] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.689775] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.689906] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.689920] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.690047] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.690061] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.690189] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.690202] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.690330] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.690344] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.690474] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.690489] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.690617] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.690630] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.690759] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.690773] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.690901] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.690915] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.691044] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.691057] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.691186] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.691200] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.691330] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.691344] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.691473] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.691490] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.691625] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.691639] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.691769] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.691783] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.691913] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.691927] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.692058] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.692071] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.692202] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.692215] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.692351] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.692364] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.692495] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.692509] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.692640] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.692656] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.692792] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.692806] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.692939] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.692953] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.693085] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.693099] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.693233] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.693247] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.693380] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.693394] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.693527] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.693541] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.693674] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.693688] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.693821] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.693835] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.693971] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.693985] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.694119] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.694133] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.694267] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.694281] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.694416] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.694430] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.694565] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.694579] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.694717] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.694731] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.694868] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.694882] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.695018] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.695032] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.695170] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.695183] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.695308] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.695765] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.695781] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.695907] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.695994] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.696008] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.696132] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.696220] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.696234] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.696441] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.696541] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.696556] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.696681] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.696768] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.696782] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.696908] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.696995] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.697009] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.697133] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.697220] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.697235] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.697359] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.697450] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.697464] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.697588] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.697677] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.697690] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.697815] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.697902] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.697916] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.698043] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.698132] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.698149] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.698278] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.698366] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.698380] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.698504] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.698594] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.698608] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.698732] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.698821] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.698835] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.698959] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.699048] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.699062] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.699187] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.699280] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.699293] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.699418] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.699508] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.699522] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.699647] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.699740] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.699758] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.699886] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.699976] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.699990] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.700114] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.700205] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.700218] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.700343] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.700435] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.700449] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.700575] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.700667] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.700681] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.700806] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.700897] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.700911] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.701035] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.701129] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.701143] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.701268] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.701361] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.701379] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.701508] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.701601] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.701614] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.701739] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.701832] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.701846] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.701970] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.702062] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.702076] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.702200] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.702292] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.702306] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.702433] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.702528] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.702542] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.702667] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.702760] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.702774] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.702900] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.703016] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 5, err = 0
+[32m[    2.703031] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.703169] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.703267] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 4, err = 0
+[32m[    2.703282] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = bb1, name = durable.db, inline = 1
+[32m[    2.703500] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = bb1 (i_size: recover) recovered = 33, err = 0
+[32m[    2.704522] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = bb1 (i_size: recover) recovered = 241, err = 0
+[32m[    2.704548] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_inode: ino = 1088, name = durable.db-wal, inline = 1
+[32m[    2.706385] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: recover_data: ino = 1088 (i_size: recover) recovered = 0, err = 0
+[32m[    2.715343] [33m(1)[290:init]F2FS-fs (mmcblk0p30)[0m: checkpoint: version = 6be771cd
+[32m[    2.715480] [33m(0)[290:init]F2FS-fs (mmcblk0p30)[0m: Mounted with checkpoint version = 6be771cd
+[32m[    2.716123] [33m(1)[290:init]SELinux[0m: initialized (dev mmcblk0p30, type f2fs), uses xattr
+[32m[    2.716458] [33m(1)[290:init]init[0m: [libfs_mgr]__mount(source=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata,target=/data,type=f2fs)=0: Success
+[32m[    3.863783] [33m(0)[1:init]init[31m: property 'dev.mnt.blk.data' doesn't exist while expanding '/sys/fs/f2fs/${dev.mnt.blk.data}/cp_interval'
+[32m[    3.863865] [33m(0)[1:init]init[0m: Command 'write /sys/fs/f2fs/${dev.mnt.blk.data}/cp_interval 200' action=boot (/init.rc:693) took 0ms and failed: cannot expand '/sys/fs/f2fs/${dev.mnt.blk.data}/cp_interval'
+[32m[    3.863908] [33m(0)[1:init]init[31m: property 'dev.mnt.blk.data' doesn't exist while expanding '/sys/fs/f2fs/${dev.mnt.blk.data}/gc_urgent_sleep_time'
+[32m[    3.863960] [33m(0)[1:init]init[0m: Command 'write /sys/fs/f2fs/${dev.mnt.blk.data}/gc_urgent_sleep_time 50' action=boot (/init.rc:694) took 0ms and failed: cannot expand '/sys/fs/f2fs/${dev.mnt.blk.data}/gc_urgent_sleep_time'

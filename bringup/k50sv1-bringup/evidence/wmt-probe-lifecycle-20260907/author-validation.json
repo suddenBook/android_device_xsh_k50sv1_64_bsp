@@ -1,0 +1,88 @@
+{
+  "commit": "da0a099216d01913e1f57ee691eadafacbefa5c5",
+  "base": "7f5c87f22c23f59607c020158f1e072473d66e9a",
+  "worktree": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-kernel-work",
+  "clean_worktree": true,
+  "changed_file_sha256": {
+    "drivers/misc/mediatek/connectivity/source/common/common_main/platform/include/mtk_wcn_consys_hw.h": "2f9d4777b9fbde76e0b04513b4710ad012e91c31105d350b94991a809f825ab7",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c": "ceb42e2909bd2917a1658f59778a1b187e717b9b51db441b02db3bdab9e02913",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c": "586458d8f51fa92949ac9b1e83f0bc717531c23b5eb7ac505acd4789666315c3",
+    "drivers/misc/mediatek/connectivity/source/common/test/README_wmt_probe_lifecycle.md": "56d1f3738ffba92a80b56ecbe9973f9d3f80d2deeb670a59b4dd7a8be5882383",
+    "drivers/misc/mediatek/connectivity/source/common/test/test_wmt_platform_init.py": "1de079806a781b2eb0aedeb3db02cb1e7e059a7b1bacd6e520108cd56930fc20",
+    "drivers/misc/mediatek/connectivity/source/common/test/test_wmt_probe_lifecycle.py": "41fea452b5aac8c3b8ccfbf953e39cb0f7a1aec61e869e5ad99bcf99cc48d777",
+    "drivers/misc/mediatek/connectivity/source/common/test/wmt_platform_init_host.c": "c498a2d0994764312d0b41ba547621109d60da31cc4a4f1eb6e89d6b98c7b6f1",
+    "drivers/misc/mediatek/connectivity/source/common/test/wmt_probe_lifecycle_host.c": "940eb9a895683c02a155ea5bcf2cbbb7b2d5d6b79eb88c937386a64e98e22fbd"
+  },
+  "checks": {
+    "probe": {
+      "passed": 54,
+      "total": 54,
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/candidate-final/result.json",
+      "result_sha256": "dc2ffb9170fc9ebf7f148a02da8b43eee371ac2ca966de9fb8c25e98eab74863"
+    },
+    "platform": {
+      "passed": 23,
+      "total": 23,
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/platform-final/result.json",
+      "result_sha256": "315195066f890023d41e46624964286741c404405be00e5009c7d7bf8d156ac1"
+    },
+    "callback_platform_overlay": {
+      "passed": 23,
+      "total": 23,
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/platform-integration-final/result.json",
+      "result_sha256": "b475de56fed41236a359feb88f1f649d66e10138a96572effde6a744fc1481a9"
+    },
+    "baseline": {
+      "passed": 0,
+      "total": 54,
+      "revision": "7f5c87f22c23f59607c020158f1e072473d66e9a",
+      "failure_categories": {
+        "assertion": 51,
+        "undefined-behavior-sanitizer": 1,
+        "address-sanitizer": 2
+      },
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/baseline-final/result.json",
+      "result_sha256": "31067108caaa3cde27c5c63e0c61b721daac6c18c3db9fd741641732d4f4d153",
+      "interpretation": "Failed scenarios, not independent defects; cases may stop at an earlier invariant. Raw logs and exact diagnostics are retained."
+    },
+    "arm64": {
+      "passed": 2,
+      "total": 2,
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/arm64-final/result.json",
+      "result_sha256": "6c641d72e331778212d61fe938a32dfa13ef612afa0ef3f21e63e2d549a84720",
+      "objects": [
+        {
+          "source": "common_main/platform/mtk_wcn_consys_hw.c",
+          "object": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/arm64-final/mtk_wcn_consys_hw.o",
+          "object_sha256": "5560bd48e271397ef7586c788feb1efd7bb7c59ceacbe6202c41d70d65ea48c9",
+          "object_description": "ELF 64-bit LSB relocatable, ARM aarch64, version 1 (SYSV), with debug_info, not stripped",
+          "command": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/arm64-final/mtk_wcn_consys_hw.command.json",
+          "command_sha256": "2f5605cf5ba7db17cca4420148158b549abd91da13543871608d413b9530e708",
+          "compiler_version": "real-aarch64-linux-android-gcc (GCC) 4.9.x 20150123 (prerelease)"
+        },
+        {
+          "source": "common_main/platform/mt6755.c",
+          "object": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/arm64-final/mt6755.o",
+          "object_sha256": "40949d6de7df7a0bdb30f5433d5bb371bf79f7c7eb1c6ed262785f7cd45c04de",
+          "object_description": "ELF 64-bit LSB relocatable, ARM aarch64, version 1 (SYSV), with debug_info, not stripped",
+          "command": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/arm64-final/mt6755.command.json",
+          "command_sha256": "ebf9946b64052f00c5df5a741bfac8b954f3a7231b283a1e130ceaa1d15e768c",
+          "compiler_version": "real-aarch64-linux-android-gcc (GCC) 4.9.x 20150123 (prerelease)"
+        }
+      ]
+    }
+  },
+  "overlay": {
+    "manifest": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/platform-integration-overlay.json",
+    "manifest_sha256": "944495c881a91ae17084aac8f5cf3280d25242bb7b080d9c04e81c273e6d2800",
+    "upstream": "0b3f7a10f39bff7c1e94d21956e88d0da797fa8e",
+    "explanation": "External read-only source composition; both test fixture files merged cleanly."
+  },
+  "boundaries": [
+    "Host tests model serialized constructor/destructor protocols, not device MMIO or whole-driver concurrency.",
+    "MT6755 preserves errors from its entered WMT probe; no matching device or framework failure before WMT probe gives -ENODEV.",
+    "Failed/deferred fixed-device probes require a later explicit WMT init retry; automatic provider retry is not promised.",
+    "The platform fixture uses legacy abstract ops. The separate probe fixture executes the actual MT6755-required path.",
+    "Other IC private resources, optional callbacks unused by MT6755, runtime power sequencing and EMI-MPU restoration remain outside this patch."
+  ]
+}

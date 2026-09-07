@@ -1,0 +1,7 @@
+PASS sequence_count=0, complete TX/RX records, bounded output
+PASS sequence_count=1, complete TX/RX records, bounded output
+PASS sequence_count=179, complete TX/RX records, bounded output
+PASS sequence_count=180, complete TX/RX records, bounded output
+PASS sequence_count=220, complete TX/RX records, bounded output
+PASS sequence_count=449, complete TX/RX records, bounded output
+PASS sequence_count=450, complete TX/RX records, bounded output

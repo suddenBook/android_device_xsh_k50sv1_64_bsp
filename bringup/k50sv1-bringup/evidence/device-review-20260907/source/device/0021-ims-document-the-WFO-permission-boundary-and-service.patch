@@ -1,0 +1,85 @@
+From 59b413925c326b5f9b47c539a7e27a1bdac3e77e Mon Sep 17 00:00:00 2001
+From: Huixiaqing Liu <huixiaqingliu@outlook.com>
+Date: Mon, 7 Sep 2026 10:28:43 +0200
+Subject: [PATCH 21/25] ims: document the WFO permission boundary and service
+ discovery
+
+---
+ sepolicy/private/service.te | 58 +++++++++----------------------------
+ 1 file changed, 13 insertions(+), 45 deletions(-)
+
+diff --git a/sepolicy/private/service.te b/sepolicy/private/service.te
+index df04769..76464f7 100644
+--- a/sepolicy/private/service.te
++++ b/sepolicy/private/service.te
+@@ -1,54 +1,22 @@
+-# com.mediatek.ims (ImsService.apk, sharedUserId android.uid.phone, so the
+-# radio domain) registers "mtkIms" ->
+-# com.mediatek.ims.internal.IMtkImsService. Confirmed live: `service list`
+-# on the handset shows it at index 4.
++# ImsService.apk hosts mtkIms and wfo in the radio domain (android.uid.phone).
++# Dedicated service types avoid the broad radio_service discovery grants for
++# ordinary/privileged app domains. AOSP's wider system_app, shell and dumpstate
++# discovery grants still apply; a device rule cannot subtract those allows.
+ #
+-# It used to be labelled radio_service, which is a shared bucket that AOSP
+-# hands to essentially everything:
+-#   system/sepolicy/private/untrusted_app_all.te:99  allow untrusted_app_all radio_service:service_manager find;
+-#   .../priv_app.te:49  .../platform_app.te:64  .../ephemeral_app.te:46
+-# i.e. any installed app could getService("mtkIms") and start poking a vendor
+-# IMS control interface. Its own type removes all four of those.
++# The legacy WFO implementation independently checks remote Binder transactions:
++# READ_PRIVILEGED_PHONE_STATE for state/callback APIs and MODIFY_PHONE_STATE for
++# control APIs. See patch_wfo_jar() in extract-files.sh. Android's system UID and
++# explicitly granted callers, including Shell, retain their normal privileges.
++# This WFO check does not establish authorization for the separate mtkIms API.
+ #
+-# WHAT IT DOES NOT DO, because the earlier wording here claimed containment the
+-# policy does not provide. A dedicated service_manager_type is not a private
+-# type: AOSP grants blanket `find` over the whole attribute minus a fixed
+-# exclusion list, at private/system_app.te:83-96, public/shell.te:112-125 and
+-# public/dumpstate.te:234,244. So system_app, shell and dumpstate can still
+-# find both services here, and system_app is the domain Settings runs in.
+-# WifiOffloadService's binder methods do no permission checks of their own, so
+-# for `wfo` that label IS the access control and this is a real residual gap,
+-# not a theoretical one.
+-#
+-# Subtracting find from those existing grants requires an upstream policy
+-# change. Device-owned Java permission checks can instead restrict operations,
+-# but must preserve the actual callers; ordinary UID-1000 permission checks
+-# cannot distinguish system_server from Settings. Neither remedy is applied
+-# here: four app domains lost access, three system domains kept it.
+-#
+-# Both operands are core platform types, so this belongs in plat_private per
+-# the rule in BoardConfig.mk. Declared in private (not public) because nothing
+-# outside the platform image needs the symbol.
++# Both service owners/callers are core platform types, so keep these declarations
++# in plat_private. add_service also prevents other domains registering the name.
+ type mtk_ims_service, service_manager_type;
+-
+-# add_service() also emits `neverallow { domain -radio } mtk_ims_service:
+-# service_manager add;`, which is the half that stops another process
+-# impersonating the IMS service.
+ add_service(radio, mtk_ims_service)
+ allow system_server mtk_ims_service:service_manager find;
+ 
+-# The same process also registers "wfo" -> com.mediatek.wfo.IWifiOffloadService,
+-# from WfoService.makeWfoService() called by ImsService.<init>. Stock labels it
+-# radio_service (plat_service_contexts:260), which is the shared bucket
+-# untrusted_app_all, priv_app, platform_app and ephemeral_app can all `find` --
+-# so on Stock any installed app can getService("wfo"). Its own type, same as
+-# mtk_ims_service above -- including the same residual system_app/shell/
+-# dumpstate reach documented there.
+-#
+-# Without a service_contexts entry "wfo" falls to the catch-all
+-# `* u:object_r:default_android_service:s0`, and
+-# system/sepolicy/public/domain.te makes adding to default_android_service a
+-# neverallow -- which no allow rule can work around. The pair is mandatory.
++# Each name also needs a service_contexts entry; the default_android_service
++# fallback forbids registration.
+ type mtk_wfo_service, service_manager_type;
+ add_service(radio, mtk_wfo_service)
+ allow system_server mtk_wfo_service:service_manager find;
+-- 
+2.55.0
+

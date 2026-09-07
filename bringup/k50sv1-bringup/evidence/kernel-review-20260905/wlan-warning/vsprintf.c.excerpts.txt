@@ -1,0 +1,72 @@
+1708:  *           bytes of the input)
+1709:  * %n is ignored
+1710:  *
+1711:  * ** Please update Documentation/printk-formats.txt when making changes **
+1712:  *
+1713:  * The return value is the number of characters which would
+1714:  * be generated for the given input, excluding the trailing
+1715:  * '\0', as per ISO C99. If you want to have the exact
+1716:  * number of characters written into @buf as return value
+1717:  * (not including the trailing '\0'), use vscnprintf(). If the
+1718:  * return is greater than or equal to @size, the resulting
+1719:  * string is truncated.
+1720:  *
+1721:  * If you're not already dealing with a va_list consider using snprintf().
+1722:  */
+1723: int vsnprintf(char *buf, size_t size, const char *fmt, va_list args)
+1724: {
+1725: 	unsigned long long num;
+1726: 	char *str, *end;
+1727: 	struct printf_spec spec = {0};
+1728: 
+1729: 	/* Reject out-of-range values early.  Large positive sizes are
+1730: 	   used for unknown buffer sizes. */
+1731: 	if (WARN_ON_ONCE(size > INT_MAX))
+1732: 		return 0;
+1733: 
+1734: 	str = buf;
+1735: 	end = buf + size;
+1736: 
+1737: 	/* Make sure end is always >= buf */
+1738: 	if (end < buf) {
+1739: 		end = ((void *)-1);
+1740: 		size = end - buf;
+1858: 	if (size > 0) {
+1859: 		if (str < end)
+1860: 			*str = '\0';
+1861: 		else
+1862: 			end[-1] = '\0';
+1863: 	}
+1864: 
+1865: 	/* the trailing null byte doesn't count towards the total */
+1866: 	return str-buf;
+1867: 
+1868: }
+1869: EXPORT_SYMBOL(vsnprintf);
+1870: 
+1895: 		return size - 1;
+1896: 	return 0;
+1897: }
+1898: EXPORT_SYMBOL(vscnprintf);
+1899: 
+1900: /**
+1901:  * snprintf - Format a string and place it in a buffer
+1902:  * @buf: The buffer to place the result into
+1903:  * @size: The size of the buffer, including the trailing null space
+1904:  * @fmt: The format string to use
+1905:  * @...: Arguments for the format string
+1906:  *
+1907:  * The return value is the number of characters which would be
+1908:  * generated for the given input, excluding the trailing null,
+1920: 	i = vsnprintf(buf, size, fmt, args);
+1921: 	va_end(args);
+1922: 
+1923: 	return i;
+1924: }
+1925: EXPORT_SYMBOL(snprintf);
+1926: 
+1927: /**
+1928:  * scnprintf - Format a string and place it in a buffer
+1929:  * @buf: The buffer to place the result into
+1930:  * @size: The size of the buffer, including the trailing null space
+1931:  * @fmt: The format string to use

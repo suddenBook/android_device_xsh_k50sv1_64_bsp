@@ -1,0 +1,14 @@
+{
+  "status": "FAIL",
+  "search_restore_required": true,
+  "voice_restore_required": true,
+  "errors": [
+    {
+      "step": "voice_recognition_service",
+      "error": "RuntimeError('Injected failure at restore-voice_recognition_service')"
+    }
+  ],
+  "restored_voice_settings": {
+    "voice_interaction_service": "com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService"
+  }
+}

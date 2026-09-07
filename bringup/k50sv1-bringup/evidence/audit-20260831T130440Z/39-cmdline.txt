@@ -1,0 +1,33 @@
+=== /proc/cmdline ===
+console=tty0 console=ttyMT0,921600n1 vmalloc=400M slub_max_order=0 slub_debug=OFZPU androidboot.hardware=mt6755 firmware_class.path=/vendor/firmware loop.max_part=7 androidboot.boot_devices=bootdevice,11230000.mmc flogo=0 fram=-1 from=-1 androidboot.verifiedbootstate=orange root=/dev/ram androidboot.veritymode=enforcing bootopt=64S3,32N2,64N2 androidboot.selinux=permissive buildvariant=userdebug androidboot.atm=disabled androidboot.meta_log_disable=0 emmc_life_a=1 emmc_life_b=1 lcm_info=ft8057s_inx_hdplus1560 printk.disable_uart=1 bootprof.pl_t=4271 bootprof.lk_t=8525 androidboot.serialno=0123456789ABCDEF androidboot.bootreason=HW_reboot gpt=1 usb2jtag_mode=0 mrdump_ddrsv=yes androidboot.dtb_idx=0 androidboot.dtbo_idx=0
+
+=== ro.boot.* props (filtered out of the earlier listing) ===
+[ro.boot.atm]: [disabled]
+[ro.boot.boot_devices]: [bootdevice,11230000.mmc]
+[ro.boot.bootreason]: [HW_reboot]
+[ro.boot.dtb_idx]: [0]
+[ro.boot.dtbo_idx]: [0]
+[ro.boot.hardware]: [mt6755]
+[ro.boot.meta_log_disable]: [0]
+[ro.boot.mode]: [normal]
+[ro.boot.selinux]: [permissive]
+[ro.boot.serialno]: [0123456789ABCDEF]
+[ro.boot.verifiedbootstate]: [orange]
+[ro.boot.veritymode]: [enforcing]
+
+=== ro.crypto.* ===
+[ro.crypto.state]: [unsupported]
+
+=== dalvik heap config ===
+[dalvik.vm.heapgrowthlimit]: [192m]
+[dalvik.vm.heapmaxfree]: [16m]
+[dalvik.vm.heapminfree]: [8m]
+[dalvik.vm.heapsize]: [512m]
+[dalvik.vm.heapstartsize]: [8m]
+[dalvik.vm.heaptargetutilization]: [0.6]
+[dalvik.vm.image-dex2oat-Xms]: [64m]
+[dalvik.vm.image-dex2oat-Xmx]: [64m]
+[dalvik.vm.isa.arm.features]: [default]
+[dalvik.vm.isa.arm.variant]: [cortex-a53]
+[dalvik.vm.isa.arm64.features]: [default]
+[dalvik.vm.isa.arm64.variant]: [cortex-a53]

@@ -1,0 +1,181 @@
+--------- beginning of main
+  2262.934  2929  2946 I fwkit_kbct_dsp: [fwkit KitBroadcastDispatcher.java:134] register com.huawei.hms.action.CLEAR_MESSAGE
+  2262.934  2929  2946 I fwkit_kbct_dsp: [fwkit KitBroadcastDispatcher.java:134] register com.huawei.hms.action.UPDATE_RECOMMEND_IGNORE_TIME
+  2262.942 13721 13750 I fwkit_HmsProfiler: [fwkit HmsProfiler.java:5] hms profiler init enter
+  2262.942 13721 13751 I fwkit_msg_fr: [fwkit FinderRemote.java:64] findRequest uri: ekr.memory apiLevel: 1
+  2262.943 13721 13751 E fwkit_msg_kmc: [fwkit KmsMessageCenter.java:198] fail to getRequest for ekr.memory callObject null: true installedPlugin null: true
+  2262.944 13721 13751 I fwkit_msg_fr: [fwkit FinderRemote.java:107] kit aidl request created from message center is null
+  2262.947  2929  2946 I fwkit_kims: [fwkit KIMSServiceController.java:284] mainEntry com.huawei.hms.ekr.MainEntry
+  2262.959 13721 13749 I NK_DynamicLoadPermit: kac_cl_commonkit-thread-1 ->NK_NK_0|api.a|20|is dynamic load: false, advance: true
+  2262.960 13721 13749 I NK_NetworkKit: kac_cl_commonkit-thread-1 ->NK_NK_0|NetworkKit|25|not dynamic load
+  2262.969 13721 13749 I NK_NetworkKitProvider: kac_cl_commonkit-thread-1 ->NK_NK_0|NetworkKitProvider|37|load local result is: true
+  2262.969 13721 13754 I fwkit_fwui_rpr: loadProperties finish, properties is {package_category=1, reclaim_threshold=45, enable_check_sign=true, package_type=1, need_check_statement_status=0} cost:0
+  2262.972 13721 13751 E breaker_buildex: An exception occurred while reading SystemProperties: hw_sc.anco.enable
+  2262.973 13721 13751 I fwkit_checkSignAndReportUtils: [fwkit KitFileCheckUtils.java:12] not need to check apk and so
+  2262.976 13721 13749 I NK_NetworkKitProvider: kac_cl_commonkit-thread-1 ->NK_NK_0|NetworkKitProvider|79|provider client version code: 8.0.1.320, api level: 13
+  2262.976 13721 13749 I NK_NetworkKitProvider: kac_cl_commonkit-thread-1 ->NK_NK_0|NetworkKitProvider|111|NetworkKitProvider is dynamic provider result : false
+  2262.982 13721 13751 I fwkit_ShareLibManager: [fwkit ClassLoaderManager.java:114] kitUid: ekr_61800330, mClassLoaderPath:/data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.ekr/61800330/com.huawei.hms.ekr.apk, sharePath: []
+  2262.983 13721 13751 I fwkit_kac_cl: [fwkit ClassLoaderManager.java:11] device is not anco, not app apkPath to nativePath.
+  2262.984 13721 13751 W hwid.container: Unsupported class loader
+  2262.987 13721 13754 I fwkit_coreapk_utils: packageName: com.huawei.hwid
+  2262.991 13721 13754 I fwkit_proc_utils: init over
+  2263.001 13721 13750 I fwkit_HmsProfiler: [fwkit HmsProfiler.java:51] hms profiler init start
+  2263.003 13721 13750 I fwkit_HmsProfiler: [fwkit HmsProfiler.java:71] hms profiler init end
+  2263.009 13721 13751 I fwkit_CLUtils: [fwkit ClsLoaderUtils.java:119] New dloader com.huawei.hms.ekr.apk,cost:25
+  2263.009 13721 13755 I fwkit_CountryCodeBean: [fwkit CountryCodeBean.java:40] countryCode by ro.hw.country is: UNKNOWN
+  2263.009 13721 13751 I fwkit_ShareLib: [fwkit ClassLoaderManager.java:308] classLoader: dalvik.system.DexClassLoader[DexPathList[[zip file "/data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.ekr/61800330/com.huawei.hms.ekr.apk"],nativeLibraryDirectories=[/data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.ekr/61800330/lib, /system/lib64, /system/product/lib64]]]
+  2263.016 13721 13749 I NK_PackageUtils: kac_cl_commonkit-thread-1 ->NK_NK_0|common.PackageManagerCompat|59|kitContext: com.huawei.hms.commonkit
+  2263.018 13721 13755 I fwkit_CountryCodeBean: [fwkit CountryCodeBean.java:46] countryCode by SimCountryIso is: cn
+  2263.018 13721 13755 I fwkit_CountryCodeBean: [fwkit CountryCodeBean.java:31] get issue_country code from SIM_COUNTRY
+  2263.024 13721 13751 I fwkit_kac_kitloader: [fwkit KitLoaderManager.java:365] kit loaded:ekr_61800330, cost :60 ms
+  2263.025 13721 13721 I fwkit_kac_dynamic_loader: [fwkit SplitCompat.java:56] getSplitPath application.packageName = com.huawei.hms.ekr
+  2263.025 13721 13721 I fwkit_kac_dynamic_loader: [fwkit SplitCompat.java:76] getSplitPath dirs == null || dirs.length == 0
+  2263.026 13721 13721 I fwkit_kac_dynamic_loader: [fwkit SplitCompat.java:77] dynamicInstall no splitPaths
+  2263.027 13721 13756 W fwkit_CrashHandler: [fwkit CrashHandler.java:71] processName is: com.huawei.hwid.container3
+  2263.032 13721 13756 I fwkit_UnExpHandler: [fwkit UncaughtExceptionHandler.java:5] init
+  2263.038 13721 13756 W fwkit_CrashHandler: [fwkit CrashHandler.java:107] is: com.huawei.hwid.container3
+  2263.042 13721 13756 I fwkit_CrashHandler: [fwkit CrashHandler.java:35] fileData is empty, no report
+  2263.047 13721 13751 I fwkit_msg_kmc: [fwkit KmsMessageCenter.java:25] Uri: ekr.crash was registered
+  2263.048 13721 13751 I fwkit_msg_kmc: [fwkit KmsMessageCenter.java:25] Uri: ekr.memory was registered
+  2263.048 13721 13751 I fwkit_msg_kmc: [fwkit KmsMessageCenter.java:25] Uri: ekr.BatteryMonitor was registered
+  2263.049 13721 13751 I fwkit_msg_kmc: [fwkit KmsMessageCenter.java:25] Uri: ekr.PlatformDetect was registered
+  2263.050 13721 13751 I fwkit_msg_kmc: [fwkit KmsMessageCenter.java:25] Uri: ekr.MultiVersionDetect was registered
+  2263.050 13721 13751 I fwkit_msg_kmc: [fwkit KmsMessageCenter.java:25] Uri: ekr.SeclogAnalyse was registered
+  2263.051 13721 13751 I fwkit_msg_kmc: [fwkit KmsMessageCenter.java:25] Uri: ekr.ServiceMethodDetect was registered
+  2263.052 13721 13751 I fwkit_msg_kmc: [fwkit KmsMessageCenter.java:25] Uri: ekr.HostlogAnalyse was registered
+  2263.052 13721 13751 I fwkit_msg_kmc: [fwkit KmsMessageCenter.java:435] mainEntry onCreated: com.huawei.hms.ekr.MainEntry kit uid: ekr_61800330
+  2263.055 13721 13749 I NK_ConfigManager: kac_cl_commonkit-thread-1 ->NK_NK_0|embedded.j|8|init :com.huawei.hms.commonkit
+  2263.063 13721 13756 I fwkit_MemoryMonitor: [fwkit MemoryMonitor.java:78] processRamEvent stage: mem_t1 pkgName: none version:none
+  2263.063 13721 13756 I fwkit_MemoryMonitor: [fwkit MemoryMonitor.java:84] do something
+  2263.068 13721 13721 I fwkit_KitDAReporter: [fwkit KitDailyActivateReporter.java:90] sim state changed, state = 5, simCountry = cn
+  2263.073 13721 13749 I NK_PLSharedPreferences: kac_cl_commonkit-thread-1 ->NK_NK_0|common.PLSharedPreferences|38|sp size 0
+  2263.074 13721 13749 I NK_ConfigManager: kac_cl_commonkit-thread-1 ->NK_NK_0|embedded.j|8|remote config has been disabled
+  2263.074 13721 13749 I NK_PackageUtils: kac_cl_commonkit-thread-1 ->NK_NK_0|common.PackageManagerCompat|59|kitContext: com.huawei.hms.commonkit
+  2263.103 13721 13751 I fwkit_date_utils: [fwkit DateUtil.java:29] init threadLocal
+  2263.117  2929  2947 I fwkit_config: [fwkit CommonKitProvider.java:19] begin get Measurement Binder Cursor
+  2263.124  2929  2947 I FormalHASDK: HAImpl==> onEvent. tag:HmsProfiler, type:1, eventId:kitloadinfo
+  2263.128 13721 13751 E fwkit_SettlementCollUtil: [fwkit SettlementCollectionUtil.java:64] An exception occurred when get udid: com.huawei.android.os.BuildEx
+  2263.130 13721 13751 E fwkit_SettlementCollUtil: [fwkit SettlementCollectionUtil.java:64] An exception occurred when get udid: com.hihonor.android.os.Build
+  2263.131  2929  2947 I FormalHASDK: HAImpl==> onEvent. tag:HmsProfiler, type:0, eventId:kitloadinfo
+  2263.133 13721 13751 I fwkit_kac_kitloader: [fwkit KitLoaderManager.java:134] kit loaded ekr_61800330 already exits, cost :0 ms
+  2263.135 13721 13751 I fwkit_msg_aidl_request: [fwkit AIDLRequest.java:9] execute:
+  2263.172  2929  2947 I fwkit_kams: [fwkit KAMSServiceController.java:64] Kit ComponentName: {com.huawei.hms.ekr/com.huawei.hms.ekr.TaskService}
+  2263.179  2929  2947 I fwkit_kams_scheduler: [fwkit ProcessScheduler.java:35] ==>not support secontainer process, level :0
+  2263.179  2929  2947 I fwkit_kams_stubmanager: [fwkit StubManagerService.java:120] [isBetaKit] pkg@com.huawei.hms.ekr, return isBeta :false
+  2263.180  2929  2947 I fwkit_kams_pr: [fwkit BaseProcessRecord.java:69] com.huawei.hms.runtimekit.stub.HMSKitC3NEStubService9 set to wait for use
+  2263.180  2929  2947 W fwkit_kams_scheduler: [fwkit ProcessScheduler.java:20] updateProcessMapping: invalid package name
+  2263.181  2929  2947 W fwkit_kit_breaker: [fwkit KitBreaker.java:89] infos invalid
+  2263.185  2929  2947 W fwkit_kams_session: [fwkit SessionManager.java:21] [getReuseableSession] session set not found, create new session
+  2263.186 13721 13739 I fwkit_kac_kitloader: [fwkit KitLoaderManager.java:134] kit loaded ekr_61800330 already exits, cost :0 ms
+  2263.197 13721 13749 I NK_NetworkKit: kac_cl_commonkit-thread-1 ->NK_NK_0|NetworkKit|2|init  Version:8.0.1.320  BuildTime:2026-04-03 cp:com.huawei.hms.commonkit
+  2263.197 13721 13749 W NK_ActivityUtil: kac_cl_commonkit-thread-1 ->NK_NK_0|common.ActivityUtil|21|context is not application, register background fail
+  2263.199 13721 13751 I fwkit_msg_aidl_request: [fwkit AIDLRequest.java:22] onRequest ekr.memory/ cost 61ms
+  2263.200 13721 13749 I NK_NetSerManager: kac_cl_commonkit-thread-1 ->NK_NK_0|embedded.m4|4|networkServices map is: {netdiag=com.huawei.hms.network.netdiag.NetDiagnosisService@9c4a8fe, dns=com.huawei.hms.network.dns.DNSService@6ad885f, config=com.huawei.hms.network.conf.api.ConfigService@fea32ac}
+  2263.210 13721 13749 I NK_NetSerManager: kac_cl_commonkit-thread-1 ->NK_NK_0|embedded.m4|5|dnsService,setOptions:
+  2263.213 13721 13749 I NK_NetSerManager: kac_cl_commonkit-thread-1 ->NK_NK_0|embedded.m4|5|netdiagService,setOptions:
+  2263.216 13721 13721 I fwkit_kac_service_help: [fwkit ContainerServiceHelper.java:20] ContainerServiceHelper instance be created!
+  2263.223 13721 13765 W fwkit_EmuiUtil: getEMUIVersionCode :ClassNotFoundException com.huawei.android.os.BuildEx$VERSION
+  2263.225  2929  2947 I fwkit_kams_session: [fwkit SessionManager.java:210] [verifySession] passed!
+  2263.227 13721 13765 E breaker_buildex: An exception occurred while reading SystemProperties: ro.product.model
+  2263.228 13721 13765 I fwkit_MemoryTask: no need to report thread detail
+  2263.236 13721 13765 I fwkit_CountryCodeBean: countryCode by ro.hw.country is: UNKNOWN
+  2263.237 13721 13721 I fwkit_kac_kitloader: [fwkit KitLoaderManager.java:134] kit loaded ekr_61800330 already exits, cost :1 ms
+  2263.241 13721 13721 I fwkit_kac_kitloader: [fwkit KitLoaderManager.java:18] kit application onCreate end:ekr_61800330
+  2263.243 13721 13765 I fwkit_CountryCodeBean: countryCode by SimCountryIso is: cn
+  2263.243 13721 13765 I fwkit_CountryCodeBean: get issue_country code from SIM_COUNTRY
+  2263.245 13721 13721 I fwkit_kac_kitloader: [fwkit KitLoaderManager.java:56] when inject get kit info:ekr_61800330
+  2263.246 13721 13765 I fwkit_EkrUtil: Is China ROM and no need to check ANALYTICS_STATE
+  2263.254 13721 13721 I fwkit_kac_service_dele: [fwkit ServiceDelegateImpl.java:23] kit class no need to reload again!
+  2263.258  2929  2947 I fwkit_kams_stubmanager: [fwkit StubManagerService.java:51] Notify kit ComponentName:{com.huawei.hms.ekr/com.huawei.hms.ekr.TaskService} ,Status: {1} ,stub ComponentName:{com.huawei.hwid/com.huawei.hms.runtimekit.stub.HMSKitC3NEStubService9}
+  2263.258  2929  2947 E fwkit_kims: [fwkit KIMSServiceController.java:8] the componentName is null
+  2263.259  2929  3035 I fwkit_EventRegistry: [fwkit EventRegistry.java:64] dispatchEvent event:b
+  2263.259  2929  2947 I fwkit_kams_pr: [fwkit BaseProcessRecord.java:95] NOTIFY ONSTART SUCCESS:ComponentInfo{com.huawei.hwid/com.huawei.hms.runtimekit.stub.HMSKitC3NEStubService9}ComponentInfo{com.huawei.hms.ekr/com.huawei.hms.ekr.TaskService}
+  2263.260  2929  3044 I fwkit_EvilKitRecognitionService: [fwkit EvilKitRecognitionService.java:26] enter EKRHandler : 1
+  2263.260  2929  3044 I fwkit_EvilKitRecognitionService: [fwkit EvilKitRecognitionService.java:12] kitComponentCreate start
+  2263.265 13721 13754 I fwkit_date_utils: [fwkit DateUtil.java:29] init threadLocal
+  2263.266 13721 13754 I fwkit_HmsProfiler: [fwkit HmsProfiler.java:212] traceApiEvent input : com.huawei.hms.ekr_61800330
+  2263.267 13721 13765 I fwkit_coreapk_utils: packageName: com.huawei.hwid
+  2263.272 13721 13765 I fwkit_proc_utils: init over
+  2263.273  2929  3044 W fwkit_EvilKitRecognitionService: [fwkit EvilKitRecognitionService.java:292] event list is empty
+  2263.273  2929  3044 I fwkit_EvilKitRecognitionService: [fwkit EvilKitRecognitionService.java:127] kitComponentCreate end
+  2263.274  2929  3044 I fwkit_EvilKitRecognitionService: [fwkit EvilKitRecognitionService.java:139] leave EKRHandler
+  2263.275 13721 13749 I NK_NetworkKit: kac_cl_commonkit-thread-1 ->NK_NK_0|NetworkKit|2|init success
+  2263.275 13721 13749 I fwkit_CommonInitUtil: NetworkKit init result:true, app context: com.huawei.hms.commonkit
+  2263.280 13721 13749 I NK_AdvanceNetworkKitProvider: kac_cl_commonkit-thread-1 ->NK_NK_0|AdvanceNetworkKitProvider|52|AdvanceNetworkKitProvider is dynamic provider result : false
+  2263.282 13721 13749 I NetworkSdk_NK_Logger: [HMSCore NetworkLog.java:1] kac_cl_commonkit-thread-1 ->NK_NK_0|common.Logger|27|logger = com.huawei.hms.network.embedded.h1$k@eee2b44false
+  2263.282 13721 13749 I fwkit_CommonInitUtil: enable HA Listen. 
+  2263.283 13721 13749 I fwkit_CommonInitUtil: enable ipv6 preferred.
+  2263.284 13721 13749 I NetworkSdk_PolicyService: [HMSCore NetworkLog.java:1] kac_cl_commonkit-thread-1 ->NK_NK_0|httpclient.excutor.ProcessPolicyNetworkService|20|options = {"enable_ipv6_preferred":true}
+  2263.286 13721 13749 I NetworkSdk_NetSerManager: [HMSCore NetworkLog.java:1] kac_cl_commonkit-thread-1 ->NK_NK_0|embedded.m4|5|dnsService,setOptions:
+  2263.289 13721 13749 I NetworkSdk_NetSerManager: [HMSCore NetworkLog.java:1] kac_cl_commonkit-thread-1 ->NK_NK_0|embedded.m4|5|netdiagService,setOptions:
+  2263.315 13721 13767 I SecurityComp20000302: SX509TM: loadBksCA
+  2263.317 13721 13749 I NetworkSdk_NetworkKit: [HMSCore NetworkLog.java:1] NK_NK_0 ->NK_NK_0|NetworkKit|2|init success
+  2263.319 13721 13767 I SecurityComp20000302: SX509TM:  get bks from assets 
+  2263.351 13721 13767 E SecurityComp20000302: EncryptUtil: exception : Failed resolution of: Lorg/bouncycastle/crypto/engines/AESEngine; , you should implementation bcprov-jdk15on library
+  2263.363 13721 13767 I SecurityComp20000302: SecureX509SingleInstance: get assets bks
+  2263.426 13721 13765 I fwkit_profiler_util: sample upload state has been exist:false
+  2263.426 13721 13765 I fwkit_MemoryTask: memory info need sampled, no record into db.
+  2263.523 13721 13767 D NetworkSecurityConfig: Using Network Security Config from resource network_security_config debugBuild: false
+  2263.539 13721 13765 I fwkit_MemoryTask: memory info need sampled, no record into db.
+  2263.655 13721 13765 I fwkit_MemoryTask: memory info need sampled, no record into db.
+  2263.655  2929  3044 I fwkit_EvilKitRecognitionService: [fwkit EvilKitRecognitionService.java:26] enter EKRHandler : 6
+  2263.655  2929  3044 W fwkit_coresm: [fwkit CoreServiceManager.java:48] Get activity Service !but its binder is null!
+  2263.658  2929  3044 I fwkit_utils: [fwkit CommonUtils.java:94] getRamSize ramSize: 4
+  2263.659  2929  3044 W fwkit_EvilKitRecognitionService: [fwkit EvilKitRecognitionService.java:48] getPersistentStartUpMem tmpMap not contains ramSize: 4
+  2263.662  2929  3044 I fwkit_EvilKitRecognitionService: [fwkit EvilKitRecognitionService.java:139] leave EKRHandler
+  2263.804 13721 13765 I fwkit_MemoryTask: memory info need sampled, no record into db.
+  2263.804  2929  3044 I fwkit_EvilKitRecognitionService: [fwkit EvilKitRecognitionService.java:26] enter EKRHandler : 8
+  2263.805  2929  3044 W fwkit_EvilKitRecognitionService: [fwkit EvilKitRecognitionService.java:38] getMemThreshold not contains 4
+  2263.806  2929  3044 W fwkit_EvilKitRecognitionService: [fwkit EvilKitRecognitionService.java:38] getCoreResidentMem remoteConfig memory is invalid, use default: 153600
+  2263.807  2929  3044 I fwkit_EvilKitRecognitionService: [fwkit EvilKitRecognitionService.java:139] leave EKRHandler
+  2263.814  2929  2946 I fwkit_kams_stubmanager: [fwkit StubManagerService.java:51] Notify kit ComponentName:{com.huawei.hms.ekr/com.huawei.hms.ekr.TaskService} ,Status: {2} ,stub ComponentName:{com.huawei.hwid/com.huawei.hms.runtimekit.stub.HMSKitC3NEStubService9}
+  2263.814 13721 13756 I fwkit_date_utils: [fwkit DateUtil.java:29] init threadLocal
+  2263.815  2929  2946 I fwkit_kams_pr: [fwkit BaseProcessRecord.java:61] stub status wait for use!
+  2263.815 13721 13756 I fwkit_HmsProfiler: [fwkit HmsProfiler.java:212] traceApiEvent input : com.huawei.hms.ekr_61800330
+  2263.815  2929  2946 I fwkit_kams_pr: [fwkit BaseProcessRecord.java:112] NOTIFY ONSTOP SUCCESS:{com.huawei.hwid/com.huawei.hms.runtimekit.stub.HMSKitC3NEStubService9}{com.huawei.hms.ekr/com.huawei.hms.ekr.TaskService}
+  2263.816  2929  3035 I fwkit_EventRegistry: [fwkit EventRegistry.java:64] dispatchEvent event:c
+  2263.903 13721 13735 W System  : A resource failed to call close. 
+  2263.903 13721 13735 I chatty  : uid=10130(com.huawei.hwid) FinalizerDaemon identical 1 line
+  2263.903 13721 13735 W System  : A resource failed to call close. 
+  2264.654   391   490 I MAL-Daemon:  (      mfi_task_bootstrap,  421) mfi_task_bootstrap(): an event EVENT_ATMNGR_URC(18) with seq(-2) and len(4108) incoming from FD 31!!
+  2264.655   391   636 I MAL-RDS :  (         rds_ru_urc_hdlr, 2528) [RDS-I][RDS][rds_ru_urc_hdlr] get URC data: +ECSQ: 13,28,1,1,1,-54,-450,7,0,3
+  2266.902 13721 13740 I hwid.container: Waiting for a blocking GC ProfileSaver
+  2266.918 13721 13740 I hwid.container: WaitForGcToComplete blocked ProfileSaver on ClassLinker for 16.024ms
+  2267.030   391   503 I MAL-DATAMNGR:  (           dm_read_event,  114) [DMGR-INF] read_netlink: nlmsg_type = 28
+  2268.842   493   493 I thermal_repeater: [recvMdThermalInfo] ret=25, strLen=127,  3, 39, -127, 0, 32767, 1
+  2269.775   391   490 I MAL-Daemon:  (      mfi_task_bootstrap,  421) mfi_task_bootstrap(): an event EVENT_ATMNGR_URC(18) with seq(-2) and len(4108) incoming from FD 31!!
+  2269.776   391   636 I MAL-RDS :  (         rds_ru_urc_hdlr, 2528) [RDS-I][RDS][rds_ru_urc_hdlr] get URC data: +ECSQ: 12,28,1,1,1,-55,-450,7,-2,3
+  2269.776   391   636 E MAL-RDS :  (  rds_ru_3gpp_status_ind, 2081) [RDS-E][RU][EVENT_RU_DM_3GPP_STATUS_IND] Invalid u43gpp_status:0x8 sim:0
+  2269.776   391   636 I MAL-RDS :  (  ru_ims_ctrl_send_atcmd, 1617) [RDS-I][RU][ru_ims_ctrl_send_atcmd] (old:new) => wfc(0:0), volte(1:1), video(0:0), opid(2) | system property(0,1,0)
+  2269.776   391   636 I MAL-RDS :  (          rds_ru_rpl_gen, 8950) [RDS-I][RU][rds_ru_rpl_gen][RDS] Current policy: fgimsolte_en<1>, fgwfc_en<0>, erdspolicy<3>,||Threshold i4wifirssih<-75>, i4wifirssil<-85>, i4wifirssih_ho<-78>, i4wifirssil_ho<-88>, i4wifisnrh<10>, i4wifisnrl<6>||Threshold i4ltersrph<-106>, i4ltersrpm<-111>, i4ltersrpl<-116>, i4ltersrqh<5>, i4ltersrqm<3>, i4ltersrql<1>||Threshold i43grscph<-85>, i43grscpl<-105>, i42grssih<-83>, i42grssil<-103>, i4lterssnrl<-3>, i43gecnol<-15>||current rds ru status: i4wifirssi<-127>, i4wifisnr<60>, i4ltersrp<-113>, i4ltersrq<12>, u4active_ran<1>, i4lterssnr<0>, i43grscp<-141>, i43gecno<-24>, i42grssi<-141>, u4sig_reg_status<7>, flight_mode_activating<0>||current wifi backhaul : rtp_plr<0>, rtp_jitter<0>, ping_ind<0>, ltecsr_ind<0>, ||pcscf acc stat : volte<1>, wfc<1> || wifi acc_ctrl:<0>, || current MD stat : MD1 roam <1>, ||Call stat : IR92<0>, IR94<0>, SMS over IP<0>, IPME<0>, sim<0>
+  2270.322 11297 11491 I PhenotypeProcessReaper: Memory state is: 125
+  2274.895   391   490 I MAL-Daemon:  (      mfi_task_bootstrap,  421) mfi_task_bootstrap(): an event EVENT_ATMNGR_URC(18) with seq(-2) and len(4108) incoming from FD 31!!
+  2274.896   391   636 I MAL-RDS :  (         rds_ru_urc_hdlr, 2528) [RDS-I][RDS][rds_ru_urc_hdlr] get URC data: +ECSQ: 13,29,1,1,1,-53,-448,7,1,3
+  2274.896   391   636 E MAL-RDS :  (  rds_ru_3gpp_status_ind, 2081) [RDS-E][RU][EVENT_RU_DM_3GPP_STATUS_IND] Invalid u43gpp_status:0x8 sim:0
+  2274.896   391   636 I MAL-RDS :  (  ru_ims_ctrl_send_atcmd, 1617) [RDS-I][RU][ru_ims_ctrl_send_atcmd] (old:new) => wfc(0:0), volte(1:1), video(0:0), opid(2) | system property(0,1,0)
+  2274.897   391   636 I MAL-RDS :  (          rds_ru_rpl_gen, 8950) [RDS-I][RU][rds_ru_rpl_gen][RDS] Current policy: fgimsolte_en<1>, fgwfc_en<0>, erdspolicy<3>,||Threshold i4wifirssih<-75>, i4wifirssil<-85>, i4wifirssih_ho<-78>, i4wifirssil_ho<-88>, i4wifisnrh<10>, i4wifisnrl<6>||Threshold i4ltersrph<-106>, i4ltersrpm<-111>, i4ltersrpl<-116>, i4ltersrqh<5>, i4ltersrqm<3>, i4ltersrql<1>||Threshold i43grscph<-85>, i43grscpl<-105>, i42grssih<-83>, i42grssil<-103>, i4lterssnrl<-3>, i43gecnol<-15>||current rds ru status: i4wifirssi<-127>, i4wifisnr<60>, i4ltersrp<-112>, i4ltersrq<13>, u4active_ran<1>, i4lterssnr<0>, i43grscp<-141>, i43gecno<-24>, i42grssi<-141>, u4sig_reg_status<7>, flight_mode_activating<0>||current wifi backhaul : rtp_plr<0>, rtp_jitter<0>, ping_ind<0>, ltecsr_ind<0>, ||pcscf acc stat : volte<1>, wfc<1> || wifi acc_ctrl:<0>, || current MD stat : MD1 roam <1>, ||Call stat : IR92<0>, IR94<0>, SMS over IP<0>, IPME<0>, sim<0>
+  2278.860   493   493 I thermal_repeater: [recvMdThermalInfo] ret=25, strLen=127,  3, 39, -127, 0, 32767, 1
+  2280.014   391   490 I MAL-Daemon:  (      mfi_task_bootstrap,  421) mfi_task_bootstrap(): an event EVENT_ATMNGR_URC(18) with seq(-2) and len(4108) incoming from FD 31!!
+  2280.015   391   636 I MAL-RDS :  (         rds_ru_urc_hdlr, 2528) [RDS-I][RDS][rds_ru_urc_hdlr] get URC data: +ECSQ: 13,28,1,1,1,-53,-449,7,0,3
+  2280.015   391   636 E MAL-RDS :  (  rds_ru_3gpp_status_ind, 2081) [RDS-E][RU][EVENT_RU_DM_3GPP_STATUS_IND] Invalid u43gpp_status:0x8 sim:0
+  2280.015   391   636 I MAL-RDS :  (  ru_ims_ctrl_send_atcmd, 1617) [RDS-I][RU][ru_ims_ctrl_send_atcmd] (old:new) => wfc(0:0), volte(1:1), video(0:0), opid(2) | system property(0,1,0)
+  2280.016   391   636 I MAL-RDS :  (          rds_ru_rpl_gen, 8950) [RDS-I][RU][rds_ru_rpl_gen][RDS] Current policy: fgimsolte_en<1>, fgwfc_en<0>, erdspolicy<3>,||Threshold i4wifirssih<-75>, i4wifirssil<-85>, i4wifirssih_ho<-78>, i4wifirssil_ho<-88>, i4wifisnrh<10>, i4wifisnrl<6>||Threshold i4ltersrph<-106>, i4ltersrpm<-111>, i4ltersrpl<-116>, i4ltersrqh<5>, i4ltersrqm<3>, i4ltersrql<1>||Threshold i43grscph<-85>, i43grscpl<-105>, i42grssih<-83>, i42grssil<-103>, i4lterssnrl<-3>, i43gecnol<-15>||current rds ru status: i4wifirssi<-127>, i4wifisnr<60>, i4ltersrp<-113>, i4ltersrq<13>, u4active_ran<1>, i4lterssnr<0>, i43grscp<-141>, i43gecno<-24>, i42grssi<-141>, u4sig_reg_status<7>, flight_mode_activating<0>||current wifi backhaul : rtp_plr<0>, rtp_jitter<0>, ping_ind<0>, ltecsr_ind<0>, ||pcscf acc stat : volte<1>, wfc<1> || wifi acc_ctrl:<0>, || current MD stat : MD1 roam <1>, ||Call stat : IR92<0>, IR94<0>, SMS over IP<0>, IPME<0>, sim<0>
+  2285.134   391   490 I MAL-Daemon:  (      mfi_task_bootstrap,  421) mfi_task_bootstrap(): an event EVENT_ATMNGR_URC(18) with seq(-2) and len(4108) incoming from FD 31!!
+  2285.134   391   636 I MAL-RDS :  (         rds_ru_urc_hdlr, 2528) [RDS-I][RDS][rds_ru_urc_hdlr] get URC data: +ECSQ: 12,28,1,1,1,-55,-449,7,0,3
+  2285.134   391   636 E MAL-RDS :  (  rds_ru_3gpp_status_ind, 2081) [RDS-E][RU][EVENT_RU_DM_3GPP_STATUS_IND] Invalid u43gpp_status:0x8 sim:0
+  2285.134   391   636 I MAL-RDS :  (  ru_ims_ctrl_send_atcmd, 1617) [RDS-I][RU][ru_ims_ctrl_send_atcmd] (old:new) => wfc(0:0), volte(1:1), video(0:0), opid(2) | system property(0,1,0)
+  2285.135   391   636 I MAL-RDS :  (          rds_ru_rpl_gen, 8950) [RDS-I][RU][rds_ru_rpl_gen][RDS] Current policy: fgimsolte_en<1>, fgwfc_en<0>, erdspolicy<3>,||Threshold i4wifirssih<-75>, i4wifirssil<-85>, i4wifirssih_ho<-78>, i4wifirssil_ho<-88>, i4wifisnrh<10>, i4wifisnrl<6>||Threshold i4ltersrph<-106>, i4ltersrpm<-111>, i4ltersrpl<-116>, i4ltersrqh<5>, i4ltersrqm<3>, i4ltersrql<1>||Threshold i43grscph<-85>, i43grscpl<-105>, i42grssih<-83>, i42grssil<-103>, i4lterssnrl<-3>, i43gecnol<-15>||current rds ru status: i4wifirssi<-127>, i4wifisnr<60>, i4ltersrp<-113>, i4ltersrq<12>, u4active_ran<1>, i4lterssnr<0>, i43grscp<-141>, i43gecno<-24>, i42grssi<-141>, u4sig_reg_status<7>, flight_mode_activating<0>||current wifi backhaul : rtp_plr<0>, rtp_jitter<0>, ping_ind<0>, ltecsr_ind<0>, ||pcscf acc stat : volte<1>, wfc<1> || wifi acc_ctrl:<0>, || current MD stat : MD1 roam <1>, ||Call stat : IR92<0>, IR94<0>, SMS over IP<0>, IPME<0>, sim<0>
+  2285.782   391   503 I MAL-DATAMNGR:  (           dm_read_event,  114) [DMGR-INF] read_netlink: nlmsg_type = 52
+  2285.782   391   503 I MAL-DATAMNGR:  (          dm_msg_handler,  342) [DMGR-INF] msg_handler: RTM_NEWPREFIX : wlan0
+  2285.782   391   503 I MAL-DATAMNGR:  (     dm_parse_new_prefix,  266) [DMGR-INF] prefix_len 64
+  2285.782   391   503 I MAL-DATAMNGR:  (     dm_parse_new_prefix,  273) [DMGR-INF] prefix_ifindex 29 if_name wlan0
+  2285.782   391   503 D MAL-DATAMNGR:  (     dm_parse_new_prefix,  307) [DMGR-DBG] ignore prefix_msg of wlan0
+  2288.876   493   493 I thermal_repeater: [recvMdThermalInfo] ret=25, strLen=127,  3, 39, -127, 0, 32767, 1
+  2290.254   391   490 I MAL-Daemon:  (      mfi_task_bootstrap,  421) mfi_task_bootstrap(): an event EVENT_ATMNGR_URC(18) with seq(-2) and len(4108) incoming from FD 31!!
+  2290.255   391   636 I MAL-RDS :  (         rds_ru_urc_hdlr, 2528) [RDS-I][RDS][rds_ru_urc_hdlr] get URC data: +ECSQ: 13,28,1,1,1,-54,-450,7,-1,3
+  2290.255   391   636 E MAL-RDS :  (  rds_ru_3gpp_status_ind, 2081) [RDS-E][RU][EVENT_RU_DM_3GPP_STATUS_IND] Invalid u43gpp_status:0x8 sim:0
+  2290.255   391   636 I MAL-RDS :  (  ru_ims_ctrl_send_atcmd, 1617) [RDS-I][RU][ru_ims_ctrl_send_atcmd] (old:new) => wfc(0:0), volte(1:1), video(0:0), opid(2) | system property(0,1,0)
+  2290.256   391   636 I MAL-RDS :  (          rds_ru_rpl_gen, 8950) [RDS-I][RU][rds_ru_rpl_gen][RDS] Current policy: fgimsolte_en<1>, fgwfc_en<0>, erdspolicy<3>,||Threshold i4wifirssih<-75>, i4wifirssil<-85>, i4wifirssih_ho<-78>, i4wifirssil_ho<-88>, i4wifisnrh<10>, i4wifisnrl<6>||Threshold i4ltersrph<-106>, i4ltersrpm<-111>, i4ltersrpl<-116>, i4ltersrqh<5>, i4ltersrqm<3>, i4ltersrql<1>||Threshold i43grscph<-85>, i43grscpl<-105>, i42grssih<-83>, i42grssil<-103>, i4lterssnrl<-3>, i43gecnol<-15>||current rds ru status: i4wifirssi<-127>, i4wifisnr<60>, i4ltersrp<-113>, i4ltersrq<13>, u4active_ran<1>, i4lterssnr<0>, i43grscp<-141>, i43gecno<-24>, i42grssi<-141>, u4sig_reg_status<7>, flight_mode_activating<0>||current wifi backhaul : rtp_plr<0>, rtp_jitter<0>, ping_ind<0>, ltecsr_ind<0>, ||pcscf acc stat : volte<1>, wfc<1> || wifi acc_ctrl:<0>, || current MD stat : MD1 roam <1>, ||Call stat : IR92<0>, IR94<0>, SMS over IP<0>, IPME<0>, sim<0>
+  2293.090 11297 11375 I Finsky  : [451] Stats for Executor: BlockingExecutor xxf@13a688d[Running, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 50]
+  2293.094 11297 11375 I Finsky  : [451] Stats for Executor: LightweightExecutor xxf@bc7aa42[Running, pool size = 4, active threads = 0, queued tasks = 0, completed tasks = 244]
+  2293.519 11297 11375 I Finsky  : [451] Stats for Executor: bgExecutor xxf@aefca53[Running, pool size = 4, active threads = 0, queued tasks = 0, completed tasks = 285]

@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "identity": [
+    "eng.desmon.20260907.031627",
+    "a6177466-b0bb-4450-b031-6a6bf27cd9c5",
+    "1",
+    "0"
+  ],
+  "rows": [
+    {
+      "path": "system/priv-app/ImsService/ImsService.apk",
+      "original_sha256": "c762f544596c1066c1ed36feb78ee00d7035262bf087572a7c8026f2f8629a8b",
+      "product_sha256": "13147d29addc0eba0ce2af3add292edaf4b14414c79384db927783ff380e7d77",
+      "installed_build17_sha256": "13147d29addc0eba0ce2af3add292edaf4b14414c79384db927783ff380e7d77",
+      "matches_product19": true
+    },
+    {
+      "path": "system/framework/mediatek-wfo-legacy.jar",
+      "original_sha256": "a0dbdcf9b3b5fe9fa678a03da4853e34958de09ca1adca28747e6e7ded30ecca",
+      "product_sha256": "ed8cb4e0d19e9624600fd36fda245f42d3ae587c78663a29636f7dd79663d017",
+      "installed_build17_sha256": "ed8cb4e0d19e9624600fd36fda245f42d3ae587c78663a29636f7dd79663d017",
+      "matches_product19": true
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+PASS close-pending: accepted=0 stale=0 published=0; cache consumers and cleanup checked

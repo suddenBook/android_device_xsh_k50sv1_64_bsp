@@ -1,0 +1,86 @@
+=== storage manager view (microSD) ===
+--- volumes ---
+private mounted null
+emulated mounted null
+--- has-adoptable ---
+1
+
+=== does framework think we have light/proximity? ===
+  mPendingRequestLocked=policy=OFF, useProximitySensor=false, screenBrightnessOverride=-1, useAutoBrightness=false, screenAutoBrightnessAdjustmentOverride=NaN, screenLowPowerBrightnessFactor=1.0, blockScreenOn=false, lowPowerMode=false, boostScreenBrightness=false, dozeScreenBrightness=-1, dozeScreenState=UNKNOWN
+  mUseSoftwareAutoBrightnessConfig=false
+  mPowerRequest=policy=OFF, useProximitySensor=false, screenBrightnessOverride=-1, useAutoBrightness=false, screenAutoBrightnessAdjustmentOverride=NaN, screenLowPowerBrightnessFactor=1.0, blockScreenOn=false, lowPowerMode=false, boostScreenBrightness=false, dozeScreenBrightness=-1, dozeScreenState=UNKNOWN
+  mProximitySensor=null
+  mProximitySensorEnabled=false
+--- power manager sensor flags ---
+  mIsPowered=true
+  mProximityPositive=false
+  mRequestWaitForNegativeProximity=false
+  mSuspendWhenScreenOffDueToProximityConfig=false
+  mIsPowered=true
+
+=== features declared by the framework (permissions/*.xml) ===
+feature:android.hardware.audio.output
+feature:android.hardware.bluetooth
+feature:android.hardware.bluetooth_le
+feature:android.hardware.camera
+feature:android.hardware.camera.any
+feature:android.hardware.camera.autofocus
+feature:android.hardware.camera.flash
+feature:android.hardware.camera.front
+feature:android.hardware.faketouch
+feature:android.hardware.location
+feature:android.hardware.location.gps
+feature:android.hardware.location.network
+feature:android.hardware.microphone
+feature:android.hardware.opengles.aep
+feature:android.hardware.ram.normal
+feature:android.hardware.screen.landscape
+feature:android.hardware.screen.portrait
+feature:android.hardware.sensor.accelerometer
+feature:android.hardware.telephony
+feature:android.hardware.telephony.gsm
+feature:android.hardware.telephony.ims
+feature:android.hardware.touchscreen
+feature:android.hardware.touchscreen.multitouch
+feature:android.hardware.touchscreen.multitouch.distinct
+feature:android.hardware.touchscreen.multitouch.jazzhand
+feature:android.hardware.usb.accessory
+feature:android.hardware.usb.host
+feature:android.hardware.wifi
+feature:android.hardware.wifi.direct
+feature:android.hardware.wifi.passpoint
+feature:android.software.activities_on_secondary_displays
+feature:android.software.adoptable_storage
+feature:android.software.app_widgets
+feature:android.software.autofill
+feature:android.software.backup
+feature:android.software.cant_save_state
+feature:android.software.companion_device_setup
+feature:android.software.connectionservice
+feature:android.software.cts
+feature:android.software.device_admin
+feature:android.software.home_screen
+feature:android.software.input_methods
+feature:android.software.live_wallpaper
+feature:android.software.managed_users
+feature:android.software.midi
+feature:android.software.picture_in_picture
+feature:android.software.print
+feature:android.software.secure_lock_screen
+feature:android.software.sip
+feature:android.software.sip.voip
+feature:android.software.voice_recognizers
+feature:android.software.webview
+feature:com.google.android.apps.dialer.SUPPORTED
+feature:com.google.android.feature.EXCHANGE_6_2
+feature:com.google.android.feature.GOOGLE_BUILD
+feature:com.google.android.feature.GOOGLE_EXPERIENCE
+feature:org.lineageos.android
+feature:org.lineageos.audio
+feature:org.lineageos.hardware
+feature:org.lineageos.livedisplay
+feature:org.lineageos.performance
+feature:org.lineageos.profiles
+feature:org.lineageos.settings
+feature:org.lineageos.trust
+feature:reqGlEsVersion=0x30002

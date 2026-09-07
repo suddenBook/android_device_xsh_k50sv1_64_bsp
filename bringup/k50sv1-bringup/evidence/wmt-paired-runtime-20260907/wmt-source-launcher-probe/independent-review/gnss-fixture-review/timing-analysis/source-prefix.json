@@ -1,0 +1,10 @@
+{
+  "source": "runtime/build19-normal-reboot-early/continuous-logcat.txt",
+  "read_prefix_bytes": 20593773,
+  "read_prefix_sha256": "ee702716e1ef29a590b55d444a8aa75bc1ff3aeba557756e493f3a7927233cf6",
+  "selected_time_bounds": [
+    758,
+    764
+  ],
+  "selected_lines": 2464
+}

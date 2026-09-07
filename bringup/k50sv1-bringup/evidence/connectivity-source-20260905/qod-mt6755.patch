@@ -1,0 +1,146 @@
+diff --git a/common/common_main/platform/mt6755.c b/common/common_main/platform/mt6755.c
+index 99c0889..7299f7f 100644
+--- a/common/common_main/platform/mt6755.c
++++ b/common/common_main/platform/mt6755.c
+@@ -674,7 +674,7 @@ static INT32 consys_hw_vcn18_ctrl(MTK_WCN_BOOL enable)
+ #endif
+ #else
+ 		if (reg_VCN18) {
+-			regulator_set_voltage(reg_VCN18, VOL_1800, VOL_1800);
++			regulator_set_voltage(reg_VCN18, VOL_1800 * 1000, VOL_1800 * 1000);
+ 			if (regulator_enable(reg_VCN18))
+ 				WMT_PLAT_PR_ERR("enable VCN18 fail\n");
+ 			else
+@@ -739,7 +739,7 @@ static INT32 consys_hw_vcn28_ctrl(UINT32 enable)
+ #endif
+ #else
+ 		if (reg_VCN28) {
+-			regulator_set_voltage(reg_VCN28, VOL_2800, VOL_2800);
++			regulator_set_voltage(reg_VCN28, VOL_2800 * 1000, VOL_2800 * 1000);
+ 			if (regulator_enable(reg_VCN28))
+ 				WMT_PLAT_PR_ERR("WMT do VCN28 PMIC on fail!\n");
+ 		}
+@@ -827,7 +827,7 @@ static INT32 consys_hw_bt_vcn33_ctrl(UINT32 enable)
+ #endif
+ #else
+ 		if (reg_VCN33_BT) {
+-			regulator_set_voltage(reg_VCN33_BT, VOL_3300, VOL_3300);
++			regulator_set_voltage(reg_VCN33_BT, VOL_3300 * 1000, VOL_3300 * 1000);
+ 			if (regulator_enable(reg_VCN33_BT))
+ 				WMT_PLAT_PR_ERR("WMT do BT PMIC on fail!\n");
+ 		}
+@@ -883,7 +883,7 @@ static INT32 consys_hw_wifi_vcn33_ctrl(UINT32 enable)
+ #endif
+ #else
+ 		if (reg_VCN33_WIFI) {
+-			regulator_set_voltage(reg_VCN33_WIFI, VOL_3300, VOL_3300);
++			regulator_set_voltage(reg_VCN33_WIFI, VOL_3300 * 1000, VOL_3300 * 1000);
+ 			if (regulator_enable(reg_VCN33_WIFI))
+ 				WMT_PLAT_PR_ERR("WMT do WIFI PMIC on fail!\n");
+ 		}
+diff --git a/wlan/core/gen2/common/dump.c b/wlan/core/gen2/common/dump.c
+index 812ccbe..986bac0 100644
+--- a/wlan/core/gen2/common/dump.c
++++ b/wlan/core/gen2/common/dump.c
+@@ -79,15 +79,18 @@ VOID dumpMemory8IEOneLine(IN PUINT_8 aucBSSID, IN PUINT_8 pucStartAddr, IN UINT_
+ 	kalMemZero(pucMsg, BUF_MSG_LENGTH);
+ 	offsetMsg = 0;
+ 
+-	offsetMsg += kalSnprintf(pucMsg + offsetMsg, BUF_MSG_LENGTH - offsetMsg, "[%pM],Len:%u:[", aucBSSID, u4Length);
++	offsetMsg += scnprintf(pucMsg + offsetMsg, BUF_MSG_LENGTH - offsetMsg,
++			       "[%pM],Len:%u:[", aucBSSID, u4Length);
+ 
+ 	if (u4Length > CFG_IE_BUFFER_SIZE)
+ 		u4Length = CFG_IE_BUFFER_SIZE;
+ 
+-	for (i = 0 ; i < u4Length ; i++)
+-		offsetMsg += kalSnprintf(pucMsg + offsetMsg, BUF_MSG_LENGTH - offsetMsg, "%02x,", pucStartAddr[i]);
++	/* Reserve a byte triplet, the closing bracket and the terminator. */
++	for (i = 0; i < u4Length && offsetMsg <= BUF_MSG_LENGTH - 5; i++)
++		offsetMsg += scnprintf(pucMsg + offsetMsg, BUF_MSG_LENGTH - offsetMsg,
++				       "%02x,", pucStartAddr[i]);
+ 
+-	offsetMsg += kalSnprintf(pucMsg + offsetMsg, BUF_MSG_LENGTH - offsetMsg, "%s", "]");
++	scnprintf(pucMsg + offsetMsg, BUF_MSG_LENGTH - offsetMsg, "]");
+ 
+ 	LOG_FUNC("%s\n", pucMsg);
+ 
+diff --git a/wlan/core/gen2/common/wlan_oid.c b/wlan/core/gen2/common/wlan_oid.c
+index 4eb1e78..c63f57d 100644
+--- a/wlan/core/gen2/common/wlan_oid.c
++++ b/wlan/core/gen2/common/wlan_oid.c
+@@ -1571,8 +1571,6 @@ wlanoidSetAuthMode(IN P_ADAPTER_T prAdapter,
+ 		   IN PVOID pvSetBuffer, IN UINT_32 u4SetBufferLen, OUT PUINT_32 pu4SetInfoLen)
+ {
+ 	P_GLUE_INFO_T prGlueInfo;
+-	UINT_32 i, u4AkmSuite;
+-	P_DOT11_RSNA_CONFIG_AUTHENTICATION_SUITES_ENTRY prEntry;
+ 
+ 	DEBUGFUNC("wlanoidSetAuthMode");
+ 
+@@ -1678,6 +1676,9 @@ wlanoidSetAuthMode(IN P_ADAPTER_T prAdapter,
+ #endif
+ 
+ #if 0
++	UINT_32 i, u4AkmSuite;
++	P_DOT11_RSNA_CONFIG_AUTHENTICATION_SUITES_ENTRY prEntry;
++
+ 	if (prAdapter->rWifiVar.rConnSettings.eAuthMode >= AUTH_MODE_WPA) {
+ 		switch (prAdapter->rWifiVar.rConnSettings.eAuthMode) {
+ 		case AUTH_MODE_WPA:
+diff --git a/wlan/core/gen2/os/linux/gl_init.c b/wlan/core/gen2/os/linux/gl_init.c
+index 9ca17f2..f65d5f0 100644
+--- a/wlan/core/gen2/os/linux/gl_init.c
++++ b/wlan/core/gen2/os/linux/gl_init.c
+@@ -1919,8 +1919,6 @@ static int wlanSetMacAddress(struct net_device *ndev, void *addr)
+ 	P_ADAPTER_T prAdapter = NULL;
+ 	P_BSS_INFO_T prAisBssInfo = NULL;
+ 	struct sockaddr *sa = NULL;
+-	UINT_8 aucMacAddr[MAC_ADDR_LEN];
+-	UINT_32 u4BufLen = 0;
+ 
+ 	/**********************************************************************
+ 	 * Check if kernel passes valid data to us                            *
+diff --git a/wlan/core/gen2/os/linux/gl_p2p_kal.c b/wlan/core/gen2/os/linux/gl_p2p_kal.c
+index 3354712..67cec2d 100644
+--- a/wlan/core/gen2/os/linux/gl_p2p_kal.c
++++ b/wlan/core/gen2/os/linux/gl_p2p_kal.c
+@@ -994,7 +994,7 @@ VOID kalP2PIndicateScanDone(IN P_GLUE_INFO_T prGlueInfo, IN BOOLEAN fgIsAbort)
+ 			/* report all queued beacon/probe response frames  to upper layer */
+ 			scanReportBss2Cfg80211(prGlueInfo->prAdapter, BSS_TYPE_P2P_DEVICE, NULL);
+ 
+-			DBGLOG(INIT, TRACE, "p2p_cfg_scan_done, req->wiphy=0x%x, dev->wiphy=0x%x\n",
++			DBGLOG(INIT, TRACE, "p2p_cfg_scan_done, req->wiphy=%p, dev->wiphy=%p\n",
+ 				prScanRequest->wiphy, prGlueP2pInfo->prWdev->wiphy);
+ 			kalCfg80211ScanDone(prScanRequest, fgIsAbort);
+ 		}
+@@ -1727,4 +1727,3 @@ nla_put_failure:
+ 	if (vendor_event)
+ 		kfree_skb(vendor_event);
+ }
+-
+diff --git a/wlan/core/gen2/os/linux/include/gl_kal.h b/wlan/core/gen2/os/linux/include/gl_kal.h
+index 4e454a3..0fa52c4 100644
+--- a/wlan/core/gen2/os/linux/include/gl_kal.h
++++ b/wlan/core/gen2/os/linux/include/gl_kal.h
+@@ -539,20 +539,6 @@ do { \
+  *
+  ******************************************************************/
+ 
+-#define KERNEL_event_trace_printk(ip, fmt, args...)               \
+-do {                                                       \
+-    __trace_printk_check_format(fmt, ##args);              \
+-    connectivity_export_tracing_record_cmdline(current);                \
+-    if (__builtin_constant_p(fmt)) {                       \
+-        static const char *trace_printk_fmt                \
+-          __attribute__((section("__trace_printk_fmt"))) = \
+-            __builtin_constant_p(fmt) ? fmt : NULL;        \
+-                                                           \
+-        __trace_bprintk(ip, trace_printk_fmt, ##args);     \
+-     } else                                                \
+-        __trace_printk(ip, fmt, ##args);                   \
+-} while (0)
+-
+ /*******************************************************************************
+ *                  F U N C T I O N   D E C L A R A T I O N S
+ ********************************************************************************

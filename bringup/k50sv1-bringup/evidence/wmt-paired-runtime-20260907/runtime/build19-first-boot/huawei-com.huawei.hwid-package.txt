@@ -1,0 +1,1806 @@
+Activity Resolver Table:
+  Full MIME Types:
+      text/plain:
+        9dfb9ba com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.TransmitActivityAlias filter 415419f
+          Action: "android.intent.action.SEND"
+          Category: "android.intent.category.DEFAULT"
+          Type: "text/plain"
+      image/*:
+        9dfb9ba com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.TransmitActivityAlias filter 70592ec
+          Action: "android.intent.action.SEND"
+          Category: "android.intent.category.DEFAULT"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+        9dfb9ba com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.TransmitActivityAlias filter eaba6b5
+          Action: "android.intent.action.SEND_MULTIPLE"
+          Category: "android.intent.category.DEFAULT"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+  Base MIME Types:
+      text:
+        9dfb9ba com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.TransmitActivityAlias filter 415419f
+          Action: "android.intent.action.SEND"
+          Category: "android.intent.category.DEFAULT"
+          Type: "text/plain"
+
+  Wild MIME Types:
+      image:
+        9dfb9ba com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.TransmitActivityAlias filter 70592ec
+          Action: "android.intent.action.SEND"
+          Category: "android.intent.category.DEFAULT"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+        9dfb9ba com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.TransmitActivityAlias filter eaba6b5
+          Action: "android.intent.action.SEND_MULTIPLE"
+          Category: "android.intent.category.DEFAULT"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+  Schemes:
+      com.huawei.hwid.braintree:
+        eb4f06b com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.IAPBraintreeBrowserSwitchActivity filter cb6f76d
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "com.huawei.hwid.braintree"
+      huaweipay:
+        20d27c8 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.IAPCustomTabRouterActivity filter f47c597
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "huaweipay"
+          Authority: "thirdpay": -1
+      hms:
+        e691061 com.huawei.hwid/com.huawei.hms.approuter.AppRouterActivity filter fe9168b
+          Action: "android.intent.action.VIEW"
+          Action: "android.nfc.action.NDEF_DISCOVERED"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "https"
+          Scheme: "http"
+          Scheme: "hms"
+          Authority: ".link.cloud.huawei.com": -1 WILD
+          Authority: "link.cloud.huawei.com": -1
+          Path: "PatternMatcher{PREFIX: /}"
+        e691061 com.huawei.hwid/com.huawei.hms.approuter.AppRouterActivity filter 59f2368
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "hms"
+      pay:
+        1bfb786 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.IAPPayActivity filter 31658bb
+          Action: "com.huawei.pay.intent.action.show_pay"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "pay"
+          Authority: "com.huawei.hms.pay.third": -1
+        302847 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.IAPIapSdkInvokeActivity filter b2ef1d8
+          Action: "com.huawei.pay.intent.action.iap_sdk_invoke"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "pay"
+          Authority: "com.huawei.hms.pay.iapsdk": -1
+        eb0f874 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.IAPExternalThirdInvokeActivity filter 498bfa2
+          Action: "com.huawei.pay.intent.action.Hcoin_Third_Invoke"
+          Action: "com.huawei.pay.intent.action.Hcoin_Third_Invoke_Receive"
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "pay"
+          Authority: "com.huawei.hwid.external": -1
+          Authority: "com.huawei.hwid": -1
+      http:
+        ac5519d com.huawei.hwid/com.huawei.hms.fwksdk.stub.AGCLinkActivity filter f92245a
+          Action: "com.huawei.hms.agclink.VIEW_AGC_LINK"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "https"
+          Scheme: "http"
+        e691061 com.huawei.hwid/com.huawei.hms.approuter.AppRouterActivity filter fe9168b
+          Action: "android.intent.action.VIEW"
+          Action: "android.nfc.action.NDEF_DISCOVERED"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "https"
+          Scheme: "http"
+          Scheme: "hms"
+          Authority: ".link.cloud.huawei.com": -1 WILD
+          Authority: "link.cloud.huawei.com": -1
+          Path: "PatternMatcher{PREFIX: /}"
+        e691061 com.huawei.hwid/com.huawei.hms.approuter.AppRouterActivity filter bfbf381
+          Action: "android.nfc.action.NDEF_DISCOVERED"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "https"
+          Scheme: "http"
+      hwid:
+        14fc612 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.IAPSchemeStartActivity filter 2493816
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "hwid"
+          Authority: "platformapi": -1
+        13d01e3 com.huawei.hwid/com.huawei.hwid20.unifyexport.UnifyExportActivity filter 99195dd
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "hwid"
+          Authority: "com.huawei.hwid": -1
+        61f27e0 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDStartUpGuideLoginActivity filter 2042444
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "hwid"
+          Authority: "startup": -1
+      https:
+        ac5519d com.huawei.hwid/com.huawei.hms.fwksdk.stub.AGCLinkActivity filter f92245a
+          Action: "com.huawei.hms.agclink.VIEW_AGC_LINK"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "https"
+          Scheme: "http"
+        e691061 com.huawei.hwid/com.huawei.hms.approuter.AppRouterActivity filter fe9168b
+          Action: "android.intent.action.VIEW"
+          Action: "android.nfc.action.NDEF_DISCOVERED"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "https"
+          Scheme: "http"
+          Scheme: "hms"
+          Authority: ".link.cloud.huawei.com": -1 WILD
+          Authority: "link.cloud.huawei.com": -1
+          Path: "PatternMatcher{PREFIX: /}"
+        e691061 com.huawei.hwid/com.huawei.hms.approuter.AppRouterActivity filter bfbf381
+          Action: "android.nfc.action.NDEF_DISCOVERED"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "https"
+          Scheme: "http"
+      hwads:
+        aa6a99 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.AboutOaidActivity filter e7db77
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "hwads"
+          Authority: "about_oaid": -1
+      hwpps:
+        60315e com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.AdsSimplePrivacyActivity filter 1ea6920
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "hwpps"
+          Authority: "privacy": -1
+        4b3d93f com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.AdsSettingActivity filter b93fb7f
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "hwpps"
+          Authority: "oaid_setting": -1
+        27ee20c com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.AdsSettingMoreActivity filter bf6d09b
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "hwpps"
+          Authority: "oaid_setting_more": -1
+        a2e1755 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.AdsInfoActivity filter e883c38
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "hwpps"
+          Authority: "ad": -1
+        17a056a com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.OaidStatisticActivity filter 9667976
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "hwpps"
+          Authority: "statistics": -1
+        896ca5b com.huawei.hwid/com.huawei.openalliance.ad.ppskit.activity.PPSActivityByDp filter c48b04d
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "hwpps"
+          Authority: "landingpage": -1
+        896ca5b com.huawei.hwid/com.huawei.openalliance.ad.ppskit.activity.PPSActivityByDp filter 938b702
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "hwpps"
+          Authority: "router": -1
+      209207:
+        73e12f8 com.huawei.hwid/com.tencent.tauth.AuthActivity filter cf70e14
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "209207"
+      com.googleusercontent.apps.388076668644-2tv6uncn7tkc36nh75lfmksocrhvvi85:
+        305d3d1 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDHwidRedirectUriReceiverActivity filter e1880e5
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "com.googleusercontent.apps.388076668644-2tv6uncn7tkc36nh75lfmksocrhvvi85"
+
+  Non-Data Actions:
+      com.huawei.sns.sdk.SHOW_GROUP_SELECTOR_VIEW:
+        4ab0e36 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SDKWelcomeActivity filter df514a
+          Action: "com.huawei.sns.sdk.proxy_action_view"
+          Action: "com.huawei.sns.sdk.FRIEND_VIEW"
+          Action: "com.huawei.sns.sdk.MSG_VIEW"
+          Action: "com.huawei.sns.sdk.ASSISTANT_CHAT_VIEW"
+          Action: "com.huawei.android.sns.action.UPDATE_APK_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_FRIEND_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_FRIEND_LIST_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_GROUP_SELECTOR_VIEW"
+          Action: "com.huawei.sns.sdk.CREATE_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FRIEND_DETAIL_VIEW"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.sns.sdk.proxy_action_view:
+        4ab0e36 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SDKWelcomeActivity filter df514a
+          Action: "com.huawei.sns.sdk.proxy_action_view"
+          Action: "com.huawei.sns.sdk.FRIEND_VIEW"
+          Action: "com.huawei.sns.sdk.MSG_VIEW"
+          Action: "com.huawei.sns.sdk.ASSISTANT_CHAT_VIEW"
+          Action: "com.huawei.android.sns.action.UPDATE_APK_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_FRIEND_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_FRIEND_LIST_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_GROUP_SELECTOR_VIEW"
+          Action: "com.huawei.sns.sdk.CREATE_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FRIEND_DETAIL_VIEW"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.pps.action.PPS_DETAIL:
+        eedb137 com.huawei.hwid/com.huawei.openalliance.ad.ppskit.activity.PPSActivity filter ca0e3e4
+          Action: "com.huawei.hms.pps.action.PPS_DETAIL"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid.ACTION_MAIN_SETTINGS:
+        ebd66a4 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDJumpCenterFromSdkActivity filter f40f780
+          Action: "com.huawei.hwid.ACTION_MAIN_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.hem.OOB_OFFLINE_FORCE:
+        2c2dc0d com.huawei.hwid/com.huawei.hms.core.oobe.OobDeployActivity filter 8509067
+          Action: "com.huawei.hms.hem.OOB_CONFIG"
+          Action: "com.huawei.hms.hem.OOB_FORCE"
+          Action: "com.huawei.hms.hem.OOB_OFFLINE"
+          Action: "com.huawei.hms.hem.OOB_OFFLINE_FORCE"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.pps.action.PPS_DSA:
+        b11d7c2 com.huawei.hwid/com.huawei.openalliance.ad.ppskit.activity.DomesticDsaActivity filter c32cb7c
+          Action: "com.huawei.hms.pps.action.PPS_DSA"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid.ACTION_SELFSERVICE:
+        86229d3 com.huawei.hwid/.europe.apk.ui.WebViewSelfServiceActivity filter 9554661
+          Action: "com.huawei.hwid.ACTION_SELFSERVICE"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.pps.action.PPS_KIT_UIENGINE_STUB:
+        6bc4910 com.huawei.hwid/com.huawei.openalliance.ad.ppskit.activity.UiengineStubActivity filter 73ee79d
+          Action: "com.huawei.hms.pps.action.PPS_KIT_UIENGINE_STUB"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid20.push.PUSH_DIALOG:
+        ece2c09 com.huawei.hwid/com.huawei.hwid20.push.PushDialogActivity filter 4c6b586
+          Action: "com.huawei.hwid20.push.PUSH_DIALOG"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.settings.action.UPLOADED_TO_APP_MARKET_EXTRA_APP_SETTINGS:
+        729ae0e com.huawei.hwid/com.huawei.opendevice.open.OAIDSetting filter d36a395
+          Action: "com.huawei.settings.action.UPLOADED_TO_APP_MARKET_EXTRA_APP_SETTINGS"
+          Action: "com.huawei.hms.action.TRACK_MANAGER"
+          Action: "com.huawei.hms.action.HW_ADS"
+      com.huawei.hwid.ACTION.HWID_PRIVACY_STATEMENT:
+        c9b902f com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDPrivacyPolicyActivity filter 2f346bd
+          Action: "com.huawei.hwid.ACTION.HWID_PRIVACY_STATEMENT"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.pps.action.PPS_REWARD:
+        784e63c com.huawei.hwid/com.huawei.openalliance.ad.ppskit.activity.PPSRewardActivity filter 274b813
+          Action: "com.huawei.hms.pps.action.PPS_REWARD"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.action.FEATURE_LIST:
+        247fc5 com.huawei.hwid/com.huawei.hms.core.oobe.PrivacyStatementActivity filter a0f4287
+          Action: "com.huawei.hms.action.FEATURE_LIST"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid.FINGER_AUTH:
+        5d69d1a com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDFingerAuthActivity filter 84140b0
+          Action: "com.huawei.hwid.FINGER_AUTH"
+          Category: "android.intent.category.DEFAULT"
+      com.android.settings.action.EXTRA_SETTINGS:
+        c5b004b com.huawei.hwid/com.huawei.hms.fwksdk.stub.HmsSettingActivity.Alias filter 6d7d08f
+          Action: "com.android.settings.action.EXTRA_SETTINGS"
+        61f27e0 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDStartUpGuideLoginActivity filter 77fead6
+          Action: "com.android.settings.action.EXTRA_SETTINGS"
+      com.huawei.hwid.ACTION_SMS_VERIFICATIONCODE:
+        1d82a28 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDReadSmsVerificationCodeActivity filter 3c7bbf3
+          Action: "com.huawei.hwid.ACTION_SMS_VERIFICATIONCODE"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.pps.action.PPS_SPLASH_FEEDBACK:
+        8d25341 com.huawei.hwid/com.huawei.openalliance.ad.ppskit.activity.SplashFeedbackActivity filter e7d0449
+          Action: "com.huawei.hms.pps.action.PPS_SPLASH_FEEDBACK"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid.ACTION.WEBAUTH:
+        c3170e6 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDWebAuthorizationActivity filter 450e4b2
+          Action: "com.huawei.hwid.ACTION.WEBAUTH"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid.ACTION_LOGOUT_FOR_APP_BY_USERID:
+        9575627 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDLogoutAccountActivity filter d419075
+          Action: "com.huawei.hwid.ACTION_LOGOUT_FOR_APP_BY_USERID"
+          Category: "android.intent.category.DEFAULT"
+      android.intent.action.MAIN:
+        f99c0d4 com.huawei.hwid/com.huawei.hms.StatementActivity filter 96a0fa
+          Action: "android.intent.action.MAIN"
+        52fe27d com.huawei.hwid/.wxapi.WXEntryActivity filter 45cb66b
+          Action: "android.intent.action.MAIN"
+      com.huawei.sns.sdk.SHOW_FRIEND_LIST_VIEW:
+        4ab0e36 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SDKWelcomeActivity filter df514a
+          Action: "com.huawei.sns.sdk.proxy_action_view"
+          Action: "com.huawei.sns.sdk.FRIEND_VIEW"
+          Action: "com.huawei.sns.sdk.MSG_VIEW"
+          Action: "com.huawei.sns.sdk.ASSISTANT_CHAT_VIEW"
+          Action: "com.huawei.android.sns.action.UPDATE_APK_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_FRIEND_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_FRIEND_LIST_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_GROUP_SELECTOR_VIEW"
+          Action: "com.huawei.sns.sdk.CREATE_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FRIEND_DETAIL_VIEW"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.pps.action.PPS_INTERSTITIAL:
+        613b572 com.huawei.hwid/com.huawei.openalliance.ad.ppskit.activity.InterstitialAdActivity filter d7a5a50
+          Action: "com.huawei.hms.pps.action.PPS_INTERSTITIAL"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid.ACTION_START_FOR_GOTO_ACCOUNTCENTER:
+        fd92dc3 com.huawei.hwid/.cloudsettings.ui.HuaweiIDForSettingsActivity filter 6e97eae
+          Action: "com.huawei.hwid.ACTION_START_FOR_GOTO_ACCOUNTCENTER"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.hem.OOB_FORCE:
+        2c2dc0d com.huawei.hwid/com.huawei.hms.core.oobe.OobDeployActivity filter 8509067
+          Action: "com.huawei.hms.hem.OOB_CONFIG"
+          Action: "com.huawei.hms.hem.OOB_FORCE"
+          Action: "com.huawei.hms.hem.OOB_OFFLINE"
+          Action: "com.huawei.hms.hem.OOB_OFFLINE_FORCE"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.action.TRACK_MANAGER:
+        729ae0e com.huawei.hwid/com.huawei.opendevice.open.OAIDSetting filter d36a395
+          Action: "com.huawei.settings.action.UPLOADED_TO_APP_MARKET_EXTRA_APP_SETTINGS"
+          Action: "com.huawei.hms.action.TRACK_MANAGER"
+          Action: "com.huawei.hms.action.HW_ADS"
+      com.huawei.hwid.ACTION_LOGOUT:
+        9575627 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDLogoutAccountActivity filter f35255f
+          Action: "com.huawei.hwid.ACTION_LOGOUT"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.settings.action.EXTRA_APP_SETTINGS_ONLY_FOR_V3:
+        33c1640 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.AccountRecommendListActivity filter d5b2674
+          Action: "com.huawei.settings.action.EXTRA_APP_SETTINGS_ONLY_FOR_V3"
+      com.huawei.intent.action.QRCODE:
+        4dd2979 com.huawei.hwid/com.huawei.sns.ui.qrcode.CheckQRCodeActivity filter 9fe7f3e
+          Action: "com.huawei.intent.action.QRCODE"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid.ACTION_LOGINBIND_FINGERPRINT:
+        61f27e0 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDStartUpGuideLoginActivity filter 5963698
+          Action: "com.huawei.hwid.ACTION_LOGINBIND_FINGERPRINT"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.ppskit.ACTION.OAID_STATISTIC:
+        17a056a com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.OaidStatisticActivity filter daae411
+          Action: "com.huawei.hms.ppskit.ACTION.OAID_STATISTIC"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+      com.huawei.hwid.ACTION_LOGOUT_FOR_APP:
+        9575627 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDLogoutAccountActivity filter 17e0bac
+          Action: "com.huawei.hwid.ACTION_LOGOUT_FOR_APP"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid.GET_AUTH_TOKEN:
+        163b6be com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDGetTokenActivity filter f68592d
+          Action: "com.huawei.hwid.GET_AUTH_TOKEN"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid.action.START_BY_OOBE_APP:
+        61f27e0 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDStartUpGuideLoginActivity filter 2886157
+          Action: "com.huawei.hwid.action.START_BY_OOBE_APP"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.pay.intent.action.OOBE:
+        e16e31f com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.IAPOobeActiivty filter 5bcf931
+          Action: "com.huawei.pay.intent.action.OOBE"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.sns.sdk.FAMILY_GROUP_VIEW:
+        4ab0e36 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SDKWelcomeActivity filter df514a
+          Action: "com.huawei.sns.sdk.proxy_action_view"
+          Action: "com.huawei.sns.sdk.FRIEND_VIEW"
+          Action: "com.huawei.sns.sdk.MSG_VIEW"
+          Action: "com.huawei.sns.sdk.ASSISTANT_CHAT_VIEW"
+          Action: "com.huawei.android.sns.action.UPDATE_APK_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_FRIEND_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_FRIEND_LIST_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_GROUP_SELECTOR_VIEW"
+          Action: "com.huawei.sns.sdk.CREATE_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FRIEND_DETAIL_VIEW"
+          Category: "android.intent.category.DEFAULT"
+      android.intent.action.APPLICATION_PREFERENCES:
+        1ec566c com.huawei.hwid/com.huawei.hms.fwksdk.stub.HmsSettingActivity filter 8b92433
+          Action: "android.intent.action.APPLICATION_PREFERENCES"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.sns.sdk.CREATE_GROUP_VIEW:
+        4ab0e36 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SDKWelcomeActivity filter df514a
+          Action: "com.huawei.sns.sdk.proxy_action_view"
+          Action: "com.huawei.sns.sdk.FRIEND_VIEW"
+          Action: "com.huawei.sns.sdk.MSG_VIEW"
+          Action: "com.huawei.sns.sdk.ASSISTANT_CHAT_VIEW"
+          Action: "com.huawei.android.sns.action.UPDATE_APK_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_FRIEND_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_FRIEND_LIST_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_GROUP_SELECTOR_VIEW"
+          Action: "com.huawei.sns.sdk.CREATE_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FRIEND_DETAIL_VIEW"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.homevision.settings.action.EXTRA_APP_SETTINGS:
+        1ec566c com.huawei.hwid/com.huawei.hms.fwksdk.stub.HmsSettingActivity filter 24e23f0
+          Action: "com.huawei.homevision.settings.action.EXTRA_APP_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid.ACTION_LOGIN_BY_PWD:
+        77de435 com.huawei.hwid/.cloudsettings.ui.LoginByPasswordActivity filter f8e4e47
+          Action: "com.huawei.hwid.ACTION_LOGIN_BY_PWD"
+          Category: "android.intent.category.DEFAULT"
+      android.service.quicksettings.action.QS_TILE_PREFERENCES:
+        22080ca com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.TileLongClickJumperActivity filter 53e2c26
+          Action: "android.service.quicksettings.action.QS_TILE_PREFERENCES"
+      com.huawei.hms.action.oobe.HW_HMS_STATEMENT:
+        f99c0d4 com.huawei.hwid/com.huawei.hms.StatementActivity filter e54a725
+          Action: "com.huawei.hms.action.oobe.HW_HMS_STATEMENT"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.action.oobe.HW_HMS_APP_ANALYTICS_STATEMENT:
+        550923b com.huawei.hwid/com.huawei.hms.AppAnalyticsStatementActivity filter 8ae6ab
+          Action: "com.huawei.hms.action.oobe.HW_HMS_APP_ANALYTICS_STATEMENT"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid.ACTION_BIND_SECURE_PHONE_SUPPORT:
+        61f27e0 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDStartUpGuideLoginActivity filter 727bef1
+          Action: "com.huawei.hwid.ACTION_BIND_SECURE_PHONE_SUPPORT"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid.AgreeUpdate:
+        13d01e3 com.huawei.hwid/com.huawei.hwid20.unifyexport.UnifyExportActivity filter 4945552
+          Action: "com.huawei.hwid.AgreeUpdate"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.sns.sdk.FAMILY_GROUP_DETAIL_VIEW:
+        4ab0e36 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SDKWelcomeActivity filter df514a
+          Action: "com.huawei.sns.sdk.proxy_action_view"
+          Action: "com.huawei.sns.sdk.FRIEND_VIEW"
+          Action: "com.huawei.sns.sdk.MSG_VIEW"
+          Action: "com.huawei.sns.sdk.ASSISTANT_CHAT_VIEW"
+          Action: "com.huawei.android.sns.action.UPDATE_APK_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_FRIEND_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_FRIEND_LIST_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_GROUP_SELECTOR_VIEW"
+          Action: "com.huawei.sns.sdk.CREATE_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FRIEND_DETAIL_VIEW"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.action.OAID_SETTING_MORE:
+        27ee20c com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.AdsSettingMoreActivity filter 593caa
+          Action: "com.huawei.hms.action.OAID_SETTING_MORE"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid.ACTION_INNER_CENTER_ACTIVITY:
+        47e6d58 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDCenterActivity filter 96499fe
+          Action: "com.huawei.hwid.ACTION_INNER_CENTER_ACTIVITY"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.fwksdk.stub.HmsSettingActivity.Alias:
+        c5b004b com.huawei.hwid/com.huawei.hms.fwksdk.stub.HmsSettingActivity.Alias filter 56733ee
+          Action: "com.huawei.hms.fwksdk.stub.HmsSettingActivity.Alias"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.sns.sdk.CHAT_FRIEND_DETAIL_VIEW:
+        4ab0e36 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SDKWelcomeActivity filter df514a
+          Action: "com.huawei.sns.sdk.proxy_action_view"
+          Action: "com.huawei.sns.sdk.FRIEND_VIEW"
+          Action: "com.huawei.sns.sdk.MSG_VIEW"
+          Action: "com.huawei.sns.sdk.ASSISTANT_CHAT_VIEW"
+          Action: "com.huawei.android.sns.action.UPDATE_APK_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_FRIEND_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_FRIEND_LIST_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_GROUP_SELECTOR_VIEW"
+          Action: "com.huawei.sns.sdk.CREATE_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FRIEND_DETAIL_VIEW"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.sns.sdk.FRIEND_VIEW:
+        4ab0e36 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SDKWelcomeActivity filter df514a
+          Action: "com.huawei.sns.sdk.proxy_action_view"
+          Action: "com.huawei.sns.sdk.FRIEND_VIEW"
+          Action: "com.huawei.sns.sdk.MSG_VIEW"
+          Action: "com.huawei.sns.sdk.ASSISTANT_CHAT_VIEW"
+          Action: "com.huawei.android.sns.action.UPDATE_APK_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_FRIEND_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_FRIEND_LIST_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_GROUP_SELECTOR_VIEW"
+          Action: "com.huawei.sns.sdk.CREATE_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FRIEND_DETAIL_VIEW"
+          Category: "android.intent.category.DEFAULT"
+      com.hihonor.homevision.settings.action.EXTRA_APP_SETTINGS:
+        1ec566c com.huawei.hwid/com.huawei.hms.fwksdk.stub.HmsSettingActivity filter 5d89d69
+          Action: "com.hihonor.homevision.settings.action.EXTRA_APP_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid.WLAN_JUMP_WARNING:
+        9358eb1 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDWlanJumpWarningActivity filter 71291b9
+          Action: "com.huawei.hwid.WLAN_JUMP_WARNING"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.hem.OOB_CONFIG:
+        2c2dc0d com.huawei.hwid/com.huawei.hms.core.oobe.OobDeployActivity filter 8509067
+          Action: "com.huawei.hms.hem.OOB_CONFIG"
+          Action: "com.huawei.hms.hem.OOB_FORCE"
+          Action: "com.huawei.hms.hem.OOB_OFFLINE"
+          Action: "com.huawei.hms.hem.OOB_OFFLINE_FORCE"
+          Category: "android.intent.category.DEFAULT"
+      com.android.settings.action.EXTRA_APP_SETTINGS:
+        c5b004b com.huawei.hwid/com.huawei.hms.fwksdk.stub.HmsSettingActivity.Alias filter 9098f1c
+          Action: "com.android.settings.action.EXTRA_APP_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+        b2ddf96 com.huawei.hwid/com.huawei.hms.core.oobe.StatisticsAndAnalyticsPrivacyActivity filter ae8108
+          Action: "com.android.settings.action.EXTRA_APP_SETTINGS"
+        ac1717 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.AdsPrivacyActivity filter b96b2d9
+          Action: "com.android.settings.action.EXTRA_APP_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+        b190704 com.huawei.hwid/com.huawei.hwid20.AccountCenter.CenterActivityAlias filter 5f1b7dc
+          Action: "com.android.settings.action.EXTRA_APP_SETTINGS"
+      com.huawei.hms.pps.action.PPS_NATIVE_COMPLAIN:
+        ae364ed com.huawei.hwid/com.huawei.openalliance.ad.ppskit.activity.AdComplainActivity filter bff414e
+          Action: "com.huawei.hms.pps.action.PPS_NATIVE_COMPLAIN"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.action.proxy.location.PRIVACY_DETAIL:
+        7e05f22 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.LocationPrivacyDetailActivity filter a2ea5b4
+          Action: "com.huawei.hms.action.proxy.location.PRIVACY_DETAIL"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.action.PRIVACY_STATEMENT:
+        247fc5 com.huawei.hwid/com.huawei.hms.core.oobe.PrivacyStatementActivity filter c1dd2c6
+          Action: "com.huawei.hms.action.PRIVACY_STATEMENT"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.action.OAID_SETTING:
+        4b3d93f com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.AdsSettingActivity filter 67e749e
+          Action: "com.huawei.hms.action.OAID_SETTING"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.sns.sdk.COMMON_GROUP_DETAIL_VIEW:
+        4ab0e36 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SDKWelcomeActivity filter df514a
+          Action: "com.huawei.sns.sdk.proxy_action_view"
+          Action: "com.huawei.sns.sdk.FRIEND_VIEW"
+          Action: "com.huawei.sns.sdk.MSG_VIEW"
+          Action: "com.huawei.sns.sdk.ASSISTANT_CHAT_VIEW"
+          Action: "com.huawei.android.sns.action.UPDATE_APK_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_FRIEND_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_FRIEND_LIST_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_GROUP_SELECTOR_VIEW"
+          Action: "com.huawei.sns.sdk.CREATE_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FRIEND_DETAIL_VIEW"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.sns.sdk.FRIEND_DETAIL_VIEW:
+        4ab0e36 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SDKWelcomeActivity filter df514a
+          Action: "com.huawei.sns.sdk.proxy_action_view"
+          Action: "com.huawei.sns.sdk.FRIEND_VIEW"
+          Action: "com.huawei.sns.sdk.MSG_VIEW"
+          Action: "com.huawei.sns.sdk.ASSISTANT_CHAT_VIEW"
+          Action: "com.huawei.android.sns.action.UPDATE_APK_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_FRIEND_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_FRIEND_LIST_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_GROUP_SELECTOR_VIEW"
+          Action: "com.huawei.sns.sdk.CREATE_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FRIEND_DETAIL_VIEW"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.ppskit.ACTION.SIMPLE_PRIVACY:
+        60315e com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.AdsSimplePrivacyActivity filter 4938023
+          Action: "com.huawei.hms.ppskit.ACTION.SIMPLE_PRIVACY"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+      com.huawei.hms.action.oobe.HW_HMS_UPDATE_SETTING:
+        dd10db3 com.huawei.hwid/com.huawei.hms.core.oobe.UpdateSettingActivity filter 9cd90a1
+          Action: "com.huawei.hms.action.oobe.HW_HMS_UPDATE_SETTING"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.pay.ACTION.IAP_PRIVACY_STATEMENT:
+        fa18f70 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.IAPThirdInvokePrivacyStatementActivity filter 98d5384
+          Action: "com.huawei.pay.ACTION.IAP_PRIVACY_STATEMENT"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid.LOGIN_BY_SDK:
+        21e62e9 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDLoginBySDKActivity filter dd2d7ba
+          Action: "com.huawei.hwid.LOGIN_BY_SDK"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.sns.sdk.COMMON_GROUP_VIEW:
+        4ab0e36 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SDKWelcomeActivity filter df514a
+          Action: "com.huawei.sns.sdk.proxy_action_view"
+          Action: "com.huawei.sns.sdk.FRIEND_VIEW"
+          Action: "com.huawei.sns.sdk.MSG_VIEW"
+          Action: "com.huawei.sns.sdk.ASSISTANT_CHAT_VIEW"
+          Action: "com.huawei.android.sns.action.UPDATE_APK_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_FRIEND_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_FRIEND_LIST_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_GROUP_SELECTOR_VIEW"
+          Action: "com.huawei.sns.sdk.CREATE_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FRIEND_DETAIL_VIEW"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.pps.action.PPS_LANDING_DETAIL:
+        2494b6e com.huawei.hwid/com.huawei.openalliance.ad.ppskit.activity.LandingDetailsActivity filter 1e8c26f
+          Action: "com.huawei.hms.pps.action.PPS_LANDING_DETAIL"
+          Category: "android.intent.category.DEFAULT"
+      androidx.ads.identifier.provider.OPEN_SETTINGS:
+        4b3d93f com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.AdsSettingActivity filter 7dcf74c
+          Action: "androidx.ads.identifier.provider.OPEN_SETTINGS"
+      com.huawei.hwid.ACTION.ForegroundSignIn:
+        344d20f com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDForegroundSignInActivity filter fcbcc03
+          Action: "com.huawei.hwid.ACTION.ForegroundSignIn"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.pps.action.PPS_KIT_UIENGINE_STUB_TRANSPARENT:
+        2e8329c com.huawei.hwid/com.huawei.openalliance.ad.ppskit.activity.TransparentUiengineStubActivity filter c8a412
+          Action: "com.huawei.hms.pps.action.PPS_KIT_UIENGINE_STUB_TRANSPARENT"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid.STARTUP_GUIDE:
+        61f27e0 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDStartUpGuideLoginActivity filter 8b0b87b
+          Action: "com.huawei.hwid.STARTUP_GUIDE"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.sns.sdk.ASSISTANT_CHAT_VIEW:
+        4ab0e36 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SDKWelcomeActivity filter df514a
+          Action: "com.huawei.sns.sdk.proxy_action_view"
+          Action: "com.huawei.sns.sdk.FRIEND_VIEW"
+          Action: "com.huawei.sns.sdk.MSG_VIEW"
+          Action: "com.huawei.sns.sdk.ASSISTANT_CHAT_VIEW"
+          Action: "com.huawei.android.sns.action.UPDATE_APK_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_FRIEND_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_FRIEND_LIST_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_GROUP_SELECTOR_VIEW"
+          Action: "com.huawei.sns.sdk.CREATE_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FRIEND_DETAIL_VIEW"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.sns.sdk.MSG_VIEW:
+        4ab0e36 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SDKWelcomeActivity filter df514a
+          Action: "com.huawei.sns.sdk.proxy_action_view"
+          Action: "com.huawei.sns.sdk.FRIEND_VIEW"
+          Action: "com.huawei.sns.sdk.MSG_VIEW"
+          Action: "com.huawei.sns.sdk.ASSISTANT_CHAT_VIEW"
+          Action: "com.huawei.android.sns.action.UPDATE_APK_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_FRIEND_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_FRIEND_LIST_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_GROUP_SELECTOR_VIEW"
+          Action: "com.huawei.sns.sdk.CREATE_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FRIEND_DETAIL_VIEW"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid.ACTION_UNIFY_PASSWORD_VERIFY:
+        5d69d1a com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDFingerAuthActivity filter d9e5b29
+          Action: "com.huawei.hwid.ACTION_UNIFY_PASSWORD_VERIFY"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.action.HW_ADS:
+        729ae0e com.huawei.hwid/com.huawei.opendevice.open.OAIDSetting filter d36a395
+          Action: "com.huawei.settings.action.UPLOADED_TO_APP_MARKET_EXTRA_APP_SETTINGS"
+          Action: "com.huawei.hms.action.TRACK_MANAGER"
+          Action: "com.huawei.hms.action.HW_ADS"
+      com.huawei.sns.sdk.CHAT_GROUP_DETAIL_VIEW:
+        4ab0e36 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SDKWelcomeActivity filter df514a
+          Action: "com.huawei.sns.sdk.proxy_action_view"
+          Action: "com.huawei.sns.sdk.FRIEND_VIEW"
+          Action: "com.huawei.sns.sdk.MSG_VIEW"
+          Action: "com.huawei.sns.sdk.ASSISTANT_CHAT_VIEW"
+          Action: "com.huawei.android.sns.action.UPDATE_APK_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_FRIEND_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_FRIEND_LIST_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_GROUP_SELECTOR_VIEW"
+          Action: "com.huawei.sns.sdk.CREATE_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FRIEND_DETAIL_VIEW"
+          Category: "android.intent.category.DEFAULT"
+      com.android.settings.action.IA_SETTINGS:
+        fd92dc3 com.huawei.hwid/.cloudsettings.ui.HuaweiIDForSettingsActivity filter e98244f
+          Action: "com.android.settings.action.IA_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid.ACTION.ChooseAuthorization:
+        cf144a5 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDChooseAuthorizationActivity filter 67de62
+          Action: "com.huawei.hwid.ACTION.ChooseAuthorization"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.pps.action.PPS_LANDING_DETAIL_CUSTOM:
+        242b07a com.huawei.hwid/com.huawei.openalliance.ad.ppskit.activity.CustomLandingDetailActivity filter 9889c05
+          Action: "com.huawei.hms.pps.action.PPS_LANDING_DETAIL_CUSTOM"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.android.sns.action.UPDATE_APK_VIEW:
+        4ab0e36 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SDKWelcomeActivity filter df514a
+          Action: "com.huawei.sns.sdk.proxy_action_view"
+          Action: "com.huawei.sns.sdk.FRIEND_VIEW"
+          Action: "com.huawei.sns.sdk.MSG_VIEW"
+          Action: "com.huawei.sns.sdk.ASSISTANT_CHAT_VIEW"
+          Action: "com.huawei.android.sns.action.UPDATE_APK_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.CHAT_FRIEND_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_FRIEND_LIST_VIEW"
+          Action: "com.huawei.sns.sdk.SHOW_GROUP_SELECTOR_VIEW"
+          Action: "com.huawei.sns.sdk.CREATE_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_DETAIL_VIEW"
+          Action: "com.huawei.sns.sdk.FAMILY_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.COMMON_GROUP_VIEW"
+          Action: "com.huawei.sns.sdk.FRIEND_DETAIL_VIEW"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.hem.OOB_OFFLINE:
+        2c2dc0d com.huawei.hwid/com.huawei.hms.core.oobe.OobDeployActivity filter 8509067
+          Action: "com.huawei.hms.hem.OOB_CONFIG"
+          Action: "com.huawei.hms.hem.OOB_FORCE"
+          Action: "com.huawei.hms.hem.OOB_OFFLINE"
+          Action: "com.huawei.hms.hem.OOB_OFFLINE_FORCE"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid.START_BY_OOBE:
+        86802b com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDStartUpGuideOobePreActivity filter e6c580a
+          Action: "com.huawei.hwid.START_BY_OOBE"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hwid.ACTION_SMS_PERMISSION:
+        93dc88 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDPermissionRequestActivity filter cd075c8
+          Action: "com.huawei.hwid.ACTION_SMS_PERMISSION"
+          Category: "android.intent.category.DEFAULT"
+
+  MIME Typed Actions:
+      android.intent.action.SEND:
+        9dfb9ba com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.TransmitActivityAlias filter 415419f
+          Action: "android.intent.action.SEND"
+          Category: "android.intent.category.DEFAULT"
+          Type: "text/plain"
+        9dfb9ba com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.TransmitActivityAlias filter 70592ec
+          Action: "android.intent.action.SEND"
+          Category: "android.intent.category.DEFAULT"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      android.intent.action.SEND_MULTIPLE:
+        9dfb9ba com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.TransmitActivityAlias filter eaba6b5
+          Action: "android.intent.action.SEND_MULTIPLE"
+          Category: "android.intent.category.DEFAULT"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+Receiver Resolver Table:
+  Schemes:
+      package:
+        5568621 com.huawei.hwid/com.huawei.hms.fwksdk.broadcast.PackageRemovedReceiver filter a276099
+          Action: "android.intent.action.PACKAGE_REMOVED"
+          Scheme: "package"
+      file:
+        13b5a46 com.huawei.hwid/com.huawei.hms.core.OobeOnBootBroadcastReceiver filter f5787e3
+          Action: "android.intent.action.MEDIA_MOUNTED"
+          Scheme: "file"
+          mPriority=1000, mOrder=0, mHasPartialTypes=false
+
+  Non-Data Actions:
+      com.huawei.android.push.intent.REGISTRATION:
+        3eaf407 com.huawei.hwid/com.huawei.hms.push.HmsPushReceiver filter 2bc105b
+          Action: "com.huawei.android.push.intent.REGISTRATION"
+          Action: "com.huawei.android.push.intent.RECEIVE"
+      androidx.profileinstaller.action.SAVE_PROFILE:
+        5ce3934 com.huawei.hwid/androidx.profileinstaller.ProfileInstallReceiver filter e6d8c36
+          Action: "androidx.profileinstaller.action.SAVE_PROFILE"
+      kitUpdateFromNotification_Persist:
+        74635d com.huawei.hwid/com.huawei.hms.fwksdk.broadcast.PersistCoreReceiver filter f0bf3f
+          Action: "kitUpdateFromNotification_Persist"
+      com.huawei.android.push.intent.RECEIVE:
+        3eaf407 com.huawei.hwid/com.huawei.hms.push.HmsPushReceiver filter 2bc105b
+          Action: "com.huawei.android.push.intent.REGISTRATION"
+          Action: "com.huawei.android.push.intent.RECEIVE"
+      androidx.profileinstaller.action.INSTALL_PROFILE:
+        5ce3934 com.huawei.hwid/androidx.profileinstaller.ProfileInstallReceiver filter 870e0f8
+          Action: "androidx.profileinstaller.action.INSTALL_PROFILE"
+      androidx.profileinstaller.action.SKIP_FILE:
+        5ce3934 com.huawei.hwid/androidx.profileinstaller.ProfileInstallReceiver filter 46b89d1
+          Action: "androidx.profileinstaller.action.SKIP_FILE"
+      androidx.profileinstaller.action.BENCHMARK_OPERATION:
+        5ce3934 com.huawei.hwid/androidx.profileinstaller.ProfileInstallReceiver filter d215737
+          Action: "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+      android.intent.action.PRE_BOOT_COMPLETED:
+        ec2d4d2 com.huawei.hwid/com.huawei.hms.fwksdk.broadcast.OOBEFirstBootReceiver filter d846d55
+          Action: "android.intent.action.PRE_BOOT_COMPLETED"
+      android.intent.action.BOOT_COMPLETED:
+        13b5a46 com.huawei.hwid/com.huawei.hms.core.OobeOnBootBroadcastReceiver filter 3e35e0
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Category: "android.intent.category.DEFAULT"
+          mPriority=1000, mOrder=0, mHasPartialTypes=false
+        238c9a3 com.huawei.hwid/com.huawei.hms.core.HMSOnBootBroadcastReceiver filter 188ef5e
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Category: "android.intent.category.DEFAULT"
+          mPriority=1000, mOrder=0, mHasPartialTypes=false
+      com.huawei.hms.MultiUserSwitchReceiver:
+        6afb4a0 com.huawei.hwid/com.huawei.hms.fwksdk.broadcast.MultiUserSwitchReceiver filter f70a36a
+          Action: "com.huawei.hms.MultiUserSwitchReceiver"
+      android.intent.action.MY_PACKAGE_REPLACED:
+        598d859 com.huawei.hwid/com.huawei.hms.fwksdk.broadcast.HMSAppInstallBroadcastReceiver filter a80d00c
+          Action: "android.intent.action.MY_PACKAGE_REPLACED"
+
+Service Resolver Table:
+  Non-Data Actions:
+      com.huawei.hwid.gameservice.fingerservice:
+        1d56c1e com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.GameFingerService filter 2de543c
+          Action: "com.huawei.hwid.gameservice.fingerservice"
+      com.android.location.service.GeocodeProvider:
+        c045cff com.huawei.hwid/com.huawei.hms.location.geocoder.HwGeoCoderService filter afdec0e permission huawei.android.permission.HW_SIGNATURE_OR_SYSTEM
+          Action: "com.android.location.service.GeocodeProvider"
+      android.location.SettingInjectorService:
+        e6b7acc com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.LocationSettingInjectorService filter 55dc64b permission android.permission.WRITE_SECURE_SETTINGS
+          Action: "android.location.SettingInjectorService"
+      com.huawei.hms.core.oobe.PrivacyService:
+        8f5a115 com.huawei.hwid/com.huawei.hms.core.oobe.PrivacyService filter 3be1eca
+          Action: "com.huawei.hms.core.oobe.PrivacyService"
+      com.uodis.opendevice.OPENIDS_SERVICE:
+        2e82c2a com.huawei.hwid/com.huawei.hms.opendeviceidentifier.OpenDeviceIdentifierBindService filter dfa2440
+          Action: "com.uodis.opendevice.OPENIDS_SERVICE"
+      com.huawei.hms.dexoptservice:
+        ccbca1b com.huawei.hwid/com.huawei.hms.core.service.DexOptService filter 28f6ee6
+          Action: "com.huawei.hms.dexoptservice"
+      android.service.quicksettings.action.QS_TILE:
+        63b77b8 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.FidoStubTileService filter 6c07c27 permission android.permission.BIND_QUICK_SETTINGS_TILE
+          Action: "android.service.quicksettings.action.QS_TILE"
+      androidx.ads.identifier.provider.GET_AD_ID:
+        61c3991 com.huawei.hwid/com.huawei.opendevice.open.identifier.internal.OaidService filter 1aeb3c3
+          Action: "androidx.ads.identifier.provider.GET_AD_ID"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.hms.core.aidlservice:
+        ab4e0f6 com.huawei.hwid/com.huawei.hms.core.service.HMSCoreService filter 45a7828
+          Action: "com.huawei.hms.core.aidlservice"
+          Action: "com.huawei.hms.core.locationaidlservice"
+          mPriority=2147483647, mOrder=0, mHasPartialTypes=false
+      com.huawei.openalliance.ad.INSTALL_SERVICE:
+        fd2ecf7 com.huawei.hwid/com.huawei.android.hms.ppskit.PpsInstallationService filter 22c787d
+          Action: "com.huawei.openalliance.ad.INSTALL_SERVICE"
+      com.huawei.hwid.NOTIFY_APP_STATE_SERVICE:
+        f0c5764 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.GameNotifyAppStateService filter cddf62f
+          Action: "com.huawei.hwid.NOTIFY_APP_STATE_SERVICE"
+      com.android.location.service.v3.NetworkLocationProvider:
+        639ddcd com.huawei.hwid/com.huawei.locatorservice.ability.nlpservice.HwNLPService filter 5b0bb1a permission android.permission.WRITE_SECURE_SETTINGS
+          Action: "com.android.location.service.v3.NetworkLocationProvider"
+      com.huawei.android.hms.CHANNEL_SERVICE:
+        1c61682 com.huawei.hwid/com.huawei.android.hms.ppskit.PpsChannelInfoService filter 2f2eed4
+          Action: "com.huawei.android.hms.CHANNEL_SERVICE"
+      com.huawei.hwid.ICloudInnerService:
+        6bf6193 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDCloudAccountInnerService filter b303b58
+          Action: "com.huawei.hwid.ICloudInnerService"
+      com.huawei.sns.sdk.api.SNS_SDK_OPENAPI:
+        9e985d0 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SNSSDKServiceImpl filter 474a209
+          Action: "com.huawei.sns.sdk.api.SNS_SDK_OPENAPI"
+      com.huawei.android.hms.ppskit.PPS_API_SERVICE:
+        e1389c9 com.huawei.hwid/com.huawei.android.hms.ppskit.PpsCoreService filter 7539372
+          Action: "com.huawei.android.hms.ppskit.PPS_API_SERVICE"
+      com.huawei.hms.core.oobe.OobeService:
+        cc318ce com.huawei.hwid/com.huawei.hms.core.oobe.OobeService filter 8b73a35
+          Action: "com.huawei.hms.core.oobe.OobeService"
+      com.huawei.hms.ads.EXSPLASH_SERVICE:
+        df483ef com.huawei.hwid/com.huawei.hms.ads.ExSplashOutterService filter ebec91f
+          Action: "com.huawei.hms.ads.EXSPLASH_SERVICE"
+      com.huawei.hwid.ICloudService:
+        b292efc com.huawei.hwid/.cloudsettings.services.CloudAccountService filter f90d83b
+          Action: "com.huawei.hwid.ICloudService"
+      com.huawei.android.hms.ppskit.PPS_EXSPLASH_SERVICE:
+        fc1f985 com.huawei.hwid/com.huawei.openalliance.ad.ppskit.exsplash.PPSExSplashService filter 9c374be permission android.permission.WRITE_SECURE_SETTINGS
+          Action: "com.huawei.android.hms.ppskit.PPS_EXSPLASH_SERVICE"
+      com.huawei.hms.kit.kitservice:
+        17bf3da com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.PermissionService filter 57d446c
+          Action: "com.huawei.hms.kit.kitservice"
+          mPriority=2147483647, mOrder=0, mHasPartialTypes=false
+      com.huawei.hms.location.action.ads.geofence:
+        aaf700b com.huawei.hwid/com.huawei.android.hms.ppskit.FenceService filter 40d1f79
+          Action: "com.huawei.hms.location.action.ads.geofence"
+      android.accounts.AccountAuthenticator:
+        4583ee8 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDHwAccMgrService filter 3ae44b1
+          Action: "android.accounts.AccountAuthenticator"
+      com.huawei.hms.core.locationaidlservice:
+        ab4e0f6 com.huawei.hwid/com.huawei.hms.core.service.HMSCoreService filter 45a7828
+          Action: "com.huawei.hms.core.aidlservice"
+          Action: "com.huawei.hms.core.locationaidlservice"
+          mPriority=2147483647, mOrder=0, mHasPartialTypes=false
+      com.huawei.hms.location.service.locationservice:
+        c2da901 com.huawei.hwid/com.huawei.hms.location.service.HwLocationService filter 8bc55c5
+          Action: "com.huawei.hms.location.service.locationservice"
+      com.huawei.hms.core.innerservice:
+        b573a6 com.huawei.hwid/com.huawei.hms.core.service.HMSInnerService filter 2118941
+          Action: "com.huawei.hms.core.innerservice"
+
+Provider Resolver Table:
+  Non-Data Actions:
+      android.content.action.SEARCH_SUPPORTED_PROVIDER:
+        ee301e7 com.huawei.hwid/com.huawei.hms.privacy.StatisticsAndAnalyticsProvider filter b4f14a4
+          Action: "android.content.action.SEARCH_SUPPORTED_PROVIDER"
+        e66194 com.huawei.hwid/com.huawei.hms.privacy.HmsSettingSearchProvider filter 3cdf20d
+          Action: "android.content.action.SEARCH_SUPPORTED_PROVIDER"
+        4ad43d com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.LocationAuthInnerProvider filter 17e35c2
+          Action: "android.content.action.SEARCH_SUPPORTED_PROVIDER"
+        b52432 com.huawei.hwid/com.huawei.opendevice.open.AdPrivacyProvider filter d2a2fd3
+          Action: "android.content.action.SEARCH_SUPPORTED_PROVIDER"
+        ed3d583 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDSettingSearchProvider filter 5bad710
+          Action: "android.content.action.SEARCH_SUPPORTED_PROVIDER"
+
+Permissions:
+  Permission [com.huawei.hms.permission.signature] (1920300):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature
+    perm=Permission{a157739 com.huawei.hms.permission.signature}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.hms.permission.ACTIVITY_RECOGNITION] (47446df):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=dangerous
+    perm=Permission{2944f2c com.huawei.hms.permission.ACTIVITY_RECOGNITION}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.hms.permission.INNER_BROADCAST] (14d4df5):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature
+    perm=Permission{c29078a com.huawei.hms.permission.INNER_BROADCAST}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.hms.pay.permission.OOBE] (c8071fb):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature|privileged
+    perm=Permission{88d3218 com.huawei.hms.pay.permission.OOBE}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.hwid.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (ff1d471):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature
+    perm=Permission{9181256 com.huawei.hwid.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.permission.hms.ads.START_SERVICE] (95a32d7):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature|privileged
+    perm=Permission{2f57c4 com.huawei.permission.hms.ads.START_SERVICE}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.hms.permission.QUICK_APP_EVENT] (67e46ad):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature|privileged
+    perm=Permission{41afde2 com.huawei.hms.permission.QUICK_APP_EVENT}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.hms.permission.USER_SWITCH] (7a52573):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature
+    perm=Permission{cac2c30 com.huawei.hms.permission.USER_SWITCH}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.hwid.permission.BACKUP_WRITE_PROVIDER] (7e5a0a9):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature|privileged
+    perm=Permission{f6f162e com.huawei.hwid.permission.BACKUP_WRITE_PROVIDER}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.android.sns.permission.BACKUP] (a2a5cf):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature|privileged
+    perm=Permission{dfdb5c com.huawei.android.sns.permission.BACKUP}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.hwid.permission.gameservice.inshowbuoylist.provider] (94e9e65):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature|privileged
+    perm=Permission{1da673a com.huawei.hwid.permission.gameservice.inshowbuoylist.provider}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.hms.location.permission.PENDINGINTENT] (64dcfeb):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature|privileged
+    perm=Permission{f3d5148 com.huawei.hms.location.permission.PENDINGINTENT}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.hms.permission.signatureOrSystem] (18fbbe1):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature|privileged
+    perm=Permission{677bd06 com.huawei.hms.permission.signatureOrSystem}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.lbs.permission.LBS_SERVICE_GEOFENCE_ACTION] (5377fc7):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature|privileged
+    perm=Permission{c7a39f4 com.huawei.lbs.permission.LBS_SERVICE_GEOFENCE_ACTION}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.permission.pps.ACCESS_UA] (46b351d):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature
+    perm=Permission{d42a392 com.huawei.permission.pps.ACCESS_UA}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.hwid.permission.BACKUP_READ_PROVIDER] (8225163):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature|privileged
+    perm=Permission{fb0160 com.huawei.hwid.permission.BACKUP_READ_PROVIDER}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.android.sns.alarm.permission] (58b0619):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature|privileged
+    perm=Permission{86366de com.huawei.android.sns.alarm.permission}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.android.permission.INNER_RECEIVER] (95ea0bf):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature
+    perm=Permission{4fed38c com.huawei.android.permission.INNER_RECEIVER}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.hwid.permission.gameservice.buoy.provider] (f3cead5):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature|privileged
+    perm=Permission{23b12ea com.huawei.hwid.permission.gameservice.buoy.provider}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.permission.app.DOWNLOAD] (de689db):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature|privileged
+    perm=Permission{38b9c78 com.huawei.permission.app.DOWNLOAD}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.permission.KIT_UPDATE_OVER] (8ee5f51):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature
+    perm=Permission{82f73b6 com.huawei.permission.KIT_UPDATE_OVER}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Permissions:
+  Permission [com.huawei.hms.kit.awareness.PERMISSION] (639e8b7):
+    sourcePackage=com.huawei.hwid
+    uid=10130 gids=null type=0 prot=signature
+    perm=Permission{1a0824 com.huawei.hms.kit.awareness.PERMISSION}
+    packageSetting=PackageSetting{48d517e com.huawei.hwid/10130}
+
+Registered ContentProviders:
+  com.huawei.hwid/com.huawei.hms.privacy.PrivacyProvider:
+    Provider{9689f8d com.huawei.hwid/com.huawei.hms.privacy.PrivacyProvider}
+  com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgent2Provider:
+    Provider{6371542 com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgent2Provider}
+  com.huawei.hwid/com.huawei.hms.privacy.StatisticsAndAnalyticsProvider:
+    Provider{ee301e7 com.huawei.hwid/com.huawei.hms.privacy.StatisticsAndAnalyticsProvider}
+  com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDSettingsProvider:
+    Provider{fa5953 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDSettingsProvider}
+  com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgentNoBreakProvider:
+    Provider{b018290 com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgentNoBreakProvider}
+  com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.InnerApiProvider:
+    Provider{cca789 com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.InnerApiProvider}
+  com.huawei.hwid/com.huawei.agconnect.core.provider.AGConnectInitializeProvider:
+    Provider{f25438e com.huawei.hwid/com.huawei.agconnect.core.provider.AGConnectInitializeProvider}
+  com.huawei.hwid/com.huawei.hms.dynamic.module.manager.query.ModuleQueryProvider:
+    Provider{b4737af com.huawei.hwid/com.huawei.hms.dynamic.module.manager.query.ModuleQueryProvider}
+  com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.ModuleProvider:
+    Provider{a437bc com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.ModuleProvider}
+  com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDSettingSearchProvider:
+    Provider{ed3d583 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDSettingSearchProvider}
+  com.huawei.hwid/com.huawei.hms.privacy.HmsSettingSearchProvider:
+    Provider{e66194 com.huawei.hwid/com.huawei.hms.privacy.HmsSettingSearchProvider}
+  com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDBackupProvider:
+    Provider{64f3345 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDBackupProvider}
+  com.huawei.hwid/com.huawei.hms.dynamic.module.manager.install.ApkInstallProvider:
+    Provider{db60a9a com.huawei.hwid/com.huawei.hms.dynamic.module.manager.install.ApkInstallProvider}
+  com.huawei.hwid/com.huawei.hms.tss.provider.SharedFileContentProvider:
+    Provider{ad99fcb com.huawei.hwid/com.huawei.hms.tss.provider.SharedFileContentProvider}
+  com.huawei.hwid/com.huawei.hms.tss.provider.ConfigFileContentProvider:
+    Provider{f5b13a8 com.huawei.hwid/com.huawei.hms.tss.provider.ConfigFileContentProvider}
+  com.huawei.hwid/com.huawei.hms.log.LogFileProvider:
+    Provider{5b4bec1 com.huawei.hwid/com.huawei.hms.log.LogFileProvider}
+  com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.OobeOaidDataProvider:
+    Provider{a5a3666 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.OobeOaidDataProvider}
+  com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgentCoreProvider:
+    Provider{de06da7 com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgentCoreProvider}
+  com.huawei.hwid/com.huawei.hms.runtimekit.container.provider.SpProvider:
+    Provider{21c254 com.huawei.hwid/com.huawei.hms.runtimekit.container.provider.SpProvider}
+  com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.ApiProvider:
+    Provider{88d85fd com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.ApiProvider}
+  com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgentPersistProvider:
+    Provider{1c352f2 com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgentPersistProvider}
+  com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.PPSInstallFileProvider:
+    Provider{c9c3d43 com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.PPSInstallFileProvider}
+  com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgent1Provider:
+    Provider{e02afc0 com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgent1Provider}
+  com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.CommonFileProvider:
+    Provider{73184f9 com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.CommonFileProvider}
+  com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.OaidDataProvider:
+    Provider{82fac3e com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.OaidDataProvider}
+  com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDProvider:
+    Provider{8bb6a9f com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDProvider}
+  com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.UaProvider:
+    Provider{84307ec com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.UaProvider}
+  com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SNSBackupContentProvider:
+    Provider{d7c77b5 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SNSBackupContentProvider}
+  com.huawei.hwid/com.huawei.hms.fwkit.provider.UpdateSettingProvider:
+    Provider{5764e4a com.huawei.hwid/com.huawei.hms.fwkit.provider.UpdateSettingProvider}
+  com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.LocationAuthInnerProvider:
+    Provider{4ad43d com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.LocationAuthInnerProvider}
+  com.huawei.hwid/com.huawei.hms.fwkit.provider.HMSFrameworkProvider:
+    Provider{67611bb com.huawei.hwid/com.huawei.hms.fwkit.provider.HMSFrameworkProvider}
+  com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgent3Provider:
+    Provider{b4eb6d8 com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgent3Provider}
+  com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDInnerProvider:
+    Provider{f49da31 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDInnerProvider}
+  com.huawei.hwid/com.huawei.appgallery.marketinstallerservice.impl.download.MarketDownloadFileProvider:
+    Provider{5d30516 com.huawei.hwid/com.huawei.appgallery.marketinstallerservice.impl.download.MarketDownloadFileProvider}
+  com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.GameInShowBuoyListProvider:
+    Provider{b6a0e97 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.GameInShowBuoyListProvider}
+  com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SNSSDKContentProvider:
+    Provider{c646884 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SNSSDKContentProvider}
+  com.huawei.hwid/com.huawei.hms.fwkit.provider.LocationLEProvider:
+    Provider{8b0e86d com.huawei.hwid/com.huawei.hms.fwkit.provider.LocationLEProvider}
+  com.huawei.hwid/com.huawei.opendevice.open.OpenBrainProvider:
+    Provider{b725ca2 com.huawei.hwid/com.huawei.opendevice.open.OpenBrainProvider}
+  com.huawei.hwid/com.huawei.hms.iap.stub.IapStubProvider:
+    Provider{f36fd33 com.huawei.hwid/com.huawei.hms.iap.stub.IapStubProvider}
+  com.huawei.hwid/com.huawei.hms.fwkit.kams.provideragent.StubContentProvider:
+    Provider{40188f0 com.huawei.hwid/com.huawei.hms.fwkit.kams.provideragent.StubContentProvider}
+  com.huawei.hwid/com.huawei.hms.fwkit.kams.provideragent.ProxyFileProvider:
+    Provider{6009e69 com.huawei.hwid/com.huawei.hms.fwkit.kams.provideragent.ProxyFileProvider}
+  com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.TvRequestProvider:
+    Provider{cbda0ee com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.TvRequestProvider}
+  com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDMsgCheckProvider:
+    Provider{9da398f com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDMsgCheckProvider}
+  com.huawei.hwid/com.huawei.hms.dynamic.module.manager.install.ModuleFileProvider:
+    Provider{30e441c com.huawei.hwid/com.huawei.hms.dynamic.module.manager.install.ModuleFileProvider}
+  com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgentUIProvider:
+    Provider{f7bb825 com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgentUIProvider}
+  com.huawei.hwid/com.huawei.hms.fwkit.kpms.core.provider.KpmsInstallPathProvider:
+    Provider{b66ddfa com.huawei.hwid/com.huawei.hms.fwkit.kpms.core.provider.KpmsInstallPathProvider}
+  com.huawei.hwid/androidx.startup.InitializationProvider:
+    Provider{bcadfab com.huawei.hwid/androidx.startup.InitializationProvider}
+  com.huawei.hwid/com.huawei.hms.commonkit.config.CommonKitProvider:
+    Provider{ec98608 com.huawei.hwid/com.huawei.hms.commonkit.config.CommonKitProvider}
+  com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.GameShowBuoyProvider:
+    Provider{4d4b1a1 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.GameShowBuoyProvider}
+  com.huawei.hwid/com.huawei.opendevice.open.AdPrivacyProvider:
+    Provider{b52432 com.huawei.hwid/com.huawei.opendevice.open.AdPrivacyProvider}
+
+ContentProvider Authorities:
+  [com.huawei.hwid.peripheralprovider]:
+    Provider{4d4b1a1 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.GameShowBuoyProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.ads.brain.open]:
+    Provider{b725ca2 com.huawei.hwid/com.huawei.opendevice.open.OpenBrainProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgentUIProvider]:
+    Provider{f7bb825 com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgentUIProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.servicemanager]:
+    Provider{67611bb com.huawei.hwid/com.huawei.hms.fwkit.provider.HMSFrameworkProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hwid.pps.oaid]:
+    Provider{82fac3e com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.OaidDataProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hwid.inner.provider]:
+    Provider{f49da31 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDInnerProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.dynamic.moduleFileProvider]:
+    Provider{30e441c com.huawei.hwid/com.huawei.hms.dynamic.module.manager.install.ModuleFileProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hwid.settings.provider]:
+    Provider{fa5953 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDSettingsProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.android.sns.backup]:
+    Provider{d7c77b5 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SNSBackupContentProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.runtimekit.SpProvider]:
+    Provider{21c254 com.huawei.hwid/com.huawei.hms.runtimekit.container.provider.SpProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hwid.AGCInitializeProvider]:
+    Provider{f25438e com.huawei.hwid/com.huawei.agconnect.core.provider.AGConnectInitializeProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgent2Provider]:
+    Provider{6371542 com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgent2Provider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.privacy.StatisticsAndAnalyticsProvider]:
+    Provider{ee301e7 com.huawei.hwid/com.huawei.hms.privacy.StatisticsAndAnalyticsProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hwid.androidx-startup]:
+    Provider{bcadfab com.huawei.hwid/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgentNoBreakProvider]:
+    Provider{b018290 com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgentNoBreakProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.openalliance.ad.ppskit.common.fileprovider]:
+    Provider{73184f9 com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.CommonFileProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hwid]:
+    Provider{ad99fcb com.huawei.hwid/com.huawei.hms.tss.provider.SharedFileContentProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.install.apkInstallProvider]:
+    Provider{db60a9a com.huawei.hwid/com.huawei.hms.dynamic.module.manager.install.ApkInstallProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hwid.tss.config]:
+    Provider{f5b13a8 com.huawei.hwid/com.huawei.hms.tss.provider.ConfigFileContentProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hwid.marketinstall.fileprovider]:
+    Provider{5d30516 com.huawei.hwid/com.huawei.appgallery.marketinstallerservice.impl.download.MarketDownloadFileProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.openalliance.ad.ppskit.fileprovider]:
+    Provider{a437bc com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.ModuleProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.proxyfileprovider]:
+    Provider{6009e69 com.huawei.hwid/com.huawei.hms.fwkit.kams.provideragent.ProxyFileProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hwid20.provider.SettingSearchProvider]:
+    Provider{ed3d583 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDSettingSearchProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hwid.api.provider]:
+    Provider{8bb6a9f com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.privacy.HmsSettingSearchProvider]:
+    Provider{e66194 com.huawei.hwid/com.huawei.hms.privacy.HmsSettingSearchProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hwid.pps.tvrequest]:
+    Provider{cbda0ee com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.TvRequestProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.log.LogFileProvider]:
+    Provider{5b4bec1 com.huawei.hwid/com.huawei.hms.log.LogFileProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgentCoreProvider]:
+    Provider{de06da7 com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgentCoreProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hwid.pps.ua]:
+    Provider{84307ec com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.UaProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hwid.hiad.fileprovider]:
+    Provider{c9c3d43 com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.PPSInstallFileProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hwid.gameservice.inshowbuoylist]:
+    Provider{b6a0e97 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.GameInShowBuoyListProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgentPersistProvider]:
+    Provider{1c352f2 com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgentPersistProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.iap.stubProvider]:
+    Provider{f36fd33 com.huawei.hwid/com.huawei.hms.iap.stub.IapStubProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.statement]:
+    Provider{9689f8d com.huawei.hwid/com.huawei.hms.privacy.PrivacyProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgent1Provider]:
+    Provider{e02afc0 com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgent1Provider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.android.sns.sdk]:
+    Provider{c646884 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.SNSSDKContentProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hwid.pps.locationauth.innerprovider]:
+    Provider{4ad43d com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.LocationAuthInnerProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hwid.pps.innerapiprovider]:
+    Provider{cca789 com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.InnerApiProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hwid.pps.apiprovider]:
+    Provider{88d85fd com.huawei.hwid/com.huawei.openalliance.ad.ppskit.provider.ApiProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.bindcommonprovider]:
+    Provider{ec98608 com.huawei.hwid/com.huawei.hms.commonkit.config.CommonKitProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.fwkit.provider.UpdateSettingProvider]:
+    Provider{5764e4a com.huawei.hwid/com.huawei.hms.fwkit.provider.UpdateSettingProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.fwkit.locationle]:
+    Provider{8b0e86d com.huawei.hwid/com.huawei.hms.fwkit.provider.LocationLEProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hwid.oobe.pps.oaid]:
+    Provider{a5a3666 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.OobeOaidDataProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.privacy.AdPrivacyProvider]:
+    Provider{b52432 com.huawei.hwid/com.huawei.opendevice.open.AdPrivacyProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgent3Provider]:
+    Provider{b4eb6d8 com.huawei.hwid/com.huawei.hms.runtimekit.kitcontainerservice.KitProcessAgent3Provider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.contentprovider]:
+    Provider{40188f0 com.huawei.hwid/com.huawei.hms.fwkit.kams.provideragent.StubContentProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hwid.msgcheck.provider]:
+    Provider{9da398f com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDMsgCheckProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms]:
+    Provider{b4737af com.huawei.hwid/com.huawei.hms.dynamic.module.manager.query.ModuleQueryProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hwid.backup.provider]:
+    Provider{64f3345 com.huawei.hwid/com.huawei.hms.runtimekit.stubexplicit.HwIDBackupProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+  [com.huawei.hms.fwkit.KitUpgradePath]:
+    Provider{b66ddfa com.huawei.hwid/com.huawei.hms.fwkit.kpms.core.provider.KpmsInstallPathProvider}
+      applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+
+Key Set Manager:
+  [com.huawei.hwid]
+      Signing KeySets: 10
+
+Packages:
+  Package [com.huawei.hwid] (48d517e):
+    userId=10130
+    pkg=Package{bd5cb87 com.huawei.hwid}
+    codePath=/system/product/app/HMSCore
+    resourcePath=/system/product/app/HMSCore
+    legacyNativeLibraryDir=/system/product/app/HMSCore/lib
+    primaryCpuAbi=arm64-v8a
+    secondaryCpuAbi=null
+    versionCode=61602342 minSdk=21 targetSdk=31
+    versionName=6.16.2.342
+    splits=[base]
+    apkSigningVersion=3
+    applicationInfo=ApplicationInfo{34dfc6 com.huawei.hwid}
+    flags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PRIVATE_FLAG_REQUEST_LEGACY_EXTERNAL_STORAGE DIRECT_BOOT_AWARE HAS_DOMAIN_URLS PARTIALLY_DIRECT_BOOT_AWARE PRODUCT ]
+    dataDir=/data/user/0/com.huawei.hwid
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesOptionalLibraries:
+      hwkeystore
+      hccm
+      hwpay_hccm_lib
+      emui-addons
+      hwtvshare
+      org.apache.http.legacy
+    usesLibraryFiles:
+      /system/framework/org.apache.http.legacy.jar
+    timeStamp=2026-09-07 05:54:10
+    firstInstallTime=2026-09-07 05:54:10
+    lastUpdateTime=2026-09-07 05:54:10
+    signatures=PackageSignatures{f74fab4 version:3, signatures:[771c39f9], past signatures:[b4ade0ed flags: 17, 771c39f9 flags: 17]}
+    installPermissionsFixed=false
+    pkgFlags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    declared permissions:
+      com.huawei.android.permission.INNER_RECEIVER: prot=signature, INSTALLED
+      com.huawei.hms.kit.awareness.PERMISSION: prot=signature, INSTALLED
+      com.huawei.hms.location.permission.PENDINGINTENT: prot=signature|privileged, INSTALLED
+      com.huawei.hms.permission.ACTIVITY_RECOGNITION: prot=dangerous, INSTALLED
+      com.huawei.hms.permission.INNER_BROADCAST: prot=signature, INSTALLED
+      com.huawei.hms.permission.USER_SWITCH: prot=signature, INSTALLED
+      com.huawei.hms.permission.signature: prot=signature, INSTALLED
+      com.huawei.hms.permission.signatureOrSystem: prot=signature|privileged, INSTALLED
+      com.huawei.lbs.permission.LBS_SERVICE_GEOFENCE_ACTION: prot=signature|privileged, INSTALLED
+      com.huawei.permission.KIT_UPDATE_OVER: prot=signature, INSTALLED
+      com.huawei.android.sns.permission.BACKUP: prot=signature|privileged, INSTALLED
+      com.huawei.android.sns.alarm.permission: prot=signature|privileged, INSTALLED
+      com.huawei.hms.pay.permission.OOBE: prot=signature|privileged, INSTALLED
+      com.huawei.hms.permission.QUICK_APP_EVENT: prot=signature|privileged, INSTALLED
+      com.huawei.hwid.permission.gameservice.inshowbuoylist.provider: prot=signature|privileged, INSTALLED
+      com.huawei.hwid.permission.gameservice.buoy.provider: prot=signature|privileged, INSTALLED
+      com.huawei.permission.app.DOWNLOAD: prot=signature|privileged, INSTALLED
+      com.huawei.permission.pps.ACCESS_UA: prot=signature, INSTALLED
+      com.huawei.permission.hms.ads.START_SERVICE: prot=signature|privileged, INSTALLED
+      com.huawei.hwid.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature, INSTALLED
+      com.huawei.hwid.permission.BACKUP_READ_PROVIDER: prot=signature|privileged, INSTALLED
+      com.huawei.hwid.permission.BACKUP_WRITE_PROVIDER: prot=signature|privileged, INSTALLED
+    requested permissions:
+      com.android.permission.GET_INSTALLED_APPS
+      android.permission.FORCE_STOP_PACKAGES
+      android.permission.KILL_BACKGROUND_PROCESSES
+      android.permission.ACCESS_BACKGROUND_LOCATION: restricted=true
+      android.permission.ACCESS_COARSE_LOCATION
+      android.permission.ACCESS_FINE_LOCATION
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.ACCESS_WIFI_STATE
+      android.permission.ACTIVITY_RECOGNITION
+      android.permission.AUTHENTICATE_ACCOUNTS
+      android.permission.BLUETOOTH
+      android.permission.BLUETOOTH_ADMIN
+      android.permission.BLUETOOTH_PRIVILEGED
+      android.permission.CAMERA
+      android.permission.CHANGE_WIFI_STATE
+      android.permission.CREATE_USERS
+      android.permission.EXPAND_STATUS_BAR
+      android.permission.FLASHLIGHT
+      android.permission.FOREGROUND_SERVICE
+      android.permission.GET_ACCOUNTS
+      android.permission.GET_TASKS
+      android.permission.HIDE_NON_SYSTEM_OVERLAY_WINDOWS
+      android.permission.INSTALL_PACKAGES
+      android.permission.INTERACT_ACROSS_USERS
+      android.permission.INTERNAL_SYSTEM_WINDOW
+      android.permission.INTERNET
+      android.permission.LOCAL_MAC_ADDRESS
+      android.permission.MANAGE_ACCOUNTS
+      android.permission.MANAGE_FACERECOGNITION
+      android.permission.MANAGE_FINGERPRINT
+      android.permission.MANAGE_USERS
+      android.permission.NFC
+      android.permission.PACKAGE_USAGE_STATS
+      android.permission.READ_CONTACTS
+      android.permission.READ_EXTERNAL_STORAGE: restricted=true
+      android.permission.READ_PHONE_STATE
+      android.permission.READ_PRIVILEGED_PHONE_STATE
+      android.permission.READ_SEARCH_INDEXABLES
+      android.permission.READ_SMS: restricted=true
+      android.permission.READ_WIFI_CREDENTIAL
+      android.permission.REAL_GET_TASKS
+      android.permission.RECEIVE_BOOT_COMPLETED
+      android.permission.REORDER_TASKS
+      android.permission.REQUEST_INSTALL_PACKAGES
+      android.permission.SET_ACTIVITY_WATCHER
+      android.permission.STATUS_BAR
+      android.permission.STATUS_BAR_SERVICE
+      android.permission.SYSTEM_ALERT_WINDOW
+      android.permission.SYSTEM_OVERLAY_WINDOW
+      android.permission.UPDATE_APP_OPS_STATS
+      android.permission.UPDATE_DEVICE_STATS
+      android.permission.USE_BIOMETRIC
+      android.permission.USE_CREDENTIALS
+      android.permission.USE_FACERECOGNITION
+      android.permission.USE_FINGERPRINT
+      android.permission.VIBRATE
+      android.permission.WAKE_LOCK
+      android.permission.WRITE_EXTERNAL_STORAGE: restricted=true
+      android.permission.WRITE_SECURE_SETTINGS
+      android.permission.WRITE_SETTINGS
+      androidx.ads.identifier.provider.HIGH_PRIORITY
+      com.huawei.android.hms.innerservice.permission
+      com.huawei.android.permission.ACCESS_BIND_ARSERVICE
+      com.huawei.android.permission.ACCESS_BIND_MSDP_MOVEMENT_SERVICE
+      com.huawei.android.permission.ACCESS_HWBOOSTER_SERVICE
+      com.huawei.android.permission.ANTITHEFT
+      com.huawei.android.permission.INNER_RECEIVER
+      com.huawei.android.permission.photoshareconfig
+      com.huawei.android.permission.VR
+      com.huawei.android.powerkit.permission.BIND
+      com.huawei.android.powerkit.permission.STATECHG
+      com.huawei.appmarket.provider.readPermission
+      com.huawei.appmarket.service.commondata.permission.GET_COMMON_DATA
+      com.huawei.authentication.HW_ACCESS_AUTH_SERVICE
+      com.huawei.dataprivacycenter.permission.LAUNCH_APP_PRIVACY_STATEMENT
+      com.huawei.dataprivacycenter.permission.LAUNCH_DATA_PRIVACY_CENTER
+      com.huawei.deskclock.broadcast.permission
+      android.permission.STOP_APP_SWITCHES
+      com.huawei.deviceattestation.HW_DEVICE_ATTESTATION_ACCESS
+      com.huawei.hicloud.permission.hicloudLogin
+      com.huawei.hicloud.permission.LAUNCHER_ACTIVITY
+      com.huawei.hicloud.permission.STARTUPGUIDE
+      com.huawei.hms.kit.awareness.PERMISSION
+      com.huawei.hms.location.permission.PENDINGINTENT
+      com.huawei.hms.permission.signature
+      com.huawei.hms.permission.signatureOrSystem
+      com.huawei.hwid.permission.ACCESS
+      com.huawei.hwid.permission.CONTENT_PROVIDER
+      com.huawei.hwid.permission.FAMILY_SHARE
+      com.huawei.iaware.DATABASE_READ_PERMISSION
+      com.huawei.iaware.DATABASE_WRITE_PERMISSION
+      com.huawei.lbs.permission.ACCESS_BIND_LBSSERVICE
+      com.huawei.lbs.permission.BIND_HMS_SERVICE
+      com.huawei.lbs.permission.LBS_SERVICE_GEOFENCE_ACTION
+      android.permission.MANAGE_APPOPS
+      com.huawei.parentcontrol.permission.provider
+      com.huawei.permission.ACCESS_HW_KEYSTORE
+      com.huawei.permission.ACTIVITY_NOTIFIER_PERMISSION
+      com.huawei.hms.permission.QUICK_APP_EVENT
+      com.huawei.permission.app.DOWNLOAD
+      com.huawei.permission.BEHAVIOR_COLLECT
+      com.huawei.permission.external_app_settings.USE_COMPONENT
+      com.huawei.permission.GET_LOCK_PASSWORD_CHANGED
+      com.huawei.hms.permission.INNER_BROADCAST
+      com.huawei.permission.KIT_UPDATE_OVER
+      com.huawei.permission.push.ACCESS_BIND_SERVICE
+      com.huawei.permission.sec.ACCESS_UDID
+      com.huawei.permission.sec.MDM.v2
+      com.huawei.permission.SECURITY_DIAGNOSE
+      com.huawei.hms.permission.USER_SWITCH
+      com.huawei.push.permission.HMS_OPERATION
+      com.huawei.systemmanager.permission.ACCESS_INTERFACE
+      com.huawei.vrservice.permission.VR
+      huawei.android.permission.HW_SIGNATURE_OR_SYSTEM
+      com.huawei.gameassistant.permission.gameservice.ingameassistant.provider
+      android.permission.READ_CALENDAR
+      android.permission.WRITE_CALENDAR
+      android.permission.SUBSTITUTE_NOTIFICATION_APP_NAME
+      android.permission.DISPATCH_PROVISIONING_MESSAGE
+      android.permission.MANAGE_DEVICE_ADMINS
+      android.permission.MASTER_CLEAR
+      com.huawei.permission.GRANT_SIGNATURE_PERMISSION
+      com.huawei.permission.sec.MDM_DEVICE_OWNER
+      android.permission.BROADCAST_PACKAGE_REMOVED
+      com.huawei.android.sns.sdk.permission
+      com.huawei.android.sns.alarm.permission
+      com.huawei.android.permission.gallerysupportphotoshare
+      com.huawei.locationsharing.permission.START
+      android.permission.READ_MEDIA_AUDIO
+      android.permission.READ_MEDIA_IMAGES
+      android.permission.READ_MEDIA_VIDEO
+      android.permission.QUERY_ALL_PACKAGES
+      ohos.permission.INSTALL_BUNDLE
+      ohos.permission.GET_BUNDLE_INFO
+      ohos.permission.GET_BUNDLE_INFO_PRIVILEGED
+      android.permission.CHANGE_NETWORK_STATE
+      com.hihonor.permission.sec.ACCESS_UDID
+      com.hihonor.permission.ACTIVITY_NOTIFIER_PERMISSION
+      com.hihonor.permission.external_app_settings.USE_COMPONENT
+      com.hihonor.deskclock.broadcast.permission
+      com.hihonor.permission.ACCESS_HW_KEYSTORE
+      com.hihonor.permission.MANAGE_FOLD_SCREEN
+      com.hihonor.permission.MANAGE_FOLD_SCREEN_PRIVILEGED
+      com.hihonor.permission.sec.MDM.v2
+      com.hihonor.permission.push.ACCESS_BIND_SERVICE
+      com.hihonor.android.permission.ACCESS_BIND_ARSERVICE
+      com.hihonor.iaware.DATABASE_READ_PERMISSION
+      com.hihonor.iaware.DATABASE_WRITE_PERMISSION
+      com.hihonor.lbs.permission.ACCESS_BIND_LBSSERVICE
+      com.hihonor.permission.BEHAVIOR_COLLECT
+      com.hihonor.permission.SECURITY_DIAGNOSE
+      com.hihonor.systemmanager.permission.ACCESS_INTERFACE
+      com.hihonor.android.permission.VR
+      com.hihonor.authentication.HW_ACCESS_AUTH_SERVICE
+      hihonor.android.permission.HW_SIGNATURE_OR_SYSTEM
+      hihonor.permission.CLICK_STATUSBAR_BROADCAST
+      com.hihonor.permission.innerbroadcast
+      com.huawei.permission.MANAGE_FOLD_SCREEN
+      android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS
+      android.permission.SCHEDULE_EXACT_ALARM
+      android.permission.BLUETOOTH_CONNECT
+      android.permission.HIGH_SAMPLING_RATE_SENSORS
+      android.permission.BLUETOOTH_SCAN
+      android.permission.BLUETOOTH_ADVERTISE
+      android.permission.MODIFY_PHONE_STATE
+      android.permission.POST_NOTIFICATIONS
+      com.huawei.hiai.awareness.RECEIVE_BEHAVIOR
+      android.permission.SET_WALLPAPER
+      com.huawei.wallet.cardnumprovider.permission.ACCESS_CARD_NUM_READ
+      com.huawei.hiai.awareness.ACCESS_BIND_COMMON_FENCE_AWARENESSSERVICE
+      com.huawei.decision.permission.ACCESS_PERMISSION
+      com.huawei.permission.ACCESS_HW_ASSETSTORE_SERVICE
+      com.huawei.permission.SLE_PRIVILEGED
+      com.huawei.health.permission.CONNECTSTATUS
+      com.huawei.permission.CONTENT_SENSOR_PERMISSION
+      com.huawei.permission.MONITOR_POINTER_EVENT
+      com.huawei.gameassistant.permission.READ_GAME_LIST
+      com.huawei.pushagent.permission.PUSH_DELAY_NOTIFY
+      com.huawei.android.totemweather.permission.ACCESS_WEATHERCLOCK_PROVIDER
+      com.huawei.permission.WRITE_LOCK_DEVICE_IDENTIFIER
+      com.huawei.android.hsf.permission.COPY_PACKAGE
+      com.huawei.push.permission.RESET_PUSH
+      android.permission.CHANGE_COMPONENT_ENABLED_STATE
+      com.android.systemui.permission.removeTask
+      android.permission.MANAGE_NETWORK_POLICY
+      com.huawei.android.restores.permission.APP_RESTORE_ACESS
+      com.huawei.permission.pps.ACCESS_UA
+      com.huawei.permission.hms.ads.START_SERVICE
+      android.permission.BROADCAST_STICKY
+      com.huawei.homevision.videocall.RECV_CALL_STATUS
+      com.huawei.homevision.videocall.callstatusprovider.READ
+      com.huawei.homevision.tvservice.ACCESS_SERVICE
+      com.hihonor.homevision.tvservice.ACCESS_SERVICE
+      com.huawei.vassistanthd.permission.VOICE_SETTINGS
+      com.huawei.hwid.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+      com.huawei.permission.ACTION_VIRTUAL_SYSTEM
+      com.huawei.fingerprint.permission.USER_INTERACTIVE
+      com.huawei.wallet.permission.COMMON_SYS_OR_SIG
+      com.huawei.remotocontrol.permission.REMOTECALL
+      com.google.android.gms.permission.AD_ID
+    install permissions:
+      com.huawei.hms.permission.signature: granted=true
+      android.permission.WRITE_SETTINGS: granted=true
+      android.permission.USE_CREDENTIALS: granted=true
+      com.huawei.hms.permission.INNER_BROADCAST: granted=true
+      android.permission.MANAGE_ACCOUNTS: granted=true
+      android.permission.SYSTEM_ALERT_WINDOW: granted=true
+      com.huawei.hwid.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.NFC: granted=true
+      com.huawei.permission.hms.ads.START_SERVICE: granted=true
+      android.permission.CHANGE_NETWORK_STATE: granted=true
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      com.huawei.hms.permission.QUICK_APP_EVENT: granted=true
+      com.huawei.hms.permission.USER_SWITCH: granted=true
+      android.permission.EXPAND_STATUS_BAR: granted=true
+      android.permission.BLUETOOTH: granted=true
+      android.permission.GET_TASKS: granted=true
+      android.permission.AUTHENTICATE_ACCOUNTS: granted=true
+      android.permission.INTERNET: granted=true
+      com.huawei.appmarket.service.commondata.permission.GET_COMMON_DATA: granted=true
+      android.permission.REORDER_TASKS: granted=true
+      android.permission.BLUETOOTH_ADMIN: granted=true
+      android.permission.BROADCAST_STICKY: granted=true
+      com.huawei.hms.location.permission.PENDINGINTENT: granted=true
+      android.permission.CHANGE_WIFI_STATE: granted=true
+      com.huawei.hms.permission.signatureOrSystem: granted=true
+      com.huawei.lbs.permission.LBS_SERVICE_GEOFENCE_ACTION: granted=true
+      com.huawei.permission.pps.ACCESS_UA: granted=true
+      android.permission.FLASHLIGHT: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      com.huawei.android.sns.alarm.permission: granted=true
+      android.permission.SET_WALLPAPER: granted=true
+      android.permission.KILL_BACKGROUND_PROCESSES: granted=true
+      android.permission.USE_FINGERPRINT: granted=true
+      com.huawei.appmarket.provider.readPermission: granted=true
+      com.huawei.android.permission.INNER_RECEIVER: granted=true
+      android.permission.VIBRATE: granted=true
+      com.huawei.permission.app.DOWNLOAD: granted=true
+      android.permission.ACCESS_WIFI_STATE: granted=true
+      android.permission.USE_BIOMETRIC: granted=true
+      com.huawei.permission.KIT_UPDATE_OVER: granted=true
+      android.permission.WAKE_LOCK: granted=true
+      com.huawei.hms.kit.awareness.PERMISSION: granted=true
+    User 0: ceDataInode=958 installed=true hidden=false suspended=false stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      gids=[3002, 3003, 3001]
+      runtime permissions:
+        android.permission.READ_SMS: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.READ_CALENDAR: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED]
+        android.permission.ACCESS_FINE_LOCATION: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED]
+        android.permission.READ_EXTERNAL_STORAGE: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.ACCESS_COARSE_LOCATION: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED]
+        android.permission.READ_PHONE_STATE: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED]
+        android.permission.CAMERA: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED]
+        android.permission.WRITE_CALENDAR: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED]
+        android.permission.GET_ACCOUNTS: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED]
+        android.permission.WRITE_EXTERNAL_STORAGE: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.ACTIVITY_RECOGNITION: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED]
+        android.permission.READ_CONTACTS: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED]
+        android.permission.ACCESS_BACKGROUND_LOCATION: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|RESTRICTION_UPGRADE_EXEMPT]
+      disabledComponents:
+        com.huawei.hms.push.HmsPushReceiver
+        com.huawei.hms.runtimekit.stubexplicit.FidoStubTileService
+      enabledComponents:
+        com.huawei.hms.runtimekit.stubexplicit.LocationSettingInjectorService
+        com.huawei.hms.fwksdk.stub.HmsSettingActivity.Alias
+        com.huawei.hms.fwkit.provider.LocationLEProvider
+isSystemUserPackagesBlacklistSupported: false
+
+Package Changes:
+  Sequence number=423
+  User 0:
+    seq=0, package=com.android.permissioncontroller
+    seq=1, package=com.android.systemui
+    seq=99, package=com.android.stk
+    seq=117, package=com.google.android.partnersetup
+    seq=119, package=com.huawei.appmarket
+    seq=153, package=com.android.vending
+    seq=196, package=com.android.settings
+    seq=258, package=com.google.android.gsf
+    seq=263, package=com.android.email
+    seq=270, package=com.android.gallery3d
+    seq=271, package=com.android.inputmethod.latin
+    seq=276, package=com.android.messaging
+    seq=310, package=com.android.traceur
+    seq=317, package=org.lineageos.profiles
+    seq=318, package=org.lineageos.snap
+    seq=417, package=com.google.android.gms
+    seq=418, package=com.huawei.hwid
+    seq=419, package=org.lineageos.setupwizard
+    seq=420, package=com.google.android.setupwizard
+    seq=421, package=com.google.android.googlequicksearchbox
+    seq=422, package=org.lineageos.etar
+
+
+Dexopt state:
+  [com.huawei.hwid]
+    path: /system/product/app/HMSCore/HMSCore.apk
+      arm64: [status=quicken] [reason=first-boot]
+      known secondary dex files:
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.runtimekit/61800330/com.huawei.hms.runtimekit.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.privacy/61800330/com.huawei.hms.privacy.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.game/61602300/com.huawei.hms.game.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.commonkit/61800330/com.huawei.hms.commonkit.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.permissionservice/61800330/com.huawei.hms.permissionservice.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.webapp/61800330/com.huawei.hms.webapp.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.network.baseservice/10000300/com.huawei.hms.network.baseservice.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.drmkitclient/260200300/com.huawei.hms.drmkitclient.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.mlkit.service/30700301/com.huawei.hms.mlkit.service.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.safetydetect/614000302/tsshonortafile.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.account/62100300/com.huawei.hms.account.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.purchasemarker/10000302/com.huawei.hms.purchasemarker.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.safetydetect/614000302/tsskirin64tafile.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.fwkit/61800330/com.huawei.hms.fwkit.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.safetydetect/614000302/tsskirinv3tafile.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.safetydetect/614000302/tssq888tafile.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.fwui/61800330/com.huawei.hms.fwui.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.opendevice/61800330/com.huawei.hms.opendevice.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.safetydetect/614000302/safetydetectfeature.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.safetydetect/614000302/com.huawei.hms.safetydetect.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.ads/30474310/com.huawei.hms.ads.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.safetydetect/614000302/tsskmsfeature.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.kitstore/61800330/com.huawei.hms.kitstore.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.safetydetect/614000302/tsskirinv2tafile.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/framework/earlyinstall/com.huawei.hms.fwkit/61800330/com.huawei.hms.fwkit.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.push/61600304/com.huawei.hms.push.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.location/63200300/com.huawei.hms.location.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.kit.site/61600301/com.huawei.hms.kit.site.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.ekr/61800330/com.huawei.hms.ekr.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/framework/earlyinstall/com.huawei.hms.runtimekit/61800330/com.huawei.hms.runtimekit.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.analytics/61001318/com.huawei.hms.analytics.apk
+          class loader context: PCL[];PCL[]
+        /data/user_de/0/com.huawei.hwid/files/kits/com.huawei.hms.iap/62604303/com.huawei.hms.iap.apk
+          class loader context: PCL[];PCL[]
+
+
+Compiler stats:
+  [com.huawei.hwid]
+     HMSCore.apk - 3017
+
+Active APEX packages:
+
+
+Inactive APEX packages:
+
+
+Factory APEX packages:
+
+
+  APEX session state:

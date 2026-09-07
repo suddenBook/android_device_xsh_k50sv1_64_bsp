@@ -1,0 +1,19 @@
+{
+  "boot_id": "f81490ff-0014-4dfa-a9b2-90f47104486e",
+  "sha256": "b63acb204af7b67bb0fdd1e7311ce12c5f9e616e81dc439a39a5f320041eba94",
+  "records": 40736,
+  "first_sequence": 0,
+  "last_sequence": 40735,
+  "first_seconds": 0.0,
+  "last_seconds": 378.761381,
+  "gaps": [],
+  "recognized_fault_signatures": [],
+  "swap_activation": [
+    {
+      "sequence": 1738,
+      "seconds": 11.360835,
+      "text": " (0)[1:init]Adding 1962660k swap on /dev/block/zram0.  Priority:-1 extents:1 across:1962660k SS"
+    }
+  ],
+  "scope": "Continuous captured kernel records and named signature checks; not an exhaustive fault oracle"
+}

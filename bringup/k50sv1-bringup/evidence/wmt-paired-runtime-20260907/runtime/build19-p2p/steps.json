@@ -1,0 +1,70 @@
+[
+  {
+    "step": "identity",
+    "exit_code": 0
+  },
+  {
+    "step": "before-kernel",
+    "exit_code": 0
+  },
+  {
+    "step": "before-p2p",
+    "exit_code": 0
+  },
+  {
+    "step": "installed-path",
+    "exit_code": 0
+  },
+  {
+    "step": "installed-hash",
+    "exit_code": 0
+  },
+  {
+    "step": "permission",
+    "exit_code": 0
+  },
+  {
+    "step": "appop-fine",
+    "exit_code": 0
+  },
+  {
+    "step": "appop-coarse",
+    "exit_code": 0
+  },
+  {
+    "step": "wake",
+    "exit_code": 0
+  },
+  {
+    "step": "launch",
+    "exit_code": 0
+  },
+  {
+    "step": "interfaces-0",
+    "exit_code": 0
+  },
+  {
+    "step": "interfaces-1",
+    "exit_code": 0
+  },
+  {
+    "step": "interfaces-2",
+    "exit_code": 0
+  },
+  {
+    "step": "probe-log",
+    "exit_code": 0
+  },
+  {
+    "step": "after-interfaces",
+    "exit_code": 0
+  },
+  {
+    "step": "after-p2p",
+    "exit_code": 0
+  },
+  {
+    "step": "after-identity",
+    "exit_code": 0
+  }
+]

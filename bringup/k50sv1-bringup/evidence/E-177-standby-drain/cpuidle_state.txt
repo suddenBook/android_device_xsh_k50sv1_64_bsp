@@ -1,0 +1,122 @@
+********** idle state dump **********
+dpidle_cnt[0]=297987, dpidle_26m[0]=110196, soidle3_cnt[0]=0, soidle_cnt[0]=13, mcidle_cnt[0]=0, slidle_cnt[0]=0, rgidle_cnt[0]=3841816
+dpidle_cnt[1]=0, dpidle_26m[1]=0, soidle3_cnt[1]=0, soidle_cnt[1]=0, mcidle_cnt[1]=0, slidle_cnt[1]=0, rgidle_cnt[1]=3180287
+dpidle_cnt[2]=0, dpidle_26m[2]=0, soidle3_cnt[2]=0, soidle_cnt[2]=0, mcidle_cnt[2]=0, slidle_cnt[2]=0, rgidle_cnt[2]=2356266
+dpidle_cnt[3]=0, dpidle_26m[3]=0, soidle3_cnt[3]=0, soidle_cnt[3]=0, mcidle_cnt[3]=0, slidle_cnt[3]=0, rgidle_cnt[3]=1884472
+dpidle_cnt[4]=18, dpidle_26m[4]=0, soidle3_cnt[4]=0, soidle_cnt[4]=0, mcidle_cnt[4]=0, slidle_cnt[4]=0, rgidle_cnt[4]=2001638
+dpidle_cnt[5]=0, dpidle_26m[5]=0, soidle3_cnt[5]=0, soidle_cnt[5]=0, mcidle_cnt[5]=0, slidle_cnt[5]=0, rgidle_cnt[5]=1863452
+dpidle_cnt[6]=0, dpidle_26m[6]=0, soidle3_cnt[6]=0, soidle_cnt[6]=0, mcidle_cnt[6]=0, slidle_cnt[6]=0, rgidle_cnt[6]=1601696
+dpidle_cnt[7]=0, dpidle_26m[7]=0, soidle3_cnt[7]=0, soidle_cnt[7]=0, mcidle_cnt[7]=0, slidle_cnt[7]=0, rgidle_cnt[7]=1454877
+
+********** variables dump **********
+dpidle_switch=1, soidle3_switch=1, soidle_switch=1, mcidle_switch=0, slidle_switch=0, rgidle_switch=1, 
+idle_ratio_en = 0
+twam_handler:off (clk:speed)
+
+********** idle command help **********
+status help:   cat /sys/kernel/debug/cpuidle/idle_state
+switch on/off: echo switch mask > /sys/kernel/debug/cpuidle/idle_state
+idle ratio profile: echo ratio 1/0 > /sys/kernel/debug/cpuidle/idle_state
+spmtwam event:      echo spmtwam value/-1 > /sys/kernel/debug/cpuidle/idle_state
+spmtwam speed mode: echo spmtwam_clk 1/0 > /sys/kernel/debug/cpuidle/idle_state
+soidle3 help:   cat /sys/kernel/debug/cpuidle/soidle3_state
+soidle help:   cat /sys/kernel/debug/cpuidle/soidle_state
+dpidle help:   cat /sys/kernel/debug/cpuidle/dpidle_state
+mcidle help:   cat /sys/kernel/debug/cpuidle/mcidle_state
+slidle help:   cat /sys/kernel/debug/cpuidle/slidle_state
+rgidle help:   cat /sys/kernel/debug/cpuidle/rgidle_state
+
+*********** deep idle state ************
+dpidle_time_critera=2000
+[0]dpidle_block_cnt[by_cpu]=45
+[1]dpidle_block_cnt[by_clk]=558
+[2]dpidle_block_cnt[by_tmr]=0
+[3]dpidle_block_cnt[by_oth]=0
+[4]dpidle_block_cnt[by_vtg]=0
+[5]dpidle_block_cnt[by_frm]=0
+[6]dpidle_block_cnt[by_pll]=0
+[7]dpidle_block_cnt[by_pwm]=0
+[8]dpidle_block_cnt[by_dvfsp]=0
+[9]dpidle_block_cnt[by_conn]=0
+
+[00]dpidle_condition_mask[INFRA0  ]=0x00640802		dpidle_block_mask[INFRA0  ]=0x00000000
+[01]dpidle_condition_mask[INFRA1  ]=0x03afb900		dpidle_block_mask[INFRA1  ]=0x00000000
+[02]dpidle_condition_mask[INFRA2  ]=0x000000c7		dpidle_block_mask[INFRA2  ]=0x00000002
+[03]dpidle_condition_mask[DISP0   ]=0x03ffffff		dpidle_block_mask[DISP0   ]=0x00000000
+[04]dpidle_condition_mask[IMAGE   ]=0x00000312		dpidle_block_mask[IMAGE   ]=0x00000000
+[05]dpidle_condition_mask[MFG     ]=0x00000112		dpidle_block_mask[MFG     ]=0x00000000
+[06]dpidle_condition_mask[AUDIO   ]=0x00000000		dpidle_block_mask[AUDIO   ]=0x00000000
+[07]dpidle_condition_mask[VDEC    ]=0x00000112		dpidle_block_mask[VDEC    ]=0x00000000
+[08]dpidle_condition_mask[VENC    ]=0x00000f12		dpidle_block_mask[VENC    ]=0x00000000
+[INFRA0  ]
+18: 18
+[INFRA1  ]
+[INFRA2  ]
+1 : 4542
+7 : 906
+[DISP0   ]
+[IMAGE   ]
+[MFG     ]
+[AUDIO   ]
+[VDEC    ]
+[VENC    ]
+dpidle_by_pass_cg=0
+dpidle_by_pass_i2c_appm_cg=0
+dpidle_by_pass_pg=0
+dpidle_dump_log = 1
+(0: None, 1: Reduced, 2: Full
+
+*********** dpidle command help  ************
+dpidle help:   cat /sys/kernel/debug/cpuidle/dpidle_state
+switch on/off: echo [dpidle] 1/0 > /sys/kernel/debug/cpuidle/dpidle_state
+cpupdn on/off: echo cpupdn 1/0 > /sys/kernel/debug/cpuidle/dpidle_state
+en_dp_by_bit:  echo enable id > /sys/kernel/debug/cpuidle/dpidle_state
+dis_dp_by_bit: echo disable id > /sys/kernel/debug/cpuidle/dpidle_state
+modify tm_cri: echo time value(dec) > /sys/kernel/debug/cpuidle/dpidle_state
+bypass cg:     echo bypass 1/0 > /sys/kernel/debug/cpuidle/dpidle_state
+
+*********** soidle3 state ************
+soidle3_time_critera=5000
+[0]soidle3_block_cnt[by_cpu]=0
+[1]soidle3_block_cnt[by_clk]=0
+[2]soidle3_block_cnt[by_tmr]=0
+[3]soidle3_block_cnt[by_oth]=787
+[4]soidle3_block_cnt[by_vtg]=0
+[5]soidle3_block_cnt[by_frm]=0
+[6]soidle3_block_cnt[by_pll]=0
+[7]soidle3_block_cnt[by_pwm]=0
+[8]soidle3_block_cnt[by_dvfsp]=0
+[9]soidle3_block_cnt[by_conn]=0
+
+[00]soidle3_pll_condition_mask[UNIVPLL ]=0x00000001		soidle3_pll_block_mask[UNIVPLL ]=0x00000000
+[01]soidle3_pll_condition_mask[MMPLL   ]=0x00000000		soidle3_pll_block_mask[MMPLL   ]=0x00000000
+[02]soidle3_pll_condition_mask[MSDCPLL ]=0x00000001		soidle3_pll_block_mask[MSDCPLL ]=0x00000000
+[03]soidle3_pll_condition_mask[VENCPLL ]=0x00000000		soidle3_pll_block_mask[VENCPLL ]=0x00000000
+
+[00]soidle3_condition_mask[INFRA0  ]=0x026c0802		soidle3_block_mask[INFRA0  ]=0x00000000
+[01]soidle3_condition_mask[INFRA1  ]=0x03afb900		soidle3_block_mask[INFRA1  ]=0x00000000
+[02]soidle3_condition_mask[INFRA2  ]=0x000000d3		soidle3_block_mask[INFRA2  ]=0x00000000
+[03]soidle3_condition_mask[DISP0   ]=0x005023fc		soidle3_block_mask[DISP0   ]=0x00000000
+[04]soidle3_condition_mask[IMAGE   ]=0x00000312		soidle3_block_mask[IMAGE   ]=0x00000000
+[05]soidle3_condition_mask[MFG     ]=0x00000112		soidle3_block_mask[MFG     ]=0x00000000
+[06]soidle3_condition_mask[AUDIO   ]=0x00000000		soidle3_block_mask[AUDIO   ]=0x00000000
+[07]soidle3_condition_mask[VDEC    ]=0x00000112		soidle3_block_mask[VDEC    ]=0x00000000
+[08]soidle3_condition_mask[VENC    ]=0x00000f12		soidle3_block_mask[VENC    ]=0x00000000
+soidle3_bypass_pll=0
+soidle3_bypass_cg=0
+soidle3_by_pass_i2c_appm_cg=0
+soidle3_bypass_en=0
+sodi3_flags=0x5
+
+*********** soidle3 command help  ************
+soidle3 help:  cat /sys/kernel/debug/cpuidle/soidle3_state
+switch on/off: echo [soidle3] 1/0 > /sys/kernel/debug/cpuidle/soidle3_state
+cpupdn on/off: echo cpupdn 1/0 > /sys/kernel/debug/cpuidle/soidle3_state
+en_dp_by_bit:  echo enable id > /sys/kernel/debug/cpuidle/soidle3_state
+dis_dp_by_bit: echo disable id > /sys/kernel/debug/cpuidle/soidle3_state
+modify tm_cri: echo time value(dec) > /sys/kernel/debug/cpuidle/soidle3_state
+bypass pll:    echo bypass_pll 1/0 > /sys/kernel/debug/cpuidle/soidle3_state
+bypass cg:     echo bypass 1/0 > /sys/kernel/debug/cpuidle/soidle3_state
+bypass appm:   echo bypass_appm 1/0 > /sys/kernel/debug/cpuidle/soidle3_state
+bypass en:     echo bypass_en 1/0 > /sys/kernel/debug/cpuidle/soidle3_state
+sodi3 flags:   echo sodi3_flags value > /sys/kernel/debug/cpuidle/soidle3_state

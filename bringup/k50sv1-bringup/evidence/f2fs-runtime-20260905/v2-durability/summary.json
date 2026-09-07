@@ -1,0 +1,14 @@
+{
+  "normal_reboot_sha_and_database_match": true,
+  "normal_reboot_seconds": 43.26341595299891,
+  "forced_reset_file_sha_match": true,
+  "forced_reset_sqlite_integrity": "ok",
+  "last_acknowledged_row": 1034,
+  "recovered_rows": 1034,
+  "all_acknowledged_rows_retained": true,
+  "forced_reset_boot_seconds": 41.871329435001826,
+  "reset_transport_exit": 255,
+  "writer_transport_exit": 255,
+  "scope": "One normal reboot and one SysRq b during active WAL/FULL transactions; not physical power loss or endurance proof",
+  "post_reset_offline_fsck_clean": true
+}

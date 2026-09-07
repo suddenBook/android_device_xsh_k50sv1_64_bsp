@@ -1,0 +1,133 @@
+{
+  "commit": "857d2d0b238231ad931e342c6950c458dae99063",
+  "parent": "372a643505f6b0aab0b3adbd150ecb9d9291d8d9",
+  "worktree": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-kernel-work",
+  "git_status": "clean",
+  "source_sha256": {
+    "drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.c": "bcddd32fe13be5d1a688a6ccb26171c85c492e3a30148df8800b0b9c036ad354",
+    "drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.h": "88af5fd61512c1ad72f09209f7248a5cc86830f24048224366058d685fb5c864",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/include/wmt_lib.h": "95103005034c3039db01233bb23f1eb3e961e1fd811bb221ffa29e03eb6bdc27",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c": "f51e6d77c43c0219ccc4711bb0f33bf118aa75e2ff571a4fc8628b01626a789f",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c": "ffa88ab507072777690543478722ea58d721890ef4dc5fbd6f0507b5d0a470b1",
+    "drivers/misc/mediatek/connectivity/source/common/test/README_wmt_command_v2.md": "814dceebe6b353d40faa96d74ac4740ccb92580e7902cb7aa64ee1587c03bc06",
+    "drivers/misc/mediatek/connectivity/source/common/test/test_wmt_command_v2.py": "112452a0e9081e1920f6dd0fb9074bf2ef8581e251cf76616c8350c17faef5fa",
+    "drivers/misc/mediatek/connectivity/source/common/test/test_wmt_command_v2_legacy.py": "f0bc5f0251a9ebe7aad831c5544798c4e860649bca893b0c8f3d60fe745e2773",
+    "drivers/misc/mediatek/connectivity/source/common/test/wmt_callback_lifetime_host.c": "5756e81d9b1692e5f2517c7083c8a25dad53b9d4067c5f628d0aebca8df44047",
+    "drivers/misc/mediatek/connectivity/source/common/test/wmt_command_v2_host.c": "ee3b9b8657be3544dca2d91a67c0aa84bab7207f94994f5f8d9eb1e4cfdceb91",
+    "drivers/misc/mediatek/connectivity/source/common/test/wmt_lib_init_host.c": "a819de6daf114e34e490c2059099fa228c3e4eae394e03c751e2258925abbf55",
+    "drivers/misc/mediatek/connectivity/source/common/test/wmt_shutdown_host.c": "e2bca9edc7e81d9ac890729163f10dd26611bacd2789be06cb64a0d27cb716d8",
+    "include/uapi/linux/Kbuild": "4fd3b921dc2aa404feb3bbe76479d01083ff23f0f516c8cae4da403a54a141fe",
+    "include/uapi/linux/mtk_wmt_cmd.h": "4ea77989d01fa91b6cf2377aea59f679f02b3c9714b3052fa3ac014a2eec5c13"
+  },
+  "uapi_sha256": "4ea77989d01fa91b6cf2377aea59f679f02b3c9714b3052fa3ac014a2eec5c13",
+  "checks": [
+    {
+      "name": "host-final",
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/host-final/result.json",
+      "result_sha256": "e1918a82e8f75cac563a2b6c3e116bac536673e3528fddb3aec9c4acc7195aef",
+      "passed": 74,
+      "total": 74,
+      "source_hashes_match_commit": true
+    },
+    {
+      "name": "host-tsan-final",
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/host-tsan-final/result.json",
+      "result_sha256": "991aab41ba81ccfe36cd66722c980c40b92c043a7a503faf13d8985e23cf7334",
+      "passed": 5,
+      "total": 5,
+      "source_hashes_match_commit": true
+    },
+    {
+      "name": "init-first",
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/init-first/result.json",
+      "result_sha256": "b209e9bd59e5cde1d84e6db90e1312fc8333523ffdf1750600de11791dff7dac",
+      "passed": 26,
+      "total": 26,
+      "source_hashes_match_commit": true
+    },
+    {
+      "name": "shutdown-first",
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/shutdown-first/result.json",
+      "result_sha256": "a65f6641aa8b28d22f99c8c1a232341481ea6060638b26cca2918861c89a88ce",
+      "passed": 16,
+      "total": 16,
+      "source_hashes_match_commit": true
+    },
+    {
+      "name": "callback-first",
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/callback-first/result.json",
+      "result_sha256": "69fdf9a31d9065a36da0395e8fbca8ecc048e4e1ac8e06f41e841a023e3a9cfd",
+      "passed": 19,
+      "total": 19,
+      "source_hashes_match_commit": true
+    },
+    {
+      "name": "legacy-counter-histories",
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/legacy-second/result.json",
+      "result_sha256": "fcbfaff4af02904f4478246ae71dab03e47e51f5c86074ca5d81dcf7d272ee0a",
+      "expected_observations_matched": 26,
+      "total": 26,
+      "revision": "372a643505f6b0aab0b3adbd150ecb9d9291d8d9",
+      "note": "20 identity observations and six metadata histories; not 26 distinct bugs or candidate passes"
+    },
+    {
+      "name": "target-arm64-compile",
+      "passed": 3,
+      "total": 3,
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/arm64-final/result.json",
+      "result_sha256": "d87a0aaa90c767862bef1d78a8558d16aec74624c145a03ee955b94761081965",
+      "compiler": "real-aarch64-linux-android-gcc (GCC) 4.9.x 20150123 (prerelease)",
+      "objects": [
+        {
+          "source": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+          "source_sha256": "f51e6d77c43c0219ccc4711bb0f33bf118aa75e2ff571a4fc8628b01626a789f",
+          "object": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/arm64-final/wmt_lib.o",
+          "object_sha256": "3e77549b2b41b7c4fc49da8a13ff6cc60246b132ff1eb53920b62725ffa769d2",
+          "file": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/arm64-final/wmt_lib.o: ELF 64-bit LSB relocatable, ARM aarch64, version 1 (SYSV), with debug_info, not stripped",
+          "command": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/arm64-final/wmt_lib.command.json",
+          "command_sha256": "231545de50165e6e83b31c9fb4a3ade117d8b9b67576841059ab1f9af3756299"
+        },
+        {
+          "source": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+          "source_sha256": "ffa88ab507072777690543478722ea58d721890ef4dc5fbd6f0507b5d0a470b1",
+          "object": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/arm64-final/wmt_dev.o",
+          "object_sha256": "8c74c68c8d12b5c4f4431e2f5d0ec56fae0bc9576501588a3158fe17b114c5b4",
+          "file": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/arm64-final/wmt_dev.o: ELF 64-bit LSB relocatable, ARM aarch64, version 1 (SYSV), with debug_info, not stripped",
+          "command": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/arm64-final/wmt_dev.command.json",
+          "command_sha256": "b92118c8636b7fe7375e6dde1ececc43dbb0acefc92cd7d4422566600c7973eb"
+        },
+        {
+          "source": "drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.c",
+          "source_sha256": "bcddd32fe13be5d1a688a6ccb26171c85c492e3a30148df8800b0b9c036ad354",
+          "object": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/arm64-final/wmt_build_in_adapter.o",
+          "object_sha256": "442579b1eeeb0d7b1b0c8c3773c1ab3bafb3a33d5d3e8586a13fa7f59b50c951",
+          "file": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/arm64-final/wmt_build_in_adapter.o: ELF 64-bit LSB relocatable, ARM aarch64, version 1 (SYSV), with debug_info, not stripped",
+          "command": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/arm64-final/wmt_build_in_adapter.command.json",
+          "command_sha256": "a45a33ca5e91657fa64005dcefa43e5a72d14911017fffa24d58010ab2e33621"
+        }
+      ],
+      "flags": "Preserved saved target command, remapped to this checkout and frozen generated headers, plus -Werror"
+    },
+    {
+      "name": "uapi-native-compat-layout",
+      "passed": 2,
+      "total": 2,
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/uapi-layout/result.json",
+      "result_sha256": "09d30479b9c6cdce357e73a16060ca017724ee29ba649e10ad1cf2c1426d73aa",
+      "note": "Compile-time structure sizes, offsets and ioctl number at 32-bit and 64-bit host ABIs"
+    }
+  ],
+  "candidate_host_executions": 140,
+  "design": {
+    "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-design/DESIGN.md",
+    "sha256": "857c1d8200c9a9d538abfa5bf6426484488b463dc1c88407f6c0e43076aac9d5"
+  },
+  "boundaries": [
+    "Kernel half only; requires paired userspace v2 service and separate linked/hardware integration evidence.",
+    "FW_DBGLOG return propagation included; collector lifetime repair remains separate.",
+    "Normal metadata cache consumers copy records under lock; selected wmtd producer completes its download loop before its next search.",
+    "ROM cache retains first accepted record; empty replies do not create a WMT sentinel.",
+    "Legacy ABI fixtures are historical controls; v2 runner is the current command/metadata test entry.",
+    "Host adapters do not execute hardware, VFS internals, firmware parsing, properties or module unload."
+  ]
+}

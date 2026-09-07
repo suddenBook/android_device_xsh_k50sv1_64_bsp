@@ -1,0 +1,812 @@
+# captured_at: 2026-08-22T20:28:44+02:00
+# adb: adb (configured executable)
+# device_command: Magisk root shell over stdin: $'\ndmesg 2>&1 | grep -Ei "chip|efuse|segment|cpufreq|gpufreq|mmc|msdc|emmc|lcm|dsi|display|fts|touch|camera|imx|gc5025|sensor|finger|silead|silfp|hall|audiokey|charger|battery|wusb|mt6311|mir3da|stk3";\necho "## persistent boot-log excerpts";\nfor path in /sys/fs/pstore/*; do\n    [ -f "$path" ] || continue;\n    echo "### $path";\n    grep -Ei "chip|efuse|segment|cpufreq|gpufreq|mmc|msdc|emmc|lcm|dsi|display|fts|touch|camera|imx|gc5025|sensor|finger|silead|silfp|hall|audiokey|charger|battery|wusb|mt6311|mir3da|stk3" "$path" 2>&1;\ndone;\necho "## framework excerpts";\nlogcat -d -b all 2>&1 | grep -Ei "FingerprintService|fingerprint HIDL|camera provider|sensorservice|thermalservice";\n'
+
+uid=0(root) gid=0(root) groups=0(root) context=u:r:magisk:s0
+[ 3434.125482] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3434.137932] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3443.144174] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3444.123481] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=70 on 70!!
+[ 3444.129449] (0)[370:health@2.0-serv]healthd: battery l=100 v=4309 t=31.0 h=2 st=5 c=109 fc=2800000 cc=0 chg=u
+[ 3444.151221] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3444.168616] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3453.144460] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3453.761881] (0)[370:health@2.0-serv]healthd: battery l=100 v=4309 t=31.0 h=2 st=5 c=109 fc=2800000 cc=0 chg=u
+[ 3454.120679] (1)[258:bat_routine_thr][BATTERY] CC mode charge, timer=80 on 80!!
+[ 3454.125959] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 3454.127297] (1)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3454.139386] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3454.270153] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 94375 (94375), cpus = 1, cur = 1001000
+[ 3463.144735] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3464.123520] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=90 on 90!!
+[ 3464.129960] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3464.142327] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3473.145025] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3474.123578] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=100 on 100!!
+[ 3474.130220] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3474.143049] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3483.145306] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3484.121473] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=110 on 110!!
+[ 3484.128141] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3484.140637] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3493.145626] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3494.122373] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=120 on 120!!
+[ 3494.128922] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3494.141805] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3503.145931] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3504.123196] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=130 on 130!!
+[ 3504.131939] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3504.144321] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3513.146196] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3513.761917] (0)[370:health@2.0-serv]healthd: battery l=100 v=4308 t=31.0 h=2 st=5 c=118 fc=2800000 cc=0 chg=u
+[ 3514.122294] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=140 on 140!!
+[ 3514.128214] (0)[370:health@2.0-serv]healthd: battery l=100 v=4308 t=31.0 h=2 st=5 c=115 fc=2800000 cc=0 chg=u
+[ 3514.138444] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3514.153333] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3523.146486] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3524.122232] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=150 on 150!!
+[ 3524.128499] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3524.140920] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3533.146780] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3534.123840] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=160 on 160!!
+[ 3534.130472] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3534.143494] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3543.099653] (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(25, 717)[p:33,tm:32] DOWN!
+[ 3543.147007] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3543.162963] (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3543.162983] (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3543.278694] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 94375 (94375), cpus = 1, cur = 1001000
+[ 3544.122384] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=170 on 170!!
+[ 3544.128905] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3544.141364] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3553.147280] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3554.122427] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=180 on 180!!
+[ 3554.129003] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3554.141649] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3559.560883] (2)[757:sensors@2.0-ser][MIR3DA] mir3da_batch 0
+[ 3559.561242] (2)[757:sensors@2.0-ser]<ACCELEROMETER> acc_store_flush 426 : acc_store_flush param: handle 0
+[ 3559.561256] (2)[757:sensors@2.0-ser][MIR3DA] mir3da_flush 0
+[ 3559.561277] (2)[757:sensors@2.0-ser][MIR3DA] mir3da_flush 1
+[ 3559.645938] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 3559.928220] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3560.068212] (4)[757:sensors@2.0-ser][MIR3DA] mir3da_batch 0
+[ 3560.323333] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 871000 (871000), volt = 89375 (89375), cpus = 1, cur = 1508000
+[ 3560.463873] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3562.624541] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 94375 (94375), cpus = 1, cur = 910000
+[ 3563.147564] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3564.122458] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=190 on 190!!
+[ 3564.128940] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3564.141352] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3573.147838] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3573.761835] (0)[370:health@2.0-serv]healthd: battery l=100 v=4308 t=31.0 h=2 st=5 c=107 fc=2800000 cc=0 chg=u
+[ 3574.122473] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=200 on 200!!
+[ 3574.128867] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3574.141516] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3580.275988] (1)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 3580.399223] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 94375 (94375), cpus = 1, cur = 1001000
+[ 3583.148109] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3584.122998] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=210 on 210!!
+[ 3584.133284] (0)[370:health@2.0-serv]healthd: battery l=100 v=4308 t=31.0 h=2 st=5 c=142 fc=2800000 cc=0 chg=u
+[ 3584.137490] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3584.150017] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3586.195934] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 94375 (94375), cpus = 1, cur = 910000
+[ 3593.148398] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3594.124074] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=220 on 220!!
+[ 3594.130663] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3594.143150] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3600.126172] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 1, cur = 910000
+[ 3600.305934] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 94375 (94375), cpus = 1, cur = 1001000
+[ 3603.148784] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3604.124079] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=230 on 230!!
+[ 3604.130706] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3604.143128] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3613.149068] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3614.122627] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=240 on 240!!
+[ 3614.128868] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3614.141307] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3615.035985] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 3615.529000] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3615.905912] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 871000 (871000), volt = 89375 (89375), cpus = 1, cur = 1508000
+[ 3616.055239] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3623.149331] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3623.245941] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 3623.446167] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 94375 (94375), cpus = 1, cur = 1001000
+[ 3624.122669] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=250 on 250!!
+[ 3624.129021] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3624.141413] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3625.025949] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 3625.228160] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 94375 (94375), cpus = 1, cur = 1001000
+[ 3633.149603] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3633.761850] (0)[370:health@2.0-serv]healthd: battery l=100 v=4313 t=31.0 h=2 st=5 c=119 fc=2800000 cc=0 chg=u
+[ 3634.122688] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=260 on 260!!
+[ 3634.129050] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3634.142304] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3643.149882] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3644.124247] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=270 on 270!!
+[ 3644.130893] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3644.143351] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3653.150158] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3654.124196] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=280 on 280!!
+[ 3654.130231] (0)[370:health@2.0-serv]healthd: battery l=100 v=4320 t=31.0 h=2 st=5 c=152 fc=2800000 cc=0 chg=u
+[ 3654.150612] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3654.171069] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3663.150427] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3664.035602] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 94375 (94375), cpus = 1, cur = 910000
+[ 3664.122619] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=290 on 290!!
+[ 3664.129312] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3664.141873] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3673.150705] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3674.122774] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=300 on 300!!
+[ 3674.129492] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3674.142188] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3683.150987] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3684.122760] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=310 on 310!!
+[ 3684.129124] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3684.141524] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3685.245980] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 3685.548493] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3686.175767] (4)[296:logd.auditd]type=1400 audit(1787422839.770:271): avc: denied { search } for comm="cat" name="chip" dev="proc" ino=4026533566 scontext=u:r:shell:s0 tcontext=u:object_r:proc_chip:s0 tclass=dir permissive=0
+[ 3686.297162] (5)[296:logd.auditd]type=1400 audit(1787422839.770:271): avc: denied { search } for comm="cat" name="chip" dev="proc" ino=4026533566 scontext=u:r:shell:s0 tcontext=u:object_r:proc_chip:s0 tclass=dir permissive=0
+[ 3686.297189] (5)[296:logd.auditd]type=1400 audit(1787422839.900:272): avc: denied { read } for comm="sh" name="cpufreq" dev="proc" ino=4026534424 scontext=u:r:shell:s0 tcontext=u:object_r:proc_cpufreq:s0 tclass=dir permissive=0
+[ 3686.297556] (5)[296:logd.auditd]type=1400 audit(1787422839.900:272): avc: denied { read } for comm="sh" name="cpufreq" dev="proc" ino=4026534424 scontext=u:r:shell:s0 tcontext=u:object_r:proc_cpufreq:s0 tclass=dir permissive=0
+[ 3686.297575] (5)[296:logd.auditd]type=1400 audit(1787422839.900:273): avc: denied { search } for comm="sh" name="cpufreq" dev="proc" ino=4026534424 scontext=u:r:shell:s0 tcontext=u:object_r:proc_cpufreq:s0 tclass=dir permissive=0
+[ 3686.915109] (5)[296:logd.auditd]type=1400 audit(1787422839.900:273): avc: denied { search } for comm="sh" name="cpufreq" dev="proc" ino=4026534424 scontext=u:r:shell:s0 tcontext=u:object_r:proc_cpufreq:s0 tclass=dir permissive=0
+[ 3686.915353] (5)[296:logd.auditd]type=1400 audit(1787422840.510:275): avc: denied { getattr } for comm="sh" path="/proc/gpufreq/gpufreq_debug" dev="proc" ino=4026533756 scontext=u:r:shell:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=0
+[ 3686.915427] (5)[296:logd.auditd]type=1400 audit(1787422840.510:275): avc: denied { getattr } for comm="sh" path="/proc/gpufreq/gpufreq_debug" dev="proc" ino=4026533756 scontext=u:r:shell:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=0
+[ 3686.915439] (5)[296:logd.auditd]type=1400 audit(1787422840.510:276): avc: denied { getattr } for comm="sh" path="/proc/gpufreq/gpufreq_fixed_freq_volt" dev="proc" ino=4026533770 scontext=u:r:shell:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=0
+[ 3688.005994] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 1196000 (1196000), volt = 95625 (95625), cpus = 2, cur = 1508000
+[ 3688.077149] (5)[296:logd.auditd]type=1400 audit(1787422840.510:276): avc: denied { getattr } for comm="sh" path="/proc/gpufreq/gpufreq_fixed_freq_volt" dev="proc" ino=4026533770 scontext=u:r:shell:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=0
+[ 3688.285990] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 1508000 (1508000), volt = 102500 (102500), cpus = 1, cur = 871000
+[ 3688.314510] (4)[296:logd.auditd]type=1400 audit(1787422841.910:312): avc: denied { getattr } for comm="ls" path="/proc/fts_ta" dev="proc" ino=4026534522 scontext=u:r:shell:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=0
+[ 3688.315128] (4)[296:logd.auditd]type=1400 audit(1787422841.910:312): avc: denied { getattr } for comm="ls" path="/proc/fts_ta" dev="proc" ino=4026534522 scontext=u:r:shell:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=0
+[ 3689.025981] (5)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 1508000 (1508000), volt = 102500 (102500), cpus = 2, cur = 1196000
+[ 3690.265980] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 1508000 (1508000), volt = 102500 (102500), cpus = 2, cur = 1430000
+[ 3690.605981] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 1508000 (1508000), volt = 102500 (102500), cpus = 2, cur = 1430000
+[ 3691.625951] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 1196000 (1196000), volt = 95625 (95625), cpus = 2, cur = 1508000
+[ 3692.105974] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 1508000 (1508000), volt = 102500 (102500), cpus = 2, cur = 1196000
+[ 3693.151267] (5)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3693.761112] (5)[370:health@2.0-serv]healthd: battery l=100 v=4325 t=31.0 h=2 st=5 c=129 fc=2800000 cc=0 chg=u
+[ 3694.122459] (5)[258:bat_routine_thr][BATTERY] CC mode charge, timer=320 on 320!!
+[ 3694.128121] (5)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3694.140002] (5)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3696.310155] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 871000 (871000), volt = 89375 (89375), cpus = 1, cur = 1508000
+[ 3696.440950] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3698.267623] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 910000
+[ 3701.295928] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 910000
+[ 3703.151653] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3704.122826] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=330 on 330!!
+[ 3704.129055] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3704.141449] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3713.151947] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3714.123087] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=340 on 340!!
+[ 3714.129661] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3714.142616] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3723.152240] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3724.122917] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=350 on 350!!
+[ 3724.129538] (0)[370:health@2.0-serv]healthd: battery l=100 v=4328 t=31.0 h=2 st=5 c=103 fc=2800000 cc=0 chg=u
+[ 3724.150562] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3724.164779] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3733.152541] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3734.122915] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=360 on 360!!
+[ 3734.129527] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3743.152903] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3744.123016] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=370 on 370!!
+[ 3744.129365] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3747.906686] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 3748.254991] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3749.036558] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 871000 (871000), volt = 89375 (89375), cpus = 1, cur = 1508000
+[ 3749.177602] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3750.816547] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 910000
+[ 3753.153185] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3753.761756] (0)[370:health@2.0-serv]healthd: battery l=100 v=4324 t=31.0 h=2 st=5 c=411 fc=2800000 cc=0 chg=u
+[ 3753.845393] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 910000
+[ 3754.123031] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=380 on 380!!
+[ 3754.130368] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3754.142832] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3757.187223] (0)[296:logd.auditd]type=1400 audit(1787422910.790:390): avc: denied { ioctl } for comm="su" path="/dev/pts/12" dev="devpts" ino=15 ioctlcmd=5404 scontext=u:r:shell:s0 tcontext=u:object_r:devpts:s0 tclass=chr_file permissive=0
+[ 3757.245980] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 3757.560989] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3758.193692] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 871000 (871000), volt = 89375 (89375), cpus = 1, cur = 1508000
+[ 3758.351827] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3763.046005] (1)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 3763.153422] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3763.234162] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 1001000
+[ 3764.123093] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=390 on 390!!
+[ 3764.129760] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3764.142169] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3773.153689] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3774.123224] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=400 on 400!!
+[ 3774.130690] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3774.143094] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3783.153969] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3784.128212] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=410 on 410!!
+[ 3784.134923] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3784.147315] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3793.154265] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3794.124760] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=420 on 420!!
+[ 3794.129510] (0)[370:health@2.0-serv]healthd: battery l=100 v=4327 t=31.0 h=2 st=5 c=127 fc=2800000 cc=0 chg=u
+[ 3794.156172] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3794.171034] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3803.154597] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3804.123250] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=430 on 430!!
+[ 3804.129571] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3804.730892] (3)[757:sensors@2.0-ser][MIR3DA] mir3da_batch 0
+[ 3804.731320] (0)[757:sensors@2.0-ser]<ACCELEROMETER> acc_store_flush 426 : acc_store_flush param: handle 0
+[ 3804.731338] (0)[757:sensors@2.0-ser][MIR3DA] mir3da_flush 0
+[ 3804.731359] (0)[757:sensors@2.0-ser][MIR3DA] mir3da_flush 1
+[ 3804.755975] (2)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 4, cur = 910000
+[ 3804.928181] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 1001000
+[ 3805.230646] (0)[757:sensors@2.0-ser][MIR3DA] mir3da_batch 0
+[ 3805.426016] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 910000
+[ 3813.154892] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3813.762037] (0)[370:health@2.0-serv]healthd: battery l=100 v=4325 t=31.0 h=2 st=5 c=411 fc=2800000 cc=0 chg=u
+[ 3814.124762] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=440 on 440!!
+[ 3814.131447] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3814.144171] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3823.155448] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3824.124797] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=450 on 450!!
+[ 3824.131898] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3824.144421] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3833.155703] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3834.124795] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=460 on 460!!
+[ 3834.131394] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3834.143818] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3843.155992] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3844.124499] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=470 on 470!!
+[ 3844.130448] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3844.142973] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3853.156251] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3854.124882] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=480 on 480!!
+[ 3854.131474] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3854.143867] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3863.156565] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3864.123395] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=490 on 490!!
+[ 3864.129464] (0)[370:health@2.0-serv]healthd: battery l=100 v=4326 t=31.0 h=2 st=5 c=139 fc=2800000 cc=0 chg=u
+[ 3864.150052] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3864.165390] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3868.496008] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 3868.778452] (0)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3873.156831] (4)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3873.356137] (5)[14130:cat]subsys_camera_info_read  CAM[1]:imx145_mipi_raw; CAM[2]:gc5025_mipi_raw;
+[ 3873.761204] (5)[370:health@2.0-serv]healthd: battery l=100 v=4326 t=31.0 h=2 st=5 c=139 fc=2800000 cc=0 chg=u
+[ 3874.124888] (4)[258:bat_routine_thr][BATTERY] CC mode charge, timer=500 on 500!!
+[ 3874.129552] (4)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3874.141408] (4)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3883.157094] (5)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3884.122161] (5)[258:bat_routine_thr][mt_battery_CheckBatteryStatus] cmd_discharging=(1)
+[ 3884.122947] (5)[392:fuelgauged][BATTERY] BAD Battery status... Charging Stop !!\x0a\x0d
+[ 3884.127073] (5)[370:health@2.0-serv]healthd: battery l=100 v=4322 t=31.0 h=2 st=3 c=509 fc=2800000 cc=0 chg=u
+[ 3888.316423] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 871000 (871000), volt = 89375 (89375), cpus = 1, cur = 1508000
+[ 3888.477528] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3889.678777] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 910000
+[ 3893.157453] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3893.406551] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 910000
+[ 3894.122638] (0)[258:bat_routine_thr][mt_battery_CheckBatteryStatus] cmd_discharging=(1)
+[ 3894.123465] (0)[392:fuelgauged][BATTERY] BAD Battery status... Charging Stop !!\x0a\x0d
+[ 3894.128805] (0)[370:health@2.0-serv]healthd: battery l=100 v=4320 t=31.0 h=2 st=3 c=424 fc=2800000 cc=0 chg=u
+[ 3895.788839] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 910000
+[ 3900.685947] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 910000
+[ 3903.157711] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3904.122665] (0)[258:bat_routine_thr][mt_battery_CheckBatteryStatus] cmd_discharging=(1)
+[ 3904.123509] (0)[392:fuelgauged][BATTERY] BAD Battery status... Charging Stop !!\x0a\x0d
+[ 3904.129088] (0)[370:health@2.0-serv]healthd: battery l=100 v=4318 t=31.0 h=2 st=3 c=403 fc=2800000 cc=0 chg=u
+[ 3913.157966] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3914.122669] (0)[258:bat_routine_thr][mt_battery_CheckBatteryStatus] cmd_discharging=(1)
+[ 3914.123497] (0)[392:fuelgauged][BATTERY] BAD Battery status... Charging Stop !!\x0a\x0d
+[ 3914.129224] (0)[370:health@2.0-serv]healthd: battery l=100 v=4315 t=31.0 h=2 st=3 c=403 fc=2800000 cc=0 chg=u
+[ 3923.158217] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3923.305948] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 3923.485930] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 1001000
+[ 3923.974398] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 910000
+[ 3924.123078] (0)[258:bat_routine_thr][mt_battery_CheckBatteryStatus] cmd_discharging=(1)
+[ 3924.123908] (0)[392:fuelgauged][BATTERY] BAD Battery status... Charging Stop !!\x0a\x0d
+[ 3924.129567] (0)[370:health@2.0-serv]healthd: battery l=100 v=4313 t=31.0 h=2 st=3 c=422 fc=2800000 cc=0 chg=u
+[ 3925.155936] (1)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 3925.302164] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 1001000
+[ 3933.158474] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3933.761824] (0)[370:health@2.0-serv]healthd: battery l=100 v=4313 t=31.0 h=2 st=3 c=422 fc=2800000 cc=0 chg=u
+[ 3934.124235] (0)[258:bat_routine_thr][mt_battery_CheckBatteryStatus] cmd_discharging=(1)
+[ 3934.125063] (0)[392:fuelgauged][BATTERY] BAD Battery status... Charging Stop !!\x0a\x0d
+[ 3934.130824] (0)[370:health@2.0-serv]healthd: battery l=100 v=4310 t=31.0 h=2 st=3 c=383 fc=2800000 cc=0 chg=u
+[ 3943.158732] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3944.124545] (0)[258:bat_routine_thr][mt_battery_CheckBatteryStatus] cmd_discharging=(1)
+[ 3944.125373] (0)[392:fuelgauged][BATTERY] BAD Battery status... Charging Stop !!\x0a\x0d
+[ 3944.131072] (0)[370:health@2.0-serv]healthd: battery l=100 v=4308 t=31.0 h=2 st=3 c=397 fc=2800000 cc=0 chg=u
+[ 3953.159055] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3954.122826] (0)[258:bat_routine_thr][mt_battery_CheckBatteryStatus] cmd_discharging=(1)
+[ 3954.123653] (0)[392:fuelgauged][BATTERY] BAD Battery status... Charging Stop !!\x0a\x0d
+[ 3954.133619] (0)[370:health@2.0-serv]healthd: battery l=100 v=4305 t=31.0 h=2 st=3 c=403 fc=2800000 cc=0 chg=u
+[ 3963.159329] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3964.122788] (0)[258:bat_routine_thr][mt_battery_CheckBatteryStatus] cmd_discharging=(1)
+[ 3964.123615] (0)[392:fuelgauged][BATTERY] BAD Battery status... Charging Stop !!\x0a\x0d
+[ 3964.129347] (0)[370:health@2.0-serv]healthd: battery l=100 v=4302 t=31.0 h=2 st=3 c=404 fc=2800000 cc=0 chg=u
+[ 3964.268988] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 910000
+[ 3973.159593] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3974.124410] (0)[258:bat_routine_thr][mt_battery_CheckBatteryStatus] cmd_discharging=(1)
+[ 3974.125247] (0)[392:fuelgauged][BATTERY] BAD Battery status... Charging Stop !!\x0a\x0d
+[ 3974.130776] (0)[370:health@2.0-serv]healthd: battery l=100 v=4300 t=31.0 h=2 st=3 c=422 fc=2800000 cc=0 chg=u
+[ 3975.305939] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 910000
+[ 3983.159867] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3984.122868] (0)[258:bat_routine_thr][mt_battery_CheckBatteryStatus] cmd_discharging=(1)
+[ 3984.123696] (0)[392:fuelgauged][BATTERY] BAD Battery status... Charging Stop !!\x0a\x0d
+[ 3984.129464] (0)[370:health@2.0-serv]healthd: battery l=100 v=4297 t=31.0 h=2 st=3 c=402 fc=2800000 cc=0 chg=u
+[ 3993.160132] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 3993.761835] (0)[370:health@2.0-serv]healthd: battery l=100 v=4297 t=31.0 h=2 st=3 c=402 fc=2800000 cc=0 chg=u
+[ 3994.124451] (0)[258:bat_routine_thr][mt_battery_CheckBatteryStatus] cmd_discharging=(1)
+[ 3994.125279] (0)[392:fuelgauged][BATTERY] BAD Battery status... Charging Stop !!\x0a\x0d
+[ 3994.130819] (0)[370:health@2.0-serv]healthd: battery l=100 v=4295 t=31.0 h=2 st=3 c=415 fc=2800000 cc=0 chg=u
+[ 4003.160401] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 4004.121426] (0)[258:bat_routine_thr][mt_battery_CheckBatteryStatus] cmd_discharging=(1)
+[ 4004.122253] (0)[392:fuelgauged][BATTERY] BAD Battery status... Charging Stop !!\x0a\x0d
+[ 4004.128028] (0)[370:health@2.0-serv]healthd: battery l=100 v=4292 t=31.0 h=2 st=3 c=410 fc=2800000 cc=0 chg=u
+[ 4010.266017] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 4010.310060] (2)[17255:cat][FTS_TS/E]fts_ta_read:touch_analysis is disabled, or ta_buf is NULL
+[ 4010.551654] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 4012.005911] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 871000 (871000), volt = 89375 (89375), cpus = 1, cur = 1508000
+[ 4012.200813] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 4013.160737] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 4014.123309] (0)[258:bat_routine_thr][mt_battery_CheckBatteryStatus] cmd_discharging=(1)
+[ 4014.124155] (0)[392:fuelgauged][BATTERY] BAD Battery status... Charging Stop !!\x0a\x0d
+[ 4014.129047] (0)[370:health@2.0-serv]healthd: battery l=100 v=4289 t=31.0 h=2 st=3 c=548 fc=2800000 cc=0 chg=u
+[ 4014.135982] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 4014.213759] (2)[17275:cat][FTS_TS/E]fts_ta_read:touch_analysis is disabled, or ta_buf is NULL
+[ 4014.437472] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 4015.056284] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 871000 (871000), volt = 89375 (89375), cpus = 1, cur = 1508000
+[ 4015.230019] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 4016.999384] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 910000
+[ 4019.945982] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 4020.100857] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 1001000
+[ 4020.926010] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 4021.209010] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 4021.865925] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 871000 (871000), volt = 89375 (89375), cpus = 1, cur = 1508000
+[ 4022.017551] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 4023.161101] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 4024.123036] (0)[258:bat_routine_thr][mt_battery_CheckBatteryStatus] cmd_discharging=(1)
+[ 4024.123864] (0)[392:fuelgauged][BATTERY] BAD Battery status... Charging Stop !!\x0a\x0d
+[ 4024.131215] (0)[370:health@2.0-serv]healthd: battery l=100 v=4286 t=31.0 h=2 st=3 c=385 fc=2800000 cc=0 chg=u
+[ 4026.735961] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 4027.028703] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 4027.189685] (4)[17324:cat][FTS_TS]fts_bootmode_show: Enter
+[ 4027.189702] (4)[17324:cat][FTS_TS]fts_bootmode_show: Exit(746)
+[ 4027.815969] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 871000 (871000), volt = 89375 (89375), cpus = 1, cur = 1508000
+[ 4027.989710] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 4032.836005] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 910000
+[ 4033.161378] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 4033.306001] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 4033.588765] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 4034.117249] (4)[370:health@2.0-serv]healthd: battery l=100 v=4286 t=31.0 h=2 st=3 c=385 fc=2800000 cc=0 chg=u
+[ 4034.127744] (4)[258:bat_routine_thr][mt_battery_CheckBatteryStatus] cmd_discharging=(1)
+[ 4034.128534] (4)[258:bat_routine_thr][BATTERY] BAD Battery status... Charging Stop !!\x0a\x0d[psc5415] [psc5415][0x0]=0x10 [psc5415][0x1]=0x7c [psc5415][0x2]=0xb0 [psc5415][0x3]=0xf0 [psc5415][0x4]=0x0 [psc5415][0x5]=0x22 [psc5415][0x6]=0x5f psc5415_dump_register end 
+[ 4034.240934] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 871000 (871000), volt = 89375 (89375), cpus = 1, cur = 1508000
+[ 4034.369548] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 4036.240608] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 910000
+[ 4039.284167] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 910000
+[ 4040.245983] (2)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 3, cur = 910000
+[ 4040.560013] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 4041.146995] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 871000 (871000), volt = 89375 (89375), cpus = 1, cur = 1508000
+[ 4041.307616] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 4043.161667] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 4044.123196] (0)[258:bat_routine_thr][mt_battery_CheckBatteryStatus] cmd_discharging=(1)
+[ 4044.124025] (0)[392:fuelgauged][BATTERY] BAD Battery status... Charging Stop !!\x0a\x0d
+[ 4044.129442] (0)[370:health@2.0-serv]healthd: battery l=100 v=4284 t=31.0 h=2 st=3 c=419 fc=2800000 cc=0 chg=u
+[ 4046.214170] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 910000
+[ 4047.286446] (3)[757:sensors@2.0-ser][MIR3DA] mir3da_batch 0
+[ 4047.286865] (3)[757:sensors@2.0-ser]<ACCELEROMETER> acc_store_flush 426 : acc_store_flush param: handle 0
+[ 4047.286879] (3)[757:sensors@2.0-ser][MIR3DA] mir3da_flush 0
+[ 4047.286904] (3)[757:sensors@2.0-ser][MIR3DA] mir3da_flush 1
+[ 4047.355993] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 3, cur = 910000
+[ 4047.639006] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 4047.798637] (4)[757:sensors@2.0-ser][MIR3DA] mir3da_batch 0
+[ 4049.070148] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 871000 (871000), volt = 89375 (89375), cpus = 1, cur = 1508000
+[ 4049.269790] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 4049.385994] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 4049.598163] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 1001000
+[ 4052.415993] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 4052.595682] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 1001000
+[ 4053.162006] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 4053.762042] (0)[370:health@2.0-serv]healthd: battery l=100 v=4284 t=31.0 h=2 st=3 c=419 fc=2800000 cc=0 chg=u
+[ 4054.123228] (0)[258:bat_routine_thr][mt_battery_CheckBatteryStatus] cmd_discharging=(1)
+[ 4054.124056] (0)[392:fuelgauged][BATTERY] BAD Battery status... Charging Stop !!\x0a\x0d
+[ 4054.130069] (0)[370:health@2.0-serv]healthd: battery l=100 v=4281 t=31.0 h=2 st=3 c=406 fc=2800000 cc=0 chg=u
+[ 4055.025981] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 3, cur = 910000
+[ 4055.308816] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 4063.162305] (5)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 4064.124604] (5)[392:fuelgauged][BATTERY] Pre-CC mode charge, timer=0 on 0 !!\x0a\x0d
+[ 4064.129789] (5)[370:health@2.0-serv]healthd: battery l=100 v=4280 t=32.0 h=2 st=5 c=62 fc=2800000 cc=0 chg=u
+[ 4064.155772] (4)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 4064.173742] (4)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 4070.652476] (4)[17468:cat][hall_dev] cur_hall_status=0
+[ 4070.672955] (4)[17469:cat][hall_dev] cur_hall_status=0
+[ 4073.162559] (5)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 4074.124146] (5)[258:bat_routine_thr][BATTERY] CC mode charge, timer=0 on 10!!
+[ 4074.128838] (5)[370:health@2.0-serv]healthd: battery l=100 v=4279 t=32.0 h=2 st=5 c=60 fc=2800000 cc=0 chg=u
+[ 4074.145465] (5)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 4074.163614] (4)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 4082.375424] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 871000 (871000), volt = 89375 (89375), cpus = 1, cur = 1508000
+[ 4082.504032] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 4083.162916] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 4084.124145] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=10 on 20!!
+[ 4084.130456] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 4084.135944] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 910000
+[ 4084.143268] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 4087.107258] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 910000
+[ 4093.163174] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 4094.125543] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=20 on 30!!
+[ 4094.132192] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 4094.144735] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 4103.163432] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 4104.124224] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=30 on 40!!
+[ 4104.130915] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 4104.143366] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 4108.655982] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 3, cur = 910000
+[ 4108.835930] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 94375 (94375), cpus = 1, cur = 1001000
+[ 4111.705971] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 3, cur = 910000
+[ 4112.007925] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 4112.608256] (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 871000 (871000), volt = 89375 (89375), cpus = 1, cur = 1508000
+[ 4112.752738] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 4113.163742] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 4113.762079] (0)[370:health@2.0-serv]healthd: battery l=100 v=4278 t=32.0 h=2 st=5 c=119 fc=2800000 cc=0 chg=u
+[ 4114.124211] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=40 on 50!!
+[ 4114.130898] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 4114.143374] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 4114.536780] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 94375 (94375), cpus = 1, cur = 910000
+[ 4117.505972] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 4117.710159] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 598000 (598000), volt = 94375 (94375), cpus = 1, cur = 1001000
+[ 4123.164079] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 4124.125719] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=50 on 60!!
+[ 4124.132390] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 4124.144813] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 4133.164341] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 4134.124221] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=60 on 70!!
+[ 4134.131007] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 4134.143415] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 4143.164605] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 4144.124675] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=70 on 80!!
+[ 4144.130167] (0)[370:health@2.0-serv]healthd: battery l=100 v=4277 t=32.0 h=2 st=5 c=377 fc=2800000 cc=0 chg=u
+[ 4144.150221] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 4153.164876] (0)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 4154.125941] (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=80 on 90!!
+[ 4154.132568] (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 4154.145229] (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 4156.386012] (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (7, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 2, cur = 910000
+[ 4156.668798] (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 4161.373940] (5)[17933:cat]subsys_camera_info_read  CAM[1]:imx145_mipi_raw; CAM[2]:gc5025_mipi_raw;
+[ 4163.165157] (5)[2182:batterywarning][Battery] show_BatteryNotify : 0
+[ 4164.126134] (4)[258:bat_routine_thr][BATTERY] CC mode charge, timer=90 on 100!!
+[ 4164.131859] (4)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 4164.144130] (4)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+## persistent boot-log excerpts
+### /sys/fs/pstore/console-ramoops
+[ 3850.787409]  (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=280 on 280!!
+[ 3850.793105]  (0)[362:health@2.0-serv]healthd: battery l=100 v=4318 t=29.0 h=2 st=5 c=111 fc=2800000 cc=0 chg=u
+[ 3850.817418]  (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3850.849661]  (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3851.314662]  (0)[2052:batterywarning][Battery] show_BatteryNotify : 0
+[ 3860.794216]  (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=290 on 290!!
+[ 3860.799576]  (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3860.812104]  (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3861.314933]  (0)[2052:batterywarning][Battery] show_BatteryNotify : 0
+[ 3870.787441]  (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=300 on 300!!
+[ 3870.794043]  (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3870.806562]  (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3871.315210]  (0)[2052:batterywarning][Battery] show_BatteryNotify : 0
+[ 3873.039634]  (0)[677:sensors@2.0-ser][MIR3DA] mir3da_batch 0
+[ 3873.040211]  (0)[677:sensors@2.0-ser]<ACCELEROMETER> acc_store_flush 426 : acc_store_flush param: handle 0
+[ 3873.040226]  (0)[677:sensors@2.0-ser][MIR3DA] mir3da_flush 0
+[ 3873.040249]  (0)[677:sensors@2.0-ser][MIR3DA] mir3da_flush 1
+[ 3873.533775]  (0)[677:sensors@2.0-ser][MIR3DA] mir3da_batch 0
+[ 3880.787505]  (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=310 on 310!!
+[ 3880.794127]  (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3880.806725]  (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3881.315525]  (0)[2052:batterywarning][Battery] show_BatteryNotify : 0
+[ 3890.789073]  (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=320 on 320!!
+[ 3890.795745]  (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3890.808264]  (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3891.315804]  (0)[2052:batterywarning][Battery] show_BatteryNotify : 0
+[ 3900.789069]  (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=330 on 330!!
+[ 3900.795706]  (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3900.808153]  (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3901.316186]  (0)[2052:batterywarning][Battery] show_BatteryNotify : 0
+[ 3910.423113]  (0)[362:health@2.0-serv]healthd: battery l=100 v=4323 t=30.0 h=2 st=5 c=122 fc=2800000 cc=0 chg=u
+[ 3910.789731]  (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=340 on 340!!
+[ 3910.796269]  (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3910.809114]  (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3911.316579]  (0)[2052:batterywarning][Battery] show_BatteryNotify : 0
+[ 3915.648212]  (1)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3916.801106]  (0)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3919.754753]  (0)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3920.784570]  (4)[258:bat_routine_thr][BATTERY] CC mode charge, timer=350 on 350!!
+[ 3920.789068]  (4)[362:health@2.0-serv]healthd: battery l=100 v=4323 t=30.0 h=2 st=5 c=91 fc=2800000 cc=0 chg=u
+[ 3920.795051]  (4)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3920.807778]  (4)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3920.978172]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3921.316883]  (0)[2052:batterywarning][Battery] show_BatteryNotify : 0
+[ 3926.589302]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3927.448164]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3930.787644]  (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=360 on 360!!
+[ 3930.794303]  (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3930.806813]  (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3931.317239]  (0)[2052:batterywarning][Battery] show_BatteryNotify : 0
+[ 3934.983934]  (0)[297:logd.auditd]type=1400 audit(1787419053.670:279): avc: denied { search } for comm=73796E6320737663203136 name="oem" dev="mmcblk0p28" ino=44 scontext=u:r:adbd:s0 tcontext=u:object_r:oemfs:s0 tclass=dir permissive=0
+[ 3936.926605]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(305, 1559)[p:17,tm:16] DOWN!
+[ 3937.069406]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3937.069426]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3937.229595]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3937.418445]  (4)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(368, 1553)[p:22,tm:16] DOWN!
+[ 3937.513754]  (6)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3937.513778]  (6)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3937.542110]  (0)[427:mtkPowerManager][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3937.641135]  (5)[297:logd.auditd]type=1400 audit(1787419053.670:279): avc: denied { search } for comm=73796E6320737663203136 name="oem" dev="mmcblk0p28" ino=44 scontext=u:r:adbd:s0 tcontext=u:object_r:oemfs:s0 tclass=dir permissive=0
+[ 3937.641164]  (5)[297:logd.auditd]type=1400 audit(1787419056.330:280): avc: denied { read execute } for comm="xample.hrftool" path="/vendor/lib64/libpq_cust.so" dev="mmcblk0p27" ino=1433 scontext=u:r:system_app:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=0
+[ 3937.917001]  (4)[1:init]init 18: ReapLogT PropSet [persist.sys.htf.ram]=[-1]3937.710206 [persist.sys.htf.rom]=[-1]3937.718287 [persist.sys.htf.cpu]=[-1]3937.725650 [persist.sys.htf.camera.front]=[-1]3937.734108 [persist.sys.htf.camera.back]=[-1]3937.742229 [persist.sys.htf.lcd]=[-1]3937.751741 [persist.sys.htf.battery]=[-1]3937.761567 [persist.sys.htf.sdk]=[-1]3937.771075 [persist.sys.htf.cpucore]=[-1]3937.780241 [persist.sys.htf.signal]=[-1]3937.788924 [persist.sys.htf.rom]=[64]3937.797603 [persist.sys.htf.ram]=[4]3937.808452 Done
+[ 3938.658418]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3938.910357]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(88, 1335)[p:21,tm:16] DOWN!
+[ 3938.987832]  (1)[2360:RenderThread]__sched_setscheduler 2628:mali-cmar-backe policy=2 0 0[ 3938.989568]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3939.053336]  (6)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3939.053353]  (6)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3939.228897]  (6)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3939.551550]  (2)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3939.862532]  (4)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(125, 1272)[p:31,tm:32] DOWN!
+[ 3939.898378]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3940.163887]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3940.163908]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3940.219377]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3940.576395]  (4)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(105, 867)[p:24,tm:32] DOWN!
+[ 3940.638423]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3940.787735]  (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=370 on 370!!
+[ 3940.792338]  (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3940.805325]  (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3940.959454]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3940.987998]  (6)[297:logd.auditd]type=1400 audit(1787419056.330:280): avc: denied { read execute } for comm="xample.hrftool" path="/vendor/lib64/libpq_cust.so" dev="mmcblk0p27" ino=1433 scontext=u:r:system_app:s0 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=0
+[ 3941.054708]  (5)[2360:RenderThread]__sched_setscheduler 2628:mali-cmar-backe policy=2 0 0[ 3941.306559]  (4)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3941.306583]  (4)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3941.317562]  (4)[2052:batterywarning][Battery] show_BatteryNotify : 0
+[ 3941.318465]  (5)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3941.528630]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(309, 720)[p:22,tm:16] DOWN!
+[ 3941.608046]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3941.608066]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3941.631509]  (2)[427:mtkPowerManager][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3942.734803]  (4)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(349, 735)[p:25,tm:32] DOWN!
+[ 3942.782424]  (4)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3942.782439]  (4)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3942.810508]  (5)[427:mtkPowerManager][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3943.833140]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3943.909251]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(476, 696)[p:31,tm:32] DOWN!
+[ 3943.940986]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3943.941004]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3943.985141]  (4)[427:mtkPowerManager][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3944.518825]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3944.607564]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(510, 571)[p:53,tm:72] DOWN!
+[ 3944.655115]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3944.655135]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3944.849323]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3945.169473]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3945.575727]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(498, 1536)[p:45,tm:40] DOWN!
+[ 3945.639214]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3945.639233]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3945.653345]  (0)[427:mtkPowerManager][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3946.210393]  (4)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(382, 870)[p:22,tm:32] DOWN!
+[ 3946.257990]  (6)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3946.258013]  (6)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3946.901012]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3947.702216]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(526, 875)[p:27,tm:32] DOWN!
+[ 3947.765726]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3947.765740]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3947.999326]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3948.248599]  (6)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3948.289526]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(442, 1531)[p:25,tm:24] DOWN!
+[ 3948.352912]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3948.352931]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3948.448170]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(445, 1528)[p:28,tm:32] DOWN!
+[ 3948.527549]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3948.527569]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3948.579403]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3948.829064]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3948.844883]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(455, 1548)[p:22,tm:24] DOWN!
+[ 3948.908282]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3948.908300]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3949.051274]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(509, 1545)[p:28,tm:16] DOWN!
+[ 3949.130535]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3949.130557]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3949.273345]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(520, 1528)[p:29,tm:24] DOWN!
+[ 3949.305097]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3949.305116]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3949.359267]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3949.368619]  (5)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(528, 1539)[p:26,tm:24] DOWN!
+[ 3949.463908]  (4)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3949.463924]  (4)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3949.495658]  (4)[427:mtkPowerManager][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3949.574934]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(526, 1518)[p:34,tm:32] DOWN!
+[ 3949.606646]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3949.606666]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3949.955750]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(507, 1528)[p:40,tm:32] DOWN!
+[ 3950.003442]  (5)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3950.003460]  (5)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3950.390847]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3950.622414]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(156, 1361)[p:26,tm:32] DOWN!
+[ 3950.654183]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3950.654213]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3950.709045]  (0)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3950.792688]  (4)[258:bat_routine_thr][BATTERY] CC mode charge, timer=380 on 380!!
+[ 3950.797425]  (4)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3950.809572]  (4)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3951.038468]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3951.130158]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(93, 1124)[p:33,tm:48] DOWN!
+[ 3951.177781]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3951.177800]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3951.216360]  (4)[427:mtkPowerManager][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3951.318130]  (5)[2052:batterywarning][Battery] show_BatteryNotify : 0
+[ 3952.768181]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3953.098136]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(629, 243)[p:25,tm:32] DOWN!
+[ 3953.161520]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3953.161539]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3953.399338]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3953.648465]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3953.859863]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(663, 137)[p:30,tm:24] DOWN!
+[ 3953.907473]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3953.907492]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3953.989312]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3954.498454]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3954.701015]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(11, 885)[p:23,tm:16] DOWN!
+[ 3954.819454]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3954.828222]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3954.828243]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3955.438089]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3955.653241]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(537, 1551)[p:31,tm:24] DOWN!
+[ 3955.716701]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3955.716721]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3955.969452]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3956.468404]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3956.510212]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(619, 245)[p:24,tm:32] DOWN!
+[ 3956.573628]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3956.573647]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3956.799358]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3957.118474]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3957.468962]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3958.120769]  (0)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3958.509939]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(257, 419)[p:43,tm:48] DOWN!
+[ 3958.589240]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3958.589260]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3958.826131]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3959.198646]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3959.271689]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(223, 429)[p:30,tm:32] DOWN!
+[ 3959.350920]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3959.350938]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3960.001581]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(78, 315)[p:30,tm:24] DOWN!
+[ 3960.049237]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3960.049257]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3960.189214]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3960.438423]  (5)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3960.787697]  (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=390 on 390!!
+[ 3960.794333]  (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3960.807324]  (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3961.065022]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(625, 211)[p:28,tm:40] DOWN!
+[ 3961.128390]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3961.128409]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3961.318741]  (2)[2052:batterywarning][Battery] show_BatteryNotify : 0
+[ 3961.369459]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3961.618695]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3961.929341]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3962.175894]  (4)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(348, 405)[p:28,tm:40] DOWN!
+[ 3962.198415]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3962.239348]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3962.239368]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3962.279476]  (4)[427:mtkPowerManager][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3962.358035]  (4)[297:logd.auditd]type=1400 audit(1787419081.050:283): avc: denied { read execute } for comm="oid.documentsu" path="/vendor/lib64/libpq_cust.so" dev="mmcblk0p27" ino=1433 scontext=u:r:platform_app:s0:c512,c768 tcontext=u:object_r:vendor_file:s0 tclass=file permissive=0
+[ 3963.969223]  (5)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(659, 318)[p:36,tm:32] DOWN!
+[ 3964.016908]  (4)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3964.016925]  (4)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3964.154629]  (4)[427:mtkPowerManager][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3964.519190]  (3)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3964.683341]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(635, 519)[p:20,tm:16] DOWN!
+[ 3964.746803]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3964.746821]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3965.135241]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3965.468197]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3966.254645]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(54, 137)[p:33,tm:32] DOWN!
+[ 3966.302176]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3966.302196]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3966.569200]  (1)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3966.818417]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3966.936940]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(250, 540)[p:28,tm:32] DOWN!
+[ 3966.984522]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3966.984541]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3967.149675]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3967.735011]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3968.279017]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3968.539887]  (4)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(645, 322)[p:35,tm:48] DOWN!
+[ 3968.603349]  (4)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3968.603371]  (4)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3968.619691]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3968.919352]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3969.253572]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3969.254136]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(455, 882)[p:28,tm:40] DOWN!
+[ 3969.333491]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3969.333511]  (1)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3969.569361]  (2)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3969.818527]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3970.422637]  (0)[362:health@2.0-serv]healthd: battery l=100 v=4322 t=30.0 h=2 st=5 c=29 fc=2800000 cc=0 chg=u
+[ 3970.629617]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3970.666543]  (4)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(113, 1295)[p:22,tm:16] DOWN!
+[ 3970.761613]  (5)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3970.761627]  (5)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3970.789752]  (6)[258:bat_routine_thr][BATTERY] CC mode charge, timer=400 on 400!!
+[ 3970.794530]  (6)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3970.806933]  (6)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3971.319079]  (4)[2052:batterywarning][Battery] show_BatteryNotify : 0
+[ 3971.368308]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3971.682230]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(579, 144)[p:22,tm:32] DOWN!
+[ 3971.713937]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3971.713959]  (2)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3971.793439]  (1)[427:mtkPowerManager][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3972.262517]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3972.634416]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0(621, 339)[p:25,tm:40] DOWN!
+[ 3972.697792]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]P0 UP!
+[ 3972.697811]  (0)[254:mtk-tpd][FTS_TS]fts_input_report_b:[B]Points All Up!
+[ 3972.949595]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3980.787378]  (4)[258:bat_routine_thr][BATTERY] CC mode charge, timer=410 on 410!!
+[ 3980.793045]  (4)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3980.804949]  (4)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3980.956848]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 3981.319379]  (0)[2052:batterywarning][Battery] show_BatteryNotify : 0
+[ 3990.788673]  (0)[258:bat_routine_thr][BATTERY] CC mode charge, timer=420 on 420!!
+[ 3990.793456]  (0)[362:health@2.0-serv]healthd: battery l=100 v=4320 t=30.0 h=2 st=5 c=157 fc=2800000 cc=0 chg=u
+[ 3990.823698]  (0)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 3990.848359]  (0)[258:bat_routine_thr][battery_meter_set_fg_int]fg_bat_int_coulomb_pre 0 1p:28
+[ 3991.319651]  (0)[2052:batterywarning][Battery] show_BatteryNotify : 0
+[ 3991.978863]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 3997.659420]  (5)[1:init]init 20: Sending signal 15 to service 'batterywarning' (pid 2052) process group...
+[ 3997.683294]  (5)[1:init]init 20: Sending signal 15 to service 'camerahalserver' (pid 678) process group...
+[ 3997.683477]  (5)[1:init]init 20: Sending signal 15 to service 'vendor.sensors-hal-2-0' (pid 677) process group...
+[ 3997.727633]  (5)[1:init]init 20: Sending signal 15 to service 'cameraserver' (pid 653) process group...
+[ 3997.760407]  (6)[1:init]init 3: Service 'cameraserver' (pid 653) received signal 15
+[ 3997.760440]  (6)[1:init]init 3: Sending signal 9 to service 'cameraserver' (pid 653) process group...
+[ 3997.773424]  (6)[1:init]init 20: Service 'vendor.sensors-hal-2-0' (pid 677) received signal 15
+[ 3997.773459]  (6)[1:init]init 20: Sending signal 9 to service 'vendor.sensors-hal-2-0' (pid 677) process group...
+[ 3997.774108]  (6)[1:init]init 20: Service 'camerahalserver' (pid 678) received signal 15
+[ 3997.774137]  (6)[1:init]init 20: Sending signal 9 to service 'camerahalserver' (pid 678) process group...
+[ 3997.803499]  (5)[1:init]init 3: Service 'batterywarning' (pid 2052) received signal 15
+[ 3997.803581]  (5)[1:init]init 20: Sending signal 9 to service 'batterywarning' (pid 2052) process group...
+[ 3998.488060]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 4000.792498]  (1)[258:bat_routine_thr][BATTERY] CC mode charge, timer=430 on 430!!
+[ 4000.797108]  (1)[258:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+[ 4001.448907]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_BIG freq = 286000
+[ 4001.497694]  (4)[1:init]init 20: Unmounting /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/nvdata:/mnt/vendor/nvdata opts rw,seclabel,nosuid,nodev,noatime,discard,noauto_da_alloc,commit=1,data=ordered
+[ 4001.550030]  (4)[1:init]init 20: Umounted /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/nvdata:/mnt/vendor/nvdata opts rw,seclabel,nosuid,nodev,noatime,discard,noauto_da_alloc,commit=1,data=ordered
+[ 4001.550065]  (4)[1:init]init 20: Unmounting /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect2:/mnt/vendor/protect_s opts rw,seclabel,nosuid,nodev,noatime,nodelalloc,noauto_da_alloc,commit=1,data=ordered
+[ 4001.580480]  (4)[1:init]init 20: Umounted /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect2:/mnt/vendor/protect_s opts rw,seclabel,nosuid,nodev,noatime,nodelalloc,noauto_da_alloc,commit=1,data=ordered
+[ 4001.580515]  (4)[1:init]init 20: Unmounting /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect1:/mnt/vendor/protect_f opts rw,seclabel,nosuid,nodev,noatime,nodelalloc,noauto_da_alloc,commit=1,data=ordered
+[ 4001.610217]  (4)[1:init]init 20: Umounted /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect1:/mnt/vendor/protect_f opts rw,seclabel,nosuid,nodev,noatime,nodelalloc,noauto_da_alloc,commit=1,data=ordered
+[ 4001.610257]  (4)[1:init]init 20: Unmounting /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache:/cache opts rw,seclabel,nosuid,nodev,noatime,discard,noauto_da_alloc,data=ordered
+[ 4001.639524]  (4)[1:init]init 20: Umounted /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache:/cache opts rw,seclabel,nosuid,nodev,noatime,discard,noauto_da_alloc,data=ordered
+[ 4001.740039]  (4)[1:init]battery battery: shutdown
+[ 4001.740133]  (4)[1:init]mmcblk mmc0:0001: shutdown
+[ 4001.757602]  (4)[1:init]battery_meter battery_meter: shutdown
+[ 4001.757992]  (4)[1:init]wusb3801x 4-0060: shutdown
+[ 4001.760412]  (4)[1:init]mt6311 3-006b: shutdown
+[ 4001.760445]  (4)[1:init]kd_camera_hw 2-0010: shutdown
+[ 4001.760477]  (4)[1:init]kd_camera_hw_bus2 1-0020: shutdown
+[ 4001.760514]  (4)[1:init]mir3da 1-0026: shutdown
+[ 4001.760546]  (4)[1:init]fts_ts 0-005d: shutdown
+[ 4002.016489]  (4)[8849:kworker/u17:1]wusb3801x 4-0060: wusb3801_work_handler 
+[ 4002.017829]  (0)[8849:kworker/u17:1]wusb3801x 4-0060: wusb3801_work_handler WUSB3801_REG_STATUS : 0x88
+[ 4002.018017]  (0)[8849:kworker/u17:1]wusb3801x 4-0060: wusb3801_work_handler: int_sts[0x01]
+[ 4002.018116]  (0)[8849:kworker/u17:1]wusb3801x 4-0060: chip->attached=1
+[ 4002.018157]  (4)[231:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+[ 4002.026634] cfsucc @@@@@  1111111  lcm_set_reset_pin 
+ cfsucc @@@@@  111111 lcm_set_reset_pin 
+[ 4002.134463]  (0)[1:init]kd_camera_flashlight soc:flashlight: shutdown
+### /sys/fs/pstore/console-ramoops-2
+>    3.872854< #@# spm_load_pcm_firmware_nodev(1078) use_new_spmfw 0, segment 0x1
+### /sys/fs/pstore/pmsg-ramoops-0
+## framework excerpts
+08-22 19:51:32.532  1127  1606 W FingerprintService: fingerprint HIDL not available
+08-22 19:51:37.097  1127  1598 W FingerprintService: fingerprint HIDL not available
+08-22 19:51:37.112  1127  1598 W FingerprintService: fingerprint HIDL not available
+08-22 19:51:37.214  1127  1605 W FingerprintService: fingerprint HIDL not available
+08-22 20:04:12.637  1127  1598 W FingerprintService: fingerprint HIDL not available
+08-22 20:10:16.314  1127  1598 W FingerprintService: fingerprint HIDL not available
+08-22 20:20:42.149   287   287 I auditd  : avc:  denied  { find } for interface=android.frameworks.sensorservice::ISensorManager sid=u:r:shell:s0 pid=12714 scontext=u:r:shell:s0 tcontext=u:object_r:fwk_sensor_hwservice:s0 tclass=hwservice_manager permissive=0
+08-22 20:20:45.335   287   287 I auditd  : avc:  denied  { find } for interface=android.frameworks.sensorservice::ISensorManager sid=u:r:shell:s0 pid=13254 scontext=u:r:shell:s0 tcontext=u:object_r:fwk_sensor_hwservice:s0 tclass=hwservice_manager permissive=0
+
+# host_exit_status: 0

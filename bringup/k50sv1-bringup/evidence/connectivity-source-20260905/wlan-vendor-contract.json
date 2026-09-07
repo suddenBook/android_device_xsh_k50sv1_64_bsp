@@ -1,0 +1,470 @@
+{
+  "stock_slots": 22,
+  "matched_slots": 22,
+  "unique_handlers": 18,
+  "source_entries_including_disabled_gscan": 30,
+  "checks": [
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x3f98",
+        "handler": "mtk_cfg80211_vendor_get_channel_list",
+        "vendor_hex": "0x1a11",
+        "subcmd_hex": "0x1",
+        "flags_hex": "0x3",
+        "preceding_bytes": "0000000000000000111a0000010000000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_wlan_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_get_channel_list",
+          "vendor": 6673,
+          "subcmd": 1,
+          "flags": 3,
+          "source_subcmd": "WIFI_SUBCMD_GET_CHANNEL_LIST"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x3fb0",
+        "handler": "mtk_cfg80211_vendor_set_country_code",
+        "vendor_hex": "0x1a11",
+        "subcmd_hex": "0x6",
+        "flags_hex": "0x3",
+        "preceding_bytes": "0000000000000000111a0000060000000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_wlan_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_set_country_code",
+          "vendor": 6673,
+          "subcmd": 6,
+          "flags": 3,
+          "source_subcmd": "WIFI_SUBCMD_SET_COUNTRY_CODE"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x3fc8",
+        "handler": "mtk_cfg80211_vendor_set_scan_mac_oui",
+        "vendor_hex": "0x1a11",
+        "subcmd_hex": "0x4",
+        "flags_hex": "0x3",
+        "preceding_bytes": "0000000000000000111a0000040000000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_wlan_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_set_scan_mac_oui",
+          "vendor": 6673,
+          "subcmd": 4,
+          "flags": 3,
+          "source_subcmd": "WIFI_SUBCMD_SET_PNO_RANDOM_MAC_OUI"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x3fe0",
+        "handler": "mtk_cfg80211_vendor_get_roaming_capabilities",
+        "vendor_hex": "0x1a11",
+        "subcmd_hex": "0x8",
+        "flags_hex": "0x3",
+        "preceding_bytes": "0000000000000000111a0000080000000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_wlan_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_get_roaming_capabilities",
+          "vendor": 6673,
+          "subcmd": 8,
+          "flags": 3,
+          "source_subcmd": "WIFI_SUBCMD_GET_ROAMING_CAPABILITIES"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x3ff8",
+        "handler": "mtk_cfg80211_vendor_config_roaming",
+        "vendor_hex": "0x1a11",
+        "subcmd_hex": "0xa",
+        "flags_hex": "0x3",
+        "preceding_bytes": "0000000000000000111a00000a0000000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_wlan_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_config_roaming",
+          "vendor": 6673,
+          "subcmd": 10,
+          "flags": 3,
+          "source_subcmd": "WIFI_SUBCMD_CONFIG_ROAMING"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x4010",
+        "handler": "mtk_cfg80211_vendor_enable_roaming",
+        "vendor_hex": "0x1a11",
+        "subcmd_hex": "0xb",
+        "flags_hex": "0x3",
+        "preceding_bytes": "0000000000000000111a00000b0000000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_wlan_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_enable_roaming",
+          "vendor": 6673,
+          "subcmd": 11,
+          "flags": 3,
+          "source_subcmd": "WIFI_SUBCMD_ENABLE_ROAMING"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x4028",
+        "handler": "mtk_cfg80211_vendor_get_rtt_capabilities",
+        "vendor_hex": "0x1a11",
+        "subcmd_hex": "0x1102",
+        "flags_hex": "0x3",
+        "preceding_bytes": "0000000000000000111a0000021100000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_wlan_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_get_rtt_capabilities",
+          "vendor": 6673,
+          "subcmd": 4354,
+          "flags": 3,
+          "source_subcmd": "RTT_SUBCMD_GETCAPABILITY"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x4040",
+        "handler": "mtk_cfg80211_vendor_llstats_get_info",
+        "vendor_hex": "0x1a11",
+        "subcmd_hex": "0x1200",
+        "flags_hex": "0x3",
+        "preceding_bytes": "0000000000000000111a0000001200000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_wlan_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_llstats_get_info",
+          "vendor": 6673,
+          "subcmd": 4608,
+          "flags": 3,
+          "source_subcmd": "LSTATS_SUBCMD_GET_INFO"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x4058",
+        "handler": "mtk_cfg80211_vendor_set_rssi_monitoring",
+        "vendor_hex": "0x1a11",
+        "subcmd_hex": "0x7",
+        "flags_hex": "0x3",
+        "preceding_bytes": "0000000000000000111a0000070000000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_wlan_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_set_rssi_monitoring",
+          "vendor": 6673,
+          "subcmd": 7,
+          "flags": 3,
+          "source_subcmd": "WIFI_SUBCMD_SET_RSSI_MONITOR"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x4070",
+        "handler": "mtk_cfg80211_vendor_packet_keep_alive_start",
+        "vendor_hex": "0x1a11",
+        "subcmd_hex": "0x1600",
+        "flags_hex": "0x3",
+        "preceding_bytes": "0000000000000000111a0000001600000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_wlan_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_packet_keep_alive_start",
+          "vendor": 6673,
+          "subcmd": 5632,
+          "flags": 3,
+          "source_subcmd": "WIFI_OFFLOAD_START_MKEEP_ALIVE"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x4088",
+        "handler": "mtk_cfg80211_vendor_packet_keep_alive_stop",
+        "vendor_hex": "0x1a11",
+        "subcmd_hex": "0x1601",
+        "flags_hex": "0x3",
+        "preceding_bytes": "0000000000000000111a0000011600000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_wlan_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_packet_keep_alive_stop",
+          "vendor": 6673,
+          "subcmd": 5633,
+          "flags": 3,
+          "source_subcmd": "WIFI_OFFLOAD_STOP_MKEEP_ALIVE"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x40a0",
+        "handler": "mtk_cfg80211_vendor_get_version",
+        "vendor_hex": "0x1a11",
+        "subcmd_hex": "0x1401",
+        "flags_hex": "0x3",
+        "preceding_bytes": "0000000000000000111a0000011400000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_wlan_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_get_version",
+          "vendor": 6673,
+          "subcmd": 5121,
+          "flags": 3,
+          "source_subcmd": "LOGGER_GET_VER"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x40b8",
+        "handler": "mtk_cfg80211_vendor_set_band",
+        "vendor_hex": "0x1374",
+        "subcmd_hex": "0x69",
+        "flags_hex": "0x3",
+        "preceding_bytes": "000000000000000074130000690000000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_wlan_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_set_band",
+          "vendor": 4980,
+          "subcmd": 105,
+          "flags": 3,
+          "source_subcmd": "QCA_NL80211_VENDOR_SUBCMD_SETBAND"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x40d0",
+        "handler": "mtk_cfg80211_vendor_set_roaming_policy",
+        "vendor_hex": "0x1374",
+        "subcmd_hex": "0x9",
+        "flags_hex": "0x3",
+        "preceding_bytes": "000000000000000074130000090000000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_wlan_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_set_roaming_policy",
+          "vendor": 4980,
+          "subcmd": 9,
+          "flags": 3,
+          "source_subcmd": "QCA_NL80211_VENDOR_SUBCMD_ROAMING"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x40e8",
+        "handler": "mtk_cfg80211_vendor_get_supported_feature_set",
+        "vendor_hex": "0x1a11",
+        "subcmd_hex": "0x2",
+        "flags_hex": "0x3",
+        "preceding_bytes": "0000000000000000111a0000020000000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_wlan_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_get_supported_feature_set",
+          "vendor": 6673,
+          "subcmd": 2,
+          "flags": 3,
+          "source_subcmd": "WIFI_SUBCMD_GET_FEATURE_SET"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x4100",
+        "handler": "mtk_cfg80211_vendor_set_tx_power_scenario",
+        "vendor_hex": "0x1a11",
+        "subcmd_hex": "0xc",
+        "flags_hex": "0x3",
+        "preceding_bytes": "0000000000000000111a00000c0000000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_wlan_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_set_tx_power_scenario",
+          "vendor": 6673,
+          "subcmd": 12,
+          "flags": 3,
+          "source_subcmd": "WIFI_SUBCMD_SELECT_TX_POWER_SCENARIO"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x71d0",
+        "handler": "mtk_cfg80211_vendor_get_channel_list",
+        "vendor_hex": "0x1a11",
+        "subcmd_hex": "0x1",
+        "flags_hex": "0x3",
+        "preceding_bytes": "0000000000000000111a0000010000000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_p2p_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_get_channel_list",
+          "vendor": 6673,
+          "subcmd": 1,
+          "flags": 3,
+          "source_subcmd": "WIFI_SUBCMD_GET_CHANNEL_LIST"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x71e8",
+        "handler": "mtk_cfg80211_vendor_set_country_code",
+        "vendor_hex": "0x1a11",
+        "subcmd_hex": "0x6",
+        "flags_hex": "0x3",
+        "preceding_bytes": "0000000000000000111a0000060000000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_p2p_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_set_country_code",
+          "vendor": 6673,
+          "subcmd": 6,
+          "flags": 3,
+          "source_subcmd": "WIFI_SUBCMD_SET_COUNTRY_CODE"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x7200",
+        "handler": "mtk_cfg80211_vendor_get_roaming_capabilities",
+        "vendor_hex": "0x1a11",
+        "subcmd_hex": "0x8",
+        "flags_hex": "0x3",
+        "preceding_bytes": "0000000000000000111a0000080000000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_p2p_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_get_roaming_capabilities",
+          "vendor": 6673,
+          "subcmd": 8,
+          "flags": 3,
+          "source_subcmd": "WIFI_SUBCMD_GET_ROAMING_CAPABILITIES"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x7218",
+        "handler": "mtk_cfg80211_vendor_config_roaming",
+        "vendor_hex": "0x1a11",
+        "subcmd_hex": "0xa",
+        "flags_hex": "0x3",
+        "preceding_bytes": "0000000000000000111a00000a0000000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_p2p_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_config_roaming",
+          "vendor": 6673,
+          "subcmd": 10,
+          "flags": 3,
+          "source_subcmd": "WIFI_SUBCMD_CONFIG_ROAMING"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x7230",
+        "handler": "mtk_cfg80211_vendor_acs",
+        "vendor_hex": "0x1374",
+        "subcmd_hex": "0x36",
+        "flags_hex": "0x7",
+        "preceding_bytes": "000000000000000074130000360000000700000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_p2p_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_acs",
+          "vendor": 4980,
+          "subcmd": 54,
+          "flags": 7,
+          "source_subcmd": "NL80211_VENDOR_SUBCMD_ACS"
+        }
+      ]
+    },
+    {
+      "stock": {
+        "section": ".rodata",
+        "handler_offset": "0x7248",
+        "handler": "mtk_cfg80211_vendor_get_features",
+        "vendor_hex": "0x1374",
+        "subcmd_hex": "0x37",
+        "flags_hex": "0x3",
+        "preceding_bytes": "000000000000000074130000370000000300000000000000"
+      },
+      "matching_source_entries": [
+        {
+          "table": "mtk_p2p_vendor_ops",
+          "handler": "mtk_cfg80211_vendor_get_features",
+          "vendor": 4980,
+          "subcmd": 55,
+          "flags": 3,
+          "source_subcmd": "NL80211_VENDOR_SUBCMD_GET_FEATURES"
+        }
+      ]
+    }
+  ]
+}

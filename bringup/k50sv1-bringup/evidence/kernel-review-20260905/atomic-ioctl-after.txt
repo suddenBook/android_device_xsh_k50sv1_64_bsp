@@ -1,0 +1,10 @@
+fixture=/data/local/tmp/.k50-atomic-nUw1lN rounds=256 concurrent_gc=1
+acknowledged=32
+acknowledged=64
+acknowledged=96
+acknowledged=128
+acknowledged=160
+acknowledged=192
+acknowledged=224
+acknowledged=256
+PASS rounds=256 empty_transactions=37 gc_calls=456 gc_completed=68

@@ -1,0 +1,6 @@
+Source launcher ready on session=72623859790382856
+Accepted srh_patch session=72623859790382856 transaction=101 result=0 records=2
+Power initialization completed on attempt 1Accepted srh_rom_patch session=72623859790382856 transaction=102 result=0 records=0
+Command update_patch_version transaction=103 failed: -95
+Accepted update_patch_version session=72623859790382856 transaction=103 result=-95 records=0
+

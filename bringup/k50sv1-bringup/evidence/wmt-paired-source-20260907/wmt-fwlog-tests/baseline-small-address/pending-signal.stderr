@@ -1,0 +1,2 @@
+expected result -4, observed -1
+failed line 397: result_is(invoke(0, 1, 0), -EINTR)

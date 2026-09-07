@@ -1,0 +1,35 @@
+From 8ef593a727e03d1198fe565d3d0c0e5135f3eaeb Mon Sep 17 00:00:00 2001
+From: Huixiaqing Liu <huixiaqingliu@outlook.com>
+Date: Mon, 7 Sep 2026 10:48:55 +0200
+Subject: [PATCH 7/8] camera: drop the two JPEG size mismatches from parameters
+
+---
+ proprietary/SHA256SUMS                     | Bin 50709 -> 50709 bytes
+ proprietary/vendor/lib/libcam.paramsmgr.so | Bin 634264 -> 634264 bytes
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+diff --git a/proprietary/SHA256SUMS b/proprietary/SHA256SUMS
+index b8ba3fdebbd45435e3071bdb7ed9c85d4b76beb1..14a125047d9b6dbad32b8fa5b3877321e510eef5 100644
+GIT binary patch
+delta 84
+zcmbQ*!#uTzd4o@$t!Y}SNuq^ua;k-iQHn{Dsj*R_S(>?dVycmmaiT?HqN$OYnW<4~
+ol9`clih-d;lA)1Vnpt9Es*$moY1-rq<sy>{a#=Pn%qs~807+&Vi2wiq
+
+delta 82
+zcmbQ*!#uTzd4o@$eVVbQv8hFhg<(okqJgQUrIC?=k%5_|xshd(Won{fim`#EX_A47
+md2+ImahjQ-c~Y`@VsffQnz2QSiFumE<b%0ln-}JlgaZKU5g8}|
+
+diff --git a/proprietary/vendor/lib/libcam.paramsmgr.so b/proprietary/vendor/lib/libcam.paramsmgr.so
+index 9b6097471f35343f3c8771cd65f424c59e1d88ab..d7cab758fc7ec40679770b893b7e5999bdac0ce2 100644
+GIT binary patch
+delta 49
+zcmbPnTW!W|wT2eP7N!>FEi4}Gj6Ch0?JVt{?X2yd?QHFy?d;n<+c~<O7`eA!J;`zS
+FF#yN(61D&U
+
+delta 49
+zcmbPnTW!W|wT2eP7N!>FEi4}GjJ)lh?JVt{?X2yd?QHFy?d;n<+c~<O7<sl|J;`zS
+FF#yOK61V^W
+
+-- 
+2.55.0
+

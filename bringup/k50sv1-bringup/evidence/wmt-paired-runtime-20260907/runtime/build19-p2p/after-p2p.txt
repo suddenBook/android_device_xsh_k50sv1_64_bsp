@@ -1,0 +1,34 @@
+WifiP2pService:
+ total records=7
+ rec[0]: time=09-07 06:32:31.460 processed=P2pDisabledState org=P2pDisabledState dest=InactiveState what=143376(0x23010)
+ rec[1]: time=09-07 06:32:31.485 processed=InactiveState org=InactiveState dest=GroupNegotiationState what=139277(0x2200d)
+ rec[2]: time=09-07 06:32:31.527 processed=GroupNegotiationState org=GroupNegotiationState dest=GroupCreatedState what=147485(0x2401d)
+ rec[3]: time=09-07 06:32:36.509 processed=GroupCreatedState org=GroupCreatedState dest=OngoingGroupRemovalState what=139280(0x22010)
+ rec[4]: time=09-07 06:32:37.522 processed=GroupCreatedState org=OngoingGroupRemovalState dest=InactiveState what=147486(0x2401e)
+ rec[5]: time=09-07 06:32:37.721 processed=P2pEnabledState org=InactiveState dest=P2pDisablingState what=143377(0x23011)
+ rec[6]: time=09-07 06:32:37.721 processed=P2pDisablingState org=P2pDisablingState dest=P2pDisabledState what=147458(0x24002)
+curState=P2pDisabledState
+mWifiP2pInfo groupFormed: false isGroupOwner: false groupOwnerAddress: null
+mGroup null
+mSavedPeerConfig 
+ address: 
+ wps:  setup: 0
+ BSSID: null
+ pin: null
+
+ groupOwnerIntent: -1
+ persist: -2
+ networkName: 
+ passphrase: <empty>
+ groupOwnerBand: 0
+mGroups
+
+mAutonomousGroup true
+mJoinExistingGroup false
+mDiscoveryStarted false
+mNetworkInfo [type: WIFI_P2P[], state: DISCONNECTED/DISCONNECTED, reason: (unspecified), extra: (none), failover: false, available: false, roaming: false]
+mTemporarilyDisconnectedWifi false
+mServiceDiscReqId null
+mDeathDataByBinder {}
+mClientInfoList 0
+

@@ -1,0 +1,257 @@
+Voice-only MTK IMS/VoLTE integration evidence
+Observed: 2026-08-23T07:30:10+02:00
+
+Scope and honesty boundary
+==========================
+
+This is an Android 10/LineageOS 17.1 integration of the smallest Stock MTK
+MMTEL path that can plausibly provide VoLTE voice. It does not advertise or
+install Wi-Fi calling/EPDG, ViLTE/ViWiFi, UT/XCAP, RCS, presence, or a second
+IMS stack. Passing the offline gates below proves source/build/ABI closure; it
+does not prove that an unknown operator will provision or register this SIM.
+
+Java/application closure
+========================
+
+Pinned Stock inputs:
+
+  ImsService.apk
+    SHA-256 06e62235bc7b30655f5dfcd2efaa7ab6a9b4c6f1efd6a6f8ce49ce1e62da3ff5
+    package com.mediatek.ims, version/min/target/compile SDK 29
+    sharedUserId android.uid.phone, coreApp=true
+    service com.mediatek.ims.MtkDynamicImsService
+    action android.telephony.ims.ImsService
+    permission android.permission.BIND_IMS_SERVICE
+    Stock certificate SHA-256
+      c8a2e9bccf597c2fb6dc66bee293fc13f2fc47ec77bc6b2b0d52c11f51192ab8
+
+  original classes.dex
+    SHA-256 6aa7926e7974420e7fc5ea6e96c5287617a6a826dc60a46a7996f793bd986deb
+
+The extractor rejects any other source hash, uses the tree-pinned baksmali and
+smali jars with one worker, strips the obsolete source signature, and asserts
+both output hashes before atomically publishing the result:
+
+  unsigned patched ImsService.apk
+    SHA-256 022d324338cdfac31c78c4babb4871eca311d72b35c9fe2349ab7986a5d91e6e
+  patched classes.dex
+    SHA-256 3d604f601fe96110598fdda69f675f16751e6b78c47275b9225686b4fcb58a1c
+
+The build signs the APK with the selected tier's platform certificate. It is
+intentionally not PRESIGNED: a shared phone-UID APK must match the platform
+certificate, including after Tier 3 substitutes release keys.
+
+Four Stock framework resource IDs were hardcoded in DEX and referred to
+unrelated Lineage Q resources. The deterministic transform is:
+
+  0x0111004b -> 0x01110050  config_device_volte_available
+  0x0111004c -> 0x01110051  config_device_vt_available
+  0x0111004d -> 0x01110052  config_device_wfc_ims_available
+  0x01110064 -> 0x01110068  config_dynamic_bind_ims
+
+The final targeted installed DEX contains each new ID exactly once and none of
+the old four. It contains zero invokes of WfoService.getInstance() or
+WfoService.makeWfoService(). ImsService.startWfoService() and its constructor
+call remain so mTempDisableWFC[] is initialized, but the WFO/MWI/EPDG service
+is not instantiated.
+
+Direct DEX closure was compared against the actual Lineage bootclasspath plus
+the two selected MTK jars:
+
+  real external class descriptors: 877; unresolved: 0
+  Stock-resolvable method references: 3,591; missing in target: 0
+  Stock-resolvable field references: 255; missing in target: 0
+  class-definition overlap between APK and either selected jar: 0
+  class-definition overlap between the selected jars: 0
+
+Only mediatek-common.jar and mediatek-ims-base.jar are added as real boot jars.
+The application has no uses-library declaration, so merely copying the jars
+to /system/framework would not make the classes visible. The targeted
+init.environ.rc contains both in BOOTCLASSPATH and DEX2OATBOOTCLASSPATH; ARM
+and ARM64 boot-jar dexpreopt completed successfully.
+
+The following larger Stock components are deliberately absent because they
+are outside the proven voice closure: mediatek-ims-common, extension and
+legacy/UT jars, telephony common/base, WFO legacy, VT wrapper/service, IMSMA,
+RCS and presence payloads. ro.vendor.mtk_telephony_add_on_policy=1 selects the
+APK's built-in base factories instead of trying to load the absent plugins.
+
+The Android Q generated import rule previously placed privileged APK oat/vdex
+under /system/app while the APK itself was moved to /system/priv-app. The local
+Soong correction makes AndroidAppImport choose priv-app for both installation
+and dexpreopt. The new unit test passes. The generated make rule now maps all
+four ARM/ARM64 odex/vdex files to:
+
+  /system/priv-app/ImsService/oat/...
+
+The old /system/app/ImsService directory visible in the incremental product
+tree is explicitly stale pre-fix output. It is not a source input and must be
+absent after the required complete out/ deletion and final clean build.
+
+Native voice closure
+====================
+
+The selected native roots are exactly 20 ELF files:
+
+  5 executables
+    ELF64 vendor/bin/hw/vendor.mediatek.hardware.imsa@1.0-service
+    ELF32 vendor/bin/mtkmal
+    ELF32 vendor/bin/volte_imcb
+    ELF32 vendor/bin/volte_stack
+    ELF32 vendor/bin/volte_ua
+
+  14 ELF32 libraries
+    libipsec_ims_shr.so
+    libmal.so
+    libmal_datamngr.so
+    libmal_imsmngr.so
+    libmal_mdmngr.so
+    libmal_nwmngr.so
+    libmal_rds.so
+    libmal_rilproxy.so
+    libmal_simmngr.so
+    libmdfx.so
+    libverno.so
+    libvolte_core_shr.so
+    libvolte_xdmc_shr.so
+    volte_imsm.so
+
+  1 ELF64 library
+    vendor.mediatek.hardware.imsa@1.0.so
+
+tools/check-ims-elf-abi.sh uses the tree-pinned Android Q Python 2,
+check_elf_file.py and llvm-readobj. For every root it requires the exact ELF
+class, exactly one matching DT_SONAME for a library, an unambiguous same-class
+resolution of every DT_NEEDED, and complete non-weak undefined-symbol
+resolution. It never passes --allow-undefined-symbols. Result:
+
+  PASS: verified 20 voice-only IMS ELF roots:
+        5 executables, 14 ELF32 libraries, 1 ELF64 library.
+
+The wider vendor closure gate also verifies all seven dynamically named MAL
+entities, their entity_init/entity_exit and (except Stock RDS) entity_version
+exports, the three volte_imsm entry points, the hardcoded
+/vendor/lib/volte_imsm.so contract, the existing ELF32 libaedv.so crash-report
+dependency, and the complete vendor ELF dependency graph.
+
+Stock volte_stack SHA-256 is:
+
+  db8d700b84adf95206c497c15acaa70524756183a5de876391effd5dab734edc
+
+It used absolute dlopen paths /system/lib/libandroid_net.so and
+/system/lib/libandroid.so. Bionic treats a name containing '/' as a direct
+path; the full-Treble isolated vendor namespace cannot access those paths, so
+a linked namespace search would never occur. The extractor performs an
+equal-length, hash-pinned change to the bare SONAMEs with NUL padding:
+
+  libandroid_net.so
+  libandroid.so
+
+Patched SHA-256:
+
+  d6d74be9db1adf75f548d5585ac1e244656f2b2136135320564567a0886e2eb0
+
+The gate confirms that system/lib/libandroid_net.so exports
+android_setsocknetwork and that generated ld.config.29.txt exports the LLNDK
+SONAME to the vendor default namespace. It also rejects any surviving absolute
+system dlopen path.
+
+Explicitly rejected output paths:
+
+  vendor/bin/epdg_wod
+  vendor/bin/wfca
+  vendor/lib/libmal_epdga.so
+  vendor/lib/libwo.so
+
+Init, framework, properties and policy
+======================================
+
+The product advertises android.hardware.telephony.ims and overlays:
+
+  config_dynamic_bind_ims=true
+  config_ims_package=com.mediatek.ims
+  config_device_volte_available=true
+  config_device_vt_available=false
+  config_device_wfc_ims_available=false
+
+CarrierConfig remains an independent second gate. No unconditional carrier
+override and no persist.dbg.volte_avail_ovr property is shipped.
+
+Five native services are installed: mal-daemon, vendor.volte_imcb,
+vendor.volte_stack, vendor.volte_ua, and mtk_hal_imsa. The imcb rc is narrowed
+to one socket, volte_imsa1; imsa2, both video sockets and volte_ut are absent.
+The vendor manifest declares @1.0::IImsa/imsa; checkvintf reports true for
+first API level 26.
+
+Fastboot partition flashing retains /data/property. Stock persistent values
+enabled dynamic switching, WFC and video, so product defaults alone are not
+sufficient. A trigger at ro.persistent_properties.ready=true normalizes the
+support profile after persistent data has actually loaded. It sets IMS and
+VoLTE support to 1 and all WFC/video/RCS/RTT support/profile properties to 0.
+It deliberately does not rewrite persist.vendor.mtk.volte.enable on every
+boot, so the user's later VoLTE toggle can persist.
+
+The native ABI also requires:
+
+  ro.vendor.md_prop_ver=1
+  ro.vendor.md_mims_support=1
+  ro.vendor.md_auto_setup_ims=0
+  vendor.service.nvram_init=Ready at runtime
+
+SELinux uses five dedicated daemon domains, six distinct Unix socket types, a
+dedicated ccci_imsa device type, a dedicated imsa hwservice, split read-only,
+feature-writable, runtime and three ctl property types, and a private platform
+service_contexts entry mapping mtkIms to radio_service. It does not grant
+generic device, generic socket_device, generic vendor-file execution, broad
+CCCI, WFC, VT, UT or RCS access. Final, precompiled and recovery policy,
+neverallows and Treble 26/27/28 tests all pass.
+
+Targeted validation results before final clean build
+====================================================
+
+  shell syntax: extract-files.sh, setup-makefiles.sh, both closure tools PASS
+  XML: device manifest, IMS overlay and privapp allowlist PASS
+  proprietary SHA256SUMS: 544/544 PASS
+  Soong Java unit test target: PASS/current
+  ImsService + framework-res + bootimage targeted build: PASS
+  ARM and ARM64 boot-jar dexpreopt: PASS
+  ARM and ARM64 privileged ImsService dexpreopt: PASS with hard verifier abort
+  host_init_verifier: root rc plus five IMS rc files PASS
+  check-ims-elf-abi.sh: 20/20 PASS
+  check-vendor-elf-closure.sh: PASS
+  checkvintf --check-compat, first API 26: true
+  sepolicy, precompiled_sepolicy, recovery, neverallows: PASS
+  treble_sepolicy_tests_26.0/27.0/28.0: PASS
+  installed APK package/SDK/shared-UID contract: PASS
+  installed APK platform certificate: PASS
+  installed DEX new IDs 4/4 exact, old IDs 0/4, WFO invokes 0: PASS
+
+Extraction is fail closed. The shared Lineage extract helper previously ran
+under disabled errexit and ignored a blob_fixup failure, which could publish
+an original or partly changed blob after printing an error. It now explicitly
+tests blob_fixup and exits nonzero. A positive full extraction reproduces the
+pinned APK, volte_stack and narrowed init output.
+
+Post-flash acceptance and remaining external gates
+===================================================
+
+The final clean Tier 1 images must still be flashed with the owner physically
+present. Runtime acceptance requires:
+
+  * FEATURE_TELEPHONY_IMS present and ImsResolver selecting com.mediatek.ims.
+  * com.mediatek.ims, mtkmal, the three voice daemons and mtk_hal_imsa alive.
+  * IImsa/imsa and mtkIms present. In dynamic mode, a legacy binder named ims
+    may legitimately be absent.
+  * The seven MAL entities and volte_imsm visible in /proc/<mtkmal>/maps.
+  * Only the five selected IMS sockets present and correctly labeled.
+  * No WFC/video/UT/RCS process, library or service starts.
+  * A fresh complete AVC capture; only evidence-backed narrow rules may move
+    into the later enforcing tier.
+  * SIM MCC/MNC, carrier ID, IMS APN, CarrierConfig, provisioning and GBA
+    checked before treating a registration failure as a ROM defect.
+  * Successful LTE IMS registration and one real non-emergency voice call,
+    with microphone, earpiece, speaker, hangup and incoming-call behavior.
+
+Operator VoLTE entitlement, IMEI/TAC whitelisting, SIM credentials and the
+operator's IMS APN are external state. Offline closure cannot truthfully claim
+"perfect VoLTE" or universal carrier support before these runtime checks.

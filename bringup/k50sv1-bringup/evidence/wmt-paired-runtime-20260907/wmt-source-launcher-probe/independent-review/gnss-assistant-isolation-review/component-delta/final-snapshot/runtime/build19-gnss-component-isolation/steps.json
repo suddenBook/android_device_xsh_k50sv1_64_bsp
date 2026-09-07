@@ -1,0 +1,127 @@
+[
+  {
+    "name": "identity",
+    "command": "cat /proc/sys/kernel/random/boot_id; getprop ro.build.version.incremental; cat /proc/sys/kernel/tainted",
+    "exit_code": 0
+  },
+  {
+    "name": "roles-before",
+    "command": "cat /data/system/users/0/roles.xml",
+    "exit_code": 0
+  },
+  {
+    "name": "roles-live-before",
+    "command": "dumpsys role",
+    "exit_code": 0
+  },
+  {
+    "name": "before-assistant",
+    "command": "settings get secure assistant",
+    "exit_code": 0
+  },
+  {
+    "name": "before-voice_recognition_service",
+    "command": "settings get secure voice_recognition_service",
+    "exit_code": 0
+  },
+  {
+    "name": "before-voice_interaction_service",
+    "command": "settings get secure voice_interaction_service",
+    "exit_code": 0
+  },
+  {
+    "name": "search-package-before",
+    "command": "dumpsys package com.google.android.googlequicksearchbox",
+    "exit_code": 0
+  },
+  {
+    "name": "pause-observed-component",
+    "command": "pm disable --user 0 com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService",
+    "exit_code": 0
+  },
+  {
+    "name": "pause-system-binding",
+    "command": "settings put secure voice_interaction_service ''",
+    "exit_code": 0
+  },
+  {
+    "name": "binding-isolated-0",
+    "command": "settings get secure voice_interaction_service",
+    "exit_code": 0
+  },
+  {
+    "name": "service-isolated-0",
+    "command": "dumpsys voiceinteraction",
+    "exit_code": 0
+  },
+  {
+    "name": "search-package-isolated",
+    "command": "dumpsys package com.google.android.googlequicksearchbox",
+    "exit_code": 0
+  },
+  {
+    "name": "restore-component-default",
+    "command": "pm default-state --user 0 com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService",
+    "exit_code": 0
+  },
+  {
+    "name": "restore-assistant",
+    "command": "settings put secure assistant ''",
+    "exit_code": 0
+  },
+  {
+    "name": "restore-voice_recognition_service",
+    "command": "settings put secure voice_recognition_service com.google.android.googlequicksearchbox/com.google.android.voicesearch.serviceapi.GoogleRecognitionService",
+    "exit_code": 0
+  },
+  {
+    "name": "restore-voice_interaction_service",
+    "command": "settings put secure voice_interaction_service com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService",
+    "exit_code": 0
+  },
+  {
+    "name": "restore-search-availability",
+    "command": "am start -W -n com.google.android.googlequicksearchbox/.SearchActivity",
+    "exit_code": 0
+  },
+  {
+    "name": "search-package-restored",
+    "command": "dumpsys package com.google.android.googlequicksearchbox",
+    "exit_code": 0
+  },
+  {
+    "name": "roles-restored",
+    "command": "cat /data/system/users/0/roles.xml",
+    "exit_code": 0
+  },
+  {
+    "name": "roles-live-restored",
+    "command": "dumpsys role",
+    "exit_code": 0
+  },
+  {
+    "name": "restored-assistant",
+    "command": "settings get secure assistant",
+    "exit_code": 0
+  },
+  {
+    "name": "restored-voice_recognition_service",
+    "command": "settings get secure voice_recognition_service",
+    "exit_code": 0
+  },
+  {
+    "name": "restored-voice_interaction_service",
+    "command": "settings get secure voice_interaction_service",
+    "exit_code": 0
+  },
+  {
+    "name": "remove-selector-dump",
+    "command": "rm -f /data/local/tmp/k50-assistant-selector.xml",
+    "exit_code": 0
+  },
+  {
+    "name": "restore-home",
+    "command": "input keyevent KEYCODE_HOME",
+    "exit_code": 0
+  }
+]

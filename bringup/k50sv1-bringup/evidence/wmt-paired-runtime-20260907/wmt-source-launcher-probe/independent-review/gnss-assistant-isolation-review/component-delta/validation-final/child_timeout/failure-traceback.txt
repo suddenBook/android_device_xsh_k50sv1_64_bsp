@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "frozen-component-wrapper", line 96, in <module>
+  File "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-source-launcher-probe/independent-review/gnss-assistant-isolation-review/component-delta/verify_final.py", line 35, in child
+    if timeout:raise subprocess.TimeoutExpired(args,360)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+subprocess.TimeoutExpired: Command '['python3', '/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-source-launcher-probe/independent-review/gnss-assistant-isolation-review/component-delta/final-snapshot/run-build19-gnss.py']' timed out after 360 seconds

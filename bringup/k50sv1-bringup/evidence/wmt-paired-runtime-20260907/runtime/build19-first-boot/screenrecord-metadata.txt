@@ -1,0 +1,7 @@
+screenrecord_rc=0
+remote_size=16756
+pull_rc=0
+sha256=88f7b91f4b5e29e33581b61d02ccf62498ac103bb4ef9dc4cafaefdde478b6e4
+codec_name=h264
+width=320
+height=640

@@ -1,0 +1,189 @@
+{
+  "observed_at": "2026-09-05T15:29:33+00:00",
+  "status": "canonical_f2fs_default_merged_and_preflight_passed",
+  "repositories": {
+    "kernel": {
+      "path": "lineage-17.1/kernel/xsh/k50sv1_64_bsp",
+      "branch": "k50sv1-source-recovery",
+      "before": "66fd4159ce2e255e3ef5779e6e9cfb9503a4f29a",
+      "tested": "155f10112fcbe16ea7ef2fe786b919aeb365a54f",
+      "tested_tree": "97cca29aff770d937564e1604c4be6d2d0eaa229",
+      "merge_base": "281fee8e77f0e3b4813b58782dcf47c496624b28",
+      "commits_to_integrate": [
+        "19de411b0d278a3870f1c3d1957b1a0e46ceac79 f2fs: port the AOSP-merged July 2019 3.18 stable snapshot",
+        "d75ed89052b4a997981bc4728c59d5ea3d55702e config: enable an isolated F2FS candidate without changing inode ABI",
+        "155f10112fcbe16ea7ef2fe786b919aeb365a54f f2fs: initialize quotas before inline conversion and truncate"
+      ],
+      "after": "cff4b045c360082a74715caf6187e0faa8501b00",
+      "after_tree": "2a9d7deacad91cda6e239e561a5fefcaff0cb180",
+      "parents": [
+        "66fd4159ce2e255e3ef5779e6e9cfb9503a4f29a",
+        "155f10112fcbe16ea7ef2fe786b919aeb365a54f"
+      ],
+      "changed_paths_vs_tested": [
+        "arch/arm64/configs/k50sv1_64_bsp_source.fragment",
+        "drivers/misc/mediatek/base/power/mt6755/mt_clkbuf_ctl.c"
+      ],
+      "change_stat": "36 files changed, 5571 insertions(+), 2155 deletions(-)",
+      "clean": true,
+      "f2fs_subtree": "86e6085ce1d24df25481a034aea6d7f96bd49b5b"
+    },
+    "device": {
+      "path": "lineage-17.1/device/xsh/k50sv1_64_bsp",
+      "branch": "lineage-17.1",
+      "before": "b2937ab213e10434584886bd7c58a165c7dc1021",
+      "tested": "163342aa8900ef7a06ac9f55dc0c42089351868a",
+      "tested_tree": "7b284e7988e03f86c7fc6788073d74e1e99c4a37",
+      "merge_base": "b2937ab213e10434584886bd7c58a165c7dc1021",
+      "commits_to_integrate": [
+        "163342aa8900ef7a06ac9f55dc0c42089351868a storage: prepare data-only F2FS evaluation with native recovery fsck"
+      ],
+      "after": "c785c04053ccf10f32a32510cdfe5105bdba8288",
+      "after_tree": "801b9110f883879c11caf54076754d0700e405f4",
+      "parents": [
+        "b2937ab213e10434584886bd7c58a165c7dc1021",
+        "163342aa8900ef7a06ac9f55dc0c42089351868a"
+      ],
+      "changed_paths_vs_tested": [
+        "rootdir/etc/fstab.mt6755"
+      ],
+      "change_stat": "3 files changed, 5 insertions(+), 2 deletions(-)",
+      "clean": true
+    }
+  },
+  "source_equivalence_to_tested_v2": "Executable code and effective settings match. Only two adoption comments, one fstab comment, and the existing canonical clock-driver comment differ.",
+  "kernel_config": {
+    "commands": [
+      [
+        "make",
+        "-C",
+        "/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/kernel/xsh/k50sv1_64_bsp",
+        "O=/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-mainline-20260905/kernel-config",
+        "ARCH=arm64",
+        "CROSS_COMPILE=/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-",
+        "LOCALVERSION=",
+        "KBUILD_SYMTYPES=1",
+        "python=/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/prebuilts/python/linux-x86/2.7.5/bin/python2.7",
+        "k50sv1_64_bsp_stock_defconfig"
+      ],
+      [
+        "make",
+        "-C",
+        "/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/kernel/xsh/k50sv1_64_bsp",
+        "O=/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-mainline-20260905/kernel-config",
+        "ARCH=arm64",
+        "CROSS_COMPILE=/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-",
+        "LOCALVERSION=",
+        "KBUILD_SYMTYPES=1",
+        "python=/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/prebuilts/python/linux-x86/2.7.5/bin/python2.7",
+        "savedefconfig"
+      ],
+      [
+        "/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/kernel/xsh/k50sv1_64_bsp/scripts/kconfig/merge_config.sh",
+        "-m",
+        "-O",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-mainline-20260905/kernel-config",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-mainline-20260905/kernel-config/.config",
+        "/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/kernel/xsh/k50sv1_64_bsp/arch/arm64/configs/k50sv1_64_bsp_source.fragment"
+      ],
+      [
+        "make",
+        "-C",
+        "/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/kernel/xsh/k50sv1_64_bsp",
+        "O=/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-mainline-20260905/kernel-config",
+        "ARCH=arm64",
+        "CROSS_COMPILE=/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-",
+        "LOCALVERSION=",
+        "KBUILD_SYMTYPES=1",
+        "python=/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/prebuilts/python/linux-x86/2.7.5/bin/python2.7",
+        "KCONFIG_ALLCONFIG=/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-mainline-20260905/kernel-config/.config",
+        "alldefconfig"
+      ]
+    ],
+    "exit": 0,
+    "config_matches_tested_v2_bytes": true,
+    "config_sha256": "a8785a70e79d991b184af54c4408e02ea2cbaec641fa66516ef94b593f79a3b9",
+    "checked_settings": [
+      "CONFIG_F2FS_FS=y",
+      "CONFIG_F2FS_FS_XATTR=y",
+      "CONFIG_F2FS_FS_SECURITY=y",
+      "CONFIG_QUOTA=y",
+      "# CONFIG_FS_POSIX_ACL is not set",
+      "# CONFIG_FS_ENCRYPTION is not set"
+    ]
+  },
+  "product_config": {
+    "exit": 0,
+    "variables": {
+      "TARGET_PRODUCT": "lineage_k50sv1_64_bsp",
+      "TARGET_BUILD_VARIANT": "userdebug",
+      "TARGET_DEVICE": "k50sv1_64_bsp",
+      "TARGET_DEVICE_DIR": "device/xsh/k50sv1_64_bsp",
+      "TARGET_KERNEL_SOURCE": "kernel/xsh/k50sv1_64_bsp",
+      "TARGET_KERNEL_CONFIG": "k50sv1_64_bsp_stock_defconfig",
+      "TARGET_KERNEL_ADDITIONAL_CONFIG": "k50sv1_64_bsp_source.fragment",
+      "TARGET_USERIMAGES_USE_F2FS": "true",
+      "BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE": "f2fs",
+      "BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE": "ext4",
+      "BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE": "ext4",
+      "BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE": "ext4",
+      "TARGET_RECOVERY_FSTAB": "device/xsh/k50sv1_64_bsp/rootdir/etc/fstab.mt6755"
+    },
+    "fstab_copy_entries": [
+      "device/xsh/k50sv1_64_bsp/rootdir/etc/fstab.mt6755:ramdisk/fstab.mt6755",
+      "device/xsh/k50sv1_64_bsp/rootdir/etc/fstab.mt6755:vendor/etc/fstab.mt6755"
+    ],
+    "recovery_fsck_link": "system/bin/fsck.f2fs -> sload_f2fs"
+  },
+  "source_input_capture_exit": 0,
+  "source_input_capture_work_head": "82719ace8324d6dfabe3d1d4b6b60bd1032b6a07",
+  "source_input_capture_note": "Captured after kernel/device merge, before this documentation/evidence commit. Build helpers unchanged.",
+  "normal_build_workdir": "/home/desmond/Downloads/k50sv1_64_bsp",
+  "normal_build_argv": [
+    "env",
+    "K50SV1_BUILD_TIER=1",
+    "K50_BUILD_JOBS=32",
+    "./work/k50sv1-bringup/tools/run-lineage-build.sh"
+  ],
+  "normal_build_default_clean": true,
+  "full_rom_build_run_in_this_integration": false,
+  "device_flash_run_in_this_integration": false,
+  "retained_handset_build": "eng.desmon.20260905.134458",
+  "raw_capture_references": [
+    {
+      "path": "work/.capture-staging/f2fs-mainline-20260905/product-dumpvars.txt",
+      "bytes": 118290,
+      "sha256": "b686b253f66066a6949142f5e62d90cc0659e80241bbaf6999a74385a54a3479"
+    },
+    {
+      "path": "work/.capture-staging/f2fs-mainline-20260905/product-dumpvars.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "work/.capture-staging/f2fs-mainline-20260905/source-state.stderr",
+      "bytes": 59,
+      "sha256": "6192769eff3fa30b4d620889fcd7d169e215d23c23fdc833d87915ab6a3ca6d9"
+    },
+    {
+      "path": "work/.capture-staging/f2fs-mainline-20260905/android-repo-manifest.xml",
+      "bytes": 190971,
+      "sha256": "48fe56ea5dff288e05f4ef00b00b09563978dc281a7b6cff1c2ea06042ee4438"
+    },
+    {
+      "path": "work/.capture-staging/f2fs-mainline-20260905/kernel-config/.config",
+      "bytes": 105543,
+      "sha256": "a8785a70e79d991b184af54c4408e02ea2cbaec641fa66516ef94b593f79a3b9"
+    },
+    {
+      "path": "work/.capture-staging/f2fs-mainline-20260905/kernel-vs-tested.diff",
+      "bytes": 3232,
+      "sha256": "c30a7f60629a07eb59520c3c1f1b4cc48107ef3c8c819ebe4d357a1041057547"
+    },
+    {
+      "path": "work/.capture-staging/f2fs-mainline-20260905/device-vs-tested.diff",
+      "bytes": 866,
+      "sha256": "c83ee63a3a79a1ee6bfbd7b43cb6db31e1935d57c56159b4506b6bf087a70fdf"
+    }
+  ]
+}

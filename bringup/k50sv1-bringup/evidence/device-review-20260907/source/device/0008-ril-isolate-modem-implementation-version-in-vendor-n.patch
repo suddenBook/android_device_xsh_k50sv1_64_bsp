@@ -1,0 +1,42 @@
+From be879aaf19a49ca5622551543cb26289a54ac6ee Mon Sep 17 00:00:00 2001
+From: Huixiaqing Liu <huixiaqingliu@outlook.com>
+Date: Mon, 7 Sep 2026 08:00:41 +0200
+Subject: [PATCH 08/25] ril: isolate modem implementation version in vendor
+ namespace
+
+---
+ extract-files.sh | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/extract-files.sh b/extract-files.sh
+index 40a4da4..d19f75e 100755
+--- a/extract-files.sh
++++ b/extract-files.sh
+@@ -728,6 +728,24 @@ function blob_fixup() {
+                 exit 1
+             fi
+             ;;
++        vendor/lib64/librilmtk.so)
++            # This modem-side library publishes getVersion() on private RIL
++            # connection setup. Keep it in the vendor property namespace;
++            # librilproxy still owns AOSP's gsm.version.ril-impl diagnostic.
++            if [[ "$(sha256sum "$2" | awk '{ print $1 }')" != \
++                  "69981722f45545a9c468853bf8b32b5016a9ba68ad2e1c99fccba36277717956" ]] || \
++               [[ "$(LC_ALL=C grep -aoF 'gsm.version.ril-impl' "$2" | wc -l)" -ne 1 ]]; then
++                echo "Refusing to patch an unknown librilmtk.so version property" >&2
++                exit 1
++            fi
++            LC_ALL=C perl -0pi -e \
++                's{\Qgsm.version.ril-impl\E\0}{"vendor.ril.impl" . ("\0" x 6)}ge' "$2"
++            if [[ "$(sha256sum "$2" | awk '{ print $1 }')" != \
++                  "4b63af5d16f24fb3a1cce24f5f334aa4a0d80f07a055c525c9a11e1abc0c61df" ]]; then
++                echo "librilmtk.so version-property rewrite is not reproducible" >&2
++                exit 1
++            fi
++            ;;
+         vendor/lib/libmal.so|vendor/lib/libmal_epdga.so|\
+         vendor/lib/libmal_nwmngr.so|vendor/lib/libmal_rds.so|\
+         vendor/lib64/libmal.so)
+-- 
+2.55.0
+

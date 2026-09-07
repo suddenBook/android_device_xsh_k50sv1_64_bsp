@@ -1,0 +1,18 @@
+{
+  "boot_id": "b94e0976-b778-4f94-9613-2dcf86e18691",
+  "first_sequence": 0,
+  "last_sequence": 43960,
+  "records": 43961,
+  "missing_sequences": 0,
+  "first_seconds": 0.0,
+  "last_seconds": 889.457878,
+  "recognized_faults": [],
+  "source_sha256": "7ffc9eb0e52edf6dc468d1c793ed78aab52f0e7c4b99b784db5d3c68e3cd773f",
+  "swap_initialization": [
+    [
+      1726,
+      11439393,
+      " (1)[1:init]Adding 1962660k swap on /dev/block/zram0.  Priority:-1 extents:1 across:1962660k SS"
+    ]
+  ]
+}

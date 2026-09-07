@@ -1,0 +1,281 @@
+{
+  "build": "build22 clean Tier 3; release failed; never flashed",
+  "source_frozen": {
+    "work": "94ffb7a2c27536b7179e435ee6589f7ee78fde25",
+    "device": "7b9b4ce3537c561e2468e3d82e5ea7aa389235d0",
+    "vendor": "65d72117206b01190b39b1963038483a3499d7f4",
+    "kernel": "ef8238aca4c6f3d3eba764313320e30b24250e4e",
+    "trebuchet": "401e78129b6a05d7de9d765531dacac995f91ede"
+  },
+  "installed_presigned_apks": [
+    {
+      "entry": "SYSTEM/app/CtsShimPrebuilt/CtsShimPrebuilt.apk",
+      "sha256": "7511d5fa669e86cdeb02be41009cf788b2c97ec1a39f4b004b9983342f9bdb09",
+      "bytes": 4837,
+      "identities": [
+        {
+          "role": "active",
+          "certificate_sha256": "a40da80a59d170caa950cf15c18c454d47a39b26989d8b640ecd745ba71bf5dc",
+          "public_key_sha256": "ef57b690165cb561b5026922c00d2d6574e8b184fa7d161e076f06e06e6d35db"
+        }
+      ],
+      "development_certs": [
+        "testkey.x509.pem"
+      ],
+      "source_apk": "frameworks/base/packages/CtsShim/apk/arm/CtsShim.apk",
+      "source_sha256": "7511d5fa669e86cdeb02be41009cf788b2c97ec1a39f4b004b9983342f9bdb09",
+      "source_equals_installed": true,
+      "signature_verification_exit": 0
+    },
+    {
+      "entry": "SYSTEM/app/GoogleCalendarSyncAdapter/GoogleCalendarSyncAdapter.apk",
+      "sha256": "ce3a2ab097db6ef4883eab4bd6f14c78902c3594f8858f121c6de1b82d02d56a",
+      "bytes": 1838235,
+      "identities": [
+        {
+          "role": "active",
+          "certificate_sha256": "f0fd6c5b410f25cb25c3b53346c8972fae30f8ee7411df910480ad6b2d60db83",
+          "public_key_sha256": "2b06490d2d24305c6a90dbf74cc42f50183d207d572f8079e5d92fb2c2a0cda1"
+        }
+      ],
+      "development_certs": [],
+      "source_apk": "vendor/gapps/common/proprietary/app/GoogleCalendarSyncAdapter/GoogleCalendarSyncAdapter.apk",
+      "source_sha256": "ce3a2ab097db6ef4883eab4bd6f14c78902c3594f8858f121c6de1b82d02d56a",
+      "source_equals_installed": true,
+      "signature_verification_exit": 0
+    },
+    {
+      "entry": "SYSTEM/app/GoogleContactsSyncAdapter/GoogleContactsSyncAdapter.apk",
+      "sha256": "5fb26eea5bb01cadcf7104f90968c44193a8ddd924189f0dd0e5a56897fd1960",
+      "bytes": 1461155,
+      "identities": [
+        {
+          "role": "active",
+          "certificate_sha256": "f0fd6c5b410f25cb25c3b53346c8972fae30f8ee7411df910480ad6b2d60db83",
+          "public_key_sha256": "2b06490d2d24305c6a90dbf74cc42f50183d207d572f8079e5d92fb2c2a0cda1"
+        }
+      ],
+      "development_certs": [],
+      "source_apk": "vendor/gapps/common/proprietary/app/GoogleContactsSyncAdapter/GoogleContactsSyncAdapter.apk",
+      "source_sha256": "5fb26eea5bb01cadcf7104f90968c44193a8ddd924189f0dd0e5a56897fd1960",
+      "source_equals_installed": true,
+      "signature_verification_exit": 0
+    },
+    {
+      "entry": "SYSTEM/app/MarkupGoogle/MarkupGoogle.apk",
+      "sha256": "d5df733aba8ae697a111b04169a333b16c92271e499a1c80a3008c2970037a7b",
+      "bytes": 1707872,
+      "identities": [
+        {
+          "role": "active",
+          "certificate_sha256": "fb210df55715d9e701a9bc3ab1c933fc5220f00ded1ca2ef02c69770cb562e2d",
+          "public_key_sha256": "f622d5b82fcaef2e7da50c40d7e1b7896c7593548cd96d1e19987e2b160a8487"
+        }
+      ],
+      "development_certs": [],
+      "source_apk": "vendor/gapps/arm64/proprietary/app/MarkupGoogle/MarkupGoogle.apk",
+      "source_sha256": "d5df733aba8ae697a111b04169a333b16c92271e499a1c80a3008c2970037a7b",
+      "source_equals_installed": true,
+      "signature_verification_exit": 0
+    },
+    {
+      "entry": "SYSTEM/priv-app/AndroidMigratePrebuilt/AndroidMigratePrebuilt.apk",
+      "sha256": "6333e225d881550a2cf30e71fe973eec60a944119d674783a2eddeaf18d950aa",
+      "bytes": 7205846,
+      "identities": [
+        {
+          "role": "active",
+          "certificate_sha256": "afee62fb653c9d863d1a6d6046b35225bf6380dd4657b105e8331a1de49f9f91",
+          "public_key_sha256": "bb478b6b8b0e30b7c92fe3621be408bdce9c83dad0ff0f232d51798b5e6a5571"
+        }
+      ],
+      "development_certs": [],
+      "source_apk": "vendor/gapps/common/proprietary/priv-app/AndroidMigratePrebuilt/AndroidMigratePrebuilt.apk",
+      "source_sha256": "6333e225d881550a2cf30e71fe973eec60a944119d674783a2eddeaf18d950aa",
+      "source_equals_installed": true,
+      "signature_verification_exit": 0
+    },
+    {
+      "entry": "SYSTEM/priv-app/CtsShimPrivPrebuilt/CtsShimPrivPrebuilt.apk",
+      "sha256": "06f757354a7c2497264f8ff699942d2e3e26d337c9a47b6d8841d7ff83981b86",
+      "bytes": 82129,
+      "identities": [],
+      "development_certs": [],
+      "source_apk": "frameworks/base/packages/CtsShim/apk/arm/CtsShimPriv.apk",
+      "source_sha256": "32434dbb4bbc03a50c0e114d27c76760173364b070f1898326ee8e6134266731",
+      "source_equals_installed": false,
+      "signature_verification_exit": 1,
+      "failure": "APK v2/v3 signature stripped by JNI/DEX ZIP rewriting"
+    },
+    {
+      "entry": "SYSTEM/priv-app/GoogleFeedback/GoogleFeedback.apk",
+      "sha256": "4a4b12f12f5f78730cf0e24a182492dfb7864ca9eb294f91c8381f883024aeff",
+      "bytes": 690421,
+      "identities": [
+        {
+          "role": "active",
+          "certificate_sha256": "f0fd6c5b410f25cb25c3b53346c8972fae30f8ee7411df910480ad6b2d60db83",
+          "public_key_sha256": "2b06490d2d24305c6a90dbf74cc42f50183d207d572f8079e5d92fb2c2a0cda1"
+        }
+      ],
+      "development_certs": [],
+      "source_apk": "vendor/gapps/common/proprietary/priv-app/GoogleFeedback/GoogleFeedback.apk",
+      "source_sha256": "4a4b12f12f5f78730cf0e24a182492dfb7864ca9eb294f91c8381f883024aeff",
+      "source_equals_installed": true,
+      "signature_verification_exit": 0
+    },
+    {
+      "entry": "SYSTEM/priv-app/GooglePartnerSetup/GooglePartnerSetup.apk",
+      "sha256": "a12e86d23a997fed1e7f7f32a9ec7513e30a3fc539c51535856192d8976f4908",
+      "bytes": 1165240,
+      "identities": [
+        {
+          "role": "active",
+          "certificate_sha256": "f0fd6c5b410f25cb25c3b53346c8972fae30f8ee7411df910480ad6b2d60db83",
+          "public_key_sha256": "2b06490d2d24305c6a90dbf74cc42f50183d207d572f8079e5d92fb2c2a0cda1"
+        }
+      ],
+      "development_certs": [],
+      "source_apk": "vendor/gapps/common/proprietary/priv-app/GooglePartnerSetup/GooglePartnerSetup.apk",
+      "source_sha256": "a12e86d23a997fed1e7f7f32a9ec7513e30a3fc539c51535856192d8976f4908",
+      "source_equals_installed": true,
+      "signature_verification_exit": 0
+    },
+    {
+      "entry": "SYSTEM/priv-app/GoogleServicesFramework/GoogleServicesFramework.apk",
+      "sha256": "6bd5d7f05e601679adbd04a74a0322d6df39ce556e79570524ecb870610f542c",
+      "bytes": 3923176,
+      "identities": [
+        {
+          "role": "active",
+          "certificate_sha256": "f0fd6c5b410f25cb25c3b53346c8972fae30f8ee7411df910480ad6b2d60db83",
+          "public_key_sha256": "2b06490d2d24305c6a90dbf74cc42f50183d207d572f8079e5d92fb2c2a0cda1"
+        }
+      ],
+      "development_certs": [],
+      "source_apk": "vendor/gapps/common/proprietary/priv-app/GoogleServicesFramework/GoogleServicesFramework.apk",
+      "source_sha256": "6bd5d7f05e601679adbd04a74a0322d6df39ce556e79570524ecb870610f542c",
+      "source_equals_installed": true,
+      "signature_verification_exit": 0
+    },
+    {
+      "entry": "SYSTEM/priv-app/Phonesky/Phonesky.apk",
+      "sha256": "afc8cf8f9673956d23a89af60e49c15df4b9521a7f7cd96f0fc7d6c1d1bd17a6",
+      "bytes": 32857746,
+      "identities": [
+        {
+          "role": "active",
+          "certificate_sha256": "f0fd6c5b410f25cb25c3b53346c8972fae30f8ee7411df910480ad6b2d60db83",
+          "public_key_sha256": "2b06490d2d24305c6a90dbf74cc42f50183d207d572f8079e5d92fb2c2a0cda1"
+        }
+      ],
+      "development_certs": [],
+      "source_apk": "vendor/gapps/common/proprietary/priv-app/Phonesky/Phonesky.apk",
+      "source_sha256": "afc8cf8f9673956d23a89af60e49c15df4b9521a7f7cd96f0fc7d6c1d1bd17a6",
+      "source_equals_installed": true,
+      "signature_verification_exit": 0
+    },
+    {
+      "entry": "SYSTEM/priv-app/PrebuiltGmsCore/PrebuiltGmsCore.apk",
+      "sha256": "845a192d529e754d87925fb37a5e624ec9cfa33c948a677462a2ab4642c1dcac",
+      "bytes": 104901895,
+      "identities": [
+        {
+          "role": "active",
+          "certificate_sha256": "f0fd6c5b410f25cb25c3b53346c8972fae30f8ee7411df910480ad6b2d60db83",
+          "public_key_sha256": "2b06490d2d24305c6a90dbf74cc42f50183d207d572f8079e5d92fb2c2a0cda1"
+        }
+      ],
+      "development_certs": [],
+      "source_apk": "vendor/gapps/arm64/proprietary/priv-app/PrebuiltGmsCore/PrebuiltGmsCore.apk",
+      "source_sha256": "845a192d529e754d87925fb37a5e624ec9cfa33c948a677462a2ab4642c1dcac",
+      "source_equals_installed": true,
+      "signature_verification_exit": 0
+    },
+    {
+      "entry": "SYSTEM/priv-app/SetupWizardPrebuilt/SetupWizardPrebuilt.apk",
+      "sha256": "d8f8fe5e70f0714ac0ed9e0b1de214d5f3ca98ae4fa8899e4be720ffe3ec839f",
+      "bytes": 5721947,
+      "identities": [],
+      "development_certs": [],
+      "source_apk": "vendor/gapps/arm64/proprietary/priv-app/SetupWizardPrebuilt/SetupWizardPrebuilt.apk",
+      "source_sha256": "40b0121b415e606d484d18dfd2106a2bbd161ef0f8070e9a7c60b1b19244b24f",
+      "source_equals_installed": false,
+      "signature_verification_exit": 1,
+      "failure": "APK v2/v3 signature stripped by JNI/DEX ZIP rewriting"
+    },
+    {
+      "entry": "SYSTEM/priv-app/Velvet/Velvet.apk",
+      "sha256": "5181c1b1b40dfb7f98219d4d6ee92f2c1d68c5e2cff81f9e5e564a55a7d90231",
+      "bytes": 128964265,
+      "identities": [],
+      "development_certs": [],
+      "source_apk": "vendor/gapps/arm64/proprietary/priv-app/Velvet/Velvet.apk",
+      "source_sha256": "d91b7eea0897a730922d029ebc5d9e61d5f1102e0ae0a713a9d4cc9b613b23d5",
+      "source_equals_installed": false,
+      "signature_verification_exit": 1,
+      "failure": "APK v2/v3 signature stripped by JNI/DEX ZIP rewriting"
+    },
+    {
+      "entry": "SYSTEM/product/app/AppGallery/AppGallery.apk",
+      "sha256": "05f11a5b25716625bdc03fb54ac4f85e3ecec7d6a9d2b521fbe18f496ce107e3",
+      "bytes": 59995486,
+      "identities": [
+        {
+          "role": "active",
+          "certificate_sha256": "a9436644e0bd71ff512c63839f8ac27114399f36956958688555dfcc63257ede",
+          "public_key_sha256": "d5296757a0b2da9eff595fd5743b7f59f01c332fe1aeb7326d0bd57a7ce2effd"
+        }
+      ],
+      "development_certs": [],
+      "source_apk": "vendor/huawei/hms/proprietary/product/priv-app/AppGallery/AppGallery.apk",
+      "source_sha256": "05f11a5b25716625bdc03fb54ac4f85e3ecec7d6a9d2b521fbe18f496ce107e3",
+      "source_equals_installed": true,
+      "signature_verification_exit": 0
+    },
+    {
+      "entry": "SYSTEM/product/app/HMSCore/HMSCore.apk",
+      "sha256": "baa53c5fd3e37d2828d559a9f4b10ebe4aa88737a2333466cdd7c230adf5468d",
+      "bytes": 57466791,
+      "identities": [
+        {
+          "role": "active",
+          "certificate_sha256": "e49d5c2c0e11b3b1b96ca56c6de2a14ec7dab5ccc3b5f300d03e5b4dba44f539",
+          "public_key_sha256": "ba1bd126bcd94bced25d7c51c51d482ec831c32f085ec5807e7c2f4b396f37fd"
+        },
+        {
+          "role": "history",
+          "certificate_sha256": "b92825c2bd5d6d6d1e7f39eecd17843b7d9016f611136b75441bc6f4d3f00f05",
+          "public_key_sha256": "cc6bbd7416d8f678fe7a7fd6c9ee53bdcdf86785f66524ad3b9cf91fbeafecf2"
+        }
+      ],
+      "development_certs": [],
+      "source_apk": "vendor/huawei/hms/proprietary/product/priv-app/HMSCore/HMSCore.apk",
+      "source_sha256": "baa53c5fd3e37d2828d559a9f4b10ebe4aa88737a2333466cdd7c230adf5468d",
+      "source_equals_installed": true,
+      "signature_verification_exit": 0
+    },
+    {
+      "entry": "SYSTEM/product/app/WebViewGoogle/WebViewGoogle.apk",
+      "sha256": "893c80a0fddb11a671c650a4b52d32474c64885ebc944051b1c20292b3e4bdcc",
+      "bytes": 238334725,
+      "identities": [
+        {
+          "role": "active",
+          "certificate_sha256": "6faf3c4140407473400934d117815a21af1cfefc5c0bee61c858bc3d72ba6fe5",
+          "public_key_sha256": "72303ce8d94c3d071619e1d03b3dca4b46baab5b16906d0e819eb99d2cec64a7"
+        }
+      ],
+      "development_certs": [],
+      "source_apk": "vendor/google_webview/proprietary/product/app/WebViewGoogle/WebViewGoogle.apk",
+      "source_sha256": "893c80a0fddb11a671c650a4b52d32474c64885ebc944051b1c20292b3e4bdcc",
+      "source_equals_installed": true,
+      "signature_verification_exit": 0
+    }
+  ],
+  "cts_exception_source_tag": "android-10.0.0_r47",
+  "host_fixture_result": "PASS",
+  "host_fixture_log_sha256": "202b821e0ed39fc750ae614b2d7f80be1742e8e84805543b4380508f357bccac",
+  "verifier_sha256": "02a542c57e863f888a00924cceaba0e724eb390e46fb943f3071eecac0d25403",
+  "all_16_source_verification": "PRESIGNED APK certificate/SPKI active+history contract: PASS (16 APKs, 2 exact AOSP Q CTS shims)"
+}

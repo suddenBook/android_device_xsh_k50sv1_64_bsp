@@ -1,0 +1,6 @@
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata: 13/3383296 files (0.0% non-contiguous), 586066/13518843 blocks

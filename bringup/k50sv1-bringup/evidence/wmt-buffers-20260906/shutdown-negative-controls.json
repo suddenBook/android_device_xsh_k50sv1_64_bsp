@@ -1,0 +1,20 @@
+[
+  {
+    "mutation": "omit-queue-drain",
+    "case": "queued-active-payload-release",
+    "exit_code": 124,
+    "rejected": true
+  },
+  {
+    "mutation": "omit-retained-sender-wait",
+    "case": "completed-retained-sender-delays-clear",
+    "exit_code": -6,
+    "rejected": true
+  },
+  {
+    "mutation": "omit-admission-close",
+    "case": "preborrowed-submit-refused-after-close",
+    "exit_code": -6,
+    "rejected": true
+  }
+]

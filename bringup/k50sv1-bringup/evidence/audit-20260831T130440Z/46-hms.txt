@@ -1,0 +1,131 @@
+=== /system/product/app and priv-app ===
+/system/product/app/:
+total 60
+drwxr-xr-x 3 root root 4096 2026-08-31 04:13 AppGallery
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 DeskClock
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 Email
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 Etar
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 ExactCalculator
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 Exchange2
+drwxr-xr-x 3 root root 4096 2026-08-31 04:13 HMSCore
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 Jelly
+drwxr-xr-x 4 root root 4096 2026-08-31 04:27 LatinIME
+drwxr-xr-x 2 root root 4096 2026-08-31 04:26 LineageThemesStub
+drwxr-xr-x 2 root root 4096 2026-08-31 04:26 ModuleMetadata
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 PhotoTable
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 Recorder
+drwxr-xr-x 2 root root 4096 2026-08-31 03:55 WebViewGoogle
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 messaging
+
+/system/product/priv-app/:
+total 60
+drwxr-xr-x 4 root root 4096 2026-08-31 04:27 Camera2
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 CarrierConfig
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 Contacts
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 Dialer
+drwxr-xr-x 4 root root 4096 2026-08-31 04:27 Eleven
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 EmergencyInfo
+drwxr-xr-x 4 root root 4096 2026-08-31 04:27 Gallery2
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 OneTimeInitializer
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 Settings
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 SettingsIntelligence
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 StorageManager
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 SystemUI
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 ThemePicker
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 TrebuchetQuickStep
+drwxr-xr-x 3 root root 4096 2026-08-31 04:27 WallpaperCropper
+
+=== HMS Core apk size / version / signer ===
+/system/product/app/AppGallery/:
+total 58576
+-rw-r--r-- 1 root root 59995486 2026-08-31 04:13 AppGallery.apk
+drwxr-xr-x 3 root root     4096 2026-08-31 04:13 lib
+
+/system/product/app/HMSCore/:
+total 56124
+-rw-r--r-- 1 root root 57466791 2026-08-31 04:13 HMSCore.apk
+drwxr-xr-x 3 root root     4096 2026-08-31 04:13 lib
+    codePath=/system/product/app/HMSCore
+    versionCode=61602342 minSdk=21 targetSdk=31
+    versionName=6.16.2.342
+    flags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PRIVATE_FLAG_REQUEST_LEGACY_EXTERNAL_STORAGE DIRECT_BOOT_AWARE HAS_DOMAIN_URLS PARTIALLY_DIRECT_BOOT_AWARE PRODUCT ]
+    firstInstallTime=2026-08-31 04:13:04
+        android.permission.READ_SMS: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.READ_CALENDAR: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED]
+        android.permission.ACCESS_FINE_LOCATION: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED]
+        android.permission.READ_EXTERNAL_STORAGE: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|RESTRICTION_UPGRADE_EXEMPT]
+
+=== HMS permissions granted ===
+    requested permissions:
+      com.android.permission.GET_INSTALLED_APPS
+      android.permission.FORCE_STOP_PACKAGES
+      android.permission.KILL_BACKGROUND_PROCESSES
+      android.permission.ACCESS_BACKGROUND_LOCATION: restricted=true
+      android.permission.ACCESS_COARSE_LOCATION
+      android.permission.ACCESS_FINE_LOCATION
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.ACCESS_WIFI_STATE
+      android.permission.ACTIVITY_RECOGNITION
+      android.permission.AUTHENTICATE_ACCOUNTS
+      android.permission.BLUETOOTH
+      android.permission.BLUETOOTH_ADMIN
+      android.permission.BLUETOOTH_PRIVILEGED
+      android.permission.CAMERA
+      android.permission.CHANGE_WIFI_STATE
+      android.permission.CREATE_USERS
+      android.permission.EXPAND_STATUS_BAR
+      android.permission.FLASHLIGHT
+      android.permission.FOREGROUND_SERVICE
+      android.permission.GET_ACCOUNTS
+      android.permission.GET_TASKS
+      android.permission.HIDE_NON_SYSTEM_OVERLAY_WINDOWS
+      android.permission.INSTALL_PACKAGES
+      android.permission.INTERACT_ACROSS_USERS
+      android.permission.INTERNAL_SYSTEM_WINDOW
+      android.permission.INTERNET
+      android.permission.LOCAL_MAC_ADDRESS
+      android.permission.MANAGE_ACCOUNTS
+      android.permission.MANAGE_FACERECOGNITION
+      android.permission.MANAGE_FINGERPRINT
+      android.permission.MANAGE_USERS
+      android.permission.NFC
+      android.permission.PACKAGE_USAGE_STATS
+      android.permission.READ_CONTACTS
+      android.permission.READ_EXTERNAL_STORAGE: restricted=true
+      android.permission.READ_PHONE_STATE
+      android.permission.READ_PRIVILEGED_PHONE_STATE
+      android.permission.READ_SEARCH_INDEXABLES
+      android.permission.READ_SMS: restricted=true
+
+=== is HMS running right now? ===
+u0_a122      17319   353 5963520 210064 SyS_epoll_wait 7a8af50958 S com.huawei.hwid.core
+u0_a122      19969   353 5221920 141576 SyS_epoll_wait 7a8af50958 S com.huawei.hwid.persistent
+u0_a122      20355   353 5152360 130588 SyS_epoll_wait 7a8af50958 S com.huawei.hwid.container3
+
+=== dynamically loaded kits present in /data ===
+com.huawei.hms.account
+com.huawei.hms.ads
+com.huawei.hms.analytics
+com.huawei.hms.commonkit
+com.huawei.hms.drmkitclient
+com.huawei.hms.ekr
+com.huawei.hms.fwkit
+com.huawei.hms.fwui
+com.huawei.hms.game
+com.huawei.hms.iap
+com.huawei.hms.kit.site
+com.huawei.hms.kitstore
+com.huawei.hms.location
+com.huawei.hms.mlkit.service
+com.huawei.hms.network.baseservice
+com.huawei.hms.networkkit
+com.huawei.hms.opendevice
+com.huawei.hms.permissionservice
+com.huawei.hms.privacy
+com.huawei.hms.purchasemarker
+com.huawei.hms.push
+com.huawei.hms.runtimekit
+com.huawei.hms.safetydetect
+com.huawei.hms.scankit
+com.huawei.hms.webapp

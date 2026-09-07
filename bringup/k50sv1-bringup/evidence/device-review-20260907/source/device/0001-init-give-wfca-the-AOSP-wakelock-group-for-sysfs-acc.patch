@@ -1,0 +1,36 @@
+From 17211d7aa2fcdf4b23fe5197e6f6522b19ab2340 Mon Sep 17 00:00:00 2001
+From: Huixiaqing Liu <huixiaqingliu@outlook.com>
+Date: Mon, 7 Sep 2026 07:45:28 +0200
+Subject: [PATCH 01/25] init: give wfca the AOSP wakelock group for sysfs
+ access
+
+---
+ rootdir/etc/init/init.wfca.rc | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/rootdir/etc/init/init.wfca.rc b/rootdir/etc/init/init.wfca.rc
+index 81c48f1..d7e4ce8 100644
+--- a/rootdir/etc/init/init.wfca.rc
++++ b/rootdir/etc/init/init.wfca.rc
+@@ -2,10 +2,8 @@
+ # /dev/ccci_imsa and marked sockets on wlan0 while a WFC call is up, and idles
+ # on its two sockets the rest of the time.
+ #
+-# This file is owned by the device tree rather than extracted, so the delta from
+-# Stock stays reviewable as a diff. It differs from
+-# vendor/etc/init/init.wfca.rc in exactly one way: Stock lists `root` as a
+-# supplementary group on a service whose primary user is already root.
++# wfca opens /sys/power/wake_{lock,unlock} as O_RDWR. AOSP init makes
++# both nodes radio:wakelock 0660; membership in wakelock supplies DAC access.
+ #
+ # The two sockets are 660 root:system because MAL (mtkmal, group system) and
+ # volte_ua both dial them; sepolicy/vowifi/wfca.te carries the matching
+@@ -15,4 +13,4 @@ service wfca /vendor/bin/wfca
+     socket wfca stream 660 root system
+     socket wfca_rds stream 660 root system
+     user root
+-    group system log inet radio net_admin
++    group system log inet radio net_admin wakelock
+-- 
+2.55.0
+

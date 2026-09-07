@@ -1,0 +1,14 @@
+AAudio silent output probe: requested rate=48000 channels=2 format=PCM_I16 sharing=SHARED performance=NONE duration=1s watchdog=10s
+create_builder result=0 (AAUDIO_OK)
+open_stream result=0 (AAUDIO_OK)
+negotiated rate=48000 channels=2 format=1 sharing=1 performance=10 direction=0 device_id=3 burst_frames=3078 buffer_frames=6156 capacity_frames=6156
+opened state=2 (AAUDIO_STREAM_STATE_OPEN) accepted=0 frames_written=0 frames_read=0 xruns=0
+prefill accepted=480 timeout_ms=0
+request_start result=0 (AAUDIO_OK)
+started state=4 (AAUDIO_STREAM_STATE_STARTED) accepted=480 frames_written=480 frames_read=0 xruns=0
+before_stop state=4 (AAUDIO_STREAM_STATE_STARTED) accepted=48000 frames_written=48000 frames_read=45056 xruns=0
+request_stop result=0 (AAUDIO_OK)
+after_stop state=10 (AAUDIO_STREAM_STATE_STOPPED) accepted=48000 frames_written=48000 frames_read=48000 xruns=0
+close_stream result=0 (AAUDIO_OK)
+delete_builder result=0 (AAUDIO_OK)
+RESULT PASS exit=0 accepted=48000/48000 elapsed_ms=991

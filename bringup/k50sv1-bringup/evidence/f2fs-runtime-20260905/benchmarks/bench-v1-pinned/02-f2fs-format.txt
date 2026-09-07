@@ -1,0 +1,39 @@
+
+	F2FS-tools: mkfs.f2fs Ver: 1.12.0 (2018-11-12)
+
+Info: Disable heap-based policy
+Info: Debug level = 1
+Info: Trim is enabled
+Info: Set conf for android
+	Info: No support kernel version!
+Info: Segments per section = 1
+Info: Sections per zone = 1
+Info: sector size = 512
+Info: total sectors = 108150751 (52807 MB)
+Info: zone aligned segment0 blkaddr: 512
+Info: add quota type = 0 => 4
+Info: add quota type = 1 => 5
+Info: [/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata] Discarding device
+Info: Secure Discarded 0 MB
+[f2fs_init_sit_area: 537] 	Filling sit area at offset 0x00600000
+[f2fs_init_nat_area: 571] 	Filling nat area at offset 0x00a00000
+[f2fs_write_root_inode:1147] 	Writing root inode (hot node), 15e00 0 200 at offset 0x00089600
+[f2fs_write_default_quota:1223] 	Writing quota data, at offset 00016401, 00016402
+[f2fs_write_qf_inode:1319] 	Writing quota inode (hot node), 15e00 0 200 at offset 0x00089601
+[f2fs_write_default_quota:1223] 	Writing quota data, at offset 00016403, 00016404
+[f2fs_write_qf_inode:1319] 	Writing quota inode (hot node), 15e00 0 200 at offset 0x00089602
+[f2fs_update_nat_root:1373] 	Writing nat root, at offset 0x00000a00
+[f2fs_add_default_dentry_root:1569] 	Writing default dentry root, at offset 0x00016400
+Info: Overprovision ratio = 0.870%
+Info: Overprovision segments = 463 (GC reserved = 237)
+[f2fs_write_check_point_pack: 712] 	Writing main segments, cp at offset 0x00000200
+[f2fs_write_check_point_pack: 849] 	Writing Segment summary for HOT/WARM/COLD_DATA, at offset 0x00000201
+[f2fs_write_check_point_pack: 876] 	Writing Segment summary for HOT_NODE, at offset 0x00000202
+[f2fs_write_check_point_pack: 888] 	Writing Segment summary for WARM_NODE, at offset 0x00000203
+[f2fs_write_check_point_pack: 899] 	Writing Segment summary for COLD_NODE, at offset 0x00000204
+[f2fs_write_check_point_pack: 907] 	Writing cp page2, at offset 0x00000205
+[f2fs_write_check_point_pack: 927] 	Writing NAT bits pages, at offset 0x000003fe
+[f2fs_write_check_point_pack: 948] 	Writing cp page 1 of checkpoint pack 2, at offset 0x00000400
+[f2fs_write_check_point_pack: 967] 	Writing cp page 2 of checkpoint pack 2, at offset 0x00000405
+[f2fs_write_super_block:1000] 	Writing super block, at offset 0x00000000
+Info: format successful

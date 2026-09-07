@@ -1,0 +1,75 @@
+{
+  "kind": "five-source-module-files via offline recovery; boot and system unchanged",
+  "started_utc": "2026-09-05T19:30:37.190751+00:00",
+  "serial": "0123456789ABCDEF",
+  "source_head": "6e550d85b9f52ddfdb7beb57582efca688029e49",
+  "module_inputs": {
+    "bt_drv.ko": {
+      "sha256": "cb959477282f29ea08f0862f6275ce8bef7aae5b04591f8ece255197c756134b",
+      "bytes": 28032,
+      "unstripped_sha256": "6235b789e8ab4a989253b131169217ade37b9a5bea37bf420433b5664087094f"
+    },
+    "wmt_drv.ko": {
+      "sha256": "75f8b19c9aa10822f04226821c179d9e3e05c14cfb89ea0115c810ccace27d74",
+      "bytes": 1417744,
+      "unstripped_sha256": "3d91d88c45d892647a5f9ec5fa47422c440808ec370c71768e712a47f4036e9a"
+    },
+    "gps_drv.ko": {
+      "sha256": "8f9d49e0f7adb44371201a804e316cd59545e9892b5aca0c7cb714cecffb9bfa",
+      "bytes": 28040,
+      "unstripped_sha256": "33d57b040780e5b47c90864cb50c1bf066387668ad635921db6aca652a8979d3"
+    },
+    "wmt_chrdev_wifi.ko": {
+      "sha256": "8af65fd294d629195995a9bb73956aed6836ed6ef449c7c6f9ee0d68e4e1f977",
+      "bytes": 28200,
+      "unstripped_sha256": "e8dd4defd2e07d80c4ed167db3f9b24aca8746dc0c599d60970181ac601cbeac"
+    },
+    "wlan_drv_gen2.ko": {
+      "sha256": "ae1e9e43dfd8dd9cdf200803b35677bc6630df97adafb4a7532bc5b21aaf3647",
+      "bytes": 2130352,
+      "unstripped_sha256": "6c6536235fc0095c5d430e227ca50bad5af0d27927d4c2921d395e8422cc1e76"
+    }
+  },
+  "stock_backup_sha256": {
+    "bt_drv.ko": "d64e7dccc2453ab00dca022f68193940de303c282abcaeb1c67b46ffe7925a4b",
+    "wmt_drv.ko": "f30b22f3c39b8dd5816fee034c6b19d422c608768b345bded7cb29e574cb1c46",
+    "gps_drv.ko": "af865da4f38bbf45a31222ecd2b0445926eecd41e391bdd11abd0e49c1033949",
+    "wmt_chrdev_wifi.ko": "c1372b4c3759186179ec8c2e720ef05ae771d2a16a36b84e2d8e07fbca155a19",
+    "wlan_drv_gen2.ko": "658b5fa6378267368c4b809f540b270efaee80062c374fb7250db7928a8bb84f"
+  },
+  "steps": [
+    {
+      "step": "offline_vendor_install",
+      "status": "PASS",
+      "utc": "2026-09-05T19:32:03.351233+00:00",
+      "readback_sha256": {
+        "bt_drv.ko": "cb959477282f29ea08f0862f6275ce8bef7aae5b04591f8ece255197c756134b",
+        "gps_drv.ko": "8f9d49e0f7adb44371201a804e316cd59545e9892b5aca0c7cb714cecffb9bfa",
+        "wlan_drv_gen2.ko": "ae1e9e43dfd8dd9cdf200803b35677bc6630df97adafb4a7532bc5b21aaf3647",
+        "wmt_chrdev_wifi.ko": "8af65fd294d629195995a9bb73956aed6836ed6ef449c7c6f9ee0d68e4e1f977",
+        "wmt_drv.ko": "75f8b19c9aa10822f04226821c179d9e3e05c14cfb89ea0115c810ccace27d74"
+      }
+    },
+    {
+      "step": "erase.userdata",
+      "status": "PASS",
+      "utc": "2026-09-05T19:32:56.380958+00:00"
+    },
+    {
+      "step": "erase.metadata",
+      "status": "PASS",
+      "utc": "2026-09-05T19:32:56.437048+00:00"
+    },
+    {
+      "step": "erase.cache",
+      "status": "PASS",
+      "utc": "2026-09-05T19:32:56.518091+00:00"
+    },
+    {
+      "step": "reboot",
+      "status": "requested",
+      "utc": "2026-09-05T19:32:56.569921+00:00"
+    }
+  ],
+  "bootloader_product": "k50sv1_64_bsp"
+}

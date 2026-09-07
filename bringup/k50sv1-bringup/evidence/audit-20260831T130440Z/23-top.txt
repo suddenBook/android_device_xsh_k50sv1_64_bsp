@@ -1,0 +1,32 @@
+9.72 9.32 9.59 1/2240 23130
+
+Tasks: 378 total,  13 running, 365 sleeping,   0 stopped,   0 zombie
+  Mem:      3.7G total,      3.6G used,      142M free,       70M buffers
+ Swap:      1.8G total,       76M used,      1.7G free,      1.8G cached
+800%cpu   0%user   0%nice  23%sys 777%idle   0%iow   0%irq   0%sirq   0%host
+%CPU
+25.8
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0

@@ -1,0 +1,377 @@
+{
+  "status": "PASS",
+  "commit": "2cbfa92e64e2b01461de512e4feb2c5676406125",
+  "parent": "ceeee481e3470de54c54f3a6dd26756af672e2cd",
+  "worktree_clean_at_freeze": true,
+  "owned_source_sha256": {
+    "wmt-launcher/README.md": "245c152ab3d067e354639eb6cf3074418f34465da7f0558892860a050daa6164",
+    "wmt-launcher/main.c": "40159f3e1f6faf8f0f65d562f44bb4b550e6aaa102988701a31443a36fa27189",
+    "wmt-launcher/test_launcher.c": "1acd01ee2ffa117e804ef4110f691f5d056b174f1cc4ac6831de58718bf4dc9a",
+    "wmt-launcher/test_launcher.py": "7f582b72cb283d767ea79d4c002829a27ff4e2cbd909d1fcb995998e9716637e"
+  },
+  "scope": "Only the four owned launcher files changed; no firmware, protocol, UAPI, module recipe, build-project, canonical, or ADB writes.",
+  "behavior": [
+    "Only successful dynamic dump ioctls update the applied-value cache; the unchanged desired value retries on a later ordinary poll iteration.",
+    "A desired yes with a finished log worker joins that worker before at most one replacement creation in that iteration; a failed join prevents reuse.",
+    "Live workers retain their state; stopping still marks stopping, joins the worker, then issues final disable.",
+    "A previously created but reaped worker retains a final-disable obligation if its replacement cannot start or a previous disable failed."
+  ],
+  "verification": {
+    "baseline-address": {
+      "result_path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/optional-retry/baseline-address/result.json",
+      "result_sha256": "090356fadae39b8283b001390bdf8d24499a37cc7bfbcd7f1abc4f338de0d503",
+      "status": "FAIL",
+      "passed": 2,
+      "total": 10,
+      "sanitizer": "address,undefined",
+      "source_hashes_verified": 12,
+      "artifacts_verified": 22,
+      "cases": [
+        {
+          "case": "dump-retry-same",
+          "exit_code": -6,
+          "passed": false
+        },
+        {
+          "case": "dump-retry-repeated",
+          "exit_code": -6,
+          "passed": false
+        },
+        {
+          "case": "fw-enable-retry",
+          "exit_code": -6,
+          "passed": false
+        },
+        {
+          "case": "fw-repeated-failure",
+          "exit_code": -6,
+          "passed": false
+        },
+        {
+          "case": "fw-disable-after-failure",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-retry-toggle",
+          "exit_code": -6,
+          "passed": false
+        },
+        {
+          "case": "fw-retry-create-failure",
+          "exit_code": -6,
+          "passed": false
+        },
+        {
+          "case": "fw-retry-shutdown-create-failure",
+          "exit_code": -6,
+          "passed": false
+        },
+        {
+          "case": "fw-retry-late-start",
+          "exit_code": -6,
+          "passed": false
+        },
+        {
+          "case": "fw-disable-retry",
+          "exit_code": 0,
+          "passed": true
+        }
+      ]
+    },
+    "candidate-address": {
+      "result_path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/optional-retry/candidate-address/result.json",
+      "result_sha256": "c5a4bb4f0cbc307a88b1d71b09680f1edd0e30809344f204bbed689ebf4b330b",
+      "status": "PASS",
+      "passed": 35,
+      "total": 35,
+      "sanitizer": "address,undefined",
+      "source_hashes_verified": 12,
+      "artifacts_verified": 72,
+      "cases": [
+        {
+          "case": "full-service",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "late-driver",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "chip-fallback",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "unsupported-chip",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "open-denied",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "old-kernel",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "bad-bind-limits",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "hif-failure",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "kill-failure",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "ready-failure",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "thread-failure",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "power-default",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "power-retry",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "power-exhausted",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "stale-reply",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "short-write",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "bad-request",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "read-failure",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "write-failure",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "write-interrupted",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "poll-interrupted",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "optional-controls",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "read-expired",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-late-start",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-inflight-stop",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "dump-retry-same",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "dump-retry-repeated",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-enable-retry",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-repeated-failure",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-disable-after-failure",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-retry-toggle",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-retry-create-failure",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-retry-shutdown-create-failure",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-retry-late-start",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-disable-retry",
+          "exit_code": 0,
+          "passed": true
+        }
+      ]
+    },
+    "candidate-thread": {
+      "result_path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/optional-retry/candidate-thread/result.json",
+      "result_sha256": "2c326314f6ddda68c6e0869836f653cc3770bcbfe339e6b338bfa2221f6f1277",
+      "status": "PASS",
+      "passed": 17,
+      "total": 17,
+      "sanitizer": "thread",
+      "source_hashes_verified": 12,
+      "artifacts_verified": 36,
+      "cases": [
+        {
+          "case": "full-service",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "power-retry",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "stale-reply",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "optional-controls",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "read-expired",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-late-start",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-inflight-stop",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "dump-retry-same",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "dump-retry-repeated",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-enable-retry",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-repeated-failure",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-disable-after-failure",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-retry-toggle",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-retry-create-failure",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-retry-shutdown-create-failure",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-retry-late-start",
+          "exit_code": 0,
+          "passed": true
+        },
+        {
+          "case": "fw-disable-retry",
+          "exit_code": 0,
+          "passed": true
+        }
+      ]
+    }
+  },
+  "candidate_execution_count": 52,
+  "candidate_distinct_service_cases": 35,
+  "baseline_expected_recovery_failures": 8,
+  "baseline_existing_disable_cases_passed": 2,
+  "evidence_sha256": {
+    "commit.patch": "d4b5b23a53a03066fc21882809b2abacbecc624a694af03d077dcc4b799476a6",
+    "verify_result.py": "2e83f42c8e0ad21a903d49913197b03124ef4de7ec2096c6a11c0280410e7dd0",
+    "baseline-address/baseline-main.c": "71ea9b8e0fa2a890c01f36b1d5dfed3f204c35ca56edc63654c447f65750b569"
+  },
+  "boundary": "Actual main.c, real pthread create/join, codec and firmware discovery run against bounded host device/property/timing adapters. This task did not compile the final Android target, build/link the kernel, or execute on a handset; those integration checks are separately owned."
+}

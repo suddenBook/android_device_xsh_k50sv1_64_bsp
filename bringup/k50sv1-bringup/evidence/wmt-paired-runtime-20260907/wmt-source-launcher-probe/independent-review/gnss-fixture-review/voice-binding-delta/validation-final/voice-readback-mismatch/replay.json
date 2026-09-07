@@ -1,0 +1,358 @@
+{
+  "error": {
+    "type": "RuntimeError",
+    "message": "GNSS fixture restoration failed: [{'step': 'voice_interaction_service', 'error': 'AssertionError()'}]"
+  },
+  "fixture": {
+    "status": "FAIL",
+    "search_restore_required": true,
+    "voice_restore_required": true,
+    "errors": [
+      {
+        "step": "voice_interaction_service",
+        "error": "AssertionError()"
+      }
+    ],
+    "restored_voice_settings": {
+      "voice_recognition_service": "com.google.android.googlequicksearchbox/com.google.android.voicesearch.serviceapi.GoogleRecognitionService"
+    }
+  },
+  "calls": [
+    {
+      "step": "search-package-before",
+      "args": [
+        "shell",
+        "dumpsys package com.google.android.googlequicksearchbox"
+      ]
+    },
+    {
+      "step": "search-launcher-component",
+      "args": [
+        "shell",
+        "cmd package resolve-activity --brief --user 0 -n com.google.android.googlequicksearchbox/.SearchActivity"
+      ]
+    },
+    {
+      "step": "wake-before-isolation",
+      "args": [
+        "shell",
+        "input keyevent KEYCODE_WAKEUP; wm dismiss-keyguard"
+      ]
+    },
+    {
+      "step": "original-voice_recognition_service",
+      "args": [
+        "shell",
+        "settings get secure voice_recognition_service"
+      ]
+    },
+    {
+      "step": "original-voice_interaction_service",
+      "args": [
+        "shell",
+        "settings get secure voice_interaction_service"
+      ]
+    },
+    {
+      "step": "pause-system-voice-binding",
+      "args": [
+        "shell",
+        "settings put secure voice_interaction_service ''"
+      ]
+    },
+    {
+      "step": "voice-binding-empty",
+      "args": [
+        "shell",
+        "settings get secure voice_interaction_service"
+      ]
+    },
+    {
+      "step": "voice-service-state-0",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "pause-observed-search-request-source",
+      "args": [
+        "shell",
+        "am force-stop com.google.android.googlequicksearchbox"
+      ]
+    },
+    {
+      "step": "reset-old-probe-process",
+      "args": [
+        "shell",
+        "am force-stop local.k50.gnssprobe"
+      ]
+    },
+    {
+      "step": "old-probe-process-absent",
+      "args": [
+        "shell",
+        "pidof local.k50.gnssprobe || true"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-0",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "identity",
+      "args": [
+        "shell",
+        "cat /proc/sys/kernel/random/boot_id; cat /proc/sys/kernel/tainted; cat /proc/uptime; settings get secure location_mode"
+      ]
+    },
+    {
+      "step": "location-before",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "wakeup-before",
+      "args": [
+        "shell",
+        "cat /sys/kernel/debug/wakeup_sources"
+      ]
+    },
+    {
+      "step": "installed-path",
+      "args": [
+        "shell",
+        "pm path local.k50.gnssprobe"
+      ]
+    },
+    {
+      "step": "installed-hash",
+      "args": [
+        "shell",
+        "sha256sum /data/app/local.k50.gnssprobe-aIGlGxkdK2MS4opNfAtfsQ==/base.apk"
+      ]
+    },
+    {
+      "step": "permission",
+      "args": [
+        "shell",
+        "pm grant local.k50.gnssprobe android.permission.ACCESS_FINE_LOCATION; pm grant local.k50.gnssprobe android.permission.ACCESS_COARSE_LOCATION"
+      ]
+    },
+    {
+      "step": "appops",
+      "args": [
+        "shell",
+        "appops set --uid local.k50.gnssprobe FINE_LOCATION allow; appops set --uid local.k50.gnssprobe COARSE_LOCATION allow"
+      ]
+    },
+    {
+      "step": "prior-gnss-history",
+      "args": [
+        "logcat",
+        "-d",
+        "-b",
+        "main",
+        "-v",
+        "threadtime",
+        "-v",
+        "monotonic",
+        "-v",
+        "usec",
+        "-s",
+        "K50GnssProbe:I",
+        "AndroidRuntime:E"
+      ]
+    },
+    {
+      "step": "gps-idle-immediately-before-launch",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "voice-binding-before-launch",
+      "args": [
+        "shell",
+        "settings get secure voice_interaction_service"
+      ]
+    },
+    {
+      "step": "launch",
+      "args": [
+        "shell",
+        "am start -W -n local.k50.gnssprobe/.ProbeActivity"
+      ]
+    },
+    {
+      "step": "new-probe-pid",
+      "args": [
+        "shell",
+        "pidof local.k50.gnssprobe"
+      ]
+    },
+    {
+      "step": "location-active",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "wakeup-active",
+      "args": [
+        "shell",
+        "cat /sys/kernel/debug/wakeup_sources"
+      ]
+    },
+    {
+      "step": "kernel-active",
+      "args": [
+        "shell",
+        "dmesg"
+      ]
+    },
+    {
+      "step": "progress-0",
+      "args": [
+        "logcat",
+        "-d",
+        "-v",
+        "threadtime",
+        "-s",
+        "K50GnssProbe:I",
+        "AndroidRuntime:E"
+      ]
+    },
+    {
+      "step": "progress-1",
+      "args": [
+        "logcat",
+        "-d",
+        "-v",
+        "threadtime",
+        "-s",
+        "K50GnssProbe:I",
+        "AndroidRuntime:E"
+      ]
+    },
+    {
+      "step": "progress-2",
+      "args": [
+        "logcat",
+        "-d",
+        "-v",
+        "threadtime",
+        "-s",
+        "K50GnssProbe:I",
+        "AndroidRuntime:E"
+      ]
+    },
+    {
+      "step": "progress-3",
+      "args": [
+        "logcat",
+        "-d",
+        "-v",
+        "threadtime",
+        "-s",
+        "K50GnssProbe:I",
+        "AndroidRuntime:E"
+      ]
+    },
+    {
+      "step": "log",
+      "args": [
+        "logcat",
+        "-d",
+        "-b",
+        "main",
+        "-v",
+        "threadtime",
+        "-v",
+        "monotonic",
+        "-v",
+        "usec",
+        "-s",
+        "K50GnssProbe:I",
+        "AndroidRuntime:E"
+      ]
+    },
+    {
+      "step": "location-after",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "wakeup-after",
+      "args": [
+        "shell",
+        "cat /sys/kernel/debug/wakeup_sources"
+      ]
+    },
+    {
+      "step": "final-identity",
+      "args": [
+        "shell",
+        "cat /proc/sys/kernel/random/boot_id; cat /proc/sys/kernel/tainted; cat /proc/uptime"
+      ]
+    },
+    {
+      "step": "restore-voice_recognition_service",
+      "args": [
+        "shell",
+        "settings put secure voice_recognition_service com.google.android.googlequicksearchbox/com.google.android.voicesearch.serviceapi.GoogleRecognitionService"
+      ]
+    },
+    {
+      "step": "restored-voice_recognition_service",
+      "args": [
+        "shell",
+        "settings get secure voice_recognition_service"
+      ]
+    },
+    {
+      "step": "restore-voice_interaction_service",
+      "args": [
+        "shell",
+        "settings put secure voice_interaction_service com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService"
+      ]
+    },
+    {
+      "step": "restored-voice_interaction_service",
+      "args": [
+        "shell",
+        "settings get secure voice_interaction_service"
+      ]
+    },
+    {
+      "step": "restore-search-availability",
+      "args": [
+        "shell",
+        "am start -W -n com.google.android.googlequicksearchbox/.SearchActivity"
+      ]
+    },
+    {
+      "step": "search-package-restored",
+      "args": [
+        "shell",
+        "dumpsys package com.google.android.googlequicksearchbox"
+      ]
+    },
+    {
+      "step": "restore-home-after-gnss",
+      "args": [
+        "shell",
+        "input keyevent KEYCODE_HOME"
+      ]
+    }
+  ]
+}

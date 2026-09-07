@@ -1,0 +1,7 @@
+Starting: Intent { cmp=local.k50.p2pprobe/.P2pProbeActivity }
+Status: ok
+LaunchState: COLD
+Activity: local.k50.p2pprobe/.P2pProbeActivity
+TotalTime: 319
+WaitTime: 321
+Complete

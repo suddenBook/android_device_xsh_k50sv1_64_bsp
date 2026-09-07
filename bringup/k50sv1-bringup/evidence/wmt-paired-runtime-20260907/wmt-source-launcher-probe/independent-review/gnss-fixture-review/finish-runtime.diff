@@ -1,0 +1,57 @@
+--- finish-build19-runtime-before-kernel-startup-evidence.py
++++ finish-build19-runtime.py
+@@ -25,6 +25,9 @@
+ 
+ radio = json.loads((trial / 'runtime/build19-radio-cycle/result.json').read_text())
+ gnss = json.loads((trial / 'runtime/build19-gnss/result.json').read_text())
++assert json.loads((trial / 'runtime/build19-gnss/idle-preparation.json').read_text())['status'] == 'PASS'
++assert json.loads((trial / 'runtime/build19-gnss/log-history-boundary.json').read_text())['status'] == 'PASS'
++assert json.loads((trial / 'runtime/build19-gnss/fixture-restoration.json').read_text())['status'] == 'PASS'
+ p2p = json.loads((trial / 'runtime/build19-p2p/result.json').read_text())
+ adie = json.loads((trial / 'runtime/build19-adie-read/result.json').read_text())
+ thermal = json.loads((trial / 'runtime/build19-thermal-read/result.json').read_text())
+@@ -44,7 +47,14 @@
+     assert launcher['status'] in ('PASS', 'INCONCLUSIVE')
+     assert launcher['checks']['capture_runtime']['status'] == 'PASS'
+     startup_statuses.append(launcher['checks']['startup_attribution']['status'])
+-assert 'PASS' in startup_statuses, 'Need actual cold-boot session/patch/power startup evidence'
++    consumption = json.loads((trial / f'runtime/build19-{phase}-patch-consumption/result.json').read_text())
++    assert consumption['status'] == 'PASS_OBSERVED_KERNEL_PATCH_DOWNLOAD'
++    assert consumption['boot_id'] == phase_early['identity'].splitlines()[0]
++    assert consumption['kernel_revision'] == expected['kernel_revision']
++    assert consumption['first_two_body_sizes_match_retained_firmware']
++# Cold userspace logs can lack a provable process-birth clock. Their status is
++# retained; each boot's source-bound kernel consumer and the controlled new
++# userspace session above establish the separate runtime behaviors.
+ assert all(result['boot_id'] == boot_id for result in [radio, gnss, p2p, adie])
+ assert radio['completed'] and radio['settings_restored'] and not radio['new_faults']
+ assert gnss['summary'] and 'started=true stopped=true' in gnss['summary'][0] and not gnss['new_faults']
+@@ -78,6 +88,19 @@
+ shell('restore-log-clock-property', 'setprop ' + shlex.quote(log_preparation['clock_property']) + ' ' +
+       shlex.quote(log_preparation['original_clock']))
+ assert shell('restored-log-clock-property', 'getprop ' + shlex.quote(log_preparation['clock_property'])).rstrip('\r\n') == log_preparation['original_clock']
++launcher_pids = shell('final-source-launcher-pids', 'pidof wmt_launcher').split()
++assert len(launcher_pids) == 1 and launcher_pids[0].isdigit() and int(launcher_pids[0]) > 1
++launcher_pid = launcher_pids[0]
++assert shell('final-source-launcher-ready', 'getprop init.svc.wmt_launcher; '
++             'getprop vendor.connsys.driver.ready; getprop vendor.connsys.formeta.ready').splitlines() == ['running', 'yes', 'yes']
++assert shell('final-source-launcher-exe', 'readlink /proc/' + launcher_pid + '/exe').strip() == '/vendor/bin/wmt_launcher'
++launcher_tids = sorted(int(value) for value in shell(
++    'final-source-launcher-tids', 'ls -1 /proc/' + launcher_pid + '/task').split())
++fwlog_property = 'persist.vendor.connsys.fwlog.status'
++assert shell('final-fwlog-property', 'getprop ' + fwlog_property).rstrip('\r\n') == launcher_exercise['original_fwlog_property']
++if launcher_exercise['original_fwlog_property'] in ('', 'no'):
++    assert launcher_tids == [int(launcher_pid)], 'A firmware-log worker remains after restoration'
++assert shell('final-source-launcher-stable-pid', 'pidof wmt_launcher').split() == launcher_pids
+ reference = json.loads((trial / 'runtime/build19-preflash/result.json').read_text())
+ paths = [row['path'] for row in reference['files']]
+ raw = shell('calibration-firmware-hashes', 'sha256sum ' + ' '.join(map(shlex.quote, paths)))
+@@ -95,6 +118,8 @@
+ result = dict(status='PASS', boot_id=boot_id, incremental=identity[0], taint=0,
+               temporary_probe_packages_removed=True, launcher_policy='PASS',
+               source_launcher_exercise='PASS', source_launcher_startup_statuses=startup_statuses,
++              final_source_launcher_pid=int(launcher_pid), final_source_launcher_tids=launcher_tids,
++              kernel_patch_downloads='PASS_BOTH_BOOT_PHASES',
+               normal_log_property_restored=True,
+               attributed_thermal_callback_reads=thermal['attributed_callback_reads'],
+               background_thermal_callback_records=thermal_background['observed_nonzero_query_records'],

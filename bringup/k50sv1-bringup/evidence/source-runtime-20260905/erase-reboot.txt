@@ -1,0 +1,22 @@
+$ fastboot -s 0123456789ABCDEF getvar product
+product: k50sv1_64_bsp
+Finished. Total time: 0.000s
+
+$ fastboot -s 0123456789ABCDEF erase userdata
+******** Did you mean to fastboot format this ext4 partition?
+Erasing 'userdata'                                 OKAY [  2.877s]
+Finished. Total time: 2.877s
+
+$ fastboot -s 0123456789ABCDEF erase metadata
+Erasing 'metadata'                                 OKAY [  0.054s]
+Finished. Total time: 0.054s
+
+$ fastboot -s 0123456789ABCDEF erase cache
+******** Did you mean to fastboot format this ext4 partition?
+Erasing 'cache'                                    OKAY [  0.079s]
+Finished. Total time: 0.080s
+
+$ fastboot -s 0123456789ABCDEF reboot
+Rebooting                                          OKAY [  0.000s]
+Finished. Total time: 0.050s
+

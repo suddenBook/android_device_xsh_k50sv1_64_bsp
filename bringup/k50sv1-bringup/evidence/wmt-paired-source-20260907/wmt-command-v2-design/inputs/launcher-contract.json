@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "review_scope": "Offline MT6755/BTIF startup, patch selection/format and property contract; comparison with the fixed local MIT reference. No replacement implementation.",
+  "evidence_manifest": "extracted.json",
+  "elf_sha256": "70b5224af4276eef4a27a405919e5a147b24739569b3a24f5ee1cb8d3cd9a2a7",
+  "kernel_revision": "54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb",
+  "reference_revision": "ef35f769d211a2942a6783410b58bd824dd363f9",
+  "reference_not_drop_in": true,
+  "evidence_key": {
+    "elf_va": "Virtual addresses in the fixed AArch64 ELF; raw instructions retained in E-disassembly-excerpts.txt. Symbols independently extracted from .gnu_debugdata.",
+    "kernel": "Paths are relative to drivers/misc/mediatek/connectivity/source/common/common_main at kernel_revision; hashes and inclusive line excerpts are in extracted.json and E-source-excerpts.txt.",
+    "reference": "mtdaemon.c at reference_revision; hash and lines in extracted.json and E-source-excerpts.txt.",
+    "observed": "Existing runtime/build16-first-boot-early/logcat.txt, original line numbers and full source hash retained; no new device interaction."
+  },
+  "startup": [
+    {
+      "id": "S1",
+      "contract": "The local init service runs /vendor/bin/wmt_launcher -p /vendor/firmware/ -o 1 as system in early_hal. Main waits for vendor.connsys.driver.ready equal to the exact string yes, retrying at 300 ms, then opens /dev/stpwmt with O_RDWR|O_NOCTTY, also retrying on failure.",
+      "elf_va": ["0x4294-0x430c", "0x4360"],
+      "local_source": "device/xsh/k50sv1_64_bsp/rootdir/etc/init/init.wmt.rc:7",
+      "observed_lines": [1732, 2915, 2921]
+    },
+    {
+      "id": "S2",
+      "contract": "Chip selection first reads persist.vendor.connsys.chipid and parses base 16. If absent or parsed as -1, main queries ioctl 0x8004a016 with scalar argument 0 and retries while it returns -1. The captured value is 0x6755.",
+      "elf_va": ["0x43f0-0x4478"],
+      "kernel": ["linux/wmt_dev.c:102", "linux/wmt_dev.c:1429"],
+      "observed_lines": [2919]
+    },
+    {
+      "id": "S3",
+      "contract": "MT6755 follows the integrated-SoC defaults: STP mode 3 (BTIF full), FM mode 2 (communication interface), baud field 0. -p copies the supplied firmware directory; -o stores the power-on override. Main sends ioctl 0x4004a005 with scalar packed value 0x23, then ioctl 0x4004a00d with scalar 0. Packing is (baud << 8) | ((fm & 15) << 4) | (stp & 15). The separate combo-chip tell-chip/config-file branch is skipped for 0x6755.",
+      "elf_va": ["0x44a8-0x45d0", "0x46b4-0x4700", "0x4780-0x479c", "0x4d08-0x4d3c"],
+      "kernel": ["linux/wmt_dev.c:92", "linux/wmt_dev.c:97", "core/wmt_lib.c:764-810"],
+      "computed_evidence": ["default_stp_mode", "default_fm_mode", "default_packed_hif", "getopt_targets"]
+    },
+    {
+      "id": "S4",
+      "contract": "Main asynchronously requests vendor.connsys.formeta.ready=yes before creating the power-on thread. This property indicates launcher availability; its scheduling and successful property_set do not prove hardware initialization or patch download completed.",
+      "elf_va": ["0x4ea8-0x4f50", "0x5878-0x5a70"],
+      "observed_lines": [2924, 2971, 3106, 3132]
+    },
+    {
+      "id": "S5",
+      "contract": "For the actual -o 1 invocation, the separate power thread sends ioctl 0x4004a007 with scalar 2. It permits up to 20 attempts; failed attempts send scalar 0 and wait one second. With override <=0 it uses scalar 1. In the paired kernel, 2 unconditionally invokes LPBK func_on; 1 and 0 are conditional on always_pwr_on_flag. The command loop must remain able to service the driver's patch request while this blocking ioctl runs.",
+      "elf_va": ["0x5ba8-0x5ca4"],
+      "kernel": ["linux/wmt_dev.c:1167-1189"],
+      "observed_lines": [2933],
+      "already_reviewed_by_parent": "Independent power thread and serial command loop; response framing is outside this subreview."
+    },
+    {
+      "id": "S6",
+      "contract": "The MT6755 path reads persist.vendor.connsys.fwlog.status and persist.vendor.connsys.dynamic.dump, then performs bounded checks from command-loop iterations. Firmware-log control can send ioctl 0x8004a01d (yes enables via a helper thread, otherwise disables); dynamic-dump control can send ioctl 0x8008a01e with a property string pointer. Both properties are absent in the captured startup and are logged as unsupported. Their absence must permit normal startup; they are optional controls, not readiness gates.",
+      "elf_va": ["0x4e04-0x4e8c", "0x5578-0x55fc", "0x5160-0x53e0", "0x5ca8-0x5d48"],
+      "kernel": ["linux/wmt_dev.c:108-109"],
+      "observed_lines": [2922, 2923, 2926, 2927, 3133, 3134]
+    }
+  ],
+  "patch_search": {
+    "id": "P1",
+    "command": "srh_patch",
+    "handler": "cmd_hdr_sch_patch, 0x3050-0x384c",
+    "chip_query": "ioctl 0x8004a00c returns chip ID directly for scalar selector 0 and firmware version directly for selector 2; these arguments are not pointers.",
+    "mt6755_prefix": "ROMv2_lm_patch",
+    "selection": "The 0x6755 switch target is 0x329c: ROMv2_lm plus _patch. Entries are visited using readdir and accepted by prefix comparison. Do not infer the sequence from directory order or the filename suffix.",
+    "directory": "The handler writes /vendor/firmware into its directory field before opening the directory. With the actual -p /vendor/firmware/ input the captured joined path contains //; pathname normalization is incidental to the contract.",
+    "firmware_match": "Read two bytes at offset 22 as a big-endian u16, then compare only its low 8 bits with GET_CHIP_INFO(2)&0xff. The original does not require the high byte to match.",
+    "elf_va": ["0x30cc-0x30dc", "0x329c-0x3308", "0x3328-0x3350", "0x3398-0x33c4", "0x34a4-0x353c", "0x5738-0x57cc"],
+    "kernel": ["linux/wmt_dev.c:1361-1371"],
+    "observed_lines": [3106, 3108, 3120, 3124, 3129],
+    "computed_evidence": "mt6755_patch_switch"
+  },
+  "patch_header": {
+    "id": "P2",
+    "header_bytes": 28,
+    "fields": [
+      {"offset": 0, "bytes": 16, "meaning": "Build time bytes; launcher publishes bytes 0..14 and writes NUL over byte 15."},
+      {"offset": 16, "bytes": 4, "meaning": "Platform tag; local files contain ALPS."},
+      {"offset": 20, "bytes": 2, "meaning": "Hardware version bytes, displayed as big-endian; local files contain 8a00."},
+      {"offset": 22, "bytes": 2, "meaning": "Firmware version bytes, read as big-endian; local files contain 8a00."},
+      {"offset": 24, "bytes": 4, "meaning": "Byte 0 high nibble: patch count; byte 0 low nibble: one-based download sequence; remaining three bytes: address bytes. The ioctl address byte 0 is cleared to zero."},
+      {"offset": 28, "bytes": "rest", "meaning": "MT6755 patch body. This chip does not enter the newer-chip two-byte checksum-removal branch."}
+    ],
+    "kernel": ["core/include/wmt_core.h:427-433", "core/wmt_ic_soc.c:3270-3336"],
+    "elf_va": ["0x3458-0x349c", "0x3540-0x3554", "0x35ac-0x3628"],
+    "local_patch_evidence": "The patches array in extracted.json binds each file SHA, first 32 bytes, size, count, sequence, address, and body length."
+  },
+  "patch_registration": {
+    "id": "P3",
+    "count_ioctl": "0x4004a00e, scalar count 2, once for the first accepted file in each search",
+    "info_ioctl": "0x4008a00f, pointer to the native 264-byte WMT_PATCH_INFO: u32 sequence at +0, address[4] at +4, NUL-terminated basename[256] at +8",
+    "files": [
+      {"basename": "ROMv2_lm_patch_1_0_hdr.bin", "sequence": 2, "count": 2, "address_hex": "00000600"},
+      {"basename": "ROMv2_lm_patch_1_1_hdr.bin", "sequence": 1, "count": 2, "address_hex": "00000af0"}
+    ],
+    "paired_kernel": "The driver registers records by sequence, checks completeness, and the core requests index+1 in download order. It requests firmware by the registered basename. The launcher locates and registers patch metadata; the kernel loads and downloads the body.",
+    "elf_va": ["0x342c-0x3444", "0x35ac-0x3628"],
+    "kernel": ["core/include/wmt_lib.h:166-170", "linux/wmt_dev.c:600-613", "linux/wmt_dev.c:639-738", "linux/wmt_dev.c:1392-1415", "core/wmt_ic_soc.c:1289-1298"],
+    "observed_lines": [3121, 3122, 3123, 3130, 3131, 3132]
+  },
+  "version_publication": {
+    "id": "V1",
+    "property": "persist.vendor.connsys.patch.version",
+    "observed_value": "20200629194517a",
+    "timing": "For each prefix-matching opened file, read 16 bytes, set byte 15 to NUL, and invoke launcher_set_prop before checking the file firmware version or registering patch metadata. Thus a rejected candidate can still schedule a property write.",
+    "asynchrony": "launcher_set_prop allocates/copies key and value and launches a detached thread. That thread calls property_set once, logs success or failure, and frees its allocation. Completion order across files is not guaranteed and no patch/download completion is awaited.",
+    "evidence_limit": "The two identical successful writes in the captured log establish the published string, not which patch was last downloaded or whether a future replacement has completed downloading.",
+    "elf_va": ["0x3458-0x349c", "0x34a4-0x353c", "0x5878-0x5a70"],
+    "observed_lines": [3162, 3163]
+  },
+  "command_boundaries": [
+    {
+      "command": "srh_patch",
+      "classification": "Required and observed on this MT6755 boot.",
+      "kernel": ["core/wmt_ctrl.c:546", "core/wmt_ic_soc.c:1260-1266"]
+    },
+    {
+      "command": "srh_rom_patch",
+      "classification": "Implemented by the original ELF at 0x3850-0x4218; absent from the MIT reference. No MT6755 platform ROM-download call or local soc1_0_ram file was found, and the captured boot does not show this command. Preserve or explicitly scope it when claiming full original-ELF command coverage; it is not proven necessary for the observed MT6755 boot.",
+      "bounded_decode": "For chip 0x6755 the original handler falls through to prefix soc1_0_ram, not an unsupported-chip rejection. It can submit the 264-byte ROM record through ioctl 0x4008a01f. No exhaustive ROM-format or other-chip compatibility claim is made here.",
+      "elf_va": ["0x38cc-0x3988", "0x3a88-0x3b54"],
+      "kernel": ["platform/mt6755.c:151-214", "core/wmt_ctrl.c:576-608", "linux/wmt_dev.c:1530-1541"]
+    },
+    {
+      "command": "update_patch_version",
+      "classification": "Produced by the paired kernel but absent from both original-ELF and MIT command tables. It is not chip-gated: wmt_ic_soc checks need_update before normal patch startup. Its sole setter-to-1 is successful set_active_patch_version, reachable through ioctl 40 after a vendor table is populated through ioctl 37. The original launcher does not make these ioctls, and the existing boot log does not show this command. It is outside the demonstrated launcher startup behavior, but must not be described as impossible on MT6755 or as strictly another-IC command.",
+      "kernel": ["core/wmt_ctrl.c:611-624", "core/wmt_ic_soc.c:1235-1238", "core/wmt_lib.c:3447-3490", "core/wmt_lib.c:3519-3544", "linux/wmt_dev.c:1573-1593", "linux/wmt_dev.c:1614-1631"],
+      "parent_evidence": "Original command table at 0x7220 has two entries; command-response dispatch was already reviewed by root."
+    }
+  ],
+  "mit_reference_deltas": [
+    {"id": "R1", "impact": "Cannot start as supplied on this chip", "detail": "chipIDs and patchNames omit 0x6755. validateChipID rejects it and main exits; add the explicit 6755 mapping to ROMv2_lm_patch for a target-specific implementation.", "reference_lines": [19, 34, 132, 405, 408]},
+    {"id": "R2", "impact": "Current init arguments do not work unchanged", "detail": "The reference getopt string has no -o, so the current -o 1 service invocation reaches usage/return before initialization. It defaults to /lib/firmware, although -p is supported. It implements only -p and -m among the declared transport options.", "reference_lines": [45, 355, 363, 369]},
+    {"id": "R3", "impact": "Different startup and power behavior", "detail": "No Android driver-ready/property gate or chip-id property fallback; device absence exits instead of retrying. powerOn first sends 0, then sends 1 once, while the original -o 1 path sends 2 with retries. Preserve the native 0x23 mode and kill-clear ioctl, which the reference already has.", "reference_lines": [159, 162, 166, 381, 405, 430, 433]},
+    {"id": "R4", "impact": "Different patch acceptance", "detail": "The reference compares both firmware bytes; the original compares only the low byte. The current files pass either rule, so their successful boot alone would not detect this mismatch. Offset-24 count/sequence extraction and the 264-byte basename record are otherwise useful compatible starting points. Its comment suggesting Android needs full paths does not describe this ELF.", "reference_lines": [80, 263, 279, 288, 289, 300, 306, 309, 311, 315]},
+    {"id": "R5", "impact": "Missing Android-visible behavior", "detail": "No property API calls: no formeta.ready publication, patch.version publication, or optional firmware-log/dynamic-dump properties and ioctls. Both readiness properties must retain their actual meaning; neither should be represented as download completion.", "reference_lines": [1, 99, 344, 448]},
+    {"id": "R6", "impact": "Incomplete full launcher command coverage", "detail": "Only srh_patch is registered. srh_rom_patch requires a deliberate implementation or explicit target scope. update_patch_version is absent in both originals and is classified separately above.", "reference_lines": [60, 61, 62]},
+    {"id": "R7", "impact": "Needs production error handling before reuse", "detail": "The reference leaves metadata short-read handling empty and ignores count/info ioctl results, yet counts the record as set. It also changes the original no-match outcome to failure. A replacement should validate full reads, count/sequence consistency, path bounds, and ioctl results against the paired kernel, while preserving successful target behavior; original error-handling defects are observations, not compatibility requirements.", "reference_lines": [292, 295, 301, 316, 317, 325, 335]}
+  ],
+  "suggested_target_acceptance": [
+    "Use the exact current init arguments, chip 0x6755 and native ioctl ABI; exercise missing driver-ready/device then successful startup.",
+    "Verify -o 1 sends power argument 2 while the command loop handles srh_patch; inject failed power attempts and ioctl errors.",
+    "Use the two hash-bound real patch headers and synthetic headers with different high firmware byte but equal low byte, reversed directory order, missing/duplicate/out-of-range sequence, short reads and failed metadata ioctl.",
+    "Verify basename records, total count 2, sequences 1/2 and the two four-byte addresses; verify the paired kernel determines download ordering.",
+    "Verify exact property keys/values and optional-control absence. Keep a separate success receipt for completed hardware/download work instead of treating asynchronous property writes as that receipt.",
+    "If claiming coverage beyond this boot path, explicitly account for srh_rom_patch and the conditional update_patch_version source ABI."
+  ],
+  "limits": [
+    "The vendor ELF was never executed. No ADB, phone setting, radio operation, firmware mutation or production edit occurred.",
+    "Only reference-review contains new files. Kernel/source/firmware/log inputs were read only.",
+    "No claim of an implemented or tested replacement launcher, no new on-device equivalence result, and no exhaustive contract for other ICs.",
+    "R2 analyzed-function switch annotations are unreliable for this optimized ELF; the review uses raw AArch64 instructions plus independently decoded jump-table entries.",
+    "Existing cdev module ownership and g_pdev lifetime exclusions supplied by root are outside this launcher contract; no fops.owner or unrelated kernel patch is proposed."
+  ]
+}

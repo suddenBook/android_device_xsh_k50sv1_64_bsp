@@ -1,0 +1,105 @@
+Stock wmt_drv.ko SHA256: f30b22f3c39b8dd5816fee034c6b19d422c608768b345bded7cb29e574cb1c46
+
+Command: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/kernel-review-20260905/build-project/lineage-17.1/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-objdump -dr --start-address=0x3960 --stop-address=0x3990 /home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/lib/modules/wmt_drv.ko
+
+/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/lib/modules/wmt_drv.ko:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000003960 <do_gps_drv_init+0xd38>:
+    3960:	910003fd 	mov	x29, sp
+    3964:	f9000bf3 	str	x19, [sp,#16]
+    3968:	34000320 	cbz	w0, 39cc <do_gps_drv_init+0xda4>
+    396c:	58000673 	ldr	x19, 3a38 <do_gps_drv_init+0xe10>
+    3970:	f9400a60 	ldr	x0, [x19,#16]
+    3974:	b4000280 	cbz	x0, 39c4 <do_gps_drv_init+0xd9c>
+    3978:	52819c81 	mov	w1, #0xce4                 	// #3300
+    397c:	2a0103e2 	mov	w2, w1
+    3980:	94000000 	bl	0 <regulator_set_voltage>
+			3980: R_AARCH64_CALL26	regulator_set_voltage
+    3984:	f9400a60 	ldr	x0, [x19,#16]
+    3988:	94000000 	bl	0 <regulator_enable>
+			3988: R_AARCH64_CALL26	regulator_enable
+    398c:	580005b3 	ldr	x19, 3a40 <do_gps_drv_init+0xe18>
+
+
+Command: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/kernel-review-20260905/build-project/lineage-17.1/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-objdump -dr --start-address=0x3a6c --stop-address=0x3aa0 /home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/lib/modules/wmt_drv.ko
+
+/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/lib/modules/wmt_drv.ko:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000003a6c <do_gps_drv_init+0xe44>:
+    3a6c:	910003fd 	mov	x29, sp
+    3a70:	f9000bf3 	str	x19, [sp,#16]
+    3a74:	34000320 	cbz	w0, 3ad8 <do_gps_drv_init+0xeb0>
+    3a78:	58000693 	ldr	x19, 3b48 <do_gps_drv_init+0xf20>
+    3a7c:	f9400e60 	ldr	x0, [x19,#24]
+    3a80:	b4000280 	cbz	x0, 3ad0 <do_gps_drv_init+0xea8>
+    3a84:	52819c81 	mov	w1, #0xce4                 	// #3300
+    3a88:	2a0103e2 	mov	w2, w1
+    3a8c:	94000000 	bl	0 <regulator_set_voltage>
+			3a8c: R_AARCH64_CALL26	regulator_set_voltage
+    3a90:	f9400e60 	ldr	x0, [x19,#24]
+    3a94:	94000000 	bl	0 <regulator_enable>
+			3a94: R_AARCH64_CALL26	regulator_enable
+    3a98:	580005d3 	ldr	x19, 3b50 <do_gps_drv_init+0xf28>
+    3a9c:	34000060 	cbz	w0, 3aa8 <do_gps_drv_init+0xe80>
+
+
+Command: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/kernel-review-20260905/build-project/lineage-17.1/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-objdump -dr --start-address=0x3b7c --stop-address=0x3bb0 /home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/lib/modules/wmt_drv.ko
+
+/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/lib/modules/wmt_drv.ko:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000003b7c <do_gps_drv_init+0xf54>:
+    3b7c:	910003fd 	mov	x29, sp
+    3b80:	f9000bf3 	str	x19, [sp,#16]
+    3b84:	34000220 	cbz	w0, 3bc8 <do_gps_drv_init+0xfa0>
+    3b88:	580003d3 	ldr	x19, 3c00 <do_gps_drv_init+0xfd8>
+    3b8c:	f9400660 	ldr	x0, [x19,#8]
+    3b90:	b4000140 	cbz	x0, 3bb8 <do_gps_drv_init+0xf90>
+    3b94:	52815e01 	mov	w1, #0xaf0                 	// #2800
+    3b98:	2a0103e2 	mov	w2, w1
+    3b9c:	94000000 	bl	0 <regulator_set_voltage>
+			3b9c: R_AARCH64_CALL26	regulator_set_voltage
+    3ba0:	f9400660 	ldr	x0, [x19,#8]
+    3ba4:	94000000 	bl	0 <regulator_enable>
+			3ba4: R_AARCH64_CALL26	regulator_enable
+    3ba8:	34000080 	cbz	w0, 3bb8 <do_gps_drv_init+0xf90>
+    3bac:	580002e0 	ldr	x0, 3c08 <do_gps_drv_init+0xfe0>
+
+
+Command: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/kernel-review-20260905/build-project/lineage-17.1/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-objdump -dr --start-address=0x3c30 --stop-address=0x3c64 /home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/lib/modules/wmt_drv.ko
+
+/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/lib/modules/wmt_drv.ko:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000003c30 <do_gps_drv_init+0x1008>:
+    3c30:	5280c0a0 	mov	w0, #0x605                 	// #1541
+    3c34:	52800001 	mov	w1, #0x0                   	// #0
+    3c38:	94000000 	bl	0 <connectivity_export_pmic_set_register_value>
+			3c38: R_AARCH64_CALL26	connectivity_export_pmic_set_register_value
+    3c3c:	58000733 	ldr	x19, 3d20 <do_gps_drv_init+0x10f8>
+    3c40:	f9400260 	ldr	x0, [x19]
+    3c44:	b4000140 	cbz	x0, 3c6c <do_gps_drv_init+0x1044>
+    3c48:	5280e101 	mov	w1, #0x708                 	// #1800
+    3c4c:	2a0103e2 	mov	w2, w1
+    3c50:	94000000 	bl	0 <regulator_set_voltage>
+			3c50: R_AARCH64_CALL26	regulator_set_voltage
+    3c54:	f9400260 	ldr	x0, [x19]
+    3c58:	94000000 	bl	0 <regulator_enable>
+			3c58: R_AARCH64_CALL26	regulator_enable
+    3c5c:	34000320 	cbz	w0, 3cc0 <do_gps_drv_init+0x1098>
+    3c60:	58000640 	ldr	x0, 3d28 <do_gps_drv_init+0x1100>
+
+
+Handset E-188 first-boot evidence:
+[  147.911093] (1)[437:mtk_wmtd_worker]vcn33_wifi: unsupportable voltage range: 3300000-3300uV
+[  151.746484] (7)[436:mtk_wmtd]vcn33_bt: unsupportable voltage range: 3300000-3300uV

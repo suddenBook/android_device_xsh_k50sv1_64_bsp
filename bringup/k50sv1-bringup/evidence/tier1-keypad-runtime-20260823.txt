@@ -1,0 +1,132 @@
+Tier 1 keypad / stuck Volume Up diagnosis
+captured_at=2026-08-23T04:13:00+02:00..2026-08-23T04:34:00+02:00
+capture_policy=direct root network ADB; input event data contains no user identifiers
+
+## Current-boot state
+
+The hardware keypad is `/dev/input/event1`, name `mtk-kpd`. It exposes
+KEY_VOLUMEDOWN, KEY_VOLUMEUP, KEY_POWER and KEY_RESTART.
+
+    getevent -lp /dev/input/event1:
+        KEY_VOLUMEUP*                 # current kernel value is down
+
+    dumpsys input, Device 4 mtk-kpd:
+        HandlesKeyRepeat: false
+        KeyDowns: 1 keys currently down
+        KeyRepeatTimeout: 400.0ms
+        KeyRepeatDelay: 50.0ms
+
+A live event stream observed complete DOWN/UP pairs for Power and Volume Down.
+No Volume Up release appeared.
+
+## Previous-boot persistent log and hardware rescan
+
+The sanitized pstore/last_kmsg keypad sequence contains:
+
+    1080.602907 pressed  hw=1 linux=115  # KEY_VOLUMEUP
+
+There is no matching linux=115 release before that log ends. More importantly,
+each later Volume Down interrupt made the driver read all five keypad state
+registers again. The captured signatures are:
+
+    all released:       ffff ffff ffff ffff 00ff
+    Volume Up only:     fbfd eff7 bfdf ff7f 00fe
+    Volume Down only:   fdfe f7fb dfef 7fbf 00ff
+    Up + Down:          f9fc e7f3 9fcf 7f3f 00fe
+
+The first Volume Up press has the Up-only signature. All ten later Volume Down
+presses have the combined Up+Down signature, and all ten releases return to
+the same Up-only signature rather than all-released. The MTK keypad handler
+re-reads KP_MEM1..KP_MEM5 on every interrupt and compares them with its cached
+state. If only the original Volume Up release interrupt had been lost, the
+next Volume Down interrupt would have detected and reported the released Up
+bit. Ten independent rescans did not.
+
+Five Power-key tests during this same stuck interval show complete PMIC
+pressed=1 / pressed=0 pairs. The Power contact and independent PMIC detector
+therefore worked throughout this observation window; Android consumes the
+short press because the stale Volume Up accessibility/ringer chord remains
+latched. This does not exclude an intermittent fault elsewhere on a cheap
+side-key flex shared by all three mechanical buttons.
+
+## Exact matrix mapping and remaining controller branch
+
+The device DT maps hardware index 0 to Linux 114 (Volume Down) and index 1 to
+Linux 115 (Volume Up); every other keypad-map entry is zero. KP_MEM bits are
+active-low. On this matrix one physical button changes a companion group with
+a stride of nine, but only the first configured index produces an Android key:
+
+    Volume Up:   hw 1,10,19,28,37,46,55,64
+    Volume Down: hw 0,9,18,27,36,45,54,63
+
+This exactly explains the five-register signatures above and independently
+rules out a keylayout mis-map. The DT debounce is 0x400, about 32ms for this MTK
+block; it cannot explain a level held for seconds. There is no safe runtime
+per-key polarity or debounce control.
+
+The user reports that the fault appears after a period of rest. The matched MTK
+3.18 keypad suspend path disables KP_EN and enables it again on resume. Stock
+and Lineage use the same prebuilt kernel and DTB, so their shared behavior rules
+out a framework regression but does not distinguish an external line held low
+from a keypad-controller or common-driver suspend/resume latch. The strict
+remaining order is therefore:
+
+1. switch, side-key flex, contact, or matrix input held low (primary);
+2. keypad controller/driver state latched after suspend/resume (secondary);
+3. Android framework/SystemUI origin (excluded by the raw KP_MEM scans).
+
+## Interpretation and bounded mitigation
+
+The failure is below SystemUI. A physical switch, side-key flex, contact, or
+matrix electrical line that remains closed is now the leading root cause. A
+keypad-controller register state that latches across interrupts remains a
+smaller alternative. A simple one-off lost release edge is inconsistent with
+the ten later full-register rescans. Stock and Lineage use byte-identical
+kernel and DTB images and Stock exhibits the same fault, which rules out a ROM
+framework regression.
+
+Android InputDispatcher synthesizes repeats for a held key after 400 ms and
+then every 50 ms when `HandlesKeyRepeat` is false. PhoneWindowManager also
+cancels pending Power-key actions on Volume Up down events. The device-specific
+mitigation therefore sets only `mtk-kpd` to `keyboard.handlesKeyRepeat=1`:
+it prevents an unbounded synthetic repeat stream while preserving the physical
+Volume Up mapping and leaving every other input device unchanged. It does not
+pretend to repair the electrical assertion. It also cannot clear InputReader's
+KeyDown state or PhoneWindowManager's Volume Up chord, so it must not be called
+a complete Power-key fix.
+
+## Safe post-flash decision matrix
+
+First require `HandlesKeyRepeat: true`, then judge the raw state rather than the
+volume overlay:
+
+    getevent -lp /dev/input/event1
+    dumpsys input
+
+* `KEY_VOLUMEUP*` or `KeyDowns: 1` means the underlying fault remains even if
+  the UI no longer repeats.
+* A healthy short press must produce exactly KEY_VOLUMEUP 1 then 0 and finish
+  with no star and KeyDowns 0.
+* If a stuck state clears on the next Volume Down IRQ, revisit the lost-edge
+  hypothesis. If it returns to the Up-only register signature, the electrical
+  assertion/controller state remains present.
+* Complete raw KEY_POWER 1/0 with no UI response confirms policy-layer chord
+  consumption rather than a broken Power switch.
+* A cold no-touch boot or bootloader/recovery that is already stuck strongly
+  favors the switch/flex/matrix path. A fault that occurs only after true
+  suspend/resume and clears reliably on warm reboot raises the controller
+  resume hypothesis.
+* With network ADB, compare without a USB cable or case and with the handset
+  flat. Immediate release after gently touching the Volume Up button edge
+  strongly favors a mechanical switch/flex problem.
+
+Do not use sendevent/uinput, write keypad sysfs, unbind the driver, or hold key
+combinations. This kernel has MTK crash/recovery key paths and an approximately
+eight-second PMIC long-press reset.
+
+To separate idle from suspend without mixing other hardware, test with the case
+removed, USB unplugged, the magnet away, and the pen left inserted. Compare an
+awake 10-30 minute no-touch interval with a real screen-off suspend interval.
+Only when the owner is present with a physical recovery path should warm reboot,
+full power-off, recovery, and bootloader behavior be compared: a stuck Up key
+can change the boot target.

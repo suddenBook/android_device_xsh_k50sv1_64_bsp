@@ -1,0 +1,12 @@
+{
+  "normal_reboot_file_sha256_match": true,
+  "normal_reboot_sqlite_integrity": "ok",
+  "normal_reboot_sqlite_rows": 500,
+  "forced_reset_file_sha256_match": true,
+  "forced_reset_sqlite_integrity": "ok",
+  "forced_reset_acknowledged_rows": 1041,
+  "forced_reset_recovered_rows": 1041,
+  "forced_reset_no_missing_acknowledged_rows": true,
+  "forced_reset_new_boot_complete": true,
+  "scope": "One normal reboot and one SysRq b during active WAL/FULL SQLite commits; not physical power-loss or long-term reliability proof"
+}

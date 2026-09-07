@@ -1,0 +1,36 @@
+{
+  "source_files": [
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/system/priv-app/ImsService/ImsService.apk",
+      "sha256": "c762f544596c1066c1ed36feb78ee00d7035262bf087572a7c8026f2f8629a8b"
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/system/framework/mediatek-ims-extension-plugin.jar",
+      "sha256": "ab3249e2f626ef647940aa0756cac0b10006efb0d1d3182c480ae8cf848c3434"
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/ims-factory-marker-20260907/service/com/mediatek/ims/plugin/ExtensionFactory.smali",
+      "sha256": "dd82b73df3ca9097ac7e15f953a41427c02894bd53e62acbe90af67ee7f739be"
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/ims-factory-marker-20260907/service/com/mediatek/ims/internal/ImsVTProviderUtil.smali",
+      "sha256": "040f7a172fe1824a1474fb052b00a42dd3884cdee039b5098f9c52a97bf19d2e"
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/ims-factory-marker-20260907/extension/com/mediatek/imsplugin/ExtensionPluginFactoryImpl.smali",
+      "sha256": "96fd875c641968fef1440c2ffeb738125430d19b89ba505220e4ea1a7f1348e5"
+    }
+  ],
+  "selection_order": [
+    "Constructor.newInstance",
+    "check-cast ExtensionPluginFactory",
+    "sput-object sExtensionPluginFactory",
+    "Log.d Use MTK's ExtensionPluginFactory"
+  ],
+  "method_use": "getImsExtCallUtil calls makeImsCallPlugin for video-call utility use; it is not part of the factory constructor",
+  "normal_boot_selection_lines": [
+    "    19.637  1694  1694 D ImsExtensionFactory: Use MTK's ExtensionPluginFactory",
+    "    21.413  1694  1733 D ImsExtensionFactory: Use Legacy's LegacyComponentFactory"
+  ],
+  "apk_input": "Device Make prebuilt re-signs/preoptimizes this vendor APK; decoded input method semantics are used alongside actual runtime selection logs."
+}

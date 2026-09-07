@@ -1,0 +1,269 @@
+{
+  "status": "PASS_SCOPED_INSTALLED_CHECKS",
+  "incremental": "eng.desmon.20260907.005031",
+  "kernel_revision": "54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb",
+  "boot_ids": {
+    "first-boot": "7bd9f367-5285-472b-9369-d3030a8d9313",
+    "normal-reboot": "fe7cf0d4-cad6-48a3-9637-a071528b08df",
+    "radio-reboot": "899b42cd-f9fe-47ec-b28a-78bbd9753f20"
+  },
+  "readback_files_per_phase": 29,
+  "checked_readback_phases": [
+    "first-boot",
+    "normal-reboot",
+    "radio-reboot",
+    "final"
+  ],
+  "calibration_firmware_unchanged": 19,
+  "changes_from_build15": [
+    {
+      "path": "/vendor/lib/modules/wmt_drv.ko",
+      "before_sha256": "87f7ca2cb73043f581311ac63a84a9417bc087f7af2ef7ec09e2bd652ba4e064",
+      "after_sha256": "3eb7bc7be865bea69a5772abba568d42f53cca8e0c5684b2cbdefe5f36a0867c",
+      "kind": "source_kernel_module"
+    },
+    {
+      "path": "/vendor/lib/modules/wmt_chrdev_wifi.ko",
+      "before_sha256": "29b5dead8e6125aa177544b82deef4eb9673baaba0dd6767e1ebf1ef44fe0d45",
+      "after_sha256": "9cb0b5e28ac8deb71ae9d2b8448173050952f4ca766af1497a0d7c16b1e4b62f",
+      "kind": "source_kernel_module"
+    },
+    {
+      "path": "/vendor/lib/modules/wlan_drv_gen2.ko",
+      "before_sha256": "48acafc7c9913c7c1eb32e3926dee4c28305441d1f1978cb1a7f4c5c84115a15",
+      "after_sha256": "9c77393be0dc7fb0742656fcdc0ef505c812b9763ac6d149cff9a82aca37d373",
+      "kind": "source_kernel_module"
+    },
+    {
+      "path": "/vendor/lib/modules/bt_drv.ko",
+      "before_sha256": "9de53a005bbd70995e78d85ccbc174a2c9322d5381942a356b1e21101dc21f78",
+      "after_sha256": "a604abd4c38b1582a41451b9bf1632c51c128a729fc23843c46b7fea7e674ae7",
+      "kind": "source_kernel_module"
+    }
+  ],
+  "raw_verifiers": {
+    "first-boot": {
+      "passed": 226,
+      "failed": 0,
+      "unread": 5,
+      "evidence_fatal": 0,
+      "informational": 22
+    },
+    "normal-reboot": {
+      "passed": 227,
+      "failed": 0,
+      "unread": 3,
+      "evidence_fatal": 0,
+      "informational": 17
+    }
+  },
+  "remaining_limits": [
+    "IMS registration prerequisites absent on current roaming fixture",
+    "GNSS callback coverage does not establish outdoor positioning",
+    "No physical module unload or Bluetooth audio claim",
+    "E-201 untagged command reply ambiguity remains",
+    "Platform and callback companion is excluded from build 16"
+  ],
+  "artifacts": [
+    {
+      "path": "build16-inputs.json",
+      "source": "build16-input-update.json",
+      "sha256": "43f89321ed31e5afe3b06358e720a8a8edb1824e1487d1ba97ee756306a61a47"
+    },
+    {
+      "path": "build16-process.json",
+      "source": "build16-process-result.json",
+      "sha256": "de60ef25b191c972ea590a4cce6d9c379bd61edf96591ee8dd5520d6db5d0d32"
+    },
+    {
+      "path": "build16-stage.json",
+      "source": "build16-stage-result.json",
+      "sha256": "b29158bab1992aa540f494758527f91c00b97eaf4fabbe7d9912889abc45d060"
+    },
+    {
+      "path": "build16-expected-installed.json",
+      "source": "build16-expected-installed.json",
+      "sha256": "2c829d306a9568e9a0c29303cdca0a0371a4570b681f0a7deb190244fc71381f"
+    },
+    {
+      "path": "build16-native-providers.json",
+      "source": "build16-native-providers.json",
+      "sha256": "cf98f31d6e3e20e651034298857ceac87843f75582ec4d3f31580498bbbe6a06"
+    },
+    {
+      "path": "build16-product-launcher.json",
+      "source": "build16-launcher-product-policy.json",
+      "sha256": "7235a003eecab3e731df9636a10f8110d66edca856499426a793b1138014aff1"
+    },
+    {
+      "path": "build16-receipt.txt",
+      "source": "tier1-source-stack-20260907-wmt-buffers-lifecycle/K50SV1-BUILD-RECEIPT",
+      "sha256": "4089dbbefde72fcd9cb7164c7e3c019046f8668e0df60042c88a69993f5adbd7"
+    },
+    {
+      "path": "build16-flash-receipt.txt",
+      "source": "source-stack-wmt-buffers-lifecycle-flash-receipt.txt",
+      "sha256": "9df6ba0ddea3001c0a8b8db7c490b3286341746da448a2ae51378943a748dfb0"
+    },
+    {
+      "path": "build16-fresh-home.json",
+      "source": "runtime/build16-initial-home/result.json",
+      "sha256": "212053a0089a46c8906b9eab5ce8544178d90ae4a857f3c07a0295253d9b9b20"
+    },
+    {
+      "path": "build16-first-launcher.json",
+      "source": "runtime/build16-initial-home/launcher-policy.json",
+      "sha256": "89225362943dda31a50483efa269455b1821040da7bc0646e5fbcb99464c23c3"
+    },
+    {
+      "path": "build16-normal-launcher.json",
+      "source": "runtime/build16-normal-reboot/launcher-policy.json",
+      "sha256": "280c61cce6ab8bb06c2782d9a06264b0031c54571637c3f3db0b77a2c4069213"
+    },
+    {
+      "path": "build16-final-launcher.json",
+      "source": "runtime/build16-final/launcher-policy.json",
+      "sha256": "1b991c34fcf686e03a8f46320aafb6cf18dfd8fabbdfb8e2e3b58d03dcd0b359"
+    },
+    {
+      "path": "build16-radio-first-attempt.json",
+      "source": "runtime/build16-radio-cycle/result.json",
+      "sha256": "9845f0c38c2eba51c789e2f21999faa2e0ac4747035308c22c255ed8cd119604"
+    },
+    {
+      "path": "build16-radio-cycle.json",
+      "source": "runtime/build16-radio-cycle-after-config-reload/result.json",
+      "sha256": "29bea44fc6879e928c3c6d53854a704cdbdfad95bd0b253971f674e78b06b15a"
+    },
+    {
+      "path": "build16-wifi-fixture-recovery.json",
+      "source": "runtime/build16-wifi-fixture-recovery.json",
+      "sha256": "2ef22296c24cc4152b9d4ae0fe35d742709fbd11f2d707f2e618d75f7ca689e4"
+    },
+    {
+      "path": "build16-gnss.json",
+      "source": "runtime/build16-gnss/result.json",
+      "sha256": "db8af02f4fcf0100e7d4c0639e6febd46328a725e7b8a5d8fb95914ccb6cc1da"
+    },
+    {
+      "path": "build16-p2p.json",
+      "source": "runtime/build16-p2p/result.json",
+      "sha256": "39b55ba97c634c5a0a9c6734674a6bf1ec669aa7d268f0270c7df114fb9f64e3"
+    },
+    {
+      "path": "build15-adie-baseline.json",
+      "source": "runtime/build15-adie-read/result.json",
+      "sha256": "4e8860761a6c6618da9f52cc3749bb4f9dc1ecf33a98b3eb091897ed42c79c13"
+    },
+    {
+      "path": "build16-adie-read.json",
+      "source": "runtime/build16-adie-read/result.json",
+      "sha256": "2fca3a7a5c9482b851f782bc2d8976c6d8ef69ed7b58ff87549adacfac29d2d3"
+    },
+    {
+      "path": "build16-final.json",
+      "source": "runtime/build16-final/result.json",
+      "sha256": "0eb8a9b96bb55e9dddd5ebe6292f9b46ce268d0f155f8b7ac108d97d818aa73f"
+    },
+    {
+      "path": "build16-calibration-firmware.json",
+      "source": "runtime/build16-final/calibration-firmware.json",
+      "sha256": "89442ae20b1f78e34e1bb3284f77ef7fff7a0f1357204640c5808dfee881d063"
+    },
+    {
+      "path": "adie-probe/wmt_adie_probe.c",
+      "source": "wmt-adie-probe/wmt_adie_probe.c",
+      "sha256": "17ec2bbd0abc3554756b2cf53b5cd1819082fb5fdfd9cf0b304b6b422b732250"
+    },
+    {
+      "path": "adie-probe/build.sh",
+      "source": "wmt-adie-probe/build.sh",
+      "sha256": "7f70c3c7d9e14ab2fc1e7c273fefc305d35fc0f7c07144c17faedcf8a63d9a78"
+    },
+    {
+      "path": "adie-probe/SHA256SUMS",
+      "source": "wmt-adie-probe/SHA256SUMS",
+      "sha256": "ab740c826df7d9e046ba399d3feed5f3558b4e85fa2c6508c9f1f986c064be42"
+    },
+    {
+      "path": "adie-probe/elf-report.txt",
+      "source": "wmt-adie-probe/elf-report.txt",
+      "sha256": "2261226c84e030f8464e5972fab2e384be844c824bb8117dcfc1239d1a549be4"
+    },
+    {
+      "path": "run-wmt-adie-probe.py",
+      "source": "run-wmt-adie-probe.py",
+      "sha256": "62496ef55d2c6c2d5608b37750cea335c02a57b3b8d10fab6afd57deedfeead7"
+    },
+    {
+      "path": "build16-first-boot-kernel-summary.json",
+      "source": "runtime/build16-first-boot-kernel-summary.json",
+      "sha256": "b83411d83f59b410c356878478323782c310da8735784e1561ac0826073db280"
+    },
+    {
+      "path": "build16-first-boot-progress.json",
+      "source": "runtime/build16-first-boot-early/boot-progress.json",
+      "sha256": "268ec65a94725b759672e7e704aced1791a8e996f9f67d4c1f5f3e9c2e708d6e"
+    },
+    {
+      "path": "build16-normal-reboot-kernel-summary.json",
+      "source": "runtime/build16-normal-reboot-kernel-summary.json",
+      "sha256": "b41f7fa8fb00b598509df6b1c222459ce8d61dea2a47b972e24eb7767ee066fa"
+    },
+    {
+      "path": "build16-normal-reboot-progress.json",
+      "source": "runtime/build16-normal-reboot-early/boot-progress.json",
+      "sha256": "1498653a24d5c01979c228fc3c510eb4ab60d25e33260df550be039c0fe7fe19"
+    },
+    {
+      "path": "build16-radio-reboot-kernel-summary.json",
+      "source": "runtime/build16-radio-reboot-kernel-summary.json",
+      "sha256": "b45adb66f44b2c4b32a38cd21f9c6faf5caf6791a067c4357df4026f4cc459f5"
+    },
+    {
+      "path": "build16-radio-reboot-progress.json",
+      "source": "runtime/build16-radio-reboot-early/boot-progress.json",
+      "sha256": "90afabdfd6ca6a82a308cc8ddeb41a2e43e37a03da072890d9ed49f582ea1eb5"
+    },
+    {
+      "path": "build16-first-boot-readback.json",
+      "source": "runtime/build16-first-boot-readback/result.json",
+      "sha256": "0948aa61731eb8819be549efb33640de0f43638181078a393efe90e2706081fa"
+    },
+    {
+      "path": "build16-normal-reboot-readback.json",
+      "source": "runtime/build16-normal-reboot-readback/result.json",
+      "sha256": "ee6199602fd37f9e52dda1396f773ab0cd35ced2b8784e0e34f9d6b5754e8e32"
+    },
+    {
+      "path": "build16-radio-reboot-readback.json",
+      "source": "runtime/build16-radio-reboot-readback/result.json",
+      "sha256": "abc206ffbffb339656034546ff19c59774067778b7d4f1eca8e113e78bdbb995"
+    },
+    {
+      "path": "build16-final-readback.json",
+      "source": "runtime/build16-final-readback/result.json",
+      "sha256": "abc206ffbffb339656034546ff19c59774067778b7d4f1eca8e113e78bdbb995"
+    },
+    {
+      "path": "build16-first-boot-verifier.json",
+      "source": "runtime/build16-first-boot-verify-result.json",
+      "sha256": "b6059328401451148a5227fc0aebfa6af7e8f81fe3aa4093505164e21ff429c7"
+    },
+    {
+      "path": "build16-first-boot-verifier.txt",
+      "source": "build16-first-boot-verify.log",
+      "sha256": "30b28d8bef385900e8f4150c13131d096f536bd0f58c85a6ccb6426c65af70ee"
+    },
+    {
+      "path": "build16-normal-reboot-verifier.json",
+      "source": "runtime/build16-normal-reboot-verify-result.json",
+      "sha256": "1dfad8c59c63f5268c84c8960a0f4e998b84b97ddace780ac9e00ec8d8cc55d8"
+    },
+    {
+      "path": "build16-normal-reboot-verifier.txt",
+      "source": "build16-normal-reboot-verify.log",
+      "sha256": "5cd465805a338549b143e89b75f206a0ec2910abbb4541159c282085784025ff"
+    }
+  ]
+}

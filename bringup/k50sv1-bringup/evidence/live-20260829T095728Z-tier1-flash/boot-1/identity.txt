@@ -1,0 +1,9 @@
+captured_at_utc=2026-08-29T09:57:28Z
+getenforce=Permissive
+incremental=eng.desmon.20260829.023418
+fingerprint=google/coral/coral:10/QQ3A.200805.001/6578210:user/release-keys
+system_fingerprint=XSH/lineage_k50sv1_64_bsp/k50sv1_64_bsp:10/QQ3A.200805.001/desmond08290233:userdebug/test-keys
+boot_completed=1
+serialno=0123456789ABCDEF
+debuggable=1
+adb_secure=0

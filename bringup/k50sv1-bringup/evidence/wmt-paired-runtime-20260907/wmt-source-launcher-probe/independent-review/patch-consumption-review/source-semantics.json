@@ -1,0 +1,136 @@
+{
+  "kernel_revision": "4192fb6ae88e057bb2abb0f464cf6b4cb64697de",
+  "device_revision": "c270801a1f214b3c56b16efda5742eb0947b0c37",
+  "source_copies_verified_against_git_objects": true,
+  "callsite_inventory": "source-publisher-callsite-inventory.txt",
+  "records": [
+    {
+      "snapshot": "runtime/build19-first-boot-patch-consumption/source/core/wmt_ic_soc.c",
+      "sha256": "73c32282d15aff6713dfdbcf42ed642deb6c5496a838b3db4ad7fd26425078cb",
+      "first_line": 1255,
+      "last_line": 1314,
+      "range_sha256": "8b70bc13bb90f0d6d2224d35108e4bc0ccd0b00bbc1618ee8e7d087e56926e8c",
+      "claim": "Cold cache requests metadata before index-ordered multi-patch downloads."
+    },
+    {
+      "snapshot": "runtime/build19-first-boot-patch-consumption/source/core/wmt_ic_soc.c",
+      "sha256": "73c32282d15aff6713dfdbcf42ed642deb6c5496a838b3db4ad7fd26425078cb",
+      "first_line": 2867,
+      "last_line": 2876,
+      "range_sha256": "b29dd3cdf3ac74585fb2cdc4f54f0dd8c22ef4c645ebc075503a51caffa6759a",
+      "claim": "Metadata preparation dispatches WMT_CTRL_PATCH_SEARCH."
+    },
+    {
+      "snapshot": "runtime/build19-first-boot-patch-consumption/source/core/wmt_ctrl.c",
+      "sha256": "6da54fed31854565de606dd3684fde1d40b87f74b237d0a4ac4b76835a983a25",
+      "first_line": 540,
+      "last_line": 554,
+      "range_sha256": "7ccccabdf817d90acea54d5e8b14095de405f231e61cd87f436f1fdbffda3b96",
+      "claim": "Patch search issues srh_patch through the userspace command broker."
+    },
+    {
+      "snapshot": "runtime/build19-first-boot-patch-consumption/source/core/wmt_lib.c",
+      "sha256": "f51e6d77c43c0219ccc4711bb0f33bf118aa75e2ff571a4fc8628b01626a789f",
+      "first_line": 1078,
+      "last_line": 1149,
+      "range_sha256": "ebc27b365c641ef3820215469db9c196a3bb015dc3cd12e8137b7b6fa19fdfa3",
+      "claim": "v2 reply validation requires normal success, exact layout, nonzero count, unique complete sequence indexes, and terminated names; builds a private sequence-indexed array."
+    },
+    {
+      "snapshot": "runtime/build19-first-boot-patch-consumption/source/core/wmt_lib.c",
+      "sha256": "f51e6d77c43c0219ccc4711bb0f33bf118aa75e2ff571a4fc8628b01626a789f",
+      "first_line": 1174,
+      "last_line": 1230,
+      "range_sha256": "cd1f868a110f50490a930060a7e4ca0aad04018979ec594a4e8916204befa0ea",
+      "claim": "Only matching owner/session/transaction and delivered live request may publish; deadline checked; producer finishes after complete metadata publication."
+    },
+    {
+      "snapshot": "runtime/build19-first-boot-patch-consumption/source/linux/wmt_dev.c",
+      "sha256": "ffa88ab507072777690543478722ea58d721890ef4dc5fbd6f0507b5d0a470b1",
+      "first_line": 634,
+      "last_line": 693,
+      "range_sha256": "02ee6c436d363d1c8dfa9a21c192603cd61f7b40837cdf5b372ed74da1182ec5",
+      "claim": "Normal cache clearing publishes NULL/zero; positive publication occurs through wmt_dev_publish_patch_info; getters read sequence minus one under its lock."
+    },
+    {
+      "snapshot": "runtime/build19-first-boot-patch-consumption/source/linux/wmt_dev.c",
+      "sha256": "ffa88ab507072777690543478722ea58d721890ef4dc5fbd6f0507b5d0a470b1",
+      "first_line": 1018,
+      "last_line": 1023,
+      "range_sha256": "c210977ed13e76be4dbe66dc2749dc0291a963a7ec3a52a09975a7eb2e5e028e",
+      "claim": "Legacy normal metadata ioctl setters return EOPNOTSUPP."
+    },
+    {
+      "snapshot": "runtime/build19-first-boot-patch-consumption/source/core/wmt_ic_soc.c",
+      "sha256": "73c32282d15aff6713dfdbcf42ed642deb6c5496a838b3db4ad7fd26425078cb",
+      "first_line": 3222,
+      "last_line": 3279,
+      "range_sha256": "04e58637c609ff183685dc1baff2a8939af1015a5af801f91e6d507b75ea6a97",
+      "claim": "Normal download gets the requested sequence metadata and opens the named firmware."
+    },
+    {
+      "snapshot": "runtime/build19-first-boot-patch-consumption/source/core/wmt_ctrl.c",
+      "sha256": "6da54fed31854565de606dd3684fde1d40b87f74b237d0a4ac4b76835a983a25",
+      "first_line": 828,
+      "last_line": 881,
+      "range_sha256": "f2ee37575083089eee978a8150e0af4edbd7d0f335a4de92f03810cbdd07a5b0",
+      "claim": "Patch loading returns the firmware data and its original byte count."
+    },
+    {
+      "snapshot": "runtime/build19-first-boot-patch-consumption/source/linux/wmt_dev.c",
+      "sha256": "ffa88ab507072777690543478722ea58d721890ef4dc5fbd6f0507b5d0a470b1",
+      "first_line": 595,
+      "last_line": 623,
+      "range_sha256": "cfe276c1dca8402ac4cb39a2453889a16420ec02c082dfd34a1d2d2e627ed8bf",
+      "claim": "Named patch data comes from request_firmware."
+    },
+    {
+      "snapshot": "runtime/build19-first-boot-patch-consumption/source/core/wmt_ic_soc.c",
+      "sha256": "73c32282d15aff6713dfdbcf42ed642deb6c5496a838b3db4ad7fd26425078cb",
+      "first_line": 3298,
+      "last_line": 3339,
+      "range_sha256": "317d40e5a3a4817b7e647f0e1c709cf8c1717ca25ada0dbe267f7f601105425d",
+      "claim": "Normal path advances by sizeof(WMT_PATCH) and subtracts that size before invoking the logged transfer function; chip-specific alternatives remain source-scoped."
+    },
+    {
+      "snapshot": "runtime/build19-first-boot-patch-consumption/source/core/wmt_ic_soc.c",
+      "sha256": "73c32282d15aff6713dfdbcf42ed642deb6c5496a838b3db4ad7fd26425078cb",
+      "first_line": 49,
+      "last_line": 76,
+      "range_sha256": "ee8191b5aee831e5d1944b2f84a22ecef8d5434e236b09ecc677b79c70d1f970",
+      "claim": "Fragment size is 1000; multi-patch and event-check behavior are defined here."
+    },
+    {
+      "snapshot": "runtime/build19-first-boot-patch-consumption/source/core/wmt_ic_soc.c",
+      "sha256": "73c32282d15aff6713dfdbcf42ed642deb6c5496a838b3db4ad7fd26425078cb",
+      "first_line": 2893,
+      "last_line": 2916,
+      "range_sha256": "f922aee317c3e4598ab772760c254400bc145560face38d64acad4a01fdfe337",
+      "claim": "Start record reports the actual normal body size and calculated fragment count."
+    },
+    {
+      "snapshot": "runtime/build19-first-boot-patch-consumption/source/core/wmt_ic_soc.c",
+      "sha256": "73c32282d15aff6713dfdbcf42ed642deb6c5496a838b3db4ad7fd26425078cb",
+      "first_line": 3048,
+      "last_line": 3124,
+      "range_sha256": "4c913cd05ab919b308d66c198cfe02036db857d92dcf045d651c284df99b6dd9",
+      "claim": "Each fragment requires exact transmit/receive lengths and matching acknowledgment; sequence increments after success; terminal ok requires zero result and every fragment."
+    },
+    {
+      "snapshot": "runtime/build19-first-boot-patch-consumption/source/device/wmt-launcher/patch.c",
+      "sha256": "3c6e2b4f27f308cf8dad06e7b1735a8568f72555c718967241cb6be3726a6d26",
+      "first_line": 24,
+      "last_line": 67,
+      "range_sha256": "33f5c215367386b702a078a206ded3103c33cb38cd8884168df96d3d577aacf8",
+      "claim": "Header byte 24 carries count/sequence; the launcher places each record at sequence minus one, irrespective of filename order."
+    },
+    {
+      "snapshot": "supplemental-source/core/include/wmt_core.h",
+      "sha256": "5b31206a73da32a97f779327947ada485e91db0a20f7cd351ba54064f740e6e4",
+      "first_line": 427,
+      "last_line": 433,
+      "range_sha256": "9ff26dd430e76cb594e70373b3cf99761f0d53fd2be0e495365fe146860947f4",
+      "claim": "WMT_PATCH has fields of 16, 4, 2, 2, and 4 bytes: total 28 with the existing layout."
+    }
+  ]
+}

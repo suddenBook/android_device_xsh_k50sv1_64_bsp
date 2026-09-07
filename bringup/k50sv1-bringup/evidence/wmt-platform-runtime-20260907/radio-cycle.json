@@ -1,0 +1,13 @@
+{
+  "completed": true,
+  "settings_restored": true,
+  "boot_id": "a6177466-b0bb-4450-b031-6a6bf27cd9c5",
+  "final_identity": "a6177466-b0bb-4450-b031-6a6bf27cd9c5\n0\n250.52 1198.35\n",
+  "kernel_interval": [
+    210.69,
+    250.52
+  ],
+  "kernel_records": 5114,
+  "kernel_context_avcs": [],
+  "new_faults": []
+}

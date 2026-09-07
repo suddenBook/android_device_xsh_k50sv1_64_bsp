@@ -1,0 +1,2 @@
+PASS fw-retry-toggle writes=1 accepted=1 version_publications=1 power_calls=1
+optional_scans=7 dump_calls=0 dump_failures=0 log_create_attempts=3 log_creates=3 log_joins=3 log_enables=3 log_failures=1 log_disables=2

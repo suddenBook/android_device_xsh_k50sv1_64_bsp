@@ -1,0 +1,18 @@
+{
+  "status": "FAIL_MISSING_NEW_START_EVENT",
+  "exit_code": 1,
+  "summary_started": false,
+  "summary_stopped": true,
+  "status_callbacks": 120,
+  "max_satellites": 12,
+  "fixes": 0,
+  "cause": "GPS was already navigating for a Google Play services request attributed to Google Quick Search Box before the probe registered. The probe received satellite status and stop but no new start event.",
+  "evidence": [
+    "location-before.txt",
+    "location-active.txt",
+    "location-after.txt",
+    "log.txt",
+    "result.json"
+  ],
+  "production_changed": false
+}

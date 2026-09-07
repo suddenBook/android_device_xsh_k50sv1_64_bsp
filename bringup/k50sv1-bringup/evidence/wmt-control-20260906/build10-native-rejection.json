@@ -1,0 +1,65 @@
+{
+  "status": "PASS",
+  "boot_id": "3f13b68e-ad4f-483c-b3d4-988220064794",
+  "module_sha256": "cddcf03ba4c80714b8838ca2e9832a47db583f929d262ef3b09ea1b46c9a05c7",
+  "receipt_sha256": "f0fe3fc71c44edbab673006999ccb026d406bebabb7bb71569ca8f528210ff70",
+  "rows": [
+    {
+      "arch": "arm64",
+      "sha256": "492e1de80a518ae55886b1c2317be021426e597a8edb1a008c763776d605c28c",
+      "exit_code": 0,
+      "passed": true,
+      "cases": 18,
+      "trace_sha256": "29e257344582fab76f1eeb9f555d6c3b3b8d469542940a0af6089bc7814aeeef"
+    },
+    {
+      "arch": "arm",
+      "sha256": "1d3101b05a080ebf253c1c6b203dd91e9417c86fc1e6c2fc37dafa1b32885851",
+      "exit_code": 0,
+      "passed": true,
+      "cases": 18,
+      "trace_sha256": "6a629cb335cb0dcf0bed4462c5f77b70f2fe3653015de5e0f0298f7183699be7"
+    }
+  ],
+  "total_cases": 36,
+  "source_sha256": "82c3e806c17b1ee63ce4ed024f07181ded6bcb426d41698840e7f5a4cd4681d2",
+  "state_unchanged": true,
+  "kernel_interval": [
+    646.35,
+    646.84
+  ],
+  "kernel_records": 56,
+  "recognized_faults": [],
+  "scope": "36 native/compat rejection checks, stable WMT properties/service and kernel state; traffic observations are recorded separately.",
+  "raw_result_sha256": "51fbef2c07225385eaf89c0c47732174d5c806d624933ff0de2fe3c025eea9c5",
+  "traffic_initial": {
+    "received": 0,
+    "transmitted": 3,
+    "raw_sha256": "6ae638bca251526313c6ddb878defb2bd915089fb1cb0c5da8a059ab36a9a32c"
+  },
+  "traffic_followup": [
+    {
+      "target": "gateway",
+      "exit_code": 0,
+      "summary": "4 packets transmitted, 4 received, 0% packet loss, time 902ms"
+    },
+    {
+      "target": "alternate-external",
+      "exit_code": 0,
+      "summary": "4 packets transmitted, 4 received, 0% packet loss, time 903ms"
+    },
+    {
+      "target": "same-external",
+      "exit_code": 0,
+      "summary": "4 packets transmitted, 4 received, 0% packet loss, time 906ms"
+    }
+  ],
+  "traffic_paired_repeat": {
+    "status": "PASS",
+    "same_boot_service_and_taint": true,
+    "cases": 36,
+    "ping_before": "4 packets transmitted, 4 received, 0% packet loss, time 901ms",
+    "ping_after": "4 packets transmitted, 4 received, 0% packet loss, time 902ms",
+    "limitation": "The preceding one-off 3/3 ICMP loss is preserved; this paired repeat does not establish its cause."
+  }
+}

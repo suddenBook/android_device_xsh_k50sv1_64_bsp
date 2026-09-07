@@ -1,0 +1,62 @@
+=== D-state kernel threads (inflate loadavg) ===
+D        91 [fuse_log]
+D       172 [ddp_irq_log_kth]
+D       173 [disp_idlemgr]
+D       174 [disp_check]
+D       176 [decouple_trigge]
+D       194 [ccci_fsm1]
+D       198 [hang_detect]
+D       257 [bat_routine_thr]
+D       259 [bat_update_thre]
+
+=== kernel wakelocks (active) ===
+name					active_count	event_count	wakeup_count	expire_count	active_since	total_time	max_time	last_change	prevent_suspend_time
+radio-interface                 	10		10		0		0		0		1826		238		37576476		0
+radio-interface-gsm             	22		22		0		0		0		208		26		37576467		0
+PowerManagerService.WakeLocks   	289		289		0		0		0		801753		415713		37611827		0
+WLAN Timer                      	103		103		0		0		0		614016		407083		37556921		0
+event2                          	3496		3496		0		0		0		1676		125		36804591		0
+event1                          	9		9		0		0		0		85		42		36797283		0
+eventpoll                       	3505		3955		0		0		0		13		0		36804591		0
+KeyEvents                       	3036		3036		0		0		0		3121		280		37600259		0
+[timerfd]                       	254		254		0		0		0		134		12		37528458		0
+[timerfd]                       	240		240		0		0		0		2603		67		37611827		0
+eventpoll                       	494		494		0		0		0		1		0		37611827		0
+bt_drv                          	466		4462		0		466		0		95950		4209		36917130		0
+wmtFuncCtrl                     	12		12		0		0		0		2141		1396		36865231		0
+MT662x                          	2040		2040		0		0		0		62087		262		37566410		0
+battery                         	588		588		0		0		0		162		16		37623968		0
+wireless                        	2		2		0		0		0		17		16		3763		0
+usb                             	2		2		0		0		0		17		16		3763		0
+ac                              	2		2		0		0		0		17		16		3763		0
+wusb3801                        	1		2		0		1		0		1389		1389		2520		0
+spi_wakelock                    	1		1		0		0		0		0		0		994		0
+ccci_ctrl                       	1		2		0		1		0		1594		1594		7340		0
+ccci_ipc_3                      	5		49		0		5		0		5174		1050		28830620		0
+ccci_rpc_k                      	2		27		0		2		0		2986		1990		10040		0
+ccci_imsa                       	1		1		0		1		0		997		997		7390		0
+
+=== zram / swap ===
+Filename				Type		Size	Used	Priority
+/dev/block/zram0                        partition	1962804	77892	-1
+
+2009915392
+MemTotal:        3925620 kB
+MemFree:          104328 kB
+MemAvailable:    2126268 kB
+Buffers:           72968 kB
+Cached:          1952356 kB
+SwapCached:         4088 kB
+Active:          2330808 kB
+Inactive:         912264 kB
+
+=== CPU online / hotplug churn ===
+0-4
+0-7
+
+=== binder ioctl -22 spam source ===
+    160 287:287 c018620c -22
+(pid map)
+  287 hwservicemanager
+  365 android.hardware.graphics.composer@2.1-service
+  874 system_server

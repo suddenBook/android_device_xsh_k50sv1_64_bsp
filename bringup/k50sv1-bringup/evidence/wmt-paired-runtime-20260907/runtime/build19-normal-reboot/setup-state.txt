@@ -1,0 +1,11 @@
+device_provisioned=1
+user_setup_complete=1
+default_input_method=com.android.inputmethod.latin/.LatinIME
+registered_input_methods_begin
+com.android.inputmethod.latin/.LatinIME
+com.google.android.googlequicksearchbox/com.google.android.voicesearch.ime.VoiceInputMethodService
+registered_input_methods_end
+enabled_input_methods_begin
+com.android.inputmethod.latin/.LatinIME
+com.google.android.googlequicksearchbox/com.google.android.voicesearch.ime.VoiceInputMethodService
+enabled_input_methods_end

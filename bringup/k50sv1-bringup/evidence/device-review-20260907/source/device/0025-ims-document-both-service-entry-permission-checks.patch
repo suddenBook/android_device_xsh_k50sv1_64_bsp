@@ -1,0 +1,34 @@
+From cb9cd9815f2e85d3cf03ab6d83c7111baa89f56d Mon Sep 17 00:00:00 2001
+From: Huixiaqing Liu <huixiaqingliu@outlook.com>
+Date: Mon, 7 Sep 2026 11:28:41 +0200
+Subject: [PATCH 25/25] ims: document both service entry permission checks
+
+---
+ sepolicy/private/service.te | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/sepolicy/private/service.te b/sepolicy/private/service.te
+index 76464f7..3b3eb5b 100644
+--- a/sepolicy/private/service.te
++++ b/sepolicy/private/service.te
+@@ -3,11 +3,12 @@
+ # ordinary/privileged app domains. AOSP's wider system_app, shell and dumpstate
+ # discovery grants still apply; a device rule cannot subtract those allows.
+ #
+-# The legacy WFO implementation independently checks remote Binder transactions:
+-# READ_PRIVILEGED_PHONE_STATE for state/callback APIs and MODIFY_PHONE_STATE for
+-# control APIs. See patch_wfo_jar() in extract-files.sh. Android's system UID and
+-# explicitly granted callers, including Shell, retain their normal privileges.
+-# This WFO check does not establish authorization for the separate mtkIms API.
++# Both concrete service implementations check remote Binder transactions:
++# READ_PRIVILEGED_PHONE_STATE for state/observer APIs and MODIFY_PHONE_STATE for
++# control APIs, including mtkIms getters that return controller Binders. See
++# patch_ims_apk() and patch_wfo_jar() in extract-files.sh. Android's system UID
++# and explicitly granted callers, including Shell, retain their privileges.
++# This entry check does not audit every subsequently returned Binder interface.
+ #
+ # Both service owners/callers are core platform types, so keep these declarations
+ # in plat_private. add_service also prevents other domains registering the name.
+-- 
+2.55.0
+

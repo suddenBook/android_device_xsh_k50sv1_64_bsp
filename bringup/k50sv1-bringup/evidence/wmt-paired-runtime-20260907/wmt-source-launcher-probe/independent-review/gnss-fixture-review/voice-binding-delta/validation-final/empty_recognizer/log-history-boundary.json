@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "old_process_verified_absent": true,
+  "new_pid": 9614,
+  "prior_records": 13,
+  "fresh_records": 14,
+  "prior_log_sha256": "dda3a0bd31be05cb09ec60d48f5ec1fb41d4db44d640639b39ca53ee251d8e75",
+  "full_log_sha256": "6ccfabbfd99be5c1ad07560784772346251bf9dffa1908b016cc0ceb63a0a58b",
+  "new_run_log_sha256": "b9db3884af5a414f50dc7b956664aefe627a726b51aff46f05bca6e5f7a7b6c7",
+  "basis": "Exact retained old GNSS record prefix, captured after the old process exited and before the new launch; appended records all match the new probe PID. No log buffer was cleared."
+}

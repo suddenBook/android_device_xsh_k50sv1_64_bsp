@@ -1,0 +1,50 @@
+08-25 04:34:43.287  1209  1253 I AT      : AT< +CIREGU: 0 (RIL_URC2_READER, tid:491680324944)
+08-25 04:34:43.287  1209  1253 D RIL-IMS : CIREG URC:+CIREGU: 0
+08-25 04:34:43.287  1209  1253 D RIL-IMS : onImsRegistrationInfo:+CIREGU: 0
+08-25 04:34:43.289  1209  1247 I AT      : AT< +CIREGU: 0 (RIL_URC_READER, tid:491770428752)
+08-25 04:34:43.289  1209  1247 D RIL-IMS : CIREG URC:+CIREGU: 0
+08-25 04:34:43.289  1209  1247 D RIL-IMS : onImsRegistrationInfo:+CIREGU: 0
+08-25 04:34:53.966  1209  1215 D RIL-IMS : Enable +CIREGU report
+08-25 04:34:53.969  1209  1247 I AT      : AT< +CIREGU: 0 (RIL_URC_READER, tid:0)
+08-25 04:34:53.969  1209  1247 D RIL-IMS : CIREG URC:+CIREGU: 0
+08-25 04:34:53.969  1209  1247 D RIL-IMS : onImsRegistrationInfo:+CIREGU: 0
+08-25 04:35:00.074  1209  1216 D RIL-DATA: [0][queryEpdgRat] X
+08-25 04:35:00.074  1209  1216 D RIL-DATA: [queryEpdgRat] EPDG is not supported
+08-25 04:35:00.075  1209  1216 D RIL-DATA: epdgConfig, isHandOver: 0, eran_type: 0
+08-25 04:35:00.203  1209  1216 D RIL-DATA: [0][responseUnsolDataCallRspToMal] eran_type:0, cause:0
+08-25 04:35:00.203  1209  1216 D RIL-DATA: [0][getValidSimId] for responseUnsolDataCallRspToMal
+08-25 04:35:00.216  1209  1216 D RIL-DATA: [responseUnsolDataCallRspToMal] Call mal_datamngr_set_data_call_info_tlv success
+08-25 04:35:00.658  1209  1216 D RIL-DATA: [0][queryEpdgRat] X
+08-25 04:35:00.658  1209  1216 D RIL-DATA: [queryEpdgRat] EPDG is not supported
+08-25 04:35:00.658  1209  1216 D RIL-DATA: epdgConfig, isHandOver: 0, eran_type: 0
+08-25 04:35:00.948  1209  1216 D RIL-DATA: [0][responseUnsolDataCallRspToMal] eran_type:0, cause:0
+08-25 04:35:00.948  1209  1216 D RIL-DATA: [0][getValidSimId] for responseUnsolDataCallRspToMal
+08-25 04:35:00.952  1209  1216 D RIL-DATA: [responseUnsolDataCallRspToMal] Call mal_datamngr_set_data_call_info_tlv success
+--- after persist.vendor.wfc.sys_wfc_support=1 ---
+08-25 04:40:54.931  1209  1215 D RIL-IMS : Enable +CIREGU report
+08-25 04:40:54.936  1209  1247 I AT      : AT< +CIREGU: 0 (RIL_URC_READER, tid:0)
+08-25 04:40:54.936  1209  1247 D RIL-IMS : CIREG URC:+CIREGU: 0
+08-25 04:40:54.936  1209  1247 D RIL-IMS : onImsRegistrationInfo:+CIREGU: 0
+08-25 04:41:01.151  1209  1216 D RIL-DATA: [0][queryEpdgRat] X
+08-25 04:41:01.151  1209  1216 D RIL-DATA: [0][getValidSimId] for queryEpdgRat
+08-25 04:41:01.166  1209  1216 D RIL-DATA: [queryEpdgRat] Call rild_rds_sdc_req success
+08-25 04:41:01.166  1209  1216 D RIL-DATA: [0][queryEpdgRat] rsp status: 0, rsp rat: 1, request rat: 0
+08-25 04:41:01.166  1209  1216 D RIL-DATA: [0][queryEpdgRat] setup thru mobile, islteonly:0
+08-25 04:41:01.166  1209  1216 D RIL-DATA: [0][queryEpdgRat] ret: 0 E
+08-25 04:41:01.166  1209  1216 D RIL-DATA: epdgConfig, isHandOver: 0, eran_type: 1
+08-25 04:41:01.283  1209  1216 D RIL-DATA: [0][responseUnsolDataCallRspToMal] eran_type:1, cause:0
+08-25 04:41:01.283  1209  1216 D RIL-DATA: [0][getValidSimId] for responseUnsolDataCallRspToMal
+08-25 04:41:01.286  1209  1216 D RIL-DATA: [responseUnsolDataCallRspToMal] Call mal_datamngr_set_data_call_info_tlv success
+08-25 04:41:01.613  1209  1216 D RIL-DATA: [0][queryEpdgRat] X
+08-25 04:41:01.613  1209  1216 D RIL-DATA: [0][getValidSimId] for queryEpdgRat
+08-25 04:41:01.616  1209  1216 D RIL-DATA: [queryEpdgRat] Call rild_rds_sdc_req success
+08-25 04:41:01.616  1209  1216 D RIL-DATA: [0][queryEpdgRat] rsp status: 0, rsp rat: 1, request rat: 0
+08-25 04:41:01.616  1209  1216 D RIL-DATA: [0][queryEpdgRat] setup thru mobile, islteonly:1
+08-25 04:41:01.616  1209  1216 D RIL-DATA: [0][queryEpdgRat] ret: 0 E
+08-25 04:41:01.616  1209  1216 D RIL-DATA: epdgConfig, isHandOver: 0, eran_type: 1
+08-25 04:41:05.327  1209  1216 D RIL-DATA: [0][responseUnsolDataCallRspToMal] eran_type:1, cause:0
+08-25 04:41:05.327  1209  1216 D RIL-DATA: [0][getValidSimId] for responseUnsolDataCallRspToMal
+08-25 04:41:05.333  1209  1216 D RIL-DATA: [responseUnsolDataCallRspToMal] Call mal_datamngr_set_data_call_info_tlv success
+08-25 04:41:06.074  1209  1247 I AT      : AT< +CIREGU: 1,5 (RIL_URC_READER, tid:0)
+08-25 04:41:06.074  1209  1247 D RIL-IMS : CIREG URC:+CIREGU: 1,5
+08-25 04:41:06.074  1209  1247 D RIL-IMS : onImsRegistrationInfo:+CIREGU: 1,5

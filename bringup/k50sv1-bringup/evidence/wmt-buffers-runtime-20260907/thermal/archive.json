@@ -1,0 +1,132 @@
+[
+  {
+    "path": "result.json",
+    "source": "runtime/build16-thermal-read/result.json",
+    "sha256": "585d41ad0b41f500b0fb138011688dd0d92a0c23c047c4ac2531e433744e7c21"
+  },
+  {
+    "path": "artifact-sha256.json",
+    "source": "runtime/build16-thermal-read/artifact-sha256.json",
+    "sha256": "a9f646fc335f49618945348b85c23c419363f63e2a96dc9b37afd901ff4099eb"
+  },
+  {
+    "path": "source-excerpts.txt",
+    "source": "runtime/build16-thermal-read/source-excerpts.txt",
+    "sha256": "9689cd4fb1b73353bfe5f9d5f3bbee83721f37dc5ef166d3a16ad7e815fc16e6"
+  },
+  {
+    "path": "expected-manifest.json",
+    "source": "runtime/build16-thermal-read/expected-manifest.json",
+    "sha256": "2c829d306a9568e9a0c29303cdca0a0371a4570b681f0a7deb190244fc71381f"
+  },
+  {
+    "path": "identity-before.txt",
+    "source": "runtime/build16-thermal-read/identity-before.txt",
+    "sha256": "507ac6640221047cd15deef97b9c5c12797a1a59c08786066483555bdb1015ca"
+  },
+  {
+    "path": "identity-after.txt",
+    "source": "runtime/build16-thermal-read/identity-after.txt",
+    "sha256": "c30c72dd08dd45029042d926aa8575d80584b716b78fdf34255ed1f5118daebf"
+  },
+  {
+    "path": "wmt-before-hash.txt",
+    "source": "runtime/build16-thermal-read/wmt-before-hash.txt",
+    "sha256": "93a3ed784982a3fac968dbf0845e8b9844db10cc306d12d3a99bba46f42be273"
+  },
+  {
+    "path": "wmt-after-hash.txt",
+    "source": "runtime/build16-thermal-read/wmt-after-hash.txt",
+    "sha256": "93a3ed784982a3fac968dbf0845e8b9844db10cc306d12d3a99bba46f42be273"
+  },
+  {
+    "path": "wmt-before-modules.txt",
+    "source": "runtime/build16-thermal-read/wmt-before-modules.txt",
+    "sha256": "a03e9e64becb98bc8ab37631dcb2a90e6fda9a59e84c69c8382a0d8028f98328"
+  },
+  {
+    "path": "wmt-after-modules.txt",
+    "source": "runtime/build16-thermal-read/wmt-after-modules.txt",
+    "sha256": "a03e9e64becb98bc8ab37631dcb2a90e6fda9a59e84c69c8382a0d8028f98328"
+  },
+  {
+    "path": "thermal-zone-types.txt",
+    "source": "runtime/build16-thermal-read/thermal-zone-types.txt",
+    "sha256": "b5d8ab51b6cea181bab0ce8766e5a1a0172db96f637bceed7daa148ec2e7014d"
+  },
+  {
+    "path": "thermal-zone-type-after.txt",
+    "source": "runtime/build16-thermal-read/thermal-zone-type-after.txt",
+    "sha256": "037b1d8b38b8326e024eec1578f6691d4bf0609c0c552a50901be0a59d1a8cd7"
+  },
+  {
+    "path": "read-1-temperature.txt",
+    "source": "runtime/build16-thermal-read/read-1-temperature.txt",
+    "sha256": "53dc812cef60d0d76e4bd36c2119b71734c9c52a161bb66675a525c93bbb8bb6"
+  },
+  {
+    "path": "read-1-kernel-interval.txt",
+    "source": "runtime/build16-thermal-read/read-1-kernel-interval.txt",
+    "sha256": "3d4d00774348f31f1f244c416ad957936cfcaf3ba73a24cc0839946663a53ff6"
+  },
+  {
+    "path": "read-1-identity-before.txt",
+    "source": "runtime/build16-thermal-read/read-1-identity-before.txt",
+    "sha256": "dd7d5753cd55cac13f82c72c2c7cab57236ecb274cdcf88060b74b50980eeb3b"
+  },
+  {
+    "path": "read-1-identity-after.txt",
+    "source": "runtime/build16-thermal-read/read-1-identity-after.txt",
+    "sha256": "6851d66dc0340e0cc8597853a1c50b12625dea8475ad62d51cef22b92475ce3d"
+  },
+  {
+    "path": "read-2-temperature.txt",
+    "source": "runtime/build16-thermal-read/read-2-temperature.txt",
+    "sha256": "4808c82c8cece8b9e69323ba0a9c133c35eb01327b77721c8af27dbb6345b840"
+  },
+  {
+    "path": "read-2-kernel-interval.txt",
+    "source": "runtime/build16-thermal-read/read-2-kernel-interval.txt",
+    "sha256": "bf3bd395ef160352560c852a88391b2727ce972126981989b936b08d36fe71ab"
+  },
+  {
+    "path": "read-2-identity-before.txt",
+    "source": "runtime/build16-thermal-read/read-2-identity-before.txt",
+    "sha256": "cf681e64b3c7bd47db87b389c9535da4f3d49a4adc47c1d5f79e38869fce2b21"
+  },
+  {
+    "path": "read-2-identity-after.txt",
+    "source": "runtime/build16-thermal-read/read-2-identity-after.txt",
+    "sha256": "2630c1f3e2a0a3a48ce64d67fff02e8f3b16861bfcae8deb3bae9113292b06c9"
+  },
+  {
+    "path": "read-3-temperature.txt",
+    "source": "runtime/build16-thermal-read/read-3-temperature.txt",
+    "sha256": "65adab8fea406cfb54172931e7699ead37d6413f9eeb2ec943fc10dacd6918fc"
+  },
+  {
+    "path": "read-3-kernel-interval.txt",
+    "source": "runtime/build16-thermal-read/read-3-kernel-interval.txt",
+    "sha256": "02f8ba1a1b2af898b66b13a6addc714972b14821e9a8b94fa66205d23896044c"
+  },
+  {
+    "path": "read-3-identity-before.txt",
+    "source": "runtime/build16-thermal-read/read-3-identity-before.txt",
+    "sha256": "12145124fafcb4c8166f43b3593d4cb56c4f1c8083b412a694ba9042c480ef61"
+  },
+  {
+    "path": "read-3-identity-after.txt",
+    "source": "runtime/build16-thermal-read/read-3-identity-after.txt",
+    "sha256": "5185d1c2d9eaf32f4ea036defa856a45e0b698bda34f593896733f210365b98a"
+  },
+  {
+    "path": "run.py",
+    "source": "wmt-thermal-read-probe/run.py",
+    "sha256": "e16c756909477f5d52f48e7a947d09a4f719966f3c55fd90b15690b7a7498edb"
+  },
+  {
+    "path": "README.md",
+    "source": "wmt-thermal-read-probe/README.md",
+    "sha256": "d1ce3c07f73fd9f1e7994224f5002411982fd523589ee3b57009f3240826eef0"
+  }
+]

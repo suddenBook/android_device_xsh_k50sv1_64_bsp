@@ -1,0 +1,202 @@
+{
+  "files": [
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build-project/lineage-17.1/frameworks/base/services/voiceinteraction/java/com/android/server/voiceinteraction/VoiceInteractionManagerService.java",
+      "snapshot": "framework/services/voiceinteraction/java/com/android/server/voiceinteraction/VoiceInteractionManagerService.java",
+      "revision": "3eb409bcc54f50cc05b7e252ef235519d2fb20aa",
+      "sha256": "0c13ac5fc8c1541aa04a3660a5eca24f700e59ca62649869abdbc94a2bd4e025",
+      "bytes": 73399,
+      "reviewed_ranges": [
+        [
+          441,
+          549
+        ],
+        [
+          1323,
+          1444
+        ],
+        [
+          1456,
+          1545
+        ]
+      ],
+      "purpose": "Voice setting interpretation, role synchronization, force-stop and package-modification rebinding"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build-project/lineage-17.1/frameworks/base/services/core/java/com/android/server/role/RoleUserState.java",
+      "snapshot": "framework/services/core/java/com/android/server/role/RoleUserState.java",
+      "revision": "3eb409bcc54f50cc05b7e252ef235519d2fb20aa",
+      "sha256": "d1759821248ef29a18d2c83c1f47270033737518010cec643fbbf074771300ae",
+      "bytes": 20613,
+      "reviewed_ranges": [
+        [
+          58,
+          88
+        ],
+        [
+          195,
+          209
+        ],
+        [
+          355,
+          389
+        ],
+        [
+          534,
+          574
+        ]
+      ],
+      "purpose": "In-memory holder copies, asynchronous 200-ms persistence, and current-state dump"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build-project/lineage-17.1/frameworks/base/services/core/java/com/android/server/role/RoleManagerShellCommand.java",
+      "snapshot": "framework/services/core/java/com/android/server/role/RoleManagerShellCommand.java",
+      "revision": "3eb409bcc54f50cc05b7e252ef235519d2fb20aa",
+      "sha256": "f0de432430b364bcda5e6652c51f5fbc585614dbd44f43f3da1fef3296480080",
+      "bytes": 5059,
+      "reviewed_ranges": [
+        [
+          65,
+          86
+        ],
+        [
+          106,
+          167
+        ]
+      ],
+      "purpose": "Public Q shell add/remove/clear operations"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build-project/lineage-17.1/frameworks/base/services/core/java/com/android/server/pm/PackageManagerShellCommand.java",
+      "snapshot": "framework/services/core/java/com/android/server/pm/PackageManagerShellCommand.java",
+      "revision": "3eb409bcc54f50cc05b7e252ef235519d2fb20aa",
+      "sha256": "4a23b204ceed7f51cb5f763c37a1870d1fe429a21687a185eb8074229022bfaf",
+      "bytes": 136671,
+      "reviewed_ranges": [
+        [
+          208,
+          221
+        ],
+        [
+          1812,
+          1840
+        ]
+      ],
+      "purpose": "Component disable/default-state maps to exact enabled override API with user scope"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build-project/lineage-17.1/frameworks/base/core/java/android/content/pm/PackageUserState.java",
+      "snapshot": "framework/core/java/android/content/pm/PackageUserState.java",
+      "revision": "3eb409bcc54f50cc05b7e252ef235519d2fb20aa",
+      "sha256": "7fd81b1c11a2584ea6d2ae3fb12f847dc53acd887736c53e1e2f4bc581cf3993",
+      "bytes": 11887,
+      "reviewed_ranges": [
+        [
+          171,
+          225
+        ]
+      ],
+      "purpose": "Explicit disabled components excluded unless MATCH_DISABLED_COMPONENTS requested"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build-project/lineage-17.1/frameworks/base/core/res/res/values/config.xml",
+      "snapshot": "framework/core/res/res/values/config.xml",
+      "revision": "3eb409bcc54f50cc05b7e252ef235519d2fb20aa",
+      "sha256": "0b08039fcedb0921b08878e873b23db3a6ff3ee151cdfa8bdc064c3acad42392",
+      "bytes": 237921,
+      "reviewed_ranges": [
+        [
+          2019,
+          2025
+        ]
+      ],
+      "purpose": "Base fallback-assistant string is empty; installed overlays not established by this source alone"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build-project/lineage-17.1/packages/apps/PermissionController/src/com/android/packageinstaller/role/model/Role.java",
+      "snapshot": "permissioncontroller/src/com/android/packageinstaller/role/model/Role.java",
+      "revision": "494e742ae919032755e7f9cac086d42c884de061",
+      "sha256": "b5086320a0724b34755e059c3cf4333531882442aea08cea8819bc73e94c1ce8",
+      "bytes": 28459,
+      "reviewed_ranges": [
+        [
+          310,
+          326
+        ],
+        [
+          680,
+          699
+        ],
+        [
+          735,
+          740
+        ]
+      ],
+      "purpose": "None preference gates fallback; UI None writes true; adding a holder removes preference key"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build-project/lineage-17.1/packages/apps/PermissionController/src/com/android/packageinstaller/role/model/AssistantRoleBehavior.java",
+      "snapshot": "permissioncontroller/src/com/android/packageinstaller/role/model/AssistantRoleBehavior.java",
+      "revision": "494e742ae919032755e7f9cac086d42c884de061",
+      "sha256": "08d9cba4e5fa40745adef1b90a66968c5f2f3f2a770588beedf5d91b116d0adb",
+      "bytes": 9544,
+      "reviewed_ranges": [
+        [
+          64,
+          89
+        ]
+      ],
+      "purpose": "Assistant fallback comes from config_defaultAssistant"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build-project/lineage-17.1/packages/apps/PermissionController/src/com/android/packageinstaller/role/model/ExclusiveDefaultHolderMixin.java",
+      "snapshot": "permissioncontroller/src/com/android/packageinstaller/role/model/ExclusiveDefaultHolderMixin.java",
+      "revision": "494e742ae919032755e7f9cac086d42c884de061",
+      "sha256": "685954c4905a5ee49f44928358748706cd96f389a3ac64f265733cfbeaac518f",
+      "bytes": 3445,
+      "reviewed_ranges": [
+        [
+          59,
+          106
+        ]
+      ],
+      "purpose": "Empty or unsuitable configured fallback returns null"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build-project/lineage-17.1/packages/apps/PermissionController/src/com/android/packageinstaller/role/service/RoleControllerServiceImpl.java",
+      "snapshot": "permissioncontroller/src/com/android/packageinstaller/role/service/RoleControllerServiceImpl.java",
+      "revision": "494e742ae919032755e7f9cac086d42c884de061",
+      "sha256": "3a6702e3b1251e7050c67d10582abbc295697a7173dfd8feacd8a531a0dadf61",
+      "bytes": 17176,
+      "reviewed_ranges": [
+        [
+          189,
+          242
+        ],
+        [
+          247,
+          310
+        ],
+        [
+          380,
+          405
+        ]
+      ],
+      "purpose": "Add clears None preference; remove and clear run fallback after removing holders"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build-project/lineage-17.1/packages/apps/PermissionController/src/com/android/packageinstaller/role/ui/DefaultAppViewModel.java",
+      "snapshot": "permissioncontroller/src/com/android/packageinstaller/role/ui/DefaultAppViewModel.java",
+      "revision": "494e742ae919032755e7f9cac086d42c884de061",
+      "sha256": "75cbc2a6180db4bbe4576bd4c3d659430164dba7e9df3c0827ff758bb8dce920",
+      "bytes": 4194,
+      "reviewed_ranges": [
+        [
+          82,
+          103
+        ]
+      ],
+      "purpose": "None UI sets preference before invoking clear-role-holders"
+    }
+  ]
+}

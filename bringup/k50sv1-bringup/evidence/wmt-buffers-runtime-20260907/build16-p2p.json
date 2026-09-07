@@ -1,0 +1,65 @@
+{
+  "boot_id": "899b42cd-f9fe-47ec-b28a-78bbd9753f20",
+  "apk_sha256": "0dbe0a93f149c12518d05823da564af57297d5bab0c3869bb969eaab201aebe5",
+  "probe_pass": true,
+  "ipv4_during": [
+    [
+      {
+        "interface": "lo",
+        "ipv4_prefix": "8"
+      },
+      {
+        "interface": "wlan0",
+        "ipv4_prefix": "24"
+      }
+    ],
+    [
+      {
+        "interface": "lo",
+        "ipv4_prefix": "8"
+      },
+      {
+        "interface": "wlan0",
+        "ipv4_prefix": "24"
+      },
+      {
+        "interface": "p2p0",
+        "ipv4_prefix": "24"
+      }
+    ],
+    [
+      {
+        "interface": "lo",
+        "ipv4_prefix": "8"
+      },
+      {
+        "interface": "wlan0",
+        "ipv4_prefix": "24"
+      },
+      {
+        "interface": "p2p0",
+        "ipv4_prefix": "24"
+      }
+    ]
+  ],
+  "ipv4_after": [
+    {
+      "interface": "lo",
+      "ipv4_prefix": "8"
+    },
+    {
+      "interface": "wlan0",
+      "ipv4_prefix": "24"
+    }
+  ],
+  "p2p_ipv4_added": true,
+  "p2p_ipv4_removed": true,
+  "kernel_interval": [
+    338.72,
+    354.89
+  ],
+  "kernel_records": 1558,
+  "new_faults": [],
+  "final_identity": "899b42cd-f9fe-47ec-b28a-78bbd9753f20\n0\n354.89 1871.60\n",
+  "log": "--------- beginning of main\n--------- beginning of system\n09-07 01:50:03.233  5274  5274 I K50P2pProbe: create_accepted\n09-07 01:50:03.741  5274  5274 I K50P2pProbe: formed=true owner=true clients=0\n09-07 01:50:09.260  5274  5274 I K50P2pProbe: remove_accepted\n09-07 01:50:09.281  5274  5274 I K50P2pProbe: RESULT PASS reason=group_removed formed=true cleanup_pending=false\n"
+}

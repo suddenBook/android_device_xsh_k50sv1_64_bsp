@@ -1,0 +1,77 @@
+From c86b431a2784b33c888c09a991e9010698143b1c Mon Sep 17 00:00:00 2001
+From: Huixiaqing Liu <huixiaqingliu@outlook.com>
+Date: Mon, 7 Sep 2026 08:54:12 +0200
+Subject: [PATCH 6/8] media: report BU6424AF shutdown transfer failures
+
+---
+ .../mediatek/lens/main/common/bu6424af/BU6424AF.c | 15 ++++++++++++---
+ tools/testing/bu6424af/run.py                     |  6 ++++++
+ 2 files changed, 18 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/misc/mediatek/lens/main/common/bu6424af/BU6424AF.c b/drivers/misc/mediatek/lens/main/common/bu6424af/BU6424AF.c
+index d323f3f89ff..a5af152f7f9 100644
+--- a/drivers/misc/mediatek/lens/main/common/bu6424af/BU6424AF.c
++++ b/drivers/misc/mediatek/lens/main/common/bu6424af/BU6424AF.c
+@@ -62,7 +62,7 @@ static int s4AF_ReadReg(unsigned short *a_pu2Result)
+ 		return i4RetValue < 0 ? i4RetValue : -EIO;
+ 	}
+ 
+-	*a_pu2Result = (((u16)(pBuff[0] & 0x03)) << 8) + pBuff[1];
++	*a_pu2Result = (((u16)(pBuff[0] & 0x03)) << 8) | (u8)pBuff[1];
+ 
+ 	return 0;
+ }
+@@ -211,6 +211,8 @@ long BU6424AF_Ioctl(struct file *a_pstFile, unsigned int a_u4Command, unsigned l
+ /* Q1 : Try release multiple times. */
+ int BU6424AF_Release(struct inode *a_pstInode, struct file *a_pstFile)
+ {
++	int ret = 0;
++
+ 	LOG_INF("Start\n");
+ 
+ 	if (*g_pAF_Opened == 2) {
+@@ -218,7 +220,14 @@ int BU6424AF_Release(struct inode *a_pstInode, struct file *a_pstFile)
+ 
+ 		puSendCmd[0] = (char)(0x00);
+ 		puSendCmd[1] = (char)(0x00);
+-		i2c_master_send(g_pstAF_I2Cclient, puSendCmd, 2);
++		ret = i2c_master_send(g_pstAF_I2Cclient, puSendCmd, 2);
++		if (ret != 2) {
++			/* VFS ignores release's return value, so retain a visible error. */
++			pr_err(AF_DRVNAME ": shutdown write failed: %d\n", ret);
++			ret = ret < 0 ? ret : -EIO;
++		} else {
++			ret = 0;
++		}
+ 		LOG_INF("Wait\n");
+ 	}
+ 
+@@ -232,7 +241,7 @@ int BU6424AF_Release(struct inode *a_pstInode, struct file *a_pstFile)
+ 
+ 	LOG_INF("End\n");
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ int BU6424AF_SetI2Cclient(struct i2c_client *pstAF_I2Cclient, spinlock_t *pAF_SpinLock, int *pAF_Opened)
+diff --git a/tools/testing/bu6424af/run.py b/tools/testing/bu6424af/run.py
+index 737ef3e6551..b8dc5e728c2 100644
+--- a/tools/testing/bu6424af/run.py
++++ b/tools/testing/bu6424af/run.py
+@@ -110,6 +110,12 @@ int main(void) {
+     CHECK("unterminated lens name rejected", AF_SetMotorName(&name) == -EINVAL);
+     CHECK("invalid lens range rejected", setAFMacro(1024) == -EINVAL && setAFInf(1024) == -EINVAL);
+     CHECK("shutdown", BU6424AF_Release(NULL, NULL) == 0 && sent[0] == 0 && sent[1] == 0);
++    g_s4AF_Opened = 2; send_result = 1;
++    CHECK("short shutdown fails", BU6424AF_Release(NULL, NULL) == -EIO);
++    CHECK("failed shutdown releases ownership", g_s4AF_Opened == 0);
++    g_s4AF_Opened = 2; send_result = -ENXIO;
++    CHECK("shutdown bus errno preserved", BU6424AF_Release(NULL, NULL) == -ENXIO);
++    CHECK("bus failure releases ownership", g_s4AF_Opened == 0);
+     printf("BU6424AF: %d/%d passed\n", checks - failures, checks);
+     return failures != 0;
+ }
+-- 
+2.55.0
+

@@ -1,0 +1,22 @@
+{
+  "v2-first-boot-dmesg.txt": {
+    "bytes": 244818,
+    "sha256": "1645b2a9682a0ac3846fde7b5009faceab939015a30da016f0c3b80a41845290"
+  },
+  "v2-first-boot-logcat.bin": {
+    "bytes": 11343687,
+    "sha256": "17c6ba98b408ea4676fb5a793418cf8f4cce7f5a8518ed0088cbed0f29fa707f"
+  },
+  "v2-boot-complete.txt": {
+    "bytes": 1016708,
+    "sha256": "9184834f563aad6bda05a75bc6e87c2c7e134bc4e1174f8f3c9366bae9d2d63e"
+  },
+  "v2-durability/normal-early-dmesg.txt": {
+    "bytes": 246042,
+    "sha256": "ed4ee02444b827c9654da096cba05cd4f0cf5740190f85fef043cc6407cfb385"
+  },
+  "v2-durability/forced-early-dmesg.txt": {
+    "bytes": 324152,
+    "sha256": "bcd2ee82221b42d9bbbdfc029feae7edfd228e40541c5b3828aacc897ccda341"
+  }
+}

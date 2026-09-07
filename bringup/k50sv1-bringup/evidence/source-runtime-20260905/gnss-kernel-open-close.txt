@@ -1,0 +1,6 @@
+[ 2526.848664] (4)[626:mnld]GPS_open: major 191 minor 0 (pid 626)
+[ 2526.879060] (2)[626:mnld][GPS] [W]GPS_open: WMT turn on GPS OK!
+[ 2526.879069] (2)[626:mnld][GPS] [W]GPS_open: gps_hold_wake_lock(1)
+[ 2646.856452] (4)[626:mnld]GPS_close: major 191 minor 0 (pid 626)
+[ 2646.887800] (4)[626:mnld][GPS] [W]GPS_close: WMT turn off GPS OK!
+[ 2646.887810] (4)[626:mnld][GPS] [W]GPS_close: gps_hold_wake_lock(0)

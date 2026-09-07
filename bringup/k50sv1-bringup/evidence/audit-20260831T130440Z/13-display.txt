@@ -1,0 +1,131 @@
+=== SurfaceFlinger --display-id ===
+Display 0 (HWC display 0): no identification data
+
+=== wm size ===
+Physical size: 720x1560
+
+=== wm density ===
+Physical density: 320
+Override density: 256
+
+=== SurfaceFlinger (refresh/modes) ===
+Build configuration: [sf PRESENT_TIME_OFFSET=0 FORCE_HWC_FOR_RBG_TO_YUV=0 MAX_VIRT_DISPLAY_DIM=0 RUNNING_WITHOUT_SYNC_FRAMEWORK=0 NUM_FRAMEBUFFER_SURFACE_BUFFERS=2] [libui] [libgui]
+
+Display identification data:
+Display 0 (HWC display 0): no identification data
+
+Wide-Color information:
+Device has wide color built-in display: 0
+Device uses color management: 0
+DisplayColorSetting: Managed
+Display 0 color modes:
+    ColorMode::NATIVE (0)
+    Current color mode: ColorMode::NATIVE (0)
+
+Sync configuration: [using: EGL_ANDROID_native_fence_sync EGL_KHR_wait_sync]
+
+VSYNC configuration:
+         app phase:   1000000 ns	         SF phase:   1000000 ns
+   early app phase:   1000000 ns	   early SF phase:   1000000 ns
+GL early app phase:   1000000 ns	GL early SF phase:   1000000 ns
+    present offset:         0 ns	     VSYNC period:  16666667 ns
+
+Scheduler enabled.+  Smart 90 for video detection: off
+
+Allowed Display Configs: 60 Hz, (config override by backdoor: no)
+
+app: state=Idle VSyncState={displayId=0, count=34585, synthetic}
+  pending events (count=0):
+  connections (count=47):
+    Connection{0x76e1fa2d40, VSyncRequest::None}
+    Connection{0x76e1fa2e00, VSyncRequest::None}
+    Connection{0x76e1fa3b80, VSyncRequest::None}
+    Connection{0x76e1fa3340, VSyncRequest::None}
+    Connection{0x76e1fa3640, VSyncRequest::None}
+    Connection{0x76e1fa2f80, VSyncRequest::None}
+    Connection{0x76e1fa3f40, VSyncRequest::None}
+    Connection{0x76de445000, VSyncRequest::None}
+    Connection{0x76de4450c0, VSyncRequest::None}
+    Connection{0x76de445180, VSyncRequest::None}
+    Connection{0x76de445240, VSyncRequest::None}
+    Connection{0x76de445300, VSyncRequest::None}
+    Connection{0x76de4453c0, VSyncRequest::None}
+    Connection{0x76de445480, VSyncRequest::None}
+    Connection{0x76e1fa3040, VSyncRequest::None}
+    Connection{0x76e1fa34c0, VSyncRequest::None}
+    Connection{0x76de445600, VSyncRequest::None}
+    Connection{0x76de4456c0, VSyncRequest::None}
+    Connection{0x76e1fa37c0, VSyncRequest::None}
+    Connection{0x76de4462c0, VSyncRequest::None}
+    Connection{0x76de446380, VSyncRequest::None}
+    Connection{0x76de446440, VSyncRequest::None}
+    Connection{0x76cef90300, VSyncRequest::None}
+    Connection{0x76cef903c0, VSyncRequest::None}
+    Connection{0x76cef91740, VSyncRequest::None}
+    Connection{0x76cef91200, VSyncRequest::None}
+    Connection{0x76de446740, VSyncRequest::None}
+    Connection{0x76cef90480, VSyncRequest::None}
+    Connection{0x76de446b00, VSyncRequest::None}
+    Connection{0x76de447040, VSyncRequest::None}
+    Connection{0x76de446c80, VSyncRequest::None}
+    Connection{0x76de446140, VSyncRequest::None}
+    Connection{0x76cef92040, VSyncRequest::None}
+    Connection{0x76cef92940, VSyncRequest::None}
+    Connection{0x76cef92b80, VSyncRequest::None}
+    Connection{0x76c10c69c0, VSyncRequest::None}
+    Connection{0x76cef91140, VSyncRequest::None}
+    Connection{0x76c10c7440, VSyncRequest::None}
+    Connection{0x76cef918c0, VSyncRequest::None}
+    Connection{0x76de447580, VSyncRequest::None}
+    Connection{0x76c10c7080, VSyncRequest::None}
+    Connection{0x76c10c63c0, VSyncRequest::None}
+    Connection{0x76c10c6c00, VSyncRequest::None}
+    Connection{0x76c10c6a80, VSyncRequest::None}
+    Connection{0x76cef92880, VSyncRequest::None}
+    Connection{0x76de447700, VSyncRequest::None}
+    Connection{0x76c10c7140, VSyncRequest::None}
++  Refresh rate switching: off
+
+Static screen stats:
+  < 1 frames: 170.942 s (18.0%)
+  < 2 frames: 174.474 s (18.3%)
+  < 3 frames: 6.186 s (0.7%)
+  < 4 frames: 5.051 s (0.5%)
+  < 5 frames: 3.726 s (0.4%)
+  < 6 frames: 1.910 s (0.2%)
+  < 7 frames: 1.526 s (0.2%)
+  7+ frames: 587.016 s (61.7%)
+
+Total missed frame count: 2134
+HWC missed frame count: 61
+GPU missed frame count: 2128
+
+Buffering stats:
+  [Layer name] <Active time> <Two buffer> <Double buffered> <Triple buffered>
+  [com.google.android.setupwizard/com.google.android.setupwizard.update.EarlyUpdate#0] 114.03 0.000 1.000 0.000
+  [NavigationBar0#0] 31.91 0.284 0.675 0.325
+  [com.google.android.setupwizard/com.google.android.setupwizard.user.WelcomeActivity#0] 27.16 0.813 0.919 0.081
+  [com.google.android.apps.pixelmigrate/com.google.android.apps.pixelmigrate.component.FlowChoiceActivity#0] 26.15 0.008 0.308 0.692
+  [StatusBar#0] 25.13 0.188 0.850 0.150
+  [BootAnimation#0] 20.29 0.000 1.000 0.000
+  [com.android.dialer/com.android.incallui.InCallActivity#0] 15.60 0.805 0.805 0.195
+  [com.android.settings/com.android.settings.SubSettings#1] 13.68 0.195 0.930 0.070
+  [com.google.android.setupwizard/com.google.android.setupwizard.account.FinalHold#0] 13.53 0.000 1.000 0.000
+  [com.google.android.gms/com.google.android.gms.auth.uiflows.minutemaid.MinuteMaidActivity#0] 12.49 0.000 0.542 0.458
+  [com.android.settings/com.android.settings.SubSettings#0] 11.91 0.194 0.866 0.134
+  [com.google.android.setupwizard/com.google.android.setupwizard.user.LockScreenWrapper#0] 9.04 0.114 0.158 0.842
+  [com.google.android.setupwizard/com.google.android.setupwizard.network.CaptivePortal#0] 8.96 0.000 0.246 0.754
+  [com.google.android.setupwizard/com.google.android.setupwizard.user.WelcomeActivity#1] 6.46 0.237 0.266 0.734
+  [com.android.launcher3/com.android.launcher3.lineage.LineageLauncher#1] 5.73 0.731 0.991 0.009
+  [com.google.android.setupwizard/com.google.android.setupwizard.restore.D2dMigrationWrapper#0] 5.67 0.055 0.914 0.086
+  [com.google.android.gms/com.google.android.gms.auth.uiflows.addaccount.PreAddAccountActivity#0] 5.24 0.000 0.507 0.493
+  [com.google.android.setupwizard/com.google.android.setupwizard.network.NetworkActivity#0] 4.99 0.827 0.941 0.059
+  [com.android.launcher3/com.android.launcher3.lineage.LineageLauncher#0] 4.59 0.068 0.509 0.491
+  [com.google.android.setupwizard/com.google.android.setupwizard.account.AccountSetupWrapper#0] 4.01 0.000 0.861 0.139
+  [InputMethod#0] 3.53 0.517 0.914 0.086
+  [com.google.android.setupwizard/com.google.android.setupwizard.carrier.SimSetupActivity#0] 3.52 0.340 0.531 0.469
+  [com.google.android.setupwizard/com.google.android.setupwizard.account.LoadAddAccountIntent#0] 2.61 0.000 0.000 1.000
+  [com.android.settings/com.android.settings.Settings#0] 2.37 0.185 0.185 0.815
+  [com.google.android.setupwizard/com.google.android.setupwizard.account.KidPostSetupWrapper#0] 2.29 0.000 1.000 0.000
+  [com.google.android.setupwizard/com.google.android.setupwizard.time.DateTimeCheck#0] 2.14 0.000 0.000 1.000
+  [ColorFade#0] 1.68 0.000 0.000 1.000

@@ -1,0 +1,1 @@
+fixture: ../wmt-probe-lifecycle-tests/baseline-final/fixture.c:1357: main: Assertion `mtk_wmt_probe(NULL) == -EINVAL' failed.

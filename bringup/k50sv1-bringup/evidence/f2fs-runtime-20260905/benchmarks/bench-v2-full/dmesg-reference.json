@@ -1,0 +1,7 @@
+{
+  "path": ".capture-staging/f2fs-runtime-20260905/bench-v2-full/final-dmesg.txt",
+  "bytes": 1030576,
+  "sha256": "282553aa8e3bd62d5457c52d051e63af2cbbc9c01f005450f23f49f581c62cfa",
+  "error_search_pattern": "F2FS-fs.*(?:error|fail|corrupt)|EXT4-fs error|Buffer I/O error|end_request: I/O error|mmc.*(?:timeout|I/O error)|Kernel panic|BUG:|Oops:",
+  "matching_lines": []
+}

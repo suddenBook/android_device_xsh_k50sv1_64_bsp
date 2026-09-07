@@ -1,0 +1,56 @@
+{
+  "identity": "d0f6a7a5-850b-4b61-bb05-89725c55c597\nLinux localhost 3.18.119 #1 SMP PREEMPT Sat Sep 05 17:44:12 UTC 2026 aarch64\neng.desmon.20260905.134458\n",
+  "preflash_compressed_device_present": false,
+  "audio_policy_offload_flag_present": false,
+  "primary_policy_mix_ports": [
+    {
+      "name": "primary output",
+      "role": "source",
+      "flags": "AUDIO_OUTPUT_FLAG_PRIMARY",
+      "formats": [
+        "AUDIO_FORMAT_PCM_32_BIT",
+        "AUDIO_FORMAT_PCM_16_BIT"
+      ]
+    },
+    {
+      "name": "fast",
+      "role": "source",
+      "flags": "AUDIO_OUTPUT_FLAG_FAST",
+      "formats": [
+        "AUDIO_FORMAT_PCM_32_BIT",
+        "AUDIO_FORMAT_PCM_16_BIT"
+      ]
+    },
+    {
+      "name": "incall_music_uplink",
+      "role": "source",
+      "flags": "AUDIO_OUTPUT_FLAG_INCALL_MUSIC",
+      "formats": [
+        "AUDIO_FORMAT_PCM_32_BIT",
+        "AUDIO_FORMAT_PCM_16_BIT"
+      ]
+    },
+    {
+      "name": "primary input",
+      "role": "sink",
+      "flags": "",
+      "formats": [
+        "AUDIO_FORMAT_PCM_16_BIT"
+      ]
+    },
+    {
+      "name": "voice rx",
+      "role": "sink",
+      "flags": "",
+      "formats": [
+        "AUDIO_FORMAT_PCM_16_BIT"
+      ]
+    }
+  ],
+  "candidate_config": [
+    "CONFIG_SND_COMPRESS_OFFLOAD=y",
+    "# CONFIG_MTK_SND_SOC_NEW_ARCH is not set",
+    "# CONFIG_MTK_AUDIO_TUNNELING_SUPPORT is not set"
+  ],
+  "result": "UNEXERCISED: no compressed-offload endpoint or policy route on the installed configuration; PCM output does not test compressed ioctl traffic."
+}

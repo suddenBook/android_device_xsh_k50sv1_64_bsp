@@ -1,0 +1,33 @@
+begin_marker=K50_SCREENRECORD_BEGIN_1389640_2002_4307
+end_marker=K50_SCREENRECORD_END_1389640_2002_4307
+begin_write_rc=0
+end_write_rc=0
+logcat_rc=0
+begin_count=1
+end_count=1
+window_reason=complete
+window_readable=true
+   113.606   505  1179 I OMXMaster: makeComponentInstance(OMX.MTK.VIDEO.ENCODER.AVC) in android.hardwar process
+   113.609   505  1179 D MtkOmxVenc: [0xec59be00] MtkOmxVenc::ComponentInit (OMX.MTK.VIDEO.ENCODER.AVC)
+   113.617  5582  5586 I ACodec  : [OMX.MTK.VIDEO.ENCODER.AVC] cannot encode color aspects. Ignoring.
+   113.618  5582  5586 I ACodec  : [OMX.MTK.VIDEO.ENCODER.AVC] cannot encode HDR static metadata. Ignoring.
+   113.618  5582  5586 I ACodec  : setupVideoEncoder succeeded
+   113.735   505  5589 D MtkOmxVenc: [0xec59be00] AVC EncTime=11760 (us), RGB_2_YUV=8, FrameCount= 0, buf timestamp=113712 (113712326) IsKey(1), Size(8267)  Slotbitcount(66136) : in VA=0xEC5AC160, offset=0x00000000, len=12, flags=0x00000010 : out VA=0xEA9E5000, offset=0x00000000sec:0x0, 0x0, pending=1
+   114.887   505  5589 D MtkOmxVenc: [0xec59be00] AVC EncTime=6918 (us), RGB_2_YUV=2, FrameCount= 1, buf timestamp=114879 (114879911) IsKey(0), Size(2315)  Slotbitcount(18520) : in VA=0xEC5AC1E0, offset=0x00000000, len=12, flags=0x00000010 : out VA=0xEA6E5000, offset=0x00000000sec:0x0, 0x0, pending=1
+   114.903   505  5589 D MtkOmxVenc: [0xec59be00] AVC EncTime=7079 (us), RGB_2_YUV=1, FrameCount= 2, buf timestamp=114895 (114895215) IsKey(0), Size(1568)  Slotbitcount(31064) : in VA=0xEC5AC200, offset=0x00000000, len=12, flags=0x00000010 : out VA=0xEA3E5000, offset=0x00000000sec:0x0, 0x0, pending=1
+   114.918   505  5589 D MtkOmxVenc: [0xec59be00] AVC EncTime=6737 (us), RGB_2_YUV=1, FrameCount= 3, buf timestamp=114910 (114910560) IsKey(0), Size(129)  Slotbitcount(32096) : in VA=0xEC5AC240, offset=0x00000000, len=12, flags=0x00000010 : out VA=0xEA0E5000, offset=0x00000000sec:0x0, 0x0, pending=1
+   114.934   505  5589 D MtkOmxVenc: [0xec59be00] AVC EncTime=7002 (us), RGB_2_YUV=1, FrameCount= 4, buf timestamp=114926 (114926667) IsKey(0), Size(98)  Slotbitcount(32880) : in VA=0xEC5AC280, offset=0x00000000, len=12, flags=0x00000010 : out VA=0xE9DE5000, offset=0x00000000sec:0x0, 0x0, pending=1
+   114.950   505  5589 D MtkOmxVenc: [0xec59be00] AVC EncTime=6875 (us), RGB_2_YUV=1, FrameCount= 5, buf timestamp=114942 (114942824) IsKey(0), Size(98)  Slotbitcount(33664) : in VA=0xEC5AC2C0, offset=0x00000000, len=12, flags=0x00000010 : out VA=0xE9AE5000, offset=0x00000000sec:0x0, 0x0, pending=1
+   114.966   505  5589 D MtkOmxVenc: [0xec59be00] AVC EncTime=7098 (us), RGB_2_YUV=2, FrameCount= 6, buf timestamp=114958 (114958392) IsKey(0), Size(98)  Slotbitcount(34448) : in VA=0xEC5AC300, offset=0x00000000, len=12, flags=0x00000010 : out VA=0xE97E5000, offset=0x00000000sec:0x0, 0x0, pending=1
+   114.981   505  5589 D MtkOmxVenc: [0xec59be00] AVC EncTime=6934 (us), RGB_2_YUV=1, FrameCount= 7, buf timestamp=114973 (114973976) IsKey(0), Size(98)  Slotbitcount(35232) : in VA=0xEC5AC340, offset=0x00000000, len=12, flags=0x00000010 : out VA=0xEACE5000, offset=0x00000000sec:0x0, 0x0, pending=1
+   114.997   505  5589 D MtkOmxVenc: [0xec59be00] AVC EncTime=6800 (us), RGB_2_YUV=2, FrameCount= 8, buf timestamp=114990 (114990512) IsKey(0), Size(98)  Slotbitcount(36016) : in VA=0xEC5AC380, offset=0x00000000, len=12, flags=0x00000010 : out VA=0xEA9E5000, offset=0x00000000sec:0x0, 0x0, pending=1
+   115.013   505  5589 D MtkOmxVenc: [0xec59be00] AVC EncTime=6827 (us), RGB_2_YUV=1, FrameCount= 9, buf timestamp=115005 (115005694) IsKey(0), Size(98)  Slotbitcount(36800) : in VA=0xEC5AC3C0, offset=0x00000000, len=12, flags=0x00000010 : out VA=0xEA6E5000, offset=0x00000000sec:0x0, 0x0, pending=1
+   115.029   505  5589 D MtkOmxVenc: [0xec59be00] AVC EncTime=6830 (us), RGB_2_YUV=1, FrameCount= 10, buf timestamp=115022 (115022046) IsKey(0), Size(98)  Slotbitcount(37584) : in VA=0xEC5AC400, offset=0x00000000, len=12, flags=0x00000010 : out VA=0xEA3E5000, offset=0x00000000sec:0x0, 0x0, pending=1
+   115.045   505  5589 D MtkOmxVenc: [0xec59be00] AVC EncTime=6965 (us), RGB_2_YUV=1, FrameCount= 11, buf timestamp=115037 (115037773) IsKey(0), Size(98)  Slotbitcount(38368) : in VA=0xEC5AC440, offset=0x00000000, len=12, flags=0x00000010 : out VA=0xEA0E5000, offset=0x00000000sec:0x0, 0x0, pending=1
+   115.060   505  5589 D MtkOmxVenc: [0xec59be00] AVC EncTime=6907 (us), RGB_2_YUV=2, FrameCount= 12, buf timestamp=115053 (115053324) IsKey(0), Size(98)  Slotbitcount(39152) : in VA=0xEC5AC160, offset=0x00000000, len=12, flags=0x00000010 : out VA=0xE9DE5000, offset=0x00000000sec:0x0, 0x0, pending=1
+   115.077   505  5589 D MtkOmxVenc: [0xec59be00] AVC EncTime=6799 (us), RGB_2_YUV=1, FrameCount= 13, buf timestamp=115069 (115069663) IsKey(0), Size(98)  Slotbitcount(39936) : in VA=0xEC5AC1E0, offset=0x00000000, len=12, flags=0x00000010 : out VA=0xE9AE5000, offset=0x00000000sec:0x0, 0x0, pending=1
+   115.092   505  5589 D MtkOmxVenc: [0xec59be00] AVC EncTime=6759 (us), RGB_2_YUV=1, FrameCount= 14, buf timestamp=115084 (115084838) IsKey(0), Size(98)  Slotbitcount(40720) : in VA=0xEC5AC200, offset=0x00000000, len=12, flags=0x00000010 : out VA=0xE97E5000, offset=0x00000000sec:0x0, 0x0, pending=1
+   115.108   505  5589 D MtkOmxVenc: [0xec59be00] AVC EncTime=6821 (us), RGB_2_YUV=2, FrameCount= 15, buf timestamp=115101 (115101471) IsKey(0), Size(98)  Slotbitcount(41504) : in VA=0xEC5AC240, offset=0x00000000, len=12, flags=0x00000010 : out VA=0xEACE5000, offset=0x00000000sec:0x0, 0x0, pending=1
+   115.124   505  5589 D MtkOmxVenc: [0xec59be00] AVC EncTime=7029 (us), RGB_2_YUV=1, FrameCount= 16, buf timestamp=115117 (115117008) IsKey(0), Size(98)  Slotbitcount(42288) : in VA=0xEC5AC280, offset=0x00000000, len=12, flags=0x00000010 : out VA=0xEA9E5000, offset=0x00000000sec:0x0, 0x0, pending=1
+   115.140   505  5589 D MtkOmxVenc: [0xec59be00] AVC EncTime=6818 (us), RGB_2_YUV=1, FrameCount= 17, buf timestamp=115132 (115132867) IsKey(0), Size(98)  Slotbitcount(43072) : in VA=0xEC5AC2C0, offset=0x00000000, len=12, flags=0x00000010 : out VA=0xEA6E5000, offset=0x00000000sec:0x0, 0x0, pending=1
+   115.156   505  5589 D MtkOmxVenc: [0xec59be00] AVC EncTime=6908 (us), RGB_2_YUV=1, FrameCount= 18, buf timestamp=115148 (115148794) IsKey(0), Size(98)  Slotbitcount(43856) : in VA=0xEC5AC300, offset=0x00000000, len=12, flags=0x00000010 : out VA=0xEA3E5000, offset=0x00000000sec:0x0, 0x0, pending=1

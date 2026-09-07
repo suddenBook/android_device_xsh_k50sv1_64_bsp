@@ -1,0 +1,10 @@
+--------- beginning of main
+--------- beginning of system
+09-07 09:08:21.968  4489  4489 I K50CameraProbe: BEGIN cameraCount=2
+09-07 09:08:21.994  4489  4489 I K50CameraProbe: SUMMARY status=FAIL completed=0 cameraCount=2 error=activity-paused
+09-07 09:11:52.056  4489  4489 I K50CameraProbe: BEGIN cameraCount=2
+09-07 09:11:52.134  4489  4489 I K50CameraProbe: CAPABILITIES id=0 pictureSizes=320x240,640x480,1024x768,1280x720,1280x768,1280x960,1600x1200,1920x1088,2048x1536,2560x1440,2560x1920,3264x2448,3264x1836,3600x2160,3840x2176 pictureDefault=3264x2448 focusModes=[auto, macro, infinity, continuous-picture, continuous-video, manual, fullscan] flashModes=[off, on, auto, red-eye, torch]
+09-07 09:11:54.607  4489  4489 I K50CameraProbe: CAMERA_RESULT id=0 facing=0 width=640 height=480 format=NV21 frames=64 textureUpdates=64 malformed=0 monotonic=true elapsedMs=2459 status=PASS
+09-07 09:11:55.128  4489  4489 I K50CameraProbe: CAPABILITIES id=1 pictureSizes=320x240,640x480,1024x768,1280x720,1280x768,1280x960,1600x1200,1920x1088,2048x1536,2560x1440,2560x1920,2592x1944,2864x1600 pictureDefault=2560x1920 focusModes=[auto, macro, infinity, continuous-picture, continuous-video, manual, fullscan] flashModes=null
+09-07 09:11:57.534  4489  4489 I K50CameraProbe: CAMERA_RESULT id=1 facing=1 width=640 height=480 format=NV21 frames=65 textureUpdates=65 malformed=0 monotonic=true elapsedMs=2400 status=PASS
+09-07 09:11:57.915  4489  4489 I K50CameraProbe: SUMMARY status=PASS completed=2 cameraCount=2 error=none

@@ -1,0 +1,72 @@
+From d3fccb35b8409ca13330322f1fc533fc3f7419ec Mon Sep 17 00:00:00 2001
+From: Huixiaqing Liu <huixiaqingliu@outlook.com>
+Date: Mon, 7 Sep 2026 07:55:04 +0200
+Subject: [PATCH 05/25] init: own modem RIL sockets and omit unused endpoints
+
+---
+ rootdir/etc/init/init.volte_imcb.rc | 22 +++++-----------------
+ rootdir/etc/init/mtkrild.rc         | 22 ++++++++++++++++++++++
+ 2 files changed, 27 insertions(+), 17 deletions(-)
+ create mode 100644 rootdir/etc/init/mtkrild.rc
+
+diff --git a/rootdir/etc/init/init.volte_imcb.rc b/rootdir/etc/init/init.volte_imcb.rc
+index 15ede31..11bd04d 100644
+--- a/rootdir/etc/init/init.volte_imcb.rc
++++ b/rootdir/etc/init/init.volte_imcb.rc
+@@ -1,20 +1,8 @@
+-# Single-instance voice-MMTEL connection-broker service (VoLTE and VoWiFi).
+-#
+-# Derived from Stock /vendor/etc/init/init.volte_imcb.rc (itself a copy of
+-# device/mediatek/common/init.volte.rc). Owned here rather than extracted and
+-# sed-patched during extraction, so the one difference from Stock is visible in
+-# a diff instead of buried in extract-files.sh.
+-#
+-# That difference: Stock declares five control sockets, one per IMS entity it
+-# can host. This product runs one voice MMTEL stack, so only volte_imsa1 is
+-# kept. The four dropped ones are volte_imsa2 (second IMS instance),
+-# volte_imsvt1 and volte_imsvt2 (video telephony) and volte_ut (UT/XCAP
+-# supplementary services) -- all three features are excluded from this port, and
+-# an unused `socket` line still costs init a bound, world-reachable AF_UNIX
+-# endpoint in /dev/socket with no reader.
+-#
+-# volte_imcb is started by volte_imsm.so over ctl.start, not by init directly,
+-# hence `disabled`.
++# Single-instance voice-MMTEL connection broker (VoLTE and VoWiFi).
++# Init binds each declared control socket and passes its fd to the process;
++# this service instance consumes only volte_imsa1. Its 0660 mode limits access
++# to root/radio, with SELinux applying additional restrictions.
++# volte_imsm.so requests startup through ctl.start, hence disabled.
+ 
+ service vendor.volte_imcb /vendor/bin/volte_imcb
+     class core
+diff --git a/rootdir/etc/init/mtkrild.rc b/rootdir/etc/init/mtkrild.rc
+new file mode 100644
+index 0000000..856da8f
+--- /dev/null
++++ b/rootdir/etc/init/mtkrild.rc
+@@ -0,0 +1,22 @@
++# Modem-side RIL IPC, owned here so unused generic control sockets are not
++# recreated during extraction. Keep the SIM-access and VSIM paths: rilproxy
++# uses them even without an external-SIM application.
++service vendor.ril-daemon-mtk /vendor/bin/mtkrild
++    class main
++    socket mrild stream 660 root radio
++    socket mrild2 stream 660 root radio
++    socket mrild3 stream 660 root radio
++    socket rild-debug stream 660 radio system
++    socket rild-oem stream 660 radio system
++    socket rild-vsim stream 660 root radio
++    socket rild-vsim2 stream 660 root radio
++    socket rild-vsim3 stream 660 root radio
++    socket msap_uim_socket1 stream 660 radio radio
++    socket msap_uim_socket2 stream 660 radio radio
++    user root
++    group radio cache inet misc audio sdcard_r sdcard_rw log system wakelock
++    disabled
++    oneshot
++
++on property:vendor.ril.mtk=1
++    start vendor.ril-daemon-mtk
+-- 
+2.55.0
+

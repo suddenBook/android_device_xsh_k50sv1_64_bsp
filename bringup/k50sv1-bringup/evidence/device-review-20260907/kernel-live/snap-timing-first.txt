@@ -1,0 +1,26 @@
+--------- beginning of main
+09-07 09:36:58.888  4320  4320 V CAM_PhotoModule: onShutterButtonClick: mCameraState=1
+09-07 09:36:59.313  4320  4320 E CAM_PhotoModule: [KPI Perf] PROFILE_SHUTTER_LAG mShutterLag = 424ms
+09-07 09:36:59.386  4320  4320 D CAM_PhotoModule: RawPictureCallback: onPictureTaken()
+09-07 09:36:59.386  4320  4320 V CAM_PhotoModule: mShutterToRawCallbackTime = 73ms
+09-07 09:36:59.428  4320  4320 V CAM_PhotoModule: JpegPictureCallback: Received = 1 Burst count = 1
+09-07 09:36:59.429  4320  4320 V CAM_PhotoModule: mPictureDisplayedToJpegCallbackTime = 42ms
+09-07 09:36:59.429  4320  4320 D CAM_PhotoModule: JpegPictureCallback: needRestartPreview
+09-07 09:36:59.429  4320  4320 V CAM_PhotoModule: startPreview: SurfaceHolder (MDP path)
+09-07 09:36:59.430  4320  4320 V CAM_PhotoModule: old picture_size = 3840 x 2176
+09-07 09:36:59.431  4320  4320 V CAM_PhotoModule: new picture_size = 3840 x 2176
+09-07 09:36:59.432  4320  4320 V CAM_PhotoModule: Preview resolution as per Snapshot aspect ratio
+09-07 09:36:59.432  4320  4320 V CAM_PhotoModule: Preview size is 1280x720
+09-07 09:36:59.432  4320  4320 V CAM_PhotoModule: Thumbnail size is 0x0
+09-07 09:36:59.433  4320  4320 V CAM_PhotoModule: updateCameraParametersPreference(): TSMakeup tsmakeup value = Off
+09-07 09:36:59.433  4320  4320 V CAM_PhotoModule: Picture format value =jpeg
+09-07 09:36:59.434  4320  4320 V CAM_PhotoModule: Color effect value =none
+09-07 09:36:59.434  4320  4320 V CAM_PhotoModule: Face Recognition value = off
+09-07 09:36:59.434  4320  4320 V CAM_PhotoModule: AE Bracketing value =Off
+09-07 09:36:59.434  4320  4320 E CAM_PhotoModule:  advancedFeature value =none
+09-07 09:36:59.435  4320  4320 V CAM_PhotoModule: autoExposure value =frame-average
+09-07 09:36:59.435  4320  4320 V CAM_PhotoModule: antiBanding value =auto
+09-07 09:36:59.436  4320  4320 V CAM_PhotoModule: Instant capture = 0, mInstantCaptureSnapShot = false
+09-07 09:36:59.437  4320  4320 V CAM_PhotoModule: Bokeh Mode = 0 bokehMpo = 0 bokehBlurDegree = 0
+09-07 09:36:59.445  4320  4320 D CAM_PhotoModule: capture:IMG_20260907_093658.jpeg
+09-07 09:36:59.447  4320  4320 V CAM_PhotoModule: mJpegCallbackFinishTime = 19ms

@@ -1,0 +1,43 @@
+{
+  "baseline_commit": "01aa9ae000357a779ae30ade6d33954850670c16",
+  "old": {
+    "source_sha256": "107afc8fdb080025c190b963ee48ba30b04f052ae63702cd22651943bc800d67",
+    "function_sha256": "e91b9ed8345307bcb066fe57980ddaaec7585d49cfa054b7f753cfe2f3d080f8",
+    "compile": [
+      "cc",
+      "-std=c11",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-O1",
+      "-g",
+      "-fsanitize=address,undefined",
+      "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/issue-map/dump-boundary/old.c",
+      "-o",
+      "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/issue-map/dump-boundary/old"
+    ],
+    "returncode": 1,
+    "stdout": "length=0 size_rejections=0 invalid_destinations=0 output=28 valid=1\nlength=1 size_rejections=0 invalid_destinations=0 output=31 valid=1\nlength=2 size_rejections=0 invalid_destinations=0 output=34 valid=1\nlength=9 size_rejections=0 invalid_destinations=0 output=55 valid=1\nlength=99 size_rejections=0 invalid_destinations=0 output=326 valid=1\nlength=329 size_rejections=0 invalid_destinations=0 output=1017 valid=1\nlength=330 size_rejections=0 invalid_destinations=0 output=1020 valid=1\nlength=331 size_rejections=0 invalid_destinations=0 output=1023 valid=1\nlength=332 size_rejections=1 invalid_destinations=1 output=1023 valid=0\nlength=333 size_rejections=2 invalid_destinations=2 output=1023 valid=0\nlength=511 size_rejections=180 invalid_destinations=180 output=1023 valid=0\nlength=512 size_rejections=181 invalid_destinations=181 output=1023 valid=0\nlength=513 size_rejections=181 invalid_destinations=181 output=1023 valid=0\nlength=952 size_rejections=181 invalid_destinations=181 output=1023 valid=0\nlength=4294967295 size_rejections=183 invalid_destinations=183 output=1023 valid=0\ncases=15 failures=7\n",
+    "stderr": ""
+  },
+  "new": {
+    "source_sha256": "db8bdb695a9c36760b43105d62f41ccc578fbe81c1a9a397c2a76fac38ed912e",
+    "function_sha256": "20735adca64754d39f5da69decd2c1552e6b22a45ef5d050e2ef1b16cc37179b",
+    "compile": [
+      "cc",
+      "-std=c11",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-O1",
+      "-g",
+      "-fsanitize=address,undefined",
+      "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/issue-map/dump-boundary/new.c",
+      "-o",
+      "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/issue-map/dump-boundary/new"
+    ],
+    "returncode": 0,
+    "stdout": "length=0 size_rejections=0 invalid_destinations=0 output=28 valid=1\nlength=1 size_rejections=0 invalid_destinations=0 output=31 valid=1\nlength=2 size_rejections=0 invalid_destinations=0 output=34 valid=1\nlength=9 size_rejections=0 invalid_destinations=0 output=55 valid=1\nlength=99 size_rejections=0 invalid_destinations=0 output=326 valid=1\nlength=329 size_rejections=0 invalid_destinations=0 output=1017 valid=1\nlength=330 size_rejections=0 invalid_destinations=0 output=1020 valid=1\nlength=331 size_rejections=0 invalid_destinations=0 output=1023 valid=1\nlength=332 size_rejections=0 invalid_destinations=0 output=1023 valid=1\nlength=333 size_rejections=0 invalid_destinations=0 output=1023 valid=1\nlength=511 size_rejections=0 invalid_destinations=0 output=1023 valid=1\nlength=512 size_rejections=0 invalid_destinations=0 output=1023 valid=1\nlength=513 size_rejections=0 invalid_destinations=0 output=1023 valid=1\nlength=952 size_rejections=0 invalid_destinations=0 output=1023 valid=1\nlength=4294967295 size_rejections=0 invalid_destinations=0 output=1021 valid=1\ncases=15 failures=0\n",
+    "stderr": ""
+  }
+}

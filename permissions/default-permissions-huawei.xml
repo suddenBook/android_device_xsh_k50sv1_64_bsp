@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Default runtime-permission grants for the preinstalled Huawei payload.
 
-     Read by DefaultPermissionGrantPolicy from /system/etc/default-permissions
-     (frameworks/base/.../pm/permission/DefaultPermissionGrantPolicy.java:1390).
-     That policy grants ONLY permissions whose protectionLevel is `dangerous`
-     -- isPermissionDangerous() drops everything else -- and only for packages
-     already on the system image, which both of these are (/product/app).
+     Read by DefaultPermissionGrantPolicy from /product/etc/default-permissions
+     (frameworks/base/.../pm/permission/DefaultPermissionGrantPolicy.java:1402;
+     it reads /system, /vendor, /odm, /product and /oem alike). That policy
+     grants ONLY permissions whose protectionLevel is dangerous, since
+     isPermissionDangerous() drops everything else, and only for packages
+     already on the system image. Both of these ship in /product/priv-app.
+
+     Privileged placement does not change what belongs here. Runtime grants and
+     the privileged whitelist are separate mechanisms: the signature|privileged
+     permissions these APKs request live in privapp-permissions-huawei.xml, and
+     listing them here would do nothing.
 
      Every permission below was taken from the shipped APK's own
      uses-permission list and cross-checked against the protectionLevel in

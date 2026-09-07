@@ -1,0 +1,158 @@
+[
+  {
+    "step": "identity",
+    "exit_code": 0
+  },
+  {
+    "step": "original-wifi_scan_always_enabled",
+    "exit_code": 0
+  },
+  {
+    "step": "original-ble_scan_always_enabled",
+    "exit_code": 0
+  },
+  {
+    "step": "original-wifi_on",
+    "exit_code": 0
+  },
+  {
+    "step": "original-bluetooth_on",
+    "exit_code": 0
+  },
+  {
+    "step": "bluetooth-before",
+    "exit_code": 0
+  },
+  {
+    "step": "wifi-before",
+    "exit_code": 0
+  },
+  {
+    "step": "scanning-off",
+    "exit_code": 0
+  },
+  {
+    "step": "bluetooth-disable",
+    "exit_code": 0
+  },
+  {
+    "step": "wifi-disable",
+    "exit_code": 0
+  },
+  {
+    "step": "bluetooth-off",
+    "exit_code": 0
+  },
+  {
+    "step": "wifi-off",
+    "exit_code": 0
+  },
+  {
+    "step": "wifi-off",
+    "exit_code": 0
+  },
+  {
+    "step": "interfaces-off",
+    "exit_code": 0
+  },
+  {
+    "step": "wifi-enable",
+    "exit_code": 0
+  },
+  {
+    "step": "wifi-reconnected",
+    "exit_code": 0
+  },
+  {
+    "step": "wifi-reconnected",
+    "exit_code": 0
+  },
+  {
+    "step": "wifi-reconnected",
+    "exit_code": 0
+  },
+  {
+    "step": "wifi-reconnected",
+    "exit_code": 0
+  },
+  {
+    "step": "traffic-before",
+    "exit_code": 0
+  },
+  {
+    "step": "wifi-traffic",
+    "exit_code": 0
+  },
+  {
+    "step": "traffic-after",
+    "exit_code": 0
+  },
+  {
+    "step": "bluetooth-enable",
+    "exit_code": 0
+  },
+  {
+    "step": "bluetooth-on",
+    "exit_code": 0
+  },
+  {
+    "step": "bluetooth-on",
+    "exit_code": 0
+  },
+  {
+    "step": "wake",
+    "exit_code": 0
+  },
+  {
+    "step": "discovery-launch",
+    "exit_code": 0
+  },
+  {
+    "step": "bluetooth-discovery-active",
+    "exit_code": 0
+  },
+  {
+    "step": "discovery-ui-dump",
+    "exit_code": 0
+  },
+  {
+    "step": "discovery-ui",
+    "exit_code": 0
+  },
+  {
+    "step": "discovery-ui-cleanup",
+    "exit_code": 0
+  },
+  {
+    "step": "discovery-stop",
+    "exit_code": 0
+  },
+  {
+    "step": "bluetooth-after",
+    "exit_code": 0
+  },
+  {
+    "step": "optional-config-paths",
+    "exit_code": 0
+  },
+  {
+    "step": "restore-wifi_scan_always_enabled",
+    "exit_code": 0
+  },
+  {
+    "step": "restore-ble_scan_always_enabled",
+    "exit_code": 0
+  },
+  {
+    "step": "restore-wifi",
+    "exit_code": 0
+  },
+  {
+    "step": "restore-bluetooth",
+    "exit_code": 0
+  },
+  {
+    "step": "final-identity",
+    "exit_code": 0
+  }
+]

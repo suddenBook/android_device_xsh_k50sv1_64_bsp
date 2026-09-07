@@ -1,0 +1,166 @@
+{
+  "created_utc": "2026-09-06T23:52:40.482276+00:00",
+  "base_revision": "54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb",
+  "branch": "wmt-callback-lifetime-20260907",
+  "candidate_revision": "cca4e4b286f97fd706d2b89d36e4d2bb9ac527f1",
+  "candidate_tree": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-callback-lifetime-kernel-work",
+  "changed_file_sha256": {
+    "drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.c": "6354fce240ed1b3e02ed8665c1388645a40bf52270fda6595a0353476cdee729",
+    "drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.h": "4c0da0d4afcc160738d5835194cfa85abace92d7a05c58262d20b122d940c349",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c": "a844fbb553981ea2dd62ee34c27fce02e24887a87681835919213eb936e21698",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c": "77ec1040a15dbc8b3f3008c392b20613d66c35624192d4800210a0f81a14a5cf",
+    "drivers/misc/mediatek/connectivity/source/common/test/README_wmt_callback_lifetime.md": "72d1a735f8d290417312493d3e2f820a88c1d06e3efec71a05993e98f9b3a792",
+    "drivers/misc/mediatek/connectivity/source/common/test/test_wmt_callback_lifetime.py": "765be4f25b38ab42d2141e91a3a76f5d5d55418d4d6cd85a5cb0cda7053571fb",
+    "drivers/misc/mediatek/connectivity/source/common/test/wmt_callback_lifetime_host.c": "c6940717e7bcc4801910cfb6294064216d7db2d738ffb36b8b920ac266af5c98",
+    "drivers/misc/mediatek/connectivity/source/common/test/wmt_lib_init_host.c": "392c8a5f00a8f0eebf4df46d20579c1b6b2e9525560fb0a5b5b63bded30665e4",
+    "drivers/misc/mediatek/connectivity/source/common/test/wmt_outer_init_host.c": "0315bd348899243fabce40b610a55b8f428f2676fce9eedd706c41137b2f75a4",
+    "drivers/misc/mediatek/connectivity/source/common/test/wmt_shutdown_host.c": "a9cfa2555a85e1ce9ac6f68b3eadfc11f04b38e54d92137deb9541bac97033a9"
+  },
+  "validation_runs": [
+    {
+      "name": "callback-final-address",
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-callback-lifetime-tests/callback-final-address/result.json",
+      "result_sha256": "a43c297a76a02b0bcf1b1861e29daab62721e3c8950caa451590eabb489c1295",
+      "passed": 19,
+      "total": 19,
+      "baseline_expected_failures": 0,
+      "source_and_fixture_hashes_verified": true
+    },
+    {
+      "name": "callback-final-thread",
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-callback-lifetime-tests/callback-final-thread/result.json",
+      "result_sha256": "ecd6561ab27d2c5cb372a6f51cefda3582c2280a9d5cbb7ac8ad5b4b6cde9816",
+      "passed": 19,
+      "total": 19,
+      "baseline_expected_failures": 0,
+      "source_and_fixture_hashes_verified": true
+    },
+    {
+      "name": "callback-baseline-final",
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-callback-lifetime-tests/callback-baseline-final/result.json",
+      "result_sha256": "39ee6307dfbd26c9424b79b9618fb1a12475d89c8b233a79a45db8ad68867e45",
+      "passed": 6,
+      "total": 19,
+      "baseline_expected_failures": 13,
+      "source_and_fixture_hashes_verified": true
+    },
+    {
+      "name": "library-address",
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-callback-lifetime-tests/library-address/result.json",
+      "result_sha256": "5a1c93b1cc9f343ba8f265248cdfaf8c07ff33a5c25081e2537302d825e75530",
+      "passed": 26,
+      "total": 26,
+      "baseline_expected_failures": 0,
+      "source_and_fixture_hashes_verified": true
+    },
+    {
+      "name": "library-thread",
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-callback-lifetime-tests/library-thread/result.json",
+      "result_sha256": "406caf4ccc271464a4533b97994c654e13f6cda0d41d61d648e7dac5b063a2fc",
+      "passed": 3,
+      "total": 3,
+      "baseline_expected_failures": 0,
+      "source_and_fixture_hashes_verified": true
+    },
+    {
+      "name": "outer-address",
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-callback-lifetime-tests/outer-address/result.json",
+      "result_sha256": "4603dcd010ee59ecfa795b67698bbd58c874717bb02b13849d39d95790b0f353",
+      "passed": 64,
+      "total": 64,
+      "baseline_expected_failures": 0,
+      "source_and_fixture_hashes_verified": true
+    },
+    {
+      "name": "shutdown-address",
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-callback-lifetime-tests/shutdown-address/result.json",
+      "result_sha256": "7cf7473f6a73b82238170f744b5cbea6dafd6571006bf33a54f1fe409e9d8ee4",
+      "passed": 16,
+      "total": 16,
+      "baseline_expected_failures": 0,
+      "source_and_fixture_hashes_verified": true
+    },
+    {
+      "name": "shutdown-thread",
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-callback-lifetime-tests/shutdown-thread/result.json",
+      "result_sha256": "2570d07e77901c1b6d707ec3e80534a0dedff56acaa10dcff4ec829c9d4547be",
+      "passed": 16,
+      "total": 16,
+      "baseline_expected_failures": 0,
+      "source_and_fixture_hashes_verified": true
+    }
+  ],
+  "arm64_compile": [
+    {
+      "source": "drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.c",
+      "source_sha256": "6354fce240ed1b3e02ed8665c1388645a40bf52270fda6595a0353476cdee729",
+      "object_sha256": "5ad06fc705def0020853467f59ffdda1e9593120dd5f8af68f29a0d105a2152c",
+      "status": 0,
+      "output": "",
+      "object": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-callback-lifetime-tests/arm64-first/wmt_build_in_adapter.o",
+      "command": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-callback-lifetime-tests/arm64-first/wmt_build_in_adapter.command.json",
+      "command_sha256": "a2115cba2a7358004653df1e85e9a5a10c6ced74f1e946cd5e8aacd833e9ec59",
+      "compile_log": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-callback-lifetime-tests/arm64-first/wmt_build_in_adapter.compile.log"
+    },
+    {
+      "source": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "source_sha256": "a844fbb553981ea2dd62ee34c27fce02e24887a87681835919213eb936e21698",
+      "object_sha256": "9e7478ddc83bd4b7807bed2348c69664f905829a67ac001f5ca2be046887c466",
+      "status": 0,
+      "output": "",
+      "object": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-callback-lifetime-tests/arm64-first/wmt_lib.o",
+      "command": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-callback-lifetime-tests/arm64-first/wmt_lib.command.json",
+      "command_sha256": "532f86f33b41c60d340db6ed72a76d19610a994d7864af6d4487376022201a3b",
+      "compile_log": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-callback-lifetime-tests/arm64-first/wmt_lib.compile.log"
+    },
+    {
+      "source": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+      "source_sha256": "77ec1040a15dbc8b3f3008c392b20613d66c35624192d4800210a0f81a14a5cf",
+      "object_sha256": "eaed2df23e0c3335766839a1463ffe98f0888068b6d309a645425aba648739ac",
+      "status": 0,
+      "output": "",
+      "object": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-callback-lifetime-tests/arm64-first/wmt_dev.o",
+      "command": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-callback-lifetime-tests/arm64-first/wmt_dev.command.json",
+      "command_sha256": "e2bbeb5563790504ace9264fb166f39c6b0fb6a5c7f93be2a5a4123e95affea8",
+      "compile_log": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-callback-lifetime-tests/arm64-first/wmt_dev.compile.log"
+    }
+  ],
+  "arm64_compiler": "GCC 4.9; production object command flags include -Werror; frozen build14 generated headers and command flags",
+  "arm64_generated_headers_snapshot": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/kernel-obj-build14-snapshot",
+  "independent_review": {
+    "status": "No high-confidence blocking findings in the reviewed candidate or paired platform cleanup.",
+    "final_revision_binding_pending": false,
+    "evidence_directory": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-callback-lifetime-tests/independent-review",
+    "paired_platform_revision": "b5920c2ae581ecdd6febcabe322f71504dfcebf2",
+    "runs": [
+      {
+        "path": "paired-address/result.json",
+        "passed": 22,
+        "total": 22
+      },
+      {
+        "path": "paired-thread/result.json",
+        "passed": 22,
+        "total": 22
+      },
+      {
+        "path": "baseline-platform-paired-address/result.json",
+        "passed": 6,
+        "total": 22
+      }
+    ],
+    "reviewed_source_and_artifact_hashes_verified": true,
+    "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-callback-lifetime-tests/independent-review/review.json",
+    "result_sha256": "493e14aae59639f1212a20ca02f6b4935e906876e087193536910da78236250f",
+    "candidate_revision": "cca4e4b286f97fd706d2b89d36e4d2bb9ac527f1"
+  },
+  "scope": "Three built-in bridge callbacks; close and drain before outer resource destruction and library failure cleanup. Existing WMT owner init/exit remains serialized.",
+  "hardware_validation_performed": false,
+  "limitations": [
+    "Host pthread/atomic adapters do not emulate ARM64 memory ordering or live kernel unload.",
+    "Thermal commands, assertion keyword backend, STEP actions, and resource destructors are typed host adapters.",
+    "IRQ case validates bridge bookkeeping with nonblocking payload adapters, not arbitrary clock/STEP IRQ safety."
+  ],
+  "candidate_worktree_clean": true,
+  "committed_changed_file_hashes_verified": true
+}

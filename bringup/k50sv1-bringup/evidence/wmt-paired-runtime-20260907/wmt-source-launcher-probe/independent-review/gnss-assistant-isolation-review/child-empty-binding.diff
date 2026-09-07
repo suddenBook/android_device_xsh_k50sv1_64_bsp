@@ -1,0 +1,11 @@
+--- child-caa46cc9.py
++++ child-current.py
+@@ -31,7 +31,7 @@
+  sh('wake-before-isolation','input keyevent KEYCODE_WAKEUP; wm dismiss-keyguard'); time.sleep(2)
+  for key in ['voice_recognition_service','voice_interaction_service']:
+   voice_settings[key]=sh('original-'+key,'settings get secure '+key).rstrip('\r\n')
+- assert voice_settings['voice_interaction_service'].startswith(search_package+'/')
++ assert voice_settings['voice_interaction_service']=='' or voice_settings['voice_interaction_service'].startswith(search_package+'/')
+  (out/'voice-settings.json').write_text(json.dumps(dict(status='PREPARED',original=voice_settings),indent=2)+'\n')
+  voice_restore_required=True
+  sh('pause-system-voice-binding',"settings put secure voice_interaction_service ''")

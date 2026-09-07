@@ -1,0 +1,218 @@
+{
+  "status": "FAIL",
+  "passed": 23,
+  "total": 25,
+  "cases": [
+    {
+      "name": "snapshot_integrity",
+      "status": "PASS",
+      "detail": {
+        "files": 78
+      }
+    },
+    {
+      "name": "actual_missing_started_capture_rejected_and_restored",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "restoration_passed": true,
+        "reproduced_files": 4
+      }
+    },
+    {
+      "name": "synthetic_complete_callbacks",
+      "status": "FAIL",
+      "error": "AssertionError()"
+    },
+    {
+      "name": "history_prefix_changed",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "restoration_status": "PASS",
+        "home_attempted": true
+      }
+    },
+    {
+      "name": "old_history_only",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "restoration_status": "PASS",
+        "home_attempted": true
+      }
+    },
+    {
+      "name": "wrong_new_pid",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "restoration_status": "PASS",
+        "home_attempted": true
+      }
+    },
+    {
+      "name": "multiple_new_pids",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "restoration_status": "PASS",
+        "home_attempted": true
+      }
+    },
+    {
+      "name": "old_process_still_present",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "restoration_status": "PASS",
+        "home_attempted": true
+      }
+    },
+    {
+      "name": "ambiguous_component_before_pause",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "restoration_status": "PASS",
+        "home_attempted": true
+      }
+    },
+    {
+      "name": "preflight_failure_before_pause",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "restoration_status": "PASS",
+        "home_attempted": true
+      }
+    },
+    {
+      "name": "failure_after_force_stop",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "restoration_status": "PASS",
+        "home_attempted": true
+      }
+    },
+    {
+      "name": "idle_timeout",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "restoration_status": "PASS",
+        "home_attempted": true
+      }
+    },
+    {
+      "name": "original_search_stopped_true",
+      "status": "FAIL",
+      "error": "AssertionError()"
+    },
+    {
+      "name": "search_restore_command_failure_visible",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "restoration_status": "FAIL",
+        "home_attempted": false
+      }
+    },
+    {
+      "name": "search_restore_readback_failure_visible",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "restoration_status": "FAIL",
+        "home_attempted": false
+      }
+    },
+    {
+      "name": "home_failure_visible",
+      "status": "PASS",
+      "detail": {
+        "rejected": true,
+        "restoration_status": "FAIL",
+        "home_attempted": true
+      }
+    },
+    {
+      "name": "final_source_checks_accept_valid_snapshot",
+      "status": "PASS",
+      "detail": {
+        "accepted": true
+      }
+    },
+    {
+      "name": "final_source_checks_reject_missing_pid",
+      "status": "PASS",
+      "detail": {
+        "accepted": false
+      }
+    },
+    {
+      "name": "final_source_checks_reject_multiple_pids",
+      "status": "PASS",
+      "detail": {
+        "accepted": false
+      }
+    },
+    {
+      "name": "final_source_checks_reject_reserved_pid",
+      "status": "PASS",
+      "detail": {
+        "accepted": false
+      }
+    },
+    {
+      "name": "final_source_checks_reject_not_ready",
+      "status": "PASS",
+      "detail": {
+        "accepted": false
+      }
+    },
+    {
+      "name": "final_source_checks_reject_wrong_executable",
+      "status": "PASS",
+      "detail": {
+        "accepted": false
+      }
+    },
+    {
+      "name": "final_source_checks_reject_remaining_worker",
+      "status": "PASS",
+      "detail": {
+        "accepted": false
+      }
+    },
+    {
+      "name": "final_source_checks_reject_fwlog_not_restored",
+      "status": "PASS",
+      "detail": {
+        "accepted": false
+      }
+    },
+    {
+      "name": "final_source_checks_reject_pid_changed",
+      "status": "PASS",
+      "detail": {
+        "accepted": false
+      }
+    }
+  ],
+  "blocks": {
+    "gnss_try_lines": [
+      19,
+      105
+    ],
+    "finish_source_check_lines": [
+      91,
+      103
+    ],
+    "source_bodies_modified": false
+  },
+  "adb_calls": 0,
+  "process_launches": 0,
+  "limitation": "The successful GNSS fixture is explicitly synthetic; the retained real run is expected to fail its missing-start assertion. Full live collection and final-runtime mutations are not executed."
+}

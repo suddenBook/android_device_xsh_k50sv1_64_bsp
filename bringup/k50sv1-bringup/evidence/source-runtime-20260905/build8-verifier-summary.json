@@ -1,0 +1,69 @@
+{
+  "runs": [
+    {
+      "capture": "build8-first-boot",
+      "result_sha256": "50c30f5a8ac9e5e2f1bd9b7bb350b64bed083628211bc7522e7b558e5b9385ab",
+      "metadata": {
+        "result.version": "2",
+        "status": "FAIL",
+        "exit_code": "1",
+        "passed": "222",
+        "failed": "2",
+        "unread": "5",
+        "evidence_fatal": "0",
+        "informational": "33",
+        "attested_by": "EVIDENCE-SHA256SUMS"
+      },
+      "failed": [
+        "Calendar did not become the resumed package",
+        "unexpected AVC: priv_app -> sysfs : file open | path=/sys/devices/soc/180f0000.wifi/net/wlan0/type dev=sysfs app=com.google.android.gms permissive=1"
+      ],
+      "unread": [
+        "modem IMS registration: +CIREG registered",
+        "framework IMS registration state",
+        "MMTEL voice capability",
+        "swapon failure (dmesg has already wrapped past boot; re-run sooner after a flash)",
+        "current ROM pstore proof pending one controlled reboot and lineage-predecessor rerun"
+      ],
+      "pstore_checks": [
+        "PASS\tpstore predecessor has one ordered reboot trail and no recognized fault signature",
+        "UNREAD\tcurrent ROM pstore proof pending one controlled reboot and lineage-predecessor rerun"
+      ]
+    },
+    {
+      "capture": "build8-normal-reboot",
+      "result_sha256": "8da7c1f6c54c22ec75ff6f2c23683ce983742fff425d5de0890914e9d027efb0",
+      "metadata": {
+        "result.version": "2",
+        "status": "FAIL",
+        "exit_code": "1",
+        "passed": "224",
+        "failed": "2",
+        "unread": "3",
+        "evidence_fatal": "0",
+        "informational": "26",
+        "attested_by": "EVIDENCE-SHA256SUMS"
+      },
+      "failed": [
+        "unexpected AVC: platform_app -> radio_data_file : dir getattr | path=/data/user_de/0/com.android.phone dev=mmcblk0p30 app=com.android.systemui permissive=1",
+        "unexpected AVC: priv_app -> sysfs : file open | path=/sys/devices/soc/180f0000.wifi/net/wlan0/type dev=sysfs app=com.google.android.gms permissive=1"
+      ],
+      "unread": [
+        "modem IMS registration: +CIREG registered",
+        "framework IMS registration state",
+        "MMTEL voice capability"
+      ],
+      "pstore_checks": [
+        "PASS\tpstore predecessor has one ordered reboot trail and no recognized fault signature"
+      ]
+    }
+  ],
+  "calendar_followup": {
+    "pass_after_declared_runtime_grants": true,
+    "resumed": [
+      "mResumedActivity: ActivityRecord{ea0d30 u0 org.lineageos.etar/com.android.calendar.AllInOneActivity t9}"
+    ]
+  },
+  "unread_ims_reason": "The two Chinese SIMs are roaming on visited Dutch networks; this does not provide home-network IMS proof.",
+  "selinux_changes_made_to_suppress_denials": false
+}

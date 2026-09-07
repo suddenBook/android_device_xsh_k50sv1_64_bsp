@@ -1,0 +1,3 @@
+FAIL short shutdown fails
+FAIL shutdown bus errno preserved
+BU6424AF: 21/23 passed

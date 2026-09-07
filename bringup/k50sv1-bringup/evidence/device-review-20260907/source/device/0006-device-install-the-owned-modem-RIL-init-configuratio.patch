@@ -1,0 +1,37 @@
+From d5b1164dfeae36869a103b196cd8c24347f3fa96 Mon Sep 17 00:00:00 2001
+From: Huixiaqing Liu <huixiaqingliu@outlook.com>
+Date: Mon, 7 Sep 2026 07:56:10 +0200
+Subject: [PATCH 06/25] device: install the owned modem RIL init configuration
+
+---
+ device.mk             | 1 +
+ proprietary-files.txt | 1 -
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/device.mk b/device.mk
+index 1c843f8..b16ffdf 100644
+--- a/device.mk
++++ b/device.mk
+@@ -175,6 +175,7 @@ PRODUCT_COPY_FILES += \
+     $(LOCAL_PATH)/rootdir/etc/init/init.gnss.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.gnss.rc \
+     $(LOCAL_PATH)/rootdir/etc/init/init.mediadrm.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.mediadrm.rc \
+     $(LOCAL_PATH)/rootdir/etc/init/init.volte_imcb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.volte_imcb.rc \
++    $(LOCAL_PATH)/rootdir/etc/init/mtkrild.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/mtkrild.rc \
+     $(LOCAL_PATH)/rootdir/etc/init/lbs_hidl_service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/lbs_hidl_service.rc \
+     $(LOCAL_PATH)/rootdir/etc/init/netdagent.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/netdagent.rc \
+     $(LOCAL_PATH)/rootdir/etc/init/init.wmt.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.wmt.rc \
+diff --git a/proprietary-files.txt b/proprietary-files.txt
+index 7770ff1..8891a7c 100644
+--- a/proprietary-files.txt
++++ b/proprietary-files.txt
+@@ -511,7 +511,6 @@ vendor/etc/init/gsm0710muxd.rc
+ # removed -- this chassis has no CDMA radio and vendor.ccci3_fsd was a
+ # permanently blocked resident process. Their headers carry the measurements.
+ vendor/etc/init/init.cccirpcd.rc
+-vendor/etc/init/mtkrild.rc
+ vendor/etc/init/muxreport.rc
+ vendor/etc/init/nvram_daemon.rc
+ # rilproxy.rc is REWRITTEN at extraction (extract-files.sh blob_fixup) to load
+-- 
+2.55.0
+

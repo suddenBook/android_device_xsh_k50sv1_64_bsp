@@ -1,0 +1,1374 @@
+Activity Resolver Table:
+  Full MIME Types:
+      */*:
+        13f29a9 com.huawei.appmarket/com.huawei.appgallery.extdinstallmanager.impl.view.ExtdInstPkgActivity filter 36824de
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "file"
+          Scheme: "content"
+          Authority: "": -1 WILD
+          Path: "PatternMatcher{GLOB: .*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\..*\.apks}"
+          Type: "*"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      application/apk-package-archive:
+        13f29a9 com.huawei.appmarket/com.huawei.appgallery.extdinstallmanager.impl.view.ExtdInstPkgActivity filter 3cc18c
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "content"
+          Authority: "": -1 WILD
+          Path: "PatternMatcher{GLOB: .*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\..*\.apks}"
+          Type: "application/apk-package-archive"
+      application/xapk-package-archive:
+        13f29a9 com.huawei.appmarket/com.huawei.appgallery.extdinstallmanager.impl.view.ExtdInstPkgActivity filter 4786bf
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "content"
+          Type: "application/xapk-package-archive"
+
+  Base MIME Types:
+      application:
+        13f29a9 com.huawei.appmarket/com.huawei.appgallery.extdinstallmanager.impl.view.ExtdInstPkgActivity filter 4786bf
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "content"
+          Type: "application/xapk-package-archive"
+        13f29a9 com.huawei.appmarket/com.huawei.appgallery.extdinstallmanager.impl.view.ExtdInstPkgActivity filter 3cc18c
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "content"
+          Authority: "": -1 WILD
+          Path: "PatternMatcher{GLOB: .*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\..*\.apks}"
+          Type: "application/apk-package-archive"
+
+  Wild MIME Types:
+      *:
+        13f29a9 com.huawei.appmarket/com.huawei.appgallery.extdinstallmanager.impl.view.ExtdInstPkgActivity filter 36824de
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "file"
+          Scheme: "content"
+          Authority: "": -1 WILD
+          Path: "PatternMatcher{GLOB: .*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\..*\.apks}"
+          Type: "*"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+  Schemes:
+      appmarket:
+        84c6b2e com.huawei.appmarket/.service.externalapi.view.ThirdApiWithAffinityActivity filter bfc0564
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "appmarket"
+          Scheme: "hiapplink"
+          Scheme: "market"
+          Authority: "details": -1
+          Authority: "com.huawei.appmarket": -1
+          Authority: "search": -1
+          Authority: "search": -1
+      hiapplink:
+        84c6b2e com.huawei.appmarket/.service.externalapi.view.ThirdApiWithAffinityActivity filter bfc0564
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "appmarket"
+          Scheme: "hiapplink"
+          Scheme: "market"
+          Authority: "details": -1
+          Authority: "com.huawei.appmarket": -1
+          Authority: "search": -1
+          Authority: "search": -1
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 6e8360b
+          Action: "com.huawei.appmarket.intent.action.AppDetail.withaccessID"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "hiapplink"
+      market:
+        84c6b2e com.huawei.appmarket/.service.externalapi.view.ThirdApiWithAffinityActivity filter bfc0564
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "appmarket"
+          Scheme: "hiapplink"
+          Scheme: "market"
+          Authority: "details": -1
+          Authority: "com.huawei.appmarket": -1
+          Authority: "search": -1
+          Authority: "search": -1
+        84c6b2e com.huawei.appmarket/.service.externalapi.view.ThirdApiWithAffinityActivity filter 5fd6793
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "market"
+          Authority: "details": -1
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 292df01
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "market"
+          Scheme: "https"
+          Scheme: "hiapp"
+          Authority: "com.huawei.appmarket.applink": -1
+          Authority: "a.vmall.com": -1
+          Authority: "com.huawei.appmarket": -1
+      file:
+        13f29a9 com.huawei.appmarket/com.huawei.appgallery.extdinstallmanager.impl.view.ExtdInstPkgActivity filter 36824de
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "file"
+          Scheme: "content"
+          Authority: "": -1 WILD
+          Path: "PatternMatcher{GLOB: .*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\..*\.apks}"
+          Type: "*"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      http:
+        84c6b2e com.huawei.appmarket/.service.externalapi.view.ThirdApiWithAffinityActivity filter ac07482
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Authority: "appgallery.cloud.huawei.com": -1
+          Authority: "appgallery.cloud.huawei.com": -1
+          Path: "PatternMatcher{PREFIX: /ag}"
+          Path: "PatternMatcher{PREFIX: /ag}"
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 49f5b83
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Authority: "appgallery.cloud.huawei.com": -1
+          Path: "PatternMatcher{PREFIX: /marketshare/app/}"
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter cbd0018
+          Action: "com.huawei.appmarket.intent.action.AG_DETAIL.departGuidePage"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "https"
+          Scheme: "http"
+          Path: "PatternMatcher{PREFIX: /play.google.com/store/apps/}"
+          Path: "PatternMatcher{PREFIX: /play.google.com/store/apps/}"
+      kids:
+        2c9b85c com.huawei.appmarket/com.huawei.kidsCenter.KidsCenterThirdApiActivity filter a255ef6
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "kids"
+          Authority: "com.huawei.appmarket.kids": -1
+      hiapp:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 292df01
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "market"
+          Scheme: "https"
+          Scheme: "hiapp"
+          Authority: "com.huawei.appmarket.applink": -1
+          Authority: "a.vmall.com": -1
+          Authority: "com.huawei.appmarket": -1
+      https:
+        84c6b2e com.huawei.appmarket/.service.externalapi.view.ThirdApiWithAffinityActivity filter ac07482
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Authority: "appgallery.cloud.huawei.com": -1
+          Authority: "appgallery.cloud.huawei.com": -1
+          Path: "PatternMatcher{PREFIX: /ag}"
+          Path: "PatternMatcher{PREFIX: /ag}"
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 292df01
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "market"
+          Scheme: "https"
+          Scheme: "hiapp"
+          Authority: "com.huawei.appmarket.applink": -1
+          Authority: "a.vmall.com": -1
+          Authority: "com.huawei.appmarket": -1
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter e1100
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "https"
+          Authority: "appgallery.cloud.huawei.com": -1
+          Path: "PatternMatcher{PREFIX: /marketshare/app/}"
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter cbd0018
+          Action: "com.huawei.appmarket.intent.action.AG_DETAIL.departGuidePage"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "https"
+          Scheme: "http"
+          Path: "PatternMatcher{PREFIX: /play.google.com/store/apps/}"
+          Path: "PatternMatcher{PREFIX: /play.google.com/store/apps/}"
+      tencent101855294:
+        937b765 com.huawei.appmarket/com.tencent.tauth.AuthActivity filter 4f7465
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "tencent101855294"
+      store:
+        84c6b2e com.huawei.appmarket/.service.externalapi.view.ThirdApiWithAffinityActivity filter 34af3cd
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "store"
+          Authority: "appgallery.huawei.com": -1
+          Authority: "appgallery.huawei.com": -1
+          Authority: "appgallery.huawei.com": -1
+          Path: "PatternMatcher{LITERAL: /app/preview}"
+          Path: "PatternMatcher{LITERAL: /oper/addhome}"
+          Path: "PatternMatcher{LITERAL: /oper/open}"
+      content:
+        13f29a9 com.huawei.appmarket/com.huawei.appgallery.extdinstallmanager.impl.view.ExtdInstPkgActivity filter 36824de
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "file"
+          Scheme: "content"
+          Authority: "": -1 WILD
+          Path: "PatternMatcher{GLOB: .*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\..*\.apks}"
+          Type: "*"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+        13f29a9 com.huawei.appmarket/com.huawei.appgallery.extdinstallmanager.impl.view.ExtdInstPkgActivity filter 4786bf
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "content"
+          Type: "application/xapk-package-archive"
+        13f29a9 com.huawei.appmarket/com.huawei.appgallery.extdinstallmanager.impl.view.ExtdInstPkgActivity filter 3cc18c
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "content"
+          Authority: "": -1 WILD
+          Path: "PatternMatcher{GLOB: .*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\..*\.apks}"
+          Type: "application/apk-package-archive"
+
+  Non-Data Actions:
+      com.huawei.appmarket.intent.action.ACCESS_RESTRICTIONS:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 52b6d39
+          Action: "com.huawei.appmarket.intent.action.ACCESS_RESTRICTIONS"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.intent.action.guidecomment:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 4030232
+          Action: "com.huawei.appmarket.intent.action.guidecomment"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.intent.action.AppDetail:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter e9f9056
+          Action: "com.huawei.appmarket.intent.action.AppDetail"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.intent.action.local.privacy:
+        3b80c3a com.huawei.appmarket/com.huawei.appgallery.agreementimpl.ui.LocalPrivacyActivity filter e28d763
+          Action: "com.huawei.appmarket.intent.action.local.privacy"
+          Action: "com.huawei.appmarket.intent.action.local.discovery.privacy"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.oobe.ACTION_SHOW_PRIVACY:
+        7f310eb com.huawei.appmarket/.oobe.activity.OOBEProtocolActivity filter 2e067f4
+          Action: "com.huawei.appmarket.oobe.ACTION_SHOW_PRIVACY"
+          Action: "com.huawei.appmarket.oobe.ACTION_SHOW_COMPLIANCE_INFO"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.intent.action.local.discovery.privacy:
+        3b80c3a com.huawei.appmarket/com.huawei.appgallery.agreementimpl.ui.LocalPrivacyActivity filter e28d763
+          Action: "com.huawei.appmarket.intent.action.local.privacy"
+          Action: "com.huawei.appmarket.intent.action.local.discovery.privacy"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.intent.action.ThirdUpdateAction:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 44171a6
+          Action: "com.huawei.appmarket.intent.action.ThirdUpdateAction"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.oobe.local.discovery.privacy:
+        267fe48 com.huawei.appmarket/com.huawei.appgallery.agreementimpl.oobe.BaseServiceActivity filter 2960f60
+          Action: "com.huawei.appmarket.oobe.local.user.protocol"
+          Action: "com.huawei.appmarket.oobe.local.privacy"
+          Action: "com.huawei.appmarket.oobe.local.emui9"
+          Action: "com.huawei.appmarket.oobe.local.discovery.privacy"
+          Category: "android.intent.category.DEFAULT"
+      huawei.intent.action.SET_YOUTH_MODE:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 1db0f7e
+          Action: "huawei.intent.action.SET_YOUTH_MODE"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.oobe.usepermission.dialog:
+        97164e1 com.huawei.appmarket/.oobe.activity.OOBEPermissionIntroDlgActivity filter d78192
+          Action: "com.huawei.appmarket.oobe.usepermission.dialog"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.appmarket.intent.action.AppDetail.withid:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 28e05c4
+          Action: "com.huawei.appmarket.appmarket.intent.action.AppDetail.withid"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.service.appmgr.apkmanagement.activity.apkmanagement:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter a0ce9ef
+          Action: "com.huawei.appmarket.service.appmgr.apkmanagement.activity.apkmanagement"
+          Category: "android.intent.category.DEFAULT"
+      android.intent.action.MAIN:
+        90ab206 com.huawei.appmarket/.MainActivity filter 29742ff
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+        26fd0c7 com.huawei.appmarket/com.huawei.gamebox.GameBoxActivity filter 591f715
+          Action: "android.intent.action.MAIN"
+          Category: "com.huawei.category.DEFAULT"
+          Category: "android.intent.category.DEFAULT"
+        c22b6f4 com.huawei.appmarket/com.huawei.gamebox.GameBoxMainActivity filter a7101b
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.intent.coreservice.LAUNCH_APP:
+        33e6e1d com.huawei.appmarket/com.huawei.appgallery.coreservice.impl.TransparentActivity filter ea6495c
+          Action: "com.huawei.appmarket.intent.coreservice.LAUNCH_APP"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.oobe.local.privacy:
+        267fe48 com.huawei.appmarket/com.huawei.appgallery.agreementimpl.oobe.BaseServiceActivity filter 2960f60
+          Action: "com.huawei.appmarket.oobe.local.user.protocol"
+          Action: "com.huawei.appmarket.oobe.local.privacy"
+          Action: "com.huawei.appmarket.oobe.local.emui9"
+          Action: "com.huawei.appmarket.oobe.local.discovery.privacy"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.oobe.local.user.protocol:
+        267fe48 com.huawei.appmarket/com.huawei.appgallery.agreementimpl.oobe.BaseServiceActivity filter 2960f60
+          Action: "com.huawei.appmarket.oobe.local.user.protocol"
+          Action: "com.huawei.appmarket.oobe.local.privacy"
+          Action: "com.huawei.appmarket.oobe.local.emui9"
+          Action: "com.huawei.appmarket.oobe.local.discovery.privacy"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.service.intent.SECURE_PROXY_ACTIVITY:
+        e8fe892 com.huawei.appmarket/.service.externalapi.secureactivity.SecureProxyActivity filter 76516a9
+          Action: "com.huawei.appmarket.service.intent.SECURE_PROXY_ACTIVITY"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.intent.action.AG_DETAIL.introducePage:
+        f0eb263 com.huawei.appmarket/.service.hota.activity.IntroducePageActivity filter 2a8542e
+          Action: "com.huawei.appmarket.intent.action.AG_DETAIL.introducePage"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.ext.public:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter d108a71
+          Action: "com.huawei.appmarket.ext.public"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.appmarket.intent.action.checkProtocolWithUpdate:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 6cd6a3d
+          Action: "com.huawei.appmarket.appmarket.intent.action.checkProtocolWithUpdate"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.service.externalapi.actions.PayZoneAction:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 8d88ce8
+          Action: "com.huawei.appmarket.service.externalapi.actions.PayZoneAction"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.intent.action.TRANSPARENT_ACTIVITY:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 147ba30
+          Action: "com.huawei.appmarket.intent.action.TRANSPARENT_ACTIVITY"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.appmarket.intent.action.AppDetail.withURL:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 5d25cad
+          Action: "com.huawei.appmarket.appmarket.intent.action.AppDetail.withURL"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.appmarket.intent.action.AppDetail.withapp:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 6ed8d7
+          Action: "com.huawei.appmarket.appmarket.intent.action.AppDetail.withapp"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.gateway.PROXY_ACTIVITY_COMPONENT:
+        f2e4e60 com.huawei.appmarket/com.huawei.appgallery.fapanel.business.ui.fapanel.FaPanelActivity filter 6d3fc19
+          Action: "com.huawei.gateway.PROXY_ACTIVITY_COMPONENT"
+          Category: "android.intent.category.DEFAULT"
+      android.intent.action.SHOW_APP_INFO:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 394a58a
+          Action: "android.intent.action.SHOW_APP_INFO"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.service.externalapi.actions.AppUninstallAction:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter f1fcf85
+          Action: "com.huawei.appmarket.service.externalapi.actions.AppUninstallAction"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.intent.action.showGameServiceAuthAppsAction:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 2722cdf
+          Action: "com.huawei.appmarket.intent.action.showGameServiceAuthAppsAction"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.appmarket.intent.action.appmanager:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter a1fffc9
+          Action: "com.huawei.appmarket.appmarket.intent.action.appmanager"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.gamebox.intent.action.GameBoxMainActivity:
+        c22b6f4 com.huawei.appmarket/com.huawei.gamebox.GameBoxMainActivity filter dec45b8
+          Action: "com.huawei.gamebox.intent.action.GameBoxMainActivity"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.intent.action.ThirdUpdateRemindAction:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter ce227e7
+          Action: "com.huawei.appmarket.intent.action.ThirdUpdateRemindAction"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.gamebox.ACTION_INIT_GAME_SERVICE:
+        d8cf19 com.huawei.appmarket/com.huawei.gamebox.plugin.gameservice.view.TransferActivity filter 5c1a5c7
+          Action: "com.huawei.gamebox.ACTION_INIT_GAME_SERVICE"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.intent.action.LOGIN:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 25e2b73
+          Action: "com.huawei.appmarket.intent.action.LOGIN"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.intent.action.FaPanelComplain:
+        1bffbde com.huawei.appmarket/.framework.fapanel.FaPanelProxyActivity filter 269853a
+          Action: "com.huawei.appmarket.intent.action.FaPanelComplain"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.oobe.local.emui9:
+        267fe48 com.huawei.appmarket/com.huawei.appgallery.agreementimpl.oobe.BaseServiceActivity filter 2960f60
+          Action: "com.huawei.appmarket.oobe.local.user.protocol"
+          Action: "com.huawei.appmarket.oobe.local.privacy"
+          Action: "com.huawei.appmarket.oobe.local.emui9"
+          Action: "com.huawei.appmarket.oobe.local.discovery.privacy"
+          Category: "android.intent.category.DEFAULT"
+      huawei.intent.action.ONLINESEARCH:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 12613d0
+          Action: "huawei.intent.action.ONLINESEARCH"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.gamebox.intent.action.GameBoxActivity:
+        26fd0c7 com.huawei.appmarket/com.huawei.gamebox.GameBoxActivity filter 7acca2a
+          Action: "com.huawei.gamebox.intent.action.GameBoxActivity"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.ecological.experience.LOAD_ABILITY:
+        93011bf com.huawei.appmarket/.service.atomicservice.view.HwOpenAbilityActivity filter 26195eb
+          Action: "com.huawei.appmarket.ecological.experience.LOAD_ABILITY"
+          Action: "com.huawei.appmarket.ecological.experience.OPEN_ABILITY"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.intent.action.PROTOCOL:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter d9c5be2
+          Action: "com.huawei.appmarket.intent.action.PROTOCOL"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.intent.action.AG_GUARD.installInterceptRecords:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 6cca3f5
+          Action: "com.huawei.appmarket.intent.action.AG_GUARD.installInterceptRecords"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.gamebox.ACTION_OPEN_SPLASH_LINK:
+        d8cf19 com.huawei.appmarket/com.huawei.gamebox.plugin.gameservice.view.TransferActivity filter 6c7f1e1
+          Action: "com.huawei.gamebox.ACTION_OPEN_SPLASH_LINK"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.gamebox.transferactivity:
+        d8cf19 com.huawei.appmarket/com.huawei.gamebox.plugin.gameservice.view.TransferActivity filter dfc9f48
+          Action: "com.huawei.gamebox.transferactivity"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.appmarket.intent.action.AppDetail.withdetailId:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 7a411da
+          Action: "com.huawei.appmarket.appmarket.intent.action.AppDetail.withdetailId"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.appmarket.intent.action.SearchActivity:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 4a09cfc
+          Action: "com.huawei.appmarket.appmarket.intent.action.SearchActivity"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.kidsCenter.intent.action.KidsCenterActivity:
+        799f08c com.huawei.appmarket/com.huawei.kidsCenter.KidsCenterActivity filter f27ef91
+          Action: "com.huawei.kidsCenter.intent.action.KidsCenterActivity"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.oobe.ACTION_SHOW_COMPLIANCE_INFO:
+        7f310eb com.huawei.appmarket/.oobe.activity.OOBEProtocolActivity filter 2e067f4
+          Action: "com.huawei.appmarket.oobe.ACTION_SHOW_PRIVACY"
+          Action: "com.huawei.appmarket.oobe.ACTION_SHOW_COMPLIANCE_INFO"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.intent.action.MainActivity:
+        90ab206 com.huawei.appmarket/.MainActivity filter 10b68cc
+          Action: "com.huawei.appmarket.intent.action.MainActivity"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.ecological.experience.OPEN_ABILITY:
+        93011bf com.huawei.appmarket/.service.atomicservice.view.HwOpenAbilityActivity filter 26195eb
+          Action: "com.huawei.appmarket.ecological.experience.LOAD_ABILITY"
+          Action: "com.huawei.appmarket.ecological.experience.OPEN_ABILITY"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.eduCenter.intent.action.EduCenterActivity:
+        c1e43d5 com.huawei.appmarket/com.huawei.eduCenter.EduCenterActivity filter d1c92f7
+          Action: "com.huawei.eduCenter.intent.action.EduCenterActivity"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appgallery.usercenter.personal.intent.action.JUMP_TO_MY_ASSETS:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 376b7fb
+          Action: "com.huawei.appgallery.usercenter.personal.intent.action.JUMP_TO_MY_ASSETS"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.oobe.activity.action.ACTION_SHOW_PROTOCOL:
+        d4bf7ea com.huawei.appmarket/.oobe.activity.OOBEOutputProtocolActivity filter 3f0cb1d
+          Action: "com.huawei.appmarket.oobe.activity.action.ACTION_SHOW_PROTOCOL"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.gamebox.ACTION_OPEN_VIEW:
+        d8cf19 com.huawei.appmarket/com.huawei.gamebox.plugin.gameservice.view.TransferActivity filter 3dabb06
+          Action: "com.huawei.gamebox.ACTION_OPEN_VIEW"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.intent.action.AG_GUARD.scanApps:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 7c33d2c
+          Action: "com.huawei.appmarket.intent.action.AG_GUARD.scanApps"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.appmarket.intent.action.appmovemanager:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter e0556ce
+          Action: "com.huawei.appmarket.appmarket.intent.action.appmovemanager"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.intent.action.MemberJoinAction:
+        4c5d6cf com.huawei.appmarket/.service.externalapi.view.ThirdApiActivity filter 81d8f94
+          Action: "com.huawei.appmarket.intent.action.MemberJoinAction"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.intent.action.FaPanelCommonAction:
+        7de0adb com.huawei.appmarket/.service.fapanel.FaPanelCommonActivity filter 4e60bcf
+          Action: "com.huawei.appmarket.intent.action.FaPanelCommonAction"
+          Category: "android.intent.category.DEFAULT"
+
+  MIME Typed Actions:
+      android.intent.action.VIEW:
+        13f29a9 com.huawei.appmarket/com.huawei.appgallery.extdinstallmanager.impl.view.ExtdInstPkgActivity filter 36824de
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "file"
+          Scheme: "content"
+          Authority: "": -1 WILD
+          Path: "PatternMatcher{GLOB: .*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\..*\.apks}"
+          Type: "*"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+        13f29a9 com.huawei.appmarket/com.huawei.appgallery.extdinstallmanager.impl.view.ExtdInstPkgActivity filter 4786bf
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "content"
+          Type: "application/xapk-package-archive"
+        13f29a9 com.huawei.appmarket/com.huawei.appgallery.extdinstallmanager.impl.view.ExtdInstPkgActivity filter 3cc18c
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "content"
+          Authority: "": -1 WILD
+          Path: "PatternMatcher{GLOB: .*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\..*\.xapk}"
+          Path: "PatternMatcher{GLOB: .*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\.apks}"
+          Path: "PatternMatcher{GLOB: .*\..*\..*\..*\..*\..*\..*\.apks}"
+          Type: "application/apk-package-archive"
+
+Receiver Resolver Table:
+  Schemes:
+      package:
+        13b8978 com.huawei.appmarket/.service.distribution.activereport.AppActiveReportReceiver filter fba6a78
+          Action: "android.intent.action.PACKAGE_FIRST_LAUNCH"
+          Scheme: "package"
+        50c4851 com.huawei.appmarket/.service.installresult.control.InstallerReceiver filter b67b624
+          Action: "android.intent.action.PACKAGE_ADDED"
+          Action: "android.intent.action.PACKAGE_REMOVED"
+          Action: "android.intent.action.PACKAGE_REPLACED"
+          Scheme: "package"
+          mPriority=1000, mOrder=0, mHasPartialTypes=false
+
+  Non-Data Actions:
+      com.huawei.appmarket.oobe.ACTION_SETUP_WIZARD_FINISHED:
+        3e9a8b6 com.huawei.appmarket/.oobe.app.OOBEExportedReceiver filter 87fb58d
+          Action: "com.huawei.appmarket.oobe.ACTION_SETUP_WIZARD_FINISHED"
+      com.huawei.appmarket.oobe.ACTION_QUEREY_IF_OOBE_SUPPORT:
+        3e9a8b6 com.huawei.appmarket/.oobe.app.OOBEExportedReceiver filter 87c1090
+          Action: "com.huawei.appmarket.oobe.ACTION_QUEREY_IF_OOBE_SUPPORT"
+      com.huawei.appmarket.oobe.ACTION_PRIMARY_FLOW_SKIPPED:
+        3e9a8b6 com.huawei.appmarket/.oobe.app.OOBEExportedReceiver filter fbf7342
+          Action: "com.huawei.appmarket.oobe.ACTION_PRIMARY_FLOW_SKIPPED"
+      com.huawei.android.push.intent.REGISTRATION:
+        ea879b7 com.huawei.appmarket/com.huawei.hms.support.api.push.PushReceiver filter 4865cb
+          Action: "com.huawei.android.push.intent.REGISTRATION"
+          Action: "com.huawei.android.push.intent.RECEIVE"
+      com.huawei.appmarket.oobe.ACTION_NOTIFICATION_REMOVED:
+        3e9a8b6 com.huawei.appmarket/.oobe.app.OOBEExportedReceiver filter bd5818e
+          Action: "com.huawei.appmarket.oobe.ACTION_NOTIFICATION_REMOVED"
+      com.huawei.intent.action.PUSH_DELAY_NOTIFY:
+        d5bc524 com.huawei.appmarket/com.huawei.hms.support.api.push.PushMsgReceiver filter 82c289a
+          Action: "com.huawei.intent.action.PUSH_DELAY_NOTIFY"
+          Action: "com.huawei.intent.action.PUSH"
+      android.net.wifi.STATE_CHANGE:
+        3fc188d com.huawei.appmarket/.service.alarm.NetworkStateChangeReceiver filter 177cfdb
+          Action: "android.net.wifi.STATE_CHANGE"
+          mPriority=1000, mOrder=0, mHasPartialTypes=false
+      android.intent.action.SIM_STATE_CHANGED:
+        bdf9a42 com.huawei.appmarket/.oobe.app.OOBESimStateReceiver filter b1f40d5
+          Action: "android.intent.action.SIM_STATE_CHANGED"
+      android.huawei.appmarket.pushdeal.dispatchnew:
+        40fa53 com.huawei.appmarket/com.huawei.appgallery.push.api.receiver.PushDealReceiver filter 2730945
+          Action: "android.huawei.appmarket.pushdeal.dispatchnew"
+      com.huawei.android.push.intent.RECEIVE:
+        ea879b7 com.huawei.appmarket/com.huawei.hms.support.api.push.PushReceiver filter 4865cb
+          Action: "com.huawei.android.push.intent.REGISTRATION"
+          Action: "com.huawei.android.push.intent.RECEIVE"
+      android.intent.action.LOCALE_CHANGED:
+        7220f90 com.huawei.appmarket/.service.bundleapp.LocaleChangeReceiver filter fa01551
+          Action: "android.intent.action.LOCALE_CHANGED"
+        39eb089 com.huawei.appmarket/.oobe.app.OOBELocaleChangeReceiver filter 9359daf
+          Action: "android.intent.action.LOCALE_CHANGED"
+      com.huawei.hwid.ACTION_REMOVE_ACCOUNT:
+        751188e com.huawei.appmarket/com.huawei.appgallery.accountkit.receiver.StaticLogoutReceiver filter 639a5bc
+          Action: "com.huawei.hwid.ACTION_REMOVE_ACCOUNT"
+      android.intent.action.ACTION_POWER_CONNECTED:
+        ed6e8af com.huawei.appmarket/.service.alarm.PowerConnectChangeReceiver filter bcdb0ea
+          Action: "android.intent.action.ACTION_POWER_CONNECTED"
+          mPriority=1000, mOrder=0, mHasPartialTypes=false
+      android.appwidget.action.APPWIDGET_UPDATE:
+        2c094bc com.huawei.appmarket/.service.appwidget.LargeAppWidgetProvider filter b4df1b6
+          Action: "android.appwidget.action.APPWIDGET_UPDATE"
+        eb8cc45 com.huawei.appmarket/.service.appwidget.MediumAppWidgetProvider filter 8998eb7
+          Action: "android.appwidget.action.APPWIDGET_UPDATE"
+      com.huawei.appmarket.oobe.COTA_READY_FOR_SECONDARY_FLOW:
+        3e9a8b6 com.huawei.appmarket/.oobe.app.OOBEExportedReceiver filter ae5f53
+          Action: "com.huawei.appmarket.oobe.COTA_READY_FOR_SECONDARY_FLOW"
+      com.huawei.intent.action.PUSH:
+        d5bc524 com.huawei.appmarket/com.huawei.hms.support.api.push.PushMsgReceiver filter 82c289a
+          Action: "com.huawei.intent.action.PUSH_DELAY_NOTIFY"
+          Action: "com.huawei.intent.action.PUSH"
+      com.huawei.appmarket.oobe.ACTION_SETUP_WIZARD_ALLSET:
+        3e9a8b6 com.huawei.appmarket/.oobe.app.OOBEExportedReceiver filter 93f1d89
+          Action: "com.huawei.appmarket.oobe.ACTION_SETUP_WIZARD_ALLSET"
+
+Service Resolver Table:
+  Non-Data Actions:
+      com.huawei.appmarket.intent.action.downloadmanager:
+        54a2f9a com.huawei.appmarket/.service.deamon.download.remote.DownloadAgentService filter 3d961a8 permission com.huawei.appmarket.permission.downloadmanager
+          Action: "com.huawei.appmarket.intent.action.downloadmanager"
+      com.huawei.appgallery.agguard.service.intent.ACTION_AGGUARD_NOTIFY_TASK_RESULT:
+        63360cb com.huawei.appmarket/com.huawei.appgallery.agguard.business.service.SpaceCleanTaskResultService filter 2257bb
+          Action: "com.huawei.appgallery.agguard.service.intent.ACTION_AGGUARD_NOTIFY_TASK_RESULT"
+      com.huawei.appmarket.oobe.ACTION_BIND_STARTUP_GUIDE:
+        36040a8 com.huawei.appmarket/.oobe.app.OOBEStartupGuideService filter d0ff5ec permission com.huawei.appmarket.oobe.permission.SEND_SETUP_WIZARD_EVENTS
+          Action: "com.huawei.appmarket.oobe.ACTION_BIND_STARTUP_GUIDE"
+      com.huawei.appmarket.service.intent.ACTION_CORE_SERVICE:
+        d9ee7c1 com.huawei.appmarket/com.huawei.appgallery.coreservice.impl.AGCoreService filter e3cbdc0
+          Action: "com.huawei.appmarket.service.intent.ACTION_CORE_SERVICE"
+      com.huawei.appgallery.dynamic.action.DynamicService:
+        78bab66 com.huawei.appmarket/com.huawei.appgallery.dynamiccore.service.DynamicCoreService filter afc84d8
+          Action: "com.huawei.appgallery.dynamic.action.DynamicService"
+      com.huawei.appmarket.service.intent.ACTION_DISPATCHER_FA_SERVICE:
+        b953ea7 com.huawei.appmarket/.service.fa.install.FaDispatcherService filter 51f30f2
+          Action: "com.huawei.appmarket.service.intent.ACTION_DISPATCHER_FA_SERVICE"
+      com.huawei.push.msg.NOTIFY_MSG:
+        3ccbf54 com.huawei.appmarket/com.huawei.hms.support.api.push.service.HmsMsgService filter e088316
+          Action: "com.huawei.push.msg.NOTIFY_MSG"
+          Action: "com.huawei.push.msg.PASSBY_MSG"
+      com.huawei.appmarket.hifolder.agreementSign:
+        f713efd com.huawei.appmarket/.service.hifolder.AgreementSignService filter 9143466
+          Action: "com.huawei.appmarket.hifolder.agreementSign"
+      com.huawei.appmarket.hifolder.CheckProtocol:
+        91717f2 com.huawei.appmarket/.service.hifolder.ProtocolCheckService filter f3ff4c1
+          Action: "com.huawei.appmarket.hifolder.CheckProtocol"
+      com.huawei.appmarket.oobe.ACTION_BIND_OOBE_LAUNCHER_SERVICE:
+        f4d1e43 com.huawei.appmarket/.oobe.app.OOBELauncherService filter a0f509f permission com.huawei.appmarket.oobe.permission.SEND_SETUP_WIZARD_EVENTS
+          Action: "com.huawei.appmarket.oobe.ACTION_BIND_OOBE_LAUNCHER_SERVICE"
+      com.huawei.appmarket.service.intent.appprocess:
+        de07cc0 com.huawei.appmarket/.service.appprocess.AppProcessService filter 936f054
+          Action: "com.huawei.appmarket.service.intent.appprocess"
+      com.huawei.appmarket.service.intent.ACTION_ENTRY:
+        b17cdf9 com.huawei.appmarket/.framework.entry.EntranceService filter 27593a7
+          Action: "com.huawei.appmarket.service.intent.ACTION_ENTRY"
+      com.huawei.hmf.remotemoduleservice:
+        17ac13e com.huawei.appmarket/com.huawei.appgallery.assistantdock.buoydock.uikit.remote.RemoteBuoyService filter 86b6a3e
+          Action: "com.huawei.hmf.remotemoduleservice"
+      com.huawei.gateway.PROXY_SERVICE_COMPONENT:
+        c195b9f com.huawei.appmarket/.service.fa.hapinstall.HapInstallService filter c5dc343
+          Action: "com.huawei.gateway.PROXY_SERVICE_COMPONENT"
+          Category: "android.intent.category.DEFAULT"
+      com.huawei.appmarket.service.intent.INCIDENT_CHECK:
+        cb0a4ec com.huawei.appmarket/.service.incident.IncidentPolicyService filter e961bfd permission android.permission.CLEAR_APP_USER_DATA
+          Action: "com.huawei.appmarket.service.intent.INCIDENT_CHECK"
+      com.huawei.appgallery.agguard.service.intent.ACTION_AGGUARD_SYNC_SERVICE:
+        3fe50b5 com.huawei.appmarket/com.huawei.appgallery.agguard.business.service.AgGuardFACardSyncService filter afec4a
+          Action: "com.huawei.appgallery.agguard.service.intent.ACTION_AGGUARD_SYNC_SERVICE"
+      com.huawei.push.msg.PASSBY_MSG:
+        3ccbf54 com.huawei.appmarket/com.huawei.hms.support.api.push.service.HmsMsgService filter e088316
+          Action: "com.huawei.push.msg.NOTIFY_MSG"
+          Action: "com.huawei.push.msg.PASSBY_MSG"
+      com.huawei.gamebox.GAME_BUOY_SERVICE:
+        ddb34a com.huawei.appmarket/com.huawei.gamebox.plugin.gameservice.service.GameBuoyService filter 42d7af9
+          Action: "com.huawei.gamebox.GAME_BUOY_SERVICE"
+      com.huawei.appmarket.drm.GET_SIGN:
+        4212bb com.huawei.appmarket/.service.pay.drm.service.DrmSignService filter d41cdb5
+          Action: "com.huawei.appmarket.drm.GET_SIGN"
+      com.huawei.push.action.MESSAGING_EVENT:
+        57923d8 com.huawei.appmarket/com.huawei.appgallery.push.impl.service.AppGalleryHmsService filter 50e9031 permission com.huawei.appmarket.permission.PROCESS_PUSH_MSG
+          Action: "com.huawei.push.action.MESSAGING_EVENT"
+
+Permissions:
+  Permission [com.huawei.appmarket.permission.dynamic_install] (e904331):
+    sourcePackage=com.huawei.appmarket
+    uid=10131 gids=null type=0 prot=normal
+    perm=Permission{cbba16 com.huawei.appmarket.permission.dynamic_install}
+    packageSetting=PackageSetting{c751f97 com.huawei.appmarket/10131}
+
+Permissions:
+  Permission [com.huawei.appmarket.RECV_RISK_APP_INFOS_MSG] (348a584):
+    sourcePackage=com.huawei.appmarket
+    uid=10131 gids=null type=0 prot=signature|privileged
+    perm=Permission{74e16d com.huawei.appmarket.RECV_RISK_APP_INFOS_MSG}
+    packageSetting=PackageSetting{c751f97 com.huawei.appmarket/10131}
+
+Permissions:
+  Permission [com.huawei.appmarket.permission.PUSH_WRITE_PROVIDER] (5c161a2):
+    sourcePackage=com.huawei.appmarket
+    uid=10131 gids=null type=0 prot=signature
+    perm=Permission{4621e33 com.huawei.appmarket.permission.PUSH_WRITE_PROVIDER}
+    packageSetting=PackageSetting{c751f97 com.huawei.appmarket/10131}
+
+Permissions:
+  Permission [com.huawei.appmarket.permission.OFFLINE_POLICY_SIGN_PROVIDER_SERVICE] (16c95f0):
+    sourcePackage=com.huawei.appmarket
+    uid=10131 gids=null type=0 prot=signature|privileged
+    perm=Permission{88b2769 com.huawei.appmarket.permission.OFFLINE_POLICY_SIGN_PROVIDER_SERVICE}
+    packageSetting=PackageSetting{c751f97 com.huawei.appmarket/10131}
+
+Permissions:
+  Permission [com.huawei.appmarket.service.commondata.permission.GET_COMMON_DATA] (d77f5ee):
+    sourcePackage=com.huawei.appmarket
+    uid=10131 gids=null type=0 prot=normal
+    perm=Permission{d166a8f com.huawei.appmarket.service.commondata.permission.GET_COMMON_DATA}
+    packageSetting=PackageSetting{c751f97 com.huawei.appmarket/10131}
+
+Permissions:
+  Permission [com.huawei.appmarket.permission.THIRD_PROVIDER_SERVICE] (9d211c):
+    sourcePackage=com.huawei.appmarket
+    uid=10131 gids=null type=0 prot=signature|privileged
+    perm=Permission{aa5d125 com.huawei.appmarket.permission.THIRD_PROVIDER_SERVICE}
+    packageSetting=PackageSetting{c751f97 com.huawei.appmarket/10131}
+
+Permissions:
+  Permission [com.huawei.appmarket.permission.ACCESS_RESTRICTIONS] (5f182fa):
+    sourcePackage=com.huawei.appmarket
+    uid=10131 gids=null type=0 prot=normal
+    perm=Permission{51920ab com.huawei.appmarket.permission.ACCESS_RESTRICTIONS}
+    packageSetting=PackageSetting{c751f97 com.huawei.appmarket/10131}
+
+Permissions:
+  Permission [com.huawei.appmarket.oobe.permission.SEND_SETUP_WIZARD_EVENTS] (2e93308):
+    sourcePackage=com.huawei.appmarket
+    uid=10131 gids=null type=0 prot=signature|privileged
+    perm=Permission{b075aa1 com.huawei.appmarket.oobe.permission.SEND_SETUP_WIZARD_EVENTS}
+    packageSetting=PackageSetting{c751f97 com.huawei.appmarket/10131}
+
+Permissions:
+  Permission [com.huawei.appmarket.permission.LAUNCH_APP_USER_AGREEMENT] (944d4c6):
+    sourcePackage=com.huawei.appmarket
+    uid=10131 gids=null type=0 prot=signature|privileged
+    perm=Permission{2471c87 com.huawei.appmarket.permission.LAUNCH_APP_USER_AGREEMENT}
+    packageSetting=PackageSetting{c751f97 com.huawei.appmarket/10131}
+
+Permissions:
+  Permission [com.huawei.appmarket.permission.gameservice.gamemode.provider] (a6277b4):
+    sourcePackage=com.huawei.appmarket
+    uid=10131 gids=null type=0 prot=signature
+    perm=Permission{59dffdd com.huawei.appmarket.permission.gameservice.gamemode.provider}
+    packageSetting=PackageSetting{c751f97 com.huawei.appmarket/10131}
+
+Permissions:
+  Permission [com.huawei.appmarket.provider.readPermission] (a297752):
+    sourcePackage=com.huawei.appmarket
+    uid=10131 gids=null type=0 prot=normal
+    perm=Permission{16efa23 com.huawei.appmarket.provider.readPermission}
+    packageSetting=PackageSetting{c751f97 com.huawei.appmarket/10131}
+
+Permissions:
+  Permission [com.huawei.appmarket.permission.imageservice] (6895b20):
+    sourcePackage=com.huawei.appmarket
+    uid=10131 gids=null type=0 prot=signature|privileged
+    perm=Permission{cffbcd9 com.huawei.appmarket.permission.imageservice}
+    packageSetting=PackageSetting{c751f97 com.huawei.appmarket/10131}
+
+Permissions:
+  Permission [com.huawei.appmarket.permission.MANAGE_APP_UPDATE] (d43b69e):
+    sourcePackage=com.huawei.appmarket
+    uid=10131 gids=null type=0 prot=signature|privileged
+    perm=Permission{3ad157f com.huawei.appmarket.permission.MANAGE_APP_UPDATE}
+    packageSetting=PackageSetting{c751f97 com.huawei.appmarket/10131}
+
+Permissions:
+  Permission [com.huawei.appmarket.permission.RESTRICTION_PROVIDER] (c79094c):
+    sourcePackage=com.huawei.appmarket
+    uid=10131 gids=null type=0 prot=signature|privileged
+    perm=Permission{d264d95 com.huawei.appmarket.permission.RESTRICTION_PROVIDER}
+    packageSetting=PackageSetting{c751f97 com.huawei.appmarket/10131}
+
+Permissions:
+  Permission [com.huawei.appmarket.agd.permission.agreement_event] (b309eaa):
+    sourcePackage=com.huawei.appmarket
+    uid=10131 gids=null type=0 prot=signature|privileged
+    perm=Permission{5878a9b com.huawei.appmarket.agd.permission.agreement_event}
+    packageSetting=PackageSetting{c751f97 com.huawei.appmarket/10131}
+
+Permissions:
+  Permission [com.huawei.appmarket.permission.PROCESS_PUSH_MSG] (5d36e38):
+    sourcePackage=com.huawei.appmarket
+    uid=10131 gids=null type=0 prot=signature
+    perm=Permission{deb2e11 com.huawei.appmarket.permission.PROCESS_PUSH_MSG}
+    packageSetting=PackageSetting{c751f97 com.huawei.appmarket/10131}
+
+Permissions:
+  Permission [com.huawei.appmarket.permission.PUSH_PROVIDER] (751fb76):
+    sourcePackage=com.huawei.appmarket
+    uid=10131 gids=null type=0 prot=signature
+    perm=Permission{bca3577 com.huawei.appmarket.permission.PUSH_PROVIDER}
+    packageSetting=PackageSetting{c751f97 com.huawei.appmarket/10131}
+
+Permissions:
+  Permission [com.huawei.appmarket.permission.downloadmanager] (26d35e4):
+    sourcePackage=com.huawei.appmarket
+    uid=10131 gids=null type=0 prot=signature|privileged
+    perm=Permission{1439a4d com.huawei.appmarket.permission.downloadmanager}
+    packageSetting=PackageSetting{c751f97 com.huawei.appmarket/10131}
+
+Permissions:
+  Permission [com.huawei.appmarket.RECV_THIRD_COMMON_MSG] (75a5902):
+    sourcePackage=com.huawei.appmarket
+    uid=10131 gids=null type=0 prot=signature|privileged
+    perm=Permission{222b213 com.huawei.appmarket.RECV_THIRD_COMMON_MSG}
+    packageSetting=PackageSetting{c751f97 com.huawei.appmarket/10131}
+
+Registered ContentProviders:
+  com.huawei.appmarket/com.huawei.updatesdk.fileprovider.UpdateSdkFileProvider:
+    Provider{8b9cc50 com.huawei.appmarket/com.huawei.updatesdk.fileprovider.UpdateSdkFileProvider}
+  com.huawei.appmarket/com.huawei.appgallery.share.qq.provider.QQShareImageFileProvider:
+    Provider{93c8e49 com.huawei.appmarket/com.huawei.appgallery.share.qq.provider.QQShareImageFileProvider}
+  com.huawei.appmarket/.framework.coreservice.WhiteListProvider:
+    Provider{799034e com.huawei.appmarket/.framework.coreservice.WhiteListProvider}
+  com.huawei.appmarket/com.huawei.appgallery.share.provider.ShareImageFileProvider:
+    Provider{77c5c6f com.huawei.appmarket/com.huawei.appgallery.share.provider.ShareImageFileProvider}
+  com.huawei.appmarket/com.huawei.appgallery.dynamiccore.provider.SplitAPKsProvider:
+    Provider{f75d7c com.huawei.appmarket/com.huawei.appgallery.dynamiccore.provider.SplitAPKsProvider}
+  com.huawei.appmarket/androidx.core.content.FileProvider:
+    Provider{1b6c605 com.huawei.appmarket/androidx.core.content.FileProvider}
+  com.huawei.appmarket/com.huawei.fastengine.fastview.download.install.FastAppEngineFileProvider:
+    Provider{806065a com.huawei.appmarket/com.huawei.fastengine.fastview.download.install.FastAppEngineFileProvider}
+  com.huawei.appmarket/com.huawei.appgallery.assistantdock.gamemode.provider.GameModeProvider:
+    Provider{41c508b com.huawei.appmarket/com.huawei.appgallery.assistantdock.gamemode.provider.GameModeProvider}
+  com.huawei.appmarket/com.huawei.hms.update.provider.UpdateProvider:
+    Provider{71ad568 com.huawei.appmarket/com.huawei.hms.update.provider.UpdateProvider}
+  com.huawei.appmarket/.service.provider.SilentInstallAllowedProvider:
+    Provider{9e2bd81 com.huawei.appmarket/.service.provider.SilentInstallAllowedProvider}
+  com.huawei.appmarket/com.huawei.appgallery.game.impl.Provider:
+    Provider{e0e2e26 com.huawei.appmarket/com.huawei.appgallery.game.impl.Provider}
+  com.huawei.appmarket/com.huawei.appgallery.microsearch.contentprovider.MicroSearchProvider:
+    Provider{57d6a67 com.huawei.appmarket/com.huawei.appgallery.microsearch.contentprovider.MicroSearchProvider}
+  com.huawei.appmarket/com.huawei.appgallery.datastorage.provider.CommonFileProvider:
+    Provider{f7be014 com.huawei.appmarket/com.huawei.appgallery.datastorage.provider.CommonFileProvider}
+  com.huawei.appmarket/.support.thirdprovider.ThirdProvider:
+    Provider{97cb0bd com.huawei.appmarket/.support.thirdprovider.ThirdProvider}
+  com.huawei.appmarket/.support.storage.DbProvider:
+    Provider{71f06b2 com.huawei.appmarket/.support.storage.DbProvider}
+  com.huawei.appmarket/com.huawei.hms.support.api.push.PushProvider:
+    Provider{bec4603 com.huawei.appmarket/com.huawei.hms.support.api.push.PushProvider}
+  com.huawei.appmarket/com.huawei.hms.mlsdk.common.provider.MLInitializerProvider:
+    Provider{a40e980 com.huawei.appmarket/com.huawei.hms.mlsdk.common.provider.MLInitializerProvider}
+  com.huawei.appmarket/com.huawei.hms.aaid.InitProvider:
+    Provider{dc89bb9 com.huawei.appmarket/com.huawei.hms.aaid.InitProvider}
+  com.huawei.appmarket/.service.hota.provider.UpgradeGuideProvider:
+    Provider{7f2dbfe com.huawei.appmarket/.service.hota.provider.UpgradeGuideProvider}
+  com.huawei.appmarket/com.huawei.appgallery.packagemanager.impl.install.control.MarketDownloadsFileProvider:
+    Provider{5e33f5f com.huawei.appmarket/com.huawei.appgallery.packagemanager.impl.install.control.MarketDownloadsFileProvider}
+  com.huawei.appmarket/com.huawei.appgallery.share.provider.WeiXinImageShareFileProvider:
+    Provider{18b1dac com.huawei.appmarket/com.huawei.appgallery.share.provider.WeiXinImageShareFileProvider}
+  com.huawei.appmarket/.service.provider.AutoUpdateManagerProvider:
+    Provider{a4e3a75 com.huawei.appmarket/.service.provider.AutoUpdateManagerProvider}
+  com.huawei.appmarket/.support.thirdprovider.ImageProvider:
+    Provider{49cba0a com.huawei.appmarket/.support.thirdprovider.ImageProvider}
+  com.huawei.appmarket/.service.provider.ContactsProvider:
+    Provider{526727b com.huawei.appmarket/.service.provider.ContactsProvider}
+  com.huawei.appmarket/androidx.startup.InitializationProvider:
+    Provider{e626898 com.huawei.appmarket/androidx.startup.InitializationProvider}
+  com.huawei.appmarket/com.huawei.appgallery.apkmanagement.impl.provider.ExternalApkFileProvider:
+    Provider{95508f1 com.huawei.appmarket/com.huawei.appgallery.apkmanagement.impl.provider.ExternalApkFileProvider}
+  com.huawei.appmarket/com.huawei.appgallery.contentrestrict.support.thirdprovider.RestrictionProvider:
+    Provider{d546cd6 com.huawei.appmarket/com.huawei.appgallery.contentrestrict.support.thirdprovider.RestrictionProvider}
+  com.huawei.appmarket/.support.thirdprovider.OfflinePolicySignProvider:
+    Provider{99fbb57 com.huawei.appmarket/.support.thirdprovider.OfflinePolicySignProvider}
+  com.huawei.appmarket/com.huawei.agconnect.core.provider.AGConnectInitializeProvider:
+    Provider{617644 com.huawei.appmarket/com.huawei.agconnect.core.provider.AGConnectInitializeProvider}
+  com.huawei.appmarket/.service.provider.CommonDataProvider:
+    Provider{820432d com.huawei.appmarket/.service.provider.CommonDataProvider}
+  com.huawei.appmarket/.service.provider.DHProvider:
+    Provider{c028062 com.huawei.appmarket/.service.provider.DHProvider}
+
+ContentProvider Authorities:
+  [com.huawei.appmarket.qq.provider]:
+    Provider{93c8e49 com.huawei.appmarket/com.huawei.appgallery.share.qq.provider.QQShareImageFileProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.appinfos]:
+    Provider{71f06b2 com.huawei.appmarket/.support.storage.DbProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.apkmanager]:
+    Provider{95508f1 com.huawei.appmarket/com.huawei.appgallery.apkmanagement.impl.provider.ExternalApkFileProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.provider.dynamic_install]:
+    Provider{f75d7c com.huawei.appmarket/com.huawei.appgallery.dynamiccore.provider.SplitAPKsProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.AGCInitializeProvider]:
+    Provider{617644 com.huawei.appmarket/com.huawei.agconnect.core.provider.AGConnectInitializeProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.gameservice.gamemode]:
+    Provider{41c508b com.huawei.appmarket/com.huawei.appgallery.assistantdock.gamemode.provider.GameModeProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.MLInitializerProvider]:
+    Provider{a40e980 com.huawei.appmarket/com.huawei.hms.mlsdk.common.provider.MLInitializerProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.agd]:
+    Provider{799034e com.huawei.appmarket/.framework.coreservice.WhiteListProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.micro.searchmanager.CONTENT_URI]:
+    Provider{57d6a67 com.huawei.appmarket/com.huawei.appgallery.microsearch.contentprovider.MicroSearchProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.aaidinitprovider]:
+    Provider{dc89bb9 com.huawei.appmarket/com.huawei.hms.aaid.InitProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.installer.installpolicy.silentinstall]:
+    Provider{9e2bd81 com.huawei.appmarket/.service.provider.SilentInstallAllowedProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.androidx-startup]:
+    Provider{e626898 com.huawei.appmarket/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.commondata]:
+    Provider{820432d com.huawei.appmarket/.service.provider.CommonDataProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.hms.update.provider]:
+    Provider{71ad568 com.huawei.appmarket/com.huawei.hms.update.provider.UpdateProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.fastapp.engine.fileProvider]:
+    Provider{806065a com.huawei.appmarket/com.huawei.fastengine.fastview.download.install.FastAppEngineFileProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.imageservice.CONTENT_URI]:
+    Provider{49cba0a com.huawei.appmarket/.support.thirdprovider.ImageProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.offlinepolicysign.provider]:
+    Provider{99fbb57 com.huawei.appmarket/.support.thirdprovider.OfflinePolicySignProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.dhProvider]:
+    Provider{c028062 com.huawei.appmarket/.service.provider.DHProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.share.provider]:
+    Provider{77c5c6f com.huawei.appmarket/com.huawei.appgallery.share.provider.ShareImageFileProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.restrictionprovider.CONTENT_URI]:
+    Provider{d546cd6 com.huawei.appmarket/com.huawei.appgallery.contentrestrict.support.thirdprovider.RestrictionProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.MarketDownloadsFileProvider]:
+    Provider{5e33f5f com.huawei.appmarket/com.huawei.appgallery.packagemanager.impl.install.control.MarketDownloadsFileProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.storagedata.provider]:
+    Provider{f7be014 com.huawei.appmarket/com.huawei.appgallery.datastorage.provider.CommonFileProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.fileprovider]:
+    Provider{1b6c605 com.huawei.appmarket/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.assistant.syscomponent.ContactsProvider]:
+    Provider{526727b com.huawei.appmarket/.service.provider.ContactsProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.upgradeguide.CONTENT_URI]:
+    Provider{7f2dbfe com.huawei.appmarket/.service.hota.provider.UpgradeGuideProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.provider.MANAGE_APP_UPDATE]:
+    Provider{a4e3a75 com.huawei.appmarket/.service.provider.AutoUpdateManagerProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.huawei.push.provider]:
+    Provider{bec4603 com.huawei.appmarket/com.huawei.hms.support.api.push.PushProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.thirdProviderService.CONTENT_URI]:
+    Provider{97cb0bd com.huawei.appmarket/.support.thirdprovider.ThirdProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.updateSdk.fileProvider]:
+    Provider{8b9cc50 com.huawei.appmarket/com.huawei.updatesdk.fileprovider.UpdateSdkFileProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appgallery.game.CONTENT_URI]:
+    Provider{e0e2e26 com.huawei.appmarket/com.huawei.appgallery.game.impl.Provider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+  [com.huawei.appmarket.share.wxprovider]:
+    Provider{18b1dac com.huawei.appmarket/com.huawei.appgallery.share.provider.WeiXinImageShareFileProvider}
+      applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+
+Key Set Manager:
+  [com.huawei.appmarket]
+      KeySets Aliases: sign2=12, sign3=11
+      Defined KeySets: 12, 11
+      Signing KeySets: 11
+      Upgrade KeySets: 12, 11
+
+Packages:
+  Package [com.huawei.appmarket] (c751f97):
+    userId=10131
+    pkg=Package{421b2b0 com.huawei.appmarket}
+    codePath=/system/product/app/AppGallery
+    resourcePath=/system/product/app/AppGallery
+    legacyNativeLibraryDir=/system/product/app/AppGallery/lib
+    primaryCpuAbi=arm64-v8a
+    secondaryCpuAbi=null
+    versionCode=160501301 minSdk=21 targetSdk=34
+    versionName=16.5.1.301
+    splits=[base]
+    apkSigningVersion=2
+    applicationInfo=ApplicationInfo{dfab5f3 com.huawei.appmarket}
+    flags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA LARGE_HEAP ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE ALLOW_AUDIO_PLAYBACK_CAPTURE PRIVATE_FLAG_REQUEST_LEGACY_EXTERNAL_STORAGE HAS_DOMAIN_URLS PARTIALLY_DIRECT_BOOT_AWARE PRODUCT ]
+    dataDir=/data/user/0/com.huawei.appmarket
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesOptionalLibraries:
+      org.apache.http.legacy
+      emui-addon
+      hwkeystore
+      richtap-api
+    usesLibraryFiles:
+      /system/framework/org.apache.http.legacy.jar
+    timeStamp=2026-09-07 05:54:10
+    firstInstallTime=2026-09-07 05:54:10
+    lastUpdateTime=2026-09-07 05:54:10
+    signatures=PackageSignatures{aeae529 version:2, signatures:[df7f45a], past signatures:[]}
+    installPermissionsFixed=false
+    pkgFlags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA LARGE_HEAP ]
+    declared permissions:
+      com.huawei.appmarket.permission.imageservice: prot=signature|privileged, INSTALLED
+      com.huawei.appmarket.permission.RESTRICTION_PROVIDER: prot=signature|privileged, INSTALLED
+      com.huawei.appmarket.permission.THIRD_PROVIDER_SERVICE: prot=signature|privileged, INSTALLED
+      com.huawei.appmarket.provider.readPermission: prot=normal, INSTALLED
+      com.huawei.appmarket.RECV_THIRD_COMMON_MSG: prot=signature|privileged, INSTALLED
+      com.huawei.appmarket.service.commondata.permission.GET_COMMON_DATA: prot=normal, INSTALLED
+      com.huawei.appmarket.permission.MANAGE_APP_UPDATE: prot=signature|privileged, INSTALLED
+      com.huawei.appmarket.agd.permission.agreement_event: prot=signature|privileged, INSTALLED
+      com.huawei.appmarket.permission.downloadmanager: prot=signature|privileged, INSTALLED
+      com.huawei.appmarket.permission.gameservice.gamemode.provider: prot=signature, INSTALLED
+      com.huawei.appmarket.permission.OFFLINE_POLICY_SIGN_PROVIDER_SERVICE: prot=signature|privileged, INSTALLED
+      com.huawei.appmarket.oobe.permission.SEND_SETUP_WIZARD_EVENTS: prot=signature|privileged, INSTALLED
+      com.huawei.appmarket.RECV_RISK_APP_INFOS_MSG: prot=signature|privileged, INSTALLED
+      com.huawei.appmarket.permission.LAUNCH_APP_USER_AGREEMENT: prot=signature|privileged, INSTALLED
+      com.huawei.appmarket.permission.dynamic_install: prot=normal, INSTALLED
+      com.huawei.appmarket.permission.ACCESS_RESTRICTIONS: prot=normal, INSTALLED
+      com.huawei.appmarket.permission.PROCESS_PUSH_MSG: prot=signature, INSTALLED
+      com.huawei.appmarket.permission.PUSH_PROVIDER: prot=signature, INSTALLED
+      com.huawei.appmarket.permission.PUSH_WRITE_PROVIDER: prot=signature, INSTALLED
+    requested permissions:
+      android.permission.READ_FRAME_BUFFER
+      android.permission.READ_PHONE_STATE
+      android.permission.ACCESS_NETWORK_STATE
+      com.huawei.permission.sec.MDM.v2
+      com.huawei.android.permission.GET_CHR_DATA
+      com.hihonor.android.permission.GET_CHR_DATA
+      com.android.launcher.permission.UNINSTALL_SHORTCUT
+      com.huawei.permission.MANAGE_SECURITYPROFILE
+      com.hihonor.permission.MANAGE_SECURITYPROFILE
+      com.huawei.dataprivacycenter.permission.LAUNCH_DATA_PRIVACY_CENTER
+      android.permission.STOP_APP_SWITCHES
+      android.permission.PACKAGE_USAGE_STATS
+      android.permission.WRITE_APN_SETTINGS
+      android.permission.ACCESS_WIFI_STATE
+      com.huawei.systemmanager.permission.APPLY_TRIM_POLICY
+      android.permission.WAKE_LOCK
+      android.permission.GET_PACKAGE_SIZE
+      android.permission.EXPAND_STATUS_BAR
+      android.permission.STATUS_BAR
+      android.permission.POST_NOTIFICATIONS
+      com.android.permission.RECV_HUAWEI
+      android.permission.SYSTEM_ALERT_WINDOW
+      android.permission.SYSTEM_OVERLAY_WINDOW
+      com.huawei.android.powerkit.permission.BIND
+      com.hihonor.android.powerkit.permission.BIND
+      com.huawei.hwdetectrepair.ACTIVITY_ACCESS
+      android.permission.DOWNLOAD_WITHOUT_NOTIFICATION
+      com.huawei.android.launcher.permission.READ_SETTINGS
+      com.hihonor.android.launcher.permission.READ_SETTINGS
+      android.permission.FOREGROUND_SERVICE
+      android.permission.HIDE_NON_SYSTEM_OVERLAY_WINDOWS
+      com.huawei.android.powerkit.permission.STATECHG
+      com.hihonor.android.powerkit.permission.STATECHG
+      ohos.permission.GET_BUNDLE_INFO
+      ohos.permission.GET_BUNDLE_USAGE_INFO
+      ohos.permission.GET_BUNDLE_INFO_PRIVILEGED
+      ohos.permission.INSTALL_BUNDLE
+      ohos.permission.LISTEN_BUNDLE_CHANGE
+      android.permission.WRITE_SETTINGS
+      android.permission.WRITE_SECURE_SETTINGS
+      android.permission.READ_RUNTIME_PROFILES
+      com.huawei.hsl.PACKAGE_MANAGER_SERVICE
+       com.hihonor.permission.sec.MDM.v2
+      com.huawei.permission.ACCESS_HW_KEYSTORE
+      android.permission.READ_INSTALLED_SESSION_PATHS
+      android.permission.FOREGROUND_SERVICE_SPECIAL_USE
+      android.permission.READ_SECURE_SETTINGS
+      android.permission.READ_SETTINGS
+      com.android.permission.system_manager_interface
+      com.huawei.systemmanager.permission.ACCESS_INTERFACE
+      com.hihonor.systemmanager.permission.ACCESS_INTERFACE
+      android.permission.REAL_GET_TASKS
+      android.permission.REORDER_TASKS
+      com.huawei.parentcontrol.permission.provider
+      huawei.android.permission.HW_SIGNATURE_OR_SYSTEM
+      hihonor.android.permission.HW_SIGNATURE_OR_SYSTEM
+      com.hihonor.parentcontrol.permission.provider
+      android.permission.INTERACT_ACROSS_USERS
+      android.permission.MANAGE_USERS
+      com.huawei.android.launcher.permission.ACCESS_INTERFACE_NORMAL
+      com.hihonor.android.launcher.permission.ACCESS_INTERFACE_NORMAL
+      com.huawei.permission.MANAGE_TRUSTSPACE
+      com.hihonor.permission.MANAGE_TRUSTSPACE
+      com.huawei.android.launcher.permission.CHANGE_BADGE
+      android.permission.QUERY_ALL_PACKAGES
+      com.huawei.permission.MANAGE_FOLD_SCREEN
+      com.hihonor.permission.MANAGE_FOLD_SCREEN
+      android.permission.WRITE_MEDIA_STORAGE
+      com.android.packageinstaller.permission.HW_MANAGE_DOCUMENTS
+      com.huawei.appmarket.RECV_THIRD_COMMON_MSG
+      com.huawei.permission.coauth.USE_AUTH
+      com.hihonor.permission.coauth.USE_AUTH
+      com.android.permission.GET_INSTALLED_APPS
+      android.permission.START_ACTIVITIES_FROM_BACKGROUND
+      com.android.launcher.permission.READ_SETTINGS
+      ohos.permission.REQUIRE_FORM
+      com.huawei.permission.HANDLE_SHORTCUT
+      android.permission.READ_MEDIA_STORAGE
+      android.permission.WRITE_EXTERNAL_STORAGE: restricted=true
+      android.permission.READ_EXTERNAL_STORAGE: restricted=true
+      android.permission.READ_MEDIA_IMAGES
+      android.permission.READ_MEDIA_VIDEO
+      android.permission.INTERNET
+      com.huawei.appmarket.permission.downloadmanager
+      android.permission.READ_PRIVILEGED_PHONE_STATE
+      com.hihonor.permission.ACCESS_HW_KEYSTORE
+      com.huawei.gameassistant.permission.WIRTE_GAME_LIST
+      android.permission.INTERACT_ACROSS_USERS_FULL
+      com.huawei.screenrecorder.permission.SCREENRECORDER_SERVICE_PERMISSION
+      com.hihonor.screenrecorder.permission.SCREENRECORDER_SERVICE_PERMISSION
+      com.huawei.gameassistant.permission.gameservice.ingameassistant.provider
+      com.android.systemui.permission.SCREEN_SHOT
+      com.huawei.permission.SET_WINDOW_MODE
+      com.hihonor.permission.SET_WINDOW_MODE
+      com.huawei.permission.ACCESS_SYSTEM_WHITE_LIST
+      com.huawei.permission.SKIP_TRIGGER_FREEFORM
+      com.hihonor.permission.SKIP_TRIGGER_FREEFORM
+      com.huawei.gameassistant.permission.iconnect
+      com.huawei.permission.ACCESS_DISPLAY_ENGINE
+      com.huawei.permission.CONFIG_BRIGHTNESS
+      com.hihonor.permission.CONFIG_BRIGHTNESS
+      com.huawei.appmarket.oobe.permission.SEND_SETUP_WIZARD_EVENTS
+      android.permission.RECEIVE_BOOT_COMPLETED
+      com.huawei.hiai.awareness.ACCESS_BIND_COMMON_FENCE_AWARENESSSERVICE
+      com.huawei.android.permissioncontroller.permission.QUERY_PERMISSIONS_FROM_CONTROLLER
+      android.permission.USE_BIOMETRIC
+      com.android.packageinstaller.permission.HUAWEI_CHECK_APP_RISK_ACCESS
+      com.huawei.permission.external_app_settings.USE_COMPONENT
+      com.zhuoyi.appstore.lite.permissions.READ_ACCESS_INTERFACE
+      com.huawei.intelligent.permission.READ_PERMISSION_HIBOARD_PROVIDER
+      com.huawei.intelligent.permission.WRITE_PERMISSION_HIBOARD_PROVIDER
+      com.huawei.android.permission.photoshareconfig
+      com.huawei.hms.hwid.VerifyPasswordV2
+      android.permission.SET_HARMFUL_APP_WARNINGS
+      com.huawei.permission.WRITE_HW_PERMISSION
+      com.huawei.security.restriction.permission.ACCESS_RESTRICTION
+      com.huawei.appmarket.permission.MANAGE_APP_UPDATE
+      com.huawei.android.permissioncontroller.permission.MANAGE_PERMISSIONS_FROM_CONTROLLER
+      android.permission.MANAGE_DEVICE_ADMINS
+      com.huawei.securityguard.permission.REPORT_SECURITY_EVENT
+      android.permission.GET_APP_OPS_STATS
+      com.zhuoyi.appstore.lite.permissions.WRITE_ACCESS_INTERFACE
+      com.huawei.appmarket.permission.dynamic_install
+      android.permission.INSTALL_PACKAGES
+      android.permission.DELETE_PACKAGES
+      android.permission.REQUEST_INSTALL_PACKAGES
+      com.android.packageinstaller.permission.REQUEST_DELETE_PACKAGES
+      android.permission.REQUEST_DELETE_PACKAGES
+      android.permission.ALLOCATE_AGGRESSIVE
+      com.huawei.permission.INSTALL_APP_DISABLE_VERIFY
+      com.hihonor.permission.INSTALL_APP_DISABLE_VERIFY
+      com.huawei.permission.READ_INSTALLER_FILE
+      com.hihonor.permission.READ_INSTALLER_FILE
+      android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK
+      com.huawei.kidpad.parentcontrol.permission.CONFIRM_PASSWORD
+      com.huawei.android.internal.app.BACKUP_READ_PROVIDER
+      com.huawei.android.internal.app.BACKUP_WRITE_PROVIDER
+      android.permission.STATUS_BAR_SERVICE
+      com.huawei.permission.SECURITY_DIAGNOSE
+      com.hihonor.permission.SECURITY_DIAGNOSE
+      com.android.launcher.permission.INSTALL_SHORTCUT
+      com.samsung.android.launcher.permission.READ_SETTINGS
+      com.huawei.permission.sec.ACCESS_UDID
+      com.hihonor.permission.sec.ACCESS_UDID
+      com.huawei.appmarket.permission.PROCESS_PUSH_MSG
+      com.huawei.appmarket.permission.PUSH_PROVIDER
+      com.huawei.appmarket.service.commondata.permission.GET_COMMON_DATA
+      android.permission.VIBRATE
+    install permissions:
+      android.permission.DOWNLOAD_WITHOUT_NOTIFICATION: granted=true
+      android.permission.WRITE_SETTINGS: granted=true
+      android.permission.SYSTEM_ALERT_WINDOW: granted=true
+      com.huawei.appmarket.permission.dynamic_install: granted=true
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      android.permission.EXPAND_STATUS_BAR: granted=true
+      com.android.launcher.permission.UNINSTALL_SHORTCUT: granted=true
+      android.permission.INTERNET: granted=true
+      com.huawei.appmarket.service.commondata.permission.GET_COMMON_DATA: granted=true
+      android.permission.REORDER_TASKS: granted=true
+      android.permission.GET_PACKAGE_SIZE: granted=true
+      com.huawei.appmarket.oobe.permission.SEND_SETUP_WIZARD_EVENTS: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      android.permission.REQUEST_DELETE_PACKAGES: granted=true
+      com.huawei.appmarket.permission.MANAGE_APP_UPDATE: granted=true
+      com.huawei.appmarket.permission.PROCESS_PUSH_MSG: granted=true
+      android.permission.VIBRATE: granted=true
+      com.huawei.appmarket.permission.PUSH_PROVIDER: granted=true
+      com.huawei.appmarket.permission.downloadmanager: granted=true
+      android.permission.ACCESS_WIFI_STATE: granted=true
+      android.permission.USE_BIOMETRIC: granted=true
+      com.android.launcher.permission.INSTALL_SHORTCUT: granted=true
+      android.permission.WAKE_LOCK: granted=true
+      com.huawei.appmarket.RECV_THIRD_COMMON_MSG: granted=true
+    User 0: ceDataInode=714 installed=true hidden=false suspended=false stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      gids=[3003]
+      runtime permissions:
+        android.permission.READ_EXTERNAL_STORAGE: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.READ_PHONE_STATE: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+        android.permission.WRITE_EXTERNAL_STORAGE: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED|RESTRICTION_UPGRADE_EXEMPT]
+      enabledComponents:
+        com.huawei.appmarket.framework.entry.EntranceService
+isSystemUserPackagesBlacklistSupported: false
+
+Package Changes:
+  Sequence number=423
+  User 0:
+    seq=0, package=com.android.permissioncontroller
+    seq=1, package=com.android.systemui
+    seq=99, package=com.android.stk
+    seq=117, package=com.google.android.partnersetup
+    seq=119, package=com.huawei.appmarket
+    seq=153, package=com.android.vending
+    seq=196, package=com.android.settings
+    seq=258, package=com.google.android.gsf
+    seq=263, package=com.android.email
+    seq=270, package=com.android.gallery3d
+    seq=271, package=com.android.inputmethod.latin
+    seq=276, package=com.android.messaging
+    seq=310, package=com.android.traceur
+    seq=317, package=org.lineageos.profiles
+    seq=318, package=org.lineageos.snap
+    seq=417, package=com.google.android.gms
+    seq=418, package=com.huawei.hwid
+    seq=419, package=org.lineageos.setupwizard
+    seq=420, package=com.google.android.setupwizard
+    seq=421, package=com.google.android.googlequicksearchbox
+    seq=422, package=org.lineageos.etar
+
+
+Dexopt state:
+  [com.huawei.appmarket]
+    path: /system/product/app/AppGallery/AppGallery.apk
+      arm64: [status=quicken] [reason=first-boot]
+
+
+Compiler stats:
+  [com.huawei.appmarket]
+     AppGallery.apk - 19468
+
+Active APEX packages:
+
+
+Inactive APEX packages:
+
+
+Factory APEX packages:
+
+
+  APEX session state:

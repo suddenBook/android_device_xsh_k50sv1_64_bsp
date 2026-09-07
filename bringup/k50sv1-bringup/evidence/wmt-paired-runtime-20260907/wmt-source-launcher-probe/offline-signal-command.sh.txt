@@ -1,0 +1,1 @@
+probe_stat=$(cat /proc/410/stat) || exit 71; probe_tail=${probe_stat##*) }; set -- $probe_tail; shift 19; [ "$1" = 456789 ] || exit 72; [ "$(readlink /proc/410/exe)" = /vendor/bin/wmt_launcher ] || exit 73; probe_hash=$(sha256sum /proc/410/exe) || exit 74; [ "${probe_hash%% *}" = 1111111111111111111111111111111111111111111111111111111111111111 ] || exit 75; kill -TERM 410

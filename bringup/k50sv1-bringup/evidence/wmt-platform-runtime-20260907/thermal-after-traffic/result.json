@@ -1,0 +1,461 @@
+{
+  "status": "PASS",
+  "started_utc": "2026-09-07T02:20:31.710258+00:00",
+  "build": "17",
+  "serial": "0123456789ABCDEF",
+  "expected_manifest": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build17-expected-installed.json",
+  "expected_manifest_sha256": "73652884227600798524499068bc4b2dfb51ddc2fa3e7e1cb6789b769e1241e7",
+  "expected_incremental": "eng.desmon.20260907.031627",
+  "expected_receipt_sha256": "823b365778830d600cac5afc8186a82dc296a07617f03a8efdcdf0d3b916bd45",
+  "script_sha256": "329ffde86ada3ecaec80a93fa3a7f782aba2c43c3669c8be8a13b86832d9209b",
+  "requested_reads": 3,
+  "reads": [
+    {
+      "index": 1,
+      "before": {
+        "boot_id": "a6177466-b0bb-4450-b031-6a6bf27cd9c5",
+        "taint": 0,
+        "uptime_seconds": 997.79
+      },
+      "caller_pid": 9294,
+      "temperature_millidegrees": 50000,
+      "after": {
+        "boot_id": "a6177466-b0bb-4450-b031-6a6bf27cd9c5",
+        "taint": 0,
+        "uptime_seconds": 998.16
+      },
+      "kernel_overlap_preserved": true,
+      "callback_lines": [
+        "[  998.031485] (0)[270:kworker/0:1][HIF-SDIO][I]wmt_dev_tm_temp_query:[Thermal] current_temp = 0x32"
+      ],
+      "same_pid_callback_lines": [],
+      "fresh_wmt_read_branch_lines": [],
+      "recognized_fault_signatures": []
+    },
+    {
+      "index": 2,
+      "before": {
+        "boot_id": "a6177466-b0bb-4450-b031-6a6bf27cd9c5",
+        "taint": 0,
+        "uptime_seconds": 999.53
+      },
+      "caller_pid": 9305,
+      "temperature_millidegrees": 50000,
+      "after": {
+        "boot_id": "a6177466-b0bb-4450-b031-6a6bf27cd9c5",
+        "taint": 0,
+        "uptime_seconds": 999.91
+      },
+      "kernel_overlap_preserved": true,
+      "callback_lines": [],
+      "same_pid_callback_lines": [],
+      "fresh_wmt_read_branch_lines": [],
+      "recognized_fault_signatures": []
+    },
+    {
+      "index": 3,
+      "before": {
+        "boot_id": "a6177466-b0bb-4450-b031-6a6bf27cd9c5",
+        "taint": 0,
+        "uptime_seconds": 1001.21
+      },
+      "caller_pid": 9316,
+      "temperature_millidegrees": 50000,
+      "after": {
+        "boot_id": "a6177466-b0bb-4450-b031-6a6bf27cd9c5",
+        "taint": 0,
+        "uptime_seconds": 1001.6
+      },
+      "kernel_overlap_preserved": true,
+      "callback_lines": [],
+      "same_pid_callback_lines": [],
+      "fresh_wmt_read_branch_lines": [],
+      "recognized_fault_signatures": []
+    }
+  ],
+  "commands": [
+    {
+      "name": "identity-before",
+      "remote_command": "cat /proc/sys/kernel/random/boot_id /proc/sys/kernel/tainted /proc/uptime",
+      "started_utc": "2026-09-07T02:20:31.721132+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.051094512979034334,
+      "stdout_sha256": "696a410662ea679de69a464950cb4331ffd0389e991f47d969c3dffffec34576",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "incremental-before",
+      "remote_command": "getprop ro.build.version.incremental",
+      "started_utc": "2026-09-07T02:20:31.772310+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.05134821403771639,
+      "stdout_sha256": "8ab68f245819a4e9807f6bb4f4bf2591ae11b0b93e3cb3d5d44082d466ea2011",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wmt-before-hash",
+      "remote_command": "sha256sum /vendor/lib/modules/wmt_drv.ko",
+      "started_utc": "2026-09-07T02:20:31.823738+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.054828252003062516,
+      "stdout_sha256": "335613dbdd873935e03ccee48a12c241e5b4eeecd0a9940207212a6e0e68a2d4",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wmt-before-modules",
+      "remote_command": "cat /proc/modules",
+      "started_utc": "2026-09-07T02:20:31.878688+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.05263938597636297,
+      "stdout_sha256": "6db5a79098e308546155b72179bbd658f96a6bfe71f2fe42ea62e73e0708cf83",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "thermal-zone-types",
+      "remote_command": "for zone in /sys/class/thermal/thermal_zone*; do\n    if [ -r \"$zone/type\" ]; then\n        printf '%s\\t' \"$zone\"\n        cat \"$zone/type\"\n    fi\ndone",
+      "started_utc": "2026-09-07T02:20:31.931497+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.5566412410116754,
+      "stdout_sha256": "b5d8ab51b6cea181bab0ce8766e5a1a0172db96f637bceed7daa148ec2e7014d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "read-1-identity-before",
+      "remote_command": "cat /proc/sys/kernel/random/boot_id /proc/sys/kernel/tainted /proc/uptime",
+      "started_utc": "2026-09-07T02:20:32.488483+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.07849539502058178,
+      "stdout_sha256": "34da8be4e20ba39ec3239ebb185e3f7712f47759d064f7ded2a383a4a40c59cd",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "read-1-kernel-before",
+      "remote_command": "dmesg",
+      "started_utc": "2026-09-07T02:20:32.567568+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.2340658149914816,
+      "stdout_sha256": "e6e0760af78b73daf36990ae5f1f3be98bd3db14f28adbbc910a772e476d8aa9",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "read-1-temperature",
+      "remote_command": "printf '%s\\n' \"$$\"\nexec cat /sys/class/thermal/thermal_zone4/temp",
+      "started_utc": "2026-09-07T02:20:32.802596+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.07561930303927511,
+      "stdout_sha256": "6be4364ebb5d4a8289ed905a7d2b1adc4297b538ad4b50910c3e6786136f14f4",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "read-1-identity-after",
+      "remote_command": "cat /proc/sys/kernel/random/boot_id /proc/sys/kernel/tainted /proc/uptime",
+      "started_utc": "2026-09-07T02:20:32.878547+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.06086144899018109,
+      "stdout_sha256": "470ad37fa25aaf82c91d83bed32bfc927a3beaf13b24fbe33460f7c12c00c2ff",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "read-1-kernel-after",
+      "remote_command": "dmesg",
+      "started_utc": "2026-09-07T02:20:32.939594+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.302269347012043,
+      "stdout_sha256": "a4f20fcb907bec74b395232704dbf5095f5031077accd70587fc52e3e0e81b2a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "read-2-identity-before",
+      "remote_command": "cat /proc/sys/kernel/random/boot_id /proc/sys/kernel/tainted /proc/uptime",
+      "started_utc": "2026-09-07T02:20:34.245057+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.07018199795857072,
+      "stdout_sha256": "0c9cb94941273feca736183908d2bbdd8bf057bc01f377a2e018048ad759e328",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "read-2-kernel-before",
+      "remote_command": "dmesg",
+      "started_utc": "2026-09-07T02:20:34.315377+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.24852410098537803,
+      "stdout_sha256": "04f14792fb19e4c8016fd38a8901e0d35eae4325b76edb6ecd38cf1357b2bbc0",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "read-2-temperature",
+      "remote_command": "printf '%s\\n' \"$$\"\nexec cat /sys/class/thermal/thermal_zone4/temp",
+      "started_utc": "2026-09-07T02:20:34.564937+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.08527750300709158,
+      "stdout_sha256": "c062cd482ae8eb8038f099b7b7df4c152d0330fb1b87aa2e574ef7d47fc12a25",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "read-2-identity-after",
+      "remote_command": "cat /proc/sys/kernel/random/boot_id /proc/sys/kernel/tainted /proc/uptime",
+      "started_utc": "2026-09-07T02:20:34.650397+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.04380863800179213,
+      "stdout_sha256": "c8f2c4dd6f9cb11fc426057852c7f7e27989839a34ab276f586c442b9fbacd65",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "read-2-kernel-after",
+      "remote_command": "dmesg",
+      "started_utc": "2026-09-07T02:20:34.694332+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.2421806160127744,
+      "stdout_sha256": "71363778ccd61fbe137ec013e7dbc281835cb6cb7ae6f87ff977232a5adc791a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "read-3-identity-before",
+      "remote_command": "cat /proc/sys/kernel/random/boot_id /proc/sys/kernel/tainted /proc/uptime",
+      "started_utc": "2026-09-07T02:20:35.939097+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.05190827802289277,
+      "stdout_sha256": "a353a4c541f7739bc9d4932b4c31c307899f989ad995b746ef0ec4fc229ce964",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "read-3-kernel-before",
+      "remote_command": "dmesg",
+      "started_utc": "2026-09-07T02:20:35.991210+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.2649535189848393,
+      "stdout_sha256": "493d6268d873239f174f789669752269625bf49ef14f3d05d67f194fc1e6da27",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "read-3-temperature",
+      "remote_command": "printf '%s\\n' \"$$\"\nexec cat /sys/class/thermal/thermal_zone4/temp",
+      "started_utc": "2026-09-07T02:20:36.257086+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.08087213803082705,
+      "stdout_sha256": "0b21b142104e7ba198fbbafe5e28a582511b1d6a1bb2b98a6caa4f983aa58dff",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "read-3-identity-after",
+      "remote_command": "cat /proc/sys/kernel/random/boot_id /proc/sys/kernel/tainted /proc/uptime",
+      "started_utc": "2026-09-07T02:20:36.338185+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.043998198001645505,
+      "stdout_sha256": "ba7bee60378af063b105b35bca2aa59467438cf90da09c470cc552a9e5d87313",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "read-3-kernel-after",
+      "remote_command": "dmesg",
+      "started_utc": "2026-09-07T02:20:36.382319+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.36379556002793834,
+      "stdout_sha256": "fc429ac6f4f5b22dce0baaab1798c6534e5b0f0cfee908eba6620fbca2344d95",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "identity-after",
+      "remote_command": "cat /proc/sys/kernel/random/boot_id /proc/sys/kernel/tainted /proc/uptime",
+      "started_utc": "2026-09-07T02:20:36.748197+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.08113382395822555,
+      "stdout_sha256": "edf560638572fe0fe1b3d2c072d2c26ea4c9c0477b54b0d08fea37409aec5ee7",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "incremental-after",
+      "remote_command": "getprop ro.build.version.incremental",
+      "started_utc": "2026-09-07T02:20:36.829518+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.04548612399958074,
+      "stdout_sha256": "8ab68f245819a4e9807f6bb4f4bf2591ae11b0b93e3cb3d5d44082d466ea2011",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wmt-after-hash",
+      "remote_command": "sha256sum /vendor/lib/modules/wmt_drv.ko",
+      "started_utc": "2026-09-07T02:20:36.875080+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.07246984197990969,
+      "stdout_sha256": "335613dbdd873935e03ccee48a12c241e5b4eeecd0a9940207212a6e0e68a2d4",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "wmt-after-modules",
+      "remote_command": "cat /proc/modules",
+      "started_utc": "2026-09-07T02:20:36.947738+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.0590663300245069,
+      "stdout_sha256": "6db5a79098e308546155b72179bbd658f96a6bfe71f2fe42ea62e73e0708cf83",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "thermal-zone-type-after",
+      "remote_command": "cat /sys/class/thermal/thermal_zone4/type",
+      "started_utc": "2026-09-07T02:20:37.007015+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.04279834998305887,
+      "stdout_sha256": "037b1d8b38b8326e024eec1578f6691d4bf0609c0c552a50901be0a59d1a8cd7",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "errors": [],
+  "source_context": {
+    "revision": "372a643505f6b0aab0b3adbd150ecb9d9291d8d9",
+    "source_sha256": {
+      "drivers/thermal/thermal_core.c": "b6b207960d41b673df75f0f3c2d49e06a6a5256b734135cb95d6b9fdf0ce13a3",
+      "drivers/misc/mediatek/thermal/mtk_thermal_monitor.c": "ea8adf972efb2c025b21be4f2214f471777df5adf583fe8a2a1defc70dad74f5",
+      "drivers/misc/mediatek/thermal/common/thermal_zones/mtk_ts_wmt.c": "6395bc1f7fc9625bd285c1d7344edc327db384fb7db2841d5e561700cd52090f",
+      "drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.c": "6354fce240ed1b3e02ed8665c1388645a40bf52270fda6595a0353476cdee729",
+      "drivers/misc/mediatek/connectivity/source/common/common_detect/mtk_wcn_stub_alps.c": "df57a6f03673d5c3ce2d290a618022249e76d1335b144123d05c77d8f61dc1a1",
+      "drivers/misc/mediatek/connectivity/source/common/common_main/platform/wmt_plat_alps.c": "f898e27c63210005e29a4ba5cf3f87ad4a1d93ffe2ce4793f92a9a527e36d804",
+      "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c": "77ec1040a15dbc8b3f3008c392b20613d66c35624192d4800210a0f81a14a5cf"
+    },
+    "sections": [
+      {
+        "path": "drivers/thermal/thermal_core.c",
+        "first_line": 421,
+        "marker": "int thermal_zone_get_temp(",
+        "excerpt_sha256": "281d2378ab0c68ffdb7a1bdac729ed08e3992ae0d72c0cfdda2d3e6b76690e4a"
+      },
+      {
+        "path": "drivers/thermal/thermal_core.c",
+        "first_line": 536,
+        "marker": "temp_show(",
+        "excerpt_sha256": "35e05bfa1d5130367c5309b14bcd77fb84f2632bea8416b58e3cbe8908fb094f"
+      },
+      {
+        "path": "drivers/misc/mediatek/thermal/mtk_thermal_monitor.c",
+        "first_line": 1791,
+        "marker": "static int mtk_thermal_wrapper_get_temp",
+        "excerpt_sha256": "e132cb6276e249b66eb19d388575ec079e8c745629ad1687a6f4cb936b59392a"
+      },
+      {
+        "path": "drivers/misc/mediatek/thermal/common/thermal_zones/mtk_ts_wmt.c",
+        "first_line": 85,
+        "marker": "#define NR_TS_SENSORS",
+        "excerpt_sha256": "036ba757cddc33f17e67f765049a8e790a72a97189bbf1ed5a76aa643cb3116e"
+      },
+      {
+        "path": "drivers/misc/mediatek/thermal/common/thermal_zones/mtk_ts_wmt.c",
+        "first_line": 255,
+        "marker": "static int sensor_select",
+        "excerpt_sha256": "83b2e76f777fce00c776b80b09f90224f06abe50bc4cc4885a40608fd8d013fa"
+      },
+      {
+        "path": "drivers/misc/mediatek/thermal/common/thermal_zones/mtk_ts_wmt.c",
+        "first_line": 586,
+        "marker": "static int wmt_thz_get_temp(",
+        "excerpt_sha256": "b987f0f71ce4b5995c7c303d99e6ebb3c6f927b2ef6c567badd02e5f32767e6b"
+      },
+      {
+        "path": "drivers/misc/mediatek/thermal/common/thermal_zones/mtk_ts_wmt.c",
+        "first_line": 1757,
+        "marker": "#define DEFAULT_POLL_TIME",
+        "excerpt_sha256": "33e639e63b598e5c877c268e7d548378b2c219c0d9d023a20987f1c4605acdef"
+      },
+      {
+        "path": "drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.c",
+        "first_line": 136,
+        "marker": "int mtk_wcn_cmb_stub_query_ctrl(",
+        "excerpt_sha256": "28bd4c2401773390b29682b91afa47d2ce2c84d42239e173845be7bdb6ff820a"
+      },
+      {
+        "path": "drivers/misc/mediatek/connectivity/source/common/common_detect/mtk_wcn_stub_alps.c",
+        "first_line": 177,
+        "marker": "int mtk_wcn_cmb_stub_reg(",
+        "excerpt_sha256": "8250c3173ae362e18db996916bfae9e8ca140388d6ee266c9fc488791dab29d6"
+      },
+      {
+        "path": "drivers/misc/mediatek/connectivity/source/common/common_detect/mtk_wcn_stub_alps.c",
+        "first_line": 286,
+        "marker": "static int _mtk_wcn_cmb_stub_query_ctrl(",
+        "excerpt_sha256": "3ceec7576f3963c9dd853ba3387c2b02523951c5e9395a81c6ed56b5a05f5e5f"
+      },
+      {
+        "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/wmt_plat_alps.c",
+        "first_line": 258,
+        "marker": "static long wmt_plat_thermal_ctrl(",
+        "excerpt_sha256": "975fbb25fb0dfd137656a363be41c499570e87c3377ec7c012a3dcc4169c680d"
+      },
+      {
+        "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+        "first_line": 854,
+        "marker": "LONG wmt_dev_tm_temp_query(",
+        "excerpt_sha256": "9846d533e9763fd3e20b1e514b785b7532798558f37cf77f6d0b1c60e9d7023c"
+      }
+    ]
+  },
+  "identity_before": {
+    "boot_id": "a6177466-b0bb-4450-b031-6a6bf27cd9c5",
+    "taint": 0,
+    "uptime_seconds": 996.99
+  },
+  "module_before": {
+    "path": "/vendor/lib/modules/wmt_drv.ko",
+    "sha256": "563efcd91cbef8de664722b68ad026b22d73de707a9b00c459c45c869cfcfc38",
+    "loaded_module": "wmt_drv 1392931 5 gps_drv,bt_drv,wlan_drv_gen2,wmt_chrdev_wifi, Live 0x0000000000000000"
+  },
+  "thermal_zones": [
+    {
+      "path": "/sys/class/thermal/thermal_zone0",
+      "type": "mtktsbattery"
+    },
+    {
+      "path": "/sys/class/thermal/thermal_zone1",
+      "type": "mtktscpu"
+    },
+    {
+      "path": "/sys/class/thermal/thermal_zone2",
+      "type": "mtktspa"
+    },
+    {
+      "path": "/sys/class/thermal/thermal_zone3",
+      "type": "mtktspmic"
+    },
+    {
+      "path": "/sys/class/thermal/thermal_zone4",
+      "type": "mtktswmt"
+    },
+    {
+      "path": "/sys/class/thermal/thermal_zone5",
+      "type": "battery"
+    },
+    {
+      "path": "/sys/class/thermal/thermal_zone6",
+      "type": "mtktsAP"
+    },
+    {
+      "path": "/sys/class/thermal/thermal_zone7",
+      "type": "mtktsbtsmdpa"
+    }
+  ],
+  "selected_zone": {
+    "path": "/sys/class/thermal/thermal_zone4",
+    "type": "mtktswmt",
+    "temperature_path": "/sys/class/thermal/thermal_zone4/temp"
+  },
+  "identity_after": {
+    "boot_id": "a6177466-b0bb-4450-b031-6a6bf27cd9c5",
+    "taint": 0,
+    "uptime_seconds": 1002.05
+  },
+  "incremental_after": "eng.desmon.20260907.031627",
+  "module_after": {
+    "path": "/vendor/lib/modules/wmt_drv.ko",
+    "sha256": "563efcd91cbef8de664722b68ad026b22d73de707a9b00c459c45c869cfcfc38",
+    "loaded_module": "wmt_drv 1392931 5 gps_drv,bt_drv,wlan_drv_gen2,wmt_chrdev_wifi, Live 0x0000000000000000"
+  },
+  "zone_type_after": "mtktswmt",
+  "attributed_callback_reads": 0,
+  "callback_execution_evidence": "INCONCLUSIVE",
+  "finished_utc": "2026-09-07T02:20:37.049916+00:00",
+  "limitations": [
+    "PASS describes bounded sysfs reads and identity checks, not callback teardown or unload safety.",
+    "Only matching cat PID log records directly attribute WMT callback execution to a sample; absence is inconclusive.",
+    "The WMT zone invokes four sensor wrappers and returns a selected sensor; its output need not equal the WMT sensor value.",
+    "Caching, external thermal control, logging level, or callback closure can prevent direct execution evidence.",
+    "No trip, polling, debug control, radio, or module state was changed by this script."
+  ]
+}

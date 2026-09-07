@@ -1,0 +1,51 @@
+=== does this build's libprocessgroup read a VENDOR cgroups.json? ===
+/vendor/etc/task_profiles.json
+/etc/task_profiles.json
+--- (also check init, which does the mounting) ---
+
+=== netd bpf status ===
+ppid:1 -> pid:352 -> tid:9815
+total running time: 0d10h29m13s688ms (37753688ms)
+user: 1s250ms sys: 1s750ms
+maxrss: 10768kB
+
+
+  NetworkController
+    Default network: 100
+
+    Networks:
+      51 DUMMY dummy0
+
+      99 LOCAL
+
+      100 PHYSICAL wlan0
+        Required permission: NONE
+
+
+    Interface <-> last network map:
+      Ifindex: 27 NetId: 100
+
+=== bpfloader outcome in logs ===
+
+=== SchedPolicy in action: check a background app's cpuset ===
+pid=2088
+2:cpuacct:/uid_10109/pid_2088
+1:cpu:/
+pid=30482
+2:cpuacct:/uid_0/pid_11913
+1:cpu:/
+pid=16893
+2:cpuacct:/uid_10056/pid_16893
+1:cpu:/
+
+=== cpu shares actually differentiated? ===
+total 0
+-rw-r--r-- 1 root   root   0 2026-08-31 15:18 cgroup.clone_children
+-rw-r--r-- 1 root   root   0 2026-08-31 15:18 cgroup.procs
+-r--r--r-- 1 root   root   0 2026-08-31 15:18 cgroup.sane_behavior
+-rw-r--r-- 1 root   root   0 2026-08-31 04:48 cpu.rt_period_us
+-rw-r--r-- 1 root   root   0 2026-08-31 04:48 cpu.rt_runtime_us
+-rw-r--r-- 1 root   root   0 2026-08-31 15:18 cpu.shares
+-rw-r--r-- 1 root   root   0 2026-08-31 15:18 notify_on_release
+-rw-r--r-- 1 root   root   0 2026-08-31 15:18 release_agent
+-rw-rw-rw- 1 system system 0 2026-08-31 04:48 tasks

@@ -1,0 +1,23 @@
+{
+  "exit": 0,
+  "variables": {
+    "TARGET_PRODUCT": "lineage_k50sv1_64_bsp",
+    "TARGET_BUILD_VARIANT": "userdebug",
+    "TARGET_DEVICE": "k50sv1_64_bsp",
+    "TARGET_DEVICE_DIR": "device/xsh/k50sv1_64_bsp",
+    "TARGET_KERNEL_SOURCE": "kernel/xsh/k50sv1_64_bsp",
+    "TARGET_KERNEL_CONFIG": "k50sv1_64_bsp_stock_defconfig",
+    "TARGET_KERNEL_ADDITIONAL_CONFIG": "k50sv1_64_bsp_source.fragment",
+    "TARGET_USERIMAGES_USE_F2FS": "true",
+    "BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE": "f2fs",
+    "BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE": "ext4",
+    "BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE": "ext4",
+    "BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE": "ext4",
+    "TARGET_RECOVERY_FSTAB": "device/xsh/k50sv1_64_bsp/rootdir/etc/fstab.mt6755"
+  },
+  "fstab_copy_entries": [
+    "device/xsh/k50sv1_64_bsp/rootdir/etc/fstab.mt6755:ramdisk/fstab.mt6755",
+    "device/xsh/k50sv1_64_bsp/rootdir/etc/fstab.mt6755:vendor/etc/fstab.mt6755"
+  ],
+  "recovery_fsck_link": "system/bin/fsck.f2fs -> sload_f2fs"
+}

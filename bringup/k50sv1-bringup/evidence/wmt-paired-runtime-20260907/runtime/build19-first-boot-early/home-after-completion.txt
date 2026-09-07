@@ -1,0 +1,23 @@
+priority=9 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=true
+org.lineageos.setupwizard/.SetupWizardActivity
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<roles version="-1" packagesHash="B04594E4E3941064D53D027D15895D1ADC495B59BBEBE9ACCC4466BC16903171">
+  <role name="android.app.role.CALL_SCREENING" />
+  <role name="android.app.role.SMS">
+    <holder name="com.android.messaging" />
+  </role>
+  <role name="android.app.role.DIALER">
+    <holder name="com.android.dialer" />
+  </role>
+  <role name="android.app.role.HOME">
+    <holder name="org.lineageos.setupwizard" />
+  </role>
+  <role name="android.app.role.ASSISTANT" />
+  <role name="android.app.role.EMERGENCY">
+    <holder name="com.android.emergency" />
+  </role>
+  <role name="android.app.role.CALL_REDIRECTION" />
+  <role name="android.app.role.BROWSER">
+    <holder name="org.lineageos.jelly" />
+  </role>
+</roles>

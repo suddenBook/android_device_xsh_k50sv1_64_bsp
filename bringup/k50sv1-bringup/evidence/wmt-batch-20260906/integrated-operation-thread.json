@@ -1,0 +1,39 @@
+{
+  "passed": 1,
+  "total": 1,
+  "cases": [
+    {
+      "case": "two-senders-one-reused-slot",
+      "exit_code": 0,
+      "passed": true
+    }
+  ],
+  "source_sha256": {
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c": "b4139f4044c2d8f07286721bf163ff9aa86611d0cd701b83bbf9a64962b4573f",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c": "6b1c2064039d7df5da266c4c10ead58cd9eec097594da389301bfa9d3082a8f5",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/include/osal.h": "1f0164f2fd5a3cd6b1805314f43ae51cce1850832f7911e4c7a6491a1906a1ad",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_core.c": "253b509a16a898d898fd0d297fd052fdf5ea0d13398f65fde8e3970c7a8bbf91"
+  },
+  "runner_sha256": "b66c94d950f59287ec3674568988164f8a43fbadead01e859fd99ac88269e0bf",
+  "fixture_sha256": "ae08d1dee1b18dc2d362dd2d84b42df216a30e5e03fb97ba5b8b95c2454a5db0",
+  "compiler": [
+    "cc",
+    "-std=gnu11",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-function",
+    "-Wno-unused-but-set-variable",
+    "-Wno-sign-compare",
+    "-pthread",
+    "-fsanitize=thread",
+    "-no-pie",
+    "-fno-omit-frame-pointer",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-batch-tests/operation-thread/test.c",
+    "-o",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-batch-tests/operation-thread/test"
+  ],
+  "sanitizer": "thread"
+}

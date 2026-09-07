@@ -1,0 +1,2 @@
+PASS fw-repeated-failure writes=1 accepted=1 version_publications=1 power_calls=1
+optional_scans=4 dump_calls=0 dump_failures=0 log_create_attempts=4 log_creates=4 log_joins=4 log_enables=4 log_failures=4 log_disables=1

@@ -1,0 +1,40 @@
+{
+  "rows": [
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/run-build19-gnss-with-assistant-isolation.py",
+      "snapshot": "run-build19-gnss-with-assistant-isolation.py",
+      "bytes": 7775,
+      "sha256": "354c6dca7d159ac2ecfaf1ef5455678ebcd3ba2f80751488cee927c9ff8cb1c0"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/run-build19-gnss.py",
+      "snapshot": "run-build19-gnss.py",
+      "bytes": 9541,
+      "sha256": "d6b73727de49d8e3ba4079a3f70e0b00f50157bc03acb9b621ba56cf24bff153"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build19-expected-installed.json",
+      "snapshot": "build19-expected-installed.json",
+      "bytes": 6859,
+      "sha256": "1caf79a67d90766b4ca39d5d9f5df8f8b8c3c9b6e0384b77af2c9739b4349bf4"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-normal-reboot-early/early-complete.json",
+      "snapshot": "runtime/build19-normal-reboot-early/early-complete.json",
+      "bytes": 200,
+      "sha256": "ea4173ee8248766ddb1056f56b3afaca9849f4fb510ac8bc41d486f400065683"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/gnss-probe/gnss-probe.apk",
+      "snapshot": "gnss-probe/gnss-probe.apk",
+      "bytes": 12623,
+      "sha256": "4c05c313b80ea3caab92036fe8c2f164dc0bc943e56c35d9996a1cb6964cedfb"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-source-launcher-probe/independent-review/gnss-fixture-review/voice-binding-delta/run-build19-gnss.py",
+      "snapshot": "child-before-empty-binding.py",
+      "bytes": 9490,
+      "sha256": "caa46cc9f886638b82209d1e2b9e5b558e33f97c328146ff4fcdac14cad7accf"
+    }
+  ]
+}

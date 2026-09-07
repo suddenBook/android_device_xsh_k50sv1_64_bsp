@@ -1,0 +1,50 @@
+Linux localhost 3.18.119 #1 SMP PREEMPT Sat Sep 5 01:30:00 CEST 2026 aarch64
+d0601258-4922-4fb8-aff5-36bec80efb4b
+rootfs / rootfs rw,seclabel 0 0
+tmpfs /dev tmpfs rw,seclabel,nosuid,relatime,mode=755 0 0
+devpts /dev/pts devpts rw,seclabel,relatime,mode=600 0 0
+proc /proc proc rw,relatime,gid=3009,hidepid=2 0 0
+sysfs /sys sysfs rw,seclabel,relatime 0 0
+selinuxfs /sys/fs/selinux selinuxfs rw,relatime 0 0
+tmpfs /mnt tmpfs rw,seclabel,nosuid,nodev,noexec,relatime,mode=755,gid=1000 0 0
+tmpfs /apex tmpfs rw,seclabel,nosuid,nodev,noexec,relatime,mode=755 0 0
+none /acct cgroup rw,nosuid,nodev,noexec,relatime,cpuacct 0 0
+tmpfs /tmp tmpfs rw,seclabel,relatime 0 0
+tmpfs /storage tmpfs rw,seclabel,relatime,mode=050,gid=1028 0 0
+pstore /sys/fs/pstore pstore rw,seclabel,relatime 0 0
+adb /dev/usb-ffs/adb functionfs rw,relatime 0 0
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata /mnt/fsbench ext4 rw,seclabel,nosuid,nodev,noatime,noauto_da_alloc,data=ordered 0 0
+0-7
+noop [deadline] cfq 
+128
+/sys/devices/system/cpu/cpu0/cpufreq interactive
+1001000
+/sys/devices/system/cpu/cpu1/cpufreq interactive
+1001000
+/sys/devices/system/cpu/cpu2/cpufreq interactive
+1001000
+/sys/devices/system/cpu/cpu3/cpufreq interactive
+1001000
+/sys/devices/system/cpu/cpu4/cpufreq interactive
+1508000
+/sys/devices/system/cpu/cpu5/cpufreq interactive
+1508000
+/sys/devices/system/cpu/cpu6/cpufreq interactive
+1508000
+/sys/devices/system/cpu/cpu7/cpufreq interactive
+1508000
+/sys/class/thermal/thermal_zone0 mtktsbattery
+31000
+/sys/class/thermal/thermal_zone1 mtktscpu
+48200
+/sys/class/thermal/thermal_zone2 mtktspa
+-127000
+/sys/class/thermal/thermal_zone3 mtktspmic
+43383
+/sys/class/thermal/thermal_zone4 mtktswmt
+-1000
+/sys/class/thermal/thermal_zone5 battery
+0
+ 1117440     5619 28751548   366100   699092  2868082 799515101 12005010        0   842710 12369630
+Filesystem            1K-blocks    Used Available Use% Mounted on
+/dev/block/mmcblk0p30  52963840 1232732  51731108   3% /mnt/fsbench

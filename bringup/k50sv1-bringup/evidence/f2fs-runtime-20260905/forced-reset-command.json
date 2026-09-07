@@ -1,0 +1,11 @@
+{
+  "reset": "SysRq b; no sync requested",
+  "previous_boot_id": "266c0c98-5007-4442-b625-5f7c74a2dfef",
+  "writer_active_before_reset": true,
+  "max_acknowledged_id": 1041,
+  "initial_rows": 500,
+  "reset_adb_returncode": 255,
+  "reset_adb_output": "",
+  "writer_adb_returncode": 255,
+  "scope": "Forced software reset, not a physical power removal"
+}

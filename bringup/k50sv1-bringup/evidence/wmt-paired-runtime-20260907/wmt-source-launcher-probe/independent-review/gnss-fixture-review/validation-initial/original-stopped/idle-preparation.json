@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "original_search_stopped": "true",
+  "observations": [
+    {
+      "attempt": 0,
+      "gps_idle": true
+    }
+  ]
+}

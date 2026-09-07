@@ -1,0 +1,30 @@
+{
+  "boot_id": "d099b89c-94b2-4470-b157-f63cf8327559",
+  "tier": 1,
+  "selinux": "temporary Enforcing",
+  "incremental_files": [
+    "WFO JAR",
+    "camera parameters",
+    "ImsService APK"
+  ],
+  "bluetooth": {
+    "scan_active": true,
+    "visible_devices": 2,
+    "pairing_attempted": false,
+    "crashes": 0,
+    "final_state": "OFF"
+  },
+  "webview": {
+    "url": "https://example.com",
+    "actual_heading": "Example Domain",
+    "screenshot_reviewed": true
+  },
+  "private_artifacts_sha256": {
+    "bluetooth-scan-dumpsys.txt": "b89fb3d70ee855f4ce7eeed5764d5a0373144af96a7d5bc27e38839db87a6af0",
+    "bluetooth-off-dumpsys.txt": "0d9e70d544fb43545f89c706cd5d58341e58e65e87fdfd7a1a0e0e679cb1bfab",
+    "bluetooth-scan-ui.xml": "93bd4d99d56e92a28cf22b3a36f0e9775261ac2b2541af11a94fc81d8e2085f9",
+    "webview.png": "6219eaaa18622df4f1c00ee58da20c8766fed6971016b7b4cccda1205ff34e84",
+    "webview-ui.xml": "61dd217a1d2418dbab2912c7b8715309c27d9d6fe8e12e3269502f2c37c45e5e",
+    "identity-after-network.txt": "add68821acad52ef3337fede36a7db68f66006c9b5d07460e73d141461f9ace5"
+  }
+}

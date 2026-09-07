@@ -1,0 +1,119 @@
+{
+  "status": "PASS",
+  "scope": "actual-source host regressions; not device/module unload proof",
+  "sanitizers": [
+    "AddressSanitizer",
+    "UndefinedBehaviorSanitizer",
+    "leak detection"
+  ],
+  "passed": 168,
+  "total": 168,
+  "suites": [
+    {
+      "suite": "outer",
+      "passed": 76,
+      "total": 76,
+      "result": "radio-review/module-lifecycle/outer-after-1/result.json",
+      "result_sha256": "d146645854145b6d23057760cffd8d482a6876fff89ec16825982eaf9e47d3af",
+      "source_inputs": {
+        "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c": "cac6feee9d9574aba3433bdf7c8aebe2d6168bd86351c1167827e7c0cb580f66",
+        "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dbg.c": "a166bf2b5effaa5a82a5c7cbf3dff3c6797309b50739ef59730917f0c3bb78f0"
+      },
+      "runner_sha256": "72f7902550bedaa09e76e6352b2a29e885612cb01b8ddfa33f8e5c8c2ec1eb83",
+      "host_sha256": "1532daa52a49831e3bd394474fd89c7aa0d0e5edf58dfb7be98cf01c8828fd5f"
+    },
+    {
+      "suite": "power",
+      "passed": 14,
+      "total": 14,
+      "result": "radio-review/module-lifecycle/power-library-after/result.json",
+      "result_sha256": "f518c707ff28b9dbcbcedde8747cc43491ab232e049c0f67bb0e190f9eacd0a6",
+      "source_inputs": {
+        "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_core.c": "58d921f403464e32f937c1f099cb93312ea475c1a854c71415d588a3f6cdea81",
+        "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_ctrl.c": "f997969ced05eeadfc78851d23408e31fae7e3e055a64cbcf2f20861b223af74",
+        "drivers/misc/mediatek/connectivity/source/common/test/wmt_exit_power_host.c": "715e0afd4a4734f9b1da6d080b4f7af3a3cee2d5a1fe4d41b0fe9acb43ba18ac",
+        "drivers/misc/mediatek/connectivity/source/common/test/test_wmt_exit_power.py": "84c2de58bd98d7c8363921ff1e3eef259f3f300666fb9a65155bb6342d199359",
+        "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c": "18162d4ab1cc16a7d49686b141c91775dfaf546c56d434ef49eebc187f52a5ea"
+      },
+      "runner_sha256": "84c2de58bd98d7c8363921ff1e3eef259f3f300666fb9a65155bb6342d199359",
+      "host_sha256": "715e0afd4a4734f9b1da6d080b4f7af3a3cee2d5a1fe4d41b0fe9acb43ba18ac"
+    },
+    {
+      "suite": "library",
+      "passed": 27,
+      "total": 27,
+      "result": "policy-review/wmt-lib-lifecycle/tests/lib-init-2/result.json",
+      "result_sha256": "5c81c3a1618ff536be17a6925e814895119666a0cfc14ffbfb9a8c1bc415f503",
+      "source_inputs": {
+        "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c": "18162d4ab1cc16a7d49686b141c91775dfaf546c56d434ef49eebc187f52a5ea",
+        "drivers/misc/mediatek/connectivity/source/common/common_main/linux/osal.c": "366b1171b2d308e40002411710788d0899d34c5d094f87e45338bd61f96e88d2"
+      },
+      "runner_sha256": "06e5eaaaa49e0122a4c1f1bbb5c5e3661eade5659a73553fa7dbf22462730cfd",
+      "host_sha256": "27ff1f5bed0abf7f614ae5414cb8e207f3c19ced368a68a4d3b0698f9f93a189"
+    },
+    {
+      "suite": "pool",
+      "passed": 16,
+      "total": 16,
+      "result": "policy-review/wmt-lib-lifecycle/tests/shutdown-1/result.json",
+      "result_sha256": "2dc8a37a7a5285fc1b2e2003c879c4220dbe37b02d8a90c6691d98859492826f",
+      "source_inputs": {
+        "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c": "18162d4ab1cc16a7d49686b141c91775dfaf546c56d434ef49eebc187f52a5ea",
+        "drivers/misc/mediatek/connectivity/source/common/common_main/linux/include/osal.h": "aaadabe631a6761dcc5f57772867bcfe9f39fdbac2ea868e7fe949be4cafadb3",
+        "drivers/misc/mediatek/connectivity/source/common/common_main/core/include/wmt_core.h": "5b31206a73da32a97f779327947ada485e91db0a20f7cd351ba54064f740e6e4",
+        "drivers/misc/mediatek/connectivity/source/common/common_main/core/include/wmt_lib.h": "8a470514ae799cf2d468f757c261ae7bf3fb17a42397b735b1c20256e5d55e91"
+      },
+      "runner_sha256": "6ed1a8e7154cf3dd31deda14535967d698d64b3810e8aeb37af3dcc853ed8da1",
+      "host_sha256": "e2bca9edc7e81d9ac890729163f10dd26611bacd2789be06cb64a0d27cb716d8"
+    },
+    {
+      "suite": "callbacks",
+      "passed": 19,
+      "total": 19,
+      "result": "policy-review/wmt-lib-lifecycle/tests/callbacks-2/result.json",
+      "result_sha256": "027c2ef188843ad6169a6a68718e1ae8714f4f3bf071d68f98bfa5b470ae347c",
+      "source_inputs": {
+        "drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.c": "bcddd32fe13be5d1a688a6ccb26171c85c492e3a30148df8800b0b9c036ad354",
+        "drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.h": "88af5fd61512c1ad72f09209f7248a5cc86830f24048224366058d685fb5c864",
+        "drivers/misc/mediatek/connectivity/source/common/common_detect/mtk_wcn_stub_alps.c": "df57a6f03673d5c3ce2d290a618022249e76d1335b144123d05c77d8f61dc1a1",
+        "drivers/misc/mediatek/include/mt-plat/mtk_wcn_cmb_stub.h": "ebbf28cc9d657449138e844b4eff20d5bf723b55819ddb76903321b7b1546078",
+        "drivers/misc/mediatek/connectivity/source/common/common_main/platform/wmt_plat_alps.c": "f898e27c63210005e29a4ba5cf3f87ad4a1d93ffe2ce4793f92a9a527e36d804",
+        "drivers/misc/mediatek/connectivity/source/common/common_main/include/wmt_plat.h": "647b41808f5474d080fdbb15ba22884255a57ef84cb8e6d7ffe1ff61970eaaab",
+        "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c": "cac6feee9d9574aba3433bdf7c8aebe2d6168bd86351c1167827e7c0cb580f66",
+        "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c": "18162d4ab1cc16a7d49686b141c91775dfaf546c56d434ef49eebc187f52a5ea",
+        "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c": "586458d8f51fa92949ac9b1e83f0bc717531c23b5eb7ac505acd4789666315c3",
+        "drivers/misc/mediatek/connectivity/source/common/common_main/include/wmt_exp.h": "85e2f73386fdc8c0318ef072b114ae1450bb95d3fee2ea650ed81189c32acddd"
+      },
+      "runner_sha256": "2da9e38b3f75fd8792bea9b33042aa733917913701deb22806e0001b8f7aec26",
+      "host_sha256": "aae1518b31e7470f41ebd1ae05f127f8cd3b18fba691d2b69474687b7581ca68"
+    },
+    {
+      "suite": "stp",
+      "passed": 10,
+      "total": 10,
+      "result": "policy-review/wmt-lib-lifecycle/tests/stp-after-final/result.json",
+      "result_sha256": "216dda4e153e468640a8d615846fcf730b5b872bd041899b9ffb77a1ad0e9ed0",
+      "source_inputs": {
+        "drivers/misc/mediatek/connectivity/source/common/common_main/core/btm_core.c": "bd337f3eb18fa89b06de3ff72ea088be007797f00c3722d3b338b8e7b77e06a4",
+        "drivers/misc/mediatek/connectivity/source/common/common_main/core/stp_core.c": "5399a4936437ac0a9d353a1ff1a2b31dd4840dd1497e8219553e90e454ed7be2",
+        "drivers/misc/mediatek/connectivity/source/common/common_main/linux/stp_dbg.c": "8466855cffa50ab3069a386bc1a4350d0e8cbaf9833b6c6cee42ffd206fc7478"
+      },
+      "runner_sha256": "60fc0ec16de177a35690d7ed0e66c0995f952048ee3f0637f8eb86d01a39bc34",
+      "host_sha256": "767eb4e7d9453c18d2498ded8cf59be7dc559a103f9d912e8dadbc550c22dc76"
+    },
+    {
+      "suite": "netlink",
+      "passed": 6,
+      "total": 6,
+      "result": "radio-review/module-lifecycle/netlink/compaction-after/result.json",
+      "result_sha256": "0521a58e72e59c9e05c458ab788168bcceeb9bf71935b04a6e1aa40fc87c15e3",
+      "source_inputs": {
+        "drivers/misc/mediatek/connectivity/source/common/common_main/linux/stp_dbg.c": "8466855cffa50ab3069a386bc1a4350d0e8cbaf9833b6c6cee42ffd206fc7478"
+      },
+      "runner_sha256": "bb3cb52ff730406bd33093505cabddd8e35c2d968cab6be5792905389ad6cb9e",
+      "host_sha256": "fe932439058a8f35dc0145c58a82375fce9c780aee5b0a195daafc0baf99a049"
+    }
+  ],
+  "kernel_commit": "ef8238aca4c6f3d3eba764313320e30b24250e4e",
+  "kernel_tree": "9703c5b1204c94c66b4937dee43e6e5d2f42e971"
+}

@@ -1,0 +1,122 @@
+{
+  "status": "PASS",
+  "boot_id": "3f13b68e-ad4f-483c-b3d4-988220064794",
+  "checked_count": 19,
+  "same_paths": true,
+  "files": [
+    {
+      "path": "/mnt/vendor/nvdata/APCFG/APRDEB/WIFI",
+      "before_sha256": "1af584c2dd60fb7956b8ab77386331714e30bda049e156856a076a3c650162ad",
+      "after_sha256": "1af584c2dd60fb7956b8ab77386331714e30bda049e156856a076a3c650162ad",
+      "match": true
+    },
+    {
+      "path": "/mnt/vendor/nvdata/APCFG/APRDEB/BT_Addr",
+      "before_sha256": "ccbd82c1a91a87853f48b27b5d1340211701a96b8bd161cc128d6f9378da9465",
+      "after_sha256": "ccbd82c1a91a87853f48b27b5d1340211701a96b8bd161cc128d6f9378da9465",
+      "match": true
+    },
+    {
+      "path": "/vendor/firmware/BT_FW.cfg",
+      "before_sha256": "e018d7b8153af454d7e5c51626d584582904ffc5ba2bd8edb5d2a1ed27124b67",
+      "after_sha256": "e018d7b8153af454d7e5c51626d584582904ffc5ba2bd8edb5d2a1ed27124b67",
+      "match": true
+    },
+    {
+      "path": "/vendor/firmware/ROMv2_lm_patch_1_0_hdr.bin",
+      "before_sha256": "7a58e99fdcab239f133be92da999f8733878617191bb1f5caa1096d91ad8e1a2",
+      "after_sha256": "7a58e99fdcab239f133be92da999f8733878617191bb1f5caa1096d91ad8e1a2",
+      "match": true
+    },
+    {
+      "path": "/vendor/firmware/ROMv2_lm_patch_1_1_hdr.bin",
+      "before_sha256": "cb7ba98c5c73705eb03a6ec11b78a3b1cce6069132b1f267d50079f2b1b594fd",
+      "after_sha256": "cb7ba98c5c73705eb03a6ec11b78a3b1cce6069132b1f267d50079f2b1b594fd",
+      "match": true
+    },
+    {
+      "path": "/vendor/firmware/WIFI_RAM_CODE_6755",
+      "before_sha256": "e41e76eb30a4779d4d3012d7c42a6f6831ec16345565eacd0c225ccbbc63d023",
+      "after_sha256": "e41e76eb30a4779d4d3012d7c42a6f6831ec16345565eacd0c225ccbbc63d023",
+      "match": true
+    },
+    {
+      "path": "/vendor/firmware/WMT_SOC.cfg",
+      "before_sha256": "3fe27909b3983bb30b596c6624a9909ac64885a8a6ad7fccd3e7ce8dc3397f71",
+      "after_sha256": "3fe27909b3983bb30b596c6624a9909ac64885a8a6ad7fccd3e7ce8dc3397f71",
+      "match": true
+    },
+    {
+      "path": "/vendor/firmware/pcm_deepidle_by_mp1_m.bin",
+      "before_sha256": "77fab2349e2c6fbb373c302ed123d00b5377779e2307a4d73749dc6ce974abc1",
+      "after_sha256": "77fab2349e2c6fbb373c302ed123d00b5377779e2307a4d73749dc6ce974abc1",
+      "match": true
+    },
+    {
+      "path": "/vendor/firmware/pcm_deepidle_by_mp1_r.bin",
+      "before_sha256": "33db80f577d9afe2ed1234d41f986b2cd99f3e1fdfabfb50afdd91a7b8615906",
+      "after_sha256": "33db80f577d9afe2ed1234d41f986b2cd99f3e1fdfabfb50afdd91a7b8615906",
+      "match": true
+    },
+    {
+      "path": "/vendor/firmware/pcm_deepidle_m.bin",
+      "before_sha256": "4a2d5a265c506e1bfee758abf1c137ff234d34ff29d36b8ad47886ec4dc02564",
+      "after_sha256": "4a2d5a265c506e1bfee758abf1c137ff234d34ff29d36b8ad47886ec4dc02564",
+      "match": true
+    },
+    {
+      "path": "/vendor/firmware/pcm_deepidle_r.bin",
+      "before_sha256": "0a8154f27f3439f1d81a697c30bbe8e35c577bd686d054b4ca6f7f3be6ada399",
+      "after_sha256": "0a8154f27f3439f1d81a697c30bbe8e35c577bd686d054b4ca6f7f3be6ada399",
+      "match": true
+    },
+    {
+      "path": "/vendor/firmware/pcm_sodi_ddrdfs_by_mp1_m.bin",
+      "before_sha256": "c934486529909f62be57f0042e49709c737327ecde663887854bebfcce11dec6",
+      "after_sha256": "c934486529909f62be57f0042e49709c737327ecde663887854bebfcce11dec6",
+      "match": true
+    },
+    {
+      "path": "/vendor/firmware/pcm_sodi_ddrdfs_by_mp1_r.bin",
+      "before_sha256": "5aa6de67308998bab43c8b0620c4c2973f02cc0ab2246b5b0b5753e4e8513278",
+      "after_sha256": "5aa6de67308998bab43c8b0620c4c2973f02cc0ab2246b5b0b5753e4e8513278",
+      "match": true
+    },
+    {
+      "path": "/vendor/firmware/pcm_sodi_ddrdfs_m.bin",
+      "before_sha256": "a8551084b422ff419fc74b60525e91ba5a3f026903dea77cbcffd3639405e302",
+      "after_sha256": "a8551084b422ff419fc74b60525e91ba5a3f026903dea77cbcffd3639405e302",
+      "match": true
+    },
+    {
+      "path": "/vendor/firmware/pcm_sodi_ddrdfs_r.bin",
+      "before_sha256": "fed7e2e5bf0b40ed5584fd1929b30cf1a290d100c65b75d6bfebac4ee9ec9584",
+      "after_sha256": "fed7e2e5bf0b40ed5584fd1929b30cf1a290d100c65b75d6bfebac4ee9ec9584",
+      "match": true
+    },
+    {
+      "path": "/vendor/firmware/pcm_suspend_by_mp1_m.bin",
+      "before_sha256": "24b994f1e11f580c6f592cdef680b0e290495bf10b7cbb7af432daa4e59be253",
+      "after_sha256": "24b994f1e11f580c6f592cdef680b0e290495bf10b7cbb7af432daa4e59be253",
+      "match": true
+    },
+    {
+      "path": "/vendor/firmware/pcm_suspend_by_mp1_r.bin",
+      "before_sha256": "d86572b98e6d66c73e87aaee1125a8e50d283c2b2be9321978e51c76ad4ce7a7",
+      "after_sha256": "d86572b98e6d66c73e87aaee1125a8e50d283c2b2be9321978e51c76ad4ce7a7",
+      "match": true
+    },
+    {
+      "path": "/vendor/firmware/pcm_suspend_m.bin",
+      "before_sha256": "706a7be966bb6c02b0e01258eae488e827e3ab3e427090a1f75a0ccf4a1bc6c4",
+      "after_sha256": "706a7be966bb6c02b0e01258eae488e827e3ab3e427090a1f75a0ccf4a1bc6c4",
+      "match": true
+    },
+    {
+      "path": "/vendor/firmware/pcm_suspend_r.bin",
+      "before_sha256": "bec259a6a2fb5bbdb0d2aafdac873602128ab81fe97b36d218c4b25062268d1d",
+      "after_sha256": "bec259a6a2fb5bbdb0d2aafdac873602128ab81fe97b36d218c4b25062268d1d",
+      "match": true
+    }
+  ]
+}

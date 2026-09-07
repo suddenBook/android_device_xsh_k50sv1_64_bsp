@@ -1,0 +1,6 @@
+{
+  "notification_listeners": [
+    "bitpit.launcher/bitpit.launcher.notification.NotificationListener"
+  ],
+  "source": "baseline enabled_notification_listeners"
+}

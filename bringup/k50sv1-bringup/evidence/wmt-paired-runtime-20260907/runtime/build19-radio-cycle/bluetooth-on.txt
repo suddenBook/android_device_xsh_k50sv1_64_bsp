@@ -1,0 +1,217 @@
+Bluetooth Status
+  enabled: true
+  state: ON
+  address: 12:34:56:89:A9:2D
+  name: Pixel 4 XL
+  time since enabled: 00:00:01.180
+
+Enable log:
+  09-07 06:23:55  Enabled  due to SYSTEM_BOOT by android
+  09-07 06:27:20 Disabled  due to APPLICATION_REQUEST by android
+  09-07 06:27:21 Disabled  due to APPLICATION_REQUEST by null
+  09-07 06:27:35  Enabled  due to APPLICATION_REQUEST by null
+
+Bluetooth crashed 0 times
+
+0 BLE appsregistered
+
+
+AdapterProperties
+  Name: Pixel 4 XL
+  Address: 12:34:56:89:A9:2D
+  BluetoothClass: 5a020c
+  ScanMode: SCAN_MODE_CONNECTABLE
+  ConnectionState: STATE_DISCONNECTED
+  State: ON
+  MaxConnectedAudioDevices: 5
+  A2dpOffloadEnabled: false
+  Discovering: false
+  DiscoveryEndMs: 0
+  Bonded devices:
+mSnoopLogSettingAtEnable = empty
+mDefaultSnoopLogSettingAtEnable = null
+
+AdapterState:
+ total records=4
+ rec[0]: time=09-07 06:27:35.306 processed=OffState org=OffState dest=TurningBleOnState what=3(0x3) BLE_TURN_ON
+ rec[1]: time=09-07 06:27:35.778 processed=TurningBleOnState org=TurningBleOnState dest=BleOnState what=7(0x7) BLE_STARTED
+ rec[2]: time=09-07 06:27:35.785 processed=BleOnState org=BleOnState dest=TurningOnState what=1(0x1) USER_TURN_ON
+ rec[3]: time=09-07 06:27:36.013 processed=TurningOnState org=TurningOnState dest=OnState what=5(0x5) BREDR_STARTED
+curState=OnState
+
+SilenceDeviceManager:
+  Address            | Is silenced?
+
+Profile: GattService
+  mAdvertisingServiceUuids:
+  mMaxScanFilters: 0
+
+Registered App
+  Scanner:
+  Client:
+  Server:
+
+
+GATT Scanner Map
+  Entries: 0
+
+GATT Client Map
+  Entries: 0
+
+GATT Server Map
+  Entries: 0
+
+GATT Handle Map
+  Entries: 0
+  Requests: 0
+
+Profile: HeadsetService
+  mMaxHeadsetConnections: 5
+  DefaultMaxHeadsetConnections: 5
+  mActiveDevice: null
+  isInbandRingingEnabled: false
+  isInbandRingingSupported: false
+  mInbandRingingRuntimeDisable: false
+  mAudioRouteAllowed: true
+  mVoiceRecognitionStarted: false
+  mVoiceRecognitionTimeoutEvent: null
+  mVirtualCallStarted: false
+  mDialingOutTimeoutEvent: null
+  mForceScoAudio: false
+  mCreated: true
+  mStarted: true
+  AudioManager.isBluetoothScoOn(): false
+  Telecom.isInCall(): false
+  Telecom.isRinging(): false
+
+Profile: A2dpService
+  mActiveDevice: null
+
+Profile: HidHostService
+  mTargetDevice: null
+  mInputDevices:
+
+Profile: PanService
+  mMaxPanDevices: 5
+  mPanIfName: bt-pan
+  mTetherOn: false
+  mPanDevices:
+
+Profile: BluetoothMapService
+  mRemoteDevice: null
+  sRemoteDeviceName: null
+  mState: 0
+  mAppObserver: com.android.bluetooth.map.BluetoothMapAppObserver@203096b
+  mIsWaitingAuthorization: false
+  mRemoveTimeoutMsg: false
+  mPermission: 0
+  mAccountChanged: false
+  mBluetoothMnsObexClient: null
+  mMasInstanceMap:
+    null : MasId: 0 Uri:null SMS/MMS:true
+  mEnabledAccounts:
+
+Profile: AvrcpTargetService:
+  List of MediaControllers: size=0
+  List of Browsers: size=0
+  AvrcpVolumeManager:
+    mCurrentDevice: null
+    Current System Volume: 5
+    Device Volume Memory Map:
+      Device Address    : Device Name    : Vol : AbsVol
+
+Profile: HidDeviceService
+
+Profile: BluetoothOppService
+
+Profile: BluetoothPbapService
+
+Connection Events:
+  None
+
+Bond Events: 
+  Total Number of events: 0
+
+A2DP State:
+  TxQueue:
+  Counts (enqueue/dequeue/readbuf)                        : 0 / 0 / 0
+  Last update time ago in ms (enqueue/dequeue/readbuf)    : 0 / 0 / 0
+  Frames per packet (total/max/ave)                       : 0 / 0 / 0
+  Counts (flushed/dropped/dropouts)                       : 0 / 0 / 0
+  Counts (max dropped)                                    : 0
+  Last update time ago in ms (flushed/dropped)            : 0 / 0
+  Counts (underflow)                                      : 0
+  Bytes (underflow)                                       : 0
+  Last update time ago in ms (underflow)                  : 0
+  Enqueue deviation counts (overdue/premature)            : 0 / 0
+  Enqueue overdue scheduling time in ms (total/max/ave)   : 0 / 0 / 0
+  Enqueue premature scheduling time in ms (total/max/ave) : 0 / 0 / 0
+  Dequeue deviation counts (overdue/premature)            : 0 / 0
+  Dequeue overdue scheduling time in ms (total/max/ave)   : 0 / 0 / 0
+  Dequeue premature scheduling time in ms (total/max/ave) : 0 / 0 / 0
+
+A2DP Source State: Enabled
+  Active peer: 00:00:00:00:00:00
+
+A2DP Sink State: Disabled
+
+AVRCP Target Native Service: 0 devices
+
+Bluetooth Config:
+  Config Source: Original file
+  Devices loaded: 0
+  File created/tagged: 2026-09-07 04:18:41
+  File source: Empty
+
+Bluetooth HF Client BTA Statistics
+
+Bluetooth Wakelock Statistics:
+  Is acquired                    : false
+  Acquired/released count        : 48 / 48
+  Acquired/released error count  : 0 / 0
+  Last acquire/release error code: 0 / 0
+  Last acquired time (ms)        : 5
+  Acquired time min/max/avg (ms) : 1 / 327 / 10
+  Total acquired time (ms)       : 481
+  Total run time (ms)            : 939
+
+Bluetooth Memory Allocation Statistics:
+  Total allocated/free/used counts : 906 / 418 / 488
+  Total allocated/free/used octets : 385221 / 73969 / 311252
+
+Bluetooth Alarms Statistics:
+  Total Alarms: 1
+
+  Alarm : btm_ble_addr.refresh_raddr_timer (SINGLE)
+    Action counts (sched/resched/exec/cancel)      : 1 / 0 / 0 / 0
+    Deviation counts (overdue/premature)           : 0 / 0
+    Time in ms (since creation/interval/remaining) : 515 / 900000 / 899485
+    Overdue scheduling time in ms (total/max/avg)  : 0 / 0 / 0
+    Premature scheduling time in ms (total/max/avg): 0 / 0 / 0
+
+Hearing Aid Manager:
+  Hearing Aid Audio HAL:
+    Counts (underflow)                                      : 0
+    Bytes (underflow)                                       : 0
+    Last update time ago in ms (underflow)                  : 0
+
+
+connection_manager state:
+
+	no Low Energy connection attempts
+
+BT Quality Report Events: 
+Event queue is empty.
+--- BEGIN:BTSNOOP_LOG_SUMMARY (5757 bytes in) ---
+AonLoAndWgYAeJztl1+ITUEcx39zzj33nnvO7L3n3t3L3U27I2tbhdVePMiiWJs/i9D6V2xJKMqDJKklbRub9kGrFqFEpIhSongl8uRFyp+UPMif0Cp3Hb/fzDj2cGrf
+yGF+T7/7/Z3vzHxmdmY2AQmgJkwOKYz0ZAAvk2CYJjBGMZQsDzIY9zhJLsN0yLyeAgYuhqCKEk8dT/pV4EiP9WnlUVIeH8meeZDFaHZI4gxTu7Xang8TklTykkrSHlRg
+3HKpxGGYTrpwsGNqngqaqBfDgzaMHdJjHsPU933zvk+tfOpD9pU/e7DPH4PljKZUhBGbhVFH1gmPQQ6jJDvPsIQHwG7POvz1sb+uh6oe0wg7cOA0wbGOmmAHhyTGNHLY
+zg0lvtaz386l/WRtz8j+oh3YU7FqNL/xVLViCAoY3UkqyjNMG9mzun2skXVCoy58QuPICrAxGuRgLYapR1q/hCRwFRzIyp5SDNPTIBk3kDpGyGV46KplwFTSM5W5LzeC
+KilbqgRTpgfKMV7LxRR2V60hf6MZ99lqxkwIKllMHTFuS2f/dguVzKzWJQrKXuxQtHJmkGZypbUq7Rr10KZJ79TWbUrrIG2u1s6nlDZX7dwlpNVzkxtrKX2n16herdEm
+UovcAEHiJ/1pUYmrJFTbsKRRtatEREhQNpBYxRGOD3flcMoM0/aVi0T7yiml5uli3LSRd1psWhmjC/eGqOSfl23dvWmbmCpWL/7To/q9jXbJU72/Kjl8wtiFP4vl/D1z
+0z+oMJNZ+1Mj2v3VjVgMahbL1YH/gA6AojpGblSoYwTTlu7E0J2xZz7S8VQGuldE0prU09I9jzwuaQ9LSJ5pI4KnaUI+7kSJxVUv4EnH0801DEQDNzql+DyjxAa18a5A
+BCjLzOfijopYHCsGoIjFSYhgkUIWdTGnQSwG3BCL7s0RLNImz8WdBrF444RYHIEIFq7p5OJOg1i8CO+LExDBokKyyMSaBrFoyQYs6AG9sQZZzOD4n0rvSZIXVih5hpLP
+4leilifAzsuvF+qHaq16jA6QXKMfo9/fwDVKO6o1k7SJbqCR7Zfvtp6ybXJCtj36U/k23pOOtJXfjXYCjRb2AEQsbDZY2FGxXVpi0c9Dm1wuzc8scgGLQmxpEIve/yxk
+IxaPwheB/Iv+V1m0hlkcgn+YxYIwizkzI1hU/sKiORc3GsRiqRu6FBedDt96VdnQ9dQHw66g+kLoeroMw66uLbnQ9XQOIhAXfkLcFEPIxKKrENpupa4IFqNNKxd3GsTi
+bVXA4htDxhll
+--- END:BTSNOOP_LOG_SUMMARY ---

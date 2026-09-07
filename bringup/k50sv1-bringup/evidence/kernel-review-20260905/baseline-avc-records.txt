@@ -1,0 +1,27 @@
+hal_camera_default -> gpu_device : chr_file getattr	path=/dev/mali0 dev=tmpfs permissive=1
+hal_camera_default -> gpu_device : chr_file ioctl	path=/dev/mali0 dev=tmpfs ioctlcmd=8000 permissive=1
+hal_camera_default -> gpu_device : chr_file ioctl	path=/dev/mali0 dev=tmpfs ioctlcmd=8005 permissive=1
+hal_camera_default -> gpu_device : chr_file ioctl	path=/dev/mali0 dev=tmpfs ioctlcmd=801b permissive=1
+hal_camera_default -> gpu_device : chr_file open	path=/dev/mali0 dev=tmpfs permissive=1
+hal_camera_default -> gpu_device : chr_file read	dev=tmpfs name=mali0 permissive=1
+hal_camera_default -> gpu_device : chr_file read	path=/dev/mali0 dev=tmpfs permissive=1
+hal_camera_default -> gpu_device : chr_file write	dev=tmpfs name=mali0 permissive=1
+hal_camera_default -> gpu_device : chr_file write	path=/dev/mali0 dev=tmpfs permissive=1
+hal_camera_default -> hal_configstore_ISurfaceFlingerConfigs : hwservice_manager find	interface=android.hardware.configstore::ISurfaceFlingerConfigs permissive=1
+hal_camera_default -> hal_configstore_default : binder call	permissive=1
+hal_power_default -> hal_camera_default : dir getattr	path=/proc/504 dev=proc permissive=1
+init -> kernel : system module_request	permissive=1
+kernel -> kernel : capability dac_override	permissive=1
+priv_app -> device : dir open	path=/dev dev=tmpfs app=com.google.android.gms permissive=1
+priv_app -> hal_memtrack_default : binder call	app=com.google.android.gms permissive=1
+priv_app -> hal_memtrack_hwservice : hwservice_manager find	interface=android.hardware.memtrack::IMemtrack permissive=1
+priv_app -> proc_interrupts : file getattr	path=/proc/interrupts dev=proc app=com.google.android.gms permissive=1
+priv_app -> proc_interrupts : file open	path=/proc/interrupts dev=proc app=com.google.android.gms permissive=1
+priv_app -> proc_modules : file getattr	path=/proc/modules dev=proc app=com.google.android.gms permissive=1
+priv_app -> proc_modules : file open	path=/proc/modules dev=proc app=com.google.android.gms permissive=1
+priv_app -> sysfs : dir open	path=/sys/block dev=sysfs app=com.google.android.gms permissive=1
+priv_app -> sysfs : file open	path=/sys/devices/soc/180f0000.wifi/net/wlan0/type dev=sysfs app=com.google.android.gms permissive=1
+priv_app -> sysfs_android_usb : file getattr	path=/sys/devices/virtual/android_usb/android0/state dev=sysfs app=com.google.android.gms permissive=1
+priv_app -> sysfs_android_usb : file open	path=/sys/devices/virtual/android_usb/android0/state dev=sysfs app=com.google.android.gms permissive=1
+webview_zygote -> zygote_exec : file execute	path=/system/bin/app_process64 dev=mmcblk0p28 permissive=1
+wfca -> wfca : capability dac_override	permissive=1

@@ -1,0 +1,39 @@
+{
+  "passed": 1,
+  "total": 1,
+  "cases": [
+    {
+      "case": "two-senders-one-reused-slot",
+      "exit_code": 0,
+      "passed": true
+    }
+  ],
+  "source_sha256": {
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c": "911a07443eec8dd46f67e5feedba32d5795c86359573a3391b1f556c4e50300b",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c": "6b1c2064039d7df5da266c4c10ead58cd9eec097594da389301bfa9d3082a8f5",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/include/osal.h": "f649b8dc8fbfdb77eda46fe6ed80ea749c611cdab5c0442cca6c58f63bafdf78",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_core.c": "824e49c8207191b062f85c75f2f78cc5f5b3dcd4b6207ab6794b4e9f5908d343"
+  },
+  "runner_sha256": "b66c94d950f59287ec3674568988164f8a43fbadead01e859fd99ac88269e0bf",
+  "fixture_sha256": "ae08d1dee1b18dc2d362dd2d84b42df216a30e5e03fb97ba5b8b95c2454a5db0",
+  "compiler": [
+    "cc",
+    "-std=gnu11",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-function",
+    "-Wno-unused-but-set-variable",
+    "-Wno-sign-compare",
+    "-pthread",
+    "-fsanitize=thread",
+    "-no-pie",
+    "-fno-omit-frame-pointer",
+    "wmt-cancel-tests/operation-thread-regression/test.c",
+    "-o",
+    "wmt-cancel-tests/operation-thread-regression/test"
+  ],
+  "sanitizer": "thread"
+}

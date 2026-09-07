@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-07",
+  "runtime_stage": "Tier2",
+  "overall_result": "PARTIAL",
+  "phone_local_peer_discovery": "PASS",
+  "peer_group_formation": "NOT_ESTABLISHED",
+  "peer_transfer": "UNVERIFIED",
+  "failure_cause_attribution": "UNRESOLVED",
+  "group_created_during_peer_fixture": false,
+  "transfer_executed": false,
+  "peer_binding": {
+    "temporary_unique_phone_name": true,
+    "host_address_matched_phone_ui_and_saved_peer_config": true,
+    "phone_address_source": "Owned phone current p2p0 sysfs address, corroborated by its local saved-group record"
+  },
+  "host_discovery": {
+    "initial_start_find_rounds": 2,
+    "timeout_seconds_per_round": 30,
+    "peer_counts": [0, 0],
+    "third_round_peer_count": 0,
+    "phone_saw_owned_host_in_second_and_third_rounds": true
+  },
+  "host_initiated_attempt": {
+    "profile_storage": "temporary_in_memory",
+    "provisioning_method": "PBC",
+    "nmcli_exit_code": 4,
+    "outcome": "PEER_NOT_FOUND"
+  },
+  "phone_initiated_attempt": {
+    "entered_provision_discovery": true,
+    "saved_peer_config_matched_owned_host": true,
+    "pin_prompt_observed": true,
+    "pin_prompt_sender_blank": true,
+    "matching_host_pin_available": false,
+    "invitation_rejected": true,
+    "concurrent_host_provisioning_method": "PBC",
+    "concurrent_nmcli_exit_code": 3,
+    "concurrent_activation_timeout_seconds": 45,
+    "outcome": "NO_GROUP_ESTABLISHED"
+  },
+  "interpretation": "Phone-side local peer discovery is verified. Group formation and file transfer were not achieved with this host/provisioning fixture; the observations do not isolate a phone-firmware defect. Historical local group-creation records predate this fixture.",
+  "cleanup": {
+    "at_utc": "2026-09-07T15:56:25.792967+00:00",
+    "result": "PASS",
+    "checks_passed": 8,
+    "checks_total": 8,
+    "checks": {
+      "host_active_connections_restored": true,
+      "host_default_route_restored": true,
+      "host_ipv4_forwarding_restored": true,
+      "phone_global_name_setting_restored_absent": true,
+      "phone_active_group_absent": true,
+      "phone_original_visible_name_restored": true,
+      "phone_preexisting_saved_group_preserved": true,
+      "owned_host_profile_removed": true
+    },
+    "phone_final_p2p_state": "InactiveState"
+  },
+  "private_evidence_sha256": {
+    "discovery-first-result.json": "5f95f444eb9a5c29e2139e4786ecace938eb6f698a8b360508cef1456f9b80f3",
+    "discovery-second-result.json": "755d442cf44919879856407fe199e916c770d206e3f6b050d6eb286b7af73782",
+    "ui-second-discovery.xml": "bbdb314ef8ab0307a125fb928ca9b75919091d01183f51a04f438a839bd26c68",
+    "host-third-discovery.txt": "8a498a3e637171569d6d6ce29f9106454cc2a1970f3d4bb4cb687d541cbd9e15",
+    "ui-third-discovery.xml": "bbdb314ef8ab0307a125fb928ca9b75919091d01183f51a04f438a839bd26c68",
+    "activation.txt": "ab97d7a6574c815c8d402fba3b80566111c31fbdc4e94d02601d204ea81d14cc",
+    "activation-phone-initiated.txt": "5dbf6d148f7d9a9a454913b974e1668152c2a784ebc129ee4d3ca4e508395a21",
+    "phone-initiated.txt": "9b0e85d78f28839c53e979457736d4574538b20a19e35fc59cd03f80c405f4e6",
+    "phone-pin-invitation.txt": "6b5c70512b65ec0a99dd2ad1ed968470a94d5158a5c67098b8aca84025142f4c",
+    "phone-pin-invitation.xml": "8424f9b45fdd726e172c34f0438ded2c23db50338cc1a06d22797dcad55e629f",
+    "cleanup-result.json": "ff486d9bfac014c966bafc402a6d187488097eb4863db026c4ec200c4a5cfc55"
+  }
+}

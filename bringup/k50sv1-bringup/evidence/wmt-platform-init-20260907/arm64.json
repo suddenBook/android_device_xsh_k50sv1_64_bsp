@@ -1,0 +1,12 @@
+[
+  {
+    "source": "common_main/platform/wmt_plat_alps.c",
+    "status": 0,
+    "output": ""
+  },
+  {
+    "source": "common_detect/mtk_wcn_stub_alps.c",
+    "status": 0,
+    "output": ""
+  }
+]

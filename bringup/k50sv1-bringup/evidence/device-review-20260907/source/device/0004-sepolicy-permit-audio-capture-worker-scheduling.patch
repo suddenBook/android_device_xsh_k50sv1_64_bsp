@@ -1,0 +1,28 @@
+From f69aa16dd20739fcdf43ea84fa0c8bc4d79e5b35 Mon Sep 17 00:00:00 2001
+From: Huixiaqing Liu <huixiaqingliu@outlook.com>
+Date: Mon, 7 Sep 2026 07:50:27 +0200
+Subject: [PATCH 04/25] sepolicy: permit audio capture worker scheduling
+
+---
+ sepolicy/vendor/hal_audio_default.te | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/sepolicy/vendor/hal_audio_default.te b/sepolicy/vendor/hal_audio_default.te
+index 868d9bd..2ab4dad 100644
+--- a/sepolicy/vendor/hal_audio_default.te
++++ b/sepolicy/vendor/hal_audio_default.te
+@@ -6,6 +6,11 @@ vndbinder_use(hal_audio_default)
+ allow hal_audio_default mtk_audiohal_data_file:dir create_dir_perms;
+ allow hal_audio_default mtk_audiohal_data_file:file create_file_perms;
+ 
++# The capture HAL's readThread0 raises its scheduling priority. The service
++# already carries SYS_NICE in init; build19 records the missing SELinux check
++# when microphone capture starts. Restrict the grant to this audio HAL.
++allow hal_audio_default self:global_capability_class_set sys_nice;
++
+ # Per-stream runtime state; see vendor/property.te for why this needs a device
+ # type rather than falling through to vendor_default_prop.
+ set_prop(hal_audio_default, mtk_audiohal_prop)
+-- 
+2.55.0
+

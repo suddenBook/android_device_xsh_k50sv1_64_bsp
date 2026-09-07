@@ -1,0 +1,86 @@
+{
+  "status": "PASS",
+  "conclusion": "No actionable findings in the frozen owner-preservation change.",
+  "reviewed_commit": "fcd8380a217368b55a06d9913647913a14748267",
+  "base_commit": "372a643505f6b0aab0b3adbd150ecb9d9291d8d9",
+  "kernel_version": "3.18.119",
+  "worktree_clean": true,
+  "production_change": "drivers/base/platform.c:642 preserves drv->driver.owner in platform_driver_probe",
+  "reviewed_source_sha256": {
+    "Makefile": "12e9bd239f4648d5aad4bf132837c7b6448a0b59e305b62ddf584017f96731d9",
+    "drivers/base/Makefile": "77206a4402629b60209fa22ea3e8d21b3f40e2c7bf698cdeff98db4b9f60de0a",
+    "drivers/base/platform.c": "3b5b934651c20098ae3b3bb3162a2a3028aa65e8f2f4199589a4784ca28cdb6d",
+    "drivers/base/module.c": "8459f5693b816d9aa3c5a592ea9c6bdd7e58be96ee7b488e7594f9de87cb5ebf",
+    "drivers/base/bus.c": "1cf3da6d994c236b74d91acf2690888714e516e1efe2ce80206d3f2ac1d4e877",
+    "include/linux/platform_device.h": "e67e3564478b2a1bef789ed6d97c3067590400dbe3358026087f82f4ce9a58ea",
+    "include/linux/export.h": "9d650967e6d477e0544a6382c0ad725ed04eb247eab588c0c2a945399bab84c9",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c": "586458d8f51fa92949ac9b1e83f0bc717531c23b5eb7ac505acd4789666315c3",
+    "drivers/platform/x86/asus-wmi.c": "1053fa65464ef836c164824711ff1d7cce6323dbcf014f21e41d37053c714e3f",
+    "drivers/platform/x86/asus-nb-wmi.c": "2e100e745c9e8000f23849fa08ce78fd182cbdbc2b83856be46f0e5ae86da174",
+    "drivers/platform/x86/eeepc-wmi.c": "69a4381e5b5521ee18dd98c1d4595bbd59a3b018713ac90bb49701b01add279f",
+    "drivers/misc/mediatek/connectivity/source/common/test/README_platform_probe_owner.md": "465c8cb99b96178939d52865062128a5981735cb886c1793530c913141ab1154",
+    "drivers/misc/mediatek/connectivity/source/common/test/platform_probe_owner_host.c": "3464f9119fc5b4b2a28e697cc1733f1bbb1299f8fdea4aeb4cc8d3fbb2871429",
+    "drivers/misc/mediatek/connectivity/source/common/test/test_platform_probe_owner.py": "a6f676928367695b7ce8557937053445dabc1760e82513964ed0d90ec0444ff8"
+  },
+  "caller_audit": {
+    "call_sites": 162,
+    "api_counts": {
+      "platform_driver_probe": 63,
+      "module_platform_driver_probe": 96,
+      "platform_create_bundle": 3
+    },
+    "owner_counts": {
+      "THIS_MODULE": 130,
+      "implicit NULL (static aggregate)": 31,
+      "forwarded THIS_MODULE from either in-tree caller": 1
+    },
+    "source_hashes_verified": 162,
+    "unresolved": 0
+  },
+  "independent_host_rerun": {
+    "passed": 8,
+    "total": 8,
+    "sanitizers": [
+      "AddressSanitizer",
+      "UndefinedBehaviorSanitizer"
+    ]
+  },
+  "retained_baseline": {
+    "passed": 3,
+    "total": 8,
+    "expected_module_owner_failures": 5
+  },
+  "arm64_evidence": "Existing actual GCC 4.9 -Werror platform.o evidence and hashes verified; ELF64 AArch64. Compilation was not rerun by this review.",
+  "checks": [
+    {
+      "evidence": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-owner-tests/fixed-first/result.json",
+      "sha256": "91d186f485338b6c6b3f570e2baac39c040ad59d8a47d817e5321364ec270f0e",
+      "artifacts_verified": 11,
+      "status": "PASS"
+    },
+    {
+      "evidence": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-owner-tests/baseline-first/result.json",
+      "sha256": "1e3265c10c9a144b37f112ca103e7ea5294f421ceb5d4b2b640be138c150f9ba",
+      "artifacts_verified": 11,
+      "status": "PASS"
+    },
+    {
+      "evidence": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-owner-tests/arm64-first/result.json",
+      "sha256": "78d1f9702c203c1f3383b3822995d3d7e061b4dafde06f7976e7b3e6388334e9",
+      "artifacts_verified": 5,
+      "status": "PASS"
+    },
+    {
+      "evidence": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-owner-tests/independent-review/host/result.json",
+      "sha256": "8209feee4eeef4550c338557a2e5dd3e9252db89f18859761b030c6bc0c467c9",
+      "artifacts_verified": 11,
+      "status": "PASS"
+    }
+  ],
+  "boundary": "Host tests extract actual core helpers with deterministic bus/list adapters. No phone access, real module unload, full kernel build, or runtime module-link verification in this review.",
+  "review_artifacts_sha256": {
+    "review.md": "d2a59d7a4dc3f0cfc36707eb53cd38afdc6d378922d342b422f1e36c2317d36c",
+    "callers.json": "7cae001e2062ff37bfbffaabf0859207dbae5c5819e50ac1a8a3370591abbda1",
+    "verify_review.py": "592535f432181659f1f5d9d530b71c04d86a3a6c9980114f1bb71fa4394abf3e"
+  }
+}

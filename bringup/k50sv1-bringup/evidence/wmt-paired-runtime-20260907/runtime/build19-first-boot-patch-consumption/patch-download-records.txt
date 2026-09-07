@@ -1,0 +1,4 @@
+4,2286,13149207,-; (0)[436:mtk_wmtd][WMT-IC][I]mtk_wcn_soc_normal_patch_dwn:normal patch download patch size(318380) fragNum(319)
+4,2355,13774045,-; (1)[436:mtk_wmtd][WMT-IC][W]mtk_wcn_soc_normal_patch_dwn:wmt_core: patch dwn:0 frag(319, 380) ok
+4,2356,13780906,-; (3)[436:mtk_wmtd][WMT-IC][I]mtk_wcn_soc_normal_patch_dwn:normal patch download patch size(179671) fragNum(180)
+4,2370,13989858,-; (0)[436:mtk_wmtd][WMT-IC][W]mtk_wcn_soc_normal_patch_dwn:wmt_core: patch dwn:0 frag(180, 671) ok

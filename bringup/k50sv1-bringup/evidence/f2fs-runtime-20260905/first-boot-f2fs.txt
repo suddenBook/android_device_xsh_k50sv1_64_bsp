@@ -1,0 +1,72 @@
+[    0.347682] (7)[1:swapper/0]WARNING: CPU: 7 PID: 1 at /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/kernel/xsh/k50sv1_64_bsp/fs/sysfs/dir.c:31 sysfs_warn_dup+0x64/0x84()
+[    0.394983] (5)[1:swapper/0]WARNING: CPU: 5 PID: 1 at /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project/lineage-17.1/kernel/xsh/k50sv1_64_bsp/net/wireless/reg.c:511 regulatory_init+0x9c/0x1e0()
+[    2.506941] (0)[291:init]init: [libfs_mgr]Invalid f2fs superblock on '/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata'
+[    2.507472] (6)[291:init]init: [libfs_mgr]mount_with_alternatives(): skipping mount due to invalid magic, mountpoint=/data blk_dev=/dev/block/mmcblk0p30 rec[2].fs_type=f2fs
+[    2.509395] (7)[291:init]init: [libfs_mgr]fs_mgr_mount_all(): /dev/block/mmcblk0p30 is wiped and /data f2fs is formattable. Format it.
+[    2.509429] (7)[291:init]init: [libfs_mgr]fs_mgr_do_format: Format /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata as 'f2fs'
+[   10.031619] (0)[291:init]make_f2fs: \x0a
+[   10.031651] (0)[291:init]make_f2fs: \x09F2FS-tools: mkfs.f2fs Ver: 1.12.0 (2018-11-12)\x0a
+[   10.031666] (0)[291:init]make_f2fs: \x0a
+[   10.031681] (0)[291:init]make_f2fs: Info: Disable heap-based policy\x0a
+[   10.031695] (0)[291:init]make_f2fs: Info: Debug level = 1\x0a
+[   10.031708] (0)[291:init]make_f2fs: Info: Trim is enabled\x0a
+[   10.031722] (0)[291:init]make_f2fs: Info: Set conf for android\x0a
+[   10.031736] (0)[291:init]make_f2fs: \x09Info: No support kernel version!\x0a
+[   10.031750] (0)[291:init]make_f2fs: Info: wanted sectors = 13518843 (in 4096 bytes)\x0a
+[   10.031765] (0)[291:init]make_f2fs: Info: total device sectors = 108150751 (in 512 bytes)\x0a
+[   10.031779] (0)[291:init]make_f2fs: Info: Segments per section = 1\x0a
+[   10.031793] (0)[291:init]make_f2fs: Info: Sections per zone = 1\x0a
+[   10.031807] (0)[291:init]make_f2fs: Info: sector size = 512\x0a
+[   10.031821] (0)[291:init]make_f2fs: Info: total sectors = 108150744 (52807 MB)\x0a
+[   10.031835] (0)[291:init]make_f2fs: Info: zone aligned segment0 blkaddr: 512\x0a
+[   10.031848] (0)[291:init]make_f2fs: Info: add quota type = 0 => 4\x0a
+[   10.031862] (0)[291:init]make_f2fs: Info: add quota type = 1 => 5\x0a
+[   10.031876] (0)[291:init]make_f2fs: Info: Found all zeros in first 4096 blocks\x0a
+[   10.031891] (0)[291:init]make_f2fs: [f2fs_init_sit_area: 537] \x09Filling sit area at offset 0x00600000\x0a
+[   10.031905] (0)[291:init]make_f2fs: [f2fs_init_nat_area: 571] \x09Filling nat area at offset 0x00a00000\x0a
+[   10.031921] (0)[291:init]make_f2fs: [f2fs_write_root_inode:1147] \x09Writing root inode (hot node), 15e00 0 200 at offset 0x00089600\x0a
+[   10.031936] (0)[291:init]make_f2fs: [f2fs_write_default_quota:1223] \x09Writing quota data, at offset 00016401, 00016402\x0a
+[   10.031951] (0)[291:init]make_f2fs: [f2fs_write_qf_inode:1319] \x09Writing quota inode (hot node), 15e00 0 200 at offset 0x00089601\x0a
+[   10.031967] (0)[291:init]make_f2fs: [f2fs_write_default_quota:1223] \x09Writing quota data, at offset 00016403, 00016404\x0a
+[   10.031982] (0)[291:init]make_f2fs: [f2fs_write_qf_inode:1319] \x09Writing quota inode (hot node), 15e00 0 200 at offset 0x00089602\x0a
+[   10.031997] (0)[291:init]make_f2fs: [f2fs_update_nat_root:1373] \x09Writing nat root, at offset 0x00000a00\x0a
+[   10.032012] (0)[291:init]make_f2fs: [f2fs_add_default_dentry_root:1569] \x09Writing default dentry root, at offset 0x00016400\x0a
+[   10.032026] (0)[291:init]make_f2fs: Info: Overprovision ratio = 0.870%\x0a
+[   10.032040] (0)[291:init]make_f2fs: Info: Overprovision segments = 463 (GC reserved = 237)\x0a
+[   10.032055] (0)[291:init]make_f2fs: [f2fs_write_check_point_pack: 712] \x09Writing main segments, cp at offset 0x00000200\x0a
+[   10.032071] (0)[291:init]make_f2fs: [f2fs_write_check_point_pack: 849] \x09Writing Segment summary for HOT/WARM/COLD_DATA, at offset 0x00000201\x0a
+[   10.032086] (0)[291:init]make_f2fs: [f2fs_write_check_point_pack: 876] \x09Writing Segment summary for HOT_NODE, at offset 0x00000202\x0a
+[   10.032102] (0)[291:init]make_f2fs: [f2fs_write_check_point_pack: 888] \x09Writing Segment summary for WARM_NODE, at offset 0x00000203\x0a
+[   10.032117] (0)[291:init]make_f2fs: [f2fs_write_check_point_pack: 899] \x09Writing Segment summary for COLD_NODE, at offset 0x00000204\x0a
+[   10.032132] (0)[291:init]make_f2fs: [f2fs_write_check_point_pack: 907] \x09Writing cp page2, at offset 0x00000205\x0a
+[   10.032147] (0)[291:init]make_f2fs: [f2fs_write_check_point_pack: 927] \x09Writing NAT bits pages, at offset 0x000003fe\x0a
+[   10.032162] (0)[291:init]make_f2fs: [f2fs_write_check_point_pack: 948] \x09Writing cp page 1 of checkpoint pack 2, at offset 0x00000400\x0a
+[   10.032177] (0)[291:init]make_f2fs: [f2fs_write_check_point_pack: 967] \x09Writing cp page 2 of checkpoint pack 2, at offset 0x00000405\x0a
+[   10.032192] (0)[291:init]make_f2fs: [f2fs_write_super_block:1000] \x09Writing super block, at offset 0x00000000\x0a
+[   10.032206] (0)[291:init]make_f2fs: Info: format successful\x0a
+[   10.036590] (1)[291:init]init: [libfs_mgr]Running /system/bin/fsck.f2fs -a /dev/block/mmcblk0p30
+[   10.060550] (1)[291:init]fsck.f2fs: Info: Fix the reported corruption.\x0a
+[   10.060602] (1)[291:init]fsck.f2fs: \x09Info: No support kernel version!\x0a
+[   10.060619] (1)[291:init]fsck.f2fs: Info: Segments per section = 1\x0a
+[   10.060635] (1)[291:init]fsck.f2fs: Info: Sections per zone = 1\x0a
+[   10.060650] (1)[291:init]fsck.f2fs: Info: sector size = 512\x0a
+[   10.060665] (1)[291:init]fsck.f2fs: Info: total sectors = 108150751 (52807 MB)\x0a
+[   10.060680] (1)[291:init]fsck.f2fs: Info: MKFS version\x0a
+[   10.060697] (1)[291:init]fsck.f2fs:   "3.18.119 #1 SMP PREEMPT Sat Sep 5 01:30:00 CEST 2026"\x0a
+[   10.060712] (1)[291:init]fsck.f2fs: Info: FSCK version\x0a
+[   10.060728] (1)[291:init]fsck.f2fs:   from "3.18.119 #1 SMP PREEMPT Sat Sep 5 01:30:00 CEST 2026"\x0a
+[   10.060744] (1)[291:init]fsck.f2fs:     to "3.18.119 #1 SMP PREEMPT Sat Sep 5 01:30:00 CEST 2026"\x0a
+[   10.060760] (1)[291:init]fsck.f2fs: Info: superblock features = 481 :  encrypt verity quota_ino\x0a
+[   10.060776] (1)[291:init]fsck.f2fs: Info: superblock encrypt level = 0, salt = 00000000000000000000000000000000\x0a
+[   10.060792] (1)[291:init]fsck.f2fs: Info: total FS sectors = 108150744 (52807 MB)\x0a
+[   10.060807] (1)[291:init]fsck.f2fs: Info: CKPT version = 6be76fe5\x0a
+[   10.060824] (1)[291:init]fsck.f2fs: Info: checkpoint state = 185 :  trimmed nat_bits compacted_summary unmount\x0a
+[   10.060839] (1)[291:init]fsck.f2fs: Info: No error was reported\x0a
+[   10.112868] (1)[291:init]F2FS-fs (mmcblk0p30): Found nat_bits in checkpoint
+[   10.860855] (0)[291:init]F2FS-fs (mmcblk0p30): Mounted with checkpoint version = 6be76fe5
+[   10.860893] (0)[291:init]SELinux: initialized (dev mmcblk0p30, type f2fs), uses xattr
+[   10.861068] (0)[291:init]init: [libfs_mgr]__mount(source=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata,target=/data,type=f2fs)=0: Success
+[   12.354982] (1)[1:init]init: property 'dev.mnt.blk.data' doesn't exist while expanding '/sys/fs/f2fs/${dev.mnt.blk.data}/cp_interval'
+[   12.355065] (1)[1:init]init: Command 'write /sys/fs/f2fs/${dev.mnt.blk.data}/cp_interval 200' action=boot (/init.rc:693) took 0ms and failed: cannot expand '/sys/fs/f2fs/${dev.mnt.blk.data}/cp_interval'
+[   12.355104] (1)[1:init]init: property 'dev.mnt.blk.data' doesn't exist while expanding '/sys/fs/f2fs/${dev.mnt.blk.data}/gc_urgent_sleep_time'
+[   12.355154] (1)[1:init]init: Command 'write /sys/fs/f2fs/${dev.mnt.blk.data}/gc_urgent_sleep_time 50' action=boot (/init.rc:694) took 0ms and failed: cannot expand '/sys/fs/f2fs/${dev.mnt.blk.data}/gc_urgent_sleep_time'

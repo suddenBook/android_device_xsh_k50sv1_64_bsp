@@ -1,0 +1,756 @@
+{
+  "status": "PASS",
+  "passed": 15,
+  "total": 15,
+  "cases": [
+    {
+      "name": "actual_reappeared_binding_rejected_before_launch",
+      "status": "PASS",
+      "detail": {
+        "prelaunch_rejected": true,
+        "exact_restoration_reproduced": true
+      }
+    },
+    {
+      "name": "synthetic_complete_callbacks_and_restoration",
+      "status": "PASS",
+      "detail": {
+        "error": null,
+        "fixture": {
+          "status": "PASS",
+          "search_restore_required": true,
+          "voice_restore_required": true,
+          "errors": [],
+          "restored_voice_settings": {
+            "voice_recognition_service": "com.google.android.googlequicksearchbox/com.google.android.voicesearch.serviceapi.GoogleRecognitionService",
+            "voice_interaction_service": "com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService"
+          }
+        },
+        "steps": [
+          "search-package-before",
+          "search-launcher-component",
+          "wake-before-isolation",
+          "original-voice_recognition_service",
+          "original-voice_interaction_service",
+          "pause-system-voice-binding",
+          "voice-binding-empty",
+          "voice-service-state-0",
+          "pause-observed-search-request-source",
+          "reset-old-probe-process",
+          "old-probe-process-absent",
+          "gps-idle-observation-0",
+          "identity",
+          "location-before",
+          "wakeup-before",
+          "installed-path",
+          "installed-hash",
+          "permission",
+          "appops",
+          "prior-gnss-history",
+          "gps-idle-immediately-before-launch",
+          "voice-binding-before-launch",
+          "launch",
+          "new-probe-pid",
+          "location-active",
+          "wakeup-active",
+          "kernel-active",
+          "progress-0",
+          "progress-1",
+          "progress-2",
+          "progress-3",
+          "log",
+          "location-after",
+          "wakeup-after",
+          "final-identity",
+          "restore-voice_recognition_service",
+          "restored-voice_recognition_service",
+          "restore-voice_interaction_service",
+          "restored-voice_interaction_service",
+          "restore-search-availability",
+          "search-package-restored",
+          "restore-home-after-gnss"
+        ]
+      }
+    },
+    {
+      "name": "gps_became_active_before_launch",
+      "status": "PASS",
+      "detail": {
+        "error": {
+          "type": "AssertionError",
+          "message": ""
+        },
+        "fixture": {
+          "status": "PASS",
+          "search_restore_required": true,
+          "voice_restore_required": true,
+          "errors": [],
+          "restored_voice_settings": {
+            "voice_recognition_service": "com.google.android.googlequicksearchbox/com.google.android.voicesearch.serviceapi.GoogleRecognitionService",
+            "voice_interaction_service": "com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService"
+          }
+        },
+        "steps": [
+          "search-package-before",
+          "search-launcher-component",
+          "wake-before-isolation",
+          "original-voice_recognition_service",
+          "original-voice_interaction_service",
+          "pause-system-voice-binding",
+          "voice-binding-empty",
+          "voice-service-state-0",
+          "pause-observed-search-request-source",
+          "reset-old-probe-process",
+          "old-probe-process-absent",
+          "gps-idle-observation-0",
+          "identity",
+          "location-before",
+          "wakeup-before",
+          "installed-path",
+          "installed-hash",
+          "permission",
+          "appops",
+          "prior-gnss-history",
+          "gps-idle-immediately-before-launch",
+          "restore-voice_recognition_service",
+          "restored-voice_recognition_service",
+          "restore-voice_interaction_service",
+          "restored-voice_interaction_service",
+          "restore-search-availability",
+          "search-package-restored",
+          "restore-home-after-gnss"
+        ]
+      }
+    },
+    {
+      "name": "voice_implementation_did_not_stop",
+      "status": "PASS",
+      "detail": {
+        "error": {
+          "type": "RuntimeError",
+          "message": "The selected voice-interaction implementation did not stop"
+        },
+        "fixture": {
+          "status": "PASS",
+          "search_restore_required": false,
+          "voice_restore_required": true,
+          "errors": [],
+          "restored_voice_settings": {
+            "voice_recognition_service": "com.google.android.googlequicksearchbox/com.google.android.voicesearch.serviceapi.GoogleRecognitionService",
+            "voice_interaction_service": "com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService"
+          }
+        },
+        "steps": [
+          "search-package-before",
+          "search-launcher-component",
+          "wake-before-isolation",
+          "original-voice_recognition_service",
+          "original-voice_interaction_service",
+          "pause-system-voice-binding",
+          "voice-binding-empty",
+          "voice-service-state-0",
+          "voice-service-state-1",
+          "voice-service-state-2",
+          "voice-service-state-3",
+          "voice-service-state-4",
+          "voice-service-state-5",
+          "voice-service-state-6",
+          "voice-service-state-7",
+          "voice-service-state-8",
+          "voice-service-state-9",
+          "voice-service-state-10",
+          "voice-service-state-11",
+          "voice-service-state-12",
+          "voice-service-state-13",
+          "voice-service-state-14",
+          "voice-service-state-15",
+          "voice-service-state-16",
+          "voice-service-state-17",
+          "voice-service-state-18",
+          "voice-service-state-19",
+          "voice-service-state-20",
+          "voice-service-state-21",
+          "voice-service-state-22",
+          "voice-service-state-23",
+          "voice-service-state-24",
+          "voice-service-state-25",
+          "voice-service-state-26",
+          "voice-service-state-27",
+          "voice-service-state-28",
+          "voice-service-state-29",
+          "voice-service-state-30",
+          "voice-service-state-31",
+          "voice-service-state-32",
+          "voice-service-state-33",
+          "voice-service-state-34",
+          "voice-service-state-35",
+          "voice-service-state-36",
+          "voice-service-state-37",
+          "voice-service-state-38",
+          "voice-service-state-39",
+          "restore-voice_recognition_service",
+          "restored-voice_recognition_service",
+          "restore-voice_interaction_service",
+          "restored-voice_interaction_service",
+          "restore-home-after-gnss"
+        ]
+      }
+    },
+    {
+      "name": "voice_clear_command_failure_restores_settings",
+      "status": "PASS",
+      "detail": {
+        "error": {
+          "type": "RuntimeError",
+          "message": "Injected failure at pause-system-voice-binding"
+        },
+        "fixture": {
+          "status": "PASS",
+          "search_restore_required": false,
+          "voice_restore_required": true,
+          "errors": [],
+          "restored_voice_settings": {
+            "voice_recognition_service": "com.google.android.googlequicksearchbox/com.google.android.voicesearch.serviceapi.GoogleRecognitionService",
+            "voice_interaction_service": "com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService"
+          }
+        },
+        "steps": [
+          "search-package-before",
+          "search-launcher-component",
+          "wake-before-isolation",
+          "original-voice_recognition_service",
+          "original-voice_interaction_service",
+          "pause-system-voice-binding",
+          "restore-voice_recognition_service",
+          "restored-voice_recognition_service",
+          "restore-voice_interaction_service",
+          "restored-voice_interaction_service",
+          "restore-home-after-gnss"
+        ]
+      }
+    },
+    {
+      "name": "original_binding_missing_is_rejected_before_mutation",
+      "status": "PASS",
+      "detail": {
+        "error": {
+          "type": "AssertionError",
+          "message": ""
+        },
+        "fixture": {
+          "status": "PASS",
+          "search_restore_required": false,
+          "voice_restore_required": false,
+          "errors": [],
+          "restored_voice_settings": {}
+        },
+        "steps": [
+          "search-package-before",
+          "search-launcher-component",
+          "wake-before-isolation",
+          "original-voice_recognition_service",
+          "original-voice_interaction_service",
+          "restore-home-after-gnss"
+        ]
+      }
+    },
+    {
+      "name": "recognizer_restore_failure",
+      "status": "PASS",
+      "detail": {
+        "error": {
+          "type": "RuntimeError",
+          "message": "GNSS fixture restoration failed: [{'step': 'voice_recognition_service', 'error': \"RuntimeError('Injected failure at restore-voice_recognition_service')\"}]"
+        },
+        "fixture": {
+          "status": "FAIL",
+          "search_restore_required": true,
+          "voice_restore_required": true,
+          "errors": [
+            {
+              "step": "voice_recognition_service",
+              "error": "RuntimeError('Injected failure at restore-voice_recognition_service')"
+            }
+          ],
+          "restored_voice_settings": {
+            "voice_interaction_service": "com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService"
+          }
+        },
+        "steps": [
+          "search-package-before",
+          "search-launcher-component",
+          "wake-before-isolation",
+          "original-voice_recognition_service",
+          "original-voice_interaction_service",
+          "pause-system-voice-binding",
+          "voice-binding-empty",
+          "voice-service-state-0",
+          "pause-observed-search-request-source",
+          "reset-old-probe-process",
+          "old-probe-process-absent",
+          "gps-idle-observation-0",
+          "identity",
+          "location-before",
+          "wakeup-before",
+          "installed-path",
+          "installed-hash",
+          "permission",
+          "appops",
+          "prior-gnss-history",
+          "gps-idle-immediately-before-launch",
+          "voice-binding-before-launch",
+          "launch",
+          "new-probe-pid",
+          "location-active",
+          "wakeup-active",
+          "kernel-active",
+          "progress-0",
+          "progress-1",
+          "progress-2",
+          "progress-3",
+          "log",
+          "location-after",
+          "wakeup-after",
+          "final-identity",
+          "restore-voice_recognition_service",
+          "restore-voice_interaction_service",
+          "restored-voice_interaction_service",
+          "restore-search-availability",
+          "search-package-restored",
+          "restore-home-after-gnss"
+        ]
+      }
+    },
+    {
+      "name": "interactor_restore_failure",
+      "status": "PASS",
+      "detail": {
+        "error": {
+          "type": "RuntimeError",
+          "message": "GNSS fixture restoration failed: [{'step': 'voice_interaction_service', 'error': \"RuntimeError('Injected failure at restore-voice_interaction_service')\"}]"
+        },
+        "fixture": {
+          "status": "FAIL",
+          "search_restore_required": true,
+          "voice_restore_required": true,
+          "errors": [
+            {
+              "step": "voice_interaction_service",
+              "error": "RuntimeError('Injected failure at restore-voice_interaction_service')"
+            }
+          ],
+          "restored_voice_settings": {
+            "voice_recognition_service": "com.google.android.googlequicksearchbox/com.google.android.voicesearch.serviceapi.GoogleRecognitionService"
+          }
+        },
+        "steps": [
+          "search-package-before",
+          "search-launcher-component",
+          "wake-before-isolation",
+          "original-voice_recognition_service",
+          "original-voice_interaction_service",
+          "pause-system-voice-binding",
+          "voice-binding-empty",
+          "voice-service-state-0",
+          "pause-observed-search-request-source",
+          "reset-old-probe-process",
+          "old-probe-process-absent",
+          "gps-idle-observation-0",
+          "identity",
+          "location-before",
+          "wakeup-before",
+          "installed-path",
+          "installed-hash",
+          "permission",
+          "appops",
+          "prior-gnss-history",
+          "gps-idle-immediately-before-launch",
+          "voice-binding-before-launch",
+          "launch",
+          "new-probe-pid",
+          "location-active",
+          "wakeup-active",
+          "kernel-active",
+          "progress-0",
+          "progress-1",
+          "progress-2",
+          "progress-3",
+          "log",
+          "location-after",
+          "wakeup-after",
+          "final-identity",
+          "restore-voice_recognition_service",
+          "restored-voice_recognition_service",
+          "restore-voice_interaction_service",
+          "restore-search-availability",
+          "search-package-restored",
+          "restore-home-after-gnss"
+        ]
+      }
+    },
+    {
+      "name": "search_restore_failure",
+      "status": "PASS",
+      "detail": {
+        "error": {
+          "type": "RuntimeError",
+          "message": "GNSS fixture restoration failed: [{'step': 'search-availability', 'error': \"RuntimeError('Injected failure at restore-search-availability')\"}]"
+        },
+        "fixture": {
+          "status": "FAIL",
+          "search_restore_required": true,
+          "voice_restore_required": true,
+          "errors": [
+            {
+              "step": "search-availability",
+              "error": "RuntimeError('Injected failure at restore-search-availability')"
+            }
+          ],
+          "restored_voice_settings": {
+            "voice_recognition_service": "com.google.android.googlequicksearchbox/com.google.android.voicesearch.serviceapi.GoogleRecognitionService",
+            "voice_interaction_service": "com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService"
+          }
+        },
+        "steps": [
+          "search-package-before",
+          "search-launcher-component",
+          "wake-before-isolation",
+          "original-voice_recognition_service",
+          "original-voice_interaction_service",
+          "pause-system-voice-binding",
+          "voice-binding-empty",
+          "voice-service-state-0",
+          "pause-observed-search-request-source",
+          "reset-old-probe-process",
+          "old-probe-process-absent",
+          "gps-idle-observation-0",
+          "identity",
+          "location-before",
+          "wakeup-before",
+          "installed-path",
+          "installed-hash",
+          "permission",
+          "appops",
+          "prior-gnss-history",
+          "gps-idle-immediately-before-launch",
+          "voice-binding-before-launch",
+          "launch",
+          "new-probe-pid",
+          "location-active",
+          "wakeup-active",
+          "kernel-active",
+          "progress-0",
+          "progress-1",
+          "progress-2",
+          "progress-3",
+          "log",
+          "location-after",
+          "wakeup-after",
+          "final-identity",
+          "restore-voice_recognition_service",
+          "restored-voice_recognition_service",
+          "restore-voice_interaction_service",
+          "restored-voice_interaction_service",
+          "restore-search-availability",
+          "restore-home-after-gnss"
+        ]
+      }
+    },
+    {
+      "name": "home_failure",
+      "status": "PASS",
+      "detail": {
+        "error": {
+          "type": "RuntimeError",
+          "message": "GNSS fixture restoration failed: [{'step': 'home', 'error': \"RuntimeError('Injected failure at restore-home-after-gnss')\"}]"
+        },
+        "fixture": {
+          "status": "FAIL",
+          "search_restore_required": true,
+          "voice_restore_required": true,
+          "errors": [
+            {
+              "step": "home",
+              "error": "RuntimeError('Injected failure at restore-home-after-gnss')"
+            }
+          ],
+          "restored_voice_settings": {
+            "voice_recognition_service": "com.google.android.googlequicksearchbox/com.google.android.voicesearch.serviceapi.GoogleRecognitionService",
+            "voice_interaction_service": "com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService"
+          }
+        },
+        "steps": [
+          "search-package-before",
+          "search-launcher-component",
+          "wake-before-isolation",
+          "original-voice_recognition_service",
+          "original-voice_interaction_service",
+          "pause-system-voice-binding",
+          "voice-binding-empty",
+          "voice-service-state-0",
+          "pause-observed-search-request-source",
+          "reset-old-probe-process",
+          "old-probe-process-absent",
+          "gps-idle-observation-0",
+          "identity",
+          "location-before",
+          "wakeup-before",
+          "installed-path",
+          "installed-hash",
+          "permission",
+          "appops",
+          "prior-gnss-history",
+          "gps-idle-immediately-before-launch",
+          "voice-binding-before-launch",
+          "launch",
+          "new-probe-pid",
+          "location-active",
+          "wakeup-active",
+          "kernel-active",
+          "progress-0",
+          "progress-1",
+          "progress-2",
+          "progress-3",
+          "log",
+          "location-after",
+          "wakeup-after",
+          "final-identity",
+          "restore-voice_recognition_service",
+          "restored-voice_recognition_service",
+          "restore-voice_interaction_service",
+          "restored-voice_interaction_service",
+          "restore-search-availability",
+          "search-package-restored",
+          "restore-home-after-gnss"
+        ]
+      }
+    },
+    {
+      "name": "two_restore_failures",
+      "status": "PASS",
+      "detail": {
+        "error": {
+          "type": "RuntimeError",
+          "message": "GNSS fixture restoration failed: [{'step': 'voice_recognition_service', 'error': \"RuntimeError('Injected failure at restore-voice_recognition_service')\"}, {'step': 'search-availability', 'error': \"RuntimeError('Injected failure at restore-search-availability')\"}]"
+        },
+        "fixture": {
+          "status": "FAIL",
+          "search_restore_required": true,
+          "voice_restore_required": true,
+          "errors": [
+            {
+              "step": "voice_recognition_service",
+              "error": "RuntimeError('Injected failure at restore-voice_recognition_service')"
+            },
+            {
+              "step": "search-availability",
+              "error": "RuntimeError('Injected failure at restore-search-availability')"
+            }
+          ],
+          "restored_voice_settings": {
+            "voice_interaction_service": "com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService"
+          }
+        },
+        "steps": [
+          "search-package-before",
+          "search-launcher-component",
+          "wake-before-isolation",
+          "original-voice_recognition_service",
+          "original-voice_interaction_service",
+          "pause-system-voice-binding",
+          "voice-binding-empty",
+          "voice-service-state-0",
+          "pause-observed-search-request-source",
+          "reset-old-probe-process",
+          "old-probe-process-absent",
+          "gps-idle-observation-0",
+          "identity",
+          "location-before",
+          "wakeup-before",
+          "installed-path",
+          "installed-hash",
+          "permission",
+          "appops",
+          "prior-gnss-history",
+          "gps-idle-immediately-before-launch",
+          "voice-binding-before-launch",
+          "launch",
+          "new-probe-pid",
+          "location-active",
+          "wakeup-active",
+          "kernel-active",
+          "progress-0",
+          "progress-1",
+          "progress-2",
+          "progress-3",
+          "log",
+          "location-after",
+          "wakeup-after",
+          "final-identity",
+          "restore-voice_recognition_service",
+          "restore-voice_interaction_service",
+          "restored-voice_interaction_service",
+          "restore-search-availability",
+          "restore-home-after-gnss"
+        ]
+      }
+    },
+    {
+      "name": "voice_readback_mismatch_is_visible",
+      "status": "PASS",
+      "detail": {
+        "error": {
+          "type": "RuntimeError",
+          "message": "GNSS fixture restoration failed: [{'step': 'voice_interaction_service', 'error': 'AssertionError()'}]"
+        },
+        "fixture": {
+          "status": "FAIL",
+          "search_restore_required": true,
+          "voice_restore_required": true,
+          "errors": [
+            {
+              "step": "voice_interaction_service",
+              "error": "AssertionError()"
+            }
+          ],
+          "restored_voice_settings": {
+            "voice_recognition_service": "com.google.android.googlequicksearchbox/com.google.android.voicesearch.serviceapi.GoogleRecognitionService"
+          }
+        },
+        "steps": [
+          "search-package-before",
+          "search-launcher-component",
+          "wake-before-isolation",
+          "original-voice_recognition_service",
+          "original-voice_interaction_service",
+          "pause-system-voice-binding",
+          "voice-binding-empty",
+          "voice-service-state-0",
+          "pause-observed-search-request-source",
+          "reset-old-probe-process",
+          "old-probe-process-absent",
+          "gps-idle-observation-0",
+          "identity",
+          "location-before",
+          "wakeup-before",
+          "installed-path",
+          "installed-hash",
+          "permission",
+          "appops",
+          "prior-gnss-history",
+          "gps-idle-immediately-before-launch",
+          "voice-binding-before-launch",
+          "launch",
+          "new-probe-pid",
+          "location-active",
+          "wakeup-active",
+          "kernel-active",
+          "progress-0",
+          "progress-1",
+          "progress-2",
+          "progress-3",
+          "log",
+          "location-after",
+          "wakeup-after",
+          "final-identity",
+          "restore-voice_recognition_service",
+          "restored-voice_recognition_service",
+          "restore-voice_interaction_service",
+          "restored-voice_interaction_service",
+          "restore-search-availability",
+          "search-package-restored",
+          "restore-home-after-gnss"
+        ]
+      }
+    },
+    {
+      "name": "absent_recognizer",
+      "status": "PASS",
+      "detail": {
+        "restored_value": "null",
+        "restore_command": "settings delete secure voice_recognition_service"
+      }
+    },
+    {
+      "name": "empty_recognizer",
+      "status": "PASS",
+      "detail": {
+        "restored_value": "",
+        "restore_command": "settings put secure voice_recognition_service ''"
+      }
+    },
+    {
+      "name": "missing_started_still_rejected",
+      "status": "PASS",
+      "detail": {
+        "error": {
+          "type": "AssertionError",
+          "message": ""
+        },
+        "fixture": {
+          "status": "PASS",
+          "search_restore_required": true,
+          "voice_restore_required": true,
+          "errors": [],
+          "restored_voice_settings": {
+            "voice_recognition_service": "com.google.android.googlequicksearchbox/com.google.android.voicesearch.serviceapi.GoogleRecognitionService",
+            "voice_interaction_service": "com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService"
+          }
+        },
+        "steps": [
+          "search-package-before",
+          "search-launcher-component",
+          "wake-before-isolation",
+          "original-voice_recognition_service",
+          "original-voice_interaction_service",
+          "pause-system-voice-binding",
+          "voice-binding-empty",
+          "voice-service-state-0",
+          "pause-observed-search-request-source",
+          "reset-old-probe-process",
+          "old-probe-process-absent",
+          "gps-idle-observation-0",
+          "identity",
+          "location-before",
+          "wakeup-before",
+          "installed-path",
+          "installed-hash",
+          "permission",
+          "appops",
+          "prior-gnss-history",
+          "gps-idle-immediately-before-launch",
+          "voice-binding-before-launch",
+          "launch",
+          "new-probe-pid",
+          "location-active",
+          "wakeup-active",
+          "kernel-active",
+          "progress-0",
+          "progress-1",
+          "progress-2",
+          "progress-3",
+          "log",
+          "location-after",
+          "wakeup-after",
+          "final-identity",
+          "restore-voice_recognition_service",
+          "restored-voice_recognition_service",
+          "restore-voice_interaction_service",
+          "restored-voice_interaction_service",
+          "restore-search-availability",
+          "search-package-restored",
+          "restore-home-after-gnss"
+        ]
+      }
+    }
+  ],
+  "candidate_sha256": "caa46cc9f886638b82209d1e2b9e5b558e33f97c328146ff4fcdac14cad7accf",
+  "try_lines": [
+    21,
+    136
+  ],
+  "source_body_modified": false,
+  "process_launches": 0,
+  "adb_calls": 0,
+  "fixture_success_is_synthetic": true
+}

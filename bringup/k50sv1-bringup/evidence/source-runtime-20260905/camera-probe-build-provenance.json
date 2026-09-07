@@ -1,0 +1,12 @@
+{
+  "apk_sha256": "162dad17d2765dad8c7e5ec8e4919c7df44d45f6470eba633f6482a3a34e5506",
+  "sources": {
+    "CameraProbeActivity.java": "832a345c9fa286529e0155cd56a3feeb398f8f959acdd934cbbdef4432c34d0b",
+    "AndroidManifest.xml": "97d054daea104a870fa4ca6671a9886b2a9e6e1f56f565255d8d5a55f79f7b95",
+    "build.py": "847861eece728b5d7036e9676a9bd798d2964687e620cc80fdc4fde955fbf4bf"
+  },
+  "sdk": "/home/desmond/Android/Sdk",
+  "compile_platform": "android-36",
+  "build_tools": "36.1.0",
+  "runtime_tested": false
+}

@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "before": "5f2194a7f8cb2b8f3e87c113f779352e1d0e0873",
+  "after": "54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb",
+  "worktree_clean": true,
+  "installed_incremental": "eng.desmon.20260907.005031",
+  "normal_boot_id": "fe7cf0d4-cad6-48a3-9637-a071528b08df",
+  "final_boot_id": "899b42cd-f9fe-47ec-b28a-78bbd9753f20",
+  "basis": "Fresh and normal full checks with raw unread counts retained;29-file readback on four phases;radio/GNSS/P2P/ADIE;19 unchanged calibration hashes;three closed continuous kernel streams"
+}

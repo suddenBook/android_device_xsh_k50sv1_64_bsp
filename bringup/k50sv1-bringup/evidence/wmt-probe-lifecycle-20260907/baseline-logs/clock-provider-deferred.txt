@@ -1,0 +1,2 @@
+withdrawn=0 maps=4 devres=0 bound=0
+fixture: ../wmt-probe-lifecycle-tests/baseline-final/fixture.c:440: require_handles_withdrawn: Assertion `!g_pdev && !consys_pinctrl && !pEmibaseaddr' failed.

@@ -1,0 +1,89 @@
+{
+  "passed": 10,
+  "total": 10,
+  "cases": [
+    {
+      "case": "loaded-without-video-call-plugin",
+      "expected": "PASS",
+      "actual": "PASS",
+      "passed": true,
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "case": "loaded-and-video-call-plugin-used",
+      "expected": "PASS",
+      "actual": "PASS",
+      "passed": true,
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "case": "extension-selection-missing",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "passed": true,
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "case": "legacy-selection-missing",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "passed": true,
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "case": "startup-missing",
+      "expected": "UNREAD",
+      "actual": "UNREAD",
+      "passed": true,
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "case": "method-use-without-factory-selection",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "passed": true,
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "case": "Use default ExtensionPluginFactory",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "passed": true,
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "case": "ExtensionPluginFactoryBase: makeImsCallPlugin()",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "passed": true,
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "case": "Use default LegacyComponentFactory",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "passed": true,
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "case": "captured-boot",
+      "expected": "PASS",
+      "actual": "PASS",
+      "passed": true,
+      "returncode": 0,
+      "stderr": ""
+    }
+  ],
+  "verifier_sha256": "5eae4bcc9fdbc646a580151da5330653da94551ed5c0efe0b62eb869a39b30a8",
+  "runner_sha256": "47a56793e22a3784cc7e7ac235b492d07a3a208f3fcdfcf39f46699acb230e7a",
+  "trace_sha256": "3d0932f29f50411d0601a1083ab00e0f5caca39a07230832ac1b18b8af11c85e"
+}

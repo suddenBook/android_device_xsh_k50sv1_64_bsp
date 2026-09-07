@@ -1,0 +1,123 @@
+name					active_count	event_count	wakeup_count	expire_count	active_since	total_time	max_time	last_change	prevent_suspend_time
+GPS                             	1		1		0		0		0		121146		121146		882692		0
+WLAN Timer                      	37		37		0		0		139300		450185		293839		759751		0
+WLAN TX THREAD                  	96483		96483		0		0		0		19933		1001		898760		0
+WLAN AHB ISR                    	806		74339		0		806		0		154950		8356		898780		0
+PowerManagerService.Broadcasts  	6		6		0		0		0		2186		603		759358		0
+PowerManagerService.WakeLocks   	40		40		0		0		141574		657269		502882		757477		0
+event3                          	0		0		0		0		0		0		0		14598		0
+event0                          	0		0		0		0		0		0		0		14598		0
+event2                          	0		0		0		0		0		0		0		14593		0
+event1                          	0		0		0		0		0		0		0		14586		0
+event4                          	0		0		0		0		0		0		0		14578		0
+eventpoll                       	0		0		0		0		0		0		0		14578		0
+KeyEvents                       	82		82		0		0		0		454		310		880242		0
+[timerfd]                       	0		0		0		0		0		0		0		14290		0
+[timerfd]                       	0		0		0		0		0		0		0		14290		0
+[timerfd]                       	38		38		0		0		0		23		8		860252		0
+[timerfd]                       	62		62		0		0		0		166		51		859214		0
+[timerfd]                       	0		0		0		0		0		0		0		14290		0
+[timerfd]                       	0		0		0		0		0		0		0		14290		0
+eventpoll                       	100		100		0		0		0		0		0		860252		0
+PowerManager.SuspendLockout     	4		4		0		0		139886		602475		294309		759166		0
+PowerManagerService.Display     	4		4		0		0		139891		602522		294322		759161		0
+ApmOutput                       	73		73		0		0		0		59		3		888451		0
+ApmAudio                        	74		74		0		0		0		271		66		888449		0
+gpswakelock                     	4		4		0		0		0		303815		147975		882691		0
+bt_drv                          	116		829		0		116		0		20279		1329		765470		0
+wmtFuncCtrl                     	23		23		0		0		0		3022		1295		882691		0
+MT662x                          	883		883		0		0		0		33898		2065		882970		0
+battery                         	15		15		0		0		0		15		11		875435		0
+wireless                        	2		2		0		0		0		11		11		4790		0
+usb                             	2		2		0		0		0		11		11		4790		0
+ac                              	2		2		0		0		0		11		11		4790		0
+battery meter wakelock          	95		95		0		0		0		6169		2751		895465		0
+battery suspend wakelock        	1		95		0		0		897987		897987		897987		1064		0
+xhci.wakelock                   	0		0		0		0		0		0		0		699		0
+alarm                           	0		0		0		0		0		0		0		593		0
+kpd wakelock                    	0		0		0		0		0		0		0		576		0
+spi_wakelock                    	0		0		0		0		0		0		0		573		0
+spi_wakelock                    	0		0		0		0		0		0		0		572		0
+ccci_raw_usb                    	0		0		0		0		0		0		0		549		0
+ccci_raw_netd                   	0		0		0		0		0		0		0		549		0
+ccci_raw_dhl                    	0		0		0		0		0		0		0		548		0
+ccci_raw_dbm                    	0		0		0		0		0		0		0		548		0
+ccci_poll                       	0		0		0		0		0		0		0		548		0
+ccci_ctrl                       	1		2		0		1		0		1386		1386		8140		0
+ccci_sys                        	0		0		0		0		0		0		0		548		0
+ccci_ipc_8                      	0		0		0		0		0		0		0		548		0
+ccci_ipc_7                      	0		0		0		0		0		0		0		548		0
+ccci_ipc_6                      	0		0		0		0		0		0		0		548		0
+ccci_ipc_5                      	0		0		0		0		0		0		0		548		0
+ccci_ipc_4                      	0		0		0		0		0		0		0		548		0
+ccci_ipc_3                      	14		87		0		14		0		14708		1673		883690		0
+ccci_ipc_2                      	0		0		0		0		0		0		0		548		0
+ccci_ipc_1220_0                 	0		0		0		0		0		0		0		548		0
+ccci_imsem                      	0		0		0		0		0		0		0		548		0
+ccci_rpc_k                      	2		27		0		2		0		3025		2027		10910		0
+ccci_rpc                        	0		0		0		0		0		0		0		547		0
+ccci_mdl_monitor                	0		0		0		0		0		0		0		547		0
+ccci_lb_it                      	0		0		0		0		0		0		0		547		0
+ccci_it                         	0		0		0		0		0		0		0		547		0
+ccci_ioctl4                     	0		0		0		0		0		0		0		547		0
+ccci_ioctl3                     	0		0		0		0		0		0		0		547		0
+ccci_ioctl2                     	0		0		0		0		0		0		0		547		0
+ccci_ioctl1                     	0		0		0		0		0		0		0		547		0
+ccci_ioctl0                     	0		0		0		0		0		0		0		547		0
+ccci_imsdc                      	0		0		0		0		0		0		0		547		0
+ccci_imsa                       	1		1		0		0		0		557		557		7739		0
+ccci_imsc                       	20		27		0		0		0		5		2		20084		0
+ccci_imsv                       	0		0		0		0		0		0		0		547		0
+ttyC1                           	0		0		0		0		0		0		0		547		0
+ttyC3                           	0		0		0		0		0		0		0		547		0
+ttyC2                           	18		18		0		0		0		3		0		240991		0
+ccci_fs                         	3370		3376		0		0		0		163		4		61102		0
+ttyC0                           	1608		1810		0		0		0		492		30		896663		0
+ccci_md_log_ctrl                	0		0		0		0		0		0		0		547		0
+ccci_aud                        	1		1		0		0		0		749		749		10078		0
+ccci_monitor                    	0		0		0		0		0		0		0		546		0
+ccmni17                         	0		0		0		0		0		0		0		546		0
+ccmni16                         	0		0		0		0		0		0		0		546		0
+ccmni15                         	0		0		0		0		0		0		0		546		0
+ccmni14                         	0		0		0		0		0		0		0		546		0
+ccmni13                         	0		0		0		0		0		0		0		546		0
+ccmni12                         	0		0		0		0		0		0		0		546		0
+ccmni11                         	0		0		0		0		0		0		0		546		0
+ccmni10                         	0		0		0		0		0		0		0		546		0
+ccmni9                          	0		0		0		0		0		0		0		546		0
+ccmni7                          	0		0		0		0		0		0		0		546		0
+ccmni6                          	0		0		0		0		0		0		0		546		0
+ccmni5                          	0		0		0		0		0		0		0		546		0
+ccmni4                          	0		0		0		0		0		0		0		546		0
+ccmni3                          	0		0		0		0		0		0		0		546		0
+ccmni2                          	0		0		0		0		0		0		0		546		0
+ccmni1                          	0		0		0		0		0		0		0		546		0
+ccmni_md1                       	0		0		0		0		0		0		0		546		0
+ccmni0                          	0		0		0		0		0		0		0		541		0
+md1_wakelock                    	1		1		0		1		0		10018		10018		17160		0
+md1_cldma_peer                  	0		0		0		0		0		0		0		540		0
+md1_cldma_trm                   	0		0		0		0		0		0		0		540		0
+isp_lock_wakelock               	0		0		0		0		0		0		0		535		0
+wusb3801_wake                   	1		1		0		1		0		999		999		1760		0
+dual-role-usb20                 	2		2		0		2		0		3990		1999		7020		0
+USB.lock                        	1		1		0		0		894033		894033		894033		5020		0
+pmicThread_lock_mt6311 wakelock 	0		0		0		0		0		0		0		494		0
+mt-rtc                          	0		0		0		0		0		0		0		491		0
+rawbulk-ets                     	0		0		0		0		0		0		0		486		0
+rawbulk-dummy2                  	0		0		0		0		0		0		0		486		0
+rawbulk-dummy1                  	0		0		0		0		0		0		0		486		0
+rawbulk-gps                     	0		0		0		0		0		0		0		486		0
+rawbulk-at                      	0		0		0		0		0		0		0		486		0
+rawbulk-dummy0                  	0		0		0		0		0		0		0		486		0
+rawbulk-modem                   	0		0		0		0		0		0		0		486		0
+rawbulk-pcv                     	0		0		0		0		0		0		0		486		0
+accdet timer wakelock           	1		1		0		1		0		7013		7013		7500		0
+accdet key wakelock             	0		0		0		0		0		0		0		480		0
+accdet irq wakelock             	1		1		0		0		0		0		0		485		0
+accdet wakelock                 	0		0		0		0		0		0		0		480		0
+leds wakelock                   	0		0		0		0		0		0		0		477		0
+soc:hall                        	0		0		0		0		0		0		0		463		0
+alarmtimer                      	0		0		0		0		0		0		0		433		0
+pmicThread_lock_mt6328 wakelock 	0		0		0		0		0		0		0		376		0
+EINT wakelock                   	5		6		0		5		0		245		63		759720		0
+autosleep                       	0		0		0		0		0		0		0		170		0

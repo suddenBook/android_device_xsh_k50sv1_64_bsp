@@ -1,0 +1,44 @@
+[
+  {
+    "source": "lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/etc/.tp/.ht120.mtc",
+    "sha256": "7c3763c4338a38a936ccda02feb42f6b9651f1e67d797b5a3fd59a47326b3d9e",
+    "decoded": "ht120.mtc.decoded.txt",
+    "roundtrip": true
+  },
+  {
+    "source": "lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/etc/.tp/.thermal_meta.conf",
+    "sha256": "ea3d5526a5fe909865c6c598506736d24d28af8c7bbed0f505a1d3163b1e7a0a",
+    "decoded": "thermal_meta.conf.decoded.txt",
+    "roundtrip": true
+  },
+  {
+    "source": "lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/etc/.tp/.thermal_policy_00",
+    "sha256": "238e3fe0da0fe43f88f756a6fa42aa2415721f3fb2787d832b63b84545945e13",
+    "decoded": "thermal_policy_00.decoded.txt",
+    "roundtrip": true
+  },
+  {
+    "source": "lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/etc/.tp/.thermal_policy_01",
+    "sha256": "344ca88d97be513d2ac1947e8b8f9cb512200e8804e198c999bc9915a3652283",
+    "decoded": "thermal_policy_01.decoded.txt",
+    "roundtrip": true
+  },
+  {
+    "source": "lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/etc/.tp/.thermal_policy_02",
+    "sha256": "7800347984838f490709fb080da31e76ce99991c2943c30651e2c9a9a40427ec",
+    "decoded": "thermal_policy_02.decoded.txt",
+    "roundtrip": true
+  },
+  {
+    "source": "lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/etc/.tp/thermal.conf",
+    "sha256": "0b6efc5c4456dc824c36f4e8d267e61967e26592846262d57a5a18f2d693e56d",
+    "decoded": "thermal.conf.decoded.txt",
+    "roundtrip": true
+  },
+  {
+    "source": "lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/etc/.tp/thermal.off.conf",
+    "sha256": "e3967add9905060d3ec7d05cd20829e5b2e70f8c6233b9465f7aa647459049e2",
+    "decoded": "thermal.off.conf.decoded.txt",
+    "roundtrip": true
+  }
+]

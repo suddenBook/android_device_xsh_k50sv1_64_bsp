@@ -1,0 +1,487 @@
+diff --git a/drivers/misc/mediatek/connectivity/source/common/common_main/platform/include/mtk_wcn_consys_hw.h b/drivers/misc/mediatek/connectivity/source/common/common_main/platform/include/mtk_wcn_consys_hw.h
+index 8bf51cfad23..f0f1b9eb3dc 100644
+--- a/drivers/misc/mediatek/connectivity/source/common/common_main/platform/include/mtk_wcn_consys_hw.h
++++ b/drivers/misc/mediatek/connectivity/source/common/common_main/platform/include/mtk_wcn_consys_hw.h
+@@ -211,6 +211,7 @@ typedef VOID(*CONSYS_IC_REGISTER_DEVAPC_CB) (VOID);
+ typedef VOID(*CONSYS_IC_INFRA_REG_DUMP)(VOID);
+ typedef INT32(*CONSYS_IC_IS_ANT_SWAP_ENABLE_BY_HWID) (INT32 pin_num);
+ typedef VOID(*CONSYS_IC_GET_ANT_SEL_CR_ADDR) (PUINT32 default_invert_cr, PUINT32 default_invert_bit);
++typedef VOID(*CONSYS_IC_PROBE_CLEANUP) (VOID);
+ 
+ typedef struct _WMT_CONSYS_IC_OPS_ {
+ 	CONSYS_IC_CLOCK_BUFFER_CTRL consys_ic_clock_buffer_ctrl;
+@@ -261,6 +262,10 @@ typedef struct _WMT_CONSYS_IC_OPS_ {
+ 	CONSYS_IC_INFRA_REG_DUMP consys_ic_infra_reg_dump;
+ 	CONSYS_IC_IS_ANT_SWAP_ENABLE_BY_HWID consys_ic_is_ant_swap_enable_by_hwid;
+ 	CONSYS_IC_GET_ANT_SEL_CR_ADDR consys_ic_get_ant_sel_cr_addr;
++	/* Fixed SoC devices may require a completed probe before WMT starts. */
++	MTK_WCN_BOOL consys_ic_probe_required;
++	/* Clear IC resource handles before the driver core releases devres. */
++	CONSYS_IC_PROBE_CLEANUP consys_ic_probe_cleanup;
+ } WMT_CONSYS_IC_OPS, *P_WMT_CONSYS_IC_OPS;
+ /*******************************************************************************
+ *                            P U B L I C   D A T A
+diff --git a/drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c b/drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c
+index 7299f7fef02..a919ebde1a5 100644
+--- a/drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c
++++ b/drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c
+@@ -98,6 +98,7 @@ static INT32 consys_clk_get_from_dts(struct platform_device *pdev);
+ static INT32 consys_pmic_get_from_dts(struct platform_device *pdev);
+ static INT32 consys_read_irq_info_from_dts(struct platform_device *pdev, INT32 *irq_num, UINT32 *irq_flag);
+ static INT32 consys_read_reg_from_dts(struct platform_device *pdev);
++static VOID consys_probe_cleanup(VOID);
+ static UINT32 consys_read_cpupcr(VOID);
+ static VOID force_trigger_assert_debug_pin(VOID);
+ static INT32 consys_co_clock_type(VOID);
+@@ -185,6 +186,8 @@ WMT_CONSYS_IC_OPS consys_ic_ops = {
+ 	.consys_ic_soc_get_emi_phy_add = consys_soc_get_emi_phy_add,
+ 	.consys_ic_emi_coredump_remapping = consys_emi_coredump_remapping,
+ 	.consys_ic_reset_emi_coredump = consys_reset_emi_coredump,
++	.consys_ic_probe_required = MTK_WCN_BOOL_TRUE,
++	.consys_ic_probe_cleanup = consys_probe_cleanup,
+ };
+ 
+ /*******************************************************************************
+@@ -974,11 +977,14 @@ static INT32 consys_clk_get_from_dts(struct platform_device *pdev)
+ {
+ #ifdef CONFIG_OF		/*use DT */
+ #if !defined(CONFIG_MTK_CLKMGR)
+-	clk_scp_conn_main = devm_clk_get(&pdev->dev, "conn");
+-	if (IS_ERR(clk_scp_conn_main)) {
++	struct clk *clk;
++
++	clk = devm_clk_get(&pdev->dev, "conn");
++	if (IS_ERR(clk)) {
+ 		WMT_PLAT_PR_ERR("[CCF]cannot get clk_scp_conn_main clock.\n");
+-		return -1;
++		return PTR_ERR(clk);
+ 	}
++	clk_scp_conn_main = clk;
+ 	WMT_PLAT_PR_DBG("[CCF]clk_scp_conn_main=%p\n", clk_scp_conn_main);
+ #if 0
+ 	clk_infra_conn_main = devm_clk_get(&pdev->dev, "bus");
+@@ -999,18 +1005,27 @@ static INT32 consys_pmic_get_from_dts(struct platform_device *pdev)
+ #ifdef CONFIG_OF		/*use DT */
+ #if CONSYS_PMIC_CTRL_ENABLE
+ #if !defined(CONFIG_MTK_PMIC_LEGACY)
+-	reg_VCN18 = regulator_get(&pdev->dev, "vcn18");
+-	if (!reg_VCN18)
+-		WMT_PLAT_PR_ERR("Regulator_get VCN_1V8 fail\n");
+-	reg_VCN28 = regulator_get(&pdev->dev, "vcn28");
+-	if (!reg_VCN28)
+-		WMT_PLAT_PR_ERR("Regulator_get VCN_2V8 fail\n");
+-	reg_VCN33_BT = regulator_get(&pdev->dev, "vcn33_bt");
+-	if (!reg_VCN33_BT)
+-		WMT_PLAT_PR_ERR("Regulator_get VCN33_BT fail\n");
+-	reg_VCN33_WIFI = regulator_get(&pdev->dev, "vcn33_wifi");
+-	if (!reg_VCN33_WIFI)
+-		WMT_PLAT_PR_ERR("Regulator_get VCN33_WIFI fail\n");
++	struct {
++		struct regulator **handle;
++		const char *name;
++	} supplies[] = {
++		{ &reg_VCN18, "vcn18" },
++		{ &reg_VCN28, "vcn28" },
++		{ &reg_VCN33_BT, "vcn33_bt" },
++		{ &reg_VCN33_WIFI, "vcn33_wifi" },
++	};
++	struct regulator *regulator;
++	UINT32 i;
++
++	for (i = 0; i < ARRAY_SIZE(supplies); i++) {
++		regulator = devm_regulator_get(&pdev->dev, supplies[i].name);
++		if (IS_ERR(regulator)) {
++			WMT_PLAT_PR_ERR("Regulator_get %s failed(%ld)\n",
++					 supplies[i].name, PTR_ERR(regulator));
++			return PTR_ERR(regulator);
++		}
++		*supplies[i].handle = regulator;
++	}
+ #endif
+ #endif
+ #endif
+@@ -1047,28 +1062,54 @@ static INT32 consys_read_irq_info_from_dts(struct platform_device *pdev, INT32 *
+ static INT32 consys_read_reg_from_dts(struct platform_device *pdev)
+ {
+ #ifdef CONFIG_OF		/*use DT */
+-	INT32 iRet = -1;
+-	struct device_node *node = NULL;
+-
+-	node = pdev->dev.of_node;
+-	if (node) {
+-		/* registers base address */
+-		conn_reg.mcu_base = (SIZE_T) of_iomap(node, 0);
+-		WMT_PLAT_PR_DBG("Get mcu register base(0x%zx)\n", conn_reg.mcu_base);
+-		conn_reg.ap_rgu_base = (SIZE_T) of_iomap(node, 1);
+-		WMT_PLAT_PR_DBG("Get ap_rgu register base(0x%zx)\n", conn_reg.ap_rgu_base);
+-		conn_reg.topckgen_base = (SIZE_T) of_iomap(node, 2);
+-		WMT_PLAT_PR_DBG("Get topckgen register base(0x%zx)\n", conn_reg.topckgen_base);
+-		conn_reg.spm_base = (SIZE_T) of_iomap(node, 3);
+-		WMT_PLAT_PR_DBG("Get spm register base(0x%zx)\n", conn_reg.spm_base);
+-	} else {
++	SIZE_T *bases[] = {
++		&conn_reg.mcu_base, &conn_reg.ap_rgu_base,
++		&conn_reg.topckgen_base, &conn_reg.spm_base,
++	};
++	struct resource resource;
++	void __iomem *base;
++	INT32 iRet;
++	UINT32 i;
++
++	if (!pdev || !pdev->dev.of_node) {
+ 		WMT_PLAT_PR_ERR("[%s] can't find CONSYS compatible node\n", __func__);
+-		return iRet;
++		return -ENODEV;
++	}
++	for (i = 0; i < ARRAY_SIZE(bases); i++) {
++		iRet = of_address_to_resource(pdev->dev.of_node, i, &resource);
++		if (iRet)
++			return iRet;
++		/* TOPCKGEN and SPM are shared; do not claim an exclusive region. */
++		base = devm_ioremap(&pdev->dev, resource.start, resource_size(&resource));
++		if (!base)
++			return -ENOMEM;
++		*bases[i] = (SIZE_T) base;
++		WMT_PLAT_PR_DBG("Get register %u base(0x%zx)\n", i, *bases[i]);
+ 	}
+ #endif
+ 	return 0;
+ }
+ 
++static VOID consys_probe_cleanup(VOID)
++{
++	/* The caller withdraws these handles before devres frees their resources. */
++#ifdef CONFIG_OF
++	conn_reg.mcu_base = 0;
++	conn_reg.ap_rgu_base = 0;
++	conn_reg.topckgen_base = 0;
++	conn_reg.spm_base = 0;
++#endif
++#if !defined(CONFIG_MTK_CLKMGR)
++	clk_scp_conn_main = NULL;
++#endif
++#if CONSYS_PMIC_CTRL_ENABLE && !defined(CONFIG_MTK_PMIC_LEGACY)
++	reg_VCN18 = NULL;
++	reg_VCN28 = NULL;
++	reg_VCN33_BT = NULL;
++	reg_VCN33_WIFI = NULL;
++#endif
++}
++
+ static VOID force_trigger_assert_debug_pin(VOID)
+ {
+ #ifdef CONFIG_OF		/*use DT */
+@@ -1128,21 +1169,28 @@ P_WMT_CONSYS_IC_OPS mtk_wcn_get_consys_ic_ops(VOID)
+ 
+ static INT32 consys_emi_coredump_remapping(UINT8 __iomem **addr, UINT32 enable)
+ {
++	UINT8 __iomem *mapping;
++
++	if (!addr)
++		return -EINVAL;
+ 	if (enable) {
+-		*addr = ioremap_nocache(gConEmiPhyBase + CONSYS_EMI_COREDUMP_OFFSET, CONSYS_EMI_MEM_SIZE);
++		if (!gConEmiPhyBase || gConEmiSize < CONSYS_EMI_COREDUMP_OFFSET + CONSYS_EMI_MEM_SIZE)
++			return -EINVAL;
++		if (!*addr)
++			*addr = ioremap_nocache(gConEmiPhyBase + CONSYS_EMI_COREDUMP_OFFSET, CONSYS_EMI_MEM_SIZE);
+ 		if (*addr) {
+ 			WMT_PLAT_PR_INFO("COREDUMP EMI mapping OK virtual(0x%p) physical(0x%x)\n",
+ 					   *addr, (UINT32) gConEmiPhyBase + CONSYS_EMI_COREDUMP_OFFSET);
+ 			memset_io(*addr, 0, CONSYS_EMI_MEM_SIZE);
+ 		} else {
+ 			WMT_PLAT_PR_ERR("EMI mapping fail\n");
+-			return -1;
++			return -ENOMEM;
+ 		}
+ 	} else {
+-		if (*addr) {
+-			iounmap(*addr);
+-			*addr = NULL;
+-		}
++		mapping = *addr;
++		*addr = NULL;
++		if (mapping)
++			iounmap(mapping);
+ 	}
+ 	return 0;
+ }
+diff --git a/drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c b/drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c
+index 345ef2b181f..9135ac024cc 100644
+--- a/drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c
++++ b/drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c
+@@ -74,11 +74,13 @@ UINT8 __iomem *pEmibaseaddr;
+ P_WMT_CONSYS_IC_OPS wmt_consys_ic_ops;
+ 
+ struct platform_device *g_pdev;
++static INT32 g_wmt_probe_result = -ENODEV;
++static bool g_wmt_hw_registered;
+ 
+ UINT32 gps_lna_pin_num = 0xffffffff;
+ 
+ INT32 chip_reset_status = -1;
+-static INT32 wifi_ant_swap_gpio_pin_num;
++static INT32 wifi_ant_swap_gpio_pin_num = -1;
+ 
+ #ifdef CONFIG_OF
+ const struct of_device_id apwmt_of_ids[] = {
+@@ -163,20 +165,52 @@ P_WMT_CONSYS_IC_OPS __weak mtk_wcn_get_consys_ic_ops(VOID)
+ 	return NULL;
+ }
+ 
++static VOID mtk_wmt_probe_cleanup(struct platform_device *pdev)
++{
++	if (wmt_consys_ic_ops->consys_ic_need_store_pdev &&
++	    wmt_consys_ic_ops->consys_ic_need_store_pdev() == MTK_WCN_BOOL_TRUE)
++		pm_runtime_disable(&pdev->dev);
++
++	if (g_pdev == pdev) {
++#ifdef CONFIG_MTK_HIBERNATION
++		unregister_swsusp_restore_noirq_func(ID_M_CONNSYS);
++#endif
++		if (wmt_consys_ic_ops->consys_ic_dedicated_log_path_deinit)
++			wmt_consys_ic_ops->consys_ic_dedicated_log_path_deinit();
++	}
++	if (pEmibaseaddr && wmt_consys_ic_ops->consys_ic_emi_coredump_remapping)
++		wmt_consys_ic_ops->consys_ic_emi_coredump_remapping(&pEmibaseaddr, 0);
++
++	/* Driver core releases managed mappings, clocks and pinctrl after return. */
++	if (wmt_consys_ic_ops->consys_ic_probe_cleanup)
++		wmt_consys_ic_ops->consys_ic_probe_cleanup();
++	consys_pinctrl = NULL;
++	gps_lna_pin_num = 0xffffffff;
++	wifi_ant_swap_gpio_pin_num = -1;
++	g_pdev = NULL;
++}
++
+ static INT32 mtk_wmt_probe(struct platform_device *pdev)
+ {
+ 	INT32 iRet = -1;
+ 	INT32 pin_ret = 0;
+ 	UINT32 pinmux = 0;
++	MTK_WCN_BOOL probe_required;
+ 	struct device_node *pinctl_node, *pins_node;
+ 	UINT8 __iomem *pConnsysEmiStart;
+ 
+-	if (pdev)
+-		g_pdev = pdev;
+-	else {
++	if (!pdev) {
+ 		WMT_PLAT_PR_ERR("pdev is NULL\n");
+-		return -1;
++		iRet = -EINVAL;
++		goto out;
+ 	}
++	if (!wmt_consys_ic_ops) {
++		iRet = -ENODEV;
++		goto out;
++	}
++	if (g_pdev)
++		return -EBUSY;
++	probe_required = wmt_consys_ic_ops->consys_ic_probe_required;
+ 
+ 	if (wmt_consys_ic_ops->consys_ic_need_store_pdev) {
+ 		if (wmt_consys_ic_ops->consys_ic_need_store_pdev() == MTK_WCN_BOOL_TRUE) {
+@@ -192,7 +226,7 @@ static INT32 mtk_wmt_probe(struct platform_device *pdev)
+ 		iRet = -1;
+ 
+ 	if (iRet)
+-		return iRet;
++		goto error;
+ 
+ 	if (wmt_consys_ic_ops->consys_ic_clk_get_from_dts)
+ 		iRet = wmt_consys_ic_ops->consys_ic_clk_get_from_dts(pdev);
+@@ -200,10 +234,18 @@ static INT32 mtk_wmt_probe(struct platform_device *pdev)
+ 		iRet = -1;
+ 
+ 	if (iRet)
+-		return iRet;
++		goto error;
+ 
+ 	if (gConEmiPhyBase) {
++		if (!gConEmiSize) {
++			iRet = -EINVAL;
++			goto error;
++		}
+ 		pConnsysEmiStart = ioremap_nocache(gConEmiPhyBase, gConEmiSize);
++		if (!pConnsysEmiStart) {
++			iRet = -ENOMEM;
++			goto error;
++		}
+ 		WMT_PLAT_PR_INFO("Clearing Connsys EMI (virtual(0x%p) physical(0x%pa)) %llu bytes\n",
+ 				   pConnsysEmiStart, &gConEmiPhyBase, gConEmiSize);
+ 		memset_io(pConnsysEmiStart, 0, gConEmiSize);
+@@ -214,30 +256,39 @@ static INT32 mtk_wmt_probe(struct platform_device *pdev)
+ 			wmt_consys_ic_ops->consys_ic_emi_mpu_set_region_protection();
+ 		if (wmt_consys_ic_ops->consys_ic_emi_set_remapping_reg)
+ 			wmt_consys_ic_ops->consys_ic_emi_set_remapping_reg();
+-		if (wmt_consys_ic_ops->consys_ic_emi_coredump_remapping)
+-			wmt_consys_ic_ops->consys_ic_emi_coredump_remapping(&pEmibaseaddr, 1);
++		if (wmt_consys_ic_ops->consys_ic_emi_coredump_remapping) {
++			iRet = wmt_consys_ic_ops->consys_ic_emi_coredump_remapping(&pEmibaseaddr, 1);
++			if (iRet && probe_required)
++				goto error;
++		}
+ 		if (wmt_consys_ic_ops->consys_ic_dedicated_log_path_init)
+ 			wmt_consys_ic_ops->consys_ic_dedicated_log_path_init(pdev);
+ 	} else {
+ 		WMT_PLAT_PR_ERR("consys emi memory address gConEmiPhyBase invalid\n");
++		if (probe_required) {
++			iRet = -ENODEV;
++			goto error;
++		}
+ 	}
+ 
+-#ifdef CONFIG_MTK_HIBERNATION
+-	WMT_PLAT_PR_INFO("register connsys restore cb for complying with IPOH function\n");
+-	register_swsusp_restore_noirq_func(ID_M_CONNSYS, mtk_wcn_consys_hw_restore, NULL);
+-#endif
+-
+ 	if (wmt_consys_ic_ops->ic_bt_wifi_share_v33_spin_lock_init)
+ 		wmt_consys_ic_ops->ic_bt_wifi_share_v33_spin_lock_init();
+ 
+ 
+-	if (wmt_consys_ic_ops->consys_ic_pmic_get_from_dts)
+-		wmt_consys_ic_ops->consys_ic_pmic_get_from_dts(pdev);
++	if (wmt_consys_ic_ops->consys_ic_pmic_get_from_dts) {
++		iRet = wmt_consys_ic_ops->consys_ic_pmic_get_from_dts(pdev);
++		if (iRet && probe_required)
++			goto error;
++	}
+ 
+ 	consys_pinctrl = devm_pinctrl_get(&pdev->dev);
+ 	if (IS_ERR(consys_pinctrl)) {
+ 		WMT_PLAT_PR_ERR("cannot find consys pinctrl.\n");
++		iRet = PTR_ERR(consys_pinctrl);
+ 		consys_pinctrl = NULL;
++		/* Missing optional pins are allowed; failed/deferred acquisition is not. */
++		if (probe_required && iRet != -ENODEV)
++			goto error;
+ 	}
+ 
+ 	/* find gps lna gpio number */
+@@ -249,14 +300,22 @@ static INT32 mtk_wmt_probe(struct platform_device *pdev)
+ 				pin_ret = of_property_read_u32(pins_node, "pinmux", &pinmux);
+ 				if (pin_ret)
+ 					pin_ret = of_property_read_u32(pins_node, "pins", &pinmux);
+-				gps_lna_pin_num = (pinmux >> 8) & 0xff;
+-				WMT_PLAT_PR_INFO("GPS LNA gpio pin number:%d, pinmux:0x%08x.\n",
+-						   gps_lna_pin_num, pinmux);
++				if (!pin_ret) {
++					gps_lna_pin_num = (pinmux >> 8) & 0xff;
++					WMT_PLAT_PR_INFO("GPS LNA gpio pin number:%d, pinmux:0x%08x.\n",
++							   gps_lna_pin_num, pinmux);
++				}
++				of_node_put(pins_node);
+ 			}
++			of_node_put(pinctl_node);
+ 		}
+ 	}
+ 
+ 	wifi_ant_swap_gpio_pin_num = of_get_named_gpio(pdev->dev.of_node, "wifi_ant_swap_gpio", 0);
++	if (probe_required && wifi_ant_swap_gpio_pin_num == -EPROBE_DEFER) {
++		iRet = -EPROBE_DEFER;
++		goto error;
++	}
+ 	WMT_PLAT_PR_INFO("ant swap pin number:%d\n", wifi_ant_swap_gpio_pin_num);
+ 
+ 	if (wmt_consys_ic_ops->consys_ic_store_reset_control)
+@@ -265,23 +324,27 @@ static INT32 mtk_wmt_probe(struct platform_device *pdev)
+ 	if (wmt_consys_ic_ops->consys_ic_register_devapc_cb)
+ 		wmt_consys_ic_ops->consys_ic_register_devapc_cb();
+ 
+-	return 0;
++#ifdef CONFIG_MTK_HIBERNATION
++	WMT_PLAT_PR_INFO("register connsys restore cb for complying with IPOH function\n");
++	register_swsusp_restore_noirq_func(ID_M_CONNSYS, mtk_wcn_consys_hw_restore, NULL);
++#endif
++	g_pdev = pdev;
++	iRet = 0;
++	goto out;
++
++error:
++	mtk_wmt_probe_cleanup(pdev);
++out:
++	g_wmt_probe_result = iRet;
++	return iRet;
+ }
+ 
+ static INT32 mtk_wmt_remove(struct platform_device *pdev)
+ {
+-	if (wmt_consys_ic_ops->consys_ic_need_store_pdev) {
+-		if (wmt_consys_ic_ops->consys_ic_need_store_pdev() == MTK_WCN_BOOL_TRUE)
+-			pm_runtime_disable(&pdev->dev);
+-	}
+-
+-	if (wmt_consys_ic_ops->consys_ic_dedicated_log_path_deinit)
+-		wmt_consys_ic_ops->consys_ic_dedicated_log_path_deinit();
+-	if (wmt_consys_ic_ops->consys_ic_emi_coredump_remapping)
+-		wmt_consys_ic_ops->consys_ic_emi_coredump_remapping(&pEmibaseaddr, 0);
+-
+-	if (g_pdev)
+-		g_pdev = NULL;
++	if (g_pdev != pdev)
++		return 0;
++	mtk_wmt_probe_cleanup(pdev);
++	g_wmt_probe_result = -ENODEV;
+ 
+ 	return 0;
+ }
+@@ -613,29 +676,43 @@ INT32 mtk_wcn_consys_hw_init(VOID)
+ {
+ 	INT32 iRet = -1;
+ 
++	if (g_wmt_hw_registered)
++		return -EBUSY;
+ 	if (wmt_consys_ic_ops == NULL)
+ 		wmt_consys_ic_ops = mtk_wcn_get_consys_ic_ops();
+-
+-	iRet = platform_driver_register(&mtk_wmt_dev_drv);
+-	if (iRet)
++	if (!wmt_consys_ic_ops)
++		return -ENODEV;
++
++	if (wmt_consys_ic_ops->consys_ic_probe_required) {
++		/*
++		 * This fixed device must be ready before WMT publishes callbacks.
++		 * Failed/deferred probes need a later WMT init retry. This API
++		 * unregisters an unbound driver and rejects later probe attempts.
++		 */
++		g_wmt_probe_result = -ENODEV;
++		iRet = platform_driver_probe(&mtk_wmt_dev_drv, mtk_wmt_probe);
++		if (iRet == -ENODEV && g_wmt_probe_result)
++			iRet = g_wmt_probe_result;
++	} else {
++		iRet = platform_driver_register(&mtk_wmt_dev_drv);
++	}
++	if (iRet) {
+ 		WMT_PLAT_PR_ERR("WMT platform driver registered failed(%d)\n", iRet);
++		wmt_consys_ic_ops = NULL;
++		return iRet;
++	}
++	g_wmt_hw_registered = true;
+ 
+-
+-	return iRet;
++	return 0;
+ 
+ }
+ 
+ INT32 mtk_wcn_consys_hw_deinit(VOID)
+ {
+-
+-	if (pEmibaseaddr) {
+-		if (wmt_consys_ic_ops->consys_ic_emi_coredump_remapping)
+-			wmt_consys_ic_ops->consys_ic_emi_coredump_remapping(&pEmibaseaddr, 0);
+-	}
+-#ifdef CONFIG_MTK_HIBERNATION
+-	unregister_swsusp_restore_noirq_func(ID_M_CONNSYS);
+-#endif
+-
++	if (!g_wmt_hw_registered)
++		return 0;
++	g_wmt_hw_registered = false;
++	/* remove clears published handles before driver core releases devres. */
+ 	platform_driver_unregister(&mtk_wmt_dev_drv);
+ 
+ 	if (wmt_consys_ic_ops)

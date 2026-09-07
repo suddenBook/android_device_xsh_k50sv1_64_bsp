@@ -1,0 +1,2 @@
+expected result -19, observed -1
+failed line 373: result_is(invoke(0, 1, 0), -ENODEV)

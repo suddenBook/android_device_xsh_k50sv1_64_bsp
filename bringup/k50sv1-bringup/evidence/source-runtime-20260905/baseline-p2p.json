@@ -1,0 +1,40 @@
+{
+  "apk_sha256": "0dbe0a93f149c12518d05823da564af57297d5bab0c3869bb969eaab201aebe5",
+  "probe_log": "09-06 13:33:50.931 29663 29663 I K50P2pProbe: create_accepted\n09-06 13:33:51.438 29663 29663 I K50P2pProbe: formed=true owner=true clients=0\n09-06 13:33:55.946 29663 29663 I K50P2pProbe: remove_accepted\n09-06 13:33:55.959 29663 29663 I K50P2pProbe: RESULT PASS reason=group_removed formed=true cleanup_pending=false\n",
+  "passed": true,
+  "fixture_only_baseline": true,
+  "kernel_and_interfaces": {
+    "kernel_start": 57634.807476,
+    "kernel_end": 57647.136294,
+    "new_faults": [],
+    "interfaces": {
+      "interfaces-0": [
+        {
+          "interface": "lo",
+          "ipv4_prefix": "8"
+        },
+        {
+          "interface": "wlan0",
+          "ipv4_prefix": "24"
+        },
+        {
+          "interface": "p2p0",
+          "ipv4_prefix": "24"
+        }
+      ]
+    },
+    "final_identity": "d0f6a7a5-850b-4b61-bb05-89725c55c597\n4608\n",
+    "after_interfaces": [
+      {
+        "interface": "lo",
+        "ipv4_prefix": "8"
+      },
+      {
+        "interface": "wlan0",
+        "ipv4_prefix": "24"
+      }
+    ],
+    "p2p_ipv4_removed": true
+  },
+  "identity": "d0f6a7a5-850b-4b61-bb05-89725c55c597\nLinux localhost 3.18.119 #1 SMP PREEMPT Sat Sep 05 17:44:12 UTC 2026 aarch64\neng.desmon.20260905.134458\n"
+}

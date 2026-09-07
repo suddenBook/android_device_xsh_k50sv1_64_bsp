@@ -1,0 +1,6 @@
+0x6755
+yes
+stopped
+running
+-rw-rw-r-- 1 root root 0 2026-09-07 04:16 /proc/driver/wmt_aee
+-rw-rw-r-- 1 root root 0 2026-09-07 04:16 /proc/driver/wmt_dbg

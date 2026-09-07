@@ -1,0 +1,25 @@
+==================
+WARNING: ThreadSanitizer: data race (pid=1573105)
+  Write of size 8 at 0x000000405278 by thread T1:
+    #0 wmt_lib_set_current_op wmt-cancel-tests/before-thread/test.c:142 (test+0x401564) (BuildId: a6909c16e745f9b87082c885a7b29d1f0c161bc2)
+    #1 publisher wmt-cancel-tests/before-thread/test.c:311 (test+0x401564)
+    #2 <null> <null> (libtsan.so.2+0x5b523) (BuildId: 39cddd66ad5c71210bae112a869b5521e906d259)
+
+  Previous read of size 8 at 0x000000405278 by thread T3:
+    #0 wmt_lib_get_current_op wmt-cancel-tests/before-thread/test.c:135 (test+0x401795) (BuildId: a6909c16e745f9b87082c885a7b29d1f0c161bc2)
+    #1 wmt_lib_cancel_current_op wmt-cancel-tests/before-thread/test.c:162 (test+0x401795)
+    #2 observer wmt-cancel-tests/before-thread/test.c:328 (test+0x401925) (BuildId: a6909c16e745f9b87082c885a7b29d1f0c161bc2)
+    #3 <null> <null> (libtsan.so.2+0x5b523) (BuildId: 39cddd66ad5c71210bae112a869b5521e906d259)
+
+  Location is global 'gDevWmt' of size 40 at 0x000000405260 (test+0x405278)
+
+  Thread T1 (tid=1573107, running) created by main thread at:
+    #0 pthread_create <null> (libtsan.so.2+0x64351) (BuildId: 39cddd66ad5c71210bae112a869b5521e906d259)
+    #1 main wmt-cancel-tests/before-thread/test.c:358 (test+0x401d4b) (BuildId: a6909c16e745f9b87082c885a7b29d1f0c161bc2)
+
+  Thread T3 (tid=1573109, running) created by main thread at:
+    #0 pthread_create <null> (libtsan.so.2+0x64351) (BuildId: 39cddd66ad5c71210bae112a869b5521e906d259)
+    #1 main wmt-cancel-tests/before-thread/test.c:359 (test+0x401d7a) (BuildId: a6909c16e745f9b87082c885a7b29d1f0c161bc2)
+
+SUMMARY: ThreadSanitizer: data race wmt-cancel-tests/before-thread/test.c:142 in wmt_lib_set_current_op
+==================

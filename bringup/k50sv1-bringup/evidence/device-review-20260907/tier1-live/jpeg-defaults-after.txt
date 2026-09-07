@@ -1,0 +1,13 @@
+--------- beginning of kernel
+--------- beginning of events
+--------- beginning of main
+--------- beginning of system
+--------- beginning of radio
+09-07 10:52:42.202  4292  4292 I K50CameraProbe: BEGIN cameraCount=2
+09-07 10:52:42.428  4292  4292 I K50CameraProbe: CAPABILITIES id=0 pictureSizes=320x240,640x480,1024x768,1280x720,1280x768,1280x960,1600x1200,1920x1088,2048x1536,2560x1440,2560x1920,3264x2448 pictureDefault=3264x2448 focusModes=[auto, macro, infinity, continuous-picture, continuous-video, manual, fullscan] flashModes=[off, on, auto, red-eye, torch]
+09-07 10:52:44.928  4292  4292 I K50CameraProbe: CAMERA_RESULT id=0 facing=0 width=640 height=480 format=NV21 frames=64 textureUpdates=63 malformed=0 monotonic=true elapsedMs=2476 status=PASS
+09-07 10:52:45.456  4292  4292 I K50CameraProbe: JPEG_RESULT id=0 requested=3264x2448 encoded=3264x2448 bytes=2008902 status=PASS
+09-07 10:52:45.899  4292  4292 I K50CameraProbe: CAPABILITIES id=1 pictureSizes=320x240,640x480,1024x768,1280x720,1280x768,1280x960,1600x1200,1920x1088,2048x1536,2560x1440,2560x1920 pictureDefault=2560x1920 focusModes=[auto, macro, infinity, continuous-picture, continuous-video, manual, fullscan] flashModes=null
+09-07 10:52:48.302  4292  4292 I K50CameraProbe: CAMERA_RESULT id=1 facing=1 width=640 height=480 format=NV21 frames=65 textureUpdates=65 malformed=0 monotonic=true elapsedMs=2393 status=PASS
+09-07 10:52:48.593  4292  4292 I K50CameraProbe: JPEG_RESULT id=1 requested=2560x1920 encoded=2560x1920 bytes=1386738 status=PASS
+09-07 10:52:48.887  4292  4292 I K50CameraProbe: SUMMARY status=PASS completed=2 cameraCount=2 error=none

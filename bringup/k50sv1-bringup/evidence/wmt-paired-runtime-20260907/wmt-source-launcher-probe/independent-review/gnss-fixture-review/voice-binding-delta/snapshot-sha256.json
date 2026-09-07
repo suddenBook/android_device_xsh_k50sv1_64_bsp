@@ -1,0 +1,238 @@
+{
+  "files": 37,
+  "rows": [
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/appops.txt",
+      "snapshot": "observed-preparation/appops.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/failure-traceback.txt",
+      "snapshot": "observed-preparation/failure-traceback.txt",
+      "bytes": 413,
+      "sha256": "642bc2bb15a22933a3cf41111da51d03716e6134158108b7706f719f26a86a18"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/fixture-restoration.json",
+      "snapshot": "observed-preparation/fixture-restoration.json",
+      "bytes": 425,
+      "sha256": "4705ebfb276c5e6ecb6a5d3128818e339c63603c67f059ee2eff1f1f09bef43b"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/gps-idle-immediately-before-launch.txt",
+      "snapshot": "observed-preparation/gps-idle-immediately-before-launch.txt",
+      "bytes": 6724,
+      "sha256": "f1ad6a9e80b4bcd7e05370ba413cd870c765c08df78d9a227d637f37cffd2459"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/gps-idle-observation-0.txt",
+      "snapshot": "observed-preparation/gps-idle-observation-0.txt",
+      "bytes": 6724,
+      "sha256": "9047c73e7488982f81eb568ce4c8b946a3feb187fc7f897d3b1f9559a97095c1"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/identity.txt",
+      "snapshot": "observed-preparation/identity.txt",
+      "bytes": 57,
+      "sha256": "d646952f5e481b9e5cafd39b7ed287491deda36c9b0a45d2a04cc40a35af2fcc"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/idle-preparation.json",
+      "snapshot": "observed-preparation/idle-preparation.json",
+      "bytes": 141,
+      "sha256": "5e81a8c16d66b05f668921653a57374244355aa3e4f654eea39339e038d53f9e"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/installed-hash.txt",
+      "snapshot": "observed-preparation/installed-hash.txt",
+      "bytes": 130,
+      "sha256": "d217e2c4fc5969f05ce612c1c50b3699f07918f59d39a14067653b42bf264c51"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/installed-path.txt",
+      "snapshot": "observed-preparation/installed-path.txt",
+      "bytes": 72,
+      "sha256": "04076862eab11a8e8bf7370a744f5918c4b00109b1f16e4aea5e1af959dd413d"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/location-before.txt",
+      "snapshot": "observed-preparation/location-before.txt",
+      "bytes": 6724,
+      "sha256": "5bc71eec89647a4411f39ca0e3a1ee6c18946224a9d2b4d36cdcc8b905caa938"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/old-probe-process-absent.txt",
+      "snapshot": "observed-preparation/old-probe-process-absent.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/original-voice_interaction_service.txt",
+      "snapshot": "observed-preparation/original-voice_interaction_service.txt",
+      "bytes": 103,
+      "sha256": "3eb2e88bef2b92aa10c8ff83666d6e9cd2cd7af59fd928a10c211ade7094183e"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/original-voice_recognition_service.txt",
+      "snapshot": "observed-preparation/original-voice_recognition_service.txt",
+      "bytes": 107,
+      "sha256": "5fb6a7c0f13470174ba94a8c1e10df1e434fc3e815dcadd7bdffb004173b89c7"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/pause-observed-search-request-source.txt",
+      "snapshot": "observed-preparation/pause-observed-search-request-source.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/pause-system-voice-binding.txt",
+      "snapshot": "observed-preparation/pause-system-voice-binding.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/permission.txt",
+      "snapshot": "observed-preparation/permission.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/prior-gnss-history.txt",
+      "snapshot": "observed-preparation/prior-gnss-history.txt",
+      "bytes": 2443,
+      "sha256": "923883b6315f6e8b3aa767202c8a64a8572aed5bab480034904c5ee0be4d2f69"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/reset-old-probe-process.txt",
+      "snapshot": "observed-preparation/reset-old-probe-process.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/restore-home-after-gnss.txt",
+      "snapshot": "observed-preparation/restore-home-after-gnss.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/restore-search-availability.txt",
+      "snapshot": "observed-preparation/restore-search-availability.txt",
+      "bytes": 216,
+      "sha256": "ed3e03a15da4998d95958856f0f0918156404efe80fd9a0049fe5a075a3461cf"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/restore-voice_interaction_service.txt",
+      "snapshot": "observed-preparation/restore-voice_interaction_service.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/restore-voice_recognition_service.txt",
+      "snapshot": "observed-preparation/restore-voice_recognition_service.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/restored-voice_interaction_service.txt",
+      "snapshot": "observed-preparation/restored-voice_interaction_service.txt",
+      "bytes": 103,
+      "sha256": "3eb2e88bef2b92aa10c8ff83666d6e9cd2cd7af59fd928a10c211ade7094183e"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/restored-voice_recognition_service.txt",
+      "snapshot": "observed-preparation/restored-voice_recognition_service.txt",
+      "bytes": 107,
+      "sha256": "5fb6a7c0f13470174ba94a8c1e10df1e434fc3e815dcadd7bdffb004173b89c7"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/search-launcher-component.txt",
+      "snapshot": "observed-preparation/search-launcher-component.txt",
+      "bytes": 127,
+      "sha256": "fe5df0948bc8f62aec0a517b516040c28371c7d8d8de8f4c2624fb99f3063155"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/search-package-before.txt",
+      "snapshot": "observed-preparation/search-package-before.txt",
+      "bytes": 215231,
+      "sha256": "82441be7da49a39159c12c0511acd7c1fadb754e59e3609b3a059f6e489c386c"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/search-package-restored.txt",
+      "snapshot": "observed-preparation/search-package-restored.txt",
+      "bytes": 215231,
+      "sha256": "b2aa367c5a7cd2040d9515bf76df4f701be308ae8a8b36e4ca0f34f702bcd17e"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/steps.json",
+      "snapshot": "observed-preparation/steps.json",
+      "bytes": 1951,
+      "sha256": "a77fc90bf8afb4ce11bb5536378ac10cd7b017b1f11137be43f32e4e4fc8f9fe"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/voice-binding-before-launch.txt",
+      "snapshot": "observed-preparation/voice-binding-before-launch.txt",
+      "bytes": 103,
+      "sha256": "3eb2e88bef2b92aa10c8ff83666d6e9cd2cd7af59fd928a10c211ade7094183e"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/voice-binding-empty.txt",
+      "snapshot": "observed-preparation/voice-binding-empty.txt",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/voice-service-state-0.txt",
+      "snapshot": "observed-preparation/voice-service-state-0.txt",
+      "bytes": 105,
+      "sha256": "5c7f4476aa24216184d83879393a5bf32acbd99d39b78fe7bfa1f2f7c4294c37"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/voice-settings.json",
+      "snapshot": "observed-preparation/voice-settings.json",
+      "bytes": 329,
+      "sha256": "39534f89ee516091ce170f94d92814b7b76294a32d5a6c9debd7246c0c559866"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/wake-before-isolation.txt",
+      "snapshot": "observed-preparation/wake-before-isolation.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/wakeup-before.txt",
+      "snapshot": "observed-preparation/wakeup-before.txt",
+      "bytes": 7942,
+      "sha256": "4c42e580cf2e37c2d2a197a7f4c9ae26d927c652ed2d4ba0e76d33b5edfaf89c"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build-project/lineage-17.1/frameworks/base/services/voiceinteraction/java/com/android/server/voiceinteraction/VoiceInteractionManagerService.java",
+      "snapshot": "VoiceInteractionManagerService.java",
+      "bytes": 73399,
+      "sha256": "0c13ac5fc8c1541aa04a3660a5eca24f700e59ca62649869abdbc94a2bd4e025",
+      "revision": "3eb409bcc54f50cc05b7e252ef235519d2fb20aa",
+      "reviewed_ranges": [
+        [
+          441,
+          501
+        ],
+        [
+          1456,
+          1498
+        ]
+      ]
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/run-build19-gnss.py",
+      "snapshot": "run-build19-gnss.py",
+      "bytes": 9490,
+      "sha256": "caa46cc9f886638b82209d1e2b9e5b558e33f97c328146ff4fcdac14cad7accf"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/finish-build19-runtime.py",
+      "snapshot": "finish-build19-runtime.py",
+      "bytes": 9276,
+      "sha256": "874d2162772b74db62a31a72fb53f72dab18aee34e6f345e4e9ac0d288aa6c04"
+    }
+  ]
+}

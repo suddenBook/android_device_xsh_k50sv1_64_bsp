@@ -1,0 +1,8 @@
+uid=10133 expectation=deny
+PASS INTERFACE_TRANSACTION
+PASS code=4 denied=true
+PASS code=9 denied=true
+uid=1001 expectation=phone
+PASS INTERFACE_TRANSACTION
+PASS code=4 denied=false value=1
+PASS code=9 denied=false

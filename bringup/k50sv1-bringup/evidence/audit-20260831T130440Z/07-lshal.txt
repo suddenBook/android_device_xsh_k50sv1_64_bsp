@@ -1,0 +1,385 @@
+android.frameworks.cameraservice.service@2.0::ICameraService/default          hwbinder    478  0/3 alive FM
+android.frameworks.displayservice@1.0::IDisplayService/default                hwbinder    386  0/1 alive FM
+android.frameworks.schedulerservice@1.0::ISchedulingPolicyService/default     hwbinder    874  0/5 alive FM
+android.frameworks.sensorservice@1.0::ISensorManager/default                  hwbinder    874  0/5 alive FM
+android.frameworks.stats@1.0::IStats/default                                  hwbinder    503  0/2 alive FM
+android.hardware.audio.effect@5.0::IEffectsFactory/default                    hwbinder    357  0/5 alive DM,FC
+android.hardware.audio@5.0::IDevicesFactory/default                           hwbinder    357  0/5 alive DM,FC
+android.hardware.bluetooth.audio@2.0::IBluetoothAudioProvidersFactory/default hwbinder    357  0/5 alive DM,FC
+android.hardware.bluetooth@1.0::IBluetoothHci/default                         hwbinder    358  0/3 alive DM,FC
+android.hardware.camera.provider@2.4::ICameraProvider/internal/0              hwbinder    511  0/3 alive DM,FC
+android.hardware.cas@1.0::IMediaCasService/default                            hwbinder    359  0/3 alive DM,FC
+android.hardware.cas@1.1::IMediaCasService/default                            hwbinder    359  0/3 alive DM,FC
+android.hardware.configstore@1.0::ISurfaceFlingerConfigs/default              hwbinder    360  0/3 alive DM,FC
+android.hardware.configstore@1.1::ISurfaceFlingerConfigs/default              hwbinder    360  0/3 alive DM,FC
+android.hardware.drm@1.0::ICryptoFactory/default                              hwbinder    361  0/3 alive DM,FC
+android.hardware.drm@1.0::IDrmFactory/default                                 hwbinder    361  0/3 alive DM,FC
+android.hardware.gatekeeper@1.0::IGatekeeper/default                          hwbinder    362  0/1 alive DM,FC
+android.hardware.gnss@1.0::IGnss/default                                      hwbinder    363  0/1 alive DM,FC
+android.hardware.gnss@1.1::IGnss/default                                      hwbinder    363  0/1 alive DM,FC
+android.hardware.gnss@2.0::IGnss/default                                      hwbinder    363  0/1 alive DM,FC
+android.hardware.graphics.allocator@2.0::IAllocator/default                   hwbinder    364  0/3 alive DM,FC
+android.hardware.graphics.composer@2.1::IComposer/default                     hwbinder    365  0/3 alive DM,FC
+android.hardware.health@2.0::IHealth/default                                  hwbinder    366  1/1 alive DM,FC
+android.hardware.keymaster@3.0::IKeymasterDevice/default                      hwbinder    327  0/1 alive DM,FC
+android.hardware.light@2.0::ILight/default                                    hwbinder    367  0/1 alive DM,FC
+android.hardware.media.c2@1.0::IComponentStore/software                       hwbinder    581  0/7 alive FM
+android.hardware.media.omx@1.0::IOmx/default                                  hwbinder    561  0/3 alive DM,FC
+android.hardware.media.omx@1.0::IOmxStore/default                             hwbinder    561  0/3 alive DM,FC
+android.hardware.memtrack@1.0::IMemtrack/default                              hwbinder    368  0/1 alive DM,FC
+android.hardware.power@1.0::IPower/default                                    hwbinder    378  0/1 alive DM,FC
+android.hardware.power@1.1::IPower/default                                    hwbinder    378  0/1 alive DM,FC
+android.hardware.power@1.2::IPower/default                                    hwbinder    378  0/1 alive DM,FC
+android.hardware.power@1.3::IPower/default                                    hwbinder    378  0/1 alive DM,FC
+android.hardware.radio.config@1.0::IRadioConfig/default                       hwbinder    900  0/1 alive DM,FC
+android.hardware.radio.config@1.1::IRadioConfig/default                       hwbinder    900  0/1 alive DM,FC
+android.hardware.radio@1.0::IRadio/em1                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.0::IRadio/em2                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.0::IRadio/imsAospSlot1                               hwbinder    900  0/1 alive DM
+android.hardware.radio@1.0::IRadio/imsAospSlot2                               hwbinder    900  0/1 alive DM
+android.hardware.radio@1.0::IRadio/se1                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.0::IRadio/se2                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.0::IRadio/slot1                                      hwbinder    900  0/1 alive DM,FC
+android.hardware.radio@1.0::IRadio/slot2                                      hwbinder    900  0/1 alive DM,FC
+android.hardware.radio@1.0::ISap/slot1                                        hwbinder    900  0/1 alive DM,FC
+android.hardware.radio@1.0::ISap/slot2                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.1::IRadio/em1                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.1::IRadio/em2                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.1::IRadio/imsAospSlot1                               hwbinder    900  0/1 alive DM
+android.hardware.radio@1.1::IRadio/imsAospSlot2                               hwbinder    900  0/1 alive DM
+android.hardware.radio@1.1::IRadio/se1                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.1::IRadio/se2                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.1::IRadio/slot1                                      hwbinder    900  0/1 alive DM,FC
+android.hardware.radio@1.1::IRadio/slot2                                      hwbinder    900  0/1 alive DM,FC
+android.hardware.radio@1.1::ISap/slot1                                        hwbinder    900  0/1 alive DM,FC
+android.hardware.radio@1.1::ISap/slot2                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.2::IRadio/em1                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.2::IRadio/em2                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.2::IRadio/imsAospSlot1                               hwbinder    900  0/1 alive DM
+android.hardware.radio@1.2::IRadio/imsAospSlot2                               hwbinder    900  0/1 alive DM
+android.hardware.radio@1.2::IRadio/se1                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.2::IRadio/se2                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.2::IRadio/slot1                                      hwbinder    900  0/1 alive DM,FC
+android.hardware.radio@1.2::IRadio/slot2                                      hwbinder    900  0/1 alive DM,FC
+android.hardware.radio@1.2::ISap/slot1                                        hwbinder    900  0/1 alive DM,FC
+android.hardware.radio@1.2::ISap/slot2                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.3::IRadio/em1                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.3::IRadio/em2                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.3::IRadio/imsAospSlot1                               hwbinder    900  0/1 alive DM
+android.hardware.radio@1.3::IRadio/imsAospSlot2                               hwbinder    900  0/1 alive DM
+android.hardware.radio@1.3::IRadio/se1                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.3::IRadio/se2                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.3::IRadio/slot1                                      hwbinder    900  0/1 alive DM,FC
+android.hardware.radio@1.3::IRadio/slot2                                      hwbinder    900  0/1 alive DM,FC
+android.hardware.radio@1.4::IRadio/em1                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.4::IRadio/em2                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.4::IRadio/imsAospSlot1                               hwbinder    900  0/1 alive DM
+android.hardware.radio@1.4::IRadio/imsAospSlot2                               hwbinder    900  0/1 alive DM
+android.hardware.radio@1.4::IRadio/se1                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.4::IRadio/se2                                        hwbinder    900  0/1 alive DM
+android.hardware.radio@1.4::IRadio/slot1                                      hwbinder    900  0/1 alive DM,FC
+android.hardware.radio@1.4::IRadio/slot2                                      hwbinder    900  0/1 alive DM,FC
+android.hardware.sensors@2.0::ISensors/default                                hwbinder    369  0/1 alive DM,FC
+android.hardware.thermal@1.0::IThermal/default                                hwbinder    370  0/1 alive DM,FC
+android.hardware.usb@1.0::IUsb/default                                        hwbinder    371  0/1 alive DM,FC
+android.hardware.usb@1.1::IUsb/default                                        hwbinder    371  0/1 alive DM,FC
+android.hardware.vibrator@1.0::IVibrator/default                              hwbinder    372  0/1 alive DM,FC
+android.hardware.wifi.supplicant@1.0::ISupplicant/default                     hwbinder    1288 1/1 alive DM,FC
+android.hardware.wifi.supplicant@1.1::ISupplicant/default                     hwbinder    1288 1/1 alive DM,FC
+android.hardware.wifi.supplicant@1.2::ISupplicant/default                     hwbinder    1288 1/1 alive DM,FC
+android.hardware.wifi@1.0::IWifi/default                                      hwbinder    1076 0/1 alive DM,FC
+android.hardware.wifi@1.1::IWifi/default                                      hwbinder    1076 0/1 alive DM,FC
+android.hardware.wifi@1.2::IWifi/default                                      hwbinder    1076 0/1 alive DM,FC
+android.hardware.wifi@1.3::IWifi/default                                      hwbinder    1076 0/1 alive DM,FC
+android.hidl.allocator@1.0::IAllocator/ashmem                                 hwbinder    356  0/1 alive FM
+android.hidl.base@1.0::IBase/AgpsDebugInterface                               hwbinder    373  0/3 alive X
+android.hidl.base@1.0::IBase/AgpsInterface                                    hwbinder    373  0/3 alive X
+android.hidl.base@1.0::IBase/ashmem                                           hwbinder    356  0/1 alive X
+android.hidl.base@1.0::IBase/default                                          hwbinder    1288 1/1 alive X
+android.hidl.base@1.0::IBase/em1                                              hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/em2                                              hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/imsAospSlot1                                     hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/imsAospSlot2                                     hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/imsSlot1                                         hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/imsSlot2                                         hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/imsa                                             hwbinder    376  0/1 alive X
+android.hidl.base@1.0::IBase/internal/0                                       hwbinder    511  0/3 alive X
+android.hidl.base@1.0::IBase/mtkAssist1                                       hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/mtkAssist2                                       hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/mtkCap1                                          hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/mtkCap2                                          hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/mtkEm1                                           hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/mtkEm2                                           hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/mtkRcs1                                          hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/mtkRcs2                                          hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/mtkSe1                                           hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/mtkSe2                                           hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/mtkSlot1                                         hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/mtkSlot2                                         hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/mtk_agps2framework                               hwbinder    373  0/3 alive X
+android.hidl.base@1.0::IBase/mtk_debugService2mnld                            hwbinder    373  0/3 alive X
+android.hidl.base@1.0::IBase/mtk_framework2agps                               hwbinder    373  0/3 alive X
+android.hidl.base@1.0::IBase/mtk_lbs_log_v2s                                  hwbinder    373  0/3 alive X
+android.hidl.base@1.0::IBase/mtk_lppe_socket_agps                             hwbinder    373  0/3 alive X
+android.hidl.base@1.0::IBase/mtk_lppe_socket_bt                               hwbinder    373  0/3 alive X
+android.hidl.base@1.0::IBase/mtk_lppe_socket_ipaddr                           hwbinder    373  0/3 alive X
+android.hidl.base@1.0::IBase/mtk_lppe_socket_lbs                              hwbinder    373  0/3 alive X
+android.hidl.base@1.0::IBase/mtk_lppe_socket_network                          hwbinder    373  0/3 alive X
+android.hidl.base@1.0::IBase/mtk_lppe_socket_sensor                           hwbinder    373  0/3 alive X
+android.hidl.base@1.0::IBase/mtk_lppe_socket_wlan                             hwbinder    373  0/3 alive X
+android.hidl.base@1.0::IBase/mtk_meta2mnld                                    hwbinder    373  0/3 alive X
+android.hidl.base@1.0::IBase/mtk_mnld2debugService                            hwbinder    373  0/3 alive X
+android.hidl.base@1.0::IBase/mtk_mnld2mtklogger                               hwbinder    373  0/3 alive X
+android.hidl.base@1.0::IBase/mtk_mnld2nlputils                                hwbinder    373  0/3 alive X
+android.hidl.base@1.0::IBase/mtk_mtklogger2mnld                               hwbinder    373  0/3 alive X
+android.hidl.base@1.0::IBase/se1                                              hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/se2                                              hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/slot1                                            hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/slot2                                            hwbinder    900  0/1 alive X
+android.hidl.base@1.0::IBase/software                                         hwbinder    581  0/7 alive X
+android.hidl.base@1.0::IBase/wfo_hidl_service                                 hwbinder    381  0/1 alive X
+android.hidl.manager@1.0::IServiceManager/default                             hwbinder    287  1/1 alive DC,FM
+android.hidl.manager@1.1::IServiceManager/default                             hwbinder    287  1/1 alive FM
+android.hidl.manager@1.2::IServiceManager/default                             hwbinder    287  1/1 alive FM
+android.hidl.token@1.0::ITokenManager/default                                 hwbinder    287  1/1 alive FM
+android.system.net.netd@1.0::INetd/default                                    hwbinder    352  0/1 alive FM
+android.system.net.netd@1.1::INetd/default                                    hwbinder    352  0/1 alive FM
+android.system.suspend@1.0::ISystemSuspend/default                            hwbinder    326  0/1 alive FM
+android.system.wifi.keystore@1.0::IKeystore/default                           hwbinder    491  0/1 alive FM
+vendor.mediatek.hardware.camera.ccap@1.0::ICCAPControl/internal/0             hwbinder    511  0/3 alive DM
+vendor.mediatek.hardware.gpu@1.0::IGraphicExt/default                         hwbinder    374  0/2 alive DM
+vendor.mediatek.hardware.imsa@1.0::IImsa/imsa                                 hwbinder    376  0/1 alive DM
+vendor.mediatek.hardware.lbs@1.0::ILbs/AgpsDebugInterface                     hwbinder    373  0/3 alive DM
+vendor.mediatek.hardware.lbs@1.0::ILbs/AgpsInterface                          hwbinder    373  0/3 alive DM
+vendor.mediatek.hardware.lbs@1.0::ILbs/mtk_agps2framework                     hwbinder    373  0/3 alive DM
+vendor.mediatek.hardware.lbs@1.0::ILbs/mtk_debugService2mnld                  hwbinder    373  0/3 alive DM
+vendor.mediatek.hardware.lbs@1.0::ILbs/mtk_framework2agps                     hwbinder    373  0/3 alive DM
+vendor.mediatek.hardware.lbs@1.0::ILbs/mtk_lbs_log_v2s                        hwbinder    373  0/3 alive DM
+vendor.mediatek.hardware.lbs@1.0::ILbs/mtk_lppe_socket_agps                   hwbinder    373  0/3 alive DM
+vendor.mediatek.hardware.lbs@1.0::ILbs/mtk_lppe_socket_bt                     hwbinder    373  0/3 alive DM
+vendor.mediatek.hardware.lbs@1.0::ILbs/mtk_lppe_socket_ipaddr                 hwbinder    373  0/3 alive DM
+vendor.mediatek.hardware.lbs@1.0::ILbs/mtk_lppe_socket_lbs                    hwbinder    373  0/3 alive DM
+vendor.mediatek.hardware.lbs@1.0::ILbs/mtk_lppe_socket_network                hwbinder    373  0/3 alive DM
+vendor.mediatek.hardware.lbs@1.0::ILbs/mtk_lppe_socket_sensor                 hwbinder    373  0/3 alive DM
+vendor.mediatek.hardware.lbs@1.0::ILbs/mtk_lppe_socket_wlan                   hwbinder    373  0/3 alive DM
+vendor.mediatek.hardware.lbs@1.0::ILbs/mtk_meta2mnld                          hwbinder    373  0/3 alive DM
+vendor.mediatek.hardware.lbs@1.0::ILbs/mtk_mnld2debugService                  hwbinder    373  0/3 alive DM
+vendor.mediatek.hardware.lbs@1.0::ILbs/mtk_mnld2mtklogger                     hwbinder    373  0/3 alive DM
+vendor.mediatek.hardware.lbs@1.0::ILbs/mtk_mnld2nlputils                      hwbinder    373  0/3 alive DM
+vendor.mediatek.hardware.lbs@1.0::ILbs/mtk_mtklogger2mnld                     hwbinder    373  0/3 alive DM
+vendor.mediatek.hardware.mtkpower@1.0::IMtkPerf/default                       hwbinder    378  0/1 alive DM
+vendor.mediatek.hardware.mtkpower@1.0::IMtkPower/default                      hwbinder    378  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.0::IMtkRadioEx/imsSlot1                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.0::IMtkRadioEx/imsSlot2                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.0::IMtkRadioEx/mtkAssist1               hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.0::IMtkRadioEx/mtkAssist2               hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.0::IMtkRadioEx/mtkCap1                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.0::IMtkRadioEx/mtkCap2                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.0::IMtkRadioEx/mtkEm1                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.0::IMtkRadioEx/mtkEm2                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.0::IMtkRadioEx/mtkRcs1                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.0::IMtkRadioEx/mtkRcs2                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.0::IMtkRadioEx/mtkSe1                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.0::IMtkRadioEx/mtkSe2                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.0::IMtkRadioEx/mtkSlot1                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.0::IMtkRadioEx/mtkSlot2                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.1::IMtkRadioEx/imsSlot1                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.1::IMtkRadioEx/imsSlot2                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.1::IMtkRadioEx/mtkAssist1               hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.1::IMtkRadioEx/mtkAssist2               hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.1::IMtkRadioEx/mtkCap1                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.1::IMtkRadioEx/mtkCap2                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.1::IMtkRadioEx/mtkEm1                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.1::IMtkRadioEx/mtkEm2                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.1::IMtkRadioEx/mtkRcs1                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.1::IMtkRadioEx/mtkRcs2                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.1::IMtkRadioEx/mtkSe1                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.1::IMtkRadioEx/mtkSe2                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.1::IMtkRadioEx/mtkSlot1                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.1::IMtkRadioEx/mtkSlot2                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.2::IMtkRadioEx/imsSlot1                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.2::IMtkRadioEx/imsSlot2                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.2::IMtkRadioEx/mtkAssist1               hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.2::IMtkRadioEx/mtkAssist2               hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.2::IMtkRadioEx/mtkCap1                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.2::IMtkRadioEx/mtkCap2                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.2::IMtkRadioEx/mtkEm1                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.2::IMtkRadioEx/mtkEm2                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.2::IMtkRadioEx/mtkRcs1                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.2::IMtkRadioEx/mtkRcs2                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.2::IMtkRadioEx/mtkSe1                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.2::IMtkRadioEx/mtkSe2                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.2::IMtkRadioEx/mtkSlot1                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.2::IMtkRadioEx/mtkSlot2                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.3::IMtkRadioEx/imsSlot1                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.3::IMtkRadioEx/imsSlot2                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.3::IMtkRadioEx/mtkAssist1               hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.3::IMtkRadioEx/mtkAssist2               hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.3::IMtkRadioEx/mtkCap1                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.3::IMtkRadioEx/mtkCap2                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.3::IMtkRadioEx/mtkEm1                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.3::IMtkRadioEx/mtkEm2                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.3::IMtkRadioEx/mtkRcs1                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.3::IMtkRadioEx/mtkRcs2                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.3::IMtkRadioEx/mtkSe1                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.3::IMtkRadioEx/mtkSe2                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.3::IMtkRadioEx/mtkSlot1                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.3::IMtkRadioEx/mtkSlot2                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.4::IMtkRadioEx/imsSlot1                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.4::IMtkRadioEx/imsSlot2                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.4::IMtkRadioEx/mtkAssist1               hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.4::IMtkRadioEx/mtkAssist2               hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.4::IMtkRadioEx/mtkCap1                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.4::IMtkRadioEx/mtkCap2                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.4::IMtkRadioEx/mtkEm1                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.4::IMtkRadioEx/mtkEm2                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.4::IMtkRadioEx/mtkRcs1                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.4::IMtkRadioEx/mtkRcs2                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.4::IMtkRadioEx/mtkSe1                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.4::IMtkRadioEx/mtkSe2                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.4::IMtkRadioEx/mtkSlot1                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.4::IMtkRadioEx/mtkSlot2                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.5::IMtkRadioEx/imsSlot1                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.5::IMtkRadioEx/imsSlot2                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.5::IMtkRadioEx/mtkAssist1               hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.5::IMtkRadioEx/mtkAssist2               hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.5::IMtkRadioEx/mtkCap1                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.5::IMtkRadioEx/mtkCap2                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.5::IMtkRadioEx/mtkEm1                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.5::IMtkRadioEx/mtkEm2                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.5::IMtkRadioEx/mtkRcs1                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.5::IMtkRadioEx/mtkRcs2                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.5::IMtkRadioEx/mtkSe1                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.5::IMtkRadioEx/mtkSe2                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.5::IMtkRadioEx/mtkSlot1                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.5::IMtkRadioEx/mtkSlot2                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.6::IMtkRadioEx/imsSlot1                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.6::IMtkRadioEx/imsSlot2                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.6::IMtkRadioEx/mtkAssist1               hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.6::IMtkRadioEx/mtkAssist2               hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.6::IMtkRadioEx/mtkCap1                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.6::IMtkRadioEx/mtkCap2                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.6::IMtkRadioEx/mtkEm1                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.6::IMtkRadioEx/mtkEm2                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.6::IMtkRadioEx/mtkRcs1                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.6::IMtkRadioEx/mtkRcs2                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.6::IMtkRadioEx/mtkSe1                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.6::IMtkRadioEx/mtkSe2                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.6::IMtkRadioEx/mtkSlot1                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.6::IMtkRadioEx/mtkSlot2                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.7::IMtkRadioEx/imsSlot1                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.7::IMtkRadioEx/imsSlot2                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.7::IMtkRadioEx/mtkAssist1               hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.7::IMtkRadioEx/mtkAssist2               hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.7::IMtkRadioEx/mtkCap1                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.7::IMtkRadioEx/mtkCap2                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.7::IMtkRadioEx/mtkEm1                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.7::IMtkRadioEx/mtkEm2                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.7::IMtkRadioEx/mtkRcs1                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.7::IMtkRadioEx/mtkRcs2                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.7::IMtkRadioEx/mtkSe1                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.7::IMtkRadioEx/mtkSe2                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.7::IMtkRadioEx/mtkSlot1                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.7::IMtkRadioEx/mtkSlot2                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.8::IMtkRadioEx/imsSlot1                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.8::IMtkRadioEx/imsSlot2                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.8::IMtkRadioEx/mtkAssist1               hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.8::IMtkRadioEx/mtkAssist2               hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.8::IMtkRadioEx/mtkCap1                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.8::IMtkRadioEx/mtkCap2                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.8::IMtkRadioEx/mtkEm1                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.8::IMtkRadioEx/mtkEm2                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.8::IMtkRadioEx/mtkRcs1                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.8::IMtkRadioEx/mtkRcs2                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.8::IMtkRadioEx/mtkSe1                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.8::IMtkRadioEx/mtkSe2                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.8::IMtkRadioEx/mtkSlot1                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.8::IMtkRadioEx/mtkSlot2                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.9::IMtkRadioEx/imsSlot1                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.9::IMtkRadioEx/imsSlot2                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.9::IMtkRadioEx/mtkAssist1               hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.9::IMtkRadioEx/mtkAssist2               hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.9::IMtkRadioEx/mtkCap1                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.9::IMtkRadioEx/mtkCap2                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.9::IMtkRadioEx/mtkEm1                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.9::IMtkRadioEx/mtkEm2                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.9::IMtkRadioEx/mtkRcs1                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.9::IMtkRadioEx/mtkRcs2                  hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.9::IMtkRadioEx/mtkSe1                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.9::IMtkRadioEx/mtkSe2                   hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.9::IMtkRadioEx/mtkSlot1                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.mtkradioex@1.9::IMtkRadioEx/mtkSlot2                 hwbinder    900  0/1 alive DM
+vendor.mediatek.hardware.netdagent@1.0::INetdagent/default                    hwbinder    637  0/6 alive DM
+vendor.mediatek.hardware.nvram@1.0::INvram/default                            hwbinder    380  0/1 alive DM
+vendor.mediatek.hardware.nvram@1.1::INvram/default                            hwbinder    380  0/1 alive DM
+vendor.mediatek.hardware.power@2.0::IPower/default                            hwbinder    378  0/1 alive DM
+vendor.mediatek.hardware.power@2.1::IPower/default                            hwbinder    378  0/1 alive DM
+vendor.mediatek.hardware.pq@2.0::IPictureQuality/default                      hwbinder    556  0/2 alive DM
+vendor.mediatek.hardware.pq@2.1::IPictureQuality/default                      hwbinder    556  0/2 alive DM
+vendor.mediatek.hardware.pq@2.2::IPictureQuality/default                      hwbinder    556  0/2 alive DM
+vendor.mediatek.hardware.pq@2.3::IPictureQuality/default                      hwbinder    556  0/2 alive DM
+vendor.mediatek.hardware.wfo@1.0::IWifiOffload/wfo_hidl_service               hwbinder    381  0/1 alive DM
+vendor.mediatek.hardware.wifi.supplicant@2.0::ISupplicant/default             hwbinder    1288 1/1 alive DM
+android.hardware.audio.effect@5.0::IEffectsFactory/default                    passthrough 357  N/A N/A   FC
+android.hardware.audio@5.0::IDevicesFactory/default                           passthrough 357  N/A N/A   FC
+android.hardware.bluetooth.audio@2.0::IBluetoothAudioProvidersFactory/default passthrough 357  N/A N/A   FC
+android.hardware.bluetooth@1.0::IBluetoothHci/default                         passthrough 358  N/A N/A   FC
+android.hardware.camera.provider@2.4::ICameraProvider/internal/0              passthrough 511  N/A N/A   FC
+android.hardware.drm@1.0::ICryptoFactory/default                              passthrough 361  N/A N/A   FC
+android.hardware.drm@1.0::IDrmFactory/default                                 passthrough 361  N/A N/A   FC
+android.hardware.gatekeeper@1.0::IGatekeeper/default                          passthrough 362  N/A N/A   FC
+android.hardware.gnss@2.0::IGnss/default                                      passthrough 363  N/A N/A   FC
+android.hardware.graphics.allocator@2.0::IAllocator/default                   passthrough 364  N/A N/A   FC
+android.hardware.graphics.composer@2.1::IComposer/default                     passthrough 365  N/A N/A   FC
+android.hardware.graphics.mapper@2.0::IMapper/default                         passthrough N/A  N/A N/A   DM,FC
+android.hardware.keymaster@3.0::IKeymasterDevice/default                      passthrough 327  N/A N/A   FC
+android.hardware.light@2.0::ILight/default                                    passthrough 367  N/A N/A   FC
+android.hardware.memtrack@1.0::IMemtrack/default                              passthrough 368  N/A N/A   FC
+android.hardware.power@1.3::IPower/default                                    passthrough 378  N/A N/A   FC
+android.hardware.thermal@1.0::IThermal/default                                passthrough 370  N/A N/A   FC
+android.hardware.vibrator@1.0::IVibrator/default                              passthrough 372  N/A N/A   FC
+android.hidl.memory@1.0::IMapper/ashmem                                       passthrough N/A  N/A N/A   FM
+vendor.mediatek.hardware.camera.ccap@1.0::ICCAPControl/internal/0             passthrough 511  N/A N/A   X
+vendor.mediatek.hardware.mtkpower@1.0::IMtkPerf/default                       passthrough 378  N/A N/A   X
+vendor.mediatek.hardware.mtkpower@1.0::IMtkPower/default                      passthrough 378  N/A N/A   X
+vendor.mediatek.hardware.nvram@1.1::INvram/default                            passthrough 380  N/A N/A   X
+vendor.mediatek.hardware.power@2.1::IPower/default                            passthrough 378  N/A N/A   X
+vendor.mediatek.hardware.pq@2.3::IPictureQuality/default                      passthrough 556  N/A N/A   X
+android.hardware.audio.effect@5.0::I*/* (/vendor/lib/hw/)                     passthrough N/A  N/A N/A   FC
+android.hardware.audio.effect@5.0::I*/* (/vendor/lib64/hw/)                   passthrough N/A  N/A N/A   FC
+android.hardware.audio@5.0::I*/* (/vendor/lib/hw/) (-mediatek)                passthrough N/A  N/A N/A   FC
+android.hardware.bluetooth.audio@2.0::I*/* (/vendor/lib/hw/) (-mediatek)      passthrough N/A  N/A N/A   FC
+android.hardware.bluetooth@1.0::I*/* (/vendor/lib64/hw/) (-mediatek)          passthrough N/A  N/A N/A   FC
+android.hardware.camera.provider@2.4::I*/* (/vendor/lib/hw/) (-mediatek)      passthrough N/A  N/A N/A   FC
+android.hardware.drm@1.0::I*/* (/vendor/lib/hw/)                              passthrough N/A  N/A N/A   FC
+android.hardware.gatekeeper@1.0::I*/* (/vendor/lib/hw/)                       passthrough N/A  N/A N/A   FC
+android.hardware.gatekeeper@1.0::I*/* (/vendor/lib64/hw/)                     passthrough N/A  N/A N/A   FC
+android.hardware.gnss@2.0::I*/* (/vendor/lib64/hw/) (-mediatek)               passthrough N/A  N/A N/A   FC
+android.hardware.graphics.allocator@2.0::I*/* (/vendor/lib/hw/)               passthrough N/A  N/A N/A   FC
+android.hardware.graphics.allocator@2.0::I*/* (/vendor/lib64/hw/)             passthrough N/A  N/A N/A   FC
+android.hardware.graphics.composer@2.1::I*/* (/vendor/lib/hw/)                passthrough N/A  N/A N/A   FC
+android.hardware.graphics.composer@2.1::I*/* (/vendor/lib64/hw/)              passthrough N/A  N/A N/A   FC
+android.hardware.graphics.mapper@2.0::I*/* (/vendor/lib/hw/)                  passthrough N/A  N/A N/A   DM,FC
+android.hardware.graphics.mapper@2.0::I*/* (/vendor/lib64/hw/)                passthrough N/A  N/A N/A   DM,FC
+android.hardware.keymaster@3.0::I*/* (/vendor/lib/hw/)                        passthrough N/A  N/A N/A   FC
+android.hardware.keymaster@3.0::I*/* (/vendor/lib64/hw/)                      passthrough N/A  N/A N/A   FC
+android.hardware.light@2.0::I*/* (/vendor/lib/hw/)                            passthrough N/A  N/A N/A   FC
+android.hardware.light@2.0::I*/* (/vendor/lib64/hw/)                          passthrough N/A  N/A N/A   FC
+android.hardware.memtrack@1.0::I*/* (/vendor/lib/hw/)                         passthrough N/A  N/A N/A   FC
+android.hardware.memtrack@1.0::I*/* (/vendor/lib64/hw/)                       passthrough N/A  N/A N/A   FC
+android.hardware.power@1.3::I*/* (/vendor/lib64/hw/) (-mediatek)              passthrough N/A  N/A N/A   FC
+android.hardware.thermal@1.0::I*/* (/vendor/lib/hw/)                          passthrough N/A  N/A N/A   FC
+android.hardware.thermal@1.0::I*/* (/vendor/lib64/hw/)                        passthrough N/A  N/A N/A   FC
+android.hardware.vibrator@1.0::I*/* (/vendor/lib/hw/)                         passthrough N/A  N/A N/A   FC
+android.hardware.vibrator@1.0::I*/* (/vendor/lib64/hw/)                       passthrough N/A  N/A N/A   FC
+android.hidl.memory@1.0::I*/* (/system/lib/hw/)                               passthrough N/A  N/A N/A   FM
+android.hidl.memory@1.0::I*/* (/system/lib/vndk-sp-29/hw/)                    passthrough N/A  N/A N/A   FM
+android.hidl.memory@1.0::I*/* (/system/lib64/hw/)                             passthrough N/A  N/A N/A   FM
+android.hidl.memory@1.0::I*/* (/system/lib64/vndk-sp-29/hw/)                  passthrough N/A  N/A N/A   FM
+vendor.mediatek.hardware.camera.ccap@1.0::I*/* (/vendor/lib/hw/)              passthrough N/A  N/A N/A   X
+vendor.mediatek.hardware.mms@1.5::I*/* (/vendor/lib64/hw/)                    passthrough N/A  N/A N/A   X
+vendor.mediatek.hardware.mtkcodecservice@1.1::I*/* (/vendor/lib/hw/)          passthrough N/A  N/A N/A   X
+vendor.mediatek.hardware.mtkpower@1.0::I*/* (/vendor/lib64/hw/)               passthrough N/A  N/A N/A   X
+vendor.mediatek.hardware.nvram@1.1::I*/* (/vendor/lib64/hw/)                  passthrough N/A  N/A N/A   X
+vendor.mediatek.hardware.power@2.1::I*/* (/vendor/lib64/hw/)                  passthrough N/A  N/A N/A   X
+vendor.mediatek.hardware.pq@2.3::I*/* (/vendor/lib64/hw/)                     passthrough N/A  N/A N/A   X

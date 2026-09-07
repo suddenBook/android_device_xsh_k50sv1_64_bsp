@@ -1,0 +1,382 @@
+{
+  "error": {
+    "type": "RuntimeError",
+    "message": "The selected voice-interaction implementation did not stop"
+  },
+  "fixture": {
+    "status": "PASS",
+    "search_restore_required": false,
+    "voice_restore_required": true,
+    "errors": [],
+    "restored_voice_settings": {
+      "voice_recognition_service": "com.google.android.googlequicksearchbox/com.google.android.voicesearch.serviceapi.GoogleRecognitionService",
+      "voice_interaction_service": "com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService"
+    }
+  },
+  "calls": [
+    {
+      "step": "search-package-before",
+      "args": [
+        "shell",
+        "dumpsys package com.google.android.googlequicksearchbox"
+      ]
+    },
+    {
+      "step": "search-launcher-component",
+      "args": [
+        "shell",
+        "cmd package resolve-activity --brief --user 0 -n com.google.android.googlequicksearchbox/.SearchActivity"
+      ]
+    },
+    {
+      "step": "wake-before-isolation",
+      "args": [
+        "shell",
+        "input keyevent KEYCODE_WAKEUP; wm dismiss-keyguard"
+      ]
+    },
+    {
+      "step": "original-voice_recognition_service",
+      "args": [
+        "shell",
+        "settings get secure voice_recognition_service"
+      ]
+    },
+    {
+      "step": "original-voice_interaction_service",
+      "args": [
+        "shell",
+        "settings get secure voice_interaction_service"
+      ]
+    },
+    {
+      "step": "pause-system-voice-binding",
+      "args": [
+        "shell",
+        "settings put secure voice_interaction_service ''"
+      ]
+    },
+    {
+      "step": "voice-binding-empty",
+      "args": [
+        "shell",
+        "settings get secure voice_interaction_service"
+      ]
+    },
+    {
+      "step": "voice-service-state-0",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-1",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-2",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-3",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-4",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-5",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-6",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-7",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-8",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-9",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-10",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-11",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-12",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-13",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-14",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-15",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-16",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-17",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-18",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-19",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-20",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-21",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-22",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-23",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-24",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-25",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-26",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-27",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-28",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-29",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-30",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-31",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-32",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-33",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-34",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-35",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-36",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-37",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-38",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "voice-service-state-39",
+      "args": [
+        "shell",
+        "dumpsys voiceinteraction"
+      ]
+    },
+    {
+      "step": "restore-voice_recognition_service",
+      "args": [
+        "shell",
+        "settings put secure voice_recognition_service com.google.android.googlequicksearchbox/com.google.android.voicesearch.serviceapi.GoogleRecognitionService"
+      ]
+    },
+    {
+      "step": "restored-voice_recognition_service",
+      "args": [
+        "shell",
+        "settings get secure voice_recognition_service"
+      ]
+    },
+    {
+      "step": "restore-voice_interaction_service",
+      "args": [
+        "shell",
+        "settings put secure voice_interaction_service com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService"
+      ]
+    },
+    {
+      "step": "restored-voice_interaction_service",
+      "args": [
+        "shell",
+        "settings get secure voice_interaction_service"
+      ]
+    },
+    {
+      "step": "restore-home-after-gnss",
+      "args": [
+        "shell",
+        "input keyevent KEYCODE_HOME"
+      ]
+    }
+  ]
+}

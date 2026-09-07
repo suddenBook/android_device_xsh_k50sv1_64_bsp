@@ -1,0 +1,488 @@
+{
+  "error": {
+    "type": "RuntimeError",
+    "message": "GPS did not become idle after pausing the observed request source"
+  },
+  "fixture": {
+    "status": "PASS",
+    "search_restore_required": true
+  },
+  "calls": [
+    {
+      "step": "search-package-before",
+      "args": [
+        "shell",
+        "dumpsys package com.google.android.googlequicksearchbox"
+      ]
+    },
+    {
+      "step": "search-launcher-component",
+      "args": [
+        "shell",
+        "cmd package resolve-activity --brief --user 0 -n com.google.android.googlequicksearchbox/.SearchActivity"
+      ]
+    },
+    {
+      "step": "pause-observed-search-request-source",
+      "args": [
+        "shell",
+        "am force-stop com.google.android.googlequicksearchbox"
+      ]
+    },
+    {
+      "step": "reset-old-probe-process",
+      "args": [
+        "shell",
+        "am force-stop local.k50.gnssprobe"
+      ]
+    },
+    {
+      "step": "old-probe-process-absent",
+      "args": [
+        "shell",
+        "pidof local.k50.gnssprobe || true"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-0",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-1",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-2",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-3",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-4",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-5",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-6",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-7",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-8",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-9",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-10",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-11",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-12",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-13",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-14",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-15",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-16",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-17",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-18",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-19",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-20",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-21",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-22",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-23",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-24",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-25",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-26",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-27",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-28",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-29",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-30",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-31",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-32",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-33",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-34",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-35",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-36",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-37",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-38",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-39",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-40",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-41",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-42",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-43",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-44",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-45",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-46",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-47",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-48",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-49",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-50",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-51",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-52",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-53",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-54",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-55",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-56",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-57",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-58",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "gps-idle-observation-59",
+      "args": [
+        "shell",
+        "dumpsys location"
+      ]
+    },
+    {
+      "step": "restore-search-availability",
+      "args": [
+        "shell",
+        "am start -W -n com.google.android.googlequicksearchbox/.SearchActivity"
+      ]
+    },
+    {
+      "step": "search-package-restored",
+      "args": [
+        "shell",
+        "dumpsys package com.google.android.googlequicksearchbox"
+      ]
+    },
+    {
+      "step": "restore-home-after-gnss",
+      "args": [
+        "shell",
+        "input keyevent KEYCODE_HOME"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+command=['/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/out/host/linux-x86/bin/make_f2fs', '-t', '0', '-g', 'android', '/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/mkfs/metadata-android.img', '8192']
+exit=255
+
+	F2FS-tools: mkfs.f2fs Ver: 1.12.0 (2018-11-12)
+
+Info: Disable heap-based policy
+Info: Debug level = 1
+Info: Trim is disabled
+Info: Set conf for android
+	Info: No support kernel version!
+Info: wanted sectors = 8192 (in 4096 bytes)
+Info: Segments per section = 1
+Info: Sections per zone = 1
+Info: sector size = 512
+Info: total sectors = 65536 (32 MB)
+Info: zone aligned segment0 blkaddr: 512
+	Error: Device size is not sufficient for F2FS volume
+	Error: Failed to prepare a super block!!!
+	Error: Could not format the device!!!

@@ -1,0 +1,33 @@
+=== native crashes (DEBUG tombstone headers) in logcat ===
+8
+
+=== java FATAL EXCEPTION ===
+0
+
+=== ANRs ===
+0
+
+=== repeated process starts (possible app crash loops) - top 15 ===
+      3 com.google.android.gms
+      2 webview_service
+      2 com.huawei.hwid.container3
+      2 com.android.vending
+      2 com.android.providers.calendar
+      1 org.lineageos.updater
+      1 org.lineageos.etar
+      1 instant_app_installer
+      1 googleapp
+      1 com.huawei.hwid.persistent
+      1 com.huawei.hwid.core
+      1 com.huawei.hwid.container2
+      1 com.huawei.hwid
+      1 com.google.android.partnersetup
+      1 com.google.android.gms.unstable
+
+=== 'has died' / process killed ===
+      2 com.android.vending
+      1 com.huawei.hwid.container2
+      1 com.google.android.gms
+      1 com.android.vending:background
+
+=== privapp permission violations (ro.control_privapp_permissions=log) ===

@@ -1,0 +1,78 @@
+{
+  "passed": 4,
+  "total": 9,
+  "cases": [
+    {
+      "case": "reset-wakeup-preserves-submitted-fields",
+      "exit_code": 1,
+      "passed": false
+    },
+    {
+      "case": "late-success-cannot-reverse-cancel",
+      "exit_code": 1,
+      "passed": false
+    },
+    {
+      "case": "completed-reply-survives-reset",
+      "exit_code": 1,
+      "passed": false
+    },
+    {
+      "case": "repeated-reset-signals-once",
+      "exit_code": 1,
+      "passed": false
+    },
+    {
+      "case": "late-error-cannot-replace-cancelled-fields",
+      "exit_code": 1,
+      "passed": false
+    },
+    {
+      "case": "no-current-operation",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "asynchronous-operation-not-cancelled",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "withdrawn-operation-not-signalled",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "worker-id-snapshot",
+      "exit_code": 0,
+      "passed": true
+    }
+  ],
+  "source_sha256": {
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c": "6465bac5b7fef36b9a7639ff3e31e6f71e562c7dd99f8cda41bfd645b1936a37",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/include/osal.h": "dbe8e5070e1472fd6ed486a85a68e3fe297090848764961c8616f68cf55015ee"
+  },
+  "runner_sha256": "1c0a2473a3d4347eacde58ae86f7211a5239e1d76abec7a1e2a35cb783c59f6e",
+  "imported_runner_sha256": "b66c94d950f59287ec3674568988164f8a43fbadead01e859fd99ac88269e0bf",
+  "fixture_sha256": "acddc7ca39d9856258ecd09173ca7c2d8745f205cf5cf457a4030e96e81b393c",
+  "compiler": [
+    "cc",
+    "-std=gnu11",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-function",
+    "-Wno-unused-variable",
+    "-Wno-unused-but-set-variable",
+    "-pthread",
+    "-fsanitize=address,undefined",
+    "-no-pie",
+    "-fno-omit-frame-pointer",
+    "wmt-cancel-tests/before-directed-final/test.c",
+    "-o",
+    "wmt-cancel-tests/before-directed-final/test"
+  ],
+  "sanitizer": "address"
+}

@@ -1,0 +1,93 @@
+$ adb -s 0123456789ABCDEF get-state
+recovery
+
+$ adb -s 0123456789ABCDEF shell getprop ro.bootmode
+recovery
+
+$ adb -s 0123456789ABCDEF shell cat /proc/modules
+
+$ adb -s 0123456789ABCDEF shell mkdir -p /tmp/k50-source-modules
+
+$ adb -s 0123456789ABCDEF push /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/modules/bt_drv.ko /tmp/k50-source-modules/bt_drv.ko
+/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/modules/bt_drv.ko: 1 file pushed, 0 skipped. 655.3 MB/s (28032 bytes in 0.000s)
+
+$ adb -s 0123456789ABCDEF push /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/modules/wmt_drv.ko /tmp/k50-source-modules/wmt_drv.ko
+/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/modules/wmt_drv.ko: 1 file pushed, 0 skipped. 4525.9 MB/s (1417744 bytes in 0.000s)
+
+$ adb -s 0123456789ABCDEF push /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/modules/gps_drv.ko /tmp/k50-source-modules/gps_drv.ko
+/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/modules/gps_drv.ko: 1 file pushed, 0 skipped. 717.5 MB/s (28040 bytes in 0.000s)
+
+$ adb -s 0123456789ABCDEF push /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/modules/wmt_chrdev_wifi.ko /tmp/k50-source-modules/wmt_chrdev_wifi.ko
+/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/modules/wmt_chrdev_wifi.ko: 1 file pushed, 0 skipped. 700.5 MB/s (28200 bytes in 0.000s)
+
+$ adb -s 0123456789ABCDEF push /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/modules/wlan_drv_gen2.ko /tmp/k50-source-modules/wlan_drv_gen2.ko
+/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/modules/wlan_drv_gen2.ko: 1 file pushed, 0 skipped. 5714.2 MB/s (2130352 bytes in 0.000s)
+
+$ adb -s 0123456789ABCDEF shell mount -t ext4 -o rw /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/vendor /vendor
+
+$ adb -s 0123456789ABCDEF shell sha256sum /vendor/lib/modules/*.ko
+d64e7dccc2453ab00dca022f68193940de303c282abcaeb1c67b46ffe7925a4b  /vendor/lib/modules/bt_drv.ko
+af865da4f38bbf45a31222ecd2b0445926eecd41e391bdd11abd0e49c1033949  /vendor/lib/modules/gps_drv.ko
+658b5fa6378267368c4b809f540b270efaee80062c374fb7250db7928a8bb84f  /vendor/lib/modules/wlan_drv_gen2.ko
+c1372b4c3759186179ec8c2e720ef05ae771d2a16a36b84e2d8e07fbca155a19  /vendor/lib/modules/wmt_chrdev_wifi.ko
+f30b22f3c39b8dd5816fee034c6b19d422c608768b345bded7cb29e574cb1c46  /vendor/lib/modules/wmt_drv.ko
+
+$ adb -s 0123456789ABCDEF shell sha256sum /tmp/k50-source-modules/bt_drv.ko
+cb959477282f29ea08f0862f6275ce8bef7aae5b04591f8ece255197c756134b  /tmp/k50-source-modules/bt_drv.ko
+
+$ adb -s 0123456789ABCDEF shell cp /tmp/k50-source-modules/bt_drv.ko /vendor/lib/modules/bt_drv.ko.source && chown 0:0 /vendor/lib/modules/bt_drv.ko.source && chmod 0644 /vendor/lib/modules/bt_drv.ko.source && chcon u:object_r:vendor_file:s0 /vendor/lib/modules/bt_drv.ko.source
+
+$ adb -s 0123456789ABCDEF shell sha256sum /tmp/k50-source-modules/wmt_drv.ko
+75f8b19c9aa10822f04226821c179d9e3e05c14cfb89ea0115c810ccace27d74  /tmp/k50-source-modules/wmt_drv.ko
+
+$ adb -s 0123456789ABCDEF shell cp /tmp/k50-source-modules/wmt_drv.ko /vendor/lib/modules/wmt_drv.ko.source && chown 0:0 /vendor/lib/modules/wmt_drv.ko.source && chmod 0644 /vendor/lib/modules/wmt_drv.ko.source && chcon u:object_r:vendor_file:s0 /vendor/lib/modules/wmt_drv.ko.source
+
+$ adb -s 0123456789ABCDEF shell sha256sum /tmp/k50-source-modules/gps_drv.ko
+8f9d49e0f7adb44371201a804e316cd59545e9892b5aca0c7cb714cecffb9bfa  /tmp/k50-source-modules/gps_drv.ko
+
+$ adb -s 0123456789ABCDEF shell cp /tmp/k50-source-modules/gps_drv.ko /vendor/lib/modules/gps_drv.ko.source && chown 0:0 /vendor/lib/modules/gps_drv.ko.source && chmod 0644 /vendor/lib/modules/gps_drv.ko.source && chcon u:object_r:vendor_file:s0 /vendor/lib/modules/gps_drv.ko.source
+
+$ adb -s 0123456789ABCDEF shell sha256sum /tmp/k50-source-modules/wmt_chrdev_wifi.ko
+8af65fd294d629195995a9bb73956aed6836ed6ef449c7c6f9ee0d68e4e1f977  /tmp/k50-source-modules/wmt_chrdev_wifi.ko
+
+$ adb -s 0123456789ABCDEF shell cp /tmp/k50-source-modules/wmt_chrdev_wifi.ko /vendor/lib/modules/wmt_chrdev_wifi.ko.source && chown 0:0 /vendor/lib/modules/wmt_chrdev_wifi.ko.source && chmod 0644 /vendor/lib/modules/wmt_chrdev_wifi.ko.source && chcon u:object_r:vendor_file:s0 /vendor/lib/modules/wmt_chrdev_wifi.ko.source
+
+$ adb -s 0123456789ABCDEF shell sha256sum /tmp/k50-source-modules/wlan_drv_gen2.ko
+ae1e9e43dfd8dd9cdf200803b35677bc6630df97adafb4a7532bc5b21aaf3647  /tmp/k50-source-modules/wlan_drv_gen2.ko
+
+$ adb -s 0123456789ABCDEF shell cp /tmp/k50-source-modules/wlan_drv_gen2.ko /vendor/lib/modules/wlan_drv_gen2.ko.source && chown 0:0 /vendor/lib/modules/wlan_drv_gen2.ko.source && chmod 0644 /vendor/lib/modules/wlan_drv_gen2.ko.source && chcon u:object_r:vendor_file:s0 /vendor/lib/modules/wlan_drv_gen2.ko.source
+
+$ adb -s 0123456789ABCDEF shell mv /vendor/lib/modules/bt_drv.ko.source /vendor/lib/modules/bt_drv.ko
+
+$ adb -s 0123456789ABCDEF shell mv /vendor/lib/modules/wmt_drv.ko.source /vendor/lib/modules/wmt_drv.ko
+
+$ adb -s 0123456789ABCDEF shell mv /vendor/lib/modules/gps_drv.ko.source /vendor/lib/modules/gps_drv.ko
+
+$ adb -s 0123456789ABCDEF shell mv /vendor/lib/modules/wmt_chrdev_wifi.ko.source /vendor/lib/modules/wmt_chrdev_wifi.ko
+
+$ adb -s 0123456789ABCDEF shell mv /vendor/lib/modules/wlan_drv_gen2.ko.source /vendor/lib/modules/wlan_drv_gen2.ko
+
+$ adb -s 0123456789ABCDEF shell ls -lZ /vendor/lib/modules; sha256sum /vendor/lib/modules/*.ko
+total 3556
+-rw-r--r-- 1 root root u:object_r:vendor_file:s0   28032 2026-09-05 19:32 bt_drv.ko
+-rw-r--r-- 1 root root u:object_r:vendor_file:s0   28040 2026-09-05 19:32 gps_drv.ko
+-rw-r--r-- 1 root root u:object_r:vendor_file:s0 2130352 2026-09-05 19:32 wlan_drv_gen2.ko
+-rw-r--r-- 1 root root u:object_r:vendor_file:s0   28200 2026-09-05 19:32 wmt_chrdev_wifi.ko
+-rw-r--r-- 1 root root u:object_r:vendor_file:s0 1417744 2026-09-05 19:32 wmt_drv.ko
+cb959477282f29ea08f0862f6275ce8bef7aae5b04591f8ece255197c756134b  /vendor/lib/modules/bt_drv.ko
+8f9d49e0f7adb44371201a804e316cd59545e9892b5aca0c7cb714cecffb9bfa  /vendor/lib/modules/gps_drv.ko
+ae1e9e43dfd8dd9cdf200803b35677bc6630df97adafb4a7532bc5b21aaf3647  /vendor/lib/modules/wlan_drv_gen2.ko
+8af65fd294d629195995a9bb73956aed6836ed6ef449c7c6f9ee0d68e4e1f977  /vendor/lib/modules/wmt_chrdev_wifi.ko
+75f8b19c9aa10822f04226821c179d9e3e05c14cfb89ea0115c810ccace27d74  /vendor/lib/modules/wmt_drv.ko
+
+$ adb -s 0123456789ABCDEF shell sha256sum /vendor/lib/modules/*.ko
+cb959477282f29ea08f0862f6275ce8bef7aae5b04591f8ece255197c756134b  /vendor/lib/modules/bt_drv.ko
+8f9d49e0f7adb44371201a804e316cd59545e9892b5aca0c7cb714cecffb9bfa  /vendor/lib/modules/gps_drv.ko
+ae1e9e43dfd8dd9cdf200803b35677bc6630df97adafb4a7532bc5b21aaf3647  /vendor/lib/modules/wlan_drv_gen2.ko
+8af65fd294d629195995a9bb73956aed6836ed6ef449c7c6f9ee0d68e4e1f977  /vendor/lib/modules/wmt_chrdev_wifi.ko
+75f8b19c9aa10822f04226821c179d9e3e05c14cfb89ea0115c810ccace27d74  /vendor/lib/modules/wmt_drv.ko
+
+$ adb -s 0123456789ABCDEF shell sync && umount /vendor
+
+$ adb -s 0123456789ABCDEF reboot bootloader
+

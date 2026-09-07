@@ -1,0 +1,32 @@
+[
+  {
+    "path": ".capture-staging/f2fs-runtime-20260905/final-f2fs-early-dmesg.txt",
+    "bytes": 224530,
+    "sha256": "c2df20a43c0e8248f21fb9e0fece53256c05621be4f07f59a5bd8ced71ee73e6"
+  },
+  {
+    "path": ".capture-staging/f2fs-runtime-20260905/final-ext4-early-dmesg.txt",
+    "bytes": 287955,
+    "sha256": "5ef263d4b908b9353534d0b45d794f56b7fb57349f46c4892ad02badda452811"
+  },
+  {
+    "path": ".capture-staging/f2fs-runtime-20260905/sqlite-atomic/initial-early-dmesg.txt",
+    "bytes": 1013375,
+    "sha256": "f79216fba708146aabe369e268a9c4b9acfe0a87c47179ff938b35faf65c6a25"
+  },
+  {
+    "path": ".capture-staging/f2fs-runtime-20260905/sqlite-atomic/forced-early-dmesg.txt",
+    "bytes": 286873,
+    "sha256": "601a6ff4cbd2bc02497dbaf762b7cb90909ad705f6b199d3318b4a85b4294f0c"
+  },
+  {
+    "path": ".capture-staging/f2fs-runtime-20260905/sqlite-atomic/f2fs-after-reset.db",
+    "bytes": 28672,
+    "sha256": "a348e147d870ec0fa0461ad6c41cbb1d29902ead593661bb1c539e045575ccce"
+  },
+  {
+    "path": ".capture-staging/f2fs-runtime-20260905/sqlite-atomic/writer.sql",
+    "bytes": 1126790,
+    "sha256": "cb54b2abc11d14abe3f40c3f32afb35b37371673e8db0095701bb56f43d0c4ad"
+  }
+]

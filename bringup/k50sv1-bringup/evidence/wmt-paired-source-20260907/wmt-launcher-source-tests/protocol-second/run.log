@@ -1,0 +1,19 @@
+PASS literal-request-and-64-bit-identities
+PASS every-truncated-request-preserves-output
+PASS trailing-byte-rejected
+PASS wrong-magic-or-version
+PASS wrong-request-kind-or-result
+PASS session-mismatch-and-zero-transaction
+PASS embedded-command-nul
+PASS zero-oversize-and-overflow-lengths
+PASS maximum-command-length
+PASS literal-negative-reply-retains-original-identities
+PASS invalid-status-and-short-output-preserved
+PASS two-real-metadata-record-layouts-and-reversed-sequences
+PASS duplicate-and-incomplete-sequence-lists-preserve-output
+PASS invalid-or-unterminated-basenames
+PASS invalid-list-count-or-short-output
+PASS empty-rom-and-optional-wmt-sentinel
+PASS maximum-lists-with-zeroed-name-padding-and-rom-type-bound
+PASS invalid-api-and-list-kind
+{"passed":18,"total":18}

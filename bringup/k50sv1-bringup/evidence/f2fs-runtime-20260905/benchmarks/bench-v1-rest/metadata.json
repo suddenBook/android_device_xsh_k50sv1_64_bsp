@@ -1,0 +1,86 @@
+{
+  "started_utc": "2026-09-05T11:43:41.118702+00:00",
+  "label": "bench-v1-rest",
+  "order": [
+    "ext4",
+    "ext4",
+    "f2fs",
+    "f2fs",
+    "ext4"
+  ],
+  "device": "/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata",
+  "scope": "Freshly formatted, low occupancy; recovery psync QD1; not app or endurance testing",
+  "rounds": [
+    {
+      "index": 1,
+      "fs": "ext4",
+      "format_seconds": 5.343747591978172,
+      "elapsed_seconds": 124.20415167298052,
+      "job_errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 2,
+      "fs": "ext4",
+      "format_seconds": 10.818040687998291,
+      "elapsed_seconds": 132.65932205299032,
+      "job_errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 3,
+      "fs": "f2fs",
+      "format_seconds": 13.252392258989858,
+      "elapsed_seconds": 135.81506959701073,
+      "job_errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 4,
+      "fs": "f2fs",
+      "format_seconds": 12.745938875974389,
+      "elapsed_seconds": 135.441391610977,
+      "job_errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 5,
+      "fs": "ext4",
+      "format_seconds": 10.447347387002083,
+      "elapsed_seconds": 131.55434360398795,
+      "job_errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "finished_utc": "2026-09-05T11:55:56.147272+00:00"
+}

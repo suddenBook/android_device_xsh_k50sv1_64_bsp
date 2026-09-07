@@ -1,0 +1,22 @@
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==3609416==ERROR: AddressSanitizer: SEGV on unknown address 0x000000001340 (pc 0x000000401986 bp 0x7ffd3c310850 sp 0x7ffd3c310850 T0)
+==3609416==The signal is caused by a READ memory access.
+    #0 0x000000401986 in consys_emi_set_remapping_reg ../wmt-probe-lifecycle-tests/baseline-final/fixture.c:937
+    #1 0x0000004045f5 in mtk_wmt_probe ../wmt-probe-lifecycle-tests/baseline-final/fixture.c:1031
+    #2 0x000000403840 in platform_drv_probe ../wmt-probe-lifecycle-tests/baseline-final/fixture.c:1167
+    #3 0x000000403840 in platform_driver_register ../wmt-probe-lifecycle-tests/baseline-final/fixture.c:681
+    #4 0x0000004049bf in mtk_wcn_consys_hw_init ../wmt-probe-lifecycle-tests/baseline-final/fixture.c:1111
+    #5 0x0000004055f4 in main ../wmt-probe-lifecycle-tests/baseline-final/fixture.c:1359
+    #6 0x7fece6627c8d  (/usr/lib/libc.so.6+0x27c8d) (BuildId: 46554afd5282a7de42075035b9bdaac8968c6e03)
+    #7 0x7fece6627dca in __libc_start_main (/usr/lib/libc.so.6+0x27dca) (BuildId: 46554afd5282a7de42075035b9bdaac8968c6e03)
+    #8 0x000000401224 in _start (/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/baseline-final/fixture+0x401224) (BuildId: 3beb001b0dbcf2c0f00d90d17a13df8ae99f03e7)
+
+==3609416==Register values:
+rax = 0x0000000000000900  rbx = 0x00007bece3ef0000  rcx = 0x0000000000000003  rdx = 0x0000000000000000  
+rdi = 0x0000000000000000  rsi = 0x0000000000001340  rbp = 0x00007ffd3c310850  rsp = 0x00007ffd3c310850  
+ r8 = 0x00007fece7096000   r9 = 0x0000000000002020  r10 = 0x0000000000100000  r11 = 0x0000000000002000  
+r12 = 0x000000000040f700  r13 = 0x0000000000000000  r14 = 0x00000f7d9c7de000  r15 = 0x00007bece3ef0060  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV ../wmt-probe-lifecycle-tests/baseline-final/fixture.c:937 in consys_emi_set_remapping_reg
+==3609416==ABORTING

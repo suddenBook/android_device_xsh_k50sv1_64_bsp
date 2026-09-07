@@ -1,0 +1,7 @@
+uid=10133 expectation=deny
+PASS code=3 denied=true
+PASS code=12 denied=true
+
+uid=1001 expectation=phone
+PASS code=3 denied=false value=0
+PASS code=12 denied=false value=0

@@ -1,0 +1,282 @@
+E-084 artifact: MTK DSDS radio-capability switch, root cause and fix
+====================================================================
+
+Pinned inputs
+-------------
+mtk_ril_so_sha256=60b82ed7682dd882dff90c6bfc196c4abd861d2006b88d2c94d6d1a77a3d02d6
+librilmtk_so_sha256=69981722f45545a9c468853bf8b32b5016a9ba68ad2e1c99fccba36277717956
+libmtkrilutils_so_sha256=b7eb52d1497ba62b53bfbc2ff7b30c25de70b0abd732fc917f9800ab4ec811e6
+mtk_rilproxy_so_sha256=6c89be16bb309055f58469387a6580217777930690d0465342b02cbd10c8e23c
+rilproxy_bin_sha256=d22551b63f05c4e383202d7e6d061d0bc33c711fde5d96aa63d54738770f6f75
+frameworks_opt_telephony_revision=2e3bcc16d01cd037b1476349bf58f9757164f539
+frameworks_base_revision=3eb409bcc54f50cc05b7e252ef235519d2fb20aa
+stock_rilproxy_rc_sha256=977b91d4b168d17f8fbedd65c98534634f8e403c6d721b3757581aff3182c4bf
+shimmed_rilproxy_rc_sha256=40e110c046ee532b272cd3a0324fa43673c60aa9fbd62b02f5bfb0d446fda4ca
+
+In mtk-ril.so ELF vaddr == file offset, so every address below is seekable.
+
+1. Why the transaction starts at all
+------------------------------------
+Protocol stack 1 is Lf/Lt/W/T/G, stack 2 is W/G, so the two phones report
+different RadioAccessFamily. Measured at boot:
+
+  RILJ: convertHalRadioCapability: session=0, phase=0, rat=36869,
+        logicModemUuid=modem_sys1_ps1, status=0, rcRil.raf=81930 [SUB0]
+  RILJ: convertHalRadioCapability: session=0, phase=0, rat=32772,
+        logicModemUuid=modem_sys1_ps2, status=0, rcRil.raf=65544 [SUB1]
+
+  81930 = 0x1400A = GSM|LTE|UMTS|EDGE in ril.h 1<<RADIO_TECH_* encoding
+  65544 = 0x10008 = GSM|UMTS
+
+SubscriptionController.setDefaultDataSubId therefore builds rafs that differ
+from the current pair whenever the slot-1 subscription is chosen, and
+ProxyController.setRadioCapability does not take its "same" early return.
+
+2. Why it destroys the radio
+----------------------------
+mtk-ril.so doSimSwitchWithoutMdReset @ 0xbba20 (1020 bytes), single caller
+requestSetRadioCapability @ 0xbc744. Reconstructed order:
+
+  0xbba64  LOGI "doSimSwitchWithoutMdReset START"
+  0xbba68  for each SIM: setRadioState(RADIO_STATE_UNAVAILABLE)   <-- FIRST
+  0xbbacc  at_send_command("AT+EBOOT=1")
+  0xbbaf0  resetSignalCounter()
+  0xbbb18  for 12 channels: getChannelLock x2, closeChannel
+  0xbbbdc  asprintf("AT+ESIMMAP=%d", 1 << targetSimRid)
+  0xbbc60  setSimSwitchProp(targetSimRid + 1)
+  0xbbc94  while (getSignalCounter() != getSupportChannels());   <-- no sleep,
+                                                                     no timeout
+  0xbbcb0  openChannelFds()          (retries open() forever on failure)
+  0xbbd64  sendRadioCapabilityDoneIfNeeded()   <-- emits RIL_UNSOL_RADIO_CAPABILITY
+  0xbbd90  LOGI "doSimSwitchWithoutMdReset END isSwitchSuccess: %d"
+
+getSupportChannels @ 0xc3138 is `mov w0, 0xc; ret` -- a hard-coded 12.
+getSignalCounter @ 0xc3140 reads s_signalCounter @ 0x120270. The only
+incrementer is signal_treatment @ 0xc1498, the SIGUSR1 handler installed by
+each AT reader thread (readerLoop @ 0xc1618). readerLoop's own EOF exit path
+@ 0xc1c74 ("%s Closed, trigger TRM!") returns WITHOUT incrementing it, so a
+reader that already died can never be counted and the spin cannot terminate.
+
+The APPLY response and the capability indication are both sent only after this
+function returns (requestSetRadioCapability 0xbc748-0xbc790), which is exactly
+the observed "no phone-1 APPLY response, no indication, no FINISH".
+
+3. Why it would have been useless even if it completed
+------------------------------------------------------
+applyRadioCapability picks its target slot at 0xbbfd8:
+
+  0xbbfd8  ldrb w8, [x21, 0xc]     ; low byte of RIL_RadioCapability.rat
+  0xbbfdc  tbz  w8, #1, 0xbbfe4    ; only when HAL RadioAccessFamily.GPRS (1<<1)
+  0xbbfe0  str  w22, [x24]         ; targetSimRid = rilId   (ONLY writer)
+
+RIL.java sends the framework's NETWORK_TYPE_BITMASK encoding down without
+converting (halRc.raf = rc.getRadioAccessFamily()), while it converts on the
+way up in convertHalRadioCapability. In the framework encoding bit 1 is
+NETWORK_TYPE_BITMASK_EDGE, which neither 36869 nor 32772 sets. targetSimRid
+therefore stays 0, the blob emits AT+ESIMMAP=1 and setSimSwitchProp(1), and
+switchMuxPath no-ops because s_targetSim == 1. That is why
+persist.vendor.radio.simswitch read 1 before, during and after every observed
+attempt.
+
+4. Live reproduction in this session
+------------------------------------
+Not provoked deliberately: replacing one SIM was enough. Android re-picked the
+default data subscription onto the new slot-1 card and the transaction ran.
+
+  ProxyController: onNotificationRadioCapabilityChanged: APPLY URC success=false
+  RILJ: [0432]> RIL_REQUEST_SET_RADIO_CAPABILITY ... mPhase=4 mStatus=1 [SUB0]
+  ProxyController: issueFinish: phoneId=1 mTransactionFailed=false
+  RILJ: convertHalRadioCapability: ... rat=16386 ... rcRil.raf=32772 [SUB0]
+  RILJ: convertHalRadioCapability: ... rat=18434 ... rcRil.raf=36869 [SUB1]
+
+rat=16386 and rat=18434 are the double-conversion artefact of section 3: the
+blob echoed back the framework-encoded raf and the framework converted it a
+second time. Afterwards:
+
+  RILJ: responseIccCardStatus: IccCardState {CARDSTATE_ERROR,PINSTATE_UNKNOWN,
+        num_apps=0,...}
+  RilRequest: GET_SIM_STATUS error: RADIO_NOT_AVAILABLE
+
+in a tight loop on both sockets, with AT+EFUN=0 on the wire. The SIM-PIN screen
+for the newly inserted card hung in "unlocking" because there was no radio to
+answer it. Recovery: set the stored default data subscription back to the
+slot-0 subscription and reboot. No flash was needed.
+
+5. The fix, and why data switching still works
+----------------------------------------------
+RadioResponse.getRadioCapabilityResponse substitutes
+RIL.makeStaticRadioCapability() when the HAL answers REQUEST_NOT_SUPPORTED or
+GENERIC_FAILURE, and makeStaticRadioCapability reads the framework resource
+config_radio_access_family, which is global rather than per-phone. Failing that
+one request therefore gives both phones an identical RAF and
+ProxyController.setRadioCapability takes
+
+  "setRadioCapability: Already in requested configuration, nothing to do."
+
+so the vendor switch is never entered. Implemented as a device-tree shim
+(libril-k50sv1-shim) loaded by rilproxy in place of mtk-rilproxy.so.
+
+Default-data switching itself does not use that path on Android 10. PhoneSwitcher
+selects HAL_COMMAND_PREFERRED_DATA because IRadioConfig 1.1 is declared in this
+device's VINTF manifest, and moves the data path with setPreferredDataModem.
+Measured working on this handset before any change:
+
+  ServiceManagement: Registered android.hardware.radio.config@1.1::IRadioConfig/default
+  RadioConfig: [0301]> SET_PREFERRED_DATA_MODEM
+  RadioConfig_service: radioConfig::setPreferredDataModem serial=301
+  RfxRoot: ... RIL_REQUEST_SET_PREFERRED_DATA_MODEM(150) ... RpDataController
+  RadioConfigResponse: [0301]< SET_PREFERRED_DATA_MODEM
+
+Cost: slot 1 data runs on protocol stack 2, which is W/G, so 3G/2G only.
+
+6. Rejected alternatives, with the reason
+-----------------------------------------
+- Failing RIL_REQUEST_SET_RADIO_CAPABILITY instead. ProxyController's
+  completeRadioCapabilityTransaction() answers a failed transaction by calling
+  doSetRadioCapabilities() again with the old RAFs. Always-fail would loop.
+- ro.vendor.mtk_disable_cap_switch=1. Its only framework reader is
+  MtkProxyController, which this port does not run. Its only native reader,
+  libmtkrilutils isDisableCapabilitySwitch @ 0xbaa8, is called from exactly one
+  site, mtk-ril RIL_Init @ 0x5542c, and is absent from requestSetRadioCapability.
+- persist.vendor.radio.simswitch.emmode=0 and persist.vendor.mtk_sim_switch_policy.
+  Same reason: readers live in MediaTek's telephony framework only.
+- Overlaying config_radio_access_family alone. Dead path unless the HAL fails
+  the request, which is what the shim arranges.
+- Patching frameworks/opt/telephony. Not needed for this defect, and the owner's
+  standing rule is to keep upstream clean.
+
+7. Verified on the handset
+--------------------------
+Flashed image, both SIMs present, slot 0 registered:
+
+  k50sv1-ril-shim: wrapping mtk-rilproxy.so, RIL version 15
+  k50sv1-ril-shim: GET_RADIO_CAPABILITY -> REQUEST_NOT_SUPPORTED
+                   (framework falls back to config_radio_access_family)
+  RILJ: convertHalRadioCapability: session=0, phase=0, rat=0,
+        logicModemUuid=, status=0, rcRil.raf=0 [SUB0]
+  RILJ: Faking RIL_REQUEST_GET_RADIO_CAPABILITY response using 36869 [SUB0]
+  RILJ: Faking RIL_REQUEST_GET_RADIO_CAPABILITY response using 36869 [SUB1]
+
+  getprop gsm.sim.state       LOADED,PIN_REQUIRED
+  getprop gsm.operator.numeric 20408
+  getprop gsm.network.type     LTE,Unknown
+
+Both phones now hold the same RadioAccessFamily, so
+ProxyController.setRadioCapability() can only take its "Already in requested
+configuration, nothing to do." branch. The value 36869 reaches Phone through
+GsmCdmaPhone.handleRadioAvailable() -> EVENT_GET_RADIO_CAPABILITY ->
+radioCapabilityUpdated(), which is the only writer of Phone.mRadioCapability
+besides ProxyController.onNotificationRadioCapabilityChanged -- and that one
+returns early on a session mismatch, which is what the blob's boot-time
+unsolicited RIL_UNSOL_RADIO_CAPABILITY (session=-1, phase=3) always is.
+
+8. Two shim bugs found and fixed while proving this
+---------------------------------------------------
+Both cost a flash cycle each; recorded so the next person does not repeat them.
+
+a) Returning a private copy of RIL_RadioFunctions crashes rilproxy.
+   MediaTek's struct is LONGER than the AOSP header's six members;
+   librilproxy's onNewCommandConnect calls a pointer at offset 0x30, one slot
+   past the end of a 48-byte copy:
+
+     #01 pc 0000000000065e54  librilproxy.so (onNewCommandConnect+524)
+     #02 pc 000000000006b7bc  librilproxy.so (RadioImpl::setResponseFunctions+2044)
+
+   The fix patches the blob's own table in place and returns the blob's own
+   pointer, which needs no size knowledge. The offset of onRequest itself is
+   confirmed to be 8 from librilproxy's own dispatch:
+
+     0x000698a8  ldr x8, [x8]        ; s_vendorFunctions
+     0x000698ac  ldr x8, [x8, 8]     ; ->onRequest
+     0x000698b0  blr x8
+     with w0=request x1=data x2=datalen x3=token w4=socket_id
+
+b) After patching in place, calling sRealFuncs->onRequest re-enters the shim:
+   that slot now points at onRequestShim, clang tail-calls it, and rilproxy's
+   dispatch thread spins forever. There is NO crash and NO dispatched request.
+   The symptom is a silent telephony stack -- gsm.sim.state empty, one
+   "RILJ: RIL: init preferredNetworkType=9" and nothing after it -- while
+   mtkrild is visibly healthy and has already read both SIMs
+   ("+ESIMS: 1", "+EUSIM: 1, 2", EF reads). Capture onRequest before
+   overwriting it.
+
+9. End-to-end proof: the switch that used to wedge the radio
+------------------------------------------------------------
+Flashed image, userdata wiped, two live subscriptions:
+sub 2 = slot 0 = CMCC roaming on KPN 20408, sub 1 = slot 1 = Vodafone NL 20404.
+
+  before:  gsm.sim.state = LOADED,LOADED   gsm.operator.numeric = 20408,20404
+  action:  service call isub 33 i32 1      (ISub.setDefaultDataSubId, slot 1)
+  after:   gsm.sim.state = LOADED,LOADED   gsm.operator.numeric = 20408,20404
+           gsm.network.type = Unknown,EDGE
+           defaultDataSubId = 1
+
+and the framework's own record of why nothing happened:
+
+  [setDefaultDataSubId] num phones=2, subId=1
+  [setDefaultDataSubId] phoneId=0 subId=2 RAF=36869
+  [setDefaultDataSubId] phoneId=1 subId=1 RAF=36869
+
+Both RAFs are now the same value, so the requested pair equals the current pair
+and setRadioCapability() returns at its `same` check. Compare the failing form,
+which is what every earlier attempt produced:
+
+  [setDefaultDataSubId] phoneId=0 subId=1 RAF=36869
+  [setDefaultDataSubId] phoneId=1 subId=2 RAF=32772
+
+No ProxyController transaction, no doSimSwitchWithoutMdReset, no
+CARDSTATE_ERROR, no RADIO_NOT_AVAILABLE on the UICC path. Switching back to
+slot 0 (`service call isub 33 i32 2`) is equally uneventful. Slot-1 data comes
+up as EDGE, which is protocol stack 2's ceiling.
+
+ISub transaction 33 was confirmed rather than assumed: transaction 32 returns
+the current default data subscription (-1 at the time, matching dumpsys isub),
+so 33 is the setter that follows it in ISub.aidl.
+
+10. The user-visible outcome
+----------------------------
+With the default data subscription left on slot 1, the handset carries a live
+default PDP context on that SIM while both radios stay registered:
+
+  gsm.sim.state         LOADED,LOADED
+  gsm.operator.numeric  20408,20404
+  gsm.network.type      Unknown,EDGE
+  defaultDataSubId      1                       (slot 1)
+  persist.vendor.radio.simswitch  1             (unchanged: no switch happened)
+
+  Data Connection state: 2, Network type: 2, APN types: hipri,default,
+      APN: live.vodafone.com, InterfaceName: ccmni0,
+      LinkAddresses: [ 100.110.147.179/32 ], Routes: [ 0.0.0.0/0 -> ccmni0 ]
+
+Data reaches the network on the slot the user selected. The rate is EDGE
+because protocol stack 2 is W/G; that is the stated and permanent cost of not
+running MediaTek's SIM switch, which on this modem hangs and is inert.
+
+11. Repeated after the SIM fixture changed
+------------------------------------------
+The proof above was taken with Vodafone NL in slot 1. After the cards were
+swapped -- slot 0 = Vodafone NL 20404 (HOME, LTE), slot 1 = CMCC 46000 roaming
+on KPN -- the switch was exercised again in both directions:
+
+  before: LOADED,LOADED  20404,20408  LTE,Unknown      defaultDataSubId=1
+  action: service call isub 33 i32 2        (data -> slot 1)
+  after : LOADED,LOADED  20404,20408  Unknown,EDGE     defaultDataSubId=2
+  action: service call isub 33 i32 1        (data -> slot 0)
+  after : LOADED,LOADED  20404,20408  LTE,Unknown      defaultDataSubId=1
+
+  [setDefaultDataSubId] phoneId=0 subId=1 RAF=36869
+  [setDefaultDataSubId] phoneId=1 subId=2 RAF=36869
+
+Both radios stay LOADED and both operators stay registered in every direction.
+The fix does not depend on which SIM is in which slot: the equal RAF comes from
+the one global config_radio_access_family, not from anything per-card.
+
+What slot 1 actually gets: EDGE, measured both times, on two different SIMs.
+Protocol stack 2 is configured W/G, so UMTS is its ceiling, but what the slot
+attaches to is the network's choice and here it has been 2G every time. Do not
+promise "3G on slot 1" from the W/G configuration alone.
+
+A working data session on slot 1 WAS proven, in section 10, while Vodafone was
+the slot-1 card: a default PDP context on live.vodafone.com over ccmni0 with the
+default route. Whether the CMCC card now in slot 1 carries data is a question
+about its roaming plan, not about this ROM.

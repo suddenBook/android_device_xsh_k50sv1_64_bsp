@@ -1,0 +1,43 @@
+{
+  "kernel_head": "2fa898562dbe6b41893e99f7dc1bc68b414b3813",
+  "candidate_baseline": "01aa9ae000357a779ae30ade6d33954850670c16",
+  "env": {
+    "KBUILD_BUILD_USER": "nobody",
+    "KBUILD_BUILD_HOST": "android-build",
+    "KBUILD_BUILD_VERSION": "1",
+    "KBUILD_BUILD_TIMESTAMP": "Sat Sep 05 17:44:12 UTC 2026",
+    "LD_LIBRARY_PATH": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/kernel-review-20260905/build-project/lineage-17.1/out/host-compat-libs"
+  },
+  "command": [
+    "make",
+    "-C",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/kernel-review-20260905/build-project/lineage-17.1/kernel/xsh/k50sv1_64_bsp",
+    "ARCH=arm64",
+    "CROSS_COMPILE=/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/kernel-review-20260905/build-project/lineage-17.1/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-",
+    "LOCALVERSION=",
+    "KBUILD_SYMTYPES=1",
+    "python=/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/kernel-review-20260905/build-project/lineage-17.1/prebuilts/python/linux-x86/2.7.5/bin/python2.7",
+    "O=/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/kernel-obj",
+    "M=/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/project/vendor/mediatek/kernel_modules/connectivity",
+    "TOP=/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/project",
+    "AUTOCONF_H=/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/kernel-obj/include/generated/autoconf.h",
+    "KERNEL_OUT=/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/kernel-obj",
+    "MTK_PLATFORM=mt6755",
+    "TARGET_BUILD_VARIANT=userdebug",
+    "KBUILD_MODPOST_FAIL_ON_WARNINGS=y",
+    "-j32",
+    "modules"
+  ],
+  "status": "complete",
+  "candidate_head": "6e550d85b9f52ddfdb7beb57582efca688029e49",
+  "started_at": "2026-09-05T18:53:23.032371+00:00",
+  "clean_command": [
+    "git",
+    "-C",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/connectivity-source-assessment-20260905/build/project/vendor/mediatek/kernel_modules/connectivity",
+    "clean",
+    "-fdX"
+  ],
+  "ended_at": "2026-09-05T18:53:25.939738+00:00",
+  "returncode": 0
+}

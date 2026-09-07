@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "build": "17",
+  "boot_id": "a6177466-b0bb-4450-b031-6a6bf27cd9c5",
+  "incremental": "eng.desmon.20260907.031627",
+  "probe_sha256": "808d6434e6d8276183a472e3b538e9db968a6184d2e8cd0182562bf60eaa2f10",
+  "module_sha256": "563efcd91cbef8de664722b68ad026b22d73de707a9b00c459c45c869cfcfc38",
+  "response": {
+    "status": "PASS",
+    "operation": "read_adie_chip_id",
+    "ioctl": 3221790746,
+    "returned_bytes": 2,
+    "errno": 0,
+    "output_offset": 8,
+    "chip_id_le": 26149,
+    "guards_unchanged": true,
+    "close_result": 0
+  },
+  "exit_code": 0,
+  "kernel_interval": [
+    584.6,
+    585.34
+  ],
+  "kernel_records": 14,
+  "recognized_fault_signatures": [],
+  "final_identity": [
+    "a6177466-b0bb-4450-b031-6a6bf27cd9c5",
+    "0",
+    "585.34 3699.62"
+  ]
+}

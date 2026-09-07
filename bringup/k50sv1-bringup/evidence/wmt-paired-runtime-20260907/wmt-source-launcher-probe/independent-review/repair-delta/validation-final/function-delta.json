@@ -1,0 +1,538 @@
+{
+  "added": [
+    "binary_log_records",
+    "check_clock_binding",
+    "log_clock",
+    "native_clock",
+    "stream_path"
+  ],
+  "candidate": {
+    "__init__": {
+      "first_line": 282,
+      "last_line": 298,
+      "sha256": "646441169250867cc78ad90f3e6c83638f3238f1931d50a8063555911ef52099"
+    },
+    "binary_log_records": {
+      "first_line": 151,
+      "last_line": 171,
+      "sha256": "66c50117aed486e6f0a42494c667a11ecd663cb0e4621946a1d23ffdc5a92d86"
+    },
+    "capture": {
+      "first_line": 580,
+      "last_line": 591,
+      "sha256": "35cd47e3ced0e36b17a2bed1961b9cf8837b3f3c50f04e875e63472312dc8764"
+    },
+    "check": {
+      "first_line": 305,
+      "last_line": 307,
+      "sha256": "73eaf400399e19007b2730826e40671f2ddbeb325bb3afa9d379940ec012ab47"
+    },
+    "check_clock_binding": {
+      "first_line": 182,
+      "last_line": 196,
+      "sha256": "0c6450e8fdd9fe4cab4cc900d451737d5efd40b5d3409e4f4e46eadfa41b1475"
+    },
+    "cleanup": {
+      "first_line": 784,
+      "last_line": 836,
+      "sha256": "165fc45abba365d118ebe363671bf297fc9b4729228c4eb42dcabdf1ba4f60de"
+    },
+    "command": {
+      "first_line": 314,
+      "last_line": 334,
+      "sha256": "915c2f2d240d1744798dfc36960706b44ccd4f49cdc8d81780f9fa151e0a08d2"
+    },
+    "copy_input": {
+      "first_line": 453,
+      "last_line": 455,
+      "sha256": "6314be973a64da86462b63c5fecf73852af4b6014ff3023e194223b1d7064f7f"
+    },
+    "counters": {
+      "first_line": 630,
+      "last_line": 635,
+      "sha256": "5489a96a20a3ace767ecaafc3200a4f87d4c5863b74891a5a68260b169f3cff4"
+    },
+    "digest": {
+      "first_line": 60,
+      "last_line": 61,
+      "sha256": "50b76bfffc27cbd7a792c95d031f6fd8e49777b6241b96ed8c4c4773edc356cb"
+    },
+    "early_continuity": {
+      "first_line": 495,
+      "last_line": 502,
+      "sha256": "ea2209207d8e19da89ad493d5d37b449b75614a8b7739900d71f0c428dde6342"
+    },
+    "exercise": {
+      "first_line": 735,
+      "last_line": 782,
+      "sha256": "f4eb3200db444ffa490e94325b68b0dc79ce099cc8325f49d2553b7d4f63db3f"
+    },
+    "file": {
+      "first_line": 309,
+      "last_line": 312,
+      "sha256": "a9e317aa63a799c89cf5c1e4370420835054a0d57867e39645970278bb63e890"
+    },
+    "guarded_term_command": {
+      "first_line": 263,
+      "last_line": 278,
+      "sha256": "770a3ccdbd6832ee23a020e9e6f6df1aa066b26038c96f0250b43be093ac6306"
+    },
+    "healthy": {
+      "first_line": 367,
+      "last_line": 375,
+      "sha256": "f827f53dbba67e2da4ea316e89b6e7987bd334247d207e0d02877c26bbc5b94f"
+    },
+    "json_bytes": {
+      "first_line": 64,
+      "last_line": 65,
+      "sha256": "c7e28bf36bd2c85271e3af31ab7304724f2a32482cb23ccdc5effaa2aa1779c2"
+    },
+    "kernel_mode_evidence": {
+      "first_line": 245,
+      "last_line": 260,
+      "sha256": "7b194472cf7d5bc28f313bb0aab7e658950723c35bb89f67d29254772765022a"
+    },
+    "launcher_records": {
+      "first_line": 199,
+      "last_line": 207,
+      "sha256": "00e6f675bfba02338fd8c9a9e5cd46a14f6dfd13e6f053fa7fa9dde2fb9bc3f8"
+    },
+    "local_kernel_source": {
+      "first_line": 551,
+      "last_line": 578,
+      "sha256": "e3f1d36aed2d13f552d9a73afd323223b6f48d713c7c0cc237fff0f74f3d370f"
+    },
+    "log_clock": {
+      "first_line": 420,
+      "last_line": 444,
+      "sha256": "a743a935e28c9a2da83aa1b695cc82edad6ede94b82017813f3c76845b886920"
+    },
+    "main": {
+      "first_line": 890,
+      "last_line": 906,
+      "sha256": "53bdeb794c610dbabe4e17c860c37abe4d2c682785d5537d3f1f38b7304b7e7e"
+    },
+    "mode_check": {
+      "first_line": 620,
+      "last_line": 627,
+      "sha256": "6c9ce09d421779dce1867c4d21ad850304d4a4ddfe42c64b7d40e3205020b59d"
+    },
+    "native_clock": {
+      "first_line": 174,
+      "last_line": 179,
+      "sha256": "be3fe9db5501bb15c83a97e5ca5923227762c77d0607293a39b438212dff5c0a"
+    },
+    "parse_hashes": {
+      "first_line": 80,
+      "last_line": 87,
+      "sha256": "82d1bcdbdb9a3b64cf2a64e1ef7f9009f5e3f278c6abe60e43d01d46f4f7d8ac"
+    },
+    "parse_stat": {
+      "first_line": 68,
+      "last_line": 77,
+      "sha256": "102163199430248dd99ce23875be1031c62cc4c67cfc8f2f907d32e8ac07c1fc"
+    },
+    "parser": {
+      "first_line": 869,
+      "last_line": 887,
+      "sha256": "26cd7d783cca8830aa925836c69a8726169f6ec7189469b6e63c24cf50bcf895"
+    },
+    "ping_wifi": {
+      "first_line": 629,
+      "last_line": 647,
+      "sha256": "df6fd535f4ff00f4a1e6b119b66bc86a5cd898e8302c3dfb465b355490eb478f"
+    },
+    "preflight": {
+      "first_line": 457,
+      "last_line": 493,
+      "sha256": "a0673d7a75dd4bc8aa8d9e333a267c3a0757f639e7a7e47ba3d52e23460e9228"
+    },
+    "property_value": {
+      "first_line": 415,
+      "last_line": 418,
+      "sha256": "15e60a13a45233a9792725408c8a285583c8092175459b0b1abb5c8959fa53ec"
+    },
+    "remote": {
+      "first_line": 339,
+      "last_line": 340,
+      "sha256": "1056b1f738229e32ea16459f7231e87499d91031a1d2cdb1db3b614c63f34999"
+    },
+    "require": {
+      "first_line": 55,
+      "last_line": 57,
+      "sha256": "0c6c7d955ce3463b4474bd3db880353a1677e8c754be81725ff4e957310e5173"
+    },
+    "restart": {
+      "first_line": 649,
+      "last_line": 733,
+      "sha256": "d4626620cc8dd62da6f364cfbec0974219205192b3f64b6a6648ae1afbd28bee"
+    },
+    "run": {
+      "first_line": 838,
+      "last_line": 866,
+      "sha256": "a3be9e98ec428dc8d97af17d2e70d3875a3fa9288316fd6a649507de296c4948"
+    },
+    "save": {
+      "first_line": 300,
+      "last_line": 303,
+      "sha256": "29494c647715e984b37133e28912a8cc13d1f30bb98801cef4d115124768d546"
+    },
+    "session_evidence": {
+      "first_line": 210,
+      "last_line": 221,
+      "sha256": "abcd6a5123e5b558d9bcae17404f6478cf537bf28b98269bb7d22cf68ea58de5"
+    },
+    "set_fwlog": {
+      "first_line": 446,
+      "last_line": 451,
+      "sha256": "c04d2a164ce5eea4fb7863de82e914a9c72bb304598a524d82ccb5344b9ededb"
+    },
+    "shell": {
+      "first_line": 336,
+      "last_line": 337,
+      "sha256": "12d68cf14fb68398235a0a100e02f4dbb7c61daa9ca389623b82ce2665796ce0"
+    },
+    "snapshot": {
+      "first_line": 377,
+      "last_line": 407,
+      "sha256": "01430430c10d2a41e8a3d5e00725d84bcb150fed63dfd809617bc9059ded53b3"
+    },
+    "start_streams": {
+      "first_line": 504,
+      "last_line": 538,
+      "sha256": "8d84e3c3a5f124ef0fd2ceb9fea7506e915670b45e165aff7f44e0b8ac985220"
+    },
+    "startup_evidence": {
+      "first_line": 224,
+      "last_line": 242,
+      "sha256": "4f18b25514a558739093925d1c42466b3f2decd54f0c0fd51ff3472ae3105bf0"
+    },
+    "state": {
+      "first_line": 342,
+      "last_line": 365,
+      "sha256": "98b2e0d9e67d9eaa53d88165b171c9d0aff0e9b50e4dcb0584e210afc34a2a75"
+    },
+    "stream_data": {
+      "first_line": 547,
+      "last_line": 549,
+      "sha256": "fac4605c886388ad0751481ee9a025ef4a1e1f832f396f211fd3a461591a9fae"
+    },
+    "stream_health": {
+      "first_line": 543,
+      "last_line": 545,
+      "sha256": "23d5328738f1a235b5aaeb4a890b894003c2c6c859b2491bb41b5b63fbd7293d"
+    },
+    "stream_path": {
+      "first_line": 540,
+      "last_line": 541,
+      "sha256": "95b0a4a34dc0ce44c41358dcea4c85b6ddced8e6e954f7bba81f64be4f68404d"
+    },
+    "tids": {
+      "first_line": 409,
+      "last_line": 413,
+      "sha256": "4e63e9a93d23639bf0fb2383ef27a7b8c6578f7c4591aa3d6f33aa4bf8a30f5c"
+    },
+    "validate_build_inputs": {
+      "first_line": 116,
+      "last_line": 129,
+      "sha256": "465ec931bb71d1761fb1ecd413533a1165e22e6b67218da313f6ec1c0e5076d1"
+    },
+    "validate_manifest": {
+      "first_line": 90,
+      "last_line": 113,
+      "sha256": "755e4449f69772947d4b64113af8ac46ac25b64db4b1afccb75b1995f63af21f"
+    },
+    "validate_readback": {
+      "first_line": 132,
+      "last_line": 148,
+      "sha256": "21c8100ed5be47177e1cdc584d7725f60a0d6db1d0ff2c5e03f7d61c00c3a3a6"
+    },
+    "wait_threads": {
+      "first_line": 593,
+      "last_line": 614,
+      "sha256": "c9cee06116f902d1956c23f2d88546697ba9d0c1b7c34b69be6753162e65dbef"
+    },
+    "worker_detail": {
+      "first_line": 616,
+      "last_line": 618,
+      "sha256": "9c9077da8413e5f1231707e08a0250d7db0988455894c575170e54e8db4f37df"
+    }
+  },
+  "changed": [
+    "capture",
+    "cleanup",
+    "exercise",
+    "launcher_records",
+    "parser",
+    "restart",
+    "session_evidence",
+    "start_streams",
+    "startup_evidence",
+    "stream_data",
+    "stream_health"
+  ],
+  "original": {
+    "__init__": {
+      "first_line": 235,
+      "last_line": 251,
+      "sha256": "646441169250867cc78ad90f3e6c83638f3238f1931d50a8063555911ef52099"
+    },
+    "capture": {
+      "first_line": 481,
+      "last_line": 492,
+      "sha256": "fc567db62f0125f99ebc7acc6dcc8c5e391b2551e378ab9b9e17845486cf5652"
+    },
+    "check": {
+      "first_line": 258,
+      "last_line": 260,
+      "sha256": "73eaf400399e19007b2730826e40671f2ddbeb325bb3afa9d379940ec012ab47"
+    },
+    "cleanup": {
+      "first_line": 675,
+      "last_line": 724,
+      "sha256": "2cec5801c902c6a35f6fbbcac92ed8dff3822410202f1ad37e32978760b40ef9"
+    },
+    "command": {
+      "first_line": 267,
+      "last_line": 287,
+      "sha256": "915c2f2d240d1744798dfc36960706b44ccd4f49cdc8d81780f9fa151e0a08d2"
+    },
+    "copy_input": {
+      "first_line": 380,
+      "last_line": 382,
+      "sha256": "6314be973a64da86462b63c5fecf73852af4b6014ff3023e194223b1d7064f7f"
+    },
+    "counters": {
+      "first_line": 531,
+      "last_line": 536,
+      "sha256": "5489a96a20a3ace767ecaafc3200a4f87d4c5863b74891a5a68260b169f3cff4"
+    },
+    "digest": {
+      "first_line": 62,
+      "last_line": 63,
+      "sha256": "50b76bfffc27cbd7a792c95d031f6fd8e49777b6241b96ed8c4c4773edc356cb"
+    },
+    "early_continuity": {
+      "first_line": 422,
+      "last_line": 429,
+      "sha256": "ea2209207d8e19da89ad493d5d37b449b75614a8b7739900d71f0c428dde6342"
+    },
+    "exercise": {
+      "first_line": 621,
+      "last_line": 673,
+      "sha256": "dfc3d59fd179e768de80d452ea3af4b37c47d11e69eecf2b897edb742731995f"
+    },
+    "file": {
+      "first_line": 262,
+      "last_line": 265,
+      "sha256": "a9e317aa63a799c89cf5c1e4370420835054a0d57867e39645970278bb63e890"
+    },
+    "guarded_term_command": {
+      "first_line": 216,
+      "last_line": 231,
+      "sha256": "770a3ccdbd6832ee23a020e9e6f6df1aa066b26038c96f0250b43be093ac6306"
+    },
+    "healthy": {
+      "first_line": 320,
+      "last_line": 328,
+      "sha256": "f827f53dbba67e2da4ea316e89b6e7987bd334247d207e0d02877c26bbc5b94f"
+    },
+    "json_bytes": {
+      "first_line": 66,
+      "last_line": 67,
+      "sha256": "c7e28bf36bd2c85271e3af31ab7304724f2a32482cb23ccdc5effaa2aa1779c2"
+    },
+    "kernel_mode_evidence": {
+      "first_line": 198,
+      "last_line": 213,
+      "sha256": "7b194472cf7d5bc28f313bb0aab7e658950723c35bb89f67d29254772765022a"
+    },
+    "launcher_records": {
+      "first_line": 153,
+      "last_line": 161,
+      "sha256": "47f0ee3324b3ed207e410dde029523e9511d06b6639450eeb4cab63283f51497"
+    },
+    "local_kernel_source": {
+      "first_line": 452,
+      "last_line": 479,
+      "sha256": "e3f1d36aed2d13f552d9a73afd323223b6f48d713c7c0cc237fff0f74f3d370f"
+    },
+    "main": {
+      "first_line": 778,
+      "last_line": 794,
+      "sha256": "53bdeb794c610dbabe4e17c860c37abe4d2c682785d5537d3f1f38b7304b7e7e"
+    },
+    "mode_check": {
+      "first_line": 521,
+      "last_line": 528,
+      "sha256": "6c9ce09d421779dce1867c4d21ad850304d4a4ddfe42c64b7d40e3205020b59d"
+    },
+    "parse_hashes": {
+      "first_line": 82,
+      "last_line": 89,
+      "sha256": "82d1bcdbdb9a3b64cf2a64e1ef7f9009f5e3f278c6abe60e43d01d46f4f7d8ac"
+    },
+    "parse_stat": {
+      "first_line": 70,
+      "last_line": 79,
+      "sha256": "102163199430248dd99ce23875be1031c62cc4c67cfc8f2f907d32e8ac07c1fc"
+    },
+    "parser": {
+      "first_line": 757,
+      "last_line": 775,
+      "sha256": "892d802c8991f0dd9ed96123c45bb02a1a1b6d611612e450499aba8c3d524c9d"
+    },
+    "ping_wifi": {
+      "first_line": 530,
+      "last_line": 548,
+      "sha256": "df6fd535f4ff00f4a1e6b119b66bc86a5cd898e8302c3dfb465b355490eb478f"
+    },
+    "preflight": {
+      "first_line": 384,
+      "last_line": 420,
+      "sha256": "a0673d7a75dd4bc8aa8d9e333a267c3a0757f639e7a7e47ba3d52e23460e9228"
+    },
+    "property_value": {
+      "first_line": 368,
+      "last_line": 371,
+      "sha256": "15e60a13a45233a9792725408c8a285583c8092175459b0b1abb5c8959fa53ec"
+    },
+    "remote": {
+      "first_line": 292,
+      "last_line": 293,
+      "sha256": "1056b1f738229e32ea16459f7231e87499d91031a1d2cdb1db3b614c63f34999"
+    },
+    "require": {
+      "first_line": 57,
+      "last_line": 59,
+      "sha256": "0c6c7d955ce3463b4474bd3db880353a1677e8c754be81725ff4e957310e5173"
+    },
+    "restart": {
+      "first_line": 550,
+      "last_line": 619,
+      "sha256": "d4e3ea1244cc91c0242ab408726118e4b4a92037f26e461644ba27b532a464f3"
+    },
+    "run": {
+      "first_line": 726,
+      "last_line": 754,
+      "sha256": "a3be9e98ec428dc8d97af17d2e70d3875a3fa9288316fd6a649507de296c4948"
+    },
+    "save": {
+      "first_line": 253,
+      "last_line": 256,
+      "sha256": "29494c647715e984b37133e28912a8cc13d1f30bb98801cef4d115124768d546"
+    },
+    "session_evidence": {
+      "first_line": 164,
+      "last_line": 174,
+      "sha256": "61fee9786e2cb7e3e61b968b740d1fb2c41a684b55844fe74dd3bcd40b78f538"
+    },
+    "set_fwlog": {
+      "first_line": 373,
+      "last_line": 378,
+      "sha256": "c04d2a164ce5eea4fb7863de82e914a9c72bb304598a524d82ccb5344b9ededb"
+    },
+    "shell": {
+      "first_line": 289,
+      "last_line": 290,
+      "sha256": "12d68cf14fb68398235a0a100e02f4dbb7c61daa9ca389623b82ce2665796ce0"
+    },
+    "snapshot": {
+      "first_line": 330,
+      "last_line": 360,
+      "sha256": "01430430c10d2a41e8a3d5e00725d84bcb150fed63dfd809617bc9059ded53b3"
+    },
+    "start_streams": {
+      "first_line": 431,
+      "last_line": 442,
+      "sha256": "5cc633c50463289ec384b62d1ba3fb8cf20203de1c415582824465791ebe695c"
+    },
+    "startup_evidence": {
+      "first_line": 177,
+      "last_line": 195,
+      "sha256": "8d5a95cbbbde1fb8b3c42c248d8e34bcbac7bfb3ee506501e5ebdb6e88a5aa00"
+    },
+    "state": {
+      "first_line": 295,
+      "last_line": 318,
+      "sha256": "98b2e0d9e67d9eaa53d88165b171c9d0aff0e9b50e4dcb0584e210afc34a2a75"
+    },
+    "stream_data": {
+      "first_line": 448,
+      "last_line": 450,
+      "sha256": "038c6fd8d17dfecfb88411473c3a7cd480c2bc60da819635cafd53f34cc0cf96"
+    },
+    "stream_health": {
+      "first_line": 444,
+      "last_line": 446,
+      "sha256": "726efbb11207bad38e9b9a8cb62be4d7fa4178f8e04975784f16f47a5af33405"
+    },
+    "tids": {
+      "first_line": 362,
+      "last_line": 366,
+      "sha256": "4e63e9a93d23639bf0fb2383ef27a7b8c6578f7c4591aa3d6f33aa4bf8a30f5c"
+    },
+    "validate_build_inputs": {
+      "first_line": 118,
+      "last_line": 131,
+      "sha256": "465ec931bb71d1761fb1ecd413533a1165e22e6b67218da313f6ec1c0e5076d1"
+    },
+    "validate_manifest": {
+      "first_line": 92,
+      "last_line": 115,
+      "sha256": "755e4449f69772947d4b64113af8ac46ac25b64db4b1afccb75b1995f63af21f"
+    },
+    "validate_readback": {
+      "first_line": 134,
+      "last_line": 150,
+      "sha256": "21c8100ed5be47177e1cdc584d7725f60a0d6db1d0ff2c5e03f7d61c00c3a3a6"
+    },
+    "wait_threads": {
+      "first_line": 494,
+      "last_line": 515,
+      "sha256": "c9cee06116f902d1956c23f2d88546697ba9d0c1b7c34b69be6753162e65dbef"
+    },
+    "worker_detail": {
+      "first_line": 517,
+      "last_line": 519,
+      "sha256": "9c9077da8413e5f1231707e08a0250d7db0988455894c575170e54e8db4f37df"
+    }
+  },
+  "removed": [],
+  "unchanged": [
+    "__init__",
+    "check",
+    "command",
+    "copy_input",
+    "counters",
+    "digest",
+    "early_continuity",
+    "file",
+    "guarded_term_command",
+    "healthy",
+    "json_bytes",
+    "kernel_mode_evidence",
+    "local_kernel_source",
+    "main",
+    "mode_check",
+    "parse_hashes",
+    "parse_stat",
+    "ping_wifi",
+    "preflight",
+    "property_value",
+    "remote",
+    "require",
+    "run",
+    "save",
+    "set_fwlog",
+    "shell",
+    "snapshot",
+    "state",
+    "tids",
+    "validate_build_inputs",
+    "validate_manifest",
+    "validate_readback",
+    "wait_threads",
+    "worker_detail"
+  ]
+}

@@ -1,0 +1,6 @@
+window=300s
+before: 1277 25304
+after : 2036 62184
+activations +759 over 300s (151.8/min), held +36880 ms
+  -> 49 ms per activation   (BEFORE the CCCI fix: ~1000 ms)
+  -> ttyC0 held 12.3% of the window (BEFORE: 39% of awake time)

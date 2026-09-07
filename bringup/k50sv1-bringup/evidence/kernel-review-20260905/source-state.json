@@ -1,0 +1,16 @@
+{
+  "kernel_head": "2fa898562dbe6b41893e99f7dc1bc68b414b3813",
+  "device_head": "163342aa8900ef7a06ac9f55dc0c42089351868a",
+  "clean_object_tree": true,
+  "reused_android": "E-185 tier1-v2 exact retained Android outputs",
+  "sha256": {
+    "kernel": "8c16906e0aa8e82608522e930da2d40ba80f7833a703830cf23010c93c5f5845",
+    "boot.img": "5e7e7a6eff6299227a4f23f288fc2860acd1c2c31d9868bfc7573b2d235b85ee",
+    "recovery.img": "50f9c2a5fa643b67678c199835d1ce016d1a07049338cff13238f31393ce84f2",
+    "system.img": "cc68813ba92f2e98e0b042ec591f4412058124ecc6d11398ebe5013d780b120f",
+    "vendor.img": "2c950a4c4d89a7cc730eb2d0fbf7e0da75553569a590bff04b8c145e1ef86a7f",
+    "obj/KERNEL_OBJ/.config": "0fd16d5d00051f2810667b044f5925c9df20beab4d4e1099b49ee5da28ef1744",
+    "obj/KERNEL_OBJ/Module.symvers": "74b614b0eb18bb6bcc195a4f9f1215b17c6d0523ea5d25584bad1169435bcbab",
+    "obj/KERNEL_OBJ/vmlinux": "0772fcad8f5aac28d33f9772ef6e1b6c69680a3d0ada66563a8c84d2dfe31bf4"
+  }
+}

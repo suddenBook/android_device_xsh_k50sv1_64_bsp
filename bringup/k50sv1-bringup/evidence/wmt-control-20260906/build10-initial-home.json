@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "boot_id": "7727bc38-2767-482a-afe6-96d5d0322873",
+  "manual_home_setter_called": false,
+  "setup_before": [
+    "0",
+    "0",
+    "1"
+  ],
+  "home_role_holders": [
+    "com.android.launcher3"
+  ],
+  "first_resolution": "priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=true\ncom.android.launcher3/.lineage.LineageLauncher\n",
+  "first_launch": "Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME,android.intent.category.DEFAULT] }\nWarning: Activity not started, intent has been delivered to currently running top-most instance.\nStatus: ok\nLaunchState: UNKNOWN (0)\nActivity: com.android.launcher3/.lineage.LineageLauncher\nTotalTime: 0\nWaitTime: 17\nComplete\n"
+}

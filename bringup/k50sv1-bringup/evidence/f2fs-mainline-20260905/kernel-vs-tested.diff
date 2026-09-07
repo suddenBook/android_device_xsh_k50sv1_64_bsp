@@ -1,0 +1,36 @@
+diff --git a/arch/arm64/configs/k50sv1_64_bsp_source.fragment b/arch/arm64/configs/k50sv1_64_bsp_source.fragment
+index 3777e905ccb..f0d53d36179 100644
+--- a/arch/arm64/configs/k50sv1_64_bsp_source.fragment
++++ b/arch/arm64/configs/k50sv1_64_bsp_source.fragment
+@@ -2 +2 @@
+-# Fitted hardware, build hygiene and the isolated F2FS evaluation below.
++# Runtime-proven fitted hardware, build hygiene and F2FS userdata.
+@@ -50 +50 @@ CONFIG_MTK_PPM_LCMON_BOOST=y
+-# F2FS evaluation: built in for /data and recovery, with SELinux labels.
++# F2FS is built in for /data and recovery, with SELinux labels (E-185/E-186).
+diff --git a/drivers/misc/mediatek/base/power/mt6755/mt_clkbuf_ctl.c b/drivers/misc/mediatek/base/power/mt6755/mt_clkbuf_ctl.c
+index cd28e05ae23..1b61fa82d67 100644
+--- a/drivers/misc/mediatek/base/power/mt6755/mt_clkbuf_ctl.c
++++ b/drivers/misc/mediatek/base/power/mt6755/mt_clkbuf_ctl.c
+@@ -265,6 +265,15 @@ static CLK_BUF_SWCTRL_STATUS_T  clk_buf_swctrl[CLKBUF_NUM] = {
+- * Leaving it enabled is not merely a wasted clock buffer. clk_buf_control_bblpm()
+- * returns immediately while this entry is CLK_BUF_SW_ENABLE (:336), and that is
+- * the function that puts the DCXO into baseband low-power mode on the suspend
+- * path. So one array entry for absent hardware kept the 26 MHz crystal in full
+- * power mode for every suspend this handset has ever done; bblpm_cnt has never
+- * been anything but 0.
++ * clk_buf_control_bblpm() returns immediately while this entry is
++ * CLK_BUF_SW_ENABLE (:336), and that is the function that puts the DCXO into
++ * baseband low-power mode, so leaving it set was a permanent blocker on that
++ * path.
++ *
++ * DO NOT read that as "this change enables BBLPM". Measured after it shipped
++ * (E-183): bblpm_cnt is still 0, because this is not the binding gate.
++ * clk_buf_control_bblpm(true) has exactly one caller,
++ * spm_dpidle_pre_process(), and it sits inside if (is_md_c2k_conn_power_off())
++ * (spm_v2/mt_spm_dpidle_mt6755.c:106). That predicate wants MD1, C2K and CONN
++ * all reading 0x12, and a handset with a registered SIM reads MD1_PWR_CON=0xd.
++ * BBLPM is therefore unreachable in any state this phone is used in, and this
++ * change buys no measurable standby current. It is still right -- a clock
++ * buffer for hardware that is not on the board should not be SW-enabled, and
++ * this does gate one buffer off -- but it is a correctness fix, not a power fix.

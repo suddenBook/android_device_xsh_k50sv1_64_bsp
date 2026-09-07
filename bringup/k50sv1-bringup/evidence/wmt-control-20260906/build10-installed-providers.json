@@ -1,0 +1,148 @@
+{
+  "status": "PASS",
+  "build_receipt_sha256": "f0fe3fc71c44edbab673006999ccb026d406bebabb7bb71569ca8f528210ff70",
+  "count": 28,
+  "files": [
+    {
+      "path": "/vendor/lib64/hw/android.hardware.bluetooth.audio@2.0-impl.so",
+      "sha256": "3179e16c7fb2e4e1042ed75903cb7f9a73057857895f6f4024d1ad84d411bd74",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/lib/hw/android.hardware.bluetooth.audio@2.0-impl.so",
+      "sha256": "e2ff3695a283e53b266cff249db581a47f737bdc9156f7a237ec3ac6f6c78c5c",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/bin/hw/android.hardware.bluetooth@1.0-service",
+      "sha256": "4fbc91a10b2f8c41e070e9562a18d9b4d869d26efb986d7d93a2fa83c109d61a",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/bin/hw/android.hardware.gnss@2.0-service-k50",
+      "sha256": "8f20d55eeb20d819a8b3ca1f8c409cd04a2d34a8e672f39b687ea75fe59fef03",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/lib64/hw/android.hardware.graphics.allocator@2.0-impl.so",
+      "sha256": "81d2270242b10040cecd067d36e84c0af716c53585b2e9f5a96c9ecfa39cca79",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/lib/hw/android.hardware.graphics.allocator@2.0-impl.so",
+      "sha256": "8bbcfdef1ce561a2ce2794ed84e4247caf2c6260687abb1290e9eeec30b6a4aa",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/lib64/hw/android.hardware.graphics.composer@2.1-impl.so",
+      "sha256": "ec2a476ee4273007629ad8a49891a3d9384021ad1426c3da2011afce45802ad9",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/lib/hw/android.hardware.graphics.composer@2.1-impl.so",
+      "sha256": "6c8c1c1e98fbf47fada3b63a4f72f456a2a027e82022ad2649106d72e93fb6b6",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/lib64/hw/android.hardware.graphics.mapper@2.0-impl.so",
+      "sha256": "5dc413ae21feebee9b2a6d6961c663922da17a8bd46501f439399ba0e29aeb5a",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/lib/hw/android.hardware.graphics.mapper@2.0-impl.so",
+      "sha256": "72ffb7e80624a596683987c55a104fa518220256a4008de2b1a9a1759a293ff6",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/bin/hw/android.hardware.sensors@2.0-service",
+      "sha256": "74098ae922fc5d7299978f08f974dfa3902a9df9cd5f872b2ff017a6502900a1",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/lib64/hw/audio.bluetooth.default.so",
+      "sha256": "8ed44ed21cacf7ad462c02a9653919bf9375f849f8408cebdbed84ad19b636c9",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/lib/hw/audio.bluetooth.default.so",
+      "sha256": "19a6333f6f67daa6a3c223f58e4f3c190e4b34dc6472d30c5e254f7d2c7c77bd",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/lib64/hw/gatekeeper.default.so",
+      "sha256": "5f199966ff33c0092541bf5c26e63b1fa227cdf294151ab70b0a66e4574a4fbb",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/lib64/libbluetooth_audio_session.so",
+      "sha256": "e3b1e9094b649fb48869b9183e8399509bfd40b749053e0adb911edb81bcaef9",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/lib/libbluetooth_audio_session.so",
+      "sha256": "f81fa7f76c49dd6695a76583d77c9aff95b4526a257a1df42c2aac96e398f671",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/lib64/libtinycompress.so",
+      "sha256": "16218ab6a2b9f8304c51cb2c127ba7eb08bedb412e72d754d2d9fe53d0f453d5",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/lib/libtinycompress.so",
+      "sha256": "8b30f1b6b242dfa430a1aaf2181c659f44acae8331c2b18f229ba2f3754d390e",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/bin/wlan_assistant",
+      "sha256": "8e4a0d43874eaf7aaa2ae4cd166daaefcb4ff1df3c62e789ca0dabe9fdb3f299",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/bin/hw/android.hardware.audio@5.0-service-mediatek",
+      "sha256": "bd124d3dc7ed0f9d6706711ea7323cd8ddc25a281b120509340e6f2da62fc7a6",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/lib64/libmtktinyxml.so",
+      "sha256": "ac6c549a84f0dda9fa93b7898d6dd3150e8d1f4e911c30e1b4e3369869df224f",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/lib/modules/wmt_drv.ko",
+      "sha256": "cddcf03ba4c80714b8838ca2e9832a47db583f929d262ef3b09ea1b46c9a05c7",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/lib/modules/wmt_chrdev_wifi.ko",
+      "sha256": "d956a699a3bfdba7e6ef71bf3a2a61c3d29c7ec34f75587d6e792c0cf009ff77",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/lib/modules/wlan_drv_gen2.ko",
+      "sha256": "d8c20df3c3c7c8576d9b0bfb710ad8fdbd32d6b70d731d59ca7dfa18a8fdd394",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/lib/modules/bt_drv.ko",
+      "sha256": "30434a89afb7fdc0f2f5fafe6089deffe6075ebe6e4012ad44f0fbf66ff6ec46",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/vendor/lib/modules/gps_drv.ko",
+      "sha256": "edc39a94a4f0dd0f992c2161bf8a9fb7ee0d576eaebd6d5126945d3d02dc4039",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/system/priv-app/NiagaraLauncher/NiagaraLauncher.apk",
+      "sha256": "9bd8a1998eac9a972599a33b6d22f490d98061735bf5e49b731844ead17780b2",
+      "matches_installed_build": true
+    },
+    {
+      "path": "/system/priv-app/PermissionController/PermissionController.apk",
+      "sha256": "c8166d38ed947fa9783bb2759cada5813c2aeb813b1f466ce5d3d527c4fcff0a",
+      "matches_installed_build": true
+    }
+  ],
+  "boot_id": "7727bc38-2767-482a-afe6-96d5d0322873"
+}

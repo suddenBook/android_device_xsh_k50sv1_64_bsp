@@ -1,0 +1,219 @@
+{
+  "status": "PASS",
+  "boot_id": "5707e604-68f3-4f50-ab7f-0aa6e0fb23e6",
+  "receipt_sha256": "c36979fa3d801c60da65a64d8f87610f6c8198acd89e264148675fbc5f973416",
+  "rows": [
+    {
+      "path": "/vendor/lib64/hw/android.hardware.bluetooth.audio@2.0-impl.so",
+      "sha256": "3179e16c7fb2e4e1042ed75903cb7f9a73057857895f6f4024d1ad84d411bd74",
+      "kind": "native_source",
+      "readback_sha256": "3179e16c7fb2e4e1042ed75903cb7f9a73057857895f6f4024d1ad84d411bd74",
+      "matches": true
+    },
+    {
+      "path": "/vendor/lib/hw/android.hardware.bluetooth.audio@2.0-impl.so",
+      "sha256": "e2ff3695a283e53b266cff249db581a47f737bdc9156f7a237ec3ac6f6c78c5c",
+      "kind": "native_source",
+      "readback_sha256": "e2ff3695a283e53b266cff249db581a47f737bdc9156f7a237ec3ac6f6c78c5c",
+      "matches": true
+    },
+    {
+      "path": "/vendor/bin/hw/android.hardware.bluetooth@1.0-service",
+      "sha256": "4fbc91a10b2f8c41e070e9562a18d9b4d869d26efb986d7d93a2fa83c109d61a",
+      "kind": "native_source",
+      "readback_sha256": "4fbc91a10b2f8c41e070e9562a18d9b4d869d26efb986d7d93a2fa83c109d61a",
+      "matches": true
+    },
+    {
+      "path": "/vendor/bin/hw/android.hardware.gnss@2.0-service-k50",
+      "sha256": "8f20d55eeb20d819a8b3ca1f8c409cd04a2d34a8e672f39b687ea75fe59fef03",
+      "kind": "native_source",
+      "readback_sha256": "8f20d55eeb20d819a8b3ca1f8c409cd04a2d34a8e672f39b687ea75fe59fef03",
+      "matches": true
+    },
+    {
+      "path": "/vendor/lib64/hw/android.hardware.graphics.allocator@2.0-impl.so",
+      "sha256": "81d2270242b10040cecd067d36e84c0af716c53585b2e9f5a96c9ecfa39cca79",
+      "kind": "native_source",
+      "readback_sha256": "81d2270242b10040cecd067d36e84c0af716c53585b2e9f5a96c9ecfa39cca79",
+      "matches": true
+    },
+    {
+      "path": "/vendor/lib/hw/android.hardware.graphics.allocator@2.0-impl.so",
+      "sha256": "8bbcfdef1ce561a2ce2794ed84e4247caf2c6260687abb1290e9eeec30b6a4aa",
+      "kind": "native_source",
+      "readback_sha256": "8bbcfdef1ce561a2ce2794ed84e4247caf2c6260687abb1290e9eeec30b6a4aa",
+      "matches": true
+    },
+    {
+      "path": "/vendor/lib64/hw/android.hardware.graphics.composer@2.1-impl.so",
+      "sha256": "ec2a476ee4273007629ad8a49891a3d9384021ad1426c3da2011afce45802ad9",
+      "kind": "native_source",
+      "readback_sha256": "ec2a476ee4273007629ad8a49891a3d9384021ad1426c3da2011afce45802ad9",
+      "matches": true
+    },
+    {
+      "path": "/vendor/lib/hw/android.hardware.graphics.composer@2.1-impl.so",
+      "sha256": "6c8c1c1e98fbf47fada3b63a4f72f456a2a027e82022ad2649106d72e93fb6b6",
+      "kind": "native_source",
+      "readback_sha256": "6c8c1c1e98fbf47fada3b63a4f72f456a2a027e82022ad2649106d72e93fb6b6",
+      "matches": true
+    },
+    {
+      "path": "/vendor/lib64/hw/android.hardware.graphics.mapper@2.0-impl.so",
+      "sha256": "5dc413ae21feebee9b2a6d6961c663922da17a8bd46501f439399ba0e29aeb5a",
+      "kind": "native_source",
+      "readback_sha256": "5dc413ae21feebee9b2a6d6961c663922da17a8bd46501f439399ba0e29aeb5a",
+      "matches": true
+    },
+    {
+      "path": "/vendor/lib/hw/android.hardware.graphics.mapper@2.0-impl.so",
+      "sha256": "72ffb7e80624a596683987c55a104fa518220256a4008de2b1a9a1759a293ff6",
+      "kind": "native_source",
+      "readback_sha256": "72ffb7e80624a596683987c55a104fa518220256a4008de2b1a9a1759a293ff6",
+      "matches": true
+    },
+    {
+      "path": "/vendor/bin/hw/android.hardware.sensors@2.0-service",
+      "sha256": "74098ae922fc5d7299978f08f974dfa3902a9df9cd5f872b2ff017a6502900a1",
+      "kind": "native_source",
+      "readback_sha256": "74098ae922fc5d7299978f08f974dfa3902a9df9cd5f872b2ff017a6502900a1",
+      "matches": true
+    },
+    {
+      "path": "/vendor/lib64/hw/audio.bluetooth.default.so",
+      "sha256": "8ed44ed21cacf7ad462c02a9653919bf9375f849f8408cebdbed84ad19b636c9",
+      "kind": "native_source",
+      "readback_sha256": "8ed44ed21cacf7ad462c02a9653919bf9375f849f8408cebdbed84ad19b636c9",
+      "matches": true
+    },
+    {
+      "path": "/vendor/lib/hw/audio.bluetooth.default.so",
+      "sha256": "19a6333f6f67daa6a3c223f58e4f3c190e4b34dc6472d30c5e254f7d2c7c77bd",
+      "kind": "native_source",
+      "readback_sha256": "19a6333f6f67daa6a3c223f58e4f3c190e4b34dc6472d30c5e254f7d2c7c77bd",
+      "matches": true
+    },
+    {
+      "path": "/vendor/lib64/hw/gatekeeper.default.so",
+      "sha256": "5f199966ff33c0092541bf5c26e63b1fa227cdf294151ab70b0a66e4574a4fbb",
+      "kind": "native_source",
+      "readback_sha256": "5f199966ff33c0092541bf5c26e63b1fa227cdf294151ab70b0a66e4574a4fbb",
+      "matches": true
+    },
+    {
+      "path": "/vendor/lib64/libbluetooth_audio_session.so",
+      "sha256": "e3b1e9094b649fb48869b9183e8399509bfd40b749053e0adb911edb81bcaef9",
+      "kind": "native_source",
+      "readback_sha256": "e3b1e9094b649fb48869b9183e8399509bfd40b749053e0adb911edb81bcaef9",
+      "matches": true
+    },
+    {
+      "path": "/vendor/lib/libbluetooth_audio_session.so",
+      "sha256": "f81fa7f76c49dd6695a76583d77c9aff95b4526a257a1df42c2aac96e398f671",
+      "kind": "native_source",
+      "readback_sha256": "f81fa7f76c49dd6695a76583d77c9aff95b4526a257a1df42c2aac96e398f671",
+      "matches": true
+    },
+    {
+      "path": "/vendor/lib64/libtinycompress.so",
+      "sha256": "16218ab6a2b9f8304c51cb2c127ba7eb08bedb412e72d754d2d9fe53d0f453d5",
+      "kind": "native_source",
+      "readback_sha256": "16218ab6a2b9f8304c51cb2c127ba7eb08bedb412e72d754d2d9fe53d0f453d5",
+      "matches": true
+    },
+    {
+      "path": "/vendor/lib/libtinycompress.so",
+      "sha256": "8b30f1b6b242dfa430a1aaf2181c659f44acae8331c2b18f229ba2f3754d390e",
+      "kind": "native_source",
+      "readback_sha256": "8b30f1b6b242dfa430a1aaf2181c659f44acae8331c2b18f229ba2f3754d390e",
+      "matches": true
+    },
+    {
+      "path": "/vendor/bin/wlan_assistant",
+      "sha256": "8e4a0d43874eaf7aaa2ae4cd166daaefcb4ff1df3c62e789ca0dabe9fdb3f299",
+      "kind": "native_source",
+      "readback_sha256": "8e4a0d43874eaf7aaa2ae4cd166daaefcb4ff1df3c62e789ca0dabe9fdb3f299",
+      "matches": true
+    },
+    {
+      "path": "/vendor/bin/wmt_launcher",
+      "sha256": "6103fbf135289d76648e94cc8b289004ada106e0c4395765b340e6a78bf4b96c",
+      "kind": "native_source",
+      "readback_sha256": "6103fbf135289d76648e94cc8b289004ada106e0c4395765b340e6a78bf4b96c",
+      "matches": true
+    },
+    {
+      "path": "/vendor/bin/wmt_loader",
+      "sha256": "c3083c0aea4487b5c0bab3d3777200a5b45aea47faeae8014bcaf983fb9206c5",
+      "kind": "native_source",
+      "readback_sha256": "c3083c0aea4487b5c0bab3d3777200a5b45aea47faeae8014bcaf983fb9206c5",
+      "matches": true
+    },
+    {
+      "path": "/vendor/bin/hw/android.hardware.audio@5.0-service-mediatek",
+      "sha256": "bd124d3dc7ed0f9d6706711ea7323cd8ddc25a281b120509340e6f2da62fc7a6",
+      "kind": "native_source",
+      "readback_sha256": "bd124d3dc7ed0f9d6706711ea7323cd8ddc25a281b120509340e6f2da62fc7a6",
+      "matches": true
+    },
+    {
+      "path": "/vendor/lib64/libmtktinyxml.so",
+      "sha256": "ac6c549a84f0dda9fa93b7898d6dd3150e8d1f4e911c30e1b4e3369869df224f",
+      "kind": "native_source",
+      "readback_sha256": "ac6c549a84f0dda9fa93b7898d6dd3150e8d1f4e911c30e1b4e3369869df224f",
+      "matches": true
+    },
+    {
+      "path": "/vendor/lib/modules/wmt_drv.ko",
+      "sha256": "33e0d8cd95db22ded488539fd5c24e77aa4b7866cb3382cf6e0f9d707e5e868f",
+      "kind": "source_kernel_module",
+      "readback_sha256": "33e0d8cd95db22ded488539fd5c24e77aa4b7866cb3382cf6e0f9d707e5e868f",
+      "matches": true
+    },
+    {
+      "path": "/vendor/lib/modules/wmt_chrdev_wifi.ko",
+      "sha256": "9cb0b5e28ac8deb71ae9d2b8448173050952f4ca766af1497a0d7c16b1e4b62f",
+      "kind": "source_kernel_module",
+      "readback_sha256": "9cb0b5e28ac8deb71ae9d2b8448173050952f4ca766af1497a0d7c16b1e4b62f",
+      "matches": true
+    },
+    {
+      "path": "/vendor/lib/modules/wlan_drv_gen2.ko",
+      "sha256": "9c77393be0dc7fb0742656fcdc0ef505c812b9763ac6d149cff9a82aca37d373",
+      "kind": "source_kernel_module",
+      "readback_sha256": "9c77393be0dc7fb0742656fcdc0ef505c812b9763ac6d149cff9a82aca37d373",
+      "matches": true
+    },
+    {
+      "path": "/vendor/lib/modules/bt_drv.ko",
+      "sha256": "a604abd4c38b1582a41451b9bf1632c51c128a729fc23843c46b7fea7e674ae7",
+      "kind": "source_kernel_module",
+      "readback_sha256": "a604abd4c38b1582a41451b9bf1632c51c128a729fc23843c46b7fea7e674ae7",
+      "matches": true
+    },
+    {
+      "path": "/vendor/lib/modules/gps_drv.ko",
+      "sha256": "edc39a94a4f0dd0f992c2161bf8a9fb7ee0d576eaebd6d5126945d3d02dc4039",
+      "kind": "source_kernel_module",
+      "readback_sha256": "edc39a94a4f0dd0f992c2161bf8a9fb7ee0d576eaebd6d5126945d3d02dc4039",
+      "matches": true
+    },
+    {
+      "path": "/system/priv-app/PermissionController/PermissionController.apk",
+      "sha256": "298615095daf34548d2fc37511c4b8bb132753ce3b419fec8216700a0e16fae6",
+      "kind": "apk",
+      "package": "com.android.permissioncontroller",
+      "readback_sha256": "298615095daf34548d2fc37511c4b8bb132753ce3b419fec8216700a0e16fae6",
+      "matches": true
+    },
+    {
+      "path": "/system/product/priv-app/TrebuchetQuickStep/TrebuchetQuickStep.apk",
+      "sha256": "eebc969f5b741d2f693ec7b82709ed554609bbe56e694b5621b6a3564ea1b0cb",
+      "kind": "apk",
+      "package": "com.android.launcher3",
+      "readback_sha256": "eebc969f5b741d2f693ec7b82709ed554609bbe56e694b5621b6a3564ea1b0cb",
+      "matches": true
+    }
+  ]
+}

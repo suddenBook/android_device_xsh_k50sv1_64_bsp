@@ -1,0 +1,4 @@
+PASS exact-coredump-region: real platform init/deinit, bridge/stub and probe devres; releases=2
+result=0 expected=0 registered=1 bound=1 maps=4
+withdrawn=1 maps=10 devres=10 bound=1
+withdrawn=1 maps=10 devres=10 bound=1

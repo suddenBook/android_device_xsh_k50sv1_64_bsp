@@ -1,0 +1,11 @@
+{
+  "boot_id": "f338f55b-067e-4204-948f-0c2b8d953968",
+  "private_evidence_root": ".capture-staging/device-review-20260907",
+  "inputs_sha256": {
+    "policy-review/tier2-agpsd-startup/findings.md": "8ac6558c505d79e7cac850a344f94c672995bc39797627d51c01b88f4eb1db00",
+    "policy-review/tier2-agpsd-startup/SHA256SUMS": "a0408eada67476593768fe8d501e129e03b0019883b84fd4e11afdb46a42dcf5",
+    "radio-review/tier2-startup-controls/findings.md": "a94b1397aabf840c50126227f70ba91feb3ed0091bdbc229573886f43e114b42"
+  },
+  "policy_rules_changed": false,
+  "dontaudit_added": false
+}

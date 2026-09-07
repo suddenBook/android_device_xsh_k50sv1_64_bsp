@@ -1,0 +1,59 @@
+{
+  "status": "PASS",
+  "boot_id": "d158c364-bb76-43e3-afb7-3962a6a3dfbb",
+  "installed_files_verified": 29,
+  "calibration_firmware_verified": 19,
+  "niagara_grants": {
+    "BIND_APPWIDGET": true,
+    "PACKAGE_USAGE_STATS": true,
+    "ACCESS_COARSE_LOCATION": true,
+    "READ_CALENDAR": true,
+    "READ_CONTACTS": true
+  },
+  "boot_loader_traces": [
+    {
+      "boot": "first-boot",
+      "loader_pid": 330,
+      "detector_ioctls": [
+        {
+          "command": "0x80047703",
+          "argument": 0
+        },
+        {
+          "command": "0x40047701",
+          "argument": 26453
+        },
+        {
+          "command": "0x80047705",
+          "argument": 26453
+        },
+        {
+          "command": "0x80047704",
+          "argument": 26453
+        }
+      ],
+      "success_log": "09-06 16:42:15.597   330   330 I wmt_loader: Source WMT loader initialized chip 0x6755"
+    },
+    {
+      "boot": "normal-reboot",
+      "loader_pid": 323,
+      "detector_ioctls": [
+        {
+          "command": "0x40047701",
+          "argument": 26453
+        },
+        {
+          "command": "0x80047705",
+          "argument": 26453
+        },
+        {
+          "command": "0x80047704",
+          "argument": 26453
+        }
+      ],
+      "success_log": "09-06 18:57:44.870   323   323 I wmt_loader: Source WMT loader initialized chip 0x6755"
+    }
+  ],
+  "home": "com.android.launcher3",
+  "native_probes_force_stopped": true
+}

@@ -1,0 +1,2 @@
+expected result -12, observed 0
+failed line 368: result_is(invoke(0, 1, 0), -ENOMEM)

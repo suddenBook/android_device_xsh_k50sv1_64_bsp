@@ -1,0 +1,26 @@
+{
+  "artifact_count": 20,
+  "artifacts": {
+    "author-fixtures-independent.log": "aadb0b912f5f55969be0a7f7a638d5ab17cd639d26e142ae19e98553e657f0bd",
+    "f24e5657-snapshot/README.md": "a51f093bacf29951afe1f64009184e14bf73f3b56361e823e4a5f2934e62d67c",
+    "f24e5657-snapshot/SHA256SUMS": "8dc77d9dad6083f231ca1d887258acdeb9db3c28d569b9b781f9e515fff93ac4",
+    "f24e5657-snapshot/offline-signal-command.sh.txt": "943f3b7750462fbc131a7ac6c9f4dab70207c951938646803c0750db4ff7dffb",
+    "f24e5657-snapshot/offline-validation.json": "737a483bb54a25ffd64086d0049be3e8368878eb4d2867a2a2961b4860aa06f6",
+    "f24e5657-snapshot/offline-validation.log": "d111a3133b92c04eb434b6ae717e15831facfc073c471718447adfb761c92c84",
+    "f24e5657-snapshot/offline_validate.py": "2bb9733256ac510f4e08c522af7740537db5f9fb62415111d1170cab8a979768",
+    "f24e5657-snapshot/run.py": "f24e5657c3638dd12ef0d599b1928d168dd54df5ed5a93083e4b0da04afa25d2",
+    "independent-fixtures.log": "48275fb703159ef3bf5d4b4cd0c7e555307dd46c7cc7677a38a24b5cb599df4d",
+    "initial-review.json": "da13d744f544d3b49277f144410933a5ffc1f0e1fbfa6f54f8f8ac55e5fda292",
+    "initial-review.md": "262f9ab04099377ca0ba3651b6c0449b285a25f6e6d95e7b7194825251dd8e0d",
+    "input-sha256.json": "9d4302e61bbe552b2a4ae9e992902c022e968ee425d4bbfe2a9b598044a57f05",
+    "offline-independent-result.json": "3f8767257fd9a66bf1f897d78b628beb66d337c543503f207721b2de915caa37",
+    "shell-syntax.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "shell-syntax.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "source-functions.json": "6dd3335c0c1d4059a7c0316d7ca8d451cda421653d75bc8a2e5f994fdd04c02f",
+    "stale-pid-reproducer/probe-output/result.json": "a5c1c8d4f2fa421e6f0057fcdea62097e24843fafc3165cf20c2f406ccca952e",
+    "stale-pid-reproducer/reproduction.json": "4596803588cf7362d0072a1729260b2a59a767ed709f1bd8f6d0264271e68579",
+    "stale-pid-reproducer/retained-old-process.log": "03a0bc20ca72c4de550a08e39c508f8db855dba42f5f05825bf22276c452c06c",
+    "verify_offline.py": "05a7de7eec59042bdb2234c33fff10e8482c94364e7a48e6b1f9e64367c23d72"
+  },
+  "status": "VERIFIED"
+}

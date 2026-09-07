@@ -1,0 +1,38 @@
+{
+  "created_utc": "2026-09-07T00:00:24.493692+00:00",
+  "revision": "0b3f7a10f39bff7c1e94d21956e88d0da797fa8e",
+  "parent_revision": "e1727406d9e3fb134b8e2edc963bf327539784d0",
+  "worktree": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-batch-kernel-work",
+  "worktree_clean": true,
+  "fixture_only": true,
+  "changed_file_sha256": {
+    "drivers/misc/mediatek/connectivity/source/common/test/README_wmt_platform_init.md": "12a63ffc18261e7e24c1eee9e5edcb1f062a4a5e579a478c5940ecf659c4530d",
+    "drivers/misc/mediatek/connectivity/source/common/test/test_wmt_platform_init.py": "66bef13eef98ebfa28f5fa73cd9b89755899174876ce98c196e3da6557f9ee1f",
+    "drivers/misc/mediatek/connectivity/source/common/test/wmt_platform_init_host.c": "171525b263e0234a6b31db5e32c036f5e463bff1cc57606ab43fce7bf133b4a8"
+  },
+  "original_23_cases_and_order_unchanged": true,
+  "original_main_and_assertions_unchanged": true,
+  "main_sha256": "75cf79f27d02e049cc219c4ca57bde9b5d7023937d75b5c12dd8156c6f480003",
+  "validation_runs": [
+    {
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/platform-adapted-address/result.json",
+      "result_sha256": "2834bbc0a46b35e23147cb1266e0974bab82948482cbc80018cd3e7119a3a41c",
+      "passed": 23,
+      "total": 23,
+      "baseline": false,
+      "source_runner_host_fixture_hashes_verified": true,
+      "complete_bridge_section_preserved": true
+    },
+    {
+      "result": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-integration-tests/platform-adapted-baseline/result.json",
+      "result_sha256": "a3318433094b062a9f1f5389284b4eac2bf14ba9d0fb377cdec4b09f605cc0e8",
+      "passed": 8,
+      "total": 23,
+      "baseline": true,
+      "source_runner_host_fixture_hashes_verified": true,
+      "complete_bridge_section_preserved": true
+    }
+  ],
+  "baseline_failures": "15 failures at existing return-value, resource-ownership, cleanup-order, or stale-callback assertions; no compilation failures or timeouts.",
+  "limitations": "Sequential host synchronization adapters require an idle drain and check lock pairing; concurrent waiting remains covered by the separate callback fixture. No production changes or hardware tests."
+}

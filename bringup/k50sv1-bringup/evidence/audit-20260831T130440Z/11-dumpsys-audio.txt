@@ -1,0 +1,305 @@
+
+MediaFocusControl dump time: 15:05:26
+
+Audio Focus stack entries (last is top of stack):
+
+
+No external focus policy
+
+
+
+ Notify on duck:  true
+
+ In ring or call: false
+
+
+
+Audio event log: focus commands as seen by MediaFocusControl
+08-31 05:45:09:181 requestAudioFocus() from uid/pid 1000/874 clientId=AudioFocus_For_Phone_Ring_And_Calls callingPack=com.android.server.telecom req=2 flags=0x4 sdk=0
+08-31 05:45:26:746 abandonAudioFocus() from uid/pid 1000/874 clientId=AudioFocus_For_Phone_Ring_And_Calls
+08-31 14:15:55:784 requestAudioFocus() from uid/pid 10107/1101 clientId=android.media.AudioManager@7ad2e5d callingPack=com.android.systemui req=3 flags=0x0 sdk=29
+08-31 14:15:57:803 abandonAudioFocus() from uid/pid 10107/1101 clientId=android.media.AudioManager@7ad2e5d
+08-31 14:16:14:477 requestAudioFocus() from uid/pid 10107/1101 clientId=android.media.AudioManager@bbe6c50 callingPack=com.android.systemui req=3 flags=0x0 sdk=29
+08-31 14:16:16:377 abandonAudioFocus() from uid/pid 10107/1101 clientId=android.media.AudioManager@bbe6c50
+
+Stream volumes (device: index)
+- STREAM_VOICE_CALL:
+   Muted: false
+   Min: 1
+   Max: 5
+   streamVolume:3
+   Current: 1 (earpiece): 3, 40000000 (default): 3
+   Devices: earpiece
+- STREAM_SYSTEM:
+   Muted: false
+   Min: 0
+   Max: 7
+   streamVolume:5
+   Current: 2 (speaker): 5, 40000000 (default): 5
+   Devices: speaker
+- STREAM_RING:
+   Muted: false
+   Min: 0
+   Max: 7
+   streamVolume:5
+   Current: 2 (speaker): 5, 40000000 (default): 5
+   Devices: speaker
+- STREAM_MUSIC:
+   Muted: false
+   Min: 0
+   Max: 15
+   streamVolume:5
+   Current: 4000000 (usb_headset): 3, 40000000 (default): 5
+   Devices: speaker
+- STREAM_ALARM:
+   Muted: false
+   Min: 1
+   Max: 7
+   streamVolume:6
+   Current: 40000000 (default): 6
+   Devices: speaker
+- STREAM_NOTIFICATION:
+   Muted: false
+   Min: 0
+   Max: 7
+   streamVolume:5
+   Current: 2 (speaker): 5, 40000000 (default): 5
+   Devices: speaker
+- STREAM_BLUETOOTH_SCO:
+   Muted: false
+   Min: 0
+   Max: 15
+   streamVolume:7
+   Current: 40000000 (default): 7
+   Devices: earpiece
+- STREAM_SYSTEM_ENFORCED:
+   Muted: false
+   Min: 0
+   Max: 7
+   streamVolume:5
+   Current: 2 (speaker): 5, 40000000 (default): 5
+   Devices: speaker
+- STREAM_DTMF:
+   Muted: false
+   Min: 0
+   Max: 15
+   streamVolume:11
+   Current: 1 (earpiece): 11, 2 (speaker): 11, 40000000 (default): 11
+   Devices: speaker
+- STREAM_TTS:
+   Muted: false
+   Min: 0
+   Max: 15
+   streamVolume:5
+   Current: 4000000 (usb_headset): 3, 40000000 (default): 5
+   Devices: speaker
+- STREAM_ACCESSIBILITY:
+   Muted: false
+   Min: 1
+   Max: 15
+   streamVolume:6
+   Current: 4000000 (usb_headset): 4, 40000000 (default): 6
+   Devices: speaker
+
+- mute affected streams = 0x6f
+
+Ringer mode: 
+- mode (internal) = NORMAL
+- mode (external) = NORMAL
+- ringer mode affected streams = 0x1a6 (STREAM_SYSTEM,STREAM_RING,STREAM_NOTIFICATION,STREAM_SYSTEM_ENFORCED,STREAM_DTMF)
+- ringer mode muted streams = 0x0
+- delegate = ZenModeHelper
+
+Audio routes:
+  mMainType=0x0
+  mBluetoothName=null
+
+Other state:
+  mVolumeController=VolumeController(android.os.BinderProxy@c52d29,mVisible=false)
+  mSafeMediaVolumeState=SAFE_MEDIA_VOLUME_ACTIVE
+  mSafeMediaVolumeIndex=100
+  mSafeUsbMediaVolumeIndex=30
+  mSafeUsbMediaVolumeDbfs=-37.0
+  sIndependentA11yVolume=false
+  mPendingVolumeCommand=null
+  mMusicActiveMs=0
+  mMcc=460
+  mCameraSoundForced=false
+  mHasVibrator=true
+  mVolumePolicy=VolumePolicy[volumeDownToEnterSilent=false,volumeUpToExitSilent=false,doNotDisturbWhenSilent=false,vibrateToSilentDebounce=400]
+  mAvrcpAbsVolSupported=false
+  mIsSingleVolume=false
+  mUseFixedVolume=false
+  mFixedVolumeDevices=0x2c1400
+  mHdmiCecSink=false
+  mHdmiAudioSystemClient=null
+  mHdmiPlaybackClient=null
+  mHdmiTvClient=null
+  mHdmiSystemAudioSupported=false
+
+Audio policies:
+Audio event log: dynamic policy events (logged when command received by AudioService)
+
+PlaybackActivityMonitor dump time: 15:05:26
+
+  playback listeners:
+ (S)com.android.server.audio.PlaybackActivityMonitor$PlayMonitorClient@e6ce8ae (S)com.android.server.audio.PlaybackActivityMonitor$PlayMonitorClient@7d8464f
+
+
+  players:
+  ID:15 -- type:android.media.SoundPool -- u/pid:1000/874 -- state:idle -- attr:AudioAttributes: usage=USAGE_ASSISTANCE_SONIFICATION content=CONTENT_TYPE_SONIFICATION flags=0x800 tags= bundle=null
+  ID:23 -- type:android.media.SoundPool -- u/pid:10107/1101 -- state:idle -- attr:AudioAttributes: usage=USAGE_ASSISTANCE_SONIFICATION content=CONTENT_TYPE_SONIFICATION flags=0x800 tags= bundle=null
+  ID:39 -- type:android.media.MediaPlayer -- u/pid:10069/1307 -- state:idle -- attr:AudioAttributes: usage=USAGE_MEDIA content=CONTENT_TYPE_MUSIC flags=0x800 tags= bundle=null
+
+  ducked players piids:
+
+  muted player piids:
+
+  banned uids:
+
+Audio event log: playback activity as reported through PlayerBase
+08-31 05:47:28:240 player piid:23 state:started
+08-31 07:00:00:184 releasing player piid:79
+08-31 07:00:00:188 releasing player piid:55
+08-31 14:13:18:962 player piid:15 state:started
+08-31 14:13:27:547 player piid:15 state:started
+08-31 14:13:29:119 player piid:15 state:started
+08-31 14:13:30:170 player piid:15 state:started
+08-31 14:13:33:186 player piid:15 state:started
+08-31 14:13:33:963 player piid:15 state:started
+08-31 14:13:34:566 player piid:15 state:started
+08-31 14:13:38:914 player piid:15 state:started
+08-31 14:13:46:455 player piid:15 state:started
+08-31 14:13:53:960 player piid:15 state:started
+08-31 14:13:55:262 player piid:15 state:started
+08-31 14:15:21:052 player piid:15 state:started
+08-31 14:15:41:063 player piid:15 state:started
+08-31 14:15:44:428 player piid:15 state:started
+08-31 14:15:46:688 player piid:15 state:started
+08-31 14:15:47:607 player piid:15 state:started
+08-31 14:15:51:656 player piid:15 state:started
+08-31 14:15:52:378 player piid:15 state:started
+08-31 14:15:53:330 player piid:15 state:started
+08-31 14:15:53:412 new player piid:95 uid/pid:1000/11206 type:android.media.MediaPlayer attr:AudioAttributes: usage=USAGE_UNKNOWN content=CONTENT_TYPE_UNKNOWN flags=0x800 tags= bundle=null
+08-31 14:15:53:421 player piid:95 new AudioAttributes:AudioAttributes: usage=USAGE_NOTIFICATION_RINGTONE content=CONTENT_TYPE_SONIFICATION flags=0x800 tags= bundle=null
+08-31 14:15:53:439 releasing player piid:95
+08-31 14:15:53:440 new player piid:103 uid/pid:1000/11206 type:android.media.MediaPlayer attr:AudioAttributes: usage=USAGE_UNKNOWN content=CONTENT_TYPE_UNKNOWN flags=0x800 tags= bundle=null
+08-31 14:15:53:446 player piid:103 new AudioAttributes:AudioAttributes: usage=USAGE_MEDIA content=CONTENT_TYPE_MUSIC flags=0x800 tags= bundle=null
+08-31 14:15:54:145 player piid:15 state:started
+08-31 14:15:55:705 new player piid:111 uid/pid:10107/1101 type:android.media.MediaPlayer attr:AudioAttributes: usage=USAGE_UNKNOWN content=CONTENT_TYPE_UNKNOWN flags=0x800 tags= bundle=null
+08-31 14:15:55:707 player piid:111 new AudioAttributes:AudioAttributes: usage=USAGE_NOTIFICATION content=CONTENT_TYPE_SONIFICATION flags=0x800 tags= bundle=null
+08-31 14:15:56:293 player piid:111 state:started
+08-31 14:15:57:799 player piid:111 state:stopped
+08-31 14:15:57:805 releasing player piid:111
+08-31 14:16:08:853 player piid:15 state:started
+08-31 14:16:14:456 new player piid:127 uid/pid:10107/1101 type:android.media.MediaPlayer attr:AudioAttributes: usage=USAGE_UNKNOWN content=CONTENT_TYPE_UNKNOWN flags=0x800 tags= bundle=null
+08-31 14:16:14:456 player piid:127 new AudioAttributes:AudioAttributes: usage=USAGE_NOTIFICATION content=CONTENT_TYPE_SONIFICATION flags=0x800 tags= bundle=null
+08-31 14:16:14:554 player piid:15 state:started
+08-31 14:16:14:978 player piid:127 state:started
+08-31 14:16:16:376 player piid:127 state:stopped
+08-31 14:16:16:377 releasing player piid:127
+08-31 14:16:20:142 player piid:15 state:started
+08-31 14:16:22:067 player piid:15 state:started
+08-31 14:16:23:506 player piid:15 state:started
+08-31 14:16:23:681 player piid:15 state:started
+08-31 14:16:23:840 player piid:15 state:started
+08-31 14:16:23:999 player piid:15 state:started
+08-31 14:16:24:156 player piid:15 state:started
+08-31 14:16:24:331 player piid:15 state:started
+08-31 14:16:24:490 player piid:15 state:started
+08-31 14:16:24:649 player piid:15 state:started
+08-31 14:16:24:807 player piid:15 state:started
+08-31 14:16:24:995 player piid:15 state:started
+08-31 14:16:25:950 player piid:15 state:started
+08-31 14:16:26:950 player piid:15 state:started
+08-31 14:16:28:156 player piid:15 state:started
+08-31 14:16:32:871 player piid:15 state:started
+08-31 14:16:33:538 player piid:15 state:started
+08-31 14:16:34:281 player piid:15 state:started
+08-31 14:16:39:186 player piid:15 state:started
+08-31 14:16:39:995 player piid:15 state:started
+08-31 14:16:40:439 player piid:15 state:started
+08-31 14:16:43:385 player piid:15 state:started
+08-31 14:16:44:476 player piid:15 state:started
+08-31 14:16:45:255 player piid:15 state:started
+08-31 14:16:45:693 player piid:15 state:started
+08-31 14:16:46:202 player piid:15 state:started
+08-31 14:16:46:741 player piid:15 state:started
+08-31 14:16:47:294 player piid:15 state:started
+08-31 14:16:48:406 player piid:15 state:started
+08-31 14:16:50:483 player piid:15 state:started
+08-31 14:16:55:076 player piid:15 state:started
+08-31 14:17:00:546 player piid:15 state:started
+08-31 14:17:02:658 player piid:15 state:started
+08-31 14:17:03:531 player piid:15 state:started
+08-31 14:17:03:802 player piid:15 state:started
+08-31 14:17:04:055 player piid:15 state:started
+08-31 14:17:05:102 player piid:15 state:started
+08-31 14:17:06:992 player piid:15 state:started
+08-31 14:17:07:896 player piid:15 state:started
+08-31 14:17:08:106 releasing player piid:103
+08-31 14:17:08:657 player piid:15 state:started
+08-31 14:17:09:375 player piid:15 state:started
+08-31 14:17:15:168 player piid:15 state:started
+08-31 14:17:21:158 player piid:15 state:started
+08-31 14:17:25:538 player piid:15 state:started
+08-31 14:17:28:892 player piid:15 state:started
+08-31 14:17:29:700 player piid:15 state:started
+08-31 14:17:30:479 player piid:15 state:started
+08-31 14:17:38:290 player piid:15 state:started
+08-31 14:18:31:119 player piid:15 state:started
+08-31 14:18:47:449 player piid:15 state:started
+08-31 14:18:48:385 player piid:15 state:started
+08-31 14:18:50:696 player piid:15 state:started
+08-31 14:20:33:197 player piid:23 state:started
+08-31 14:24:50:659 player piid:23 state:started
+08-31 14:25:45:534 player piid:15 state:started
+08-31 14:26:45:514 player piid:23 state:started
+08-31 15:02:05:457 player piid:23 state:started
+08-31 15:02:06:378 player piid:15 state:started
+08-31 15:03:11:112 player piid:23 state:started
+
+  allowed capture policies:
+
+RecordActivityMonitor dump time: 15:05:26
+
+
+Audio event log: recording activity received by AudioService
+08-31 14:15:57:782 rec update riid:119 uid:10068 session:129 src:HOTWORD pack:com.google.android.googlequicksearchbox
+
+
+
+Event logs:
+Audio event log: phone state (logged after successfull call to AudioSystem.setPhoneState(int))
+08-31 05:45:09:190 setMode(MODE_RINGTONE) from package=com.android.server.telecom pid=874 selected mode=MODE_RINGTONE by pid=874
+08-31 05:45:26:857 setMode(MODE_NORMAL) from package=com.android.server.telecom pid=874 selected mode=MODE_NORMAL by pid=0
+
+
+Audio event log: wired/A2DP/hearing aid device connection
+08-31 04:49:03:197 BT profile service: connecting A2DP profile
+08-31 04:49:03:583 BT profile service: connecting HEADSET profile
+
+
+Audio event log: force use (logged before setForceUse() is executed)
+08-31 04:49:00:602 setForceUse(FOR_SYSTEM, FORCE_NONE) due to AudioService ctor
+08-31 04:49:00:609 setForceUse(FOR_DOCK, FORCE_ANALOG_DOCK) due to readDockAudioSettings
+08-31 04:49:00:612 setForceUse(FOR_ENCODED_SURROUND, FORCE_NONE) due to readPersistedSettings
+08-31 04:49:00:683 setForceUse(FOR_VIBRATE_RINGING, FORCE_NONE) due to muteRingerModeStreams() from u/pid:1000/874
+08-31 04:49:01:729 setForceUse(FOR_COMMUNICATION, FORCE_NONE) due to resetBluetoothSco
+08-31 04:49:01:730 setForceUse(FOR_RECORD, FORCE_NONE) due to resetBluetoothSco
+08-31 04:49:02:855 setForceUse(FOR_ENCODED_SURROUND, FORCE_NONE) due to readPersistedSettings
+08-31 04:49:03:709 setForceUse(FOR_DOCK, FORCE_ANALOG_DOCK) due to readDockAudioSettings
+08-31 04:49:03:709 setForceUse(FOR_VIBRATE_RINGING, FORCE_NONE) due to muteRingerModeStreams() from u/pid:1000/874
+08-31 04:49:03:719 setForceUse(FOR_DOCK, FORCE_ANALOG_DOCK) due to readDockAudioSettings
+08-31 04:49:03:719 setForceUse(FOR_DOCK, FORCE_ANALOG_DOCK) due to readDockAudioSettings
+08-31 04:49:03:719 setForceUse(FOR_VIBRATE_RINGING, FORCE_NONE) due to muteRingerModeStreams() from u/pid:1000/874
+08-31 05:45:09:199 setForceUse(FOR_VIBRATE_RINGING, FORCE_NONE) due to muteRingerModeStreams() from u/pid:1000/874
+08-31 05:45:09:202 setForceUse(FOR_COMMUNICATION, FORCE_NONE) due to setSpeakerphoneOn(false) from u/pid:1000/874
+08-31 05:45:26:897 setForceUse(FOR_VIBRATE_RINGING, FORCE_NONE) due to muteRingerModeStreams() from u/pid:1000/874
+08-31 05:45:26:900 setForceUse(FOR_COMMUNICATION, FORCE_NONE) due to setSpeakerphoneOn(false) from u/pid:1000/874
+08-31 07:00:00:020 setForceUse(FOR_DOCK, FORCE_ANALOG_DOCK) due to readDockAudioSettings
+08-31 14:13:29:536 setForceUse(FOR_DOCK, FORCE_ANALOG_DOCK) due to readDockAudioSettings
+08-31 14:13:29:540 setForceUse(FOR_DOCK, FORCE_ANALOG_DOCK) due to readDockAudioSettings
+
+
+Audio event log: volume changes (logged when command received by AudioService)

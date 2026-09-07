@@ -1,0 +1,2 @@
+host_adb_rc=0
+Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] pkg=com.android.settings }

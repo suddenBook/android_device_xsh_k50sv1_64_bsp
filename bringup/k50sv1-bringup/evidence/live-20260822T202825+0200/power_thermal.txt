@@ -1,0 +1,94 @@
+# captured_at: 2026-08-22T20:28:40+02:00
+# adb: adb (configured executable)
+# device_command: Magisk root shell over stdin: $'\necho "## battery service";\ndumpsys battery 2>&1;\necho "## power supplies";\nfor supply in /sys/class/power_supply/*; do\n    [ -d "$supply" ] || continue;\n    echo "### $supply";\n    for attr in type status health present capacity charge_full charge_full_design charge_counter current_now current_max voltage_now voltage_max temp cycle_count technology; do\n        [ -r "$supply/$attr" ] || continue;\n        printf "%s: " "$attr"; cat "$supply/$attr" 2>&1;\n    done;\ndone;\necho "## thermal service";\ndumpsys thermalservice 2>&1;\necho "## thermal zones";\nfor zone in /sys/class/thermal/thermal_zone*; do\n    [ -d "$zone" ] || continue;\n    printf "%s type=" "$zone"; cat "$zone/type" 2>&1;\n    printf "%s temp=" "$zone"; cat "$zone/temp" 2>&1;\ndone;\necho "## MTK battery/charger proc nodes";\n# Never read current_cmd: its read handler disables charging on MTK 3.18.\nif [ -r /proc/mtk_battery_cmd/battery_cmd ]; then\n    cat /proc/mtk_battery_cmd/battery_cmd 2>&1;\nfi;\n'
+
+uid=0(root) gid=0(root) groups=0(root) context=u:r:magisk:s0
+## battery service
+Current Battery Service state:
+  AC powered: false
+  USB powered: true
+  Wireless powered: false
+  Max charging current: 500000
+  Max charging voltage: 5000000
+  Charge counter: 2800000
+  status: 5
+  health: 2
+  present: true
+  level: 100
+  scale: 100
+  voltage: 4277
+  temperature: 320
+  technology: Li-ion
+## power supplies
+### /sys/class/power_supply/ac
+type: Mains
+### /sys/class/power_supply/battery
+type: Battery
+status: Full
+health: Good
+present: 1
+capacity: 100
+charge_full: 2800000
+charge_counter: 2800000
+current_now: 146400
+voltage_now: 4273000
+temp: 320
+cycle_count: 0
+technology: Li-ion
+### /sys/class/power_supply/usb
+type: USB
+charge_counter: 2800000
+current_max: 500000
+voltage_max: 5000000
+### /sys/class/power_supply/wireless
+type: Wireless
+## thermal service
+IsStatusOverride: false
+ThermalEventListeners:
+	callbacks: 1
+	killed: false
+	broadcasts count: -1
+ThermalStatusListeners:
+	callbacks: 1
+	killed: false
+	broadcasts count: -1
+Thermal Status: 0
+Cached temperatures:
+	Temperature{mValue=42.0, mType=3, mName=SKIN_T, mStatus=0}
+	Temperature{mValue=31.0, mType=2, mName=BAT_T, mStatus=0}
+	Temperature{mValue=52.8, mType=0, mName=CPU_T, mStatus=0}
+	Temperature{mValue=52.8, mType=1, mName=GPU_T, mStatus=0}
+HAL Ready: true
+HAL connection:
+	ThermalHAL 1.0 connected: yes
+Current temperatures from HAL:
+	Temperature{mValue=49.2, mType=0, mName=CPU_T, mStatus=0}
+	Temperature{mValue=49.2, mType=1, mName=GPU_T, mStatus=0}
+	Temperature{mValue=32.0, mType=2, mName=BAT_T, mStatus=0}
+	Temperature{mValue=40.0, mType=3, mName=SKIN_T, mStatus=0}
+Current cooling devices from HAL:
+## thermal zones
+/sys/class/thermal/thermal_zone0 type=mtktsbattery
+/sys/class/thermal/thermal_zone0 temp=32000
+/sys/class/thermal/thermal_zone1 type=mtktscpu
+/sys/class/thermal/thermal_zone1 temp=47500
+/sys/class/thermal/thermal_zone2 type=mtktspa
+/sys/class/thermal/thermal_zone2 temp=-127000
+/sys/class/thermal/thermal_zone3 type=mtktspmic
+/sys/class/thermal/thermal_zone3 temp=38996
+/sys/class/thermal/thermal_zone4 type=mtktswmt
+/sys/class/thermal/thermal_zone4 temp=37000
+/sys/class/thermal/thermal_zone5 type=battery
+/sys/class/thermal/thermal_zone5 temp=32000
+/sys/class/thermal/thermal_zone6 type=mtktsAP
+/sys/class/thermal/thermal_zone6 temp=40000
+/sys/class/thermal/thermal_zone7 type=mtktsbtsmdpa
+/sys/class/thermal/thermal_zone7 temp=38000
+## MTK battery/charger proc nodes
+=> g_battery_thermal_throttling_flag=3,
+battery_cmd_thermal_test_mode=0,
+battery_cmd_thermal_test_mode_value=0
+=> get_usb_current_unlimited=0,
+cmd_discharging = -1
+
+# host_exit_status: 0

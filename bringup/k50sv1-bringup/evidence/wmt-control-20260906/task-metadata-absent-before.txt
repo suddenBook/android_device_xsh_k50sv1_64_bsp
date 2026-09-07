@@ -1,0 +1,22 @@
+../wmt-control-tests/metadata-before-final/test.c:333:13: runtime error: member access within null pointer of type 'struct <unknown>'
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==2844646==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000008 (pc 0x7f2faa32e0e0 bp 0x7ffc76512270 sp 0x7ffc765119c0 T0)
+==2844646==The signal is caused by a READ memory access.
+==2844646==Hint: address points to the zero page.
+    #0 0x7f2faa32e0e0  (/usr/lib/libasan.so.8+0x12e0e0) (BuildId: 9984d9525c58ce2da97a0c6855b72ef802ee1bbe)
+    #1 0x00000040858f in stp_dbg_soc_id_to_task ../wmt-control-tests/metadata-before-final/test.c:340
+    #2 0x000000408a99 in task_case ../wmt-control-tests/metadata-before-final/test.c:712
+    #3 0x00000040a905 in main ../wmt-control-tests/metadata-before-final/test.c:801
+    #4 0x7f2fa9627c8d  (/usr/lib/libc.so.6+0x27c8d) (BuildId: 46554afd5282a7de42075035b9bdaac8968c6e03)
+    #5 0x7f2fa9627dca in __libc_start_main (/usr/lib/libc.so.6+0x27dca) (BuildId: 46554afd5282a7de42075035b9bdaac8968c6e03)
+    #6 0x0000004022f4 in _start (/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-control-tests/metadata-before-final/test+0x4022f4) (BuildId: 8a0d4fec79f4d0dcb0aea33646b788c29736db65)
+
+==2844646==Register values:
+rax = 0x0000000000000000  rbx = 0x0000000000000008  rcx = 0x0000000000000000  rdx = 0x0000000000000005  
+rdi = 0x0000000000000008  rsi = 0x000000000040df20  rbp = 0x00007ffc76512270  rsp = 0x00007ffc765119c0  
+ r8 = 0x0000000000001000   r9 = 0x00007f2faa092000  r10 = 0x00007ffc765122c0  r11 = 0x000000000040df20  
+r12 = 0x0000000000000008  r13 = 0x0000000000000005  r14 = 0x00007ffc76512990  r15 = 0x00007ffc76513338  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV ../wmt-control-tests/metadata-before-final/test.c:340 in stp_dbg_soc_id_to_task
+==2844646==ABORTING

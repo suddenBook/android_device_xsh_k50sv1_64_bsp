@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "device_revision": "2cbfa92e64e2b01461de512e4feb2c5676406125",
+  "rows": [
+    {
+      "arch": "arm64",
+      "exit_code": 0,
+      "artifacts": {
+        "command.json": "21d2ec150ed253725af6d0e9fbf13168aed445ba6575ced05bc36fc58fcf62a9",
+        "compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "elf.txt": "9172b35edb3669e662dc9ae1f38c11c692ce9cdefe27f13b08837ca5fed0d1be",
+        "wmt_launcher": "acc5870efece38e3e79df4cecc058c50e3c91025f75fe67811014ebd02f909c0"
+      }
+    },
+    {
+      "arch": "arm",
+      "exit_code": 0,
+      "artifacts": {
+        "command.json": "9d7b949f8a02a82e32aa81fb7fbdf3f44f9f0abe614f11e323a7bc53a2ff2a33",
+        "compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "elf.txt": "443a321fc84c94ead0d21452bfdbdc1dd7a2a550409839b4fa9187871ff34928",
+        "wmt_launcher": "e481275e20a95b27a25d1d843968b7d98e5917eb567ece41c21c577ac940804b"
+      }
+    }
+  ],
+  "source_sha256": {
+    "Android.bp": "2e6896cd7fc0a5daf075e4d5a6a9c42e77e1c73dff2ba1684b01053d1ac14b5f",
+    "README.md": "245c152ab3d067e354639eb6cf3074418f34465da7f0558892860a050daa6164",
+    "README_firmware.md": "3201dab2320e2c87c48c97542a3481d0e8ef2c6307037d4b29af2bb47e44deda",
+    "README_protocol.md": "831a6b5f9c56288f8d89a948008af1d63c6f41d3594a847ba0d7a02e8c4805ce",
+    "firmware.c": "24094ba87ae2ee01b2e471720c449b692fc3ac02c541304bd3e13554986a880a",
+    "firmware.h": "cccea4a74d48bf310c704084f496a5d342f64b73cb61ac7b8aebf465a773fbc2",
+    "include/linux/mtk_wmt_cmd.h": "4ea77989d01fa91b6cf2377aea59f679f02b3c9714b3052fa3ac014a2eec5c13",
+    "main.c": "40159f3e1f6faf8f0f65d562f44bb4b550e6aaa102988701a31443a36fa27189",
+    "patch.c": "3c6e2b4f27f308cf8dad06e7b1735a8568f72555c718967241cb6be3726a6d26",
+    "patch.h": "d41885eb0f25deb42e8fc1ebaee3ce94e623ebfd4af53ec2aea11c2ef8c782e2",
+    "protocol.c": "6fd2fbc0667d3bc6ffafaf441924ed06bb20c5d37f964bef34018d01319f6877",
+    "protocol.h": "95b5bdbe531428a13ae8637c0d5152cd1aa8169c71ab6894c7902d57666328cb",
+    "test-include/android/log.h": "96f0d71621821ab4b7dd9483831a4dde3796e62e982f19bb0dc17556cf87a7b8",
+    "test-include/cutils/properties.h": "1a5aa5e38d3821e22495a3b7613e186b7b3c923f907f2585eec383e10c860ace",
+    "test_firmware.c": "c7aa7722e564f612bbb85431e1069f3cd1936d2b5000d50a233fec9b4ba0a470",
+    "test_launcher.c": "1acd01ee2ffa117e804ef4110f691f5d056b174f1cc4ac6831de58718bf4dc9a",
+    "test_launcher.py": "7f582b72cb283d767ea79d4c002829a27ff4e2cbd909d1fcb995998e9716637e",
+    "test_patch.c": "bb5560764b2f1be7ea423e3687d9fc4aea8d6c6d6e7050139bc32ebc7ba339d3",
+    "test_protocol.c": "6a3b832876b4f1327f29f25919f0b5cdbf163e1375a4012651c0649d5dd589c2"
+  },
+  "limitation": "Standalone Android API29 linkage; only ARM64 selected in product; full clean Soong build and runtime remain required."
+}

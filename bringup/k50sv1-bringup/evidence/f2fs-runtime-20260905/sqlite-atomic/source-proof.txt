@@ -1,0 +1,21 @@
+Private kernel 155f10112fcbe16ea7ef2fe786b919aeb365a54f:
+fs/f2fs/f2fs.h:153 F2FS_FEATURE_ATOMIC_WRITE = 0x0004
+fs/f2fs/f2fs.h:498 START_ATOMIC_WRITE = _IO(0xf5,1)
+fs/f2fs/f2fs.h:499 COMMIT_ATOMIC_WRITE = _IO(0xf5,2)
+fs/f2fs/file.c:2719 f2fs_ioc_get_features; 2725 advertises ATOMIC_WRITE
+fs/f2fs/file.c:2880/2882 dispatch native START/COMMIT
+Documentation/filesystems/f2fs.txt:94 hot/cold separation; 130/132 inline data/dentry
+
+Unmodified Android Q source:
+external/sqlite/dist/Android.bp:39 enables SQLITE_ENABLE_BATCH_ATOMIC_WRITE
+external/sqlite/dist/sqlite3.c:34683 queries F2FS_IOC_GET_FEATURES
+external/sqlite/dist/sqlite3.c:54383 selects eligible rollback-mode atomic commit
+external/sqlite/dist/sqlite3.c:34565 dispatches the three atomic ioctls
+bionic/libc/kernel/uapi/linux/vsoc_shm.h:63 defines an unrelated ioctl with the same 0xf502 number
+external/strace/ioctlent0.h:875 names 0xf502 VSOC_MAYBE_SEND_INTERRUPT_TO_HOST
+
+The first symbolic trace's empty COMMIT match was a trace-parser assertion,
+not an ioctl failure. raw=ioctl records 12 successful 0xf501/0xf502 pairs.
+The native SQLite build omits compile-options diagnostics, so an empty
+PRAGMA compile_options result is not evidence that the option is absent.
+The syscall trace establishes actual runtime use.

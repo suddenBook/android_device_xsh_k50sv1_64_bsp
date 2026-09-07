@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "identity": "e08a5833-8066-4e5f-99a6-1daa632da88f\neng.desmon.20260906.223008\n1\n0\n1049.85 4367.40\npriority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=true\ncom.android.launcher3/.lineage.LineageLauncher\n<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>\n<roles version=\"-1\" packagesHash=\"074C083FE96FC1514FEA962D7FE0B123E6498E5FA5C2F6465899B541E476E35E\">\n  <role name=\"android.app.role.CALL_SCREENING\" />\n  <role name=\"android.app.role.SMS\">\n    <holder name=\"com.android.messaging\" />\n  </role>\n  <role name=\"android.app.role.DIALER\">\n    <holder name=\"com.android.dialer\" />\n  </role>\n  <role name=\"android.app.role.HOME\">\n    <holder name=\"com.android.launcher3\" />\n  </role>\n  <role name=\"android.app.role.ASSISTANT\" />\n  <role name=\"android.app.role.EMERGENCY\">\n    <holder name=\"com.android.emergency\" />\n  </role>\n  <role name=\"android.app.role.CALL_REDIRECTION\" />\n  <role name=\"android.app.role.BROWSER\">\n    <holder name=\"org.lineageos.jelly\" />\n  </role>\n</roles>",
+  "probe_apps_stopped": true,
+  "calibration_firmware_matches": 19,
+  "manual_home_setter_called": false
+}

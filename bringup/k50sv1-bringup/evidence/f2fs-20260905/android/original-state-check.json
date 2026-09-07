@@ -1,0 +1,25 @@
+{
+  "scope": "Final original-tree observation; the F2FS work changed only isolated work paths",
+  "canonical_kernel_at_start": "281fee8e77f0e3b4813b58782dcf47c496624b28",
+  "canonical_kernel_at_finish": "66fd4159ce2e255e3ef5779e6e9cfb9503a4f29a",
+  "concurrent_kernel_change": "Only a block comment in drivers/misc/mediatek/base/power/mt6755/mt_clkbuf_ctl.c; text outside block comments is identical",
+  "original_build_incremental": "eng.desmon.20260904.232131",
+  "original_images": {
+    "boot": {
+      "sha256": "6aedd99a5be20ac7ad29dafa8302cda3a8d1c467037df57c4aacbe7345ec3868",
+      "matches_original_receipt": true
+    },
+    "recovery": {
+      "sha256": "8e13bdc48961a97c60c2f6acfb39348ad5d2dd256230d844adef88677777da3d",
+      "matches_original_receipt": true
+    },
+    "system": {
+      "sha256": "fa2e2899f2147e730e3c7bab37a1ec58c2a8f5d2a244e41c16b7fc83aee47b80",
+      "matches_original_receipt": true
+    },
+    "vendor": {
+      "sha256": "d3850807c7f2dd615901d5f54c793aa736333a65f0f39ffe34aadb6adb82c9bb",
+      "matches_original_receipt": true
+    }
+  }
+}

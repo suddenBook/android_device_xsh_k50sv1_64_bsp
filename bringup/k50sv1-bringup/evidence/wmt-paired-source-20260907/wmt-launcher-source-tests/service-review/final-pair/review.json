@@ -1,0 +1,1040 @@
+{
+  "status": "PASS",
+  "new_findings_confidence_at_least_80": [],
+  "scope": "Independent final launcher and v2 broker source review; collector is a required separately reviewed dependency.",
+  "revisions": {
+    "launcher": {
+      "repository": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work",
+      "commit": "2cbfa92e64e2b01461de512e4feb2c5676406125",
+      "clean": true
+    },
+    "broker": {
+      "repository": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-kernel-work",
+      "commit": "857d2d0b238231ad931e342c6950c458dae99063",
+      "clean": true
+    },
+    "collector": {
+      "repository": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-fwlog-kernel-work",
+      "commit": "75f4664c480ccbf64b764406776e8a3d88a3325b",
+      "clean": true
+    }
+  },
+  "source_files": [
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/main.c",
+      "sha256": "40159f3e1f6faf8f0f65d562f44bb4b550e6aaa102988701a31443a36fa27189",
+      "snapshot": "sources/launcher/wmt-launcher/main.c"
+    },
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/protocol.c",
+      "sha256": "6fd2fbc0667d3bc6ffafaf441924ed06bb20c5d37f964bef34018d01319f6877",
+      "snapshot": "sources/launcher/wmt-launcher/protocol.c"
+    },
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/protocol.h",
+      "sha256": "95b5bdbe531428a13ae8637c0d5152cd1aa8169c71ab6894c7902d57666328cb",
+      "snapshot": "sources/launcher/wmt-launcher/protocol.h"
+    },
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/include/linux/mtk_wmt_cmd.h",
+      "sha256": "4ea77989d01fa91b6cf2377aea59f679f02b3c9714b3052fa3ac014a2eec5c13",
+      "snapshot": "sources/launcher/wmt-launcher/include/linux/mtk_wmt_cmd.h"
+    },
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/firmware.c",
+      "sha256": "24094ba87ae2ee01b2e471720c449b692fc3ac02c541304bd3e13554986a880a",
+      "snapshot": "sources/launcher/wmt-launcher/firmware.c"
+    },
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/firmware.h",
+      "sha256": "cccea4a74d48bf310c704084f496a5d342f64b73cb61ac7b8aebf465a773fbc2",
+      "snapshot": "sources/launcher/wmt-launcher/firmware.h"
+    },
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/patch.c",
+      "sha256": "3c6e2b4f27f308cf8dad06e7b1735a8568f72555c718967241cb6be3726a6d26",
+      "snapshot": "sources/launcher/wmt-launcher/patch.c"
+    },
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/patch.h",
+      "sha256": "d41885eb0f25deb42e8fc1ebaee3ce94e623ebfd4af53ec2aea11c2ef8c782e2",
+      "snapshot": "sources/launcher/wmt-launcher/patch.h"
+    },
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/Android.bp",
+      "sha256": "2e6896cd7fc0a5daf075e4d5a6a9c42e77e1c73dff2ba1684b01053d1ac14b5f",
+      "snapshot": "sources/launcher/wmt-launcher/Android.bp"
+    },
+    {
+      "component": "broker",
+      "path": "include/uapi/linux/mtk_wmt_cmd.h",
+      "sha256": "4ea77989d01fa91b6cf2377aea59f679f02b3c9714b3052fa3ac014a2eec5c13",
+      "snapshot": "sources/broker/include/uapi/linux/mtk_wmt_cmd.h"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.c",
+      "sha256": "bcddd32fe13be5d1a688a6ccb26171c85c492e3a30148df8800b0b9c036ad354",
+      "snapshot": "sources/broker/drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.c"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "sha256": "f51e6d77c43c0219ccc4711bb0f33bf118aa75e2ff571a4fc8628b01626a789f",
+      "snapshot": "sources/broker/drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_ctrl.c",
+      "sha256": "6da54fed31854565de606dd3684fde1d40b87f74b237d0a4ac4b76835a983a25",
+      "snapshot": "sources/broker/drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_ctrl.c"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+      "sha256": "ffa88ab507072777690543478722ea58d721890ef4dc5fbd6f0507b5d0a470b1",
+      "snapshot": "sources/broker/drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/wmt_plat_alps.c",
+      "sha256": "f898e27c63210005e29a4ba5cf3f87ad4a1d93ffe2ce4793f92a9a527e36d804",
+      "snapshot": "sources/broker/drivers/misc/mediatek/connectivity/source/common/common_main/platform/wmt_plat_alps.c"
+    },
+    {
+      "component": "collector",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dbg.c",
+      "sha256": "117849622ef70cd56a1b27be5bccb89b735bacb3099adee26c40827014b04827",
+      "snapshot": "sources/collector/drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dbg.c"
+    },
+    {
+      "component": "collector",
+      "path": "tools/testing/wmt-fwlog/run.py",
+      "sha256": "7f1dc8f6b219aeff43b1f410eca9880422d8c130b8e2ee76be623d51773faad4",
+      "snapshot": "sources/collector/tools/testing/wmt-fwlog/run.py"
+    }
+  ],
+  "source_functions": [
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/main.c",
+      "symbol": "open_driver",
+      "start_line": 104,
+      "end_line": 123,
+      "sha256": "e5237ae36e8912cb3296da09bcc8d5bb1701d0a386cc83bb8b50bed7709a9b88"
+    },
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/main.c",
+      "symbol": "check_chip",
+      "start_line": 125,
+      "end_line": 138,
+      "sha256": "5dfadab61eff5364d3f55c3fb6433aea6d542bc19988468a8e95e4f6c9c1fce3"
+    },
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/main.c",
+      "symbol": "power_on",
+      "start_line": 140,
+      "end_line": 163,
+      "sha256": "b674dc02b150cec96a2500a8df67635f74353114aa1079e8ad3bb901254e6dab"
+    },
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/main.c",
+      "symbol": "set_firmware_log",
+      "start_line": 165,
+      "end_line": 180,
+      "sha256": "5f623bb01a4c83a6a569a8c9a9029668ff94ee538da1861d5c87099172d42cd4"
+    },
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/main.c",
+      "symbol": "stop_firmware_log",
+      "start_line": 182,
+      "end_line": 196,
+      "sha256": "c074254e6139cfa4c03dd084e3f5c24644e395b994a66f613c3efa7a2a82465c"
+    },
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/main.c",
+      "symbol": "check_optional_controls",
+      "start_line": 198,
+      "end_line": 241,
+      "sha256": "aad78c4076710eec52f1a5d16613dbba7532453b269ff7da296b00413a0939ca"
+    },
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/main.c",
+      "symbol": "send_frame",
+      "start_line": 243,
+      "end_line": 253,
+      "sha256": "2190d033ed9eef184e4492e3bb5bfc915eb3544835ccce723084fb32be7341d0"
+    },
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/main.c",
+      "symbol": "handle_command",
+      "start_line": 255,
+      "end_line": 332,
+      "sha256": "7d655b5b1257214bf53e097e52226d0fa983be46ea20f7dd81da387b5299264e"
+    },
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/main.c",
+      "symbol": "command_loop",
+      "start_line": 334,
+      "end_line": 378,
+      "sha256": "62cc6332a13fb43a0f57df8470d22134af128d9d0e938cf7309a2578c1762dcc"
+    },
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/main.c",
+      "symbol": "main",
+      "start_line": 380,
+      "end_line": 473,
+      "sha256": "d59a3d13b47b0a656a2b6a3f073e71b8c2d9705adcce3c9fc61f4c488cee7427"
+    },
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/protocol.c",
+      "symbol": "wmt_command_decode",
+      "start_line": 52,
+      "end_line": 81,
+      "sha256": "40436c77960d0a790f653886f5084d10f5188c69fea3ff106e0c4e117b22a6ad"
+    },
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/protocol.c",
+      "symbol": "wmt_reply_status",
+      "start_line": 95,
+      "end_line": 105,
+      "sha256": "e9ff5e1d4ae05113763d749d42ca5cfe427593f6b642971c69c34a1b6d195fda"
+    },
+    {
+      "component": "launcher",
+      "path": "wmt-launcher/protocol.c",
+      "symbol": "wmt_reply_list",
+      "start_line": 107,
+      "end_line": 163,
+      "sha256": "4c86274bcc73b46c080de1f2204a7c31e4f9f5c3b36306bcaaa715e7bf00a2f8"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "symbol": "wmt_lib_cmd_finish",
+      "start_line": 694,
+      "end_line": 702,
+      "sha256": "fd1fdec7d39522ea03b3b6093c7ce4b033d97fa6b412f52f0deff4051e326ff1"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "symbol": "wmt_lib_cmd_expire",
+      "start_line": 704,
+      "end_line": 709,
+      "sha256": "6e0a61492a2127af30b8486e08862179fc05f7ad4fd05d8535ff5885d66676c3"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "symbol": "wmt_lib_cmd_start",
+      "start_line": 711,
+      "end_line": 727,
+      "sha256": "738cc412fb5f3357b0f5303b063174e022f71853a7835519d32f236217689314"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "symbol": "wmt_lib_cmd_disconnect",
+      "start_line": 729,
+      "end_line": 740,
+      "sha256": "80a2858157ad379de8614da17427ab71d7abad2d1ee61542ab7d4df94ba0692a"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "symbol": "wmt_lib_cmd_shutdown",
+      "start_line": 742,
+      "end_line": 757,
+      "sha256": "b1791cc16976fd68c8682428fb9cf96865a8a42dca62be1b91e8a5b27987a0c2"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "symbol": "wmt_lib_cmd_open",
+      "start_line": 759,
+      "end_line": 774,
+      "sha256": "41c2499ae5173c6d8460ddcb39a10f2eaca358ace3c6c94c009308de764f2b4a"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "symbol": "wmt_lib_cmd_close",
+      "start_line": 776,
+      "end_line": 789,
+      "sha256": "baa633f0e135a662aa3f97e9471dc5dc634bd5f220fe6bd3465b786c05b89f19"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "symbol": "wmt_lib_cmd_session",
+      "start_line": 791,
+      "end_line": 857,
+      "sha256": "3a446501118fb507531e9a7171f317ab74403210a950c36cedf463fc9fecb1ad"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "symbol": "wmt_lib_cancel_cmd",
+      "start_line": 859,
+      "end_line": 867,
+      "sha256": "67ddae2bb51d53daf1201fbc5b7c400a6290cd6bae89ac5b2985c4d52ab09130"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "symbol": "wmt_lib_send_cmd",
+      "start_line": 869,
+      "end_line": 932,
+      "sha256": "7ebf570ea7464d984e7cd86024dd5a0bad4d669fd683d68f1db952668080a493"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "symbol": "wmt_lib_read_cmd",
+      "start_line": 1016,
+      "end_line": 1066,
+      "sha256": "32edb902977a1b3a0134eb368d854aecbbc791a19dec2f54ad9067ec6bb15643"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "symbol": "wmt_lib_cmd_reply_prepare",
+      "start_line": 1078,
+      "end_line": 1149,
+      "sha256": "ebc27b365c641ef3820215469db9c196a3bb015dc3cd12e8137b7b6fa19fdfa3"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "symbol": "wmt_lib_cmd_publish_rom",
+      "start_line": 1152,
+      "end_line": 1172,
+      "sha256": "29aace29ed20791cccd69d319244714f1c13c2ca617ff63b112ba78dbfe0e282"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "symbol": "wmt_lib_write_cmd",
+      "start_line": 1174,
+      "end_line": 1227,
+      "sha256": "66acce72e69fcfa66aa6a3da933a6ddb26f2c86d0042347abe06be2c1c43bf1b"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "symbol": "wmt_lib_poll_cmd",
+      "start_line": 1229,
+      "end_line": 1250,
+      "sha256": "d89564a434666f568e7997204f4d3e6c056df5296b65477438db600173b6bf96"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "symbol": "wmt_lib_get_rom_patch_info",
+      "start_line": 3207,
+      "end_line": 3226,
+      "sha256": "ad6fcef2e37a37e38a6c2592bc517b4d519eaa5ced33bad12e114f4cc6e9e9e3"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+      "symbol": "wmt_dev_publish_patch_info",
+      "start_line": 647,
+      "end_line": 667,
+      "sha256": "442f064c831c882fe18d30fe2c27a33b59926fb59bd9f4f470237684db162326"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+      "symbol": "wmt_dev_get_patch_info",
+      "start_line": 669,
+      "end_line": 693,
+      "sha256": "3305ba1a096b205eedf9ae90fc90753dabda71c8ffa86c8d05b2998d4f109d5e"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+      "symbol": "WMT_unlocked_ioctl",
+      "start_line": 1009,
+      "end_line": 1540,
+      "sha256": "34b4e368ed5118d4ec42c217aea682ceadb70feb1bbb7b2ac91c49206127e43d"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+      "symbol": "WMT_compat_ioctl",
+      "start_line": 1543,
+      "end_line": 1585,
+      "sha256": "5c55ce5a25882d9d6ccd098d230200b559593e4f32100d1a0e34def5c250b90b"
+    },
+    {
+      "component": "broker",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/wmt_plat_alps.c",
+      "symbol": "wmt_plat_set_dbg_mode",
+      "start_line": 1854,
+      "end_line": 1874,
+      "sha256": "8a7cd5b5064de9c47a81622e602545f68b7658a8fa59b39aefa5ec4eb07699a4"
+    },
+    {
+      "component": "collector",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dbg.c",
+      "symbol": "wmt_dbg_fwinfor_trace_to",
+      "start_line": 616,
+      "end_line": 632,
+      "sha256": "4fd6b26692b25eaca20a8f412fbb139beca1ad6c3329e3a308b3bd7d7ac1e511"
+    },
+    {
+      "component": "collector",
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dbg.c",
+      "symbol": "wmt_dbg_fwinfor_from_emi",
+      "start_line": 634,
+      "end_line": 727,
+      "sha256": "cb387131414430869e75dacd46a373d87a40b660a2c4a4770378d976415d6218"
+    }
+  ],
+  "verified_evidence": [
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/final-validation.json",
+      "sha256": "889d5396aec13eaecaf4077747571ce1b521e5cb31ddc44a86bed76947fd4fd4",
+      "source_hashes_checked": 14,
+      "result_hashes_checked": 8
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/optional-retry/result.json",
+      "sha256": "f4e29385645d66d6d298ecf93ccdbe01c782cadf5708b873a60883152d74a76a"
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/optional-retry/candidate-address/result.json",
+      "sha256": "c5a4bb4f0cbc307a88b1d71b09680f1edd0e30809344f204bbed689ebf4b330b",
+      "passed": 35,
+      "total": 35,
+      "source_hashes_checked": 12,
+      "artifact_hashes_checked": 72
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/optional-retry/candidate-thread/result.json",
+      "sha256": "2c326314f6ddda68c6e0869836f653cc3770bcbfe339e6b338bfa2221f6f1277",
+      "passed": 17,
+      "total": 17,
+      "source_hashes_checked": 12,
+      "artifact_hashes_checked": 36
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/host-final/result.json",
+      "sha256": "e1918a82e8f75cac563a2b6c3e116bac536673e3528fddb3aec9c4acc7195aef",
+      "passed": 74,
+      "total": 74,
+      "source_hashes_checked": 7,
+      "fixture_hash_checked": true
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/host-tsan-final/result.json",
+      "sha256": "991aab41ba81ccfe36cd66722c980c40b92c043a7a503faf13d8985e23cf7334",
+      "passed": 5,
+      "total": 5,
+      "source_hashes_checked": 7,
+      "fixture_hash_checked": true
+    }
+  ],
+  "resolved_initial_findings": [
+    {
+      "id": "SVC1",
+      "status": "resolved by all three pinned commits",
+      "reason": "Launcher repeats finite drains, joins the log worker before final disable, and kernel ioctl propagates collector errors."
+    },
+    {
+      "id": "SVC2",
+      "status": "resolved",
+      "reason": "Read-side EAGAIN and ETIMEDOUT continue with the current bound session; other transport failures stop the loop."
+    }
+  ],
+  "review_contracts": [
+    "The exported and userspace UAPI headers are byte-identical; frame header/session sizes are 32, records are 264, ioctl is 0xc020a040.",
+    "Startup binds before HIF/kill-clear/readiness/power; a separate power thread leaves command delivery runnable.",
+    "One owner per open file description, built-in monotonic session IDs, per-session transaction IDs and expiry checks reject stale delivery and replies.",
+    "The writer parses one private copy, checks identity and deadline under the broker mutex, publishes a complete cache under its lock, then wakes the producer.",
+    "Normal records cover sequences 1..count; ROM permits zero records and optional types 0..4; existing accepted ROM records remain immutable.",
+    "Launcher version properties publish only after a complete accepted write; stale writes do not publish.",
+    "Legacy metadata setters are rejected on native and compat paths; the launcher exclusively uses tagged v2 lists/status replies.",
+    "Firmware logging uses one finite collector snapshot per ioctl, and positive disable return 1 is accepted as success.",
+    "Optional controls cache only successful state, retry unchanged requests after failure, reap failed workers before reuse, and retain final disable after failed replacement creation.",
+    "Shutdown unbinds before joining the power worker and joins the log worker before final disable and file close."
+  ],
+  "boundaries": [
+    "This final review performed source inspection and evidence/hash verification; it did not rerun the already passing author suites.",
+    "Recorded broker/userspace host integration and standalone target compiles were independently hash-checked; linked product build and handset adoption remain separate checks.",
+    "Collector and firmware helper implementation were authored in this branch of work; their source identities are dependencies here, not claimed as an independent implementation audit.",
+    "Target is the MT6755 little-endian SoC/BTIF product and its retained firmware inventory; synthetic ROM cases do not establish real ROM-file behavior."
+  ],
+  "uapi_byte_identity_sha256": "4ea77989d01fa91b6cf2377aea59f679f02b3c9714b3052fa3ac014a2eec5c13",
+  "initial_review": {
+    "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/service-review/review.json",
+    "sha256": "90c56460dc96c8132d17a35abee67a64c01f081186a6a4c5fff0c0ae9c2bcc4e"
+  },
+  "collector_validation": {
+    "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-fwlog-tests/final-validation.json",
+    "sha256": "46098609ce4c4bf8d24cbf7c84985cbf09b58bed1f0148ccb9deb3493c3fdc23"
+  },
+  "paired_integration": {
+    "kernel_revision": "4192fb6ae88e057bb2abb0f464cf6b4cb64697de",
+    "kernel_clean": true,
+    "host_runs": [
+      {
+        "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-paired-integration-tests/address-final/result.json",
+        "sha256": "b15d2a2ec9d7f173ada55e3c48745da5000a459e086f2e37d680f82ae435afaa",
+        "passed": 6,
+        "total": 6,
+        "kernel_source_hashes_checked": 7,
+        "device_source_hashes_checked": 19,
+        "harness_hashes_checked": 6,
+        "artifact_hashes_checked": 25,
+        "complete_functions_byte_identity": [
+          {
+            "path": "drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.c",
+            "symbol": "wmt_export_alloc_cmd_session",
+            "start_line": 74,
+            "sha256": "b73dd3e540544586a15857f810e616b5e2afd23e186f7ed0af1b6365115e3393"
+          },
+          {
+            "path": "mm/util.c",
+            "symbol": "memdup_user",
+            "start_line": 114,
+            "sha256": "65654fe71e0b3560dd331cf7662d96fe13b61b9070d5ecb7a0af72c7ab48ebf9"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_finish",
+            "start_line": 694,
+            "sha256": "fd1fdec7d39522ea03b3b6093c7ce4b033d97fa6b412f52f0deff4051e326ff1"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_expire",
+            "start_line": 704,
+            "sha256": "6e0a61492a2127af30b8486e08862179fc05f7ad4fd05d8535ff5885d66676c3"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_start",
+            "start_line": 711,
+            "sha256": "738cc412fb5f3357b0f5303b063174e022f71853a7835519d32f236217689314"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_disconnect",
+            "start_line": 729,
+            "sha256": "80a2858157ad379de8614da17427ab71d7abad2d1ee61542ab7d4df94ba0692a"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_shutdown",
+            "start_line": 742,
+            "sha256": "b1791cc16976fd68c8682428fb9cf96865a8a42dca62be1b91e8a5b27987a0c2"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_open",
+            "start_line": 759,
+            "sha256": "41c2499ae5173c6d8460ddcb39a10f2eaca358ace3c6c94c009308de764f2b4a"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_close",
+            "start_line": 776,
+            "sha256": "baa633f0e135a662aa3f97e9471dc5dc634bd5f220fe6bd3465b786c05b89f19"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_session",
+            "start_line": 791,
+            "sha256": "3a446501118fb507531e9a7171f317ab74403210a950c36cedf463fc9fecb1ad"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cancel_cmd",
+            "start_line": 859,
+            "sha256": "67ddae2bb51d53daf1201fbc5b7c400a6290cd6bae89ac5b2985c4d52ab09130"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_send_cmd",
+            "start_line": 869,
+            "sha256": "7ebf570ea7464d984e7cd86024dd5a0bad4d669fd683d68f1db952668080a493"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_get_cmd_event",
+            "start_line": 934,
+            "sha256": "3afba62c0300d292321f6eadddd5b788e195019a41ea96f8ac1362f4bb9e9eef"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_read_cmd",
+            "start_line": 1016,
+            "sha256": "32edb902977a1b3a0134eb368d854aecbbc791a19dec2f54ad9067ec6bb15643"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_reply_free",
+            "start_line": 1068,
+            "sha256": "2bf5082ff7d050cd251e19f7a5d95d821930279190783baedf7e26abc9a1db9d"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_reply_prepare",
+            "start_line": 1078,
+            "sha256": "ebc27b365c641ef3820215469db9c196a3bb015dc3cd12e8137b7b6fa19fdfa3"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_publish_rom",
+            "start_line": 1152,
+            "sha256": "29aace29ed20791cccd69d319244714f1c13c2ca617ff63b112ba78dbfe0e282"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_write_cmd",
+            "start_line": 1174,
+            "sha256": "66acce72e69fcfa66aa6a3da933a6ddb26f2c86d0042347abe06be2c1c43bf1b"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_poll_cmd",
+            "start_line": 1229,
+            "sha256": "d89564a434666f568e7997204f4d3e6c056df5296b65477438db600173b6bf96"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_set_patch_num",
+            "start_line": 3193,
+            "sha256": "e5b80d44c7340bb5fb13f2b7ebd726b2d4f28540df35b3bd8855c311f82e8c0d"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_set_patch_info",
+            "start_line": 3200,
+            "sha256": "fa908bd1ca286dd6f5add8e0ab7ffbe8745adf69b18959b0e9b938306e02c11e"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_get_patch_info",
+            "start_line": 2746,
+            "sha256": "3e8d43f3574b248d679e31d040f4b9fa0f9a7cb8ca59d885057a42180cf0a2ca"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_get_rom_patch_info",
+            "start_line": 3207,
+            "sha256": "ad6fcef2e37a37e38a6c2592bc517b4d519eaa5ced33bad12e114f4cc6e9e9e3"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_rom_patch_info_free",
+            "start_line": 3228,
+            "sha256": "e50a19e518f19f41778d6613edd5c775057e4dce7ba81fe7d0b17463a5b94204"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+            "symbol": "wmt_dev_patch_info_free",
+            "start_line": 634,
+            "sha256": "1d0f8e3d07dae1dc8c9de036095693b23dca5921a33f5f76974fff8a21eddf64"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+            "symbol": "wmt_dev_publish_patch_info",
+            "start_line": 647,
+            "sha256": "442f064c831c882fe18d30fe2c27a33b59926fb59bd9f4f470237684db162326"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+            "symbol": "wmt_dev_get_patch_info",
+            "start_line": 669,
+            "sha256": "3305ba1a096b205eedf9ae90fc90753dabda71c8ffa86c8d05b2998d4f109d5e"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+            "symbol": "WMT_open",
+            "start_line": 1588,
+            "sha256": "02506bd8942ee9663418431c950d4180ebdc548d663b702fbf03613c48b78d74"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+            "symbol": "WMT_close",
+            "start_line": 1611,
+            "sha256": "2198236eb76caddd3116c8af0af05718d71b63a8cce0f4bac8ad6d8c022e7cec"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+            "symbol": "WMT_read",
+            "start_line": 972,
+            "sha256": "693ce67a2feb5d2be935503b561449d056e95338b92cfb47638979da045490bf"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+            "symbol": "WMT_write",
+            "start_line": 967,
+            "sha256": "487c082ac4ba0fcd9b8110d6fc18cfcb92e3ddf16cc49551b4d8b0cac4806a9b"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+            "symbol": "WMT_poll",
+            "start_line": 977,
+            "sha256": "d280ce7831da0a5fb5163938ffaf6dfd414e0589cbda564a014b72193e6cfde8"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+            "symbol": "WMT_compat_ioctl",
+            "start_line": 1543,
+            "sha256": "5c55ce5a25882d9d6ccd098d230200b559593e4f32100d1a0e34def5c250b90b"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_ctrl.c",
+            "symbol": "wmt_ctrl_ul_cmd",
+            "start_line": 433,
+            "sha256": "db4f40febd1fa3a106790a7c4fc4c051ffaef6bf0dc1e25bf4575dbebc96a4dc"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_ctrl.c",
+            "symbol": "wmt_ctrl_patch_search",
+            "start_line": 540,
+            "sha256": "3df5c77356d42e853a3635a06b2c397c40f9da79019f107f9ba98d7a0dbfd8e2"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_ctrl.c",
+            "symbol": "wmt_ctrl_get_patch_num",
+            "start_line": 556,
+            "sha256": "db985324b1cb602fef81c2a049ddb823d06fdcc221a7c3740021851730b48a93"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_ctrl.c",
+            "symbol": "wmt_ctrl_get_patch_info",
+            "start_line": 567,
+            "sha256": "66af1e7ae499c8a19f80c28f048373eb34fb0ebf15f4132642ab4213297fcc29"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_ctrl.c",
+            "symbol": "wmt_ctrl_get_rom_patch_info",
+            "start_line": 577,
+            "sha256": "e6b0c7405764295d5da11502f10a186545ae4c93ba0c099c6a9bddeb97be863b"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_ctrl.c",
+            "symbol": "wmt_ctrl_update_patch_version",
+            "start_line": 611,
+            "sha256": "914c0c3f4d675a8d00a19f5fe9a416ac2f106a90c3a8e844a97fdbcddb96b2a1"
+          }
+        ],
+        "boundary": "Actual full userspace source, broker, VFS cases and metadata consumers; host allocation/user-copy/completion/property/hardware adapters; no RF or real kernel scheduling claim."
+      },
+      {
+        "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-paired-integration-tests/thread-final/result.json",
+        "sha256": "129e60c095d64179ac5611532a22d78861fd88a1baa5f7f0d752558749132edb",
+        "passed": 6,
+        "total": 6,
+        "kernel_source_hashes_checked": 7,
+        "device_source_hashes_checked": 19,
+        "harness_hashes_checked": 6,
+        "artifact_hashes_checked": 25,
+        "complete_functions_byte_identity": [
+          {
+            "path": "drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.c",
+            "symbol": "wmt_export_alloc_cmd_session",
+            "start_line": 74,
+            "sha256": "b73dd3e540544586a15857f810e616b5e2afd23e186f7ed0af1b6365115e3393"
+          },
+          {
+            "path": "mm/util.c",
+            "symbol": "memdup_user",
+            "start_line": 114,
+            "sha256": "65654fe71e0b3560dd331cf7662d96fe13b61b9070d5ecb7a0af72c7ab48ebf9"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_finish",
+            "start_line": 694,
+            "sha256": "fd1fdec7d39522ea03b3b6093c7ce4b033d97fa6b412f52f0deff4051e326ff1"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_expire",
+            "start_line": 704,
+            "sha256": "6e0a61492a2127af30b8486e08862179fc05f7ad4fd05d8535ff5885d66676c3"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_start",
+            "start_line": 711,
+            "sha256": "738cc412fb5f3357b0f5303b063174e022f71853a7835519d32f236217689314"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_disconnect",
+            "start_line": 729,
+            "sha256": "80a2858157ad379de8614da17427ab71d7abad2d1ee61542ab7d4df94ba0692a"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_shutdown",
+            "start_line": 742,
+            "sha256": "b1791cc16976fd68c8682428fb9cf96865a8a42dca62be1b91e8a5b27987a0c2"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_open",
+            "start_line": 759,
+            "sha256": "41c2499ae5173c6d8460ddcb39a10f2eaca358ace3c6c94c009308de764f2b4a"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_close",
+            "start_line": 776,
+            "sha256": "baa633f0e135a662aa3f97e9471dc5dc634bd5f220fe6bd3465b786c05b89f19"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_session",
+            "start_line": 791,
+            "sha256": "3a446501118fb507531e9a7171f317ab74403210a950c36cedf463fc9fecb1ad"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cancel_cmd",
+            "start_line": 859,
+            "sha256": "67ddae2bb51d53daf1201fbc5b7c400a6290cd6bae89ac5b2985c4d52ab09130"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_send_cmd",
+            "start_line": 869,
+            "sha256": "7ebf570ea7464d984e7cd86024dd5a0bad4d669fd683d68f1db952668080a493"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_get_cmd_event",
+            "start_line": 934,
+            "sha256": "3afba62c0300d292321f6eadddd5b788e195019a41ea96f8ac1362f4bb9e9eef"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_read_cmd",
+            "start_line": 1016,
+            "sha256": "32edb902977a1b3a0134eb368d854aecbbc791a19dec2f54ad9067ec6bb15643"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_reply_free",
+            "start_line": 1068,
+            "sha256": "2bf5082ff7d050cd251e19f7a5d95d821930279190783baedf7e26abc9a1db9d"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_reply_prepare",
+            "start_line": 1078,
+            "sha256": "ebc27b365c641ef3820215469db9c196a3bb015dc3cd12e8137b7b6fa19fdfa3"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_cmd_publish_rom",
+            "start_line": 1152,
+            "sha256": "29aace29ed20791cccd69d319244714f1c13c2ca617ff63b112ba78dbfe0e282"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_write_cmd",
+            "start_line": 1174,
+            "sha256": "66acce72e69fcfa66aa6a3da933a6ddb26f2c86d0042347abe06be2c1c43bf1b"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_poll_cmd",
+            "start_line": 1229,
+            "sha256": "d89564a434666f568e7997204f4d3e6c056df5296b65477438db600173b6bf96"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_set_patch_num",
+            "start_line": 3193,
+            "sha256": "e5b80d44c7340bb5fb13f2b7ebd726b2d4f28540df35b3bd8855c311f82e8c0d"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_set_patch_info",
+            "start_line": 3200,
+            "sha256": "fa908bd1ca286dd6f5add8e0ab7ffbe8745adf69b18959b0e9b938306e02c11e"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_get_patch_info",
+            "start_line": 2746,
+            "sha256": "3e8d43f3574b248d679e31d040f4b9fa0f9a7cb8ca59d885057a42180cf0a2ca"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_get_rom_patch_info",
+            "start_line": 3207,
+            "sha256": "ad6fcef2e37a37e38a6c2592bc517b4d519eaa5ced33bad12e114f4cc6e9e9e3"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+            "symbol": "wmt_lib_rom_patch_info_free",
+            "start_line": 3228,
+            "sha256": "e50a19e518f19f41778d6613edd5c775057e4dce7ba81fe7d0b17463a5b94204"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+            "symbol": "wmt_dev_patch_info_free",
+            "start_line": 634,
+            "sha256": "1d0f8e3d07dae1dc8c9de036095693b23dca5921a33f5f76974fff8a21eddf64"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+            "symbol": "wmt_dev_publish_patch_info",
+            "start_line": 647,
+            "sha256": "442f064c831c882fe18d30fe2c27a33b59926fb59bd9f4f470237684db162326"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+            "symbol": "wmt_dev_get_patch_info",
+            "start_line": 669,
+            "sha256": "3305ba1a096b205eedf9ae90fc90753dabda71c8ffa86c8d05b2998d4f109d5e"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+            "symbol": "WMT_open",
+            "start_line": 1588,
+            "sha256": "02506bd8942ee9663418431c950d4180ebdc548d663b702fbf03613c48b78d74"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+            "symbol": "WMT_close",
+            "start_line": 1611,
+            "sha256": "2198236eb76caddd3116c8af0af05718d71b63a8cce0f4bac8ad6d8c022e7cec"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+            "symbol": "WMT_read",
+            "start_line": 972,
+            "sha256": "693ce67a2feb5d2be935503b561449d056e95338b92cfb47638979da045490bf"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+            "symbol": "WMT_write",
+            "start_line": 967,
+            "sha256": "487c082ac4ba0fcd9b8110d6fc18cfcb92e3ddf16cc49551b4d8b0cac4806a9b"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+            "symbol": "WMT_poll",
+            "start_line": 977,
+            "sha256": "d280ce7831da0a5fb5163938ffaf6dfd414e0589cbda564a014b72193e6cfde8"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+            "symbol": "WMT_compat_ioctl",
+            "start_line": 1543,
+            "sha256": "5c55ce5a25882d9d6ccd098d230200b559593e4f32100d1a0e34def5c250b90b"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_ctrl.c",
+            "symbol": "wmt_ctrl_ul_cmd",
+            "start_line": 433,
+            "sha256": "db4f40febd1fa3a106790a7c4fc4c051ffaef6bf0dc1e25bf4575dbebc96a4dc"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_ctrl.c",
+            "symbol": "wmt_ctrl_patch_search",
+            "start_line": 540,
+            "sha256": "3df5c77356d42e853a3635a06b2c397c40f9da79019f107f9ba98d7a0dbfd8e2"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_ctrl.c",
+            "symbol": "wmt_ctrl_get_patch_num",
+            "start_line": 556,
+            "sha256": "db985324b1cb602fef81c2a049ddb823d06fdcc221a7c3740021851730b48a93"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_ctrl.c",
+            "symbol": "wmt_ctrl_get_patch_info",
+            "start_line": 567,
+            "sha256": "66af1e7ae499c8a19f80c28f048373eb34fb0ebf15f4132642ab4213297fcc29"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_ctrl.c",
+            "symbol": "wmt_ctrl_get_rom_patch_info",
+            "start_line": 577,
+            "sha256": "e6b0c7405764295d5da11502f10a186545ae4c93ba0c099c6a9bddeb97be863b"
+          },
+          {
+            "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_ctrl.c",
+            "symbol": "wmt_ctrl_update_patch_version",
+            "start_line": 611,
+            "sha256": "914c0c3f4d675a8d00a19f5fe9a416ac2f106a90c3a8e844a97fdbcddb96b2a1"
+          }
+        ],
+        "boundary": "Actual full userspace source, broker, VFS cases and metadata consumers; host allocation/user-copy/completion/property/hardware adapters; no RF or real kernel scheduling claim."
+      }
+    ],
+    "complete_service_included": "service_bridge.c includes the complete main.c with host syscall/property names",
+    "ioctl_dispatch_scope": "Unmodified relevant case blocks in a narrow dispatcher; HIF and power hardware are adapted.",
+    "build18_blocking_findings": [],
+    "independent_test_rerun": false,
+    "initial_fixture_correction": {
+      "old": {
+        "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-paired-integration-tests/service_bridge-before-close-expectation.c",
+        "sha256": "dee1959e33a3c65da02692db44c215477fcdf740fdb9e4acb7dad12c11ace8a1"
+      },
+      "final": {
+        "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-paired-integration-tests/service_bridge.c",
+        "sha256": "a68ab98adeefd79bb0bf5d78b0c2138180e3ad1feddb2899fe69ece16daab11b"
+      },
+      "change": "Only close-pending expectation changed from ECANCELED to ECONNRESET, matching wmt_lib_cmd_disconnect.",
+      "initial_result": {
+        "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-paired-integration-tests/address-first/result.json",
+        "sha256": "3c076d9a668032efefd54d0973db8384fa12066f819d386bcab17a442bd1e738"
+      },
+      "production_changed": false
+    },
+    "android_compile": {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/android-compile-final/result.json",
+      "sha256": "315bd8b5658373bc0d352714329742094d54fc1163755b9cc77ce5b47fbe0924",
+      "architectures": [
+        "arm64",
+        "arm"
+      ],
+      "source_binary_command_log_hashes_checked": true,
+      "boundary": "Standalone Android API29 linkage; only ARM64 selected in product; full clean Soong build and runtime remain required."
+    },
+    "arm64_compile": {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-paired-integration-tests/arm64-final/result.json",
+      "sha256": "68b72a05a53cbcbf6df0d6ea4636c44fb86a3abd46e0078692222892b1fcef09",
+      "passed_objects": 9,
+      "source_object_command_log_hashes_checked": true,
+      "boundaries": "Production GCC 4.9 command flags and generated headers from build14; the later full clean build verifies complete final linkage."
+    }
+  },
+  "review_markdown": {
+    "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/service-review/final-pair/review.md",
+    "sha256": "63523a2903966c08396059ac2007fac3cc44c9fbe8e6221822f193c30e63a48a"
+  }
+}

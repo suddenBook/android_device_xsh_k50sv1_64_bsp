@@ -1,0 +1,473 @@
+{
+  "files": 78,
+  "rows": [
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/run-build19-gnss.py",
+      "snapshot": "run-build19-gnss.py",
+      "bytes": 7238,
+      "sha256": "c61c4fa86eae6b9c92646214082a7a9563c2fd337606897a55f6ac32e7954708"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/run-build19-gnss-before-idle-fixture.py",
+      "snapshot": "run-build19-gnss-before-idle-fixture.py",
+      "bytes": 3549,
+      "sha256": "e9262def8fc11eb5c8ca543ef4a5e450cf3eae05c3f7adec65003057418441d7"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/run-build19-gnss-before-explicit-search-component.py",
+      "snapshot": "run-build19-gnss-before-explicit-search-component.py",
+      "bytes": 7217,
+      "sha256": "6c0701aa74b9f5c1ed4f2f9c9b7b45b346709d4cb4f796e5b0dcd21ac0a89cf1"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/finish-build19-runtime.py",
+      "snapshot": "finish-build19-runtime.py",
+      "bytes": 9276,
+      "sha256": "874d2162772b74db62a31a72fb53f72dab18aee34e6f345e4e9ac0d288aa6c04"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/finish-build19-runtime-before-kernel-startup-evidence.py",
+      "snapshot": "finish-build19-runtime-before-kernel-startup-evidence.py",
+      "bytes": 7138,
+      "sha256": "e784732b202492a731de1998159edcc9df5d5f27c87d55eff7d02162bb15d598"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build19-expected-installed.json",
+      "snapshot": "build19-expected-installed.json",
+      "bytes": 6859,
+      "sha256": "1caf79a67d90766b4ca39d5d9f5df8f8b8c3c9b6e0384b77af2c9739b4349bf4"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/gnss-probe/src/local/k50/gnssprobe/ProbeActivity.java",
+      "snapshot": "gnss-probe/src/local/k50/gnssprobe/ProbeActivity.java",
+      "bytes": 4484,
+      "sha256": "8fc19a8cfe8b85eec8a498b2fe2dd8eb7d8ea6abb556cd6229ab1d8749350c08"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/gnss-probe/AndroidManifest.xml",
+      "snapshot": "gnss-probe/AndroidManifest.xml",
+      "bytes": 523,
+      "sha256": "c42b2d2889c2e81974f141dacf27fd199c92c512ec585a13ce0c8fd2601b4388"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/gnss-probe/gnss-probe.apk",
+      "snapshot": "gnss-probe/gnss-probe.apk",
+      "bytes": 12623,
+      "sha256": "4c05c313b80ea3caab92036fe8c2f164dc0bc943e56c35d9996a1cb6964cedfb"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-source-launcher-exercise/result.json",
+      "snapshot": "runtime/build19-source-launcher-exercise/result.json",
+      "bytes": 159234,
+      "sha256": "be1ba67a40795b17dce33084ad9cac613b05d65d2988886c6d78e6a5e7b0cabd"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/appops.txt",
+      "snapshot": "runtime/build19-gnss/appops.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/final-identity.txt",
+      "snapshot": "runtime/build19-gnss/final-identity.txt",
+      "bytes": 54,
+      "sha256": "bbfe8665828d9c65290db0ce9391e391c9043c54fcec2b599e8d7d00d7addf47"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/fixture-restoration.json",
+      "snapshot": "runtime/build19-gnss/fixture-restoration.json",
+      "bytes": 58,
+      "sha256": "c61d105f943ba66bbbcb1fdaf8750ec123369751cd031354a5fe48588dd8b849"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/gps-idle-observation-0.txt",
+      "snapshot": "runtime/build19-gnss/gps-idle-observation-0.txt",
+      "bytes": 6670,
+      "sha256": "dd237bf765d4bddf4c124cb112ed3c2d9a0fd6a90c787752ba8f4d6829a0f6bc"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/identity.txt",
+      "snapshot": "runtime/build19-gnss/identity.txt",
+      "bytes": 56,
+      "sha256": "f2cc5a157e96991719dbddac11e7d98d05f4e9a61b30b227ea711735f7b813e4"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/idle-preparation.json",
+      "snapshot": "runtime/build19-gnss/idle-preparation.json",
+      "bytes": 141,
+      "sha256": "5e81a8c16d66b05f668921653a57374244355aa3e4f654eea39339e038d53f9e"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/installed-hash.txt",
+      "snapshot": "runtime/build19-gnss/installed-hash.txt",
+      "bytes": 130,
+      "sha256": "d217e2c4fc5969f05ce612c1c50b3699f07918f59d39a14067653b42bf264c51"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/installed-path.txt",
+      "snapshot": "runtime/build19-gnss/installed-path.txt",
+      "bytes": 72,
+      "sha256": "04076862eab11a8e8bf7370a744f5918c4b00109b1f16e4aea5e1af959dd413d"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/kernel-active.txt",
+      "snapshot": "runtime/build19-gnss/kernel-active.txt",
+      "bytes": 1024284,
+      "sha256": "baff00b6a8bb825641a84692fd7fdb3ee2a603805cfe518b3431c0362902b1fd"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/kernel-interval.txt",
+      "snapshot": "runtime/build19-gnss/kernel-interval.txt",
+      "bytes": 602520,
+      "sha256": "04fbcd86cb548f3dc771304c36b22b7e4780b299556de60ed8473cc1eb2b75e7"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/launch.txt",
+      "snapshot": "runtime/build19-gnss/launch.txt",
+      "bytes": 172,
+      "sha256": "ddf9669b891181fe3aa1197b1ad88f1c9a35ac667eca2c003925b705be57cfc3"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/location-active.txt",
+      "snapshot": "runtime/build19-gnss/location-active.txt",
+      "bytes": 7006,
+      "sha256": "5f7e9c555cabe4bcc1ac2abcefca7aa27409e0a4d3d28d716c0d63e8072f7014"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/location-after.txt",
+      "snapshot": "runtime/build19-gnss/location-after.txt",
+      "bytes": 6037,
+      "sha256": "7ab18040b22bf5970924fa63371f3fc19b7cc14d657c1d47e7a24670792695ef"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/location-before.txt",
+      "snapshot": "runtime/build19-gnss/location-before.txt",
+      "bytes": 6671,
+      "sha256": "32d65e4f8cd655bd69b005eb1147545565e50ae2efd448c1c9dc425124b2c313"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/log-history-boundary.json",
+      "snapshot": "runtime/build19-gnss/log-history-boundary.json",
+      "bytes": 589,
+      "sha256": "aeaeae78071d58090b2256e48c54ad42645b4764ed0c1642fef6b434c12be132"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/log.txt",
+      "snapshot": "runtime/build19-gnss/log.txt",
+      "bytes": 2443,
+      "sha256": "923883b6315f6e8b3aa767202c8a64a8572aed5bab480034904c5ee0be4d2f69"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/new-probe-pid.txt",
+      "snapshot": "runtime/build19-gnss/new-probe-pid.txt",
+      "bytes": 5,
+      "sha256": "47b69b4cbd102674e49faed2e5879eaa13c46015222b628333d0cbd57275b15a"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/new-run-log.txt",
+      "snapshot": "runtime/build19-gnss/new-run-log.txt",
+      "bytes": 1221,
+      "sha256": "1256b41440000af51888de0860a6909a032a4b61229269abc4a45cb537865688"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/old-probe-process-absent.txt",
+      "snapshot": "runtime/build19-gnss/old-probe-process-absent.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/pause-observed-search-request-source.txt",
+      "snapshot": "runtime/build19-gnss/pause-observed-search-request-source.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/permission.txt",
+      "snapshot": "runtime/build19-gnss/permission.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/prior-gnss-history.txt",
+      "snapshot": "runtime/build19-gnss/prior-gnss-history.txt",
+      "bytes": 1222,
+      "sha256": "dda3a0bd31be05cb09ec60d48f5ec1fb41d4db44d640639b39ca53ee251d8e75"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/progress-0.txt",
+      "snapshot": "runtime/build19-gnss/progress-0.txt",
+      "bytes": 1764,
+      "sha256": "9df3c2ef70531aab50f99be40e94d7a64181793952e2d72328f9a3d6f40a9666"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/progress-1.txt",
+      "snapshot": "runtime/build19-gnss/progress-1.txt",
+      "bytes": 1853,
+      "sha256": "309967da282b418d4ac0495e7a8726cb7db014cd53ad3b3ffff05bf2cf265bbb"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/progress-2.txt",
+      "snapshot": "runtime/build19-gnss/progress-2.txt",
+      "bytes": 2031,
+      "sha256": "df7718b94dd9de0fad4f4aace27cee4deb7edba4aaf843cf1e2b2f9fbd97611a"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/progress-3.txt",
+      "snapshot": "runtime/build19-gnss/progress-3.txt",
+      "bytes": 2423,
+      "sha256": "26c2422ebc6c080b4960b2d6e1c91ee598806f5f0c1df963effe4c4986ecb0fa"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/reset-old-probe-process.txt",
+      "snapshot": "runtime/build19-gnss/reset-old-probe-process.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/restore-home-after-gnss.txt",
+      "snapshot": "runtime/build19-gnss/restore-home-after-gnss.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/restore-search-availability.txt",
+      "snapshot": "runtime/build19-gnss/restore-search-availability.txt",
+      "bytes": 254,
+      "sha256": "3d40d0e5e0f54e5051cb5399f357c5c324e1217e239cd1648516313a8ea5fb06"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/result.json",
+      "snapshot": "runtime/build19-gnss/result.json",
+      "bytes": 1744,
+      "sha256": "61f40e75b26c58c851f66c8bb9e9f0bf57a2f8fb0a43ffff81bcdf0e4b2b2cba"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/search-launcher-component.txt",
+      "snapshot": "runtime/build19-gnss/search-launcher-component.txt",
+      "bytes": 127,
+      "sha256": "fe5df0948bc8f62aec0a517b516040c28371c7d8d8de8f4c2624fb99f3063155"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/search-package-before.txt",
+      "snapshot": "runtime/build19-gnss/search-package-before.txt",
+      "bytes": 118211,
+      "sha256": "0c8d61edc5ee393bd2bc08a7594bd406296df47a3caa7e50d9296fa81bdcef50"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/search-package-restored.txt",
+      "snapshot": "runtime/build19-gnss/search-package-restored.txt",
+      "bytes": 118226,
+      "sha256": "15c4c83312d5c29445896576cfa858e9e83bb81369970ea029d4eb0c4784eeca"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/steps.json",
+      "snapshot": "runtime/build19-gnss/steps.json",
+      "bytes": 1836,
+      "sha256": "aeb28af5e49b25af01b960b739cf4d9ff874615ea22a247e7bc0269a29b3f29c"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/wake.txt",
+      "snapshot": "runtime/build19-gnss/wake.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/wakeup-active.txt",
+      "snapshot": "runtime/build19-gnss/wakeup-active.txt",
+      "bytes": 7980,
+      "sha256": "0161405e51f8cb907ea8bf5395c5eee4a1cc5c9ea0f2d78bc2e41cae3ff861a3"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/wakeup-after.txt",
+      "snapshot": "runtime/build19-gnss/wakeup-after.txt",
+      "bytes": 7986,
+      "sha256": "0d8c17fe54b9240f522dfe66f67ea94cf64284e5988023d9b85f2d48a595bc2c"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss/wakeup-before.txt",
+      "snapshot": "runtime/build19-gnss/wakeup-before.txt",
+      "bytes": 8160,
+      "sha256": "fadb775c4bcc92e4eeb66cc7a792f02e843e492cc5b85bbd821a3b7a97e16b8a"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/appops.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/appops.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/final-identity.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/final-identity.txt",
+      "bytes": 54,
+      "sha256": "a51bc2662c8b9c22626dce6954004daa08e2d868f8d2239e01f7eac1657d8d73"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/first-observation.json",
+      "snapshot": "runtime/build19-gnss-first-observation/first-observation.json",
+      "bytes": 562,
+      "sha256": "c8f8769482af73911dd786986fa10dbbb485f410a38f65873084d504b1b591c3"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/identity.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/identity.txt",
+      "bytes": 56,
+      "sha256": "4016be8a8cbf51bde754fc681e83748927ed054936c1f36164b67ce8a48cdd9d"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/installed-hash.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/installed-hash.txt",
+      "bytes": 130,
+      "sha256": "d217e2c4fc5969f05ce612c1c50b3699f07918f59d39a14067653b42bf264c51"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/installed-path.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/installed-path.txt",
+      "bytes": 72,
+      "sha256": "04076862eab11a8e8bf7370a744f5918c4b00109b1f16e4aea5e1af959dd413d"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/kernel-active.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/kernel-active.txt",
+      "bytes": 1022558,
+      "sha256": "856b260d605887b25d534510cffd55de64f49db3f07694d60169d958466cad75"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/kernel-interval.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/kernel-interval.txt",
+      "bytes": 277012,
+      "sha256": "52e1d38a1ff1b69d74aefdedf9a1156e58ed828a746b40fa962e057b8395645b"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/launch.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/launch.txt",
+      "bytes": 172,
+      "sha256": "4f814ceb34b374e9609f0cfe70d36f473cfd7347f704ba7b733b12b563ec2a13"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/location-active.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/location-active.txt",
+      "bytes": 6998,
+      "sha256": "854eb0ce79e2726e327b5229d134fef2c7e779baa3be373fa7ca2166c1b45bd6"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/location-after.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/location-after.txt",
+      "bytes": 7090,
+      "sha256": "474e1941c32a2b1f7027e70cae2bb0687463aac8fa836672e8fe6aac57a11fae"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/location-before.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/location-before.txt",
+      "bytes": 6945,
+      "sha256": "080629b55c8e5bc8696a92d0b2e61c229ecb8e0538b9e9a1a0466c520cf06e2e"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/log.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/log.txt",
+      "bytes": 1241,
+      "sha256": "4c3cdaeb213da68670cf587ab55f623bc65cd0d7f6f13f77a86c4dd19cb1d925"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/permission.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/permission.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/progress-0.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/progress-0.txt",
+      "bytes": 493,
+      "sha256": "bb4aafe67293e71e4865b93b4c5754ae133552971da9aa0e6e808a591ccb3122"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/progress-1.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/progress-1.txt",
+      "bytes": 671,
+      "sha256": "b81d7b77a7368e20ecb664cecac77509e4151bcf0a70abdc6587c3779a980d09"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/progress-2.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/progress-2.txt",
+      "bytes": 760,
+      "sha256": "005a205474a7cb149269972c02ea805d8ec9816b6b847b463bc78f9b3c553bf8"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/progress-3.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/progress-3.txt",
+      "bytes": 1241,
+      "sha256": "4c3cdaeb213da68670cf587ab55f623bc65cd0d7f6f13f77a86c4dd19cb1d925"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/result.json",
+      "snapshot": "runtime/build19-gnss-first-observation/result.json",
+      "bytes": 1763,
+      "sha256": "aa732a3aab23a94e93b372f0614f7b6311e6c01816f762f394d3284b1acbb2e3"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/steps.json",
+      "snapshot": "runtime/build19-gnss-first-observation/steps.json",
+      "bytes": 1097,
+      "sha256": "3bdd4b57233a15dde9b8597e8dc94acaadafe63fe4bced4947ca57238329173f"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/wake.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/wake.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/wakeup-active.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/wakeup-active.txt",
+      "bytes": 8165,
+      "sha256": "9e12c81aaf6db25a6c0052ca6e006b6014cdda603c9c8c15ace76deb7f84561c"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/wakeup-after.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/wakeup-after.txt",
+      "bytes": 8175,
+      "sha256": "4e6bac1a8fe039d7262e58449f26e33b0b3d02f63bbbcbc1dad9564a3d4a7767"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-first-observation/wakeup-before.txt",
+      "snapshot": "runtime/build19-gnss-first-observation/wakeup-before.txt",
+      "bytes": 8165,
+      "sha256": "14dc51ba55973f24921cb66ee137f1d97dbd2c2f33bfea104e646dfbfbe1bb30"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-preparation-first-observation/fixture-restoration.json",
+      "snapshot": "runtime/build19-gnss-preparation-first-observation/fixture-restoration.json",
+      "bytes": 59,
+      "sha256": "84af07945d8f9c909baaad80e290f426e223fe354d35f641077d91df05176249"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-preparation-first-observation/restore-home-after-gnss.txt",
+      "snapshot": "runtime/build19-gnss-preparation-first-observation/restore-home-after-gnss.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-preparation-first-observation/result.json",
+      "snapshot": "runtime/build19-gnss-preparation-first-observation/result.json",
+      "bytes": 380,
+      "sha256": "588c5397aec7a1ebf270dce1e179094eab10b122b6caa76a04911f1953225b30"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-preparation-first-observation/search-launcher-component.txt",
+      "snapshot": "runtime/build19-gnss-preparation-first-observation/search-launcher-component.txt",
+      "bytes": 121,
+      "sha256": "8d13fd34dd44ce0cbd3c5702feb1d0f366d4f0df518e7b1b02c5f566a61ae1ce"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-preparation-first-observation/search-package-before.txt",
+      "snapshot": "runtime/build19-gnss-preparation-first-observation/search-package-before.txt",
+      "bytes": 118211,
+      "sha256": "0c8d61edc5ee393bd2bc08a7594bd406296df47a3caa7e50d9296fa81bdcef50"
+    },
+    {
+      "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build19-gnss-preparation-first-observation/steps.json",
+      "snapshot": "runtime/build19-gnss-preparation-first-observation/steps.json",
+      "bytes": 204,
+      "sha256": "6cd669971209b255757b232eb6ba8848b2303205391382d7f70bd8c44ee80658"
+    }
+  ]
+}

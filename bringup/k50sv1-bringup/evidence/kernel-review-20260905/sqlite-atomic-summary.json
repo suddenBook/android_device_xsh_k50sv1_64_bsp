@@ -1,0 +1,14 @@
+{
+  "mode": "SQLite DELETE/FULL with F2FS batch atomic writes",
+  "successful_atomic_begin_commit_pairs_in_trace": 12,
+  "last_acknowledged_transaction": 312,
+  "recovered_transactions": 313,
+  "all_acknowledged_transactions_retained": true,
+  "three_row_state_matches_commit_log": true,
+  "sqlite_integrity": "ok",
+  "forced_reset_boot_seconds": 41.95680311199976,
+  "writer_transport_exit": 255,
+  "reset_transport_exit": 255,
+  "scope": "One active-writer software reset; not physical power-loss or endurance proof",
+  "post_reset_offline_fsck_clean": true
+}

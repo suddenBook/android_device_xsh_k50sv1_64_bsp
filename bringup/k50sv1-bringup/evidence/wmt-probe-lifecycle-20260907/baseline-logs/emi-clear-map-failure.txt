@@ -1,0 +1,1 @@
+fixture: ../wmt-probe-lifecycle-tests/baseline-final/fixture.c:559: memset_io: Assertion `address' failed.

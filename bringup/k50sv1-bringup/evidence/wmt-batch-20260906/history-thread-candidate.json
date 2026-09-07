@@ -1,0 +1,45 @@
+{
+  "source_sha256": {
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/osal.c": "25eab8047babcef33a39ce5ad32ff76d24c9c55c5a2ebe839aa4b8b14f2e8c57",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/include/osal.h": "1f0164f2fd5a3cd6b1805314f43ae51cce1850832f7911e4c7a6491a1906a1ad",
+    "drivers/misc/mediatek/connectivity/source/common/debug_utility/ring.h": "19b3c072ebe7294cef081da24868076c22b7be41441ac46c35b0703615fcb06b",
+    "drivers/misc/mediatek/connectivity/source/common/debug_utility/ring.c": "be5213da79f428c0779efb5a90c76d3678a9b67b11b6ac65de826520e4397a97"
+  },
+  "fixture_sha256": "8a332bf7417b91d3a29932792ba9ea1306efdf0daffdd77a86845a505a60a25d",
+  "runner_sha256": "c2cab1316852c7ee40f744e6ac448a411f86a4876224bb741c9c12b67cb5f603",
+  "host_sha256": "facde8244eeb5811abdb6a424b7e806fb5d2fedebb2104e1a938e10178eedaca",
+  "cases": [
+    {
+      "case": "concurrent-save-print-and-worker",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "case": "concurrent-teardown",
+      "exit_code": 0,
+      "pass": true
+    }
+  ],
+  "passed": 2,
+  "total": 2,
+  "compiler": [
+    "cc",
+    "-std=gnu11",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Wno-pointer-sign",
+    "-Wno-unused-function",
+    "-Wno-unused-parameter",
+    "-Wno-unused-but-set-variable",
+    "-fno-omit-frame-pointer",
+    "-no-pie",
+    "-pthread",
+    "-fsanitize=thread",
+    "../wmt-history-tests/after-thread-final/test.c",
+    "-o",
+    "../wmt-history-tests/after-thread-final/test"
+  ],
+  "sanitizer": "thread"
+}

@@ -1,0 +1,6 @@
+eng.desmon.20260907.093532
+Enforcing
+65042d19-9432-4d00-9eb6-28d4b6fb0a1a
+0
+56639a07068b462e657c3239af32d5cda9024dd8a88c7674ebcb1b32d1d2c317  /system/framework/mediatek-wfo-legacy.jar
+25fe4a83ce842d4b532a6f77ae223a8aa526652eb623d018b126f6aae2365f02  /vendor/lib/libcam.paramsmgr.so

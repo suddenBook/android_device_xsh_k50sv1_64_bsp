@@ -1,0 +1,210 @@
+[
+  {
+    "step": "search-package-before",
+    "exit_code": 0
+  },
+  {
+    "step": "search-launcher-component",
+    "exit_code": 0
+  },
+  {
+    "step": "wake-before-isolation",
+    "exit_code": 0
+  },
+  {
+    "step": "original-voice_recognition_service",
+    "exit_code": 0
+  },
+  {
+    "step": "original-voice_interaction_service",
+    "exit_code": 0
+  },
+  {
+    "step": "pause-system-voice-binding",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-binding-empty",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-0",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-1",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-2",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-3",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-4",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-5",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-6",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-7",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-8",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-9",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-10",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-11",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-12",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-13",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-14",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-15",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-16",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-17",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-18",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-19",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-20",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-21",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-22",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-23",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-24",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-25",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-26",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-27",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-28",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-29",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-30",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-31",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-32",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-33",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-34",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-35",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-36",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-37",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-38",
+    "exit_code": 0
+  },
+  {
+    "step": "voice-service-state-39",
+    "exit_code": 0
+  },
+  {
+    "step": "restore-voice_recognition_service",
+    "exit_code": 0
+  },
+  {
+    "step": "restored-voice_recognition_service",
+    "exit_code": 0
+  },
+  {
+    "step": "restore-voice_interaction_service",
+    "exit_code": 0
+  },
+  {
+    "step": "restored-voice_interaction_service",
+    "exit_code": 0
+  },
+  {
+    "step": "restore-home-after-gnss",
+    "exit_code": 0
+  }
+]

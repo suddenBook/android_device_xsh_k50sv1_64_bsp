@@ -1,0 +1,43 @@
+{
+  "started_utc": "2026-09-05T12:53:01.509918+00:00",
+  "label": "bench-v2-full",
+  "order": [
+    "ext4",
+    "f2fs"
+  ],
+  "device": "/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata",
+  "scope": "Fresh format with optional filler; recovery psync QD1; not app or endurance testing",
+  "filler_bytes": 51539607552,
+  "pinned_cpu": "4",
+  "rounds": [
+    {
+      "index": 1,
+      "fs": "ext4",
+      "format_seconds": 9.895728132018121,
+      "elapsed_seconds": 2362.3191458730143,
+      "job_errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 2,
+      "fs": "f2fs",
+      "format_seconds": 22.479613851988688,
+      "elapsed_seconds": 2392.7467305230093,
+      "job_errors": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "finished_utc": "2026-09-05T14:12:46.813357+00:00"
+}

@@ -1,0 +1,153 @@
+{
+  "sample_sha256": "e44a0e1c5e4b8b1ad204318f2f19b92c9a1bf97704b12f04722c26eb1ef94a9f",
+  "mock_library_sha256": "0109c63d9fc03bb404769b7cf233f7abe99a3e96c8763db6eebd5df9a0180bd0",
+  "mock_source_sha256": "a6ceca9135a7d7bc4a3db88e3f7a262275bd17535cbc94e90f71e905f1eacae2",
+  "device_state_unchanged": true,
+  "cases": [
+    {
+      "case": "already-ready",
+      "exit_code": 3,
+      "summary": "FINAL case=already-ready open=0 cleanup=0 init=0 detect=0 sleep=0 ready=yes chip=0x6755",
+      "ioctls": [],
+      "properties": [],
+      "retry_budget_hit": false
+    },
+    {
+      "case": "cached",
+      "exit_code": 0,
+      "summary": "FINAL case=cached open=1 cleanup=1 init=1 detect=0 sleep=0 ready=yes chip=0x6755",
+      "ioctls": [
+        "IOCTL fd=1111 command=40047701 argument=6755",
+        "IOCTL fd=1111 command=80047705 argument=6755",
+        "IOCTL fd=1111 command=80047704 argument=6755"
+      ],
+      "properties": [
+        "SET vendor.connsys.driver.ready yes"
+      ],
+      "retry_budget_hit": false
+    },
+    {
+      "case": "detect",
+      "exit_code": 0,
+      "summary": "FINAL case=detect open=1 cleanup=1 init=1 detect=1 sleep=0 ready=yes chip=0x6755",
+      "ioctls": [
+        "IOCTL fd=1111 command=80047706 argument=0",
+        "IOCTL fd=1111 command=80047703 argument=0",
+        "IOCTL fd=1111 command=40047701 argument=6755",
+        "IOCTL fd=1111 command=80047705 argument=6755",
+        "IOCTL fd=1111 command=80047704 argument=6755"
+      ],
+      "properties": [
+        "SET persist.vendor.connsys.chipid 0x6755",
+        "SET vendor.connsys.driver.ready yes"
+      ],
+      "retry_budget_hit": false
+    },
+    {
+      "case": "invalid-property",
+      "exit_code": 0,
+      "summary": "FINAL case=invalid-property open=1 cleanup=1 init=1 detect=1 sleep=0 ready=yes chip=0x6755",
+      "ioctls": [
+        "IOCTL fd=1111 command=80047706 argument=0",
+        "IOCTL fd=1111 command=80047703 argument=0",
+        "IOCTL fd=1111 command=40047701 argument=6755",
+        "IOCTL fd=1111 command=80047705 argument=6755",
+        "IOCTL fd=1111 command=80047704 argument=6755"
+      ],
+      "properties": [
+        "SET persist.vendor.connsys.chipid 0x6755",
+        "SET vendor.connsys.driver.ready yes"
+      ],
+      "retry_budget_hit": false
+    },
+    {
+      "case": "open-retry",
+      "exit_code": 0,
+      "summary": "FINAL case=open-retry open=4 cleanup=1 init=1 detect=0 sleep=3 ready=yes chip=0x6755",
+      "ioctls": [
+        "IOCTL fd=1111 command=40047701 argument=6755",
+        "IOCTL fd=1111 command=80047705 argument=6755",
+        "IOCTL fd=1111 command=80047704 argument=6755"
+      ],
+      "properties": [
+        "SET vendor.connsys.driver.ready yes"
+      ],
+      "retry_budget_hit": false
+    },
+    {
+      "case": "cleanup-failure",
+      "exit_code": 0,
+      "summary": "FINAL case=cleanup-failure open=1 cleanup=1 init=0 detect=0 sleep=0 ready=yes chip=0x6755",
+      "ioctls": [
+        "IOCTL fd=1111 command=40047701 argument=6755",
+        "IOCTL fd=1111 command=80047705 argument=6755"
+      ],
+      "properties": [
+        "SET vendor.connsys.driver.ready yes"
+      ],
+      "retry_budget_hit": false
+    },
+    {
+      "case": "init-failure",
+      "exit_code": 0,
+      "summary": "FINAL case=init-failure open=1 cleanup=1 init=1 detect=0 sleep=0 ready=yes chip=0x6755",
+      "ioctls": [
+        "IOCTL fd=1111 command=40047701 argument=6755",
+        "IOCTL fd=1111 command=80047705 argument=6755",
+        "IOCTL fd=1111 command=80047704 argument=6755"
+      ],
+      "properties": [
+        "SET vendor.connsys.driver.ready yes"
+      ],
+      "retry_budget_hit": false
+    },
+    {
+      "case": "set-id-failure",
+      "exit_code": 0,
+      "summary": "FINAL case=set-id-failure open=1 cleanup=1 init=1 detect=0 sleep=0 ready=yes chip=0x6755",
+      "ioctls": [
+        "IOCTL fd=1111 command=40047701 argument=6755",
+        "IOCTL fd=1111 command=80047705 argument=6755",
+        "IOCTL fd=1111 command=80047704 argument=6755"
+      ],
+      "properties": [
+        "SET vendor.connsys.driver.ready yes"
+      ],
+      "retry_budget_hit": false
+    },
+    {
+      "case": "property-failure",
+      "exit_code": 255,
+      "summary": "FINAL case=property-failure open=1 cleanup=1 init=1 detect=0 sleep=0 ready=no chip=0x6755",
+      "ioctls": [
+        "IOCTL fd=1111 command=40047701 argument=6755",
+        "IOCTL fd=1111 command=80047705 argument=6755",
+        "IOCTL fd=1111 command=80047704 argument=6755"
+      ],
+      "properties": [
+        "SET vendor.connsys.driver.ready yes"
+      ],
+      "retry_budget_hit": false
+    },
+    {
+      "case": "detect-failure",
+      "exit_code": 255,
+      "summary": "FINAL case=detect-failure open=1 cleanup=0 init=0 detect=1 sleep=0 ready=no chip=",
+      "ioctls": [
+        "IOCTL fd=1111 command=80047706 argument=0",
+        "IOCTL fd=1111 command=80047703 argument=0",
+        "IOCTL fd=1111 command=40047701 argument=ffffffff"
+      ],
+      "properties": [],
+      "retry_budget_hit": false
+    },
+    {
+      "case": "open-failure",
+      "exit_code": 88,
+      "summary": null,
+      "ioctls": [],
+      "properties": [],
+      "retry_budget_hit": true
+    }
+  ]
+}

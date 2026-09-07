@@ -1,0 +1,10 @@
+ro.build.version.incremental=eng.desmon.20260907.053434
+sys.boot_completed=1
+vendor.connsys.driver.ready=yes
+vendor.connsys.formeta.ready=yes
+init.svc.wmt_loader=stopped
+init.svc.wmt_launcher=running
+boot_id=617ecc06-c2fc-404f-9af7-57a370fc85ce
+tainted=0
+uptime=172.06 581.38
+pids=7434

@@ -1,0 +1,8 @@
+Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME,android.intent.category.DEFAULT] }
+Warning: Activity not started, intent has been delivered to currently running top-most instance.
+Status: ok
+LaunchState: UNKNOWN (0)
+Activity: com.android.launcher3/.lineage.LineageLauncher
+TotalTime: 0
+WaitTime: 5
+Complete

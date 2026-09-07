@@ -1,0 +1,26 @@
+From 60014afd00d637c44439679383fb98a5163e0202 Mon Sep 17 00:00:00 2001
+From: Huixiaqing Liu <huixiaqingliu@outlook.com>
+Date: Mon, 7 Sep 2026 08:09:41 +0200
+Subject: [PATCH 3/8] ril: refresh extraction checksums for source-owned
+ service and property fix
+
+---
+ proprietary/SHA256SUMS | Bin 50804 -> 50709 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+diff --git a/proprietary/SHA256SUMS b/proprietary/SHA256SUMS
+index 51d457b2cce1548d27a9efac206d81d0e724c713..9224a88f87b0287f12f2ea7ab8b61bb470151f28 100644
+GIT binary patch
+delta 88
+zcmey;!#uTzdBb6k%}Sn1Sq>&iX2ywWrYVMIX+|b#NydqW$;qikCTXT=#>OUzi6)5#
+sDHaB42Ih$drl!fJMyAP@iH3%$hKWhZ2FYfIDQS}rtQFZjWAhy$02F~8kpKVy
+
+delta 165
+zcmbQ*!~CU(dBb532jgVZ6l1fLG_w@LB#R`ov@{DtQ}d*hR3meXBuhgRQzOG<V-wTl
+zL?d&Hl*HsDV{;?ZWHXBtQ`5vW!&LL+l*t!eMc8vovWqfvQa11RP|I>Kv$V7@G&eFz
+zGch$aF-^2gHZilXFf~p}vq&;FN-{MtG)uHhN;I=bOfgC|Ot!R4OHNKoG&VCbH#avl
+Rw=^}IoVZqGv*qSHLIAwBGW-Al
+
+-- 
+2.55.0
+

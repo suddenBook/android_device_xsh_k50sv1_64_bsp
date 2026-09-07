@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "boot_id": "5707e604-68f3-4f50-ab7f-0aa6e0fb23e6",
+  "manual_home_setter_called": false,
+  "setup_before": [
+    "0",
+    "0",
+    "1"
+  ],
+  "home_role_holders_before_setup": [
+    "org.lineageos.setupwizard"
+  ],
+  "home_role_holders_after_setup": [
+    "com.android.launcher3"
+  ],
+  "first_resolution": "priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=true\ncom.android.launcher3/.lineage.LineageLauncher\n",
+  "first_launch": "Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME,android.intent.category.DEFAULT] }\nWarning: Activity not started, intent has been delivered to currently running top-most instance.\nStatus: ok\nLaunchState: UNKNOWN (0)\nActivity: com.android.launcher3/.lineage.LineageLauncher\nTotalTime: 0\nWaitTime: 5\nComplete\n",
+  "launcher_removal_policy": "PASS",
+  "calendar_storage_grants": "Explicit test preparation, not a default-grant claim"
+}

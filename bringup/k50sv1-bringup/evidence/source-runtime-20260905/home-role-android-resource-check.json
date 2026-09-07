@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "kind": "incremental-module-build-only",
+  "apk_sha256": "c8166d38ed947fa9783bb2759cada5813c2aeb813b1f466ce5d3d527c4fcff0a",
+  "resource": "    resource 0x7f11007f string/config_defaultHome\n      () \"com.android.launcher3\"\n    resource 0x7f110080 string/copy",
+  "source_head": "aabed6d98fde9e4212be2e2005386ff180bad1aa",
+  "device_head": "e8bf2d2dca22f0cb49ee44de248184f8a051e521",
+  "runtime_installed": false
+}

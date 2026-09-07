@@ -1,0 +1,110 @@
+=== /vendor/usr/keylayout/ACCDET.kl ===
+# MTK ACCDET (accessory detect) on the PMIC.
+#
+# This chassis has no 3.5 mm jack, and ACCDET is nevertheless real and in use.
+# The USB-C port carries ANALOG audio accessory mode: a wired headset is muxed
+# straight onto the internal codec's headphone pins, and the PMIC's ACCDET block
+# detects insertion and the inline remote exactly as it would on a jack.
+# Measured with the owner's headset in the port (E-088): "dumpsys input" reports
+# SwitchValues: 94 on this device, printed with %x, i.e.
+# SW_HEADPHONE_INSERT | SW_MICROPHONE_INSERT | SW_JACK_PHYSICAL_INSERT.
+#
+# An earlier revision here recorded the opposite ("no jack, the ADC floats on
+# pins that do not exist") from a live check that reported SwitchValues: 0. That
+# check was run with nothing plugged in. It measured an empty port, not absent
+# hardware, and the conclusion drawn from it -- do not enable
+# config_useDevInputEventForAudioJack -- was wrong and cost this port its
+# headset routing. The overlay now sets that resource true, which affects EV_SW
+# only; see overlay/frameworks/base/core/res/res/values/config.xml.
+#
+# The KEY side stays neutralised, for a reason that is unaffected by the above.
+# ACCDET advertises KEY_VOLUMEUP, KEY_VOLUMEDOWN, KEY_PLAYPAUSE and
+# KEY_VOICECOMMAND on one ADC comparator. Under Generic.kl a glitch on that
+# comparator becomes a real VOLUME_UP down event, and a VOLUME_UP down with no
+# matching up latches PhoneWindowManager's
+# mA11yShortcutChordVolumeUpKeyTriggered, which makes interceptPowerKeyDown()
+# set mPowerKeyHandled and never call wakeUpFromPowerKey() -- the "power button
+# does not light the screen" fault (E-024, E-028). Declaring no scan code makes
+# InputReader resolve every one of them to AKEYCODE_UNKNOWN and drop it. Raw
+# events stay visible to getevent.
+#
+# Restoring the inline-remote mapping is now a real feature request rather than
+# a dead one, but it MUST be gated on re-testing the stuck-key fault with a
+# headset physically present: the old diagnosis assumed the comparator had
+# nothing attached to it, and that premise is also gone.
+=== /vendor/usr/keylayout/HALL_DEV.kl ===
+# Hall switch in the stylus silo. The driver ADVERTISES KEY_SLEEP (142) and
+# KEY_WAKEUP (143); stock paired them with an OEM app that chimed and lit the
+# panel as the passive stylus is removed and reinserted. This port ships no
+# stylus feature.
+#
+# What the switch actually emits was measured on the handset (session 14). The
+# owner pulled the stylus out and pushed it back in twice while `getevent -lt`
+# ran on every input device. All four silo transitions produced the same thing
+# on /dev/input/event4 and nothing else anywhere:
+#
+#     EV_KEY  KEY_WAKEUP  DOWN
+#     EV_KEY  KEY_WAKEUP  UP        (same timestamp -- a momentary press)
+#     EV_SYN  SYN_REPORT
+#
+# KEY_SLEEP was never emitted, in either direction. So the concrete risk is not
+# the screen blanking, as an earlier revision of this comment assumed by reading
+# the advertised key set rather than the wire: under Generic.kl scan code 143
+# maps to WAKEUP, KeyEvent.isWakeKey() is true for it, and PhoneWindowManager
+# would light the display every single time the stylus moves in its silo,
+# including in a pocket. The conclusion is unchanged; only the reason is.
+#
+# This file therefore declares no keys at all. That is the only correct way to
+# drop a scan code: Android's key-layout grammar has no ignore verb, and
+# `key 143 UNKNOWN` is a parse error -- getKeyCodeByLabel("UNKNOWN") returns 0
+# and KeyLayoutMap::Parser::parseKey() rejects a zero keycode with BAD_VALUE,
+# which invalidates the whole file and silently falls the device back to
+# Generic.kl, where 142 and 143 *are* mapped to SLEEP and WAKEUP.
+#
+# With no declarations, EventHub resolves 142/143 to AKEYCODE_UNKNOWN and
+# InputReader discards them. Raw events stay visible to getevent for
+# diagnostics.
+=== /vendor/usr/keylayout/fts_ts.kl ===
+# Focaltech FT8xxx touch controller.
+#
+# Besides the multitouch axes the driver advertises a gesture key set --
+# KEY_W/E/I/O/S/L/Z/C/V/M, the four D-pad keys and KEY_POWER -- used by the
+# stock firmware's letter-gesture and double-tap-to-wake feature. Under
+# Generic.kl those scan codes become literal letters, D-pad presses and a POWER
+# press, so a firmware gesture would type text or toggle the screen.
+#
+# No LineageOS touchscreen-gesture HAL is wired up for this device and the
+# controller's gesture engine (fts_gesture_mode) is left off, so every gesture
+# scan code is deliberately left undeclared and resolves to AKEYCODE_UNKNOWN.
+# Re-map KEY_POWER here if double-tap-to-wake is ever enabled.
+=== /vendor/usr/keylayout/mtk-kpd.kl ===
+# MT6755 matrix keypad.
+#
+# Physically populated keys: Volume Up, Volume Down, Power. The driver also
+# advertises KEY_HOME (102) and KEY_RESTART (408) from the MT6755 reference
+# matrix; neither is wired to a switch on this chassis, and 408's EINT source
+# is disabled in the device tree. Both are deliberately left undeclared, so
+# EventHub resolves them to AKEYCODE_UNKNOWN and InputReader drops them.
+# Without this file the device falls back to Generic.kl, which maps 102 to
+# MOVE_HOME -- a phantom matrix scan would then inject a text-cursor key.
+#
+# No flags. Android 10's key-layout grammar accepts only VIRTUAL, FUNCTION and
+# GESTURE (frameworks/native/include/input/InputEventLabels.h FLAGS[]); WAKE
+# and WAKE_DROPPED were removed years ago and a file containing one is rejected
+# wholesale by KeyLayoutMap, silently reverting the device to Generic.kl.
+#
+# Wake behaviour needs no flag here. PhoneWindowManager derives isWakeKey from
+# KeyEvent.isWakeKey(), which in LineageOS 17.1 already covers VOLUME_UP,
+# VOLUME_DOWN and VOLUME_MUTE, and then gates it on
+# LineageSettings.System.VOLUME_WAKE_SCREEN. POWER is handled separately by
+# interceptPowerKeyDown().
+#
+# And it does work now. Earlier revisions recorded that the keypad could never
+# wake this SoC because kpd_pdrv_suspend() clears KP_EN; init.mt6755.rc now sets
+# kpd_call_state=2, which makes both PM hooks skip that write, and the owner has
+# confirmed on the handset that Volume Up wakes the display from suspend. See
+# E-024 and E-028.
+
+key 114   VOLUME_DOWN
+key 115   VOLUME_UP
+key 116   POWER

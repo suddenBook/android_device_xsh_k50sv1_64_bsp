@@ -1,0 +1,140 @@
+{
+  "scope": "Initial launcher service, protocol and shared UAPI; read-only review",
+  "sources": [
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work/wmt-launcher/main.c",
+      "snapshot": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/service-review/initial-sources/main.c",
+      "sha256": "8e3183760c80208b42d475b17f1fe7d3367151f9c7bd7f7a6c6d87583dfa5623"
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work/wmt-launcher/protocol.c",
+      "snapshot": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/service-review/initial-sources/protocol.c",
+      "sha256": "6fd2fbc0667d3bc6ffafaf441924ed06bb20c5d37f964bef34018d01319f6877"
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work/wmt-launcher/protocol.h",
+      "snapshot": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/service-review/initial-sources/protocol.h",
+      "sha256": "95b5bdbe531428a13ae8637c0d5152cd1aa8169c71ab6894c7902d57666328cb"
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work/wmt-launcher/include/linux/mtk_wmt_cmd.h",
+      "snapshot": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/service-review/initial-sources/include/linux/mtk_wmt_cmd.h",
+      "sha256": "4ea77989d01fa91b6cf2377aea59f679f02b3c9714b3052fa3ac014a2eec5c13"
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work/wmt-launcher/firmware.c",
+      "snapshot": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/service-review/initial-sources/firmware.c",
+      "sha256": "24094ba87ae2ee01b2e471720c449b692fc3ac02c541304bd3e13554986a880a"
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work/wmt-launcher/firmware.h",
+      "snapshot": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/service-review/initial-sources/firmware.h",
+      "sha256": "cccea4a74d48bf310c704084f496a5d342f64b73cb61ac7b8aebf465a773fbc2"
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work/wmt-launcher/patch.c",
+      "snapshot": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/service-review/initial-sources/patch.c",
+      "sha256": "3c6e2b4f27f308cf8dad06e7b1735a8568f72555c718967241cb6be3726a6d26"
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-device-work/wmt-launcher/patch.h",
+      "snapshot": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/service-review/initial-sources/patch.h",
+      "sha256": "d41885eb0f25deb42e8fc1ebaee3ce94e623ebfd4af53ec2aea11c2ef8c782e2"
+    }
+  ],
+  "context_kernel": {
+    "repository": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-batch-kernel-work",
+    "revision": "372a643505f6b0aab0b3adbd150ecb9d9291d8d9",
+    "sources": [
+      {
+        "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+        "sha256": "77ec1040a15dbc8b3f3008c392b20613d66c35624192d4800210a0f81a14a5cf",
+        "snippets": [
+          {
+            "start_line": 1499,
+            "end_line": 1505,
+            "text": "\t\tbreak;\n\tcase WMT_IOCTL_FW_DBGLOG_CTRL:\n\t\tiRet = wmt_plat_set_dbg_mode(arg);\n\t\tif (iRet == 0)\n\t\t\twmt_dbg_fwinfor_from_emi(0, 1, 0);\n\t\tbreak;\n\tcase WMT_IOCTL_DYNAMIC_DUMP_CTRL:\n"
+          }
+        ]
+      },
+      {
+        "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dbg.c",
+        "sha256": "7e68e5a4fbe3dc29dc71259ff1b7769965bfb7d42fb6c2ce609de086fd472689",
+        "snippets": [
+          {
+            "start_line": 608,
+            "end_line": 695,
+            "text": "INT32 wmt_dbg_fwinfor_from_emi(INT32 par1, INT32 par2, INT32 par3)\n{\n\tUINT32 offset = 0;\n\tUINT32 len = 0;\n\tUINT32 *pAddr = NULL;\n\tUINT32 cur_idx_pagedtrace;\n\tstatic UINT32 prev_idx_pagedtrace;\n\tMTK_WCN_BOOL isBreak = MTK_WCN_BOOL_TRUE;\n\n\toffset = par2;\n\tlen = par3;\n\n\tif (osal_lock_sleepable_lock(&g_dbg_emi_lock)) {\n\t\tWMT_ERR_FUNC(\"lock failed\\n\");\n\t\treturn -1;\n\t}\n\n\tbuf_emi = kmalloc(sizeof(UINT8) * BUF_LEN_MAX, GFP_KERNEL);\n\tif (!buf_emi) {\n\t\tWMT_ERR_FUNC(\"buf kmalloc memory fail\\n\");\n\t\treturn 0;\n\t}\n\tosal_memset(buf_emi, 0, BUF_LEN_MAX);\n\tosal_memset(&gEmiBuf[0], 0, WMT_EMI_DEBUG_BUF_SIZE);\n\twmt_lib_get_fwinfor_from_emi(0, offset, &gEmiBuf[0], 0x100);\n\n\tif (offset == 1) {\n\t\tdo {\n\t\t\tpAddr = (PUINT32) wmt_plat_get_emi_virt_add(0x24);\n\t\t\tif (pAddr == NULL) {\n\t\t\t\tWMT_ERR_FUNC(\"get virtual emi address 0x24 fail!\\n\");\n\t\t\t\treturn -1;\n\t\t\t}\n\t\t\tcur_idx_pagedtrace = *pAddr;\n\n\t\t\tif (cur_idx_pagedtrace > prev_idx_pagedtrace) {\n\t\t\t\tlen = cur_idx_pagedtrace - prev_idx_pagedtrace;\n\t\t\t\twmt_lib_get_fwinfor_from_emi(1, prev_idx_pagedtrace, &gEmiBuf[0], len);\n\t\t\t\twmt_dbg_fwinfor_print_buff(len);\n\t\t\t\tprev_idx_pagedtrace = cur_idx_pagedtrace;\n\t\t\t}\n\n\t\t\tif (cur_idx_pagedtrace < prev_idx_pagedtrace) {\n\t\t\t\tif (prev_idx_pagedtrace >= 0x8000) {\n\t\t\t\t\tWMT_INFO_FUNC(\"++ prev_idx_pagedtrace invalid ...++\\n\\\\n\");\n\t\t\t\t\tprev_idx_pagedtrace = 0x8000 - 1;\n\t\t\t\t\tcontinue;\n\t\t\t\t}\n\n\t\t\t\tlen = 0x8000 - prev_idx_pagedtrace - 1;\n\t\t\t\twmt_lib_get_fwinfor_from_emi(1, prev_idx_pagedtrace, &gEmiBuf[0], len);\n\t\t\t\tWMT_INFO_FUNC(\"\\n\\n -- CONNSYS paged trace ascii output (cont...) --\\n\\n\");\n\t\t\t\twmt_dbg_fwinfor_print_buff(len);\n\n\t\t\t\tlen = cur_idx_pagedtrace;\n\t\t\t\twmt_lib_get_fwinfor_from_emi(1, 0x0, &gEmiBuf[0], len);\n\t\t\t\tWMT_INFO_FUNC(\"\\n\\n -- CONNSYS paged trace ascii output (end) --\\n\\n\");\n\t\t\t\twmt_dbg_fwinfor_print_buff(len);\n\t\t\t\tprev_idx_pagedtrace = cur_idx_pagedtrace;\n\t\t\t}\n\t\t\tmsleep(100);\n\t\t} while (isBreak);\n\t}\n\n\tWMT_INFO_FUNC(\"\\n\\n -- control word --\\n\\n\");\n\twmt_dbg_fwinfor_print_buff(256);\n\tif (len > 1024 * 4)\n\t\tlen = 1024 * 4;\n\n\tWMT_WARN_FUNC(\"get fw infor from emi at offset(0x%x),len(0x%x)\\n\", offset, len);\n\tosal_memset(&gEmiBuf[0], 0, WMT_EMI_DEBUG_BUF_SIZE);\n\twmt_lib_get_fwinfor_from_emi(1, offset, &gEmiBuf[0], len);\n\n\tWMT_INFO_FUNC(\"\\n\\n -- paged trace hex output --\\n\\n\");\n\twmt_dbg_fwinfor_print_buff(len);\n\tWMT_INFO_FUNC(\"\\n\\n -- paged trace ascii output --\\n\\n\");\n\twmt_dbg_fwinfor_print_buff(len);\n\tkfree(buf_emi);\n\tosal_unlock_sleepable_lock(&g_dbg_emi_lock);\n\n\treturn 0;\n}\n\nINT32 wmt_dbg_stp_trigger_assert(INT32 par1, INT32 par2, INT32 par3)\n{\n\twmt_lib_btm_cb(BTM_TRIGGER_STP_ASSERT_OP);\n\n\treturn 0;\n"
+          }
+        ]
+      },
+      {
+        "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/wmt_plat_alps.c",
+        "sha256": "f898e27c63210005e29a4ba5cf3f87ad4a1d93ffe2ce4793f92a9a527e36d804",
+        "snippets": [
+          {
+            "start_line": 1854,
+            "end_line": 1875,
+            "text": "INT32 wmt_plat_set_dbg_mode(UINT32 flag)\n{\n\tINT32 ret = -1;\n\tPUINT8 vir_addr = NULL;\n\n\tvir_addr = mtk_wcn_consys_emi_virt_addr_get(EXP_APMEM_CTRL_CHIP_FW_DBGLOG_MODE);\n\tif (!vir_addr) {\n\t\tWMT_PLAT_PR_ERR(\"get vir address fail\\n\");\n\t\treturn ret;\n\t}\n\tif (flag) {\n\t\tCONSYS_REG_WRITE(vir_addr, 0x1);\n\t\tret = 0;\n\t} else {\n\t\tCONSYS_REG_WRITE(vir_addr, 0x0);\n\t\tret = 1;\n\t}\n\tWMT_PLAT_PR_INFO(\"fw dbg mode register value(0x%08x)\\n\", CONSYS_REG_READ(vir_addr));\n\n\treturn ret;\n}\n\n"
+          }
+        ]
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "SVC1",
+      "confidence": 100,
+      "severity": "critical",
+      "file": "wmt-launcher/main.c",
+      "lines": [
+        181,
+        182,
+        426,
+        429
+      ],
+      "title": "Unbounded firmware log ioctl prevents disable and shutdown",
+      "confirmed_by": "Fixed kernel call chain and held-backend service characterization",
+      "resolution_owner": "root service + isolated wmt_dbg.c follow-up"
+    },
+    {
+      "id": "SVC2",
+      "confidence": 98,
+      "severity": "critical",
+      "file": "wmt-launcher/main.c",
+      "lines": [
+        326,
+        330
+      ],
+      "title": "Read-side ETIMEDOUT tears down still-usable command session",
+      "confirmed_by": "Broker author confirmed wmt_lib_read_cmd expiry semantics; exact service loop characterized",
+      "resolution_owner": "root service"
+    }
+  ],
+  "broker_read_contract": {
+    "retryable_transaction_returns": [
+      "EAGAIN",
+      "ETIMEDOUT"
+    ],
+    "other_returns": [
+      "ENOTCONN",
+      "EMSGSIZE",
+      "EFAULT"
+    ],
+    "frozen_source_binding": "pending final broker commit; author confirmed exact semantics"
+  },
+  "characterization": {
+    "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/service-review/characterization.json",
+    "sha256": "969c35adee1bac3d68dc7f4dff0aff4ab8f6e61974e96a9935ced951520f0131",
+    "cases": 3,
+    "sanitizers": [
+      "ASan",
+      "UBSan",
+      "leak detection"
+    ],
+    "stderr_empty": true
+  },
+  "report_markdown_sha256": "757d5f17de3b4d3f747cd56cb98c501a0a2ea6c13d51a777f528195dfdb90d19",
+  "production_modified": false,
+  "parent_test_files_modified": false
+}

@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/run-build19-gnss-with-assistant-isolation.py", line 58, in <module>
+    assert state['original_roles'][role] == [package]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

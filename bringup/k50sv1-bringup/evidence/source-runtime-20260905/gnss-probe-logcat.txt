@@ -1,0 +1,35 @@
+--------- beginning of main
+--------- beginning of system
+09-05 22:13:56.335 14977 14977 I K50GnssProbe: elapsed_ms=36 request provider_enabled=true
+09-05 22:13:56.337 14977 14977 E K50GnssProbe: request failed
+09-05 22:13:56.337 14977 14977 E K50GnssProbe: java.lang.IllegalStateException: GNSS status registration failed
+09-05 22:13:56.337 14977 14977 E K50GnssProbe: 	at local.k50.gnssprobe.ProbeActivity.onCreate(ProbeActivity.java:61)
+09-05 22:13:56.337 14977 14977 E K50GnssProbe: 	at android.app.Activity.performCreate(Activity.java:7824)
+09-05 22:13:56.337 14977 14977 E K50GnssProbe: 	at android.app.Activity.performCreate(Activity.java:7813)
+09-05 22:13:56.337 14977 14977 E K50GnssProbe: 	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1306)
+09-05 22:13:56.337 14977 14977 E K50GnssProbe: 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:3245)
+09-05 22:13:56.337 14977 14977 E K50GnssProbe: 	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:3409)
+09-05 22:13:56.337 14977 14977 E K50GnssProbe: 	at android.app.servertransaction.LaunchActivityItem.execute(LaunchActivityItem.java:83)
+09-05 22:13:56.337 14977 14977 E K50GnssProbe: 	at android.app.servertransaction.TransactionExecutor.executeCallbacks(TransactionExecutor.java:135)
+09-05 22:13:56.337 14977 14977 E K50GnssProbe: 	at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:95)
+09-05 22:13:56.337 14977 14977 E K50GnssProbe: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2016)
+09-05 22:13:56.337 14977 14977 E K50GnssProbe: 	at android.os.Handler.dispatchMessage(Handler.java:107)
+09-05 22:13:56.337 14977 14977 E K50GnssProbe: 	at android.os.Looper.loop(Looper.java:214)
+09-05 22:13:56.337 14977 14977 E K50GnssProbe: 	at android.app.ActivityThread.main(ActivityThread.java:7356)
+09-05 22:13:56.337 14977 14977 E K50GnssProbe: 	at java.lang.reflect.Method.invoke(Native Method)
+09-05 22:13:56.337 14977 14977 E K50GnssProbe: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:491)
+09-05 22:13:56.337 14977 14977 E K50GnssProbe: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:940)
+09-05 22:13:56.338 14977 14977 I K50GnssProbe: elapsed_ms=39 summary started=false stopped=false fixes=0 status_callbacks=0 max_satellites=0 max_used=0
+09-05 22:15:17.634 14977 14977 I K50GnssProbe: elapsed_ms=16 request provider_enabled=true
+09-05 22:15:18.986 14977 14977 I K50GnssProbe: elapsed_ms=1368 satellite_status count=0 used=0
+09-05 22:15:19.989 14977 14977 I K50GnssProbe: elapsed_ms=2371 satellite_status count=20 used=0
+09-05 22:15:20.987 14977 14977 I K50GnssProbe: elapsed_ms=3370 satellite_status count=20 used=0
+09-05 22:15:36.486 14977 14977 I K50GnssProbe: elapsed_ms=18869 satellite_status count=20 used=0
+09-05 22:15:56.487 14977 14977 I K50GnssProbe: elapsed_ms=38870 satellite_status count=20 used=0
+09-05 22:16:16.487 14977 14977 I K50GnssProbe: elapsed_ms=58870 satellite_status count=20 used=0
+09-05 22:16:36.486 14977 14977 I K50GnssProbe: elapsed_ms=78868 satellite_status count=20 used=0
+09-05 22:16:56.486 14977 14977 I K50GnssProbe: elapsed_ms=98868 satellite_status count=20 used=0
+09-05 22:17:16.486 14977 14977 I K50GnssProbe: elapsed_ms=118868 satellite_status count=20 used=0
+09-05 22:17:17.639 14977 14977 I K50GnssProbe: elapsed_ms=120022 location_request_removed
+09-05 22:17:17.695 14977 14977 I K50GnssProbe: elapsed_ms=120077 gnss_stopped
+09-05 22:17:22.645 14977 14977 I K50GnssProbe: elapsed_ms=125027 summary started=false stopped=true fixes=0 status_callbacks=121 max_satellites=20 max_used=0

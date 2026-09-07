@@ -1,0 +1,44 @@
+{
+  "passed": 0,
+  "total": 2,
+  "cases": [
+    {
+      "case": "cancel-during-consumer-writes",
+      "exit_code": 66,
+      "passed": false
+    },
+    {
+      "case": "active-pointer-reuse",
+      "exit_code": 66,
+      "passed": false
+    }
+  ],
+  "source_sha256": {
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c": "6465bac5b7fef36b9a7639ff3e31e6f71e562c7dd99f8cda41bfd645b1936a37",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/include/osal.h": "dbe8e5070e1472fd6ed486a85a68e3fe297090848764961c8616f68cf55015ee"
+  },
+  "runner_sha256": "1c0a2473a3d4347eacde58ae86f7211a5239e1d76abec7a1e2a35cb783c59f6e",
+  "imported_runner_sha256": "b66c94d950f59287ec3674568988164f8a43fbadead01e859fd99ac88269e0bf",
+  "fixture_sha256": "21800d964aff5eeb57c4362a8c415c471f2f7823863a66331e09fe08c6bdde3a",
+  "compiler": [
+    "cc",
+    "-std=gnu11",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-function",
+    "-Wno-unused-variable",
+    "-Wno-unused-but-set-variable",
+    "-pthread",
+    "-fsanitize=thread",
+    "-no-pie",
+    "-fno-omit-frame-pointer",
+    "wmt-cancel-tests/before-thread/test.c",
+    "-o",
+    "wmt-cancel-tests/before-thread/test"
+  ],
+  "sanitizer": "thread",
+  "thread_fixture_sha256": "e1b68dd859b18f6a44f50e3e111a594a3ca26d6a29245e616ae3c714b0e542fe"
+}

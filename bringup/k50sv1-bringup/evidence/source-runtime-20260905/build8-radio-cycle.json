@@ -1,0 +1,25 @@
+{
+  "completed": true,
+  "settings_restored": true,
+  "boot_id": "2c64e4bf-2912-475e-bbf4-48ec909c9135",
+  "final_identity": "2c64e4bf-2912-475e-bbf4-48ec909c9135\n0\n2856.51 7120.68\n",
+  "kernel_interval": [
+    2815.21,
+    2856.51
+  ],
+  "kernel_records": 5201,
+  "kernel_context_avcs": [],
+  "new_faults": [],
+  "wifi_packets_sent": 12,
+  "wifi_packets_received": 12,
+  "wifi_packet_loss_percent": 0,
+  "bluetooth_off_observed": true,
+  "bluetooth_on_observed": true,
+  "bluetooth_discovery_started": true,
+  "bluetooth_discovery_stopped": true,
+  "bluetooth_crashes": 0,
+  "bluetooth_device_rows": 9,
+  "bonded_devices_before": 0,
+  "bonded_devices_after": 0,
+  "pairing_requested": false
+}

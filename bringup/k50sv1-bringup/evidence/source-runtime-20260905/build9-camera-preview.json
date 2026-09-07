@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "apk_sha256": "162dad17d2765dad8c7e5ec8e4919c7df44d45f6470eba633f6482a3a34e5506",
+  "boot_id": "8dff3916-76ed-4623-a164-ac9db8b5768a",
+  "taint_before": 0,
+  "start_uptime": 676.18,
+  "camera_results": [
+    "679.051  7644  7644 I K50CameraProbe: CAMERA_RESULT id=0 facing=0 width=640 height=480 format=NV21 frames=23 textureUpdates=22 malformed=0 monotonic=true elapsedMs=2465 status=PASS",
+    "682.134  7644  7644 I K50CameraProbe: CAMERA_RESULT id=1 facing=1 width=640 height=480 format=NV21 frames=56 textureUpdates=56 malformed=0 monotonic=true elapsedMs=2401 status=PASS"
+  ],
+  "summary": [
+    "682.516  7644  7644 I K50CameraProbe: SUMMARY status=PASS completed=2 cameraCount=2 error=none"
+  ],
+  "taint_after": 0,
+  "end_uptime": 684.04,
+  "recognized_kernel_faults": [],
+  "client_executable": "/system/bin/app_process64",
+  "camera_closed_after": {
+    "0": true,
+    "1": true
+  },
+  "kernel_records_from_start_through_cleanup": 1364,
+  "kernel_capture_first_seconds": 676.254974,
+  "kernel_capture_last_seconds": 684.154083,
+  "kernel_sequence_gaps": []
+}

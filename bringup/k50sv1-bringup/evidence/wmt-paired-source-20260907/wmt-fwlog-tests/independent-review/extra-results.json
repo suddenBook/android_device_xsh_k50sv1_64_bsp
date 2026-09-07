@@ -1,0 +1,98 @@
+{
+  "commit": "75f4664c480ccbf64b764406776e8a3d88a3325b",
+  "source_units": [
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/osal.c",
+      "name": "osal_lock_sleepable_lock",
+      "sha256": "72a0ef031e691a3024c6af229cd418e2e0867cae81f39ddad2ba33364fba6f39"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/osal.c",
+      "name": "osal_unlock_sleepable_lock",
+      "sha256": "4a875f252e0b6d0c17c31cc6044e165ddf402ad67103147476cbb3a29ae3aaa6"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "name": "wmt_lib_get_fwinfor_from_emi",
+      "sha256": "37c87a596818527152adaf65d2d3ba8fc0e69410be2fcfc813c7b84b617c01bc"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dbg.c",
+      "name": "wmt_dbg_fwinfor_print_buff",
+      "sha256": "245cef0cc0bad70afb2f7b67d73329105af96a4e86834bb7820e421da9bdf7fe"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dbg.c",
+      "name": "wmt_dbg_fwinfor_trace_to",
+      "sha256": "4fd6b26692b25eaca20a8f412fbb139beca1ad6c3329e3a308b3bd7d7ac1e511"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dbg.c",
+      "name": "wmt_dbg_fwinfor_from_emi",
+      "sha256": "cb387131414430869e75dacd46a373d87a40b660a2c4a4770378d976415d6218"
+    }
+  ],
+  "fixture_sha256": "820adb53709512cbedc71e32d4ca6a381d5c64b66bdb1c3b543cd8ba26287cb0",
+  "host_sha256": "01ad427bf277a5e345809b804e99369d9143756958c185384ad17d2a97729ef5",
+  "command": [
+    "clang",
+    "-std=gnu11",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-function",
+    "-Wno-unused-parameter",
+    "-pthread",
+    "-fno-omit-frame-pointer",
+    "-fsanitize=address,undefined",
+    "-fno-sanitize-recover=all",
+    "-no-pie",
+    "-DCONFIG_MTK_GMO_RAM_OPTIMIZE=1",
+    "-I",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-fwlog-tests/independent-review",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-fwlog-tests/independent-review/extra_cases.c",
+    "-o",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-fwlog-tests/independent-review/extra_cases"
+  ],
+  "compile_returncode": 0,
+  "cases": [
+    {
+      "case": "signal-in-wrap-tail-resumes",
+      "exit_code": 0
+    },
+    {
+      "case": "disable-between-wrap-segments-resumes",
+      "exit_code": 0
+    },
+    {
+      "case": "invalid-index-preserves-progress",
+      "exit_code": 0
+    },
+    {
+      "case": "manual-read-preserves-progress",
+      "exit_code": 0
+    }
+  ],
+  "passed": 4,
+  "total": 4,
+  "status": "PASS",
+  "artifacts_sha256": {
+    "run_extra.py": "b7970a34c12e58e4b82c5510477e7bf94d231d2be6740f71cb157e8f55b44596",
+    "extra_cases.c": "62683c3693ede6ddae249b7ad2a7a63c6ed9a59e7cb49d9bbd998977bb5d4800",
+    "fixture.h": "820adb53709512cbedc71e32d4ca6a381d5c64b66bdb1c3b543cd8ba26287cb0",
+    "test_host.c": "01ad427bf277a5e345809b804e99369d9143756958c185384ad17d2a97729ef5",
+    "extra_cases": "5da91cfe2b143dcd33d4492dc787313f9becfe455cf5d24fbdfd10920c7b41b2",
+    "extra-compile.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "extra-compile.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "signal-in-wrap-tail-resumes.stdout": "1088ca2dacc79eb960afa26b857bffa9e5d9ab02cc1ced9a9861b27bf3075af1",
+    "signal-in-wrap-tail-resumes.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "disable-between-wrap-segments-resumes.stdout": "3bd2bdcfa1c46dfdcd9e012251d57c50906bed7848e1405bb58d3592790f5d3a",
+    "disable-between-wrap-segments-resumes.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "invalid-index-preserves-progress.stdout": "313d2dc6f1d79b9a3887ff8d40d795f33d487c748a8a69c21c89cc3f81c0b360",
+    "invalid-index-preserves-progress.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "manual-read-preserves-progress.stdout": "105dfc2afe21d66d3220678a835ee4aa072ac81a1759e4be7f22a42193e3e85a",
+    "manual-read-preserves-progress.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

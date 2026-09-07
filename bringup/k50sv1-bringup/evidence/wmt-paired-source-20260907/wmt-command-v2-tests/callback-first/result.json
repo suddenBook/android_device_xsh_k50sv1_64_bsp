@@ -1,0 +1,140 @@
+{
+  "passed": 19,
+  "total": 19,
+  "cases": [
+    {
+      "case": "unregistered-dispatch-and-repeated-close",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "actual-thermal-assert-clock-chain",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "thermal-command-may-sleep",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "thermal-final-module-return",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "assert-final-module-return",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "clock-final-module-return",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "drain-waits-for-last-of-three-callbacks",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "closed-entry-refuses-all-new-callbacks",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "replacement-drains-old-callback",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "registration-cannot-reopen-during-unregister",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "concurrent-unregisters-wait-for-callback",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "nested-dispatch-keeps-outer-reference",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "clock-dispatch-preserves-atomic-context",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "partial-table-does-not-leak-references",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "outer-exit-drains-before-first-resource",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "library-failure-cleanup-drains-before-first-resource",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "library-cleanup-without-platform-ownership",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "close-followed-by-successful-registration",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "case": "callback-acquired-before-module-body",
+      "passed": true,
+      "exit_code": 0
+    }
+  ],
+  "revision": null,
+  "sanitizer": "address,undefined",
+  "compiler": [
+    "cc",
+    "-std=gnu11",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-function",
+    "-Wno-unused-variable",
+    "-Wno-unused-parameter",
+    "-Wno-unused-but-set-variable",
+    "-pthread",
+    "-fsanitize=address,undefined",
+    "-fno-sanitize-recover=all",
+    "-fno-omit-frame-pointer",
+    "-finstrument-functions",
+    "-no-pie",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/callback-first/fixture.c",
+    "-o",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/callback-first/fixture"
+  ],
+  "source_sha256": {
+    "drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.c": "bcddd32fe13be5d1a688a6ccb26171c85c492e3a30148df8800b0b9c036ad354",
+    "drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.h": "88af5fd61512c1ad72f09209f7248a5cc86830f24048224366058d685fb5c864",
+    "drivers/misc/mediatek/connectivity/source/common/common_detect/mtk_wcn_stub_alps.c": "df57a6f03673d5c3ce2d290a618022249e76d1335b144123d05c77d8f61dc1a1",
+    "drivers/misc/mediatek/include/mt-plat/mtk_wcn_cmb_stub.h": "ebbf28cc9d657449138e844b4eff20d5bf723b55819ddb76903321b7b1546078",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/platform/wmt_plat_alps.c": "f898e27c63210005e29a4ba5cf3f87ad4a1d93ffe2ce4793f92a9a527e36d804",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/include/wmt_plat.h": "647b41808f5474d080fdbb15ba22884255a57ef84cb8e6d7ffe1ff61970eaaab",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c": "ffa88ab507072777690543478722ea58d721890ef4dc5fbd6f0507b5d0a470b1",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c": "f51e6d77c43c0219ccc4711bb0f33bf118aa75e2ff571a4fc8628b01626a789f",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c": "586458d8f51fa92949ac9b1e83f0bc717531c23b5eb7ac505acd4789666315c3",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/include/wmt_exp.h": "85e2f73386fdc8c0318ef072b114ae1450bb95d3fee2ea650ed81189c32acddd"
+  },
+  "fixture_sha256": "170569b4f6ec741a2b180eeb0f990abf1828c817f0116c1fc223472fe65cc53e",
+  "runner_sha256": "765be4f25b38ab42d2141e91a3a76f5d5d55418d4d6cd85a5cb0cda7053571fb",
+  "host_sha256": "5756e81d9b1692e5f2517c7083c8a25dad53b9d4067c5f628d0aebca8df44047"
+}

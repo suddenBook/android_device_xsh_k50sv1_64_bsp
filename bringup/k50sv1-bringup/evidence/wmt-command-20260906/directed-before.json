@@ -1,0 +1,123 @@
+{
+  "source_sha256": {
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c": "ca5e6fff68143bdb7c5ea0b71be661d3bf0fda97d0e521435de4f569143390f4",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_ctrl.c": "9d9628f074f2dea25e2577abbc66a144abf8ab770e4df75ff1d7753356f5a292",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c": "dd04bfd7cf91bd64a70c0c569eca6cf7ddf787f1f1f95f0891049ad5175102c9"
+  },
+  "fixture_sha256": "db6911a0c5a8fd2d5e9e6dce36ad3a6e189146e25735b73bfafbb6cce06205ff",
+  "cases": [
+    {
+      "case": "complete-command",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "case": "zero-read-preserves-command",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "case": "copy-fault-preserves-command",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "case": "short-read-preserves-command",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "case": "response-before-read-rejected",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "case": "producer-busy-until-response",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "case": "publish-after-initialization",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "case": "unread-timeout-releases-slot",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "case": "response-after-timeout-rejected",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "case": "duplicate-response-rejected",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "case": "reset-cancels-waiter",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "case": "negative-response-propagates",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "case": "response-copy-fault-retry",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "case": "zero-response-does-not-complete",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "case": "maximum-command-length",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "case": "unterminated-command-rejected",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "case": "null-command-rejected",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "case": "empty-command-rejected",
+      "exit_code": 1,
+      "pass": false
+    }
+  ],
+  "passed": 5,
+  "total": 18,
+  "compiler": [
+    "cc",
+    "-std=gnu11",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Wno-pointer-sign",
+    "-Wno-unused-parameter",
+    "-Wno-unused-function",
+    "-Wno-unused-but-set-variable",
+    "-fno-omit-frame-pointer",
+    "-no-pie",
+    "-pthread",
+    "-fsanitize=address,undefined",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-tests/before-expanded/test.c",
+    "-o",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-tests/before-expanded/test"
+  ],
+  "sanitizer": "address",
+  "runner_sha256": "8049f57c18a45c7804a5956a896aa366a32b88d910d78f360860d3a22cafbdf2"
+}

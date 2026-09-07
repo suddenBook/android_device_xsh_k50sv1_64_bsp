@@ -1,0 +1,7 @@
+Source launcher ready on session=1
+Command srh_patch transaction=1 failed: -2
+Accepted srh_patch session=1 transaction=1 result=-2 records=0
+Accepted srh_rom_patch session=1 transaction=2 result=0 records=0
+Command unknown_pair_command transaction=3 failed: -95
+Accepted unknown_pair_command session=1 transaction=3 result=-95 records=0
+Power initialization completed on attempt 1

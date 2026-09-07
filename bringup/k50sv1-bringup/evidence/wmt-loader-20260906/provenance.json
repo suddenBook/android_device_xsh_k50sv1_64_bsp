@@ -1,0 +1,59 @@
+{
+  "status": "NATIVE_CONTROL_PRODUCT_BOOT_AND_RADIO_VERIFIED_ADOPTED",
+  "device_candidate": "b1bb4d170db16e0c43cfb1cdd2b72709dcf3439b",
+  "vendor_candidate": "af72cc5e335cee76e5745744ed743ae229286593",
+  "kernel_contract": "6bf14674437",
+  "ndk": "30.0.15729638",
+  "compiler": "aarch64-linux-android29-clang",
+  "original_native_cases": 11,
+  "source_native_cases": 23,
+  "source_cases_passed": 23,
+  "runtime_scope": "23 contained native control cases run on the actual product ELF, followed by staged-image flash, fresh and normal real boots, radio cycle, GNSS and Wi-Fi Direct lifecycle checks.",
+  "files": {
+    ".capture-staging/source-replacement-20260905/wmt-userspace-assessment/wmt_loader": {
+      "sha256": "e44a0e1c5e4b8b1ad204318f2f19b92c9a1bf97704b12f04722c26eb1ef94a9f",
+      "bytes": 15672
+    },
+    ".capture-staging/source-replacement-20260905/wmt-userspace-assessment/wmt_launcher": {
+      "sha256": "70b5224af4276eef4a27a405919e5a147b24739569b3a24f5ee1cb8d3cd9a2a7",
+      "bytes": 37104
+    },
+    ".capture-staging/source-replacement-20260905/wmt-userspace-assessment/wmt_loader_source": {
+      "sha256": "fa9311ba4c0768103fbcf8ba57e761bb6e369eb06e8a55a2295177bf2e81fdb5",
+      "bytes": 18368
+    },
+    ".capture-staging/source-replacement-20260905/wmt-userspace-assessment/libloader_mock_durable.so": {
+      "sha256": "8eafa1e4f26bcb9526a5cb3e8c33cfa8712d8d8655033f770149c03e741caa4c",
+      "bytes": 13552
+    },
+    ".capture-staging/source-replacement-20260905/wmt-userspace-assessment/original-native/loader_mock.c": {
+      "sha256": "a6ceca9135a7d7bc4a3db88e3f7a262275bd17535cbc94e90f71e905f1eacae2",
+      "bytes": 7757
+    },
+    ".capture-staging/source-replacement-20260905/wmt-userspace-assessment/original-native/libloader_mock.so": {
+      "sha256": "0109c63d9fc03bb404769b7cf233f7abe99a3e96c8763db6eebd5df9a0180bd0",
+      "bytes": 23688
+    },
+    ".capture-staging/source-replacement-20260905/wmt-userspace-assessment/loader-0326-alias.txt": {
+      "sha256": "f9385410f307e5dace0e9e771fb140210e426c91433a1fa84995e561dd11d13c",
+      "bytes": 133
+    },
+    ".capture-staging/source-replacement-20260905/wmt-userspace-device-work/wmt-loader/main.c": {
+      "sha256": "2358899fffb0f5798595829766c969c147f78c5f111a8999fba82e325c56bf27",
+      "bytes": 4411
+    },
+    ".capture-staging/source-replacement-20260905/wmt-userspace-device-work/wmt-loader/Android.bp": {
+      "sha256": "412697171e6d149e5bcc06d796fe0a11a344b2a6d2e7c5b6f412e5452c1d00b6",
+      "bytes": 288
+    },
+    "k50sv1-bringup/tools/runtime-probes/wmt-loader/run.py": {
+      "sha256": "508a2620c3fe8c75113e2cbee1b4889ff46a66eb676d47ca3ef971d97a7e01a1",
+      "bytes": 8817
+    },
+    "k50sv1-bringup/tools/runtime-probes/wmt-loader/loader_mock.c": {
+      "sha256": "876363005d9eb773029220f30fd39ea60b38572ef210707fb9644a16feaa1a9a",
+      "bytes": 8796
+    }
+  },
+  "product_build_evidence": "build11-runtime.json"
+}

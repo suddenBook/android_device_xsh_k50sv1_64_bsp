@@ -1,0 +1,69 @@
+{
+  "kernel_revision": "6bf146744374c1e7ad97eb33fab73d9947a007a0",
+  "incremental": "eng.desmon.20260906.171457",
+  "build_receipt_sha256": "f0fe3fc71c44edbab673006999ccb026d406bebabb7bb71569ca8f528210ff70",
+  "flash_receipt_sha256": "798bb92d06e0248420fdd7facb7ab51180b82b7fda95edbfcfcec4273d6273b1",
+  "clean_build": true,
+  "images": {
+    "boot": "4ff8d91794350ca4c226dae6bb211fa7645751d0730103e29f319bd82ebd3108",
+    "recovery": "b273ea9a7a5fabcfc7e95e32832edff67f022d6721a168187928acb96fd3eb28",
+    "system": "e485599f8d0dc713768e305d4b7fea68ff9a274068a4412bb14cf2ed584f75ad",
+    "vendor": "1c785b584a0a7baea7b5ed729b3107daa8e5b42c0e6ef47491efe06fad87207a"
+  },
+  "verifier_runs": [
+    {
+      "run": "first-boot",
+      "passed": 224,
+      "failed": 0,
+      "unread": 5,
+      "evidence_fatal": 0,
+      "unread_checks": [
+        "modem IMS registration: +CIREG registered",
+        "framework IMS registration state",
+        "MMTEL voice capability",
+        "swapon failure (dmesg has already wrapped past boot; re-run sooner after a flash)",
+        "current ROM pstore proof pending one controlled reboot and lineage-predecessor rerun"
+      ],
+      "failed_checks": [],
+      "raw_result_sha256": "f5abbb7681209dd683d86309e9a0e272211dc171fd548697bd51513bb827fe0a"
+    },
+    {
+      "run": "normal-reboot",
+      "passed": 224,
+      "failed": 1,
+      "unread": 3,
+      "evidence_fatal": 0,
+      "unread_checks": [
+        "modem IMS registration: +CIREG registered",
+        "framework IMS registration state",
+        "MMTEL voice capability"
+      ],
+      "failed_checks": [
+        "unexpected AVC: priv_app -> sysfs : file open | path=/sys/devices/soc/180f0000.wifi/net/wlan0/type dev=sysfs app=com.google.android.gms permissive=1"
+      ],
+      "raw_result_sha256": "289731420c89fa4c995fd802818ce99d239d6b9a10cb2231426e3b7da0b6d304"
+    }
+  ],
+  "final_niagara_grants": {
+    "BIND_APPWIDGET": true,
+    "PACKAGE_USAGE_STATS": true,
+    "ACCESS_COARSE_LOCATION": true,
+    "READ_CALENDAR": true,
+    "READ_CONTACTS": true
+  },
+  "final_home": "com.android.launcher3/.lineage.LineageLauncher",
+  "diagnostic_tier": 1,
+  "selinux_mode": "Permissive",
+  "native_checks": 36,
+  "radio_traffic": {
+    "sent": 12,
+    "received": 12
+  },
+  "kernel_adopted": true,
+  "limits": [
+    "Existing GMS WLAN type read AVC remains unresolved in WI-023.",
+    "Home-network IMS checks remain unavailable on the roaming SIM profile.",
+    "One 3-packet loss observation recovered without intervention and did not reproduce in the paired native-test repeat; cause undetermined.",
+    "GNSS callback/start/stop tested indoors, with no position fix. Bluetooth discovery does not establish headset audio."
+  ]
+}

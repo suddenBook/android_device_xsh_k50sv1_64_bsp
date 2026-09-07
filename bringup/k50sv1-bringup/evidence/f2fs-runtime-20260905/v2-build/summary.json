@@ -1,0 +1,9 @@
+{
+  "build_exit": 0,
+  "stage_exit": 0,
+  "kernel_commit": "155f10112fcbe16ea7ef2fe786b919aeb365a54f",
+  "build_log_sha256": "84b896b9acce99f175ec4a0af6887ddf0a16fe8d7a0411e903b321625b69ac9f",
+  "stage_log_sha256": "f6b76b11a80661caf31c2d503d1489cfa9c44a76eef22b7df72524ecf2c2e2e2",
+  "stage": ".capture-staging/f2fs-runtime-20260905/tier1-v2",
+  "runtime_status": "PASS: native format/reset, quota regression, WAL and atomic SQLite interrupted-write recovery, CRC, low/high occupancy I/O, offline fsck; retained on handset"
+}

@@ -1,0 +1,64 @@
+{
+  "status": "PASS",
+  "module_link_present": true,
+  "finding": null,
+  "build": 19,
+  "boot_id": "5707e604-68f3-4f50-ab7f-0aa6e0fb23e6",
+  "incremental": "eng.desmon.20260907.053434",
+  "taint": 0,
+  "kernel_revision": "4192fb6ae88e057bb2abb0f464cf6b4cb64697de",
+  "module_sha256": "33e0d8cd95db22ded488539fd5c24e77aa4b7866cb3382cf6e0f9d707e5e868f",
+  "expected_manifest_sha256": "1caf79a67d90766b4ca39d5d9f5df8f8b8c3c9b6e0384b77af2c9739b4349bf4",
+  "script_sha256": "e3d1cb867df4632339b662aef62050ef5f993f8920bb1b8e4a8e314bd34081f8",
+  "bound_device": "18070000.consys",
+  "driver": "/sys/bus/platform/drivers/mtk_wmt",
+  "attributes_present": {
+    "bind": false,
+    "unbind": false
+  },
+  "commands": [
+    {
+      "name": "identity-before",
+      "command": "getprop ro.build.version.incremental; cat /proc/sys/kernel/random/boot_id; cat /proc/sys/kernel/tainted; getprop sys.boot_completed",
+      "exit_code": 0,
+      "stdout_sha256": "8d3a161c67b227b8e536ec0969f15fe0182780734044faf87a4775b0477f9e9c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "module-hash",
+      "command": "sha256sum /vendor/lib/modules/wmt_drv.ko",
+      "exit_code": 0,
+      "stdout_sha256": "ce24f5adc2b5480f0e71fab045bc639b722cd7a59b45816ed539ed1c8bcdce8b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "modules",
+      "command": "cat /proc/modules",
+      "exit_code": 0,
+      "stdout_sha256": "6ac6bba07acf3fd4f2bacda397980b5c8e07edb0fb9b5214f2c6912aa667e265",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "driver-listing",
+      "command": "ls -l /sys/bus/platform/drivers/mtk_wmt",
+      "exit_code": 0,
+      "stdout_sha256": "a01e05a75e4ecb4a1ddd70c3c6cffa8e93ea65daaf2a263b9206010c7bbd8f3b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "driver-state",
+      "command": "driver=/sys/bus/platform/drivers/mtk_wmt\nfor item in \"$driver\"/*; do\n    if [ -L \"$item\" ] && [ -L \"$item/driver\" ]; then\n        printf 'bound\t%s\t%s\n' \"${item##*/}\" \"$(readlink -f \"$item/driver\")\"\n    fi\ndone\nfor attribute in bind unbind; do\n    if [ -e \"$driver/$attribute\" ]; then present=1; else present=0; fi\n    printf 'attribute\t%s\t%s\n' \"$attribute\" \"$present\"\ndone\nreadlink -f \"$driver/module\"\n",
+      "exit_code": 0,
+      "stdout_sha256": "e5fbf5597e0da9f016c732381fae26a22c2c408b58059e2341efc86b39774184",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "identity-after",
+      "command": "getprop ro.build.version.incremental; cat /proc/sys/kernel/random/boot_id; cat /proc/sys/kernel/tainted; getprop sys.boot_completed",
+      "exit_code": 0,
+      "stdout_sha256": "8d3a161c67b227b8e536ec0969f15fe0182780734044faf87a4775b0477f9e9c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitation": "Read-only binding and attribute evidence; no probe failure or unload is exercised."
+}

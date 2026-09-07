@@ -1,0 +1,22 @@
+denial_count=63
+normalized_count=63
+unparsed_count=0
+expected_count=12
+unexpected_count=5
+expected	init -> kernel : system module_request | permissive=1
+expected	kernel -> kernel : capability dac_override | permissive=1
+expected	mtkrild -> radio_prop : property_service set | property=gsm.version.ril-impl permissive=1
+expected	priv_app -> sysfs : file getattr | path=/sys/devices/soc/180f0000.wifi/net/wlan0/address dev=sysfs app=com.google.android.gms permissive=1
+expected	priv_app -> sysfs : file open | path=/sys/devices/soc/180f0000.wifi/net/wlan0/address dev=sysfs app=com.google.android.gms permissive=1
+expected	vold -> mnt_vendor_file : dir ioctl | path=/mnt/vendor/protect_f dev=mmcblk0p8 ioctlcmd=5879 permissive=1
+expected	vold -> mnt_vendor_file : dir open | path=/mnt/vendor/protect_f dev=mmcblk0p8 permissive=1
+expected	vold -> mnt_vendor_file : dir read | dev=mmcblk0p8 name=/ permissive=1
+expected	vold -> mtk_nvdata_file : dir ioctl | path=/mnt/vendor/nvdata dev=mmcblk0p6 ioctlcmd=5879 permissive=1
+expected	vold -> mtk_nvdata_file : dir open | path=/mnt/vendor/nvdata dev=mmcblk0p6 permissive=1
+expected	vold -> mtk_nvdata_file : dir read | dev=mmcblk0p6 name=/ permissive=1
+expected	wfca -> wfca : capability dac_override | permissive=1
+unexpected	hal_wifi_supplicant_default -> vendor_data_file : dir add_name | name=wlan0 permissive=1
+unexpected	hal_wifi_supplicant_default -> vendor_data_file : dir setattr | dev=mmcblk0p30 name=sock permissive=1
+unexpected	hal_wifi_supplicant_default -> vendor_data_file : dir write | dev=mmcblk0p30 name=sock permissive=1
+unexpected	hal_wifi_supplicant_default -> vendor_data_file : sock_file create | name=wlan0 permissive=1
+unexpected	hal_wifi_supplicant_default -> vendor_data_file : sock_file setattr | dev=mmcblk0p30 name=wlan0 permissive=1

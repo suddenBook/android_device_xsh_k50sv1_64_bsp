@@ -1,0 +1,135 @@
+{
+  "scope": "reference-review files; inputs bound separately by extracted.json",
+  "files": [
+    {
+      "name": "E-build16-log-excerpts.txt",
+      "size": 3059,
+      "sha256": "ef3a3f115ec8bc4efd8ec28c4091e0f9bbb6ccbe2fcd82cd4eb00d12c80c2138"
+    },
+    {
+      "name": "E-disassembly-excerpts.txt",
+      "size": 61009,
+      "sha256": "35337969aff3d9b30638e9c9b5df8581bc22f24049944728ef1307dcf98a9d33"
+    },
+    {
+      "name": "E-imports.json",
+      "size": 1161,
+      "sha256": "c144ea89e4e36d57c04a2c568b6bd2f5f96c7ed571acc80f27213f9ced9350fa"
+    },
+    {
+      "name": "E-imports.stderr.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "E-imports.txt",
+      "size": 2503,
+      "sha256": "a069862a90a502bd2651e8dc65f9db7b416e9ca099d2cec1d7e822cf0866a0ed"
+    },
+    {
+      "name": "E-source-excerpts.txt",
+      "size": 53511,
+      "sha256": "7a636d3f8f296680217efa295cd1c81fcd32c8ab7f1e3317ed869f9f48c3f3d7"
+    },
+    {
+      "name": "README.md",
+      "size": 2899,
+      "sha256": "9eca4ed5e884f9b59f99499e843868f4d2aa4bb85a02c429236a1ce8792b8b40"
+    },
+    {
+      "name": "cmd_hdr_sch_patch.r2.stderr.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "cmd_hdr_sch_patch.r2.txt",
+      "size": 44676,
+      "sha256": "c3bfffc28f90ba5d1bb886788a4b9de2319fc1ff6f436b063c976a7f03913e1c"
+    },
+    {
+      "name": "contract.json",
+      "size": 15922,
+      "sha256": "4e92ecd7eb2c9acd824f46239d89fe3995842d5315791f233d88a706932eeb91"
+    },
+    {
+      "name": "extract.py",
+      "size": 10543,
+      "sha256": "ed46fbd0e43f720b8c503898d5f741ba47ee13fbcdbb9d1905b293c615b8c5fd"
+    },
+    {
+      "name": "extracted.json",
+      "size": 16406,
+      "sha256": "c5edec92df621f74e49f315e85d9bfb715568adb0bec4e2355d7a6b3ad17414a"
+    },
+    {
+      "name": "launcher_get_patch_version.r2.stderr.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "launcher_get_patch_version.r2.txt",
+      "size": 2476,
+      "sha256": "2e065509f1d9eab67cca2f4ab97a73b350ee934f159c205b0e8472cbd9a94b3d"
+    },
+    {
+      "name": "launcher_pwr_on_thread.r2.stderr.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "launcher_pwr_on_thread.r2.txt",
+      "size": 4022,
+      "sha256": "f9337bec1859b67205a03035fd96519ca4ef9faa6f781f4f59339a70b7bbc8ae"
+    },
+    {
+      "name": "launcher_set_prop.r2.stderr.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "launcher_set_prop.r2.txt",
+      "size": 5623,
+      "sha256": "dfb6266e2195bc089faf69b62235b2e0bacab5dcc1045a8166521bf7ca05d0a6"
+    },
+    {
+      "name": "launcher_set_prop_thread.r2.stderr.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "launcher_set_prop_thread.r2.txt",
+      "size": 2345,
+      "sha256": "6f8b28630187759d513575e0220acc243d077ac5df397d53c6b980927765d9f9"
+    },
+    {
+      "name": "main.r2.stderr.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "main.r2.txt",
+      "size": 81559,
+      "sha256": "219a26cbb717f18c3d955014133603bd6d53b32cb1968c5f9609b44f340b0fba"
+    },
+    {
+      "name": "r2-version.stderr.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "r2-version.txt",
+      "size": 163,
+      "sha256": "c5f00c9e2b78b6f9e30a31d02871cadd3e866a0cd18879f53a44a07a2b735cbd"
+    },
+    {
+      "name": "rabin2-version.stderr.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "rabin2-version.txt",
+      "size": 162,
+      "sha256": "a0b87b562830686d5f9049a52138b2378207a2633764b561d6a9c2a0d5c89d3b"
+    }
+  ]
+}

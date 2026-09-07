@@ -198,32 +198,27 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/mtk-kpd.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/mtk-kpd.kl \
     $(LOCAL_PATH)/permissions/privapp-permissions-mtk-ims.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-mtk-ims.xml
 
-# Preinstalled Huawei payload: first-boot runtime grants and a Doze exemption.
+# Preinstalled Huawei payload, installed as privileged product apps.
 #
-# Both packages ship in /product/app (see vendor/huawei/hms), i.e. on the
-# system image but NOT privileged. That is what bounds this: the
-# default-permissions file below can only carry `dangerous` permissions, and
-# the many signature/privileged ones these APKs also request
-# (INSTALL_PACKAGES, MANAGE_APPOPS, MASTER_CLEAR, READ_PRIVILEGED_PHONE_STATE,
-# ...) are NOT granted and cannot be from here. Granting those would mean
-# moving both APKs into priv-app and whitelisting each one in
-# privapp-permissions, which vendor/huawei/hms/Android.mk declines on purpose:
-# it would hand third-party Huawei-signed code package/user/telephony/Wi-Fi/
-# reset powers that its app-store and account features do not need.
+# vendor/huawei/hms/Android.mk installs both APKs, and their separately
+# installed JNI libraries, to /product/priv-app. All three files below must
+# therefore land on /product rather than /system, and for the whitelist that is
+# a correctness requirement rather than tidiness: PermissionManagerService
+# selects the privileged whitelist by partition, and pkg.isProduct() only ever
+# consults the map SystemConfig fills from /product/etc/permissions
+# (SystemConfig.java:874). A copy under /system parses into the wrong map and
+# is silently never applied. The other two are read from both trees; keeping
+# them together with the packages they configure is what makes the set legible.
 #
-# That is a policy choice, not a technical wall, and the earlier version of
-# this comment overstated it. PermissionManagerService.systemReady() does throw
-# on an unwhitelisted privileged permission, but only when
-# RoSystemProperties.CONTROL_PRIVAPP_PERMISSIONS_ENFORCE is set; this product
-# builds ro.control_privapp_permissions=log, under which the same violation is
-# logged and the permission denied, with no effect on boot.
-#
-# sysconfig must land on /system: SystemConfig only honours
-# allow-in-power-save from directories registered with ALLOW_ALL, and the
-# vendor/odm sysconfig dirs are not among them.
+# What each file can and cannot do is bounded by the platform, not by taste:
+# default-permissions carries only `dangerous` permissions,
+# privapp-permissions only `signature|privileged` ones, and the plain
+# `signature` permissions both APKs also request stay denied because only the
+# platform signature grants those. Each file states its own boundary.
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/permissions/default-permissions-huawei.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/default-permissions/default-permissions-huawei.xml \
-    $(LOCAL_PATH)/sysconfig/huawei-power-save.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/huawei-power-save.xml
+    $(LOCAL_PATH)/permissions/privapp-permissions-huawei.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-huawei.xml \
+    $(LOCAL_PATH)/permissions/default-permissions-huawei.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/default-permissions/default-permissions-huawei.xml \
+    $(LOCAL_PATH)/sysconfig/huawei.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/huawei.xml
 
 
 # Diagnostics retain the legacy MediaTek ePDG stack for controlled WFC

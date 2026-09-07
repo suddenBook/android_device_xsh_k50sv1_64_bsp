@@ -1,0 +1,466 @@
+4,24641,528108069,-;-(4)[0:swapper/4]Power/swap DP: No enter --- SODI3: No enter --- SODI: No enter --- 
+3,24642,528607784,-; (1)[1354:kworker/1:2][Auxadc] [AUXADC] ch:4(2a6, 608, 1, 1)
+6,24643,528694598,-; (4)[8557:tx_thread][wlan]nicRxProcessEventPacket:(RX INFO) [F-L][503] #T#300549# Ver:0xB.1.8A CS[0,1] DIS 0x0 AC 0x107F BCN[1, 1, 0, 0, 0x100, 0x0] RCPI [255, 207, 255, 255], ROAM [1, 0, 0, 0, 255, 0, 220, 80] TXPara[0x2F005E, 0xFA0000, 0x31332227, 0x703FF, 0x7000F,0x307030F, 0x18181818, 0x1B2000, 0x12001280, I: (80973, 0), C: (13133, 0), W: 5532 CHP: (86, 255) ], TxBASz 0, RxBASz 0  Gamemode 0 Mem 64 Dg 0, 0, 0, 0, 0, 0, Kd:0 TP(T:0 R:0)Kbps, BTOn 1, Suspend=0 Hotspot=0, TestMode 0, EB 0 RW_EN=1, RW=32767 us, Grant=0x45000210 <BCM>0x0(0000000) 220 3 107 110 10000000\x0a
+6,24644,528796166,-; (4)[8557:tx_thread][wlan]kalPerMonHandler:(SW4 INFO) kalPerMonHandler > Tput: 0 > AIS:[0][0] [328][599], P2P:[0][0] [0][0]
+4,24645,529185537,-; (5)[8557:tx_thread][HIF-SDIO][I]wmt_lib_get_fwinfor_from_emi:vir addr(0xffffff800576632c)
+6,24646,529185560,-; (7)[8557:tx_thread][wlan]wlanDumpFwInforPrintBuff:(RX INFO) [CONNSYS][WIFI]#298034#8#<RXM>Send EID:0x5 Seq:183 Len:20
+6,24647,529186536,c; (7)[8557:tx_thread][wlan]nicUpdateLinkQuality:(NIC INFO) cRssi=-5, cLinkQuality=0, u2LinkSpeed=270
+6,24648,529186599,-; (5)[486:wificond][wlan]mtk_cfg80211_get_station:(REQ WARN) last rssi
+6,24649,529186607,-; (5)[486:wificond][wlan]mtk_cfg80211_get_station:(REQ WARN) last statistic
+3,24650,529607753,-; (1)[1354:kworker/1:2][Auxadc] [AUXADC] ch:4(2a6, 608, 1, 1)
+6,24651,529796151,-; (4)[8557:tx_thread][wlan]kalPerMonHandler:(SW4 INFO) kalPerMonHandler > Tput: 0 > AIS:[0][0] [328][599], P2P:[0][0] [0][0]
+3,24652,530607731,-; (1)[1354:kworker/1:2][Auxadc] [AUXADC] ch:4(2a6, 609, 1, 1)
+3,24653,530622733,-; (4)[72:dlpt_notify_thr][Auxadc] [AUXADC] ch:0(1112, 679a, 1, 1)
+3,24654,530625856,-; (4)[72:dlpt_notify_thr][Auxadc] [AUXADC] ch:0(1113, 679f, 1, 1)
+2,24655,530625865,-; (4)[72:dlpt_notify_thr][PBM] [ma_to_mw] 4371(mV) * 5500(mA) = 24040(mW)
+3,24656,530625882,-; (4)[72:dlpt_notify_thr][DLPT_final] 5500,0,100,100,1,5500
+6,24657,530743017,-; (4)[8557:tx_thread][wlan]nicRxProcessEventPacket:(RX INFO) [F-L][503] #T#302597# Ver:0xB.1.8A CS[0,1] DIS 0x0 AC 0x107F BCN[1, 1, 0, 0, 0x100, 0x0] RCPI [255, 207, 255, 255], ROAM [1, 0, 0, 0, 255, 0, 220, 80] TXPara[0x2F005E, 0xFA0000, 0x31332227, 0x703FF, 0x7000F,0x307030F, 0x18181818, 0x1B2000, 0x12001280, I: (80640, 0), C: (14105, 0), W: 6892 CHP: (85, 255) ], TxBASz 0, RxBASz 0  Gamemode 0 Mem 64 Dg 0, 0, 0, 0, 0, 0, Kd:0 TP(T:0 R:0)Kbps, BTOn 1, Suspend=0 Hotspot=0, TestMode 0, EB 0 RW_EN=1, RW=32767 us, Grant=0x45000210 <BCM>0x0(0000000) 220 3 107 110 10000000\x0a
+6,24658,530758459,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24659,530762805,-; (6)[1023:kworker/u16:8]request overlap_layers = 0
+6,24660,530762829,-; (6)[1023:kworker/u16:8]_request_dvfs_perf = -1
+4,24661,530763741,-; (1)[5244:writer]Audio_Speaker_Pga_Gain_Set(), Speaker_pga_gain = 2
+4,24662,530763804,-; (1)[5244:writer]Audio_Speaker_Pga_Gain_Set(), Speaker_pga_gain = 2
+4,24663,530764952,-; (1)[5244:writer]mtk_pcm_dl2_hardware.buffer_bytes_max = 49152 mPlaybackSramState = 8
+4,24664,530764979,-; (1)[5244:writer]SNDRV_PCM_STREAM_PLAYBACK mtkalsa_dl2playback_constraints
+4,24665,530765670,-; (1)[5244:writer]mtk_pcm_dl2_hardware.buffer_bytes_max = 49152 mPlaybackSramState = 8
+4,24666,530765705,-; (1)[5244:writer]SNDRV_PCM_STREAM_PLAYBACK mtkalsa_dl2playback_constraints
+4,24667,530765812,-; (1)[5244:writer]SetDL2Buffer u4BufferSize = 4096 pucVirtBufAddr = ffffff80024bd000 pucPhysBufAddr = 0xfe2f0000
+6,24668,530765880,-; (1)[5244:writer]mtk_pcm_dl2_prepare format = 10 SNDRV_PCM_FORMAT_S32_LE = 10 SNDRV_PCM_FORMAT_U32_LE = 12, fast_dl_hdoutput = 0
+4,24669,530766968,-; (0)[5244:writer]Audio_Amp_Change(), enable = 1, mInTrimming = 0
+6,24670,530774450,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24671,530778963,-; (4)[744:kworker/u16:5]request overlap_layers = 0
+6,24672,530778985,-; (4)[744:kworker/u16:5]_request_dvfs_perf = -1
+6,24673,530787285,-; (1)[508:OverlayEngine_0]request overlap_layers = 0
+6,24674,530792165,-; (4)[744:kworker/u16:5]request overlap_layers = 0
+6,24675,530792184,-; (4)[744:kworker/u16:5]_request_dvfs_perf = -1
+6,24676,530796204,-; (1)[8557:tx_thread][wlan]kalPerMonHandler:(SW4 INFO) kalPerMonHandler > Tput: 0 > AIS:[0][0] [328][599], P2P:[0][0] [0][0]
+6,24677,530799572,-; (1)[508:OverlayEngine_0]request overlap_layers = 0
+4,24678,530809053,-; (0)[5244:writer]Audio_Amp_Change(), enable = 1, mInTrimming = 0
+4,24679,530809158,-; (0)[5244:writer]Ext_Speaker_Amp_Change enable
+6,24680,530812507,-; (7)[744:kworker/u16:5]request overlap_layers = 0
+6,24681,530812523,-; (7)[744:kworker/u16:5]_request_dvfs_perf = -1
+6,24682,530815513,-; (1)[508:OverlayEngine_0]request overlap_layers = 0
+6,24683,530828416,-; (1)[1023:kworker/u16:8]request overlap_layers = 0
+6,24684,530828438,-; (1)[1023:kworker/u16:8]_request_dvfs_perf = -1
+6,24685,530831122,-; (0)[508:OverlayEngine_0]request overlap_layers = 0
+6,24686,530844288,-; (7)[744:kworker/u16:5]request overlap_layers = 0
+6,24687,530844307,-; (7)[744:kworker/u16:5]_request_dvfs_perf = -1
+6,24688,530847037,-; (1)[508:OverlayEngine_0]request overlap_layers = 0
+6,24689,530860150,-; (6)[744:kworker/u16:5]request overlap_layers = 0
+6,24690,530860165,-; (6)[744:kworker/u16:5]_request_dvfs_perf = -1
+6,24691,530862881,-; (1)[508:OverlayEngine_0]request overlap_layers = 0
+6,24692,530876018,-; (6)[744:kworker/u16:5]request overlap_layers = 0
+6,24693,530876040,-; (6)[744:kworker/u16:5]_request_dvfs_perf = -1
+6,24694,530878999,-; (1)[508:OverlayEngine_0]request overlap_layers = 0
+6,24695,530891884,-; (6)[744:kworker/u16:5]request overlap_layers = 0
+6,24696,530891904,-; (6)[744:kworker/u16:5]_request_dvfs_perf = -1
+6,24697,530894781,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24698,530907759,-; (7)[1029:kworker/u16:14]request overlap_layers = 0
+6,24699,530907778,-; (7)[1029:kworker/u16:14]_request_dvfs_perf = -1
+6,24700,530910693,-; (1)[508:OverlayEngine_0]request overlap_layers = 0
+6,24701,530923632,-; (6)[1029:kworker/u16:14]request overlap_layers = 0
+6,24702,530923652,-; (6)[1029:kworker/u16:14]_request_dvfs_perf = -1
+6,24703,530926658,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24704,530939503,-; (7)[1023:kworker/u16:8]request overlap_layers = 0
+6,24705,530939522,-; (7)[1023:kworker/u16:8]_request_dvfs_perf = -1
+6,24706,530942373,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24707,530955370,-; (7)[1023:kworker/u16:8]request overlap_layers = 0
+6,24708,530955391,-; (7)[1023:kworker/u16:8]_request_dvfs_perf = -1
+6,24709,530958263,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24710,530971238,-; (6)[1023:kworker/u16:8]request overlap_layers = 0
+6,24711,530971255,-; (6)[1023:kworker/u16:8]_request_dvfs_perf = -1
+6,24712,530974074,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24713,530987111,-; (6)[1023:kworker/u16:8]request overlap_layers = 0
+6,24714,530987131,-; (6)[1023:kworker/u16:8]_request_dvfs_perf = -1
+6,24715,530990087,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24716,531002981,-; (7)[744:kworker/u16:5]request overlap_layers = 0
+6,24717,531003000,-; (7)[744:kworker/u16:5]_request_dvfs_perf = -1
+6,24718,531005813,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24719,531018865,-; (0)[1029:kworker/u16:14]request overlap_layers = 0
+6,24720,531018889,-; (0)[1029:kworker/u16:14]_request_dvfs_perf = -1
+6,24721,531021742,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24722,531034721,-; (6)[1029:kworker/u16:14]request overlap_layers = 0
+6,24723,531034743,-; (6)[1029:kworker/u16:14]_request_dvfs_perf = -1
+6,24724,531037665,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24725,531050590,-; (6)[1029:kworker/u16:14]request overlap_layers = 0
+6,24726,531050608,-; (6)[1029:kworker/u16:14]_request_dvfs_perf = -1
+6,24727,531053389,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24728,531066463,-; (6)[1029:kworker/u16:14]request overlap_layers = 0
+6,24729,531066483,-; (6)[1029:kworker/u16:14]_request_dvfs_perf = -1
+6,24730,531069301,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24731,531082339,-; (7)[1029:kworker/u16:14]request overlap_layers = 0
+6,24732,531082357,-; (7)[1029:kworker/u16:14]_request_dvfs_perf = -1
+6,24733,531085158,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24734,531098200,-; (7)[1029:kworker/u16:14]request overlap_layers = 0
+6,24735,531098219,-; (7)[1029:kworker/u16:14]_request_dvfs_perf = -1
+6,24736,531101113,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24737,531114074,-; (0)[1023:kworker/u16:8]request overlap_layers = 0
+6,24738,531114097,-; (0)[1023:kworker/u16:8]_request_dvfs_perf = -1
+6,24739,531117047,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24740,531129947,-; (6)[1023:kworker/u16:8]request overlap_layers = 0
+6,24741,531129966,-; (6)[1023:kworker/u16:8]_request_dvfs_perf = -1
+6,24742,531132678,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24743,531145810,-; (6)[1023:kworker/u16:8]request overlap_layers = 0
+6,24744,531145829,-; (6)[1023:kworker/u16:8]_request_dvfs_perf = -1
+6,24745,531148599,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24746,531161681,-; (6)[1023:kworker/u16:8]request overlap_layers = 0
+6,24747,531161699,-; (6)[1023:kworker/u16:8]_request_dvfs_perf = -1
+6,24748,531164390,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24749,531177551,-; (6)[1023:kworker/u16:8]request overlap_layers = 0
+6,24750,531177571,-; (6)[1023:kworker/u16:8]_request_dvfs_perf = -1
+6,24751,531180376,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24752,531193422,-; (7)[1029:kworker/u16:14]request overlap_layers = 0
+6,24753,531193441,-; (7)[1029:kworker/u16:14]_request_dvfs_perf = -1
+6,24754,531196321,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24755,531209294,-; (6)[1029:kworker/u16:14]request overlap_layers = 0
+6,24756,531209311,-; (6)[1029:kworker/u16:14]_request_dvfs_perf = -1
+6,24757,531212012,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+6,24758,531225183,-; (3)[1029:kworker/u16:14]request overlap_layers = 0
+6,24759,531225210,-; (3)[1029:kworker/u16:14]_request_dvfs_perf = -1
+3,24760,531226988,-; (7)[364:sensors@2.0-ser][MIR3DA] mir3da_enable_nodata 0
+3,24761,531227888,-; (4)[364:sensors@2.0-ser][MIR3DA] mir3da_SetPowerMode done\x0a
+3,24762,531227909,-; (4)[364:sensors@2.0-ser][MIR3DA] mir3da_enable_nodata 1
+3,24763,531227915,-; (4)[364:sensors@2.0-ser][MIR3DA] mir3da_enable_nodata 2
+6,24764,531228523,-; (3)[508:OverlayEngine_0]request overlap_layers = 0
+4,24765,531235016,-; (6)[362:light@2.0-servi][PWM] disp_pwm_set_backlight_cmdq(id = 0x1, level_1024 = 0), old = 74
+6,24766,531236339,-; (3)[360:composer@2.1-se]request overlap_layers = 0
+6,24767,531236747,-; (3)[360:composer@2.1-se]mtk-tpd: fb_notify(blank=4)
+6,24768,531236754,-; (3)[360:composer@2.1-se]mtk-tpd: LCD OFF early notify
+6,24769,531241055,-; (6)[1029:kworker/u16:14]request overlap_layers = 0
+6,24770,531241062,-; (6)[1029:kworker/u16:14]_request_dvfs_perf = -1
+6,24771,531241152,-; (6)[1029:kworker/u16:14]request overlap_layers = 0
+6,24772,531241156,-; (6)[1029:kworker/u16:14]_request_dvfs_perf = -1
+4,24773,531281604,-; (0)[427:HwBinder:352_2]AudioPreAmp1_Sel Mul_Sel = 0 
+4,24774,531281626,-; (0)[427:HwBinder:352_2]AudioPreAmp2_Sel Mul_Sel = 0 
+4,24775,531281628,-; (0)[427:HwBinder:352_2]Audio_ADC1_Set()
+4,24776,531298977,-;-(0)[427:HwBinder:352_2]mtk_capture_pcm_trigger cmd = 0
+4,24777,531298985,-;-(0)[427:HwBinder:352_2]mtk_capture_alsa_stop
+4,24778,531298988,-;-(0)[427:HwBinder:352_2]StopAudioCaptureHardware
+4,24779,531299154,-; (0)[427:HwBinder:352_2]mtk_capture_pcm_hw_free
+5,24780,531412254,-;-(0)[2043:Binder:906_B]alarmtimer_enqueue, 601913000000
+3,24781,531550128,-; (4)[9246:RenderThread][ION]ION_IOC_FREE handle is invalid. handle = 0, ret = 0.
+6,24782,531595215,-; (5)[8560:wpa_supplicant][wlan]mtk_cfg80211_vendor_get_features:(REQ INFO) Dump feature flags[0]=0x2.
+6,24783,531595295,-; (5)[8560:wpa_supplicant][wlan]mtk_p2p_cfg80211_change_iface:(P2P INFO) mtk_p2p_cfg80211_change_iface. type: 2
+6,24784,531595341,-; (4)[8557:tx_thread][wlan]nicUpdateBss:(NIC INFO) nicUpdateBss eNetworkTypeIdx: 1, OwnMac=2e:45:67:89:f9:2c
+6,24785,531596436,-; (5)[8560:wpa_supplicant][wlan]mtk_p2p_cfg80211_set_power_mgmt:(P2P INFO) mtk_p2p_cfg80211_set_power_mgmt ps=0.
+6,24786,531603596,-; (6)[8557:tx_thread][name:wlan_drv_gen2&][wlan]wlanoidSetPacketFilter:(REQ INFO) [MC debug] u4PacketFilter=4000000a, IsSuspend=0
+4,24787,531603694,-;-(4)[8557:tx_thread]wlanProcessCommandQueue: 15 callbacks suppressed
+6,24788,531603700,-; (4)[8557:tx_thread][name:wlan_drv_gen2&][wlan]wlanProcessCommandQueue:(TX INFO) No TC4 resource to send cmd, CID=0x6, SEQ=189, CMD type=1, OID=1
+6,24789,531604292,-; (4)[8560:wpa_supplicant]IPv6: ADDRCONF(NETDEV_UP): p2p0: link is not ready
+6,24790,531604297,-; (6)[8557:tx_thread][name:wlan_drv_gen2&][wlan]wlanProcessCommandQueue:(TX INFO) No TC4 resource to send cmd, CID=0xc3, SEQ=190, CMD type=1, OID=0
+4,24791,531605136,-;-(7)[8557:tx_thread]qmHandleEventBssAbsencePresence: 12 callbacks suppressed
+6,24792,531605144,-; (7)[8557:tx_thread][name:wlan_drv_gen2&][wlan]qmHandleEventBssAbsencePresence:(QM INFO) NAF=1,0,0
+3,24793,531607819,-; (1)[1354:kworker/1:2][Auxadc] [AUXADC] ch:4(2a5, 605, 1, 1)
+4,24794,531616209,-; (4)[360:composer@2.1-se][PWM] backlight is off, ddp_pwm power:(0)
+3,24795,531623740,-; (4)[360:composer@2.1-se][ION]ion_fb_event: + screen-off +
+3,24796,531623748,-; (4)[360:composer@2.1-se][ION]ion_fb_event: - screen-off -
+4,24797,531623752,-; (4)[360:composer@2.1-se][VcoreFS]Switch to Screen-OFF
+4,24798,531623763,-; (4)[360:composer@2.1-se][Power/PPM] @ppm_lcmoff_switch: onoff = 0
+4,24799,531623769,-; (4)[360:composer@2.1-se][Power/PPM] @ppm_perfserv_lcmon_switch: lcm off -> perf_idx = 0
+6,24800,531623788,-; (4)[360:composer@2.1-se]mtk-tpd: fb_notify(blank=4)
+6,24801,531623791,-; (4)[360:composer@2.1-se]mtk-tpd: LCD OFF complete notify
+7,24802,531623829,-; (5)[1029:kworker/u16:14][name:mt_ppm_main&][Power/PPM] (0x4e0)(13176)(1)[4L_LL]: (4)(0)(2)(4) (6)(0)(4)(4) 
+4,24803,531628956,-; (4)[1029:kworker/u16:14][HPS] END :(0200)(4)(4) action end(155)(155)(0)(1) (4)(4)(2)(4) (0)(0)(0) (155)(2)(0) (0)(155)(2)(0)(155) (0)(2)(4)
+4,24804,531636197,-; (0)[360:composer@2.1-se][HIF-SDIO][W]wmt_fb_notifier_callback:@@@@@@@@@@wmt enter early POWERDOWN @@@@@@@@@@@@@@
+4,24805,531636224,-; (0)[360:composer@2.1-se]enter kalBoostCpu, core_num:0, freq:0
+4,24806,531636232,-; (0)[360:composer@2.1-se][Power/PPM] sys boost by WIFI: req_core = 0, target_boost_core = 0
+4,24807,531636253,-; (0)[360:composer@2.1-se][Power/PPM] sys boost by WIFI: req_freq = 0, target_boost_freq = 0
+4,24808,531636681,-; (0)[269:kworker/0:1][HIF-SDIO][I]mtk_wcn_wmt_func_ctrl:wmt-exp: OPID(4) type(9) start
+6,24809,531636720,-; (0)[269:kworker/0:1][STP-PSM] [I]_stp_psm_do_wait: STP is waiting state for ACT, i=1, state = 2
+5,24810,531650574,-;-(0)[1084:ClientModeImpl]alarmtimer_enqueue, 708770000000
+5,24811,531659839,-;-(4)[906:system_server]alarmtimer_enqueue, 708770000000
+6,24812,531666197,-; (0)[269:kworker/0:1][STP-PSM] [I]_stp_psm_do_wait: +Total waits for ACT takes 29471 usec
+4,24813,531666266,-; (4)[430:mtk_wmtd][WMT-CORE][I]wmt_core_dump_func_state:[AF FUNC OFF]status(b:2 f:0 g:0 w:2 lpbk:0 coredump:0 wmt:2 ant:0 sd1:0 sd2:0 stp:0)
+4,24814,531666346,-; (0)[269:kworker/0:1][HIF-SDIO][I]mtk_wcn_wmt_func_ctrl:OPID(4) type(9) ok
+6,24815,531709403,-; (4)[8560:wpa_supplicant][wlan]wlanHandleSystemSuspend:(INIT INFO) suspend IPv4: 192.168.1.251, rStatus: 0
+6,24816,531709608,-; (6)[8560:wpa_supplicant][wlan]p2pHandleSystemSuspend:(P2P INFO) suspend IPv4: 0.0.0.0, rStatus: 0
+6,24817,531709702,-; (6)[8560:wpa_supplicant][wlan]wlanDoIOCTL:(INIT INFO) wlanDoIOCTL Cmd= 0x89f1
+6,24818,531709714,-; (6)[8560:wpa_supplicant][wlan]priv_support_driver_cmd:(REQ INFO) priv_support_driver_cmd: driver cmd "SETSUSPENDMODE 1" on wlan0
+6,24819,531709724,-; (6)[8560:wpa_supplicant][wlan]priv_driver_cmds:(REQ INFO) Unknown driver command SETSUSPENDMODE 1 - ignored
+6,24820,531743768,-; (4)[8560:wpa_supplicant][wlan]mtk_p2p_cfg80211_change_iface:(P2P INFO) mtk_p2p_cfg80211_change_iface. type: 9
+6,24821,531743865,-; (4)[8560:wpa_supplicant][wlan]mtk_p2p_cfg80211_set_bitrate_mask:(P2P INFO) mtk_p2p_cfg80211_set_bitrate_mask
+6,24822,531744988,-; (4)[8560:wpa_supplicant][wlan]mtk_p2p_cfg80211_del_station:(P2P INFO) mtk_p2p_cfg80211_del_station ReasonCode = 1
+6,24823,531745039,-; (4)[8560:wpa_supplicant][wlan]mtk_p2p_cfg80211_del_station:(P2P INFO) mtk_p2p_cfg80211_del_station ReasonCode = 1
+6,24824,531745161,-; (4)[8560:wpa_supplicant][wlan]mtk_p2p_cfg80211_del_key:(P2P INFO) --> mtk_p2p_cfg80211_del_key()
+6,24825,531745940,-; (6)[8557:tx_thread][name:wlan_drv_gen2&][wlan]wlanoidSetPacketFilter:(REQ INFO) [MC debug] u4PacketFilter=c000000a, IsSuspend=1
+6,24826,531746332,-; (7)[8560:wpa_supplicant][wlan]mtk_p2p_cfg80211_del_key:(P2P INFO) --> mtk_p2p_cfg80211_del_key()
+6,24827,531746763,-; (5)[8560:wpa_supplicant][wlan]mtk_p2p_cfg80211_del_key:(P2P INFO) --> mtk_p2p_cfg80211_del_key()
+6,24828,531746818,-; (6)[8557:tx_thread][name:wlan_drv_gen2&][wlan]wlanProcessCommandQueue:(TX INFO) No TC4 resource to send cmd, CID=0x8, SEQ=198, CMD type=1, OID=1
+6,24829,531747504,-; (0)[8560:wpa_supplicant][wlan]mtk_p2p_cfg80211_del_key:(P2P INFO) --> mtk_p2p_cfg80211_del_key()
+6,24830,531749489,-; (4)[8560:wpa_supplicant][wlan]mtk_p2p_cfg80211_start_ap:(P2P INFO) mtk_p2p_cfg80211_start_ap.
+6,24831,531749533,-; (4)[8560:wpa_supplicant][wlan]mtk_p2p_cfg80211_set_channel:(P2P INFO) mtk_p2p_cfg80211_set_channel.
+6,24832,531749554,-; (4)[8560:wpa_supplicant][wlan]__channel_format_switch:(P2P INFO) channel band: 1, freq: 5220
+6,24833,531749615,-; (0)[8557:tx_thread][wlan]Warning at p2pFuncParseBeaconIEs:2235 (FALSE)
+6,24834,531749620,-; (4)[78:kworker/4:1]IPv6: ADDRCONF(NETDEV_CHANGE): p2p0: link becomes ready
+6,24835,531749649,-; (0)[8557:tx_thread][wlan]p2pFsmRunEventBeaconUpdate:(P2P WARN) driver skipped the beacon update! CurrentOPMode :2 eIntendOPMode:2
+6,24836,531749689,-; (0)[8557:tx_thread][wlan]p2pFsmRunEventStartAP:(P2P INFO) NFC:fgIsGOInitialDone[0]
+6,24837,531749711,-; (0)[8557:tx_thread][wlan]nicActivateNetwork:(NIC INFO) OwnMac=2e:45:67:89:f9:2c BSSID=2e:45:67:89:f9:2c NetType=1
+6,24838,531749733,-; (0)[8557:tx_thread][wlan]rlmFillSyncCmdParam:(RLM INFO) N=1 b=1 c=1 s=0 e=0 h=0 I=0x00 l=0 p=0
+6,24839,531749747,-; (0)[8557:tx_thread][wlan]nicUpdateBss:(NIC INFO) nicUpdateBss eNetworkTypeIdx: 1, OwnMac=2e:45:67:89:f9:2c
+6,24840,531749767,-; (0)[8557:tx_thread][wlan]rlmActivateNetwork:(RLM INFO) rlm: active=0, Type=1, Src=0, SrcVal=0
+6,24841,531749781,-; (0)[8557:tx_thread][wlan]p2pFsmStateTransition:(P2P STATE) [22] TRANSITION: [0] -> [3]
+6,24842,531749797,-; (0)[8557:tx_thread][wlan]cnmChMngrRequestPrivilege:(CNM INFO) ChReq net=1 token=1 b=2 c=44 s=0 d=5000
+6,24843,531750170,-; (4)[8560:wpa_supplicant][wlan]mtk_p2p_cfg80211_change_bss:(P2P INFO) --> mtk_p2p_cfg80211_change_bss() CTS:0,ShortPramble:0
+6,24844,531750315,-; (0)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,24845,531751443,-; (4)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,24846,531751663,-; (6)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,24847,531751720,-; (6)[8557:tx_thread][name:wlan_drv_gen2&][wlan]qmHandleEventBssAbsencePresence:(QM INFO) NAF=0,1,2
+6,24848,531752110,-; (0)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,24849,531752756,-; (6)[8560:wpa_supplicant][wlan]mtk_p2p_cfg80211_add_key:(P2P INFO) --> mtk_p2p_cfg80211_add_key()
+6,24850,531752813,-; (5)[8557:tx_thread][wlan]wlanoidSetAddP2PKey:(REQ INFO) 
+6,24851,531753664,-; (1)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,24852,531753780,-; (1)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,24853,531753857,-; (1)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,24854,531753932,-; (1)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+4,24855,531762166,-;-(7)[0:swapper/7]wmt_lib_ps_handler: 1 callbacks suppressed
+6,24856,531762187,-;-(7)[0:swapper/7]conn2ap_btif0_wakeup_out_b EIRQ handler
+6,24857,531762413,-; (1)[8557:tx_thread][name:wlan_drv_gen2&][wlan]qmHandleEventBssAbsencePresence:(QM INFO) NAF=1,0,0
+6,24858,531762551,-; (7)[429:mtk_stp_btm][STP-PSM] [I]stp_psm_disable_by_tx_rx_density: STP speed rx:4 tx:12
+6,24859,531762562,-; (7)[429:mtk_stp_btm][STP-PSM] [I]stp_psm_disable_by_tx_rx_density: Low speed,Enable monitor
+6,24860,531763766,-; (6)[8557:tx_thread][wlan]nicRxProcessEventPacket:(RX INFO) AddPKeyDone, Net 1, Addr ff:ff:ff:ff:ff:ff, StaRec is NULL
+6,24861,531767650,-; (1)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,24862,531767932,-; (1)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,24863,531769030,-; (6)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,24864,531769182,-; (4)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,24865,531771029,-; (6)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,24866,531772614,-; (4)[8557:tx_thread][wlan]p2pProcessEvent_UpdateNOAParam:(P2P INFO) Update NoA Count=1.
+6,24867,531772657,-; (4)[8557:tx_thread][wlan]nicUpdateBeaconIETemplate:(REQ INFO) CmdSeqNum =208 , UpdateMethod=1 ,Capability=0x11, NetTypeIndex:1
+6,24868,531773160,-; (1)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,24869,531774032,-; (5)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,24870,531774236,-; (5)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,24871,531774579,-; (7)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,24872,531774774,-; (7)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,24873,531774865,-; (5)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,24874,531774956,-; (5)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+5,24875,531851804,-;-(4)[2046:Binder:906_C]alarmtimer_enqueue, 601913000000
+5,24876,531851848,-;-(4)[2046:Binder:906_C]alarmtimer_enqueue, 601913000000
+7,24877,531936183,-; (4)[232:hps_main][name:mt_ppm_main&][Power/PPM] (0x4e0)(12984)(1)[4L_LL]->[L_ONLY]: (4)(0)(0)(0) (5)(0)(2)(4) 
+3,24878,531942437,-; (4)[232:hps_main][CPUHVFS] [0109a660] cluster0 off, pause = 0x0, RSV4: 0x5770d670
+4,24879,531945803,-; (4)[232:hps_main][HPS] END :(0400)(2)(4) action end(29)(29)(0)(0) (0)(4)(0)(2) (29)(1)(1) (29)(1)(0) (0)(29)(1)(0)(29) (4)(0)(2)
+7,24880,532036151,-; (4)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_BIG: (5, 0): freq = 871000 (871000), volt = 89375 (89375), cpus = 2, cur = 1508000
+7,24881,532181455,-; (5)[232:hps_main][name:mt_ppm_main&][Power/PPM] (0x4e0)(8063)(0)[L_ONLY]->[LL_ONLY]: (4)(0)(2)(4) (5)(0)(0)(0) 
+6,24882,532181980,-;-(0)[0:swapper/0]Detected VIPT I-cache on CPU0
+4,24883,532183169,-; (4)[232:hps_main][Power/cpufreq] MT_CPU_DVFS_LITTLE freq = 156000
+3,24884,532183203,-; (4)[232:hps_main][CPUHVFS] [0109c531] cluster0 on, pause = 0x0, RSV4: 0x5270a670
+7,24885,532183347,-; (4)[232:hps_main][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (4, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 3, cur = 156000
+6,24886,532184032,-;-(1)[0:swapper/1]Detected VIPT I-cache on CPU1
+3,24887,532188094,-; (1)[232:hps_main][CPUHVFS] [0109c5d1] cluster1 off, pause = 0x0, RSV4: 0x5270d370
+4,24888,532192390,-; (0)[232:hps_main][HPS] END :(0200)(0)(2) action end(18)(18)(0)(0) (4)(0)(2)(0) (18)(1)(1) (18)(1)(0) (0)(18)(1)(0)(18) (0)(2)(0)
+7,24889,532316232,-; (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (4, 0): freq = 1001000 (1001000), volt = 107500 (107500), cpus = 2, cur = 689000
+7,24890,532456418,-; (1)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (4, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 2, cur = 1001000
+6,24891,532586856,-; (0)[286:hwservicemanage]binder: 286:286 ioctl c018620c 7fe6941340 returned -22
+6,24892,532591231,-; (0)[8557:tx_thread][wlan]nicRxProcessEventPacket:(RX INFO) [F-L][BCN] DumpP2p 1522 BSS[1], Mod[1], Enable[0], Abs[1], CNM[1], GO[1], Head[1], Dur[5391 0], Time[304448 304453 304803 309838], Cur[0], (0)
+6,24893,532591352,-; (0)[8557:tx_thread][name:wlan_drv_gen2&][wlan]qmHandleEventBssAbsencePresence:(QM INFO) NAF=1,1,2
+6,24894,532597748,-; (1)[8557:tx_thread][name:wlan_drv_gen2&][wlan]qmHandleEventBssAbsencePresence:(QM INFO) NAF=0,0,0
+3,24895,532607887,-; (0)[269:kworker/0:1][Auxadc] [AUXADC] ch:4(2a4, 604, 1, 1)
+6,24896,532676409,-; (0)[8557:tx_thread][name:wlan_drv_gen2&][wlan]wlanTxPendingPackets:(INIT WARN) prMsduInfo is Null and PendingPKT(1)
+6,24897,532676465,-; (0)[8557:tx_thread][name:wlan_drv_gen2&][wlan]wlanTxPendingPackets:(INIT WARN) prMsduInfo is Null and PendingPKT(1)
+7,24898,532716198,-; (1)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (4, 0): freq = 1001000 (1001000), volt = 107500 (107500), cpus = 2, cur = 689000
+6,24899,532789040,-; (0)[8557:tx_thread][wlan]nicRxProcessEventPacket:(RX INFO) [F-L][484] #T#304644# Ver:0xB.1.8A CS[0,1] DIS 0x0 AC 0x117F BCN[1, 1, 0, 0, 0x100, 0x0] RCPI [255, 207, 255, 255], ROAM [0, 0, 0, 0, 255, 0, 220, 80] TXPara[0x0, 0x0, 0x31330000, 0x0, 0x0,0x0, 0x18181818, 0x1B2000, 0x12001280, I: (560394, 0), C: (148104, 0), W: 1044727 CHP: (79, 255) ], TxBASz 0, RxBASz 0  Gamemode 0 Mem 64 Dg 0, 0, 0, 0, 0, 0, Kd:0 TP(T:2 R:0)Kbps, BTOn 1, Suspend=1 Hotspot=0, TestMode 0, EB 0 RW_EN=1, RW=32767 us, Grant=0x45002210 <BCM>0x0(0000000) 220 3 107 110 10000000\x0a
+7,24900,532817843,-; (1)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (4, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 2, cur = 1001000
+7,24901,532836212,-; (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (4, 0): freq = 1001000 (1001000), volt = 107500 (107500), cpus = 2, cur = 598000
+7,24902,532917389,-; (1)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (4, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 2, cur = 1001000
+6,24903,532935870,-; (0)[8557:tx_thread][name:wlan_drv_gen2&][wlan]qmHandleEventBssAbsencePresence:(QM INFO) NAF=0,1,2
+6,24904,532950360,-; (0)[8557:tx_thread][wlan]cnmChMngrHandleChEvent:(CNM INFO) ChGrant net=1 token=1 ch=44 sco=0 dur=5000
+6,24905,532950421,-; (0)[8557:tx_thread][wlan]p2pFuncStartGO:(P2P INFO) NFC Done[1] AP Channel=44, Band=2, SCO=1, Phy=24
+6,24906,532950448,-; (0)[8557:tx_thread][wlan]bssInitForAP:(BSS INFO) Bcast: eAci = 0, ACM = 0, Aifsn = 3, CWmin = 15, CWmax = 1023, TxopLimit = 0
+6,24907,532950471,-; (0)[8557:tx_thread][wlan]bssInitForAP:(BSS INFO) Bcast: eAci = 1, ACM = 0, Aifsn = 7, CWmin = 15, CWmax = 1023, TxopLimit = 0
+6,24908,532950494,-; (0)[8557:tx_thread][wlan]bssInitForAP:(BSS INFO) Bcast: eAci = 2, ACM = 0, Aifsn = 2, CWmin = 7, CWmax = 15, TxopLimit = 94
+6,24909,532950516,-; (0)[8557:tx_thread][wlan]bssInitForAP:(BSS INFO) Bcast: eAci = 3, ACM = 0, Aifsn = 2, CWmin = 3, CWmax = 7, TxopLimit = 47
+6,24910,532950539,-; (0)[8557:tx_thread][wlan]bssInitForAP:(BSS INFO) eAci = 0, ACM = 0, Aifsn = 3, CWmin = 15, CWmax = 127, TxopLimit = 0
+6,24911,532950560,-; (0)[8557:tx_thread][wlan]bssInitForAP:(BSS INFO) eAci = 1, ACM = 0, Aifsn = 7, CWmin = 15, CWmax = 1023, TxopLimit = 0
+6,24912,532950582,-; (0)[8557:tx_thread][wlan]bssInitForAP:(BSS INFO) eAci = 2, ACM = 0, Aifsn = 1, CWmin = 7, CWmax = 15, TxopLimit = 94
+6,24913,532950603,-; (0)[8557:tx_thread][wlan]bssInitForAP:(BSS INFO) eAci = 3, ACM = 0, Aifsn = 1, CWmin = 3, CWmax = 7, TxopLimit = 47
+6,24914,532950634,-; (0)[8557:tx_thread][wlan]rlmBssInitForAP:(RLM INFO) AP SCO=1
+6,24915,532950657,-; (0)[8557:tx_thread][wlan]rlmFillSyncCmdParam:(RLM INFO) N=1 b=2 c=44 s=1 e=0 h=0 I=0x05 l=1 p=0
+6,24916,532950681,-; (0)[8557:tx_thread][wlan]nicUpdateBss:(NIC INFO) nicUpdateBss eNetworkTypeIdx: 1, OwnMac=2e:45:67:89:f9:2c
+6,24917,532950737,-; (0)[8557:tx_thread][wlan]Warning at rlmFillExtCapIE:657 (IE_SIZE(prExtCap) <= (ELEM_HDR_LEN + ELEM_MAX_LEN_EXT_CAP))
+6,24918,532950770,-; (0)[8557:tx_thread][wlan]nicUpdateBeaconIETemplate:(REQ INFO) CmdSeqNum =213 , UpdateMethod=1 ,Capability=0x11, NetTypeIndex:1
+6,24919,532950795,-; (0)[8557:tx_thread][wlan]p2pFsmStateTransition:(P2P STATE) [22] TRANSITION: [3] -> [0]
+6,24920,532964007,-; (0)[8557:tx_thread][name:wlan_drv_gen2&][wlan]qmHandleEventBssAbsencePresence:(QM INFO) NAF=1,0,0
+4,24921,533109462,-;-(0)[0:swapper/0]Power/swap DP: No enter --- SODI3: No enter --- SODI: No enter --- 
+7,24922,533396240,-; (1)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (4, 0): freq = 1001000 (1001000), volt = 107500 (107500), cpus = 2, cur = 598000
+7,24923,533477379,-; (1)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (4, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 2, cur = 1001000
+3,24924,533607801,-; (0)[269:kworker/0:1][Auxadc] [AUXADC] ch:4(2a5, 606, 1, 1)
+7,24925,533736223,-; (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (4, 0): freq = 1001000 (1001000), volt = 107500 (107500), cpus = 2, cur = 598000
+7,24926,533856157,-; (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (4, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 2, cur = 1001000
+4,24927,534108343,-; (1)[427:HwBinder:352_2]Ext_Speaker_Amp_Change disable
+4,24928,534108982,-; (1)[427:HwBinder:352_2]Audio_Amp_Change(), enable = 0, mInTrimming = 0
+4,24929,534109014,-; (1)[427:HwBinder:352_2]Audio_Amp_Change(), enable = 0, mInTrimming = 0
+4,24930,534109031,-; (1)[427:HwBinder:352_2]Audio_Amp_Change off amp
+4,24931,534120463,-; (0)[427:HwBinder:352_2]TopCkCount <0 =0\x0a 
+4,24932,534121668,-; (0)[427:HwBinder:352_2]-PMIC DCXO XO_AUDIO_EN_M disable
+7,24933,534124600,-; (0)[400:mtkPowerManager][name:mt_ppm_main&][Power/PPM] (0x4a0)(5152)(0)[LL_ONLY]: (4)(0)(1)(4) (5)(0)(0)(0) 
+4,24934,534128865,-; (0)[400:mtkPowerManager][HPS] END :(0200)(2)(0) action end(10)(9)(0)(0) (4)(0)(1)(0) (20)(2)(2) (10)(2)(0) (0)(9)(2)(0)(9) (0)(1)(0)
+7,24935,534146248,-; (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (4, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 1, cur = 598000
+7,24936,534260327,-; (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (4, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 1001000
+3,24937,534607775,-; (0)[269:kworker/0:1][Auxadc] [AUXADC] ch:4(2a6, 608, 1, 1)
+5,24938,535433553,-;-(0)[387:fuelgauged]mtk_rtc_hal_common: rtc_spare_reg[0] = {16412, 127, 8}
+3,24939,535434450,-; (0)[268:bat_routine_thr][Auxadc] [AUXADC] ch:2(208, 4a0, 1, 1)
+3,24940,535437847,-; (0)[268:bat_routine_thr][Auxadc] [AUXADC] ch:0(1114, 67a8, 1, 1)
+3,24941,535439501,-; (0)[268:bat_routine_thr][Auxadc] [AUXADC] ch:1(1123, 67fd, 1, 1)
+3,24942,535445762,-; (0)[268:bat_routine_thr][Auxadc] [AUXADC] ch:2(20a, 4a6, 1, 1)
+3,24943,535447603,-; (0)[268:bat_routine_thr][Auxadc] [AUXADC] ch:3(22a, 4ed, 1, 1)
+3,24944,535449645,-; (0)[268:bat_routine_thr][kernel]AvgVbat 4358,bat_vol 4372, AvgI 503, I 232, VChr 4938, AvgT 32, T 33, ZCV 4309, CHR_Type 1, SOC 100:100:100, bcct 0:0, Ichg 0, IBat 101
+3,24945,535450571,-; (0)[268:bat_routine_thr][BATTERY] CC mode charge, timer=570 on 580!!
+3,24946,535459457,-; (0)[268:bat_routine_thr][psc5415] [0x0]=0x10 [0x1]=0xfc [0x2]=0x2c [0x3]=0xf0 [0x4]=0x50 [0x5]=0x22 [0x6]=0x5f psc5415_dump_register end
+3,24947,535459509,-; (0)[268:bat_routine_thr][BATTERY] Default CC mode charging : 50000, input current = 50000
+3,24948,535469320,-; (0)[268:bat_routine_thr][psc5415] [0x0]=0x10 [0x1]=0x78 [0x2]=0xb0 [0x3]=0xf0 [0x4]=0x0 [0x5]=0x22 [0x6]=0x5f psc5415_dump_register end
+5,24949,535469979,-; (0)[387:fuelgauged]mtk_rtc_common: set_rtc_spare_fg_value, 100
+5,24950,535470000,-; (0)[387:fuelgauged][fg_res] set rtc = 100
+7,24951,536116280,-; (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (4, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 1, cur = 598000
+7,24952,536245393,-; (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (4, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 1001000
+7,24953,536256305,-; (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (4, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 1, cur = 598000
+6,24954,536259652,-; (0)[8560:wpa_supplicant][wlan]mtk_p2p_cfg80211_del_station:(P2P INFO) mtk_p2p_cfg80211_del_station ReasonCode = 1
+6,24955,536259851,-; (0)[8560:wpa_supplicant][wlan]mtk_p2p_cfg80211_stop_ap:(P2P INFO) mtk_p2p_cfg80211_stop_ap.
+6,24956,536259889,-; (0)[8557:tx_thread][wlan]authSendDeauthFrame:(SAA INFO) Sending Deauth, network: 1, seqNo 4, reason: 3
+6,24957,536259905,-; (0)[8557:tx_thread][wlan]p2pFuncDeauthComplete:(P2P INFO) p2pFuncDeauthComplete
+6,24958,536259917,-; (0)[8557:tx_thread][wlan]nicPmIndicateBssAbort:(NIC INFO) nicPmIndicateBssAbort eNetTypeIndex:1
+6,24959,536259945,-; (0)[8557:tx_thread][wlan]nicUpdateBss:(NIC INFO) nicUpdateBss eNetworkTypeIdx: 1, OwnMac=2e:45:67:89:f9:2c
+6,24960,536260849,-; (0)[8557:tx_thread][wlan]p2pFuncDissolve:(P2P INFO) Wait 500ms for deauth TX in case of GC in PS
+6,24961,536277584,-; (0)[429:mtk_stp_btm][STP-PSM] [I]stp_psm_disable_by_tx_rx_density: STP speed rx:4 tx:0
+6,24962,536277606,-; (0)[429:mtk_stp_btm][STP-PSM] [I]stp_psm_disable_by_tx_rx_density: Low speed,Enable monitor
+6,24963,536317287,-;-(1)[0:swapper/1]Detected VIPT I-cache on CPU1
+6,24964,536318376,-;-(2)[0:swapper/2]Detected VIPT I-cache on CPU2
+6,24965,536319392,-;-(3)[0:swapper/3]Detected VIPT I-cache on CPU3
+4,24966,536320324,-; (3)[232:hps_main][HPS] END :(0020)(1)(0) action end(100)(945)(0)(1) (4)(0)(1)(0) (49)(31)(1) (0)(0)(0) (1)(945)(32)(0)(945) (0)(4)(0)
+4,24967,536358391,-; (1)[232:hps_main][HPS] END :(0200)(4)(0) action end(220)(264)(0)(2) (4)(0)(1)(0) (220)(1)(1) (220)(1)(0) (0)(264)(1)(0)(264) (0)(3)(0)
+4,24968,536478370,-; (1)[232:hps_main][HPS] END :(0200)(3)(0) action end(158)(159)(0)(1) (4)(0)(1)(0) (158)(1)(1) (158)(1)(0) (0)(159)(1)(0)(159) (0)(2)(0)
+4,24969,536607740,-;-(0)[269:kworker/0:1]PMIC_IMM_GetOneChannelValue: 4 callbacks suppressed
+3,24970,536607766,-; (0)[269:kworker/0:1][Auxadc] [AUXADC] ch:4(2a6, 609, 1, 1)
+6,24971,536765505,-; (1)[8557:tx_thread][wlan]p2pFsmRunEventWfdSettingUpdate:(P2P INFO) p2pFsmRunEventWfdSettingUpdate
+6,24972,536765528,-; (1)[8557:tx_thread][wlan]p2pFsmRunEventWfdSettingUpdate:(P2P INFO) WFD Enalbe 0 info 0 state 0 flag 0 adv 0
+6,24973,536765555,-; (1)[8557:tx_thread][wlan]nicActivateNetwork:(NIC INFO) OwnMac=2e:45:67:89:f9:2c BSSID=2e:45:67:89:f9:2c NetType=1
+6,24974,536765573,-; (1)[8557:tx_thread][wlan]rlmFillSyncCmdParam:(RLM INFO) N=1 b=2 c=44 s=0 e=0 h=0 I=0x00 l=1 p=0
+6,24975,536765587,-; (1)[8557:tx_thread][wlan]nicUpdateBss:(NIC INFO) nicUpdateBss eNetworkTypeIdx: 1, OwnMac=2e:45:67:89:f9:2c
+6,24976,536765606,-; (1)[8557:tx_thread][wlan]rlmActivateNetwork:(RLM INFO) rlm: active=0, Type=1, Src=0, SrcVal=0
+6,24977,536765626,-; (1)[8557:tx_thread][wlan]p2pFsmStateTransition:(P2P STATE) [22] TRANSITION: [0] -> [0]
+6,24978,536765643,-; (1)[8557:tx_thread][wlan]mtk_oid_stop_ap_role:(INIT INFO) done, ucRoleIdx = 0
+6,24979,536765666,-; (1)[8557:tx_thread][wlan]cnmChMngrAbortPrivilege:(CNM INFO) ChAbort net=1 token=1
+6,24980,536765690,-; (1)[8557:tx_thread][name:wlan_drv_gen2&][wlan]wlanProcessCommandQueue:(TX INFO) No TC4 resource to send cmd, CID=0x3a, SEQ=218, CMD type=1, OID=0
+6,24981,536765789,-; (1)[8557:tx_thread][name:wlan_drv_gen2&][wlan]qmHandleEventBssAbsencePresence:(QM INFO) NAF=1,0,0
+6,24982,536765795,-; (0)[8560:wpa_supplicant][wlan]mtk_p2p_cfg80211_change_iface:(P2P INFO) mtk_p2p_cfg80211_change_iface. type: 2
+6,24983,536765813,-; (1)[8557:tx_thread][name:wlan_drv_gen2&][wlan]qmHandleEventBssAbsencePresence:(QM INFO) NAF=1,0,0
+6,24984,536765838,-; (0)[8560:wpa_supplicant][wlan]mtk_p2p_cfg80211_set_bitrate_mask:(P2P INFO) mtk_p2p_cfg80211_set_bitrate_mask
+6,24985,536765843,-; (1)[8557:tx_thread][wlan]authSendDeauthFrame:(SAA INFO) Sending Deauth, network: 1, seqNo 5, reason: 3
+6,24986,536765852,-; (1)[8557:tx_thread][wlan]p2pFuncDeauthComplete:(P2P INFO) p2pFuncDeauthComplete
+6,24987,536765859,-; (1)[8557:tx_thread][wlan]nicPmIndicateBssAbort:(NIC INFO) nicPmIndicateBssAbort eNetTypeIndex:1
+6,24988,536765873,-; (1)[8557:tx_thread][wlan]nicUpdateBss:(NIC INFO) nicUpdateBss eNetworkTypeIdx: 1, OwnMac=2e:45:67:89:f9:2c
+6,24989,536766070,-; (1)[8557:tx_thread][name:wlan_drv_gen2&][wlan]wlanProcessCommandQueue:(TX INFO) No TC4 resource to send cmd, CID=0x0, SEQ=0, CMD type=3, OID=0
+6,24990,536766086,-; (1)[8557:tx_thread][name:wlan_drv_gen2&][wlan]wlanProcessCommandQueue:(TX INFO) No TC4 resource to send cmd, CID=0x1b, SEQ=222, CMD type=1, OID=0
+6,24991,536766134,-; (1)[8557:tx_thread][wlan]p2pFuncDissolve:(P2P INFO) Wait 500ms for deauth TX in case of GC in PS
+6,24992,536767208,-; (0)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,24993,536816474,-;-(2)[0:swapper/2]Detected VIPT I-cache on CPU2
+4,24994,536817304,-; (2)[232:hps_main][HPS] END :(0020)(2)(0) action end(200)(236)(0)(1) (4)(0)(1)(0) (0)(0)(0) (0)(0)(0) (1)(236)(1)(0)(236) (0)(3)(0)
+6,24995,536896558,-;-(3)[0:swapper/3]Detected VIPT I-cache on CPU3
+4,24996,536897455,-; (3)[232:hps_main][HPS] END :(0020)(3)(0) action end(298)(416)(0)(3) (4)(0)(1)(0) (205)(1)(1) (205)(1)(0) (1)(416)(2)(0)(416) (0)(4)(0)
+4,24997,536938349,-; (2)[232:hps_main][HPS] END :(0200)(4)(0) action end(228)(248)(0)(2) (4)(0)(1)(0) (228)(1)(1) (228)(1)(0) (0)(248)(1)(0)(248) (0)(3)(0)
+6,24998,537266169,-; (1)[8557:tx_thread][wlan]authSendDeauthFrame:(SAA INFO) Sending Deauth, network: 1, seqNo 6, reason: 3
+6,24999,537266196,-; (1)[8557:tx_thread][wlan]p2pFuncDeauthComplete:(P2P INFO) p2pFuncDeauthComplete
+6,25000,537266208,-; (1)[8557:tx_thread][wlan]nicPmIndicateBssAbort:(NIC INFO) nicPmIndicateBssAbort eNetTypeIndex:1
+6,25001,537266238,-; (1)[8557:tx_thread][wlan]nicUpdateBss:(NIC INFO) nicUpdateBss eNetworkTypeIdx: 1, OwnMac=2e:45:67:89:f9:2c
+6,25002,537266263,-; (1)[8557:tx_thread][name:wlan_drv_gen2&][wlan]wlanProcessCommandQueue:(TX INFO) No TC4 resource to send cmd, CID=0x0, SEQ=0, CMD type=3, OID=0
+6,25003,537266279,-; (1)[8557:tx_thread][name:wlan_drv_gen2&][wlan]wlanProcessCommandQueue:(TX INFO) No TC4 resource to send cmd, CID=0x1b, SEQ=222, CMD type=1, OID=0
+6,25004,537266293,-; (1)[8557:tx_thread][wlan]p2pFuncDissolve:(P2P INFO) Wait 500ms for deauth TX in case of GC in PS
+6,25005,537586780,-; (0)[286:hwservicemanage]binder: 286:286 ioctl c018620c 7fe6941340 returned -22
+3,25006,537607774,-; (0)[269:kworker/0:1][Auxadc] [AUXADC] ch:4(2a6, 609, 1, 1)
+6,25007,537766313,-; (1)[8557:tx_thread][wlan]p2pFsmRunEventWfdSettingUpdate:(P2P INFO) p2pFsmRunEventWfdSettingUpdate
+6,25008,537766332,-; (1)[8557:tx_thread][wlan]p2pFsmRunEventWfdSettingUpdate:(P2P INFO) WFD Enalbe 0 info 0 state 0 flag 0 adv 0
+6,25009,537766356,-; (1)[8557:tx_thread][wlan]nicActivateNetwork:(NIC INFO) OwnMac=2e:45:67:89:f9:2c BSSID=2e:45:67:89:f9:2c NetType=1
+6,25010,537766373,-; (1)[8557:tx_thread][wlan]rlmFillSyncCmdParam:(RLM INFO) N=1 b=2 c=44 s=0 e=0 h=0 I=0x00 l=1 p=0
+6,25011,537766386,-; (1)[8557:tx_thread][wlan]nicUpdateBss:(NIC INFO) nicUpdateBss eNetworkTypeIdx: 1, OwnMac=2e:45:67:89:f9:2c
+6,25012,537766406,-; (1)[8557:tx_thread][wlan]rlmActivateNetwork:(RLM INFO) rlm: active=0, Type=1, Src=0, SrcVal=0
+6,25013,537766424,-; (1)[8557:tx_thread][wlan]p2pFsmStateTransition:(P2P STATE) [22] TRANSITION: [0] -> [0]
+6,25014,537766442,-; (1)[8557:tx_thread][wlan]nicUpdateBss:(NIC INFO) nicUpdateBss eNetworkTypeIdx: 1, OwnMac=2e:45:67:89:f9:2c
+6,25015,537766466,-; (1)[8557:tx_thread][wlan]Start
+6,25016,537766480,-; (1)[8557:tx_thread][wlan]0: Time 532951074731,Content d6000119,Count 0,RelCID c3897b22,FwValue 1601fb22,Time 536765983202,CPUPCR 0x0008acf8 0x00000f84 0x0008acfa
+6,25017,537766496,-; (1)[8557:tx_thread][wlan]1: Time 536260701586,Content d700011b,Count 1,RelCID 19ceec22,FwValue 1601fb22,Time 536766023125,CPUPCR 0x0000e968 0x00003270 0x0000e968
+6,25018,537766512,-; (1)[8557:tx_thread][wlan]2: Time 536260759509,Content d8000115,Count 2,RelCID 19ceec22,FwValue 1601fb22,Time 536766061433,CPUPCR 0x0000e956 0x0000e930 0x0000e958
+6,25019,537766528,-; (1)[8557:tx_thread][wlan]3: Time 536260801816,Content d9000116,Count 3,RelCID 19ceec22,FwValue 1601fb22,Time 536766080125,CPUPCR 0x0000e968 0x0008abf4 0x0000e96c
+6,25020,537766544,-; (1)[8557:tx_thread][wlan]4: Time 536765887202,Content da00013a,Count 4,RelCID 1601fb22,FwValue 20450d22,Time 537266252973,CPUPCR 0x00064318 0x00064318 0x00064318
+6,25021,537766560,-; (1)[8557:tx_thread][wlan]5: Time 536765941279,Content db000115,Count 5,RelCID 1601fb22,FwValue 20450d22,Time 537266272588,CPUPCR 0x00064318 0x00064318 0x00064318
+6,25022,537766576,-; (1)[8557:tx_thread][wlan]6: Time 536765985048,Content dc000116,Count 6,RelCID 1601fb22,FwValue 20451722,Time 537766460281,CPUPCR 0x00064318 0x00064318 0x00064318
+6,25023,537766592,-; (1)[8557:tx_thread][wlan]7: Time 536766024971,Content dd000120,Count 7,RelCID 1601fb22,FwValue 1601fb22,Time 536765679433,CPUPCR 0x00000748 0x000829dc 0x00082a0a
+6,25024,537766607,-; (1)[8557:tx_thread][wlan]8: Time 532950918270,Content d4000116,Count 8,RelCID c3897b22,FwValue 1601fb22,Time 536765884587,CPUPCR 0x0000e972 0x0008abfc 0x00000f6e
+6,25025,537766623,-; (1)[8557:tx_thread][wlan]9: Time 532950996962,Content d500011c,Count 9,RelCID c3897b22,FwValue 1601fb22,Time 536765939356,CPUPCR 0x0000e972 0x0008abfc 0x00000f6e
+6,25026,537766638,-; (1)[8557:tx_thread][name:wlan_drv_gen2&][wlan]wlanProcessCommandQueue:(TX INFO) No TC4 resource to send cmd, CID=0x0, SEQ=0, CMD type=3, OID=0
+6,25027,537766652,-; (1)[8557:tx_thread][wlan]Start
+6,25028,537766664,-; (1)[8557:tx_thread][wlan]0: Time 532951074731,Content d6000119,Count 0,RelCID c3897b22,FwValue 1601fb22,Time 536765983202,CPUPCR 0x0008acf8 0x00000f84 0x0008acfa
+6,25029,537766680,-; (1)[8557:tx_thread][wlan]1: Time 536260701586,Content d700011b,Count 1,RelCID 19ceec22,FwValue 1601fb22,Time 536766023125,CPUPCR 0x0000e968 0x00003270 0x0000e968
+6,25030,537766696,-; (1)[8557:tx_thread][wlan]2: Time 536260759509,Content d8000115,Count 2,RelCID 19ceec22,FwValue 1601fb22,Time 536766061433,CPUPCR 0x0000e956 0x0000e930 0x0000e958
+6,25031,537766711,-; (1)[8557:tx_thread][wlan]3: Time 536260801816,Content d9000116,Count 3,RelCID 19ceec22,FwValue 1601fb22,Time 536766080125,CPUPCR 0x0000e968 0x0008abf4 0x0000e96c
+6,25032,537766726,-; (1)[8557:tx_thread][wlan]4: Time 536765887202,Content da00013a,Count 4,RelCID 1601fb22,FwValue 20450d22,Time 537266252973,CPUPCR 0x00064318 0x00064318 0x00064318
+6,25033,537766742,-; (1)[8557:tx_thread][wlan]5: Time 536765941279,Content db000115,Count 5,RelCID 1601fb22,FwValue 20450d22,Time 537266272588,CPUPCR 0x00064318 0x00064318 0x00064318
+6,25034,537766758,-; (1)[8557:tx_thread][wlan]6: Time 536765985048,Content dc000116,Count 6,RelCID 1601fb22,FwValue 20451722,Time 537766460281,CPUPCR 0x00064318 0x00064318 0x00064318
+6,25035,537766773,-; (1)[8557:tx_thread][wlan]7: Time 536766024971,Content dd000120,Count 7,RelCID 1601fb22,FwValue 20451722,Time 537766647589,CPUPCR 0x00064318 0x00064318 0x00064318
+6,25036,537766788,-; (1)[8557:tx_thread][wlan]8: Time 532950918270,Content d4000116,Count 8,RelCID c3897b22,FwValue 1601fb22,Time 536765884587,CPUPCR 0x0000e972 0x0008abfc 0x00000f6e
+6,25037,537766804,-; (1)[8557:tx_thread][wlan]9: Time 532950996962,Content d500011c,Count 9,RelCID c3897b22,FwValue 1601fb22,Time 536765939356,CPUPCR 0x0000e972 0x0008abfc 0x00000f6e
+6,25038,537766817,-; (1)[8557:tx_thread][name:wlan_drv_gen2&][wlan]wlanProcessCommandQueue:(TX INFO) No TC4 resource to send cmd, CID=0x1b, SEQ=222, CMD type=1, OID=0
+6,25039,537766845,-;-(1)[8557:tx_thread][wlan]statsInfoEnvRequest:(TX INFO) statsInfoEnvRequest fgIsUnderSuspend = true.
+6,25040,537766965,-; (0)[8557:tx_thread][name:wlan_drv_gen2&][wlan]wlanoidSetPacketFilter:(REQ INFO) [MC debug] u4PacketFilter=4000000a, IsSuspend=1
+6,25041,537767047,-; (0)[8557:tx_thread][name:wlan_drv_gen2&][wlan]qmHandleEventBssAbsencePresence:(QM INFO) NAF=1,0,0
+6,25042,537767061,-; (0)[8557:tx_thread][name:wlan_drv_gen2&][wlan]qmHandleEventBssAbsencePresence:(QM INFO) NAF=0,0,0
+6,25043,537767581,-; (1)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,25044,537767745,-; (0)[8557:tx_thread][name:wlan_drv_gen2&][wlan]wlanProcessCommandQueue:(TX INFO) No TC4 resource to send cmd, CID=0x0, SEQ=0, CMD type=3, OID=0
+6,25045,537767764,-; (0)[8557:tx_thread][name:wlan_drv_gen2&][wlan]wlanProcessCommandQueue:(TX INFO) No TC4 resource to send cmd, CID=0x1b, SEQ=225, CMD type=1, OID=0
+6,25046,537767885,-; (0)[8557:tx_thread][name:wlan_drv_gen2&][wlan]wlanProcessCommandQueue:(TX INFO) No TC4 resource to send cmd, CID=0x0, SEQ=0, CMD type=3, OID=0
+6,25047,537768143,-; (2)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,25048,537768686,-; (0)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,25049,537769309,-; (0)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,25050,537769441,-; (0)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,25051,537769528,-; (0)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,25052,537769686,-; (0)[8557:tx_thread][name:wlan_drv_gen2&][wlan]qmHandleEventBssAbsencePresence:(QM INFO) NAF=1,0,0
+6,25053,537769779,-; (2)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,25054,537769870,-; (0)[8557:tx_thread][name:wlan_drv_gen2&][wlan]qmHandleEventBssAbsencePresence:(QM INFO) NAF=1,0,0
+6,25055,537770353,-; (1)[8557:tx_thread][name:wlan_drv_gen2&][wlan]qmHandleEventBssAbsencePresence:(QM INFO) NAF=1,0,0
+6,25056,537770552,-; (0)[8557:tx_thread][name:wlan_drv_gen2&][wlan]qmHandleEventBssAbsencePresence:(QM INFO) NAF=1,0,0
+6,25057,537771170,-; (1)[8557:tx_thread][name:wlan_drv_gen2&][wlan]qmHandleEventBssAbsencePresence:(QM INFO) NAF=1,0,0
+6,25058,537772040,-; (2)[8557:tx_thread][name:wlan_drv_gen2&][wlan]qmHandleEventBssAbsencePresence:(QM INFO) NAF=1,0,0
+6,25059,537779050,-; (2)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,25060,537779249,-; (2)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,25061,537779391,-; (2)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,25062,537779503,-; (2)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+4,25063,537848487,-; (0)[232:hps_main][HPS] END :(0200)(3)(0) action end(158)(249)(0)(0) (4)(0)(1)(0) (430)(2)(2) (158)(2)(0) (0)(249)(2)(0)(249) (0)(2)(0)
+4,25064,537888531,-; (0)[232:hps_main][HPS] END :(0200)(2)(0) action end(16)(21)(0)(0) (4)(0)(1)(0) (16)(1)(1) (16)(1)(0) (0)(21)(1)(0)(21) (0)(1)(0)
+6,25065,537973673,-; (0)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,25066,537973800,-; (0)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,25067,537974792,-; (0)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,25068,537974884,-; (0)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,25069,537975130,-; (0)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,25070,537975202,-; (0)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,25071,537975272,-; (0)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,25072,537975340,-; (0)[7180:DnsConfigServic][wlan]std_get_name:(INIT INFO)  mtk std ioctl is called.
+6,25073,537978089,-; (0)[8557:tx_thread][name:wlan_drv_gen2&][wlan]wlanoidSetPacketFilter:(REQ INFO) [MC debug] u4PacketFilter=a, IsSuspend=1
+7,25074,538086163,-; (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (4, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 1001000
+4,25075,538116157,-;-(0)[0:swapper/0]Power/swap DP: No enter --- SODI3: No enter --- SODI: No enter --- 
+3,25076,538607841,-; (0)[269:kworker/0:1][Auxadc] [AUXADC] ch:4(2a7, 60a, 1, 1)
+3,25077,539607831,-; (0)[269:kworker/0:1][Auxadc] [AUXADC] ch:4(2a7, 60a, 1, 1)
+3,25078,540607829,-; (0)[269:kworker/0:1][Auxadc] [AUXADC] ch:4(2a7, 60a, 1, 1)
+3,25079,540629067,-; (0)[72:dlpt_notify_thr][Auxadc] [AUXADC] ch:0(1114, 67a8, 1, 1)
+3,25080,540630699,-; (0)[72:dlpt_notify_thr][Auxadc] [AUXADC] ch:0(1115, 67aa, 1, 1)
+2,25081,540630720,-; (0)[72:dlpt_notify_thr][PBM] [ma_to_mw] 4373(mV) * 5500(mA) = 24051(mW)
+3,25082,540630753,-; (0)[72:dlpt_notify_thr][DLPT_final] 5500,0,100,100,1,5500
+6,25083,540706163,-; (0)[200:hang_detect][Hang_Detect] hang_detect thread counts down 2147483647:2147483647, status 0.
+4,25084,541006263,-;-(0)[0:swapper/0]Power/swap CNT(dpidle,rgidle): [0] = (0,435982), [1] = (0,441707), [2] = (0,425403), [3] = (0,397990), [4] = (0,549965), [5] = (0,432161), [6] = (0,347868), [7] = (0,334167), 
+4,25085,541006310,-;-(0)[0:swapper/0]Power/swap dpidle_block_cnt: [by_cpu] = 74841, [by_clk] = 225, [by_tmr] = 0, [by_oth] = 0, [by_vtg] = 0, [by_frm] = 0, [by_pll] = 0, [by_pwm] = 0, [by_dvfsp] = 0, [by_conn] = 0, 
+4,25086,541006338,-;-(0)[0:swapper/0]Power/swap dpidle_block_mask: 0x00000000, 0x00000000, 0x00000002, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 
+4,25087,541046193,-; (0)[253:wdtk-0][WDK]: kick Ex WDT,RT[541046178443]
+6,25088,541046488,-; (0)[253:wdtk-0][thread:253][RT:541046467905] 2026-09-07 04:32:40.788278 UTC;android time 2026-09-07 06:32:40.788278
+7,25089,541386242,-; (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (4, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 1, cur = 598000
+7,25090,541527768,-; (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (4, 0): freq = 598000 (598000), volt = 95000 (95000), cpus = 1, cur = 1001000
+3,25091,541607826,-; (0)[269:kworker/0:1][Auxadc] [AUXADC] ch:4(2a7, 60a, 1, 1)
+4,25092,541896213,-; (0)[269:kworker/0:1][HIF-SDIO][I]wmt_dev_tra_poll:**poll_during_time = 205440 > 3000, during_count = 2050 > 200, query
+6,25093,541896289,-; (0)[269:kworker/0:1][STP-PSM] [I]_stp_psm_do_wait: STP is waiting state for ACT, i=1, state = 2
+6,25094,541926165,-; (0)[269:kworker/0:1][STP-PSM] [I]_stp_psm_do_wait: +Total waits for ACT takes 29870 usec
+4,25095,541927400,-; (0)[269:kworker/0:1][HIF-SDIO][I]wmt_dev_tm_temp_query:[Thermal] current_temp = 0x2e
+6,25096,542579455,-; (0)[8557:tx_thread][name:wlan_drv_gen2&][wlan]statsParsePktInfo:(TX INFO) <TX status:0> Arp Req to IP: 192.168.1.1
+6,25097,542586883,-; (0)[286:hwservicemanage]binder: 286:286 ioctl c018620c 7fe6941340 returned -22
+3,25098,542607811,-; (0)[269:kworker/0:1][Auxadc] [AUXADC] ch:4(2a7, 60b, 1, 1)
+6,25099,542776141,-; (0)[8557:tx_thread][wlan]p2pFsmRunEventFsmTimeout:(P2P INFO) Force DeactivateNetwork
+6,25100,542777060,-; (0)[8557:tx_thread][name:wlan_drv_gen2&][wlan]qmHandleEventBssAbsencePresence:(QM INFO) NAF=1,0,0
+4,25101,543124608,-;-(0)[0:swapper/0]Power/swap DP: No enter --- SODI3: No enter --- SODI: No enter --- 
+3,25102,543607837,-; (0)[269:kworker/0:1][Auxadc] [AUXADC] ch:4(2a7, 60b, 1, 1)
+7,25103,543776279,-; (0)[73:cfinteractive][name:mt_cpufreq&][Power/cpufreq] @_cpufreq_set_locked(), MT_CPU_DVFS_LITTLE: (4, 0): freq = 1001000 (1001000), volt = 106875 (106875), cpus = 1, cur = 598000
+6,25104,543796578,-;-(1)[0:swapper/1]Detected VIPT I-cache on CPU1
+4,25105,543797410,-; (1)[232:hps_main][HPS] END :(0020)(1)(0) action end(100)(130)(0)(1) (4)(0)(1)(0) (6)(79)(1) (0)(0)(0) (1)(130)(80)(0)(130) (0)(2)(0)
+31,25106,543799422,-; (1)[293:logd.reader]logd: logdr: UID=0 GID=0 PID=9285 n tail=0 logMask=19 pid=0 start=0ns timeout=0ns

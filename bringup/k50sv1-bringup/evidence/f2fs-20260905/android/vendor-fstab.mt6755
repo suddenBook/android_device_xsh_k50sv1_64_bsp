@@ -1,0 +1,95 @@
+# Android Q first-stage mounts
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system    /system               ext4  ro                                          wait,first_stage_mount
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/vendor    /vendor               ext4  ro                                          wait,first_stage_mount
+
+# UNENCRYPTED userdata, by owner decision, on EVERY tier including Tier 3.
+#
+# This line used to carry
+#   forcefdeorfbe=/dev/block/platform/.../by-name/metadata
+# which is what made fs_mgr return FS_MGR_MNTALL_DEV_MIGHT_BE_ENCRYPTED, init
+# set ro.crypto.state=encrypted / ro.crypto.type=block, and vold run the whole
+# cryptfs FDE flow (builtins.cpp:576-580). Without it fs_mgr returns
+# FS_MGR_MNTALL_DEV_NOT_ENCRYPTABLE, init sets ro.crypto.state=unsupported and
+# fires the `nonencrypted` trigger instead (builtins.cpp:585-588). That path is
+# fully wired in AOSP: init.rc:770-772 `on nonencrypted` does class_start
+# main/late_start, and init.rc:645-649 `on zygote-start &&
+# property:ro.crypto.state=unsupported` starts netd and zygote. post-fs-data is
+# not deferred behind vold.decrypt at all -- init.rc:344 triggers it straight
+# from late-init.
+#
+# PRECONDITION, and the one way this change bricks a boot: /data MUST be wiped
+# on the flash that introduces it. If dm-crypt ciphertext is left in place,
+# partition_wiped() is false and is_encryptable() is now false, so
+# fs_mgr.cpp:1299-1316 takes its final else and increments error_count ->
+# FS_MGR_MNTALL_FAIL -> builtins.cpp:631-636 returns an error and queues NO
+# trigger at all. Not `nonencrypted`, not `encryption_failed`: nothing. No
+# class_start main, no framework, forever, with no message that names the
+# cause. tools/flash-tier-images.sh already erases userdata unconditionally --
+# this note exists so nobody "optimises" that away.
+#
+# Why: this is an engineering-sample board used for bring-up. The in-tree
+# releasekey/platform keyset was revoked (E-121; device/.../security/ is only
+# a README). FDE was protecting data on a device that is not trustworthy.
+#
+# What it actually cost is worth stating correctly, because the first version of
+# this comment guessed. It was NOT a "several-minute enablecrypto pass": on a
+# freshly formatted userdata the in-place encryption is cheap, because
+# EncryptInplace.cpp:170-244 walks the ext4 block bitmap and skips free blocks,
+# and :314-316 sizes the work from allocated blocks only. The cost was
+# structural. On every flash the framework was started TWICE --
+# vold/cryptfs.cpp:2780-2798 mounts a tmpfs /data and brings up `class main` on
+# it, then :2905-2906 tears that down and restarts main+late_start on the real
+# one -- plus two hardcoded sleep(2)s at :2795 and :2910; and on every boot
+# thereafter a scrypt key derivation and a dm-crypt setup ahead of `class main`.
+# The CPU does have ARMv8 crypto extensions (`Features: ... aes pmull sha1 sha2
+# ...`), so steady-state throughput was never the problem.
+#
+# Consequence to state rather than rediscover: /data is plaintext at rest, and
+# ro.crypto.state reads `unsupported`, not `unencrypted` -- the latter means
+# "encryptable but not encrypted", which is a different fstab (encryptable=).
+# The metadata partition is now unused; the flasher still erases it.
+#
+# Second consequence, and the only user-visible behaviour change found in the
+# framework: StorageManager.isEncryptable() is false, so
+# DevicePolicyManagerService.getStorageEncryptionStatus() returns
+# ENCRYPTION_STATUS_UNSUPPORTED rather than ENCRYPTION_STATUS_INACTIVE. Every
+# other consumer -- DirectBoot, UserManager.isUserUnlocked(), keystore
+# auth-bound keys, LockSettingsService -- short-circuits cleanly, and
+# UserManager.isUserUnlocked() is simply always true because there is no locked
+# phase to be in. Do NOT add `encryptable=` here to "tidy" the state string:
+# that flips is_encryptable() back on and puts the FDE machinery back.
+# F2FS evaluation: periodic vold FITRIM; keep flush barriers and crash recovery.
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata  /data  f2fs  noatime,nosuid,nodev,nodiscard  wait,check,formattable,quota
+# /cache is the one filesystem here that carries online `discard`, and it is
+# deliberately NOT covered by the no-trim invariant stated for nvdata below: it
+# holds no identity or calibration data and is wiped on every flash. AOSP's
+# guidance is to rely on periodic fstrim rather than online discard, so this is
+# an outlier inherited from stock rather than a policy. Left as it is because
+# changing it on a partition this build barely uses would be churn; recorded so
+# it is not misread as part of the nvdata rule.
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache     /cache                ext4  noatime,nosuid,nodev,noauto_da_alloc,discard  wait,check,formattable
+
+# MTK radio/calibration data filesystems. Never auto-format these identity and
+# calibration stores: an unreadable filesystem must fail visibly and be
+# restored from the verified backup, not be silently replaced with an empty one.
+# nvdata also deliberately omits online `discard`; policy refuses vold FITRIM
+# for the same reason, so both trim paths follow one invariant.
+# `nofail` is what keeps that visible instead of fatal: without it a mount
+# failure makes fs_mgr_mount_all return FS_MGR_MNTALL_FAIL and init's
+# queue_fs_event() then queues NO trigger at all -- not `nonencrypted`, not
+# `encryption_failed` -- so a corrupt calibration partition would leave the
+# handset with no framework and nothing naming the cause. Same mechanism as the
+# userdata note above; this is not the old FDE path, which this file removed.
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect1  /mnt/vendor/protect_f ext4  noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc  wait,check,nofail
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect2  /mnt/vendor/protect_s ext4  noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc  wait,check,nofail
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/nvdata    /mnt/vendor/nvdata    ext4  noatime,nosuid,nodev,noauto_da_alloc,commit=1             wait,check,nofail
+
+# Removable storage
+/devices/mtk-msdc.0/11240000.msdc1*                             auto                  auto  defaults                                    voldmanaged=sdcard1:auto,encryptable=userdata
+/devices/soc/11270000.usb3_xhci*                                auto                  auto  defaults                                    voldmanaged=usbotg:auto
+
+# Recovery-visible raw partitions
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/frp       /persistent           emmc  defaults                                    defaults
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/para      /misc                 emmc  defaults                                    defaults
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/boot      /boot                 emmc  defaults                                    defaults
+/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/recovery  /recovery             emmc  defaults                                    defaults

@@ -1,0 +1,65 @@
+{
+  "build": 19,
+  "checks": {
+    "capture_runtime": {
+      "process": {
+        "pid": 410,
+        "starttime": 20000
+      },
+      "status": "PASS"
+    },
+    "early_log_prefix_continuity": {
+      "status": "PASS"
+    },
+    "startup_attribution": {
+      "accepted_srh_patch": [
+        {
+          "level": "I",
+          "line": 2,
+          "message": "Accepted srh_patch session=12 transaction=22 result=0 records=2",
+          "pid": 410,
+          "raw": "09-07 03:10:02.123   410   410 I wmt_launcher: Accepted srh_patch session=12 transaction=22 result=0 records=2",
+          "records": 2,
+          "stamp": "09-07 03:10:02.123",
+          "tid": 410,
+          "transaction": 22
+        }
+      ],
+      "patch_required": true,
+      "pid": 410,
+      "power": [
+        {
+          "level": "I",
+          "line": 1,
+          "message": "Power initialization completed on attempt 1",
+          "pid": 410,
+          "raw": "09-07 03:10:02.123   410   411 I wmt_launcher: Power initialization completed on attempt 1",
+          "stamp": "09-07 03:10:02.123",
+          "tid": 411
+        }
+      ],
+      "ready": {
+        "level": "I",
+        "line": 3,
+        "message": "Source launcher ready on session=12",
+        "pid": 410,
+        "raw": "09-07 03:10:02.123   410   410 I wmt_launcher: Source launcher ready on session=12",
+        "stamp": "09-07 03:10:02.123",
+        "tid": 410
+      },
+      "session": 12,
+      "status": "PASS"
+    }
+  },
+  "cleanup": {
+    "errors": [],
+    "status": "NOT_NEEDED"
+  },
+  "commands": [],
+  "finished_utc": "2026-09-07T03:44:48.632089+00:00",
+  "mode": "capture",
+  "phase": "normal-reboot",
+  "probe_script_sha256": "f24e5657c3638dd12ef0d599b1928d168dd54df5ed5a93083e4b0da04afa25d2",
+  "started_utc": "2026-09-07T03:44:48.631248+00:00",
+  "status": "PASS"
+}

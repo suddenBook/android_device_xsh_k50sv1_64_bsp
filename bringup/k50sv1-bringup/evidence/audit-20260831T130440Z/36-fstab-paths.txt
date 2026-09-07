@@ -1,0 +1,37 @@
+=== REAL sysfs path of the SD host (mmc1) ===
+/sys/devices/mtk-msdc.0/11240000.msdc1/mmc_host/mmc1
+--- mmc0 (eMMC) ---
+/sys/devices/mtk-msdc.0/11230000.msdc0/mmc_host/mmc0
+
+=== does /devices/mtk-msdc.0/11240000.msdc1 exist under /sys ? ===
+/sys/devices/mtk-msdc.0
+/sys/devices/mtk-msdc.0/11240000.msdc1
+
+=== USB OTG controller: real path ===
+/sys/devices/soc/11270000.icusb
+/sys/devices/soc/11270000.usb0p
+/sys/devices/soc/11270000.usb3
+/sys/devices/soc/11270000.usb3_xhci
+--- what USB controllers exist ---
+/sys/devices/soc/11200000.usb1p
+/sys/devices/soc/11210000.usb1p_sif
+/sys/devices/soc/11270000.icusb
+/sys/devices/soc/11270000.usb0p
+/sys/devices/soc/11270000.usb3
+/sys/devices/soc/11270000.usb3_xhci
+/sys/devices/soc/11280000.usb0p_sif
+/sys/devices/soc/11280000.usb3_sif
+/sys/devices/soc/11290000.usb0p_sif2
+/sys/devices/soc/11290000.usb3_sif2
+/sys/devices/soc/soc:usb3_phy
+/sys/devices/soc/soc:usb_c_pinctrl@0
+/sys/devices/soc/soc:usbphy@0
+--- musb ---
+musb-hdrc
+
+=== vold fstab as vold sees it ===
+--------- beginning of events
+--------- beginning of main
+--------- beginning of radio
+--------- beginning of system
+--------- beginning of kernel

@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "boot_id": "a6177466-b0bb-4450-b031-6a6bf27cd9c5",
+  "path": "/vendor/bin/wmt_launcher",
+  "sha256": "70b5224af4276eef4a27a405919e5a147b24739569b3a24f5ee1cb8d3cd9a2a7",
+  "service_state": "running",
+  "original_elf_unchanged": true,
+  "raw_output": "a6177466-b0bb-4450-b031-6a6bf27cd9c5\n0\n70b5224af4276eef4a27a405919e5a147b24739569b3a24f5ee1cb8d3cd9a2a7  /vendor/bin/wmt_launcher\nrunning\n"
+}

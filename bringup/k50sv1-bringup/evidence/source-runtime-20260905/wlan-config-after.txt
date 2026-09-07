@@ -1,0 +1,9 @@
+PASS full-read
+PASS read-error
+PASS missing
+PASS empty
+PASS config-full
+PASS config-missing
+PASS config-allocation
+PASS config-read-error
+8/8 cases pass; failures: []

@@ -1,0 +1,482 @@
+{
+  "source_sha256": "6b1c2064039d7df5da266c4c10ead58cd9eec097594da389301bfa9d3082a8f5",
+  "fixture_sha256": "abdef275c9ff83a8f817b87991cc31f72787f5dd5a7f8b237ef0f05d3167422f",
+  "runner_sha256": "70ec03c1c52aabb4c14a5ded84d3cb30e69533229bc3de5ecb0f5975a2c2994f",
+  "host_sha256": "ceea1567d5188bce9b8748340ef46339166f5a2a47b3a063803078b3093e89fa",
+  "cases": [
+    {
+      "variant": "module-dynamic",
+      "case": "success-soc",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "variant": "module-dynamic",
+      "case": "success-combo",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "variant": "module-dynamic",
+      "case": "duplicate-init",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "variant": "module-dynamic",
+      "case": "exit-before-init",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "variant": "module-dynamic",
+      "case": "hif-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-dynamic",
+      "case": "stp-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-dynamic",
+      "case": "chrdev-region-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-dynamic",
+      "case": "cdev-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-dynamic",
+      "case": "class-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-dynamic",
+      "case": "device-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-dynamic",
+      "case": "library-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-dynamic",
+      "case": "hif-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-dynamic",
+      "case": "stp-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-dynamic",
+      "case": "chrdev-region-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-dynamic",
+      "case": "cdev-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-dynamic",
+      "case": "class-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-dynamic",
+      "case": "device-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-dynamic",
+      "case": "library-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-dynamic",
+      "case": "sequential-failures-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-static",
+      "case": "success-soc",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "variant": "module-static",
+      "case": "success-combo",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "variant": "module-static",
+      "case": "duplicate-init",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "variant": "module-static",
+      "case": "exit-before-init",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "variant": "module-static",
+      "case": "hif-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-static",
+      "case": "stp-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-static",
+      "case": "chrdev-region-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-static",
+      "case": "cdev-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-static",
+      "case": "library-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-static",
+      "case": "hif-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-static",
+      "case": "stp-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-static",
+      "case": "chrdev-region-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-static",
+      "case": "cdev-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-static",
+      "case": "library-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "module-static",
+      "case": "sequential-failures-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-dynamic",
+      "case": "success-soc",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "variant": "external-dynamic",
+      "case": "success-combo",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "variant": "external-dynamic",
+      "case": "duplicate-init",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "variant": "external-dynamic",
+      "case": "exit-before-init",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "variant": "external-dynamic",
+      "case": "stp-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-dynamic",
+      "case": "chrdev-region-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-dynamic",
+      "case": "cdev-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-dynamic",
+      "case": "class-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-dynamic",
+      "case": "device-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-dynamic",
+      "case": "library-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-dynamic",
+      "case": "stp-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-dynamic",
+      "case": "chrdev-region-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-dynamic",
+      "case": "cdev-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-dynamic",
+      "case": "class-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-dynamic",
+      "case": "device-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-dynamic",
+      "case": "library-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-dynamic",
+      "case": "sequential-failures-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-static",
+      "case": "success-soc",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "variant": "external-static",
+      "case": "success-combo",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "variant": "external-static",
+      "case": "duplicate-init",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "variant": "external-static",
+      "case": "exit-before-init",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "variant": "external-static",
+      "case": "stp-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-static",
+      "case": "chrdev-region-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-static",
+      "case": "cdev-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-static",
+      "case": "library-failure",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-static",
+      "case": "stp-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-static",
+      "case": "chrdev-region-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-static",
+      "case": "cdev-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-static",
+      "case": "library-failure-and-retry",
+      "exit_code": 1,
+      "pass": false
+    },
+    {
+      "variant": "external-static",
+      "case": "sequential-failures-and-retry",
+      "exit_code": 1,
+      "pass": false
+    }
+  ],
+  "passed": 16,
+  "total": 64,
+  "compiler": {
+    "module-dynamic": [
+      "cc",
+      "-std=gnu11",
+      "-O1",
+      "-g",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wno-unused-function",
+      "-Wno-unused-parameter",
+      "-fno-omit-frame-pointer",
+      "-fno-sanitize-recover=all",
+      "-no-pie",
+      "-fsanitize=address,undefined",
+      "-DMTK_WCN_REMOVE_KO=0",
+      "-DWMT_CREATE_NODE_DYNAMIC=1",
+      "-DLEGACY_LIBRARY_STEP_CLEANUP=1",
+      "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-outer-init-tests/baseline-final/test.c",
+      "-o",
+      "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-outer-init-tests/baseline-final/module-dynamic/test"
+    ],
+    "module-static": [
+      "cc",
+      "-std=gnu11",
+      "-O1",
+      "-g",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wno-unused-function",
+      "-Wno-unused-parameter",
+      "-fno-omit-frame-pointer",
+      "-fno-sanitize-recover=all",
+      "-no-pie",
+      "-fsanitize=address,undefined",
+      "-DMTK_WCN_REMOVE_KO=0",
+      "-DWMT_CREATE_NODE_DYNAMIC=0",
+      "-DLEGACY_LIBRARY_STEP_CLEANUP=1",
+      "-DCONFIG_EARLYSUSPEND",
+      "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-outer-init-tests/baseline-final/test.c",
+      "-o",
+      "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-outer-init-tests/baseline-final/module-static/test"
+    ],
+    "external-dynamic": [
+      "cc",
+      "-std=gnu11",
+      "-O1",
+      "-g",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wno-unused-function",
+      "-Wno-unused-parameter",
+      "-fno-omit-frame-pointer",
+      "-fno-sanitize-recover=all",
+      "-no-pie",
+      "-fsanitize=address,undefined",
+      "-DMTK_WCN_REMOVE_KO=1",
+      "-DWMT_CREATE_NODE_DYNAMIC=1",
+      "-DLEGACY_LIBRARY_STEP_CLEANUP=1",
+      "-DCONFIG_EARLYSUSPEND",
+      "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-outer-init-tests/baseline-final/test.c",
+      "-o",
+      "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-outer-init-tests/baseline-final/external-dynamic/test"
+    ],
+    "external-static": [
+      "cc",
+      "-std=gnu11",
+      "-O1",
+      "-g",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wno-unused-function",
+      "-Wno-unused-parameter",
+      "-fno-omit-frame-pointer",
+      "-fno-sanitize-recover=all",
+      "-no-pie",
+      "-fsanitize=address,undefined",
+      "-DMTK_WCN_REMOVE_KO=1",
+      "-DWMT_CREATE_NODE_DYNAMIC=0",
+      "-DLEGACY_LIBRARY_STEP_CLEANUP=1",
+      "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-outer-init-tests/baseline-final/test.c",
+      "-o",
+      "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-outer-init-tests/baseline-final/external-static/test"
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "mode": "source",
+  "status": "PASS",
+  "tool_sha256": "689a00ffbea5964c01ce8439bc0ca25378e559920d4b72bfc2b83db2ecdcb013",
+  "scanned_trees": [
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/device/xsh/k50sv1_64_bsp",
+      "text_files": 271
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/lineage-17.1/vendor/xsh/k50sv1_64_bsp",
+      "text_files": 139
+    }
+  ],
+  "home_policy": "upstream Q priority selection; inherited Trebuchet HOME"
+}
+HOME role source: unmodified upstream Q tree; clean committed checkout

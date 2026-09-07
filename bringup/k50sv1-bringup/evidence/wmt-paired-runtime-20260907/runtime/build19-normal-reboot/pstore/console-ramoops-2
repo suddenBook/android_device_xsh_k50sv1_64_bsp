@@ -1,0 +1,8 @@
+>    0.270924< SPM_SW_RSV5(0xffffffff) 3pll init(val0=0x2000)
+>   12.464638< #@# spm_load_pcm_firmware_nodev(1078) use_new_spmfw 0, segment 0x1
+>   12.473744<  spm fw version(0) = pcm_suspend_v1.3_20160217
+>   12.477177<  spm fw version(1) = pcm_suspend_by_mp1_v1.3_20160217
+>   12.484332<  spm fw version(2) = pcm_sodi_ddrdfs_v1.2.3_20160401_dummyread
+>   12.492075<  spm fw version(3) = pcm_sodi_ddrdfs_by_mp1_v1.2.3_20160401_dummyread
+>   12.495624<  spm fw version(4) = pcm_deepidle_v1.1_20151207_Exp
+>   12.504192<  spm fw version(5) = pcm_deepidle_by_mp1_v1.1_20151207_Exp

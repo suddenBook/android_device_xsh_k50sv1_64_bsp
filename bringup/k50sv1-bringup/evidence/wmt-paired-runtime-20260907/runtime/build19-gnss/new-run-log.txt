@@ -1,0 +1,14 @@
+  2437.502135 14139 14139 I K50GnssProbe: elapsed_ms=26 request provider_enabled=true
+  2437.788020 14139 14139 I K50GnssProbe: elapsed_ms=312 satellite_status count=11 used=0
+  2437.788230 14139 14139 I K50GnssProbe: elapsed_ms=313 gnss_started
+  2438.283455 14139 14139 I K50GnssProbe: elapsed_ms=808 satellite_status count=11 used=0
+  2438.781465 14139 14139 I K50GnssProbe: elapsed_ms=1306 satellite_status count=11 used=0
+  2453.280291 14139 14139 I K50GnssProbe: elapsed_ms=15805 satellite_status count=11 used=0
+  2473.280331 14139 14139 I K50GnssProbe: elapsed_ms=35805 satellite_status count=11 used=0
+  2493.280694 14139 14139 I K50GnssProbe: elapsed_ms=55805 satellite_status count=11 used=0
+  2513.280839 14139 14139 I K50GnssProbe: elapsed_ms=75805 satellite_status count=11 used=0
+  2533.279961 14139 14139 I K50GnssProbe: elapsed_ms=95804 satellite_status count=11 used=0
+  2553.280580 14139 14139 I K50GnssProbe: elapsed_ms=115805 satellite_status count=11 used=0
+  2557.509657 14139 14139 I K50GnssProbe: elapsed_ms=120034 location_request_removed
+  2557.536448 14139 14139 I K50GnssProbe: elapsed_ms=120061 gnss_stopped
+  2562.515520 14139 14139 I K50GnssProbe: elapsed_ms=125040 summary started=true stopped=true fixes=0 status_callbacks=124 max_satellites=11 max_used=0

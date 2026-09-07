@@ -1,0 +1,44 @@
+{
+  "header_sha256": "4ea77989d01fa91b6cf2377aea59f679f02b3c9714b3052fa3ac014a2eec5c13",
+  "source_sha256": "e90029a3d629fd7c3e0d1a316eac4e849ec6fd2f394543123a3a55f19adfa30b",
+  "checks": [
+    {
+      "bits": 32,
+      "command": [
+        "cc",
+        "-m32",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I/usr/include/x86_64-linux-gnu",
+        "-c",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/uapi-layout/layout.c",
+        "-o",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/uapi-layout/layout-32.o"
+      ],
+      "exit_code": 0,
+      "object_sha256": "cfd886ad050cb6b7f1b05648c8eaf5752ff29ebfa123e57e8aeaa86c4eeb6f31",
+      "file": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/uapi-layout/layout-32.o: ELF 32-bit LSB relocatable, Intel i386, version 1 (SYSV), not stripped"
+    },
+    {
+      "bits": 64,
+      "command": [
+        "cc",
+        "-m64",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I/usr/include/x86_64-linux-gnu",
+        "-c",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/uapi-layout/layout.c",
+        "-o",
+        "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/uapi-layout/layout-64.o"
+      ],
+      "exit_code": 0,
+      "object_sha256": "6cd0a0c5d757e92ff020194b704eef8e4da535b25abfb04629479c9e350ed18a",
+      "file": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-v2-tests/uapi-layout/layout-64.o: ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), not stripped"
+    }
+  ]
+}

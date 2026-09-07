@@ -1,0 +1,181 @@
+From 0eb4d70a7594f3dd7c7fabc572fb4f25efaa586f Mon Sep 17 00:00:00 2001
+From: Huixiaqing Liu <huixiaqingliu@outlook.com>
+Date: Mon, 7 Sep 2026 11:24:37 +0200
+Subject: [PATCH 24/25] ims: require phone permissions for mtkIms transactions
+
+---
+ extract-files.sh | 128 +++++++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 112 insertions(+), 16 deletions(-)
+
+diff --git a/extract-files.sh b/extract-files.sh
+index 9045f1c..0659eed 100755
+--- a/extract-files.sh
++++ b/extract-files.sh
+@@ -37,6 +37,8 @@ function patch_ims_apk() {
+     local apk="$1"
+     local expected_apk_sha="06e62235bc7b30655f5dfcd2efaa7ab6a9b4c6f1efd6a6f8ce49ce1e62da3ff5"
+     local expected_dex_sha="6aa7926e7974420e7fc5ea6e96c5287617a6a826dc60a46a7996f793bd986deb"
++    local patched_apk_sha="ff55365eb8e9727312e00f8570c4eb88c8345e50bf11b94224d98d102efba9a0"
++    local patched_dex_sha="2bae8ed5350cb1be05d68b3671f2a98912e62200af10ef2b61bd1d812bc24315"
+     local baksmali_jar="${LINEAGE_ROOT}/prebuilts/tools-lineage/common/smali/baksmali.jar"
+     local smali_jar="${LINEAGE_ROOT}/prebuilts/tools-lineage/common/smali/smali.jar"
+     local apk_sha
+@@ -44,11 +46,14 @@ function patch_ims_apk() {
+     local patch_dir
+ 
+     apk_sha="$(sha256sum "${apk}" | awk '{ print $1 }')"
++    if [[ "${apk_sha}" == "${patched_apk_sha}" ]]; then
++        return 0
++    fi
+     if [[ "${apk_sha}" != "${expected_apk_sha}" ]]; then
+-        echo "Refusing to patch an unknown ImsService.apk: ${apk_sha}" >&2
++        echo "Refusing ImsService.apk ${apk_sha}; re-extract from Stock" >&2
+         return 1
+     fi
+-    for tool in java unzip zip; do
++    for tool in java python3 unzip zip; do
+         if ! command -v "${tool}" >/dev/null 2>&1; then
+             echo "Missing IMS patch dependency: ${tool}" >&2
+             return 1
+@@ -137,6 +142,107 @@ function patch_ims_apk() {
+             exit 1
+         fi
+ 
++        # mtkIms is a separate Binder endpoint from WFO. Enforce standard phone
++        # permissions in its concrete class before the bootclasspath Stub
++        # unmarshals requests. Controller-returning getters and SMS-listener
++        # replacement require MODIFY; ordinary state queries/observers use READ.
++        # Keep the existing setCallIndication check and all direct IMS paths.
++        python3 - "${patch_dir}/smali/com/mediatek/ims/MtkImsService.smali" <<'IMSAUTHEOF'
++import re
++import sys
++
++path = sys.argv[1]
++src = open(path).read()
++# IMtkImsService.Stub transaction order in the selected mediatek-ims-base.jar.
++methods = [
++    'setCallIndication(ILjava/lang/String;Ljava/lang/String;ILjava/lang/String;ZI)V',
++    'createMtkCallSession(ILandroid/telephony/ims/ImsCallProfile;Landroid/telephony/ims/aidl/IImsCallSessionListener;Lcom/android/ims/internal/IImsCallSession;)Lcom/mediatek/ims/internal/IMtkImsCallSession;',
++    'getPendingMtkCallSession(ILjava/lang/String;)Lcom/mediatek/ims/internal/IMtkImsCallSession;',
++    'getImsState(I)I',
++    'getImsRegUriType(I)I',
++    'hangupAllCall(I)V',
++    'deregisterIms(I)V',
++    'updateRadioState(II)V',
++    'UpdateImsState(I)V',
++    'getConfigInterfaceEx(I)Lcom/mediatek/ims/internal/IMtkImsConfig;',
++    'getMtkUtInterface(I)Lcom/mediatek/ims/internal/IMtkImsUt;',
++    'runGbaAuthentication(Ljava/lang/String;[BZII)Lcom/mediatek/gba/NafSessionKey;',
++    'getModemMultiImsCount()I',
++    'getCurrentCallCount(I)I',
++    'getImsNetworkState(I)[I',
++    'addImsSmsListener(ILandroid/telephony/ims/aidl/IImsSmsListener;)V',
++    'sendSms(IIILjava/lang/String;Ljava/lang/String;Z[B)V',
++    'registerProprietaryImsListener(ILcom/android/ims/internal/IImsRegistrationListener;Lcom/mediatek/ims/internal/IMtkImsRegistrationListener;Z)V',
++    'isCameraAvailable()Z',
++    'setMTRedirect(IZ)V',
++    'fallBackAospMTFlow(I)V',
++    'setSipHeader(ILjava/util/Map;Ljava/lang/String;)V',
++    'changeEnabledCapabilities(ILandroid/telephony/ims/feature/CapabilityChangeRequest;)V',
++    'setImsPreCallInfo(IILjava/lang/String;Ljava/lang/String;Ljava/util/Map;[Ljava/lang/String;)V',
++]
++actual_methods = re.findall(r'^\.method public (\w+\([^\n]+)$', src, re.M)
++if len(methods) != 24 or sorted(actual_methods) != sorted(methods):
++    raise SystemExit('unexpected MtkImsService method signatures')
++read_codes = {4, 5, 13, 14, 15, 18, 19}
++field = '.field private mImsService:Lcom/mediatek/ims/ImsService;'
++constructor = '.method public constructor <init>(Landroid/content/Context;Lcom/mediatek/ims/ImsService;)V'
++super_init = '    invoke-direct {p0}, Lcom/mediatek/ims/internal/IMtkImsService$Stub;-><init>()V'
++for declaration in (
++    '.class public Lcom/mediatek/ims/MtkImsService;',
++    '.super Lcom/mediatek/ims/internal/IMtkImsService$Stub;',
++    field, constructor, super_init,
++):
++    if src.splitlines().count(declaration) != 1:
++        raise SystemExit('unexpected MtkImsService declaration: ' + declaration)
++if 'mContext:' in src or 'onTransact(' in src:
++    raise SystemExit('MtkImsService already has context/transaction handling')
++src = src.replace(field, '.field private final mContext:Landroid/content/Context;\n\n' + field, 1)
++src = src.replace(super_init, super_init + '\n\n    iput-object p1, p0, Lcom/mediatek/ims/MtkImsService;->mContext:Landroid/content/Context;', 1)
++
++guard = r'''.method public onTransact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z
++    .locals 3
++    .annotation system Ldalvik/annotation/Throws;
++        value = {
++            Landroid/os/RemoteException;
++        }
++    .end annotation
++
++    packed-switch p1, :pswitch_data_k50sv1_ims_permission
++
++    goto :goto_k50sv1_ims_dispatch
++
++    :pswitch_k50sv1_ims_read
++    const-string v1, "android.permission.READ_PRIVILEGED_PHONE_STATE"
++
++    goto :goto_k50sv1_ims_enforce
++
++    :pswitch_k50sv1_ims_modify
++    const-string v1, "android.permission.MODIFY_PHONE_STATE"
++
++    :goto_k50sv1_ims_enforce
++    iget-object v0, p0, Lcom/mediatek/ims/MtkImsService;->mContext:Landroid/content/Context;
++
++    const-string v2, "MtkImsService"
++
++    invoke-virtual {v0, v1, v2}, Landroid/content/Context;->enforceCallingOrSelfPermission(Ljava/lang/String;Ljava/lang/String;)V
++
++    :goto_k50sv1_ims_dispatch
++    invoke-super {p0, p1, p2, p3, p4}, Lcom/mediatek/ims/internal/IMtkImsService$Stub;->onTransact(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z
++
++    move-result v0
++
++    return v0
++
++    :pswitch_data_k50sv1_ims_permission
++    .packed-switch 0x1
++'''
++guard += ''.join('        :pswitch_k50sv1_ims_' +
++                 ('read' if code in read_codes else 'modify') + '\n'
++                 for code in range(1, len(methods) + 1))
++guard += '    .end packed-switch\n.end method\n'
++open(path, 'w').write(src.rstrip() + '\n\n' + guard)
++IMSAUTHEOF
++
+         java -jar "${smali_jar}" assemble -j 1 \
+             "${patch_dir}/smali" -o "${patch_dir}/classes.dex"
+ 
+@@ -158,26 +264,16 @@ function patch_ims_apk() {
+             zip -q -X ImsService.apk classes.dex
+         )
+         unzip -tq "${patch_dir}/ImsService.apk" >/dev/null
+-        # These two pins are reproducibility gates, not integrity gates: the
+-        # input APK is already SHA-256 checked above. They exist so that a
+-        # toolchain change, a resource-ID shift or an unintended smali edit is a
+-        # loud failure. Both were re-derived when the WFO startup call stopped
+-        # being deleted (E-087); the previous values were
+-        # 3d604f601fe96110598fdda69f675f16751e6b78c47275b9225686b4fcb58a1c and
+-        # 022d324338cdfac31c78c4babb4871eca311d72b35c9fe2349ab7986a5d91e6e.
+-        # Both new values were confirmed to reproduce across two runs, and the
+-        # resulting dex was checked to carry the four LINEAGE resource IDs and
+-        # exactly one makeWfoService() call.
++        # Output pins keep the resource rewrites, WFO startup and Binder guard
++        # reproducible with the selected smali toolchain.
+         dex_sha="$(unzip -p "${patch_dir}/ImsService.apk" classes.dex \
+             | sha256sum | awk '{ print $1 }')"
+-        if [[ "${dex_sha}" != \
+-              "d5bfa7cca540029899e48040aadc35fde6e5846cb2150d0e70b5263e1f00d638" ]]; then
++        if [[ "${dex_sha}" != "${patched_dex_sha}" ]]; then
+             echo "Non-reproducible patched IMS classes.dex: ${dex_sha}" >&2
+             exit 1
+         fi
+         apk_sha="$(sha256sum "${patch_dir}/ImsService.apk" | awk '{ print $1 }')"
+-        if [[ "${apk_sha}" != \
+-              "c762f544596c1066c1ed36feb78ee00d7035262bf087572a7c8026f2f8629a8b" ]]; then
++        if [[ "${apk_sha}" != "${patched_apk_sha}" ]]; then
+             echo "Non-reproducible patched ImsService.apk: ${apk_sha}" >&2
+             exit 1
+         fi
+-- 
+2.55.0
+

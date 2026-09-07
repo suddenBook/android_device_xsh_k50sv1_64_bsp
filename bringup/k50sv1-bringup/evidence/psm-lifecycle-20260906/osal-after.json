@@ -1,0 +1,91 @@
+{
+  "source_sha256": {
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/osal.c": "366b1171b2d308e40002411710788d0899d34c5d094f87e45338bd61f96e88d2",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/include/osal.h": "1f0164f2fd5a3cd6b1805314f43ae51cce1850832f7911e4c7a6491a1906a1ad"
+  },
+  "fixture_sha256": "995b4592a4d4ae9dc58a53b00635b632535509eacce104d2c3e252fbc1577c42",
+  "runner_sha256": "825404cfdb28c1b328c8090d910d5a0c7fe159201dd89af00feff1ced905e32c",
+  "host_sha256": "5ea646aa7726b505b32f607c4928ca8511f3d41f52c07e53571fa59d46090589",
+  "cases": [
+    {
+      "case": "thread-create-run-destroy",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "case": "thread-enomem-clears-handle",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "case": "thread-preserves-eintr",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "case": "fifo-descriptor-allocation-failure",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "case": "fifo-data-allocation-failure",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "case": "fifo-roundtrip-and-release",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "case": "fifo-reinitialization-releases-descriptor",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "case": "fifo-invalid-external-capacity",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "case": "wake-source-allocation-failure",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "case": "wake-source-idempotent-init",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "case": "retry-after-allocation-failures",
+      "exit_code": 0,
+      "pass": true
+    },
+    {
+      "case": "invalid-initializer-arguments",
+      "exit_code": 0,
+      "pass": true
+    }
+  ],
+  "passed": 12,
+  "total": 12,
+  "compiler": [
+    "cc",
+    "-std=gnu11",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Wno-pointer-sign",
+    "-Wno-unused-function",
+    "-Wno-unused-parameter",
+    "-Wno-sign-compare",
+    "-fno-omit-frame-pointer",
+    "-no-pie",
+    "-fsanitize=address,undefined",
+    "../psm-lifecycle-tests/osal-after-final/test.c",
+    "-o",
+    "../psm-lifecycle-tests/osal-after-final/test"
+  ]
+}

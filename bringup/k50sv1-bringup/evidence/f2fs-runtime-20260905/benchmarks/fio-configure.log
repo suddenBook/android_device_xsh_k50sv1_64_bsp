@@ -1,0 +1,111 @@
+Operating system              Android
+CPU                           arm64
+Big endian                    no
+Compiler                      /home/desmond/Android/Sdk/ndk/30.0.15729638/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang
+Cross compile                 yes
+
+Static build                  no
+Wordsize                      64
+zlib                          yes
+fcntl(F_FULLFSYNC)            no
+Linux AIO support             no
+Linux AIO support rw flags    no
+POSIX AIO support             no
+POSIX AIO support needs -lrt  no
+POSIX AIO fsync               no
+POSIX pshared support         yes
+pthread_condattr_setclock()   yes
+pthread_sigmask()             yes
+pthread_getaffinity_np()      no
+Solaris AIO support           no
+__sync_fetch_and_add          yes
+__sync_synchronize            yes
+__sync_val_compare_and_swap   yes
+libverbs                      no
+rdmacm                        no
+asprintf()                    yes
+vasprintf()                   yes
+Linux fallocate               yes
+POSIX fadvise                 yes
+POSIX fallocate               yes
+sched_setaffinity(3 arg)      yes
+sched_setaffinity(2 arg)      no
+clock_gettime                 yes
+CLOCK_MONOTONIC               yes
+gettimeofday                  yes
+fdatasync                     yes
+pipe()                        yes
+pipe2()                       yes
+pread()                       yes
+sync_file_range               yes
+syncfs                        yes
+ASharedMemory_create          no
+EXT4 move extent              no
+Linux splice(2)               yes
+libnuma                       no
+strsep                        yes
+strcasestr                    yes
+strlcat                       yes
+getopt_long_only()            yes
+inet_aton                     yes
+socklen_t                     yes
+__thread                      yes
+RUSAGE_THREAD                 yes
+SCHED_IDLE                    yes
+TCP_NODELAY                   yes
+vsock                         yes
+Net engine window_size        yes
+TCP_MAXSEG                    yes
+RLIMIT_MEMLOCK                yes
+pwritev/preadv                yes
+pwritev2/preadv2              no
+IPv6 helpers                  yes
+http engine                   no
+Rados engine                  no
+Rados Block Device engine     no
+setvbuf                       yes
+Gluster API engine            no
+s390_z196_facilities          no
+HDFS engine                   no
+MTD                           yes
+libpmem                       no
+libpmem1_5                    no
+libpmem2                      no
+PMDK dev-dax engine           no
+PMDK libpmem engine           no
+DDN's Infinite Memory Engine  no
+iscsi engine                  no
+NBD engine                    no
+DAOS File System (dfs) Engine no
+NFS engine                    no
+lex/yacc for arithmetic       no
+getmntent                     yes
+getmntinfo                    no
+Static Assert                 yes
+bool                          yes
+strndup                       yes
+Valgrind headers              no
+Zoned block device support    yes
+Zoned block device capacity   yes
+libzbc engine                 no
+NVMe uring command support    yes
+xnvme engine                  no
+isal CRC64                    no
+libblkio engine               no
+march_armv8_a_crc_crypto      yes
+cuda                          no
+libcufile                     no
+Build march=native            no
+CUnit                         no
+__kernel_rwf_t                yes
+-Wimplicit-fallthrough=2      yes
+-Wno-stringop-truncation      no
+MADV_HUGEPAGE                 yes
+gettid                        yes
+statx(2)/libc                 no
+statx(2)/syscall              yes
+Windows PDB generation        no
+timerfd_create                yes
+Lib-based ioengines dynamic   no
+TCMalloc support              no
+seed_buckets                  4

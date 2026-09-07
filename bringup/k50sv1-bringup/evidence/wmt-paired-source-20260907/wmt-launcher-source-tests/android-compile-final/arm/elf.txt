@@ -1,0 +1,337 @@
+ELF Header:
+  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Position-Independent Executable file)
+  Machine:                           ARM
+  Version:                           0x1
+  Entry point address:               0x1f41
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          71336 (bytes into file)
+  Flags:                             0x5000200, Version5 EABI, soft-float ABI
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         12
+  Size of section headers:           40 (bytes)
+  Number of section headers:         35
+  Section header string table index: 33
+
+Dynamic section at offset 0x3bf0 contains 26 entries:
+  Tag        Type                         Name/Value
+ 0x00000001 (NEEDED)                     Shared library: [libcutils.so]
+ 0x00000001 (NEEDED)                     Shared library: [liblog.so]
+ 0x00000001 (NEEDED)                     Shared library: [libdl.so]
+ 0x00000001 (NEEDED)                     Shared library: [libc.so]
+ 0x0000001e (FLAGS)                      BIND_NOW
+ 0x6ffffffb (FLAGS_1)                    Flags: NOW PIE
+ 0x00000015 (DEBUG)                      0x0
+ 0x00000011 (REL)                        0x880
+ 0x00000012 (RELSZ)                      32 (bytes)
+ 0x00000013 (RELENT)                     8 (bytes)
+ 0x6fffe000 (Operating System specific: 6fffe000)        0x8a0
+ 0x6fffe001 (Operating System specific: 6fffe001)        0x10
+ 0x6fffe003 (Operating System specific: 6fffe003)        0x4
+ 0x00000017 (JMPREL)                     0x920
+ 0x00000002 (PLTRELSZ)                   368 (bytes)
+ 0x00000003 (PLTGOT)                     0x5cdc
+ 0x00000014 (PLTREL)                     REL
+ 0x00000006 (SYMTAB)                     0x260
+ 0x0000000b (SYMENT)                     16 (bytes)
+ 0x00000005 (STRTAB)                     0x660
+ 0x0000000a (STRSZ)                      542 (bytes)
+ 0x6ffffef5 (GNU_HASH)                   0x648
+ 0x6ffffff0 (VERSYM)                     0x590
+ 0x6ffffffe (VERNEED)                    0x5f8
+ 0x6fffffff (VERNEEDNUM)                 2
+ 0x00000000 (NULL)                       0x0
+
+Symbol table '.dynsym' contains 51 entries:
+   Num:    Value  Size Type    Bind   Vis      Ndx Name
+     0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 00000000     0 FUNC    GLOBAL DEFAULT  UND __libc_init@LIBC (2)
+     2: 00000000     0 FUNC    GLOBAL DEFAULT  UND __cxa_atexit@LIBC (2)
+     3: 00000000     0 FUNC    GLOBAL DEFAULT  UND __register_atfork@LIBC (2)
+     4: 00000000     0 FUNC    GLOBAL DEFAULT  UND __aeabi_memclr8
+     5: 00000000     0 FUNC    GLOBAL DEFAULT  UND getopt@LIBC (2)
+     6: 00000000     0 FUNC    GLOBAL DEFAULT  UND fwrite@LIBC (2)
+     7: 00000000     0 FUNC    GLOBAL DEFAULT  UND strnlen@LIBC (2)
+     8: 00000000     0 FUNC    GLOBAL DEFAULT  UND sigemptyset@LIBC (2)
+     9: 00000000     0 FUNC    GLOBAL DEFAULT  UND sigaction@LIBC (2)
+    10: 00000000     0 FUNC    GLOBAL DEFAULT  UND __errno@LIBC (2)
+    11: 00000000     0 FUNC    GLOBAL DEFAULT  UND strerror@LIBC (2)
+    12: 00000000     0 FUNC    GLOBAL DEFAULT  UND __android_log_print@LIBLOG (3)
+    13: 00000000     0 FUNC    GLOBAL DEFAULT  UND close@LIBC (2)
+    14: 00000000     0 FUNC    GLOBAL DEFAULT  UND ioctl@LIBC (2)
+    15: 00000000     0 FUNC    GLOBAL DEFAULT  UND property_set
+    16: 00000000     0 FUNC    GLOBAL DEFAULT  UND pthread_create@LIBC (2)
+    17: 00000000     0 FUNC    GLOBAL DEFAULT  UND pthread_join@LIBC (2)
+    18: 00000000     0 OBJECT  GLOBAL DEFAULT  UND optarg@LIBC (2)
+    19: 00000000     0 OBJECT  GLOBAL DEFAULT  UND stdout@LIBC (2)
+    20: 00000000     0 OBJECT  GLOBAL DEFAULT  UND stderr@LIBC (2)
+    21: 00000000     0 OBJECT  GLOBAL DEFAULT  UND optind@LIBC (2)
+    22: 00000000     0 FUNC    GLOBAL DEFAULT  UND usleep@LIBC (2)
+    23: 00000000     0 FUNC    GLOBAL DEFAULT  UND property_get
+    24: 00000000     0 FUNC    GLOBAL DEFAULT  UND __open_2@LIBC (2)
+    25: 00000000     0 FUNC    GLOBAL DEFAULT  UND strtoul@LIBC (2)
+    26: 00000000     0 FUNC    GLOBAL DEFAULT  UND strcmp@LIBC (2)
+    27: 00000000     0 FUNC    GLOBAL DEFAULT  UND __aeabi_memcpy
+    28: 00000000     0 FUNC    GLOBAL DEFAULT  UND poll@LIBC (2)
+    29: 00000000     0 FUNC    GLOBAL DEFAULT  UND read@LIBC (2)
+    30: 00000000     0 FUNC    GLOBAL DEFAULT  UND memcmp@LIBC (2)
+    31: 00000000     0 FUNC    GLOBAL DEFAULT  UND __aeabi_memcpy8
+    32: 00000000     0 FUNC    GLOBAL DEFAULT  UND __aeabi_memcpy4
+    33: 00000000     0 FUNC    GLOBAL DEFAULT  UND __write_chk@LIBC_N (4)
+    34: 00000000     0 FUNC    GLOBAL DEFAULT  UND memchr@LIBC (2)
+    35: 00000000     0 FUNC    GLOBAL DEFAULT  UND __memcpy_chk@LIBC (2)
+    36: 00000000     0 FUNC    GLOBAL DEFAULT  UND __aeabi_memclr
+    37: 00000000     0 FUNC    GLOBAL DEFAULT  UND strlen@LIBC (2)
+    38: 00000000     0 FUNC    GLOBAL DEFAULT  UND strchr@LIBC (2)
+    39: 00000000     0 FUNC    GLOBAL DEFAULT  UND opendir@LIBC (2)
+    40: 00000000     0 FUNC    GLOBAL DEFAULT  UND readdir@LIBC (2)
+    41: 00000000     0 FUNC    GLOBAL DEFAULT  UND strncmp@LIBC (2)
+    42: 00000000     0 FUNC    GLOBAL DEFAULT  UND dirfd@LIBC (2)
+    43: 00000000     0 FUNC    GLOBAL DEFAULT  UND __openat_2@LIBC (2)
+    44: 00000000     0 FUNC    GLOBAL DEFAULT  UND fstat@LIBC (2)
+    45: 00000000     0 FUNC    GLOBAL DEFAULT  UND closedir@LIBC (2)
+    46: 00000000     0 FUNC    GLOBAL DEFAULT  UND __read_chk@LIBC (2)
+    47: 00000000     0 FUNC    GLOBAL DEFAULT  UND strstr@LIBC (2)
+    48: 00000000     0 FUNC    GLOBAL DEFAULT  UND malloc@LIBC (2)
+    49: 00000000     0 FUNC    GLOBAL DEFAULT  UND lseek@LIBC (2)
+    50: 00000000     0 FUNC    GLOBAL DEFAULT  UND free@LIBC (2)
+
+Symbol table '.symtab' contains 231 entries:
+   Num:    Value  Size Type    Bind   Vis      Ndx Name
+     0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 00001f40     0 NOTYPE  LOCAL  DEFAULT   13 $t
+     2: 00001f51    80 FUNC    LOCAL  DEFAULT   13 _start_main
+     3: 00001f50     0 NOTYPE  LOCAL  DEFAULT   13 $t
+     4: 00001f90     0 NOTYPE  LOCAL  DEFAULT   13 $d
+     5: 00006da0    12 OBJECT  LOCAL  DEFAULT   21 fini_array_with_sentinels
+     6: 00001fa0     0 NOTYPE  LOCAL  DEFAULT   13 $t
+     7: 00001fa8     0 NOTYPE  LOCAL  DEFAULT   13 $t
+     8: 00001fb8     0 NOTYPE  LOCAL  DEFAULT   13 $d
+     9: 00001fc0     0 NOTYPE  LOCAL  DEFAULT   13 $t
+    10: 00001fc8     0 NOTYPE  LOCAL  DEFAULT   13 $d
+    11: 00001fcd    44 FUNC    LOCAL  DEFAULT   13 call_fini_array
+    12: 00001fcc     0 NOTYPE  LOCAL  DEFAULT   13 $t
+    13: 00001ff0     0 NOTYPE  LOCAL  DEFAULT   13 $d
+    14: 000001c8   152 OBJECT  LOCAL  DEFAULT    2 note_android_ident
+    15: 000001dc     0 NOTYPE  LOCAL  DEFAULT    2 note_data
+    16: 000001d4     0 NOTYPE  LOCAL  DEFAULT    2 note_name
+    17: 00000260     0 NOTYPE  LOCAL  DEFAULT    2 note_end
+    18: 000001e0     0 NOTYPE  LOCAL  DEFAULT    2 ndk_version
+    19: 00000220     0 NOTYPE  LOCAL  DEFAULT    2 ndk_build_number
+    20: 00001fa1     8 FUNC    LOCAL  HIDDEN    13 __atexit_handler_wrapper
+    21: 00001fa9    24 FUNC    LOCAL  HIDDEN    13 atexit
+    22: 00006dac     4 OBJECT  LOCAL  HIDDEN    22 __dso_handle
+    23: 00001fc1    12 FUNC    LOCAL  HIDDEN    13 pthread_atfork
+    24: 00000000     0 FILE    LOCAL  DEFAULT  ABS main.c
+    25: 00002000     0 NOTYPE  LOCAL  DEFAULT   13 $a
+    26: 00002670   288 FUNC    LOCAL  DEFAULT   13 open_driver
+    27: 00002790   408 FUNC    LOCAL  DEFAULT   13 check_chip
+    28: 00003520   132 FUNC    LOCAL  DEFAULT   13 stop_firmware_log
+    29: 000035a4    88 FUNC    LOCAL  DEFAULT   13 publish
+    30: 00002a84  2716 FUNC    LOCAL  DEFAULT   13 command_loop
+    31: 000025c0     0 NOTYPE  LOCAL  DEFAULT   13 $d
+    32: 00002928   348 FUNC    LOCAL  DEFAULT   13 power_on
+    33: 00006db0     4 OBJECT  LOCAL  DEFAULT   22 stop_requested
+    34: 00002650    32 FUNC    LOCAL  DEFAULT   13 request_stop
+    35: 00002650     0 NOTYPE  LOCAL  DEFAULT   13 $a
+    36: 0000266c     0 NOTYPE  LOCAL  DEFAULT   13 $d
+    37: 00002670     0 NOTYPE  LOCAL  DEFAULT   13 $a
+    38: 00002770     0 NOTYPE  LOCAL  DEFAULT   13 $d
+    39: 00002790     0 NOTYPE  LOCAL  DEFAULT   13 $a
+    40: 00002918     0 NOTYPE  LOCAL  DEFAULT   13 $d
+    41: 00002928     0 NOTYPE  LOCAL  DEFAULT   13 $a
+    42: 00002a70     0 NOTYPE  LOCAL  DEFAULT   13 $d
+    43: 00002a84     0 NOTYPE  LOCAL  DEFAULT   13 $a
+    44: 00003490     0 NOTYPE  LOCAL  DEFAULT   13 $d
+    45: 000035fc   168 FUNC    LOCAL  DEFAULT   13 set_firmware_log
+    46: 00003520     0 NOTYPE  LOCAL  DEFAULT   13 $a
+    47: 000035f4     0 NOTYPE  LOCAL  DEFAULT   13 $d
+    48: 000035fc     0 NOTYPE  LOCAL  DEFAULT   13 $a
+    49: 0000369c     0 NOTYPE  LOCAL  DEFAULT   13 $d
+    50: 00000000     0 FILE    LOCAL  DEFAULT  ABS protocol.c
+    51: 000036a4     0 NOTYPE  LOCAL  DEFAULT   13 $a
+    52: 00003910   224 FUNC    LOCAL  DEFAULT   13 reply_header
+    53: 00000000     0 FILE    LOCAL  DEFAULT  ABS patch.c
+    54: 00003c2c     0 NOTYPE  LOCAL  DEFAULT   13 $a
+    55: 00000000     0 FILE    LOCAL  DEFAULT  ABS firmware.c
+    56: 00003ec8     0 NOTYPE  LOCAL  DEFAULT   13 $a
+    57: 00003f70   340 FUNC    LOCAL  DEFAULT   13 search_directory
+    58: 00003f68     0 NOTYPE  LOCAL  DEFAULT   13 $d
+    59: 000040c4   268 FUNC    LOCAL  DEFAULT   13 read_patch
+    60: 00003f70     0 NOTYPE  LOCAL  DEFAULT   13 $a
+    61: 00004264     0 NOTYPE  LOCAL  DEFAULT   13 $d
+    62: 0000426c   716 FUNC    LOCAL  DEFAULT   13 read_rom
+    63: 0000426c     0 NOTYPE  LOCAL  DEFAULT   13 $a
+    64: 00004538   348 FUNC    LOCAL  DEFAULT   13 read_bt_version
+    65: 00004530     0 NOTYPE  LOCAL  DEFAULT   13 $d
+    66: 00004538     0 NOTYPE  LOCAL  DEFAULT   13 $a
+    67: 00004694   548 FUNC    LOCAL  DEFAULT   13 bt_version
+    68: 000048a4     0 NOTYPE  LOCAL  DEFAULT   13 $d
+    69: 000048d0     0 NOTYPE  LOCAL  DEFAULT   14 $a
+    70: 000048e0     0 NOTYPE  LOCAL  DEFAULT   14 $d
+    71: 000048f0     0 NOTYPE  LOCAL  DEFAULT   14 $a
+    72: 000048fc     0 NOTYPE  LOCAL  DEFAULT   14 $d
+    73: 00004900     0 NOTYPE  LOCAL  DEFAULT   14 $a
+    74: 0000490c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+    75: 00004910     0 NOTYPE  LOCAL  DEFAULT   14 $a
+    76: 0000491c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+    77: 00004920     0 NOTYPE  LOCAL  DEFAULT   14 $a
+    78: 0000492c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+    79: 00004930     0 NOTYPE  LOCAL  DEFAULT   14 $a
+    80: 0000493c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+    81: 00004940     0 NOTYPE  LOCAL  DEFAULT   14 $a
+    82: 0000494c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+    83: 00004950     0 NOTYPE  LOCAL  DEFAULT   14 $a
+    84: 0000495c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+    85: 00004960     0 NOTYPE  LOCAL  DEFAULT   14 $a
+    86: 0000496c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+    87: 00004970     0 NOTYPE  LOCAL  DEFAULT   14 $a
+    88: 0000497c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+    89: 00004980     0 NOTYPE  LOCAL  DEFAULT   14 $a
+    90: 0000498c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+    91: 00004990     0 NOTYPE  LOCAL  DEFAULT   14 $a
+    92: 0000499c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+    93: 000049a0     0 NOTYPE  LOCAL  DEFAULT   14 $a
+    94: 000049ac     0 NOTYPE  LOCAL  DEFAULT   14 $d
+    95: 000049b0     0 NOTYPE  LOCAL  DEFAULT   14 $a
+    96: 000049bc     0 NOTYPE  LOCAL  DEFAULT   14 $d
+    97: 000049c0     0 NOTYPE  LOCAL  DEFAULT   14 $a
+    98: 000049cc     0 NOTYPE  LOCAL  DEFAULT   14 $d
+    99: 000049d0     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   100: 000049dc     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   101: 000049e0     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   102: 000049ec     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   103: 000049f0     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   104: 000049fc     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   105: 00004a00     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   106: 00004a0c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   107: 00004a10     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   108: 00004a1c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   109: 00004a20     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   110: 00004a2c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   111: 00004a30     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   112: 00004a3c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   113: 00004a40     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   114: 00004a4c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   115: 00004a50     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   116: 00004a5c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   117: 00004a60     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   118: 00004a6c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   119: 00004a70     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   120: 00004a7c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   121: 00004a80     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   122: 00004a8c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   123: 00004a90     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   124: 00004a9c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   125: 00004aa0     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   126: 00004aac     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   127: 00004ab0     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   128: 00004abc     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   129: 00004ac0     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   130: 00004acc     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   131: 00004ad0     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   132: 00004adc     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   133: 00004ae0     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   134: 00004aec     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   135: 00004af0     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   136: 00004afc     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   137: 00004b00     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   138: 00004b0c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   139: 00004b10     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   140: 00004b1c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   141: 00004b20     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   142: 00004b2c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   143: 00004b30     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   144: 00004b3c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   145: 00004b40     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   146: 00004b4c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   147: 00004b50     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   148: 00004b5c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   149: 00004b60     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   150: 00004b6c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   151: 00004b70     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   152: 00004b7c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   153: 00004b80     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   154: 00004b8c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   155: 00004b90     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   156: 00004b9c     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   157: 00004ba0     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   158: 00004bac     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   159: 00004bb0     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   160: 00004bbc     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   161: 00004bc0     0 NOTYPE  LOCAL  DEFAULT   14 $a
+   162: 00004bcc     0 NOTYPE  LOCAL  DEFAULT   14 $d
+   163: 00000000     0 NOTYPE  LOCAL  HIDDEN     1 __fini_array_start
+   164: 00000000     0 NOTYPE  LOCAL  HIDDEN     1 __fini_array_end
+   165: 00005bf0     0 NOTYPE  LOCAL  HIDDEN    17 _DYNAMIC
+   166: 000048b9    12 FUNC    LOCAL  DEFAULT   13 __ThumbV7PILongThunk___cxa_atexit
+   167: 000048b8     0 NOTYPE  LOCAL  DEFAULT   13 $t
+   168: 000048c5    12 FUNC    LOCAL  DEFAULT   13 __ThumbV7PILongThunk___register_atfork
+   169: 000048c4     0 NOTYPE  LOCAL  DEFAULT   13 $t
+   170: 00001f41    14 FUNC    GLOBAL DEFAULT   13 _start
+   171: 00000000     0 FUNC    GLOBAL DEFAULT  UND __libc_init
+   172: 00002000  1616 FUNC    GLOBAL DEFAULT   13 main
+   173: 00000000     0 FUNC    GLOBAL DEFAULT  UND __cxa_atexit
+   174: 00000000     0 FUNC    GLOBAL DEFAULT  UND __register_atfork
+   175: 00000000     0 FUNC    GLOBAL DEFAULT  UND __aeabi_memclr8
+   176: 00000000     0 FUNC    GLOBAL DEFAULT  UND getopt
+   177: 00000000     0 FUNC    GLOBAL DEFAULT  UND fwrite
+   178: 00000000     0 FUNC    GLOBAL DEFAULT  UND strnlen
+   179: 00000000     0 FUNC    GLOBAL DEFAULT  UND sigemptyset
+   180: 00000000     0 FUNC    GLOBAL DEFAULT  UND sigaction
+   181: 00000000     0 FUNC    GLOBAL DEFAULT  UND __errno
+   182: 00000000     0 FUNC    GLOBAL DEFAULT  UND strerror
+   183: 00000000     0 FUNC    GLOBAL DEFAULT  UND __android_log_print
+   184: 00000000     0 FUNC    GLOBAL DEFAULT  UND close
+   185: 00000000     0 FUNC    GLOBAL DEFAULT  UND ioctl
+   186: 00000000     0 FUNC    GLOBAL DEFAULT  UND property_set
+   187: 00000000     0 FUNC    GLOBAL DEFAULT  UND pthread_create
+   188: 00000000     0 FUNC    GLOBAL DEFAULT  UND pthread_join
+   189: 00000000     0 OBJECT  GLOBAL DEFAULT  UND optarg
+   190: 00000000     0 OBJECT  GLOBAL DEFAULT  UND stdout
+   191: 00000000     0 OBJECT  GLOBAL DEFAULT  UND stderr
+   192: 00000000     0 OBJECT  GLOBAL DEFAULT  UND optind
+   193: 00000000     0 FUNC    GLOBAL DEFAULT  UND usleep
+   194: 00000000     0 FUNC    GLOBAL DEFAULT  UND property_get
+   195: 00000000     0 FUNC    GLOBAL DEFAULT  UND __open_2
+   196: 00000000     0 FUNC    GLOBAL DEFAULT  UND strtoul
+   197: 00000000     0 FUNC    GLOBAL DEFAULT  UND strcmp
+   198: 00000000     0 FUNC    GLOBAL DEFAULT  UND __aeabi_memcpy
+   199: 00000000     0 FUNC    GLOBAL DEFAULT  UND poll
+   200: 00000000     0 FUNC    GLOBAL DEFAULT  UND read
+   201: 000036a4   336 FUNC    GLOBAL DEFAULT   13 wmt_command_decode
+   202: 00000000     0 FUNC    GLOBAL DEFAULT  UND memcmp
+   203: 000041d0   156 FUNC    GLOBAL DEFAULT   13 wmt_rom_search
+   204: 00000000     0 FUNC    GLOBAL DEFAULT  UND __aeabi_memcpy8
+   205: 00003ec8   168 FUNC    GLOBAL DEFAULT   13 wmt_firmware_search
+   206: 00000000     0 FUNC    GLOBAL DEFAULT  UND __aeabi_memcpy4
+   207: 000039f0   572 FUNC    GLOBAL DEFAULT   13 wmt_reply_list
+   208: 000037f4   284 FUNC    GLOBAL DEFAULT   13 wmt_reply_status
+   209: 00000000     0 FUNC    GLOBAL DEFAULT  UND __write_chk
+   210: 00000000     0 FUNC    GLOBAL DEFAULT  UND memchr
+   211: 00000000     0 FUNC    GLOBAL DEFAULT  UND __memcpy_chk
+   212: 00000000     0 FUNC    GLOBAL DEFAULT  UND __aeabi_memclr
+   213: 00000000     0 FUNC    GLOBAL DEFAULT  UND strlen
+   214: 00003c2c    80 FUNC    GLOBAL DEFAULT   13 wmt_patch_build_version
+   215: 00003c7c   284 FUNC    GLOBAL DEFAULT   13 wmt_patch_parse
+   216: 00000000     0 FUNC    GLOBAL DEFAULT  UND strchr
+   217: 00003d98   228 FUNC    GLOBAL DEFAULT   13 wmt_patch_set_add
+   218: 00003e7c    76 FUNC    GLOBAL DEFAULT   13 wmt_patch_set_complete
+   219: 00000000     0 FUNC    GLOBAL DEFAULT  UND opendir
+   220: 00000000     0 FUNC    GLOBAL DEFAULT  UND readdir
+   221: 00000000     0 FUNC    GLOBAL DEFAULT  UND strncmp
+   222: 00000000     0 FUNC    GLOBAL DEFAULT  UND dirfd
+   223: 00000000     0 FUNC    GLOBAL DEFAULT  UND __openat_2
+   224: 00000000     0 FUNC    GLOBAL DEFAULT  UND fstat
+   225: 00000000     0 FUNC    GLOBAL DEFAULT  UND closedir
+   226: 00000000     0 FUNC    GLOBAL DEFAULT  UND __read_chk
+   227: 00000000     0 FUNC    GLOBAL DEFAULT  UND strstr
+   228: 00000000     0 FUNC    GLOBAL DEFAULT  UND malloc
+   229: 00000000     0 FUNC    GLOBAL DEFAULT  UND lseek
+   230: 00000000     0 FUNC    GLOBAL DEFAULT  UND free

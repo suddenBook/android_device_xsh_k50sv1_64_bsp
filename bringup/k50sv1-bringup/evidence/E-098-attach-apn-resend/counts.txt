@@ -1,0 +1,6 @@
+# counts over the whole airplane-mode cycle capture (56601 lines)
+this_is_an_invalid_apn                         4
+RIL_UNSOL_RESET_ATTACH_APN                     3
+empty IA due to password                       1
+re-sending SET_INITIAL_ATTACH_APN              1
+re-issued SET_INITIAL_ATTACH_APN completed     1

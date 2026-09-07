@@ -1,0 +1,14 @@
+== Pass A/B: DT_NEEDED and symbol closure under the Q vendor namespace ==
+   scanned 461 vendor ELFs (25 LLNDK sonames, 252 VNDK sonames linkable)
+   note: 32-bit vendor/lib/libgeofence.so leaves 2 symbol(s) to its loader's global scope; satisfied by vendor/bin/mnld (gfc_kernel_2gfc_hdlr, mtk_flp_controller_get_current_acc)
+   note: 32-bit vendor/lib/libmnl.so leaves 2 symbol(s) to its loader's global scope; satisfied by vendor/bin/mnld (mtk_gps_sys_agps_disaptcher_callback, property_get)
+   Pass A/B clean.
+
+== Pass C: audited dlopen-by-name contracts ==
+
+== Pass D: config-driven load contracts ==
+
+== Pass E: MAL / voice-IMS / ePDG contracts ==
+
+Vendor ELF closure is complete: DT_NEEDED and symbols resolve inside the
+Q vendor linker namespace, and every audited dlopen and config contract holds.

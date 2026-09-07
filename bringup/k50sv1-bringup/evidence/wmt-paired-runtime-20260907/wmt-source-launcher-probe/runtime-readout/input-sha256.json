@@ -1,0 +1,2132 @@
+{
+  "file_count": 425,
+  "files": [
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0001-root-user.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2,
+      "path": "runtime/build19-source-launcher-exercise/0001-root-user.stdout",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0002-preflight-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 285,
+      "path": "runtime/build19-source-launcher-exercise/0002-preflight-state.stdout",
+      "sha256": "3754e254a8a8d7a305e9789582ef76ba351767aa8b9194f56840036cf122e049"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0003-loaded-modules.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 284,
+      "path": "runtime/build19-source-launcher-exercise/0003-loaded-modules.stdout",
+      "sha256": "6ac6bba07acf3fd4f2bacda397980b5c8e07edb0fb9b5214f2c6912aa667e265"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0004-initial-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 285,
+      "path": "runtime/build19-source-launcher-exercise/0004-initial-state.stdout",
+      "sha256": "38086db90a7b2f4ffc646bcc96e9ff7a61b2ad92975f12359637629763c0420d"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0005-initial-stat-before.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 322,
+      "path": "runtime/build19-source-launcher-exercise/0005-initial-stat-before.stdout",
+      "sha256": "b325535449a02b75a238dea80e696c4cfbce463c064b0d84e0b5b7421061e5e9"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0006-initial-cmdline.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 51,
+      "path": "runtime/build19-source-launcher-exercise/0006-initial-cmdline.stdout",
+      "sha256": "a23b51c740d32468c7a735eb6d530a71da782328e7f201df20021622b369249e"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0007-initial-exe.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 25,
+      "path": "runtime/build19-source-launcher-exercise/0007-initial-exe.stdout",
+      "sha256": "1c6d23d65412228731fc9c6085d62a1cbe93fb5fbfcf15a6a3dc905d7b5ac42c"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0008-initial-hashes.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 268,
+      "path": "runtime/build19-source-launcher-exercise/0008-initial-hashes.stdout",
+      "sha256": "f82e750049cf3467b7cd3e4a806831c4b8348db2205da665735bd9a8edbbe5ad"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0009-initial-fds.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 80,
+      "path": "runtime/build19-source-launcher-exercise/0009-initial-fds.stdout",
+      "sha256": "406033d86d91b1c40f0d7c89e314eae80f2dfab972dd42f1c76b5598d76825fc"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0010-initial-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 4,
+      "path": "runtime/build19-source-launcher-exercise/0010-initial-tids.stdout",
+      "sha256": "ae5af7f379fedbb5244b969c189a375528d853737585e6e163fc3a19f2713998"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0011-initial-stat-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 322,
+      "path": "runtime/build19-source-launcher-exercise/0011-initial-stat-after.stdout",
+      "sha256": "b325535449a02b75a238dea80e696c4cfbce463c064b0d84e0b5b7421061e5e9"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0012-initial-state-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 285,
+      "path": "runtime/build19-source-launcher-exercise/0012-initial-state-after.stdout",
+      "sha256": "1e923c63e2d4d9096bacc7c170ec526466fb15ddb3850dcb7168f98e57ecd1fa"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0013-original-fwlog-property.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1,
+      "path": "runtime/build19-source-launcher-exercise/0013-original-fwlog-property.stdout",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0014-stream-clock-before.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 122,
+      "path": "runtime/build19-source-launcher-exercise/0014-stream-clock-before.stdout",
+      "sha256": "15a249fbf1c495c01b4adc75d2e1330ddbbbb66e8cf83229d897ade35898b9c1"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0015-stream-clock-after-drain.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 122,
+      "path": "runtime/build19-source-launcher-exercise/0015-stream-clock-after-drain.stdout",
+      "sha256": "0e91398b4ce1f3f514965e20864bd969067db7bc4b673961a59f3a795ce4732d"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0016-kernel-source-head.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 41,
+      "path": "runtime/build19-source-launcher-exercise/0016-kernel-source-head.stdout",
+      "sha256": "2d2957453fea63c7d07b1b7e0042a141a3424765ab984703082f0d7e2c7a4a30"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0017-kernel-source-status.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0017-kernel-source-status.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0018-establish-session-before-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 285,
+      "path": "runtime/build19-source-launcher-exercise/0018-establish-session-before-state.stdout",
+      "sha256": "ce9e0a96f201ddcdd086811969245527989e4b93bc035d8caf294cf3e77900e5"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0019-establish-session-before-stat-before.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 322,
+      "path": "runtime/build19-source-launcher-exercise/0019-establish-session-before-stat-before.stdout",
+      "sha256": "b0a39d01ab9acc010ff9cfb447e3dfffdbde4de6dd0bb90a4020fd51f9f6fad6"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0020-establish-session-before-cmdline.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 51,
+      "path": "runtime/build19-source-launcher-exercise/0020-establish-session-before-cmdline.stdout",
+      "sha256": "a23b51c740d32468c7a735eb6d530a71da782328e7f201df20021622b369249e"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0021-establish-session-before-exe.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 25,
+      "path": "runtime/build19-source-launcher-exercise/0021-establish-session-before-exe.stdout",
+      "sha256": "1c6d23d65412228731fc9c6085d62a1cbe93fb5fbfcf15a6a3dc905d7b5ac42c"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0022-establish-session-before-hashes.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 268,
+      "path": "runtime/build19-source-launcher-exercise/0022-establish-session-before-hashes.stdout",
+      "sha256": "f82e750049cf3467b7cd3e4a806831c4b8348db2205da665735bd9a8edbbe5ad"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0023-establish-session-before-fds.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 80,
+      "path": "runtime/build19-source-launcher-exercise/0023-establish-session-before-fds.stdout",
+      "sha256": "406033d86d91b1c40f0d7c89e314eae80f2dfab972dd42f1c76b5598d76825fc"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0024-establish-session-before-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 4,
+      "path": "runtime/build19-source-launcher-exercise/0024-establish-session-before-tids.stdout",
+      "sha256": "ae5af7f379fedbb5244b969c189a375528d853737585e6e163fc3a19f2713998"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0025-establish-session-before-stat-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 322,
+      "path": "runtime/build19-source-launcher-exercise/0025-establish-session-before-stat-after.stdout",
+      "sha256": "b0a39d01ab9acc010ff9cfb447e3dfffdbde4de6dd0bb90a4020fd51f9f6fad6"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0026-establish-session-before-state-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 285,
+      "path": "runtime/build19-source-launcher-exercise/0026-establish-session-before-state-after.stdout",
+      "sha256": "721159bfb50a49ccfce5cd4ec31dd11205418ce38b932a5a5506864fc9d7f768"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0027-establish-session-clock-before-signal.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 122,
+      "path": "runtime/build19-source-launcher-exercise/0027-establish-session-clock-before-signal.stdout",
+      "sha256": "c1cb0423d96b76a701b7c23b364a0a260b85c4f1c7c3f7d525f41982104451d3"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0028-establish-session-signal-window.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 285,
+      "path": "runtime/build19-source-launcher-exercise/0028-establish-session-signal-window.stdout",
+      "sha256": "fbf84896b56c0c2a0d71e26a1168ee09c4424dda7f306d058fc97fb904a8922c"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0029-establish-session-guarded-sigterm.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0029-establish-session-guarded-sigterm.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0030-establish-session-transition.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0030-establish-session-transition.stdout",
+      "sha256": "45847726b028aaac4a5544ae9abea557fa122956d52c00e4715fbef40ed44395"
+    },
+    {
+      "bytes": 47,
+      "path": "runtime/build19-source-launcher-exercise/0031-establish-session-old-stat.stderr",
+      "sha256": "b665a50498265c19efa5100a45dca051f7f96fd94505fadd5f4a5c47da7c8fa5"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0031-establish-session-old-stat.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0032-establish-session-old-gone-window.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0032-establish-session-old-gone-window.stdout",
+      "sha256": "353e0bdb5b1bf77fe9c42014c522e764d9c52e70da51c0ea9b9949d43bb6398e"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0033-establish-session-replacement-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0033-establish-session-replacement-state.stdout",
+      "sha256": "cc9c6e9f3246ca65ba8837ae0adcfd04928eb97526e915f4dcba0d6474e3b127"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0034-establish-session-replacement-stat-before.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0034-establish-session-replacement-stat-before.stdout",
+      "sha256": "5b1e8e8d640d0c002b523350c572b4f72f680acefb741e8cf1c3938cf1413ccf"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0035-establish-session-replacement-cmdline.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 51,
+      "path": "runtime/build19-source-launcher-exercise/0035-establish-session-replacement-cmdline.stdout",
+      "sha256": "a23b51c740d32468c7a735eb6d530a71da782328e7f201df20021622b369249e"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0036-establish-session-replacement-exe.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 25,
+      "path": "runtime/build19-source-launcher-exercise/0036-establish-session-replacement-exe.stdout",
+      "sha256": "1c6d23d65412228731fc9c6085d62a1cbe93fb5fbfcf15a6a3dc905d7b5ac42c"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0037-establish-session-replacement-hashes.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 269,
+      "path": "runtime/build19-source-launcher-exercise/0037-establish-session-replacement-hashes.stdout",
+      "sha256": "659a055ddc159ed5db53b179de275c2f10ade43b775e10eecedfbe6cd36a33c2"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0038-establish-session-replacement-fds.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 80,
+      "path": "runtime/build19-source-launcher-exercise/0038-establish-session-replacement-fds.stdout",
+      "sha256": "5290fad36fc4a13d05ff760fb860f1be54f648013bda41a5e8502ec76d9797e4"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0039-establish-session-replacement-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 5,
+      "path": "runtime/build19-source-launcher-exercise/0039-establish-session-replacement-tids.stdout",
+      "sha256": "87d97e21af2e75714172166c64f37281561a4f78184d16d55f0c78e559ae14a4"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0040-establish-session-replacement-stat-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0040-establish-session-replacement-stat-after.stdout",
+      "sha256": "5b1e8e8d640d0c002b523350c572b4f72f680acefb741e8cf1c3938cf1413ccf"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0041-establish-session-replacement-state-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0041-establish-session-replacement-state-after.stdout",
+      "sha256": "6b3c50e8068da511e0f4d08e010c6b6b93dd222c05401bf67168344654400eda"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0042-establish-session-clock-after-startup.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 122,
+      "path": "runtime/build19-source-launcher-exercise/0042-establish-session-clock-after-startup.stdout",
+      "sha256": "fdb1f2239e58a4ba472b6468eaf3b862db262df561342551cd6a09e5d72e44b1"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0043-prime-fwlog-off.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0043-prime-fwlog-off.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0044-prime-fwlog-off-readback.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 3,
+      "path": "runtime/build19-source-launcher-exercise/0044-prime-fwlog-off-readback.stdout",
+      "sha256": "564739ea8fa5926d4fa5c9734fed462061960a22e6b8d5c06e94969d97891bf2"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0045-fwlog-off-baseline-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0045-fwlog-off-baseline-state.stdout",
+      "sha256": "5d1ea3a05dbffc5b3e638da6acd63810add6f40d50cf21a8a4b4654705f1e963"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0046-fwlog-off-baseline-stat.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0046-fwlog-off-baseline-stat.stdout",
+      "sha256": "214f3ef20d425034d9b9843a01b4c33d9b9a723be2ae17c2aab42e699dc308e2"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0047-fwlog-off-baseline-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 5,
+      "path": "runtime/build19-source-launcher-exercise/0047-fwlog-off-baseline-tids.stdout",
+      "sha256": "87d97e21af2e75714172166c64f37281561a4f78184d16d55f0c78e559ae14a4"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0048-fwlog-off-baseline-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0048-fwlog-off-baseline-state.stdout",
+      "sha256": "a8bfe86ff7b387e354ec0e416570245eaf6c5f71a9e5785a14005f7f81241c9a"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0049-fwlog-off-baseline-stat.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0049-fwlog-off-baseline-stat.stdout",
+      "sha256": "214f3ef20d425034d9b9843a01b4c33d9b9a723be2ae17c2aab42e699dc308e2"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0050-fwlog-off-baseline-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 5,
+      "path": "runtime/build19-source-launcher-exercise/0050-fwlog-off-baseline-tids.stdout",
+      "sha256": "87d97e21af2e75714172166c64f37281561a4f78184d16d55f0c78e559ae14a4"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0051-fwlog-off-baseline-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0051-fwlog-off-baseline-state.stdout",
+      "sha256": "7c48b6d9a66a57f200d183522e7d5bb536f10806632398f2098abe782723d013"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0052-fwlog-off-baseline-stat.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0052-fwlog-off-baseline-stat.stdout",
+      "sha256": "5b1e8e8d640d0c002b523350c572b4f72f680acefb741e8cf1c3938cf1413ccf"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0053-fwlog-off-baseline-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 5,
+      "path": "runtime/build19-source-launcher-exercise/0053-fwlog-off-baseline-tids.stdout",
+      "sha256": "87d97e21af2e75714172166c64f37281561a4f78184d16d55f0c78e559ae14a4"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0054-fwlog-enable-window.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0054-fwlog-enable-window.stdout",
+      "sha256": "e88701a7803a8188206d47b117b19490be13e140726a1c90702756e1c0a83bfa"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0055-enable-fwlog.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0055-enable-fwlog.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0056-enable-fwlog-readback.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 4,
+      "path": "runtime/build19-source-launcher-exercise/0056-enable-fwlog-readback.stdout",
+      "sha256": "5040625b1fb6fa4af07226683f6e6003b29e5e70b16f8cfb24be7a752393f0ee"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0057-fwlog-worker-started-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0057-fwlog-worker-started-state.stdout",
+      "sha256": "f5e8c203c715f101ce7c9f9114001feccb8a56de2b2c165730e0656230143282"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0058-fwlog-worker-started-stat.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0058-fwlog-worker-started-stat.stdout",
+      "sha256": "c890e8bd43de22a7258c43a26302da5943e220d8cca79ab656e4766dd0d89707"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0059-fwlog-worker-started-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 10,
+      "path": "runtime/build19-source-launcher-exercise/0059-fwlog-worker-started-tids.stdout",
+      "sha256": "e303c3268ebe9cb3273e34bd1b0b6f99792a7b6193294853ffc869e1ad568d5f"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0060-fwlog-worker-started-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0060-fwlog-worker-started-state.stdout",
+      "sha256": "3b5546479154fd40754cdccbf380e2777e9e37f8512158b196a8ee921ab7fddd"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0061-fwlog-worker-started-stat.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0061-fwlog-worker-started-stat.stdout",
+      "sha256": "2cc8b504b2dd875501c484a572800523b9629e4030bbcb185ae8cc365c6bbe12"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0062-fwlog-worker-started-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 10,
+      "path": "runtime/build19-source-launcher-exercise/0062-fwlog-worker-started-tids.stdout",
+      "sha256": "e303c3268ebe9cb3273e34bd1b0b6f99792a7b6193294853ffc869e1ad568d5f"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0063-fwlog-worker-started-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0063-fwlog-worker-started-state.stdout",
+      "sha256": "0b1a0468e4f96feed0c4bb7501a8561b2507f6de0edf3e9a8948ba873ec57dcc"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0064-fwlog-worker-started-stat.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0064-fwlog-worker-started-stat.stdout",
+      "sha256": "2cc8b504b2dd875501c484a572800523b9629e4030bbcb185ae8cc365c6bbe12"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0065-fwlog-worker-started-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 10,
+      "path": "runtime/build19-source-launcher-exercise/0065-fwlog-worker-started-tids.stdout",
+      "sha256": "e303c3268ebe9cb3273e34bd1b0b6f99792a7b6193294853ffc869e1ad568d5f"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0066-fwlog-worker-stat.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 327,
+      "path": "runtime/build19-source-launcher-exercise/0066-fwlog-worker-stat.stdout",
+      "sha256": "ca1df11b81d4203931a150b81c679af1111df1de16ffb060ceee1424fae4706c"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0067-fwlog-worker-wchan.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 17,
+      "path": "runtime/build19-source-launcher-exercise/0067-fwlog-worker-wchan.stdout",
+      "sha256": "d219f557a2b0cb82b3797466226ba7b3332eebe88fe1bd63afcd00607c1609d5"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0068-fwlog-worker-syscall.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 71,
+      "path": "runtime/build19-source-launcher-exercise/0068-fwlog-worker-syscall.stdout",
+      "sha256": "ebfae842b82348d4b167420499e4963aa429a822014da7a7cf26fb1c5e693f1e"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0069-fwlog-disable-window.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0069-fwlog-disable-window.stdout",
+      "sha256": "24d295117165d1babc17490a3c2562e472819a5b960765a708beb44683b0c9f3"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0070-disable-fwlog.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0070-disable-fwlog.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0071-disable-fwlog-readback.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 3,
+      "path": "runtime/build19-source-launcher-exercise/0071-disable-fwlog-readback.stdout",
+      "sha256": "564739ea8fa5926d4fa5c9734fed462061960a22e6b8d5c06e94969d97891bf2"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0072-fwlog-worker-reclaimed-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0072-fwlog-worker-reclaimed-state.stdout",
+      "sha256": "ac1b3eb45440832fcc7621473281fb7816066c385f2c872386cce05f703eb30e"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0073-fwlog-worker-reclaimed-stat.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0073-fwlog-worker-reclaimed-stat.stdout",
+      "sha256": "c890e8bd43de22a7258c43a26302da5943e220d8cca79ab656e4766dd0d89707"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0074-fwlog-worker-reclaimed-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 10,
+      "path": "runtime/build19-source-launcher-exercise/0074-fwlog-worker-reclaimed-tids.stdout",
+      "sha256": "e303c3268ebe9cb3273e34bd1b0b6f99792a7b6193294853ffc869e1ad568d5f"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0075-fwlog-worker-reclaimed-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0075-fwlog-worker-reclaimed-state.stdout",
+      "sha256": "3a564e435c690a1e8db979920639675d6761e47141943046fe3ff0737e4bddcd"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0076-fwlog-worker-reclaimed-stat.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0076-fwlog-worker-reclaimed-stat.stdout",
+      "sha256": "b7a691f4ffd4d64328cc2fe2ce5000526489953809ea66194294368669a061ee"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0077-fwlog-worker-reclaimed-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 5,
+      "path": "runtime/build19-source-launcher-exercise/0077-fwlog-worker-reclaimed-tids.stdout",
+      "sha256": "87d97e21af2e75714172166c64f37281561a4f78184d16d55f0c78e559ae14a4"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0078-fwlog-worker-reclaimed-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0078-fwlog-worker-reclaimed-state.stdout",
+      "sha256": "867314caa71022f69e1c538807d35498f3e064a03bfb8aa837ec403751af167c"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0079-fwlog-worker-reclaimed-stat.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0079-fwlog-worker-reclaimed-stat.stdout",
+      "sha256": "b7a691f4ffd4d64328cc2fe2ce5000526489953809ea66194294368669a061ee"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0080-fwlog-worker-reclaimed-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 5,
+      "path": "runtime/build19-source-launcher-exercise/0080-fwlog-worker-reclaimed-tids.stdout",
+      "sha256": "87d97e21af2e75714172166c64f37281561a4f78184d16d55f0c78e559ae14a4"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0081-fwlog-worker-reclaimed-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0081-fwlog-worker-reclaimed-state.stdout",
+      "sha256": "0235407c24ddca92ccd8dd9806d7ae2999de94667feda68cb9748de8ce40a761"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0082-fwlog-worker-reclaimed-stat.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0082-fwlog-worker-reclaimed-stat.stdout",
+      "sha256": "377f8514e0c90117d621b2d2a7bad326d46ab44a23cd80f2f9c078b5ca21e314"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0083-fwlog-worker-reclaimed-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 5,
+      "path": "runtime/build19-source-launcher-exercise/0083-fwlog-worker-reclaimed-tids.stdout",
+      "sha256": "87d97e21af2e75714172166c64f37281561a4f78184d16d55f0c78e559ae14a4"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0084-wifi-after-fwlog-cycle-address.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 119,
+      "path": "runtime/build19-source-launcher-exercise/0084-wifi-after-fwlog-cycle-address.stdout",
+      "sha256": "84674e1cf2c3cfb0ed0a97739ec0dcdb8b60f2d22366abf986ca0dafc7cdf3e2"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0085-wifi-after-fwlog-cycle-before.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 12,
+      "path": "runtime/build19-source-launcher-exercise/0085-wifi-after-fwlog-cycle-before.stdout",
+      "sha256": "6ea8c42f18c97a02a781ea0043e10b7d346c85038ad369035ce52e7e249fc596"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0086-wifi-after-fwlog-cycle-ping.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 439,
+      "path": "runtime/build19-source-launcher-exercise/0086-wifi-after-fwlog-cycle-ping.stdout",
+      "sha256": "0d0a7cfb29ec0ce8e2184bf02851bdc15ae16bc4ae75fad3b8536287c04451e8"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0087-wifi-after-fwlog-cycle-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 12,
+      "path": "runtime/build19-source-launcher-exercise/0087-wifi-after-fwlog-cycle-after.stdout",
+      "sha256": "2b10e80940a4c0549b4eb0b32b0fe421fb6f214d523094cd3add2eb5ee6227e1"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0088-enable-fwlog-before-sigterm.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0088-enable-fwlog-before-sigterm.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0089-enable-fwlog-before-sigterm-readback.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 4,
+      "path": "runtime/build19-source-launcher-exercise/0089-enable-fwlog-before-sigterm-readback.stdout",
+      "sha256": "5040625b1fb6fa4af07226683f6e6003b29e5e70b16f8cfb24be7a752393f0ee"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0090-fwlog-worker-before-sigterm-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0090-fwlog-worker-before-sigterm-state.stdout",
+      "sha256": "bde075c6ba893e4dfe1fc7b936512654296f88f354d9d7463b303cd0b34a52e2"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0091-fwlog-worker-before-sigterm-stat.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0091-fwlog-worker-before-sigterm-stat.stdout",
+      "sha256": "377f8514e0c90117d621b2d2a7bad326d46ab44a23cd80f2f9c078b5ca21e314"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0092-fwlog-worker-before-sigterm-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 5,
+      "path": "runtime/build19-source-launcher-exercise/0092-fwlog-worker-before-sigterm-tids.stdout",
+      "sha256": "87d97e21af2e75714172166c64f37281561a4f78184d16d55f0c78e559ae14a4"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0093-fwlog-worker-before-sigterm-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0093-fwlog-worker-before-sigterm-state.stdout",
+      "sha256": "c47c4fc773a2c5525f2d97abb874086fbc95c8332e1852f4e5b5ca6c51b9248b"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0094-fwlog-worker-before-sigterm-stat.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0094-fwlog-worker-before-sigterm-stat.stdout",
+      "sha256": "298bac2d8167683aca6baf7c12f66cd9c5e2b5ad40cefa544cafc50086a5763f"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0095-fwlog-worker-before-sigterm-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 10,
+      "path": "runtime/build19-source-launcher-exercise/0095-fwlog-worker-before-sigterm-tids.stdout",
+      "sha256": "eb89fcbf809a66d6fb1c9c93eb62263a2e7c988e4e9ab5cb418300581713801c"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0096-fwlog-worker-before-sigterm-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0096-fwlog-worker-before-sigterm-state.stdout",
+      "sha256": "2ce89901a16b8f1ac1ffb0d046f1109567e0600846b525ceae252e01f5eca9f5"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0097-fwlog-worker-before-sigterm-stat.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0097-fwlog-worker-before-sigterm-stat.stdout",
+      "sha256": "298bac2d8167683aca6baf7c12f66cd9c5e2b5ad40cefa544cafc50086a5763f"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0098-fwlog-worker-before-sigterm-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 10,
+      "path": "runtime/build19-source-launcher-exercise/0098-fwlog-worker-before-sigterm-tids.stdout",
+      "sha256": "eb89fcbf809a66d6fb1c9c93eb62263a2e7c988e4e9ab5cb418300581713801c"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0099-fwlog-worker-before-sigterm-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0099-fwlog-worker-before-sigterm-state.stdout",
+      "sha256": "8a9ec453a90d05e2ed5ac558174bdd29ee0833e2468b0ed8542791cc4a37f068"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0100-fwlog-worker-before-sigterm-stat.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0100-fwlog-worker-before-sigterm-stat.stdout",
+      "sha256": "298bac2d8167683aca6baf7c12f66cd9c5e2b5ad40cefa544cafc50086a5763f"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0101-fwlog-worker-before-sigterm-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 10,
+      "path": "runtime/build19-source-launcher-exercise/0101-fwlog-worker-before-sigterm-tids.stdout",
+      "sha256": "eb89fcbf809a66d6fb1c9c93eb62263a2e7c988e4e9ab5cb418300581713801c"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0102-sigterm-worker-stat.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 327,
+      "path": "runtime/build19-source-launcher-exercise/0102-sigterm-worker-stat.stdout",
+      "sha256": "0db1e502a737aaaedb692f7e7b93c6f586d1927d1f5482d155689c5a7df14ccb"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0103-sigterm-worker-wchan.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 17,
+      "path": "runtime/build19-source-launcher-exercise/0103-sigterm-worker-wchan.stdout",
+      "sha256": "d219f557a2b0cb82b3797466226ba7b3332eebe88fe1bd63afcd00607c1609d5"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0104-sigterm-worker-syscall.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 71,
+      "path": "runtime/build19-source-launcher-exercise/0104-sigterm-worker-syscall.stdout",
+      "sha256": "ebfae842b82348d4b167420499e4963aa429a822014da7a7cf26fb1c5e693f1e"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0105-sigterm-restart-before-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0105-sigterm-restart-before-state.stdout",
+      "sha256": "474f86213e29113032ad91f4c80007c93deb56923f722d744975c0d131563468"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0106-sigterm-restart-before-stat-before.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0106-sigterm-restart-before-stat-before.stdout",
+      "sha256": "63087c09d8105e6e49abd84b22d10af7a050deca53c1bae75373f1aac6a93156"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0107-sigterm-restart-before-cmdline.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 51,
+      "path": "runtime/build19-source-launcher-exercise/0107-sigterm-restart-before-cmdline.stdout",
+      "sha256": "a23b51c740d32468c7a735eb6d530a71da782328e7f201df20021622b369249e"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0108-sigterm-restart-before-exe.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 25,
+      "path": "runtime/build19-source-launcher-exercise/0108-sigterm-restart-before-exe.stdout",
+      "sha256": "1c6d23d65412228731fc9c6085d62a1cbe93fb5fbfcf15a6a3dc905d7b5ac42c"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0109-sigterm-restart-before-hashes.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 269,
+      "path": "runtime/build19-source-launcher-exercise/0109-sigterm-restart-before-hashes.stdout",
+      "sha256": "659a055ddc159ed5db53b179de275c2f10ade43b775e10eecedfbe6cd36a33c2"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0110-sigterm-restart-before-fds.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 80,
+      "path": "runtime/build19-source-launcher-exercise/0110-sigterm-restart-before-fds.stdout",
+      "sha256": "5290fad36fc4a13d05ff760fb860f1be54f648013bda41a5e8502ec76d9797e4"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0111-sigterm-restart-before-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 10,
+      "path": "runtime/build19-source-launcher-exercise/0111-sigterm-restart-before-tids.stdout",
+      "sha256": "eb89fcbf809a66d6fb1c9c93eb62263a2e7c988e4e9ab5cb418300581713801c"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0112-sigterm-restart-before-stat-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0112-sigterm-restart-before-stat-after.stdout",
+      "sha256": "63087c09d8105e6e49abd84b22d10af7a050deca53c1bae75373f1aac6a93156"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0113-sigterm-restart-before-state-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0113-sigterm-restart-before-state-after.stdout",
+      "sha256": "663150d3d0b76466cd8c0f818fa361d9f85a305716e317dbe9f7e0e6a6b0b098"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0114-sigterm-restart-clock-before-signal.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 122,
+      "path": "runtime/build19-source-launcher-exercise/0114-sigterm-restart-clock-before-signal.stdout",
+      "sha256": "46f7f52d8109a3a36f2088c5832b382659c506ffa912d5ad19434a2b8a361145"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0115-sigterm-restart-signal-window.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0115-sigterm-restart-signal-window.stdout",
+      "sha256": "2b0b9b90600da4f6b29260cdd2f2e85e295c3ff13601e60ab57aacb1abf62981"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0116-sigterm-restart-guarded-sigterm.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0116-sigterm-restart-guarded-sigterm.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0117-sigterm-restart-transition.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0117-sigterm-restart-transition.stdout",
+      "sha256": "5842562951364d7b9668a660c0b8540a138af2796fdb1e76cddc75bec2849331"
+    },
+    {
+      "bytes": 48,
+      "path": "runtime/build19-source-launcher-exercise/0118-sigterm-restart-old-stat.stderr",
+      "sha256": "34f3feaa8650a3c81c1a1aae398a78ad376108f1756ef1a26d9f5c0a72849a07"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0118-sigterm-restart-old-stat.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0119-sigterm-restart-old-gone-window.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0119-sigterm-restart-old-gone-window.stdout",
+      "sha256": "a57365b0e9b3a6e3a447fa31682606955a0906ccaee3e70cb0f0ec18ee30ce2f"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0120-sigterm-restart-replacement-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0120-sigterm-restart-replacement-state.stdout",
+      "sha256": "f0f0bb805f0bf55ffc9d22ac861ec0f69337b1b07206a504a1ef3e236648b927"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0121-sigterm-restart-replacement-stat-before.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0121-sigterm-restart-replacement-stat-before.stdout",
+      "sha256": "1eb7c367569a16c73207228a3f294cfa7995482db6dc7e5cc1eb7c9b30da3a84"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0122-sigterm-restart-replacement-cmdline.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 51,
+      "path": "runtime/build19-source-launcher-exercise/0122-sigterm-restart-replacement-cmdline.stdout",
+      "sha256": "a23b51c740d32468c7a735eb6d530a71da782328e7f201df20021622b369249e"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0123-sigterm-restart-replacement-exe.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 25,
+      "path": "runtime/build19-source-launcher-exercise/0123-sigterm-restart-replacement-exe.stdout",
+      "sha256": "1c6d23d65412228731fc9c6085d62a1cbe93fb5fbfcf15a6a3dc905d7b5ac42c"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0124-sigterm-restart-replacement-hashes.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 269,
+      "path": "runtime/build19-source-launcher-exercise/0124-sigterm-restart-replacement-hashes.stdout",
+      "sha256": "3ec55a2bff4776caad095397fd66007227cadd511eaa263da6ac53b9de692982"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0125-sigterm-restart-replacement-fds.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 80,
+      "path": "runtime/build19-source-launcher-exercise/0125-sigterm-restart-replacement-fds.stdout",
+      "sha256": "16ac085dbc15e79afa78b1248caf42583df084363ac6fb90022ea24acb17d818"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0126-sigterm-restart-replacement-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 10,
+      "path": "runtime/build19-source-launcher-exercise/0126-sigterm-restart-replacement-tids.stdout",
+      "sha256": "517affca70459b131ed707a0a14259dd78bf1268d30059f1da980ce11b9ad7d6"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0127-sigterm-restart-replacement-stat-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0127-sigterm-restart-replacement-stat-after.stdout",
+      "sha256": "1eb7c367569a16c73207228a3f294cfa7995482db6dc7e5cc1eb7c9b30da3a84"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0128-sigterm-restart-replacement-state-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0128-sigterm-restart-replacement-state-after.stdout",
+      "sha256": "a3d41c12e7d873049a0c77901ef2ad36e69cef50bc9f3ba7a505d9bf8bc2d089"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0129-sigterm-restart-clock-after-startup.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 122,
+      "path": "runtime/build19-source-launcher-exercise/0129-sigterm-restart-clock-after-startup.stdout",
+      "sha256": "c03e48d6fe918407a830f5bcdba54030893ffe2d2cc65d4e752e0daeede0a3de"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0130-wifi-after-sigterm-restart-address.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 119,
+      "path": "runtime/build19-source-launcher-exercise/0130-wifi-after-sigterm-restart-address.stdout",
+      "sha256": "84674e1cf2c3cfb0ed0a97739ec0dcdb8b60f2d22366abf986ca0dafc7cdf3e2"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0131-wifi-after-sigterm-restart-before.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 12,
+      "path": "runtime/build19-source-launcher-exercise/0131-wifi-after-sigterm-restart-before.stdout",
+      "sha256": "13c088b6797b46898ede6eab7585c6f0e2a27165f44491ed7e6fbb4d19cac90e"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0132-wifi-after-sigterm-restart-ping.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 439,
+      "path": "runtime/build19-source-launcher-exercise/0132-wifi-after-sigterm-restart-ping.stdout",
+      "sha256": "eba55b3d4aed99d250817b507de470057ec9298596a73f1838720abefaddca7d"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0133-wifi-after-sigterm-restart-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 12,
+      "path": "runtime/build19-source-launcher-exercise/0133-wifi-after-sigterm-restart-after.stdout",
+      "sha256": "c7d9382a38783757a909abbb1fbbe9bfb2319fda1ce9c48bd5117bed1bc642b7"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0134-exercise-final-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0134-exercise-final-state.stdout",
+      "sha256": "a90fd850600fc9c428ada46be9f8e63a2e6f0dc0543ed22433891514d2eb9a5a"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0135-exercise-final-stat-before.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0135-exercise-final-stat-before.stdout",
+      "sha256": "1eb7c367569a16c73207228a3f294cfa7995482db6dc7e5cc1eb7c9b30da3a84"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0136-exercise-final-cmdline.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 51,
+      "path": "runtime/build19-source-launcher-exercise/0136-exercise-final-cmdline.stdout",
+      "sha256": "a23b51c740d32468c7a735eb6d530a71da782328e7f201df20021622b369249e"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0137-exercise-final-exe.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 25,
+      "path": "runtime/build19-source-launcher-exercise/0137-exercise-final-exe.stdout",
+      "sha256": "1c6d23d65412228731fc9c6085d62a1cbe93fb5fbfcf15a6a3dc905d7b5ac42c"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0138-exercise-final-hashes.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 269,
+      "path": "runtime/build19-source-launcher-exercise/0138-exercise-final-hashes.stdout",
+      "sha256": "3ec55a2bff4776caad095397fd66007227cadd511eaa263da6ac53b9de692982"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0139-exercise-final-fds.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 80,
+      "path": "runtime/build19-source-launcher-exercise/0139-exercise-final-fds.stdout",
+      "sha256": "16ac085dbc15e79afa78b1248caf42583df084363ac6fb90022ea24acb17d818"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0140-exercise-final-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 10,
+      "path": "runtime/build19-source-launcher-exercise/0140-exercise-final-tids.stdout",
+      "sha256": "517affca70459b131ed707a0a14259dd78bf1268d30059f1da980ce11b9ad7d6"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0141-exercise-final-stat-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0141-exercise-final-stat-after.stdout",
+      "sha256": "1eb7c367569a16c73207228a3f294cfa7995482db6dc7e5cc1eb7c9b30da3a84"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0142-exercise-final-state-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0142-exercise-final-state-after.stdout",
+      "sha256": "c81eee5872373812b94f31ad3c16f2b840917a6eaa772a7bdcc684dc9cc6095c"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0143-finally-restore-fwlog.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0143-finally-restore-fwlog.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0144-finally-fwlog-readback.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1,
+      "path": "runtime/build19-source-launcher-exercise/0144-finally-fwlog-readback.stdout",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0145-finally-service-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0145-finally-service-state.stdout",
+      "sha256": "129a1bc445e2fff0c3eca7b4b5dce21c1a3b0ffd3393a2d95bcae1c8dd9621b4"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0146-finally-process-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0146-finally-process-state.stdout",
+      "sha256": "d2a5f09ccc68204773f5d3504ae471fa2ccd1d8bb96bb3af3ca0e6f5d0f28f01"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0147-finally-process-stat-before.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0147-finally-process-stat-before.stdout",
+      "sha256": "f419f0a2e0971b8503a4f53aca2f258fea57793a34d7bcd2bd967db64b1b80a2"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0148-finally-process-cmdline.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 51,
+      "path": "runtime/build19-source-launcher-exercise/0148-finally-process-cmdline.stdout",
+      "sha256": "a23b51c740d32468c7a735eb6d530a71da782328e7f201df20021622b369249e"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0149-finally-process-exe.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 25,
+      "path": "runtime/build19-source-launcher-exercise/0149-finally-process-exe.stdout",
+      "sha256": "1c6d23d65412228731fc9c6085d62a1cbe93fb5fbfcf15a6a3dc905d7b5ac42c"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0150-finally-process-hashes.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 269,
+      "path": "runtime/build19-source-launcher-exercise/0150-finally-process-hashes.stdout",
+      "sha256": "3ec55a2bff4776caad095397fd66007227cadd511eaa263da6ac53b9de692982"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0151-finally-process-fds.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 80,
+      "path": "runtime/build19-source-launcher-exercise/0151-finally-process-fds.stdout",
+      "sha256": "16ac085dbc15e79afa78b1248caf42583df084363ac6fb90022ea24acb17d818"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0152-finally-process-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 5,
+      "path": "runtime/build19-source-launcher-exercise/0152-finally-process-tids.stdout",
+      "sha256": "2d8bc343137d94e3073e4cb475108652feb4b3359987a4adc5ec3170755f2d56"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0153-finally-process-stat-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime/build19-source-launcher-exercise/0153-finally-process-stat-after.stdout",
+      "sha256": "f419f0a2e0971b8503a4f53aca2f258fea57793a34d7bcd2bd967db64b1b80a2"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/0154-finally-process-state-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 286,
+      "path": "runtime/build19-source-launcher-exercise/0154-finally-process-state-after.stdout",
+      "sha256": "2ede801e7bbe457446050f6ae214ac3766180d927a1b9ecc80c52e5898c273bc"
+    },
+    {
+      "bytes": 1914,
+      "path": "runtime/build19-source-launcher-exercise/build-inputs.json",
+      "sha256": "1e55055f888c8583708f704c31b87ed669e17feba4beea3e2f99f61cbadfb8bd"
+    },
+    {
+      "bytes": 200,
+      "path": "runtime/build19-source-launcher-exercise/early-complete.json",
+      "sha256": "ea4173ee8248766ddb1056f56b3afaca9849f4fb510ac8bc41d486f400065683"
+    },
+    {
+      "bytes": 12298476,
+      "path": "runtime/build19-source-launcher-exercise/early-continuous-logcat.txt",
+      "sha256": "7050c1ae2995b45084287e8c55e06f71ac010bea1e4732cc43296db64454e0e9"
+    },
+    {
+      "bytes": 1953,
+      "path": "runtime/build19-source-launcher-exercise/establish-session-new-process-logcat.bin",
+      "sha256": "e55d62d68a8d90b4f1aa45d44186531b68c3253298bddf4b86465fe731cd9fb3"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/exercise-kmsg.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1135485,
+      "path": "runtime/build19-source-launcher-exercise/exercise-kmsg.txt",
+      "sha256": "3329bc165d5bef845496ed6aee2cc1e6d8a0143d244e3aedc5c92e2b3afd38af"
+    },
+    {
+      "bytes": 9512,
+      "path": "runtime/build19-source-launcher-exercise/exercise-logcat.bin",
+      "sha256": "f3d105666e8929532540d0a9becc01329b989b455bfd91c72e5b2812a523f736"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-exercise/exercise-logcat.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 6859,
+      "path": "runtime/build19-source-launcher-exercise/expected-manifest.json",
+      "sha256": "1caf79a67d90766b4ca39d5d9f5df8f8b8c3c9b6e0384b77af2c9739b4349bf4"
+    },
+    {
+      "bytes": 66,
+      "path": "runtime/build19-source-launcher-exercise/readback-identity.txt",
+      "sha256": "52b7ba33622dc3e97547a72556685788587ec65d8490ac4dc4dac2f74729bff6"
+    },
+    {
+      "bytes": 9485,
+      "path": "runtime/build19-source-launcher-exercise/readback-result.json",
+      "sha256": "9451fb05dccbb377bf9cf919c014af78bb82b9a3645f78340d9b5de85b58fb8e"
+    },
+    {
+      "bytes": 3375,
+      "path": "runtime/build19-source-launcher-exercise/readback-sha256sum.txt",
+      "sha256": "13cb3e7a49f2bdb90de136b9a6cd87822c10cc1a7355921a329d1d747d049836"
+    },
+    {
+      "bytes": 159234,
+      "path": "runtime/build19-source-launcher-exercise/result.json",
+      "sha256": "be1ba67a40795b17dce33084ad9cac613b05d65d2988886c6d78e6a5e7b0cabd"
+    },
+    {
+      "bytes": 2482,
+      "path": "runtime/build19-source-launcher-exercise/sigterm-restart-new-process-logcat.bin",
+      "sha256": "db821fcda6995ddbe1cecae636b95288ccd194659e93d3a2b144693129e83711"
+    },
+    {
+      "bytes": 53309,
+      "path": "runtime/build19-source-launcher-exercise/source-wmt_dev.c",
+      "sha256": "ffa88ab507072777690543478722ea58d721890ef4dc5fbd6f0507b5d0a470b1"
+    },
+    {
+      "bytes": 57425,
+      "path": "runtime/build19-source-launcher-exercise/source-wmt_plat_alps.c",
+      "sha256": "f898e27c63210005e29a4ba5cf3f87ad4a1d93ffe2ce4793f92a9a527e36d804"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0001-root-user.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2,
+      "path": "runtime/build19-source-launcher-first-boot/0001-root-user.stdout",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0002-preflight-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 285,
+      "path": "runtime/build19-source-launcher-first-boot/0002-preflight-state.stdout",
+      "sha256": "1804a043473b85d64465b604d4268fe0fc49947f2d4df0c7d54deb3343ade1fa"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0003-loaded-modules.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 284,
+      "path": "runtime/build19-source-launcher-first-boot/0003-loaded-modules.stdout",
+      "sha256": "6ac6bba07acf3fd4f2bacda397980b5c8e07edb0fb9b5214f2c6912aa667e265"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0004-initial-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 285,
+      "path": "runtime/build19-source-launcher-first-boot/0004-initial-state.stdout",
+      "sha256": "7cbd7532b62cd19a15c92e195b8a00107a6a9053396f35927bc2f18df0f8fcc1"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0005-initial-stat-before.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 323,
+      "path": "runtime/build19-source-launcher-first-boot/0005-initial-stat-before.stdout",
+      "sha256": "5547cd74482cb46144f74e6a8603003ab30a7122d744b443c2474fffb47cd04e"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0006-initial-cmdline.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 51,
+      "path": "runtime/build19-source-launcher-first-boot/0006-initial-cmdline.stdout",
+      "sha256": "a23b51c740d32468c7a735eb6d530a71da782328e7f201df20021622b369249e"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0007-initial-exe.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 25,
+      "path": "runtime/build19-source-launcher-first-boot/0007-initial-exe.stdout",
+      "sha256": "1c6d23d65412228731fc9c6085d62a1cbe93fb5fbfcf15a6a3dc905d7b5ac42c"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0008-initial-hashes.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 268,
+      "path": "runtime/build19-source-launcher-first-boot/0008-initial-hashes.stdout",
+      "sha256": "41585b2fe00244f9ca3b834b16961917d0275161deccf29778eb60c4a5813c87"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0009-initial-fds.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 80,
+      "path": "runtime/build19-source-launcher-first-boot/0009-initial-fds.stdout",
+      "sha256": "a48bdf7bfedb6a4f218800d03d1161441711ab7d37db6d7c57ed057fba2e1e49"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0010-initial-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 4,
+      "path": "runtime/build19-source-launcher-first-boot/0010-initial-tids.stdout",
+      "sha256": "13a57a1832cfa5c92e7f46e6832f88c96d0fef54383f12574cb1dbff17e7cb50"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0011-initial-stat-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 323,
+      "path": "runtime/build19-source-launcher-first-boot/0011-initial-stat-after.stdout",
+      "sha256": "5547cd74482cb46144f74e6a8603003ab30a7122d744b443c2474fffb47cd04e"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0012-initial-state-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 285,
+      "path": "runtime/build19-source-launcher-first-boot/0012-initial-state-after.stdout",
+      "sha256": "52f2836fb032235cc7841a77748c79bc54a15bf81b16f3775926178d14212a38"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0013-capture-final-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 285,
+      "path": "runtime/build19-source-launcher-first-boot/0013-capture-final-state.stdout",
+      "sha256": "a6aceb925193fa3b43178dc26a062c347b2db58c1b542ee40d78baf0124c6ade"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0014-capture-final-stat-before.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 323,
+      "path": "runtime/build19-source-launcher-first-boot/0014-capture-final-stat-before.stdout",
+      "sha256": "854fb1f3e16892e8cabe9e7e8aea381a03ac4a073ca1e4bc023a3a55fc3d5ef1"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0015-capture-final-cmdline.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 51,
+      "path": "runtime/build19-source-launcher-first-boot/0015-capture-final-cmdline.stdout",
+      "sha256": "a23b51c740d32468c7a735eb6d530a71da782328e7f201df20021622b369249e"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0016-capture-final-exe.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 25,
+      "path": "runtime/build19-source-launcher-first-boot/0016-capture-final-exe.stdout",
+      "sha256": "1c6d23d65412228731fc9c6085d62a1cbe93fb5fbfcf15a6a3dc905d7b5ac42c"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0017-capture-final-hashes.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 268,
+      "path": "runtime/build19-source-launcher-first-boot/0017-capture-final-hashes.stdout",
+      "sha256": "41585b2fe00244f9ca3b834b16961917d0275161deccf29778eb60c4a5813c87"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0018-capture-final-fds.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 80,
+      "path": "runtime/build19-source-launcher-first-boot/0018-capture-final-fds.stdout",
+      "sha256": "a48bdf7bfedb6a4f218800d03d1161441711ab7d37db6d7c57ed057fba2e1e49"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0019-capture-final-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 4,
+      "path": "runtime/build19-source-launcher-first-boot/0019-capture-final-tids.stdout",
+      "sha256": "13a57a1832cfa5c92e7f46e6832f88c96d0fef54383f12574cb1dbff17e7cb50"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0020-capture-final-stat-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 323,
+      "path": "runtime/build19-source-launcher-first-boot/0020-capture-final-stat-after.stdout",
+      "sha256": "db0f093d48db582413785146bcc627b32677494cd17e364290b6b9fa9dc46b31"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-first-boot/0021-capture-final-state-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 285,
+      "path": "runtime/build19-source-launcher-first-boot/0021-capture-final-state-after.stdout",
+      "sha256": "df2276632511ee75ef91774d89399dc0dc4daeef46fbf9c748bf64a3c447fe4a"
+    },
+    {
+      "bytes": 1914,
+      "path": "runtime/build19-source-launcher-first-boot/build-inputs.json",
+      "sha256": "1e55055f888c8583708f704c31b87ed669e17feba4beea3e2f99f61cbadfb8bd"
+    },
+    {
+      "bytes": 201,
+      "path": "runtime/build19-source-launcher-first-boot/early-complete.json",
+      "sha256": "f2349b502a5500d5c8918d9c6dd9a2654f41d868e68122a22ed54fe5a4a902c5"
+    },
+    {
+      "bytes": 14227065,
+      "path": "runtime/build19-source-launcher-first-boot/early-continuous-logcat.txt",
+      "sha256": "3419ac86c4ca7c2502c9a92c93b4e9e2984131893f94a7c3ecd95563cc1b2b08"
+    },
+    {
+      "bytes": 6859,
+      "path": "runtime/build19-source-launcher-first-boot/expected-manifest.json",
+      "sha256": "1caf79a67d90766b4ca39d5d9f5df8f8b8c3c9b6e0384b77af2c9739b4349bf4"
+    },
+    {
+      "bytes": 66,
+      "path": "runtime/build19-source-launcher-first-boot/readback-identity.txt",
+      "sha256": "b35918d840f219c2f323be6a4ff835c316f4be1db102031f0d0b97643db576ed"
+    },
+    {
+      "bytes": 9485,
+      "path": "runtime/build19-source-launcher-first-boot/readback-result.json",
+      "sha256": "449c8761df2ac7dff6ff6076b5164956e4b3ae0503630a1080097e037b50c606"
+    },
+    {
+      "bytes": 3375,
+      "path": "runtime/build19-source-launcher-first-boot/readback-sha256sum.txt",
+      "sha256": "13cb3e7a49f2bdb90de136b9a6cd87822c10cc1a7355921a329d1d747d049836"
+    },
+    {
+      "bytes": 21526,
+      "path": "runtime/build19-source-launcher-first-boot/result.json",
+      "sha256": "07f3e5cf12abdf63f4e733c50750ac7b7645a41d596a8b52c5941d6dd9df5ef8"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0001-root-user.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2,
+      "path": "runtime/build19-source-launcher-normal-reboot/0001-root-user.stdout",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0002-preflight-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 283,
+      "path": "runtime/build19-source-launcher-normal-reboot/0002-preflight-state.stdout",
+      "sha256": "83ef71a77f7a2a6b4489d4addcbfc73560a159ee81e65378357d25a683819fa7"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0003-loaded-modules.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 284,
+      "path": "runtime/build19-source-launcher-normal-reboot/0003-loaded-modules.stdout",
+      "sha256": "6ac6bba07acf3fd4f2bacda397980b5c8e07edb0fb9b5214f2c6912aa667e265"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0004-initial-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 283,
+      "path": "runtime/build19-source-launcher-normal-reboot/0004-initial-state.stdout",
+      "sha256": "687700a01ab3e3950a401f55b2ea37e510d184e54a23a3e5abca52ee93078e91"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0005-initial-stat-before.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 322,
+      "path": "runtime/build19-source-launcher-normal-reboot/0005-initial-stat-before.stdout",
+      "sha256": "7cf7ab420c2e00728e893cdfe36612a615fe1b430d14097771026cfd8b877da6"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0006-initial-cmdline.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 51,
+      "path": "runtime/build19-source-launcher-normal-reboot/0006-initial-cmdline.stdout",
+      "sha256": "a23b51c740d32468c7a735eb6d530a71da782328e7f201df20021622b369249e"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0007-initial-exe.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 25,
+      "path": "runtime/build19-source-launcher-normal-reboot/0007-initial-exe.stdout",
+      "sha256": "1c6d23d65412228731fc9c6085d62a1cbe93fb5fbfcf15a6a3dc905d7b5ac42c"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0008-initial-hashes.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 268,
+      "path": "runtime/build19-source-launcher-normal-reboot/0008-initial-hashes.stdout",
+      "sha256": "f82e750049cf3467b7cd3e4a806831c4b8348db2205da665735bd9a8edbbe5ad"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0009-initial-fds.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 80,
+      "path": "runtime/build19-source-launcher-normal-reboot/0009-initial-fds.stdout",
+      "sha256": "406033d86d91b1c40f0d7c89e314eae80f2dfab972dd42f1c76b5598d76825fc"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0010-initial-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 4,
+      "path": "runtime/build19-source-launcher-normal-reboot/0010-initial-tids.stdout",
+      "sha256": "ae5af7f379fedbb5244b969c189a375528d853737585e6e163fc3a19f2713998"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0011-initial-stat-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 322,
+      "path": "runtime/build19-source-launcher-normal-reboot/0011-initial-stat-after.stdout",
+      "sha256": "6215261bdac788f2aad9b4b4a4723148ccbeb13a1099c4d61240939f42c3d2ec"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0012-initial-state-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 283,
+      "path": "runtime/build19-source-launcher-normal-reboot/0012-initial-state-after.stdout",
+      "sha256": "22ca7b45a4fc20126d9564193cb9490dc3d8ad3b05af26498f286e5148687127"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0013-capture-final-state.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 283,
+      "path": "runtime/build19-source-launcher-normal-reboot/0013-capture-final-state.stdout",
+      "sha256": "2f601693a42258b326cc853dd1a41da3661223d58328b5ca7fc154d4acf2d74d"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0014-capture-final-stat-before.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 322,
+      "path": "runtime/build19-source-launcher-normal-reboot/0014-capture-final-stat-before.stdout",
+      "sha256": "6215261bdac788f2aad9b4b4a4723148ccbeb13a1099c4d61240939f42c3d2ec"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0015-capture-final-cmdline.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 51,
+      "path": "runtime/build19-source-launcher-normal-reboot/0015-capture-final-cmdline.stdout",
+      "sha256": "a23b51c740d32468c7a735eb6d530a71da782328e7f201df20021622b369249e"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0016-capture-final-exe.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 25,
+      "path": "runtime/build19-source-launcher-normal-reboot/0016-capture-final-exe.stdout",
+      "sha256": "1c6d23d65412228731fc9c6085d62a1cbe93fb5fbfcf15a6a3dc905d7b5ac42c"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0017-capture-final-hashes.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 268,
+      "path": "runtime/build19-source-launcher-normal-reboot/0017-capture-final-hashes.stdout",
+      "sha256": "f82e750049cf3467b7cd3e4a806831c4b8348db2205da665735bd9a8edbbe5ad"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0018-capture-final-fds.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 80,
+      "path": "runtime/build19-source-launcher-normal-reboot/0018-capture-final-fds.stdout",
+      "sha256": "406033d86d91b1c40f0d7c89e314eae80f2dfab972dd42f1c76b5598d76825fc"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0019-capture-final-tids.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 4,
+      "path": "runtime/build19-source-launcher-normal-reboot/0019-capture-final-tids.stdout",
+      "sha256": "ae5af7f379fedbb5244b969c189a375528d853737585e6e163fc3a19f2713998"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0020-capture-final-stat-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 322,
+      "path": "runtime/build19-source-launcher-normal-reboot/0020-capture-final-stat-after.stdout",
+      "sha256": "7cf7ab420c2e00728e893cdfe36612a615fe1b430d14097771026cfd8b877da6"
+    },
+    {
+      "bytes": 0,
+      "path": "runtime/build19-source-launcher-normal-reboot/0021-capture-final-state-after.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 283,
+      "path": "runtime/build19-source-launcher-normal-reboot/0021-capture-final-state-after.stdout",
+      "sha256": "bfccd2bf6a63c43f1d68ac4b73a832d809447c4b228cd197599964d2675258e5"
+    },
+    {
+      "bytes": 1914,
+      "path": "runtime/build19-source-launcher-normal-reboot/build-inputs.json",
+      "sha256": "1e55055f888c8583708f704c31b87ed669e17feba4beea3e2f99f61cbadfb8bd"
+    },
+    {
+      "bytes": 200,
+      "path": "runtime/build19-source-launcher-normal-reboot/early-complete.json",
+      "sha256": "ea4173ee8248766ddb1056f56b3afaca9849f4fb510ac8bc41d486f400065683"
+    },
+    {
+      "bytes": 10728920,
+      "path": "runtime/build19-source-launcher-normal-reboot/early-continuous-logcat.txt",
+      "sha256": "b602ee676f6627f3d02d25052e652146e6657244f5ddc0ae40a726dc8a81fb9d"
+    },
+    {
+      "bytes": 6859,
+      "path": "runtime/build19-source-launcher-normal-reboot/expected-manifest.json",
+      "sha256": "1caf79a67d90766b4ca39d5d9f5df8f8b8c3c9b6e0384b77af2c9739b4349bf4"
+    },
+    {
+      "bytes": 66,
+      "path": "runtime/build19-source-launcher-normal-reboot/readback-identity.txt",
+      "sha256": "52b7ba33622dc3e97547a72556685788587ec65d8490ac4dc4dac2f74729bff6"
+    },
+    {
+      "bytes": 9485,
+      "path": "runtime/build19-source-launcher-normal-reboot/readback-result.json",
+      "sha256": "9451fb05dccbb377bf9cf919c014af78bb82b9a3645f78340d9b5de85b58fb8e"
+    },
+    {
+      "bytes": 3375,
+      "path": "runtime/build19-source-launcher-normal-reboot/readback-sha256sum.txt",
+      "sha256": "13cb3e7a49f2bdb90de136b9a6cd87822c10cc1a7355921a329d1d747d049836"
+    },
+    {
+      "bytes": 21523,
+      "path": "runtime/build19-source-launcher-normal-reboot/result.json",
+      "sha256": "9cfef6ac36b1e4f96cc208424fa2bb146984f28f18eb5e4ffb23dc5a4b7fda9e"
+    },
+    {
+      "bytes": 50464,
+      "path": "wmt-source-launcher-probe/run.py",
+      "sha256": "c60e1cf9c96154f9a47119920eb8f7fa930045fa9781f8d1434816159b2eb069"
+    }
+  ],
+  "generated_utc": "2026-09-07T04:52:09.372046+00:00",
+  "root": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905"
+}

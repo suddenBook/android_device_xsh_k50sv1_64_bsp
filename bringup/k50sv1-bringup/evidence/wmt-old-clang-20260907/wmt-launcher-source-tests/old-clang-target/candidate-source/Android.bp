@@ -1,0 +1,11 @@
+// SPDX-License-Identifier: Apache-2.0
+cc_binary {
+    name: "wmt_launcher",
+    srcs: ["main.c", "protocol.c", "patch.c", "firmware.c"],
+    local_include_dirs: ["include"],
+    shared_libs: ["libcutils", "liblog"],
+    c_std: "gnu11",
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+    vendor: true,
+    compile_multilib: "64",
+}

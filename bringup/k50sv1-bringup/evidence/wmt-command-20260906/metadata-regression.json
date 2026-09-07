@@ -1,0 +1,237 @@
+{
+  "kernel": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-kernel-work",
+  "sanitizer": "address,undefined",
+  "fixture_sha256": "c9a27d2f862356d956b7a127227393040d1948135bfbd92eb5a3179c37aaa165",
+  "runner_sha256": "5a84732167683acb91eba25395eb699ac7949a5ce9b8b715c7c7bc8adc44e7c7",
+  "compile_command": [
+    "cc",
+    "-std=gnu11",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Wno-pointer-sign",
+    "-Wno-sign-compare",
+    "-Wno-unused-but-set-variable",
+    "-Wno-unused-function",
+    "-fno-omit-frame-pointer",
+    "-no-pie",
+    "-pthread",
+    "-fsanitize=address,undefined",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-tests/metadata-regression/test.c",
+    "-o",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-tests/metadata-regression/test"
+  ],
+  "passed": 52,
+  "total": 52,
+  "cases": [
+    {
+      "case": "count/zero",
+      "exit_code": 0
+    },
+    {
+      "case": "count/too-many",
+      "exit_code": 0
+    },
+    {
+      "case": "count/word-max",
+      "exit_code": 0
+    },
+    {
+      "case": "count/allocation-errno",
+      "exit_code": 0
+    },
+    {
+      "case": "count/allocation-retry",
+      "exit_code": 0
+    },
+    {
+      "case": "count/duplicate-preserves-count",
+      "exit_code": 0
+    },
+    {
+      "case": "count/null-output",
+      "exit_code": 0
+    },
+    {
+      "case": "common/before-count",
+      "exit_code": 0
+    },
+    {
+      "case": "common/copy-failure",
+      "exit_code": 0
+    },
+    {
+      "case": "common/unterminated-name",
+      "exit_code": 0
+    },
+    {
+      "case": "common/zero-sequence",
+      "exit_code": 0
+    },
+    {
+      "case": "common/high-sequence",
+      "exit_code": 0
+    },
+    {
+      "case": "common/duplicate-does-not-publish-holes",
+      "exit_code": 0
+    },
+    {
+      "case": "common/invalid-sequence-preserves-progress",
+      "exit_code": 0
+    },
+    {
+      "case": "common/replace-complete-record",
+      "exit_code": 0
+    },
+    {
+      "case": "common/invalid-update-preserves-record",
+      "exit_code": 0
+    },
+    {
+      "case": "bounds/zero",
+      "exit_code": 0
+    },
+    {
+      "case": "bounds/past-end",
+      "exit_code": 0
+    },
+    {
+      "case": "bounds/u32-max",
+      "exit_code": 0
+    },
+    {
+      "case": "bounds/u64-wrap",
+      "exit_code": 0
+    },
+    {
+      "case": "bounds/word-max",
+      "exit_code": 0
+    },
+    {
+      "case": "bounds/null-control",
+      "exit_code": 0
+    },
+    {
+      "case": "bounds/null-name",
+      "exit_code": 0
+    },
+    {
+      "case": "bounds/null-address",
+      "exit_code": 0
+    },
+    {
+      "case": "lifecycle/out-of-order-all-ten",
+      "exit_code": 0
+    },
+    {
+      "case": "lifecycle/free-resets-count",
+      "exit_code": 0
+    },
+    {
+      "case": "lifecycle/free-reallocate",
+      "exit_code": 0
+    },
+    {
+      "case": "rom/optional-missing",
+      "exit_code": 0
+    },
+    {
+      "case": "rom/launcher-failure",
+      "exit_code": 0
+    },
+    {
+      "case": "rom/allocation-errno",
+      "exit_code": 0
+    },
+    {
+      "case": "rom/allocation-retry",
+      "exit_code": 0
+    },
+    {
+      "case": "rom/copy-failure",
+      "exit_code": 0
+    },
+    {
+      "case": "rom/unterminated-name",
+      "exit_code": 0
+    },
+    {
+      "case": "rom/invalid-type",
+      "exit_code": 0
+    },
+    {
+      "case": "rom/word-max-type",
+      "exit_code": 0
+    },
+    {
+      "case": "rom/duplicate-preserves-first",
+      "exit_code": 0
+    },
+    {
+      "case": "rom/all-types-free-reallocate",
+      "exit_code": 0
+    },
+    {
+      "case": "rom-bounds/past-end",
+      "exit_code": 0
+    },
+    {
+      "case": "rom-bounds/u32-max",
+      "exit_code": 0
+    },
+    {
+      "case": "rom-bounds/u64-wrap",
+      "exit_code": 0
+    },
+    {
+      "case": "rom-bounds/word-max",
+      "exit_code": 0
+    },
+    {
+      "case": "rom-bounds/null-control",
+      "exit_code": 0
+    },
+    {
+      "case": "rom-bounds/null-name",
+      "exit_code": 0
+    },
+    {
+      "case": "rom-bounds/null-address",
+      "exit_code": 0
+    },
+    {
+      "case": "task/metadata-absent",
+      "exit_code": 0
+    },
+    {
+      "case": "task/rom2",
+      "exit_code": 0
+    },
+    {
+      "case": "task/rom3",
+      "exit_code": 0
+    },
+    {
+      "case": "task/rom4",
+      "exit_code": 0
+    },
+    {
+      "case": "task/connac",
+      "exit_code": 0
+    },
+    {
+      "case": "concurrent/update-read",
+      "exit_code": 0
+    },
+    {
+      "case": "concurrent/free-reallocate-read",
+      "exit_code": 0
+    },
+    {
+      "case": "concurrent/rom-free-reallocate-read",
+      "exit_code": 0
+    }
+  ]
+}

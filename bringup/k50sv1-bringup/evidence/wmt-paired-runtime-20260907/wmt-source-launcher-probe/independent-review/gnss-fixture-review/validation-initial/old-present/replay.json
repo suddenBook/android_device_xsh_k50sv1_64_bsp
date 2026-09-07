@@ -1,0 +1,68 @@
+{
+  "error": {
+    "type": "AssertionError",
+    "message": ""
+  },
+  "fixture": {
+    "status": "PASS",
+    "search_restore_required": true
+  },
+  "calls": [
+    {
+      "step": "search-package-before",
+      "args": [
+        "shell",
+        "dumpsys package com.google.android.googlequicksearchbox"
+      ]
+    },
+    {
+      "step": "search-launcher-component",
+      "args": [
+        "shell",
+        "cmd package resolve-activity --brief --user 0 -n com.google.android.googlequicksearchbox/.SearchActivity"
+      ]
+    },
+    {
+      "step": "pause-observed-search-request-source",
+      "args": [
+        "shell",
+        "am force-stop com.google.android.googlequicksearchbox"
+      ]
+    },
+    {
+      "step": "reset-old-probe-process",
+      "args": [
+        "shell",
+        "am force-stop local.k50.gnssprobe"
+      ]
+    },
+    {
+      "step": "old-probe-process-absent",
+      "args": [
+        "shell",
+        "pidof local.k50.gnssprobe || true"
+      ]
+    },
+    {
+      "step": "restore-search-availability",
+      "args": [
+        "shell",
+        "am start -W -n com.google.android.googlequicksearchbox/.SearchActivity"
+      ]
+    },
+    {
+      "step": "search-package-restored",
+      "args": [
+        "shell",
+        "dumpsys package com.google.android.googlequicksearchbox"
+      ]
+    },
+    {
+      "step": "restore-home-after-gnss",
+      "args": [
+        "shell",
+        "input keyevent KEYCODE_HOME"
+      ]
+    }
+  ]
+}

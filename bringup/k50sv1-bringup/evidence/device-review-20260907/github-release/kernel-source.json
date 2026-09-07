@@ -1,0 +1,13 @@
+{
+  "public_commit": "3c03dab12d0b92b6f4bb285ade60be1e59359345",
+  "public_tree": "a8e0196020615fb65d98dfa0c1d6acdf2c0604cf",
+  "exported_source_commit": "a87350aabc5b319b53dcb2bb68952d1fa26c95a7",
+  "source_tree_equals_public_tree": true,
+  "original_build_commit": "ef8238aca4c6f3d3eba764313320e30b24250e4e",
+  "history_preserved_locally": true,
+  "missing_historical_objects": [
+    "5c3464b5bb1ee057d8b0169094efb616fdc7b429",
+    "9f5273a0be7a90859d065d014cfb3e905de25293"
+  ],
+  "first_missing_object_restored_from_exact_upstream_blob": true
+}

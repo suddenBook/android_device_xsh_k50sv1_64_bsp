@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- System configuration for the preinstalled Huawei payload.
+
+     Installed to /product/etc/sysconfig, beside the packages it configures.
+     SystemConfig registers that directory with ALLOW_ALL (SystemConfig.java:404),
+     which is what makes both tags below legal here; the vendor and odm
+     sysconfig directories are not ALLOW_ALL and would reject them.
+-->
+<config>
+    <!-- Doze and App Standby exemption. DeviceIdleController.java:2009 reads
+         this set, and it is what PowerManager.isIgnoringBatteryOptimizations()
+         reports true for. Being the system whitelist rather than the
+         user-visible one, it survives a /data wipe. -->
+    <allow-in-power-save package="com.huawei.hwid" />
+    <allow-in-power-save package="com.huawei.appmarket" />
+
+    <!-- Non-SDK interface exemption. Both APKs target far past this platform
+         (HMS Core SDK 31, AppGallery SDK 34) and were built against Huawei's
+         own framework, so they reach for interfaces that are greylisted or
+         blacklisted here. Privileged placement alone does not exempt them -
+         only the platform signature does that implicitly, and this list
+         explicitly (ApplicationInfo.java:1828). -->
+    <hidden-api-whitelisted-app package="com.huawei.hwid" />
+    <hidden-api-whitelisted-app package="com.huawei.appmarket" />
+</config>

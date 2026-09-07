@@ -1,0 +1,10 @@
+[36865.194502] (4)[424:HwBinder:365_2]ERROR,545: id=0,addr: 38, transfer error
+[36865.194505] (4)[424:HwBinder:365_2]ERROR,551: I2C_ACKERR
+[36865.194513] (4)[424:HwBinder:365_2][FTS_TS/E]fts_write:i2c_master_send fail,ret=-22
+[36865.194654] (4)[424:HwBinder:365_2]ERROR,545: id=0,addr: 38, transfer error
+[36865.194656] (4)[424:HwBinder:365_2]ERROR,551: I2C_ACKERR
+[36865.194662] (4)[424:HwBinder:365_2][FTS_TS/E]fts_write:i2c_master_send fail,ret=-22
+[36865.194801] (4)[424:HwBinder:365_2]ERROR,545: id=0,addr: 38, transfer error
+[36865.194803] (4)[424:HwBinder:365_2]ERROR,551: I2C_ACKERR
+[36865.194808] (4)[424:HwBinder:365_2][FTS_TS/E]fts_write:i2c_master_send fail,ret=-22
+[36865.194811] (4)[424:HwBinder:365_2][FTS_TS/E]tpd_suspend:set TP to sleep mode fail, ret=-22

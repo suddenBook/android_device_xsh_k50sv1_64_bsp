@@ -1,0 +1,91 @@
+{
+  "commit": "75f4664c480ccbf64b764406776e8a3d88a3325b",
+  "base_revision": "372a643505f6b0aab0b3adbd150ecb9d9291d8d9",
+  "repository": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-fwlog-kernel-work",
+  "worktree_clean": true,
+  "changed_files": [
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dbg.c",
+      "sha256": "117849622ef70cd56a1b27be5bccb89b735bacb3099adee26c40827014b04827"
+    },
+    {
+      "path": "tools/testing/wmt-fwlog/README.md",
+      "sha256": "fb0b05625a1237d6b4f88fec63f45dbf5ec751d473d6e76d6da2626ce03c92a4"
+    },
+    {
+      "path": "tools/testing/wmt-fwlog/run.py",
+      "sha256": "7f1dc8f6b219aeff43b1f410eca9880422d8c130b8e2ee76be623d51773faad4"
+    },
+    {
+      "path": "tools/testing/wmt-fwlog/test_host.c",
+      "sha256": "01ad427bf277a5e345809b804e99369d9143756958c185384ad17d2a97729ef5"
+    }
+  ],
+  "host_runs": [
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-fwlog-tests/second-large-address/results.json",
+      "sha256": "d008407b05676f5cfc02c0f40d6d59d44d06878788d99dfd0ea75dfc4eeb522a",
+      "passed_cases": 26,
+      "completed_cases": 26,
+      "baseline_control": false,
+      "expected_behavior_verified": true,
+      "source_and_fixture_hashes_verified": true
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-fwlog-tests/first-small-address/results.json",
+      "sha256": "bf804ececb350b90c9a856242cdf242db8bc9eafb8086d63e19ddcce96544b53",
+      "passed_cases": 26,
+      "completed_cases": 26,
+      "baseline_control": false,
+      "expected_behavior_verified": true,
+      "source_and_fixture_hashes_verified": true
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-fwlog-tests/first-small-thread/results.json",
+      "sha256": "366358f9015becc59b88d200fdc17929fdf50903b6e28e1c13584e4a60fcefea",
+      "passed_cases": 3,
+      "completed_cases": 3,
+      "baseline_control": false,
+      "expected_behavior_verified": true,
+      "source_and_fixture_hashes_verified": true
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-fwlog-tests/baseline-small-address/results.json",
+      "sha256": "8a68f3a9e37b6ba8ec36f12d4efbe5c700ce59924bf2675e6345345104a3f834",
+      "passed_cases": 0,
+      "completed_cases": 6,
+      "baseline_control": true,
+      "expected_behavior_verified": true,
+      "source_and_fixture_hashes_verified": true
+    }
+  ],
+  "scope": {
+    "hardware_executed": false,
+    "full_kernel_build": false,
+    "changed_arm64_unit_compile": true,
+    "requires_paired_launcher_bounded_loop": true,
+    "requires_ioctl_error_propagation": true,
+    "independent_review": "pending; source freeze supplied for review"
+  },
+  "arm64_compile": {
+    "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-fwlog-tests/arm64-first/result.json",
+    "sha256": "856791c2e49d06ddd5a4618bc4c4aade15f31662379ab54c125a6a3e5ad79ad1",
+    "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-fwlog-kernel-work/drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dbg.c",
+    "source_sha256": "117849622ef70cd56a1b27be5bccb89b735bacb3099adee26c40827014b04827",
+    "retained_command": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/kernel-obj-build14-snapshot/drivers/misc/mediatek/connectivity/source/common/common_main/linux/.wmt_dbg.o.cmd",
+    "retained_command_sha256": "59cf2989d7fff9087ae1f1eb70c22b9db6d16c1993c41991eeb2d54bec42d10a",
+    "snapshot_config_sha256": "ac35f0a14387ac96ae2955e6cde3747bd2dfa3cbc8a252cb5bcd68739b73c12a",
+    "command_sha256": "cc7ff00777183ae05303252df1486aebc32ab4dcc04ce08f1b3c6b9afb144d7a",
+    "cwd": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-fwlog-tests/arm64-first",
+    "compiler": "real-aarch64-linux-android-gcc (GCC) 4.9.x 20150123 (prerelease)\nCopyright (C) 2014 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "returncode": 0,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "object_sha256": "26143a1aa38ea94e33218d8ef2734507ab8705e6f7153b659eec65726c77b0f9",
+    "full_kernel_build": false
+  },
+  "patch": {
+    "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-fwlog-tests/fwlog-collector.patch",
+    "sha256": "301336f9dec60b0788dcaf918039c060e2557eb95fa979f3f3f7822963b461c6"
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "passed": 0,
+  "total": 26,
+  "cases": [
+    {
+      "case": "cleanup-before-init",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "configuration-read-failure",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "wmtd-create-null",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "wmtd-create-enomem",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "wmtd-create-eintr",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "worker-create-null",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "worker-create-enomem",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "worker-create-eintr",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "core-init-failure",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "platform-init-failure",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "ps-init-failure",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "wmtd-start-failure",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "worker-start-failure",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "wmtd-history-queue-allocation-failure",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "wmtd-history-snapshot-allocation-failure",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "worker-history-queue-allocation-failure",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "worker-history-snapshot-allocation-failure",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "optional-idc-registration-failure",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "successful-soc-reinit",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "successful-combo-reinit",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "pending-timer-and-history-work",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "patch-allocations-before-clear",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "assert-publication-serializes-with-close",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "running-assert-finishes-before-clear",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "late-assert-is-refused",
+      "passed": false,
+      "exit_code": -6
+    },
+    {
+      "case": "assert-before-init-is-refused",
+      "passed": false,
+      "exit_code": -6
+    }
+  ],
+  "revision": "e978fd0b295",
+  "sanitizer": "address,undefined",
+  "compiler": [
+    "cc",
+    "-std=gnu11",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-function",
+    "-Wno-unused-variable",
+    "-Wno-unused-parameter",
+    "-pthread",
+    "-fsanitize=address,undefined",
+    "-fno-sanitize-recover=all",
+    "-fno-omit-frame-pointer",
+    "-no-pie",
+    "../wmt-lib-init-tests/init-baseline-reviewed/fixture.c",
+    "-o",
+    "../wmt-lib-init-tests/init-baseline-reviewed/fixture"
+  ],
+  "source_sha256": {
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c": "a1b99dbdbcad46e69a750f1f6611985060b117bfdc9b6786e99ee1332dd544ee",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/osal.c": "366b1171b2d308e40002411710788d0899d34c5d094f87e45338bd61f96e88d2"
+  },
+  "fixture_sha256": "0aaf1c9d82e740a1112c5263bab301df343cf1d6dc29d813af04378f1a57b34f",
+  "runner_sha256": "d30665695b4bbb736e25afea7853067588d77fab9bc5f65d49847b8ba547c119",
+  "host_sha256": "686135f3767e1ea3c922fbffc850f216e3f692c7d8a5eb3840f4642f865941d8"
+}

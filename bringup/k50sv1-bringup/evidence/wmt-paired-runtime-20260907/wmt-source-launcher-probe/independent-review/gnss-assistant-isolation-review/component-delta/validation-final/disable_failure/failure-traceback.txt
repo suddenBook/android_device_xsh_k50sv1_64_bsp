@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "frozen-component-wrapper", line 79, in <module>
+  File "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-source-launcher-probe/independent-review/gnss-assistant-isolation-review/component-delta/verify_final.py", line 27, in shell
+    if label in failed:raise RuntimeError('Injected '+label)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Injected pause-observed-component

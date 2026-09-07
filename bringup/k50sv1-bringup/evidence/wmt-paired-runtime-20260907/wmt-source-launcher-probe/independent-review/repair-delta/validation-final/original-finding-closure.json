@@ -1,0 +1,83 @@
+{
+  "adapters": [
+    "stable valid preflight/snapshot",
+    "same log-prefix continuity success"
+  ],
+  "adb_executed": false,
+  "finding": "RTP-1",
+  "fixture_sha256": "03a0bc20ca72c4de550a08e39c508f8db855dba42f5f05825bf22276c452c06c",
+  "fixture_unchanged": true,
+  "results": [
+    {
+      "exit_code": 0,
+      "runtime": {
+        "process": {
+          "pid": 410,
+          "starttime": 20000
+        },
+        "status": "PASS"
+      },
+      "source_sha256": "f24e5657c3638dd12ef0d599b1928d168dd54df5ed5a93083e4b0da04afa25d2",
+      "startup": {
+        "accepted_srh_patch": [
+          {
+            "level": "I",
+            "line": 2,
+            "message": "Accepted srh_patch session=12 transaction=22 result=0 records=2",
+            "pid": 410,
+            "raw": "09-07 03:10:02.123   410   410 I wmt_launcher: Accepted srh_patch session=12 transaction=22 result=0 records=2",
+            "records": 2,
+            "stamp": "09-07 03:10:02.123",
+            "tid": 410,
+            "transaction": 22
+          }
+        ],
+        "patch_required": true,
+        "pid": 410,
+        "power": [
+          {
+            "level": "I",
+            "line": 1,
+            "message": "Power initialization completed on attempt 1",
+            "pid": 410,
+            "raw": "09-07 03:10:02.123   410   411 I wmt_launcher: Power initialization completed on attempt 1",
+            "stamp": "09-07 03:10:02.123",
+            "tid": 411
+          }
+        ],
+        "ready": {
+          "level": "I",
+          "line": 3,
+          "message": "Source launcher ready on session=12",
+          "pid": 410,
+          "raw": "09-07 03:10:02.123   410   410 I wmt_launcher: Source launcher ready on session=12",
+          "stamp": "09-07 03:10:02.123",
+          "tid": 410
+        },
+        "session": 12,
+        "status": "PASS"
+      },
+      "status": "PASS",
+      "version": "original"
+    },
+    {
+      "exit_code": 2,
+      "runtime": {
+        "process": {
+          "pid": 410,
+          "starttime": 20000
+        },
+        "status": "PASS"
+      },
+      "source_sha256": "c60e1cf9c96154f9a47119920eb8f7fa930045fa9781f8d1434816159b2eb069",
+      "startup": {
+        "note": "Current properties and converted monotonic text cannot authenticate earlier process lifetimes; identity remains separately checked",
+        "reason": "Retained initial logs lack a proven native clock and process-lifetime boundary",
+        "status": "INCONCLUSIVE"
+      },
+      "status": "INCONCLUSIVE",
+      "version": "candidate"
+    }
+  ],
+  "status": "CLOSED"
+}

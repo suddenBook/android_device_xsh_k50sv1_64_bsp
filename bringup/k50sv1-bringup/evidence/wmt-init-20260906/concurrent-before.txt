@@ -1,0 +1,26 @@
+==================
+WARNING: ThreadSanitizer: data race (pid=329120)
+  Write of size 4 at 0x000000404280 by thread T1:
+    #0 wmt_lib_set_hif <trial>/wmt-init-tests/before-thread/test.c:159 (test+0x401516) (BuildId: 20e5dadb0843772cf1de27cd6a690b824d774d30)
+    #1 run_ioctl <trial>/wmt-init-tests/before-thread/test.c:261 (test+0x4015dd) (BuildId: 20e5dadb0843772cf1de27cd6a690b824d774d30)
+    #2 configure <trial>/wmt-init-tests/before-thread/test.c:311 (test+0x4015dd)
+    #3 <null> <null> (libtsan.so.2+0x5b523) (BuildId: 39cddd66ad5c71210bae112a869b5521e906d259)
+
+  Previous write of size 4 at 0x000000404280 by thread T2:
+    #0 wmt_lib_set_hif <trial>/wmt-init-tests/before-thread/test.c:154 (test+0x4014ea) (BuildId: 20e5dadb0843772cf1de27cd6a690b824d774d30)
+    #1 run_ioctl <trial>/wmt-init-tests/before-thread/test.c:261 (test+0x4015dd) (BuildId: 20e5dadb0843772cf1de27cd6a690b824d774d30)
+    #2 configure <trial>/wmt-init-tests/before-thread/test.c:311 (test+0x4015dd)
+    #3 <null> <null> (libtsan.so.2+0x5b523) (BuildId: 39cddd66ad5c71210bae112a869b5521e906d259)
+
+  Location is global 'gDevWmt' of size 296 at 0x000000404280 (test+0x404280)
+
+  Thread T1 (tid=329128, running) created by main thread at:
+    #0 pthread_create <null> (libtsan.so.2+0x64351) (BuildId: 39cddd66ad5c71210bae112a869b5521e906d259)
+    #1 main <trial>/wmt-init-tests/before-thread/test.c:339 (test+0x401c0e) (BuildId: 20e5dadb0843772cf1de27cd6a690b824d774d30)
+
+  Thread T2 (tid=329134, running) created by main thread at:
+    #0 pthread_create <null> (libtsan.so.2+0x64351) (BuildId: 39cddd66ad5c71210bae112a869b5521e906d259)
+    #1 main <trial>/wmt-init-tests/before-thread/test.c:340 (test+0x401c30) (BuildId: 20e5dadb0843772cf1de27cd6a690b824d774d30)
+
+SUMMARY: ThreadSanitizer: data race <trial>/wmt-init-tests/before-thread/test.c:159 in wmt_lib_set_hif
+==================

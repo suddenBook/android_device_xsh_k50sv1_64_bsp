@@ -1,0 +1,1651 @@
+Activity Resolver Table:
+  Full MIME Types:
+      audio/l16:
+        f34c00a com.google.android.googlequicksearchbox/.RecordedVoiceSearchActivity filter 252f06f
+          Action: "com.google.android.googlequicksearchbox.VOICE_SEARCH_RECORDED_AUDIO"
+          Category: "android.intent.category.DEFAULT"
+          Type: "audio/l16"
+      image/*:
+        db5007b com.google.android.googlequicksearchbox/com.android.launcher3.WallpaperCropActivity filter eff4ea1
+          Action: "android.service.wallpaper.CROP_AND_SET_WALLPAPER"
+          Category: "android.intent.category.DEFAULT"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+  Base MIME Types:
+      audio:
+        f34c00a com.google.android.googlequicksearchbox/.RecordedVoiceSearchActivity filter 252f06f
+          Action: "com.google.android.googlequicksearchbox.VOICE_SEARCH_RECORDED_AUDIO"
+          Category: "android.intent.category.DEFAULT"
+          Type: "audio/l16"
+
+  Wild MIME Types:
+      image:
+        db5007b com.google.android.googlequicksearchbox/com.android.launcher3.WallpaperCropActivity filter eff4ea1
+          Action: "android.service.wallpaper.CROP_AND_SET_WALLPAPER"
+          Category: "android.intent.category.DEFAULT"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+
+  Schemes:
+      assistant-handoff:
+        658de98 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.assistant.handoff.BrowserReturnActivity filter 4433397
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "assistant-handoff"
+          Authority: "complete": -1
+        93946f1 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.assistant.handoff.AssistantHandoffActivity filter 403156d
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "assistant-handoff"
+          Authority: "": -1
+      googlequicksearchbox:
+        66d2d6 com.google.android.googlequicksearchbox/.SearchActivity filter c1d674e
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "googlequicksearchbox"
+      voicematch:
+        7892957 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.opa.VoiceMatchEnrollmentActivityEntryPoint filter c950fb9
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "voicematch"
+      dynact:
+        494c44 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.velour.DynamicActivityTrampoline filter 44076b0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "dynact"
+      agsa:
+        66d2d6 com.google.android.googlequicksearchbox/.SearchActivity filter d440249
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "agsa"
+          Authority: "search": -1
+          Path: "PatternMatcher{LITERAL: /}"
+      http:
+        50a612d com.google.android.googlequicksearchbox/com.google.android.apps.gsa.assistant.settings.hq.agentdirectory.AgentDirectoryActivity filter 52585a2
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Authority: "assistant.google.com": -1
+          Path: "PatternMatcher{PREFIX: /explore/c/}"
+          Path: "PatternMatcher{PREFIX: /services/a/}"
+          AutoVerify=true
+        4d54662 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.deeplink.DeeplinkActivityEntrypoint filter 3362ab2
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "http"
+          Scheme: "https"
+          Authority: "assistant.google.com": -1
+          Path: "PatternMatcher{PREFIX: /services/invoke}"
+          AutoVerify=true
+        7892957 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.opa.VoiceMatchEnrollmentActivityEntryPoint filter 8583ffe
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "http"
+          Scheme: "https"
+          Authority: "assistant.google.com": -1
+          Path: "PatternMatcher{LITERAL: /voicematch}"
+          AutoVerify=true
+        c0d03f3 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.opa.hq.OpaHqActivity filter d86d35f
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "http"
+          Scheme: "https"
+          Authority: "assistant.google.com": -1
+          Path: "PatternMatcher{LITERAL: /explore/}"
+      https:
+        50a612d com.google.android.googlequicksearchbox/com.google.android.apps.gsa.assistant.settings.hq.agentdirectory.AgentDirectoryActivity filter 52585a2
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "http"
+          Scheme: "https"
+          Authority: "assistant.google.com": -1
+          Path: "PatternMatcher{PREFIX: /explore/c/}"
+          Path: "PatternMatcher{PREFIX: /services/a/}"
+          AutoVerify=true
+        4d54662 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.deeplink.DeeplinkActivityEntrypoint filter 3362ab2
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "http"
+          Scheme: "https"
+          Authority: "assistant.google.com": -1
+          Path: "PatternMatcher{PREFIX: /services/invoke}"
+          AutoVerify=true
+        4d54662 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.deeplink.DeeplinkActivityEntrypoint filter 6be9a03
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "https"
+          Authority: "www.google.com": -1
+          Path: "PatternMatcher{PREFIX: /podcasts?}"
+          Path: "PatternMatcher{LITERAL: /podcasts}"
+          AutoVerify=true
+        9b0e8b0 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.deeplink.EnterCollectionsFromDeeplink filter 366ad80
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "https"
+          Authority: "www.google.com": -1
+          Path: "PatternMatcher{PREFIX: /save/s/list}"
+          AutoVerify=true
+        7892957 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.opa.VoiceMatchEnrollmentActivityEntryPoint filter 8583ffe
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "http"
+          Scheme: "https"
+          Authority: "assistant.google.com": -1
+          Path: "PatternMatcher{LITERAL: /voicematch}"
+          AutoVerify=true
+        c0d03f3 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.opa.hq.OpaHqActivity filter d86d35f
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "http"
+          Scheme: "https"
+          Authority: "assistant.google.com": -1
+          Path: "PatternMatcher{LITERAL: /explore/}"
+      googleassistant:
+        f58e329 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.opa.promo.UpgradePromoTooltipActivity filter b6dee75
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "googleassistant"
+          Authority: "android": -1
+          Path: "PatternMatcher{LITERAL: /app/link/promo/tooltip}"
+        8c566ae com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.opa.EnterOpaActivityFromDeeplink filter 5fcac98
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "googleassistant"
+          Authority: "android": -1
+          Path: "PatternMatcher{LITERAL: /app/link/main}"
+      android-app:
+        9e9ec4f com.google.android.googlequicksearchbox/com.google.android.search.calypso.AppIndexingActivity filter cde9b52
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "android-app"
+      com.google.android.apps.gsa.gdi:
+        2b3dfdc com.google.android.googlequicksearchbox/net.openid.appauth.RedirectUriReceiverActivity filter 8fa59ee
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "com.google.android.apps.gsa.gdi"
+          Path: "PatternMatcher{LITERAL: oauth2redirect}"
+      googleapp:
+        4d54662 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.deeplink.DeeplinkActivityEntrypoint filter a9e4bd
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "googleapp"
+          Authority: "deeplink": -1
+          Authority: "lens": -1
+          Path: "PatternMatcher{LITERAL: /}"
+          Path: "PatternMatcher{LITERAL: }"
+      assistant-settings:
+        4f388e5 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.assistant.settings.AssistantSettingsActivity filter 72759f0
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Scheme: "assistant-settings"
+
+  Non-Data Actions:
+      com.google.android.googlequicksearchbox.action.ASSISTANT_HANDOFF_ACTIVITY:
+        93946f1 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.assistant.handoff.AssistantHandoffActivity filter 81f2984
+          Action: "com.google.android.googlequicksearchbox.action.ASSISTANT_HANDOFF_ACTIVITY"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.googlequicksearchbox.TEXT_ASSIST:
+        5853fba com.google.android.googlequicksearchbox/com.google.android.apps.gsa.queryentry.QueryEntryActivity filter 32133dd
+          Action: "com.google.android.googlequicksearchbox.TEXT_ASSIST"
+          Category: "android.intent.category.DEFAULT"
+          Category: "com.google.android.googlequicksearchbox.category.SEARCH_WIDGET"
+      com.google.android.googlequicksearchbox.TRAFFIC_CARD_SETTINGS:
+        702fe6b com.google.android.googlequicksearchbox/com.google.android.apps.gsa.velvet.ui.VelvetIntentDispatcher filter 5750461
+          Action: "com.google.android.googlequicksearchbox.TRAFFIC_CARD_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+      android.speech.action.RECOGNIZE_VOICE_COMMAND:
+        78d1dc8 com.google.android.googlequicksearchbox/com.google.android.voicesearch.intentapi.VoiceCommandActivity filter 18230d9
+          Action: "android.speech.action.RECOGNIZE_VOICE_COMMAND"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.apps.now.OPT_IN:
+        6d8ce61 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.sidekick.main.optin.OptInActivity filter 9dc1968
+          Action: "com.google.android.apps.now.OPT_IN"
+          Category: "android.intent.category.DEFAULT"
+      android.search.action.GLOBAL_SEARCH:
+        66d2d6 com.google.android.googlequicksearchbox/.SearchActivity filter 95c0195
+          Action: "android.search.action.GLOBAL_SEARCH"
+          Category: "android.intent.category.DEFAULT"
+          Category: "com.google.android.googlequicksearchbox.category.SEARCH_WIDGET"
+          Category: "com.google.android.googlequicksearchbox.category.RECENTS_SEARCH_WIDGET"
+      com.google.android.speech.embedded.MANAGE_LANGUAGES:
+        9379d86 com.google.android.googlequicksearchbox/com.google.android.voicesearch.greco3.languagepack.InstallActivity filter 271a9e
+          Action: "android.intent.action.MAIN"
+          Action: "com.google.android.speech.embedded.MANAGE_LANGUAGES"
+          Category: "android.intent.category.DEFAULT"
+      android.intent.action.MAIN:
+        4f388e5 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.assistant.settings.AssistantSettingsActivity filter 8c89b69
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.DEFAULT"
+        a511647 com.google.android.googlequicksearchbox/com.google.android.launcher.GEL filter 34af4ab
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.HOME"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.MONKEY"
+        b3a4e74 com.google.android.googlequicksearchbox/.VoiceSearchActivity filter 1874e23
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+        9379d86 com.google.android.googlequicksearchbox/com.google.android.voicesearch.greco3.languagepack.InstallActivity filter 271a9e
+          Action: "android.intent.action.MAIN"
+          Action: "com.google.android.speech.embedded.MANAGE_LANGUAGES"
+          Category: "android.intent.category.DEFAULT"
+        66d2d6 com.google.android.googlequicksearchbox/.SearchActivity filter 2e642aa
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+          Category: "android.intent.category.MONKEY"
+        66d2d6 com.google.android.googlequicksearchbox/.SearchActivity filter dd65e9b
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.INFO"
+        d72ef9d com.google.android.googlequicksearchbox/com.google.android.apps.gsa.settingsui.VoiceSearchPreferences filter 7c8248b
+          Action: "android.intent.action.MAIN"
+        f600c12 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.speech.setupwizard.HotwordOptionalStep filter 70d6414
+          Action: "android.intent.action.MAIN"
+          Category: "com.android.settings.suggested.category.HOTWORD"
+          mPriority=10, mOrder=0, mHasPartialTypes=false
+        77ecfe3 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.opa.EnterOpaActivityFromLauncher filter 56f467b
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+        e7dde0 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.velvet.ui.settings.SettingsActivity filter fbc5929
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.NOTIFICATION_PREFERENCES"
+      android.intent.action.VIEW:
+        393e899 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.opa.hq.ResizableOpaHqActivity filter 14921ac
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.googlequicksearchbox.TRAINING_CLOSET:
+        702fe6b com.google.android.googlequicksearchbox/com.google.android.apps.gsa.velvet.ui.VelvetIntentDispatcher filter cdac46b
+          Action: "com.google.android.googlequicksearchbox.TRAINING_CLOSET"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+      android.content.pm.action.CONFIRM_PIN_APPWIDGET:
+        62ed75e com.google.android.googlequicksearchbox/com.android.launcher3.AddItemActivity filter e2fb8c6
+          Action: "android.content.pm.action.CONFIRM_PIN_SHORTCUT"
+          Action: "android.content.pm.action.CONFIRM_PIN_APPWIDGET"
+      com.google.android.googlequicksearchbox.VIEW_TERMS_OF_SERVICE:
+        66d2d6 com.google.android.googlequicksearchbox/.SearchActivity filter 2f80613
+          Action: "com.google.android.googlequicksearchbox.VIEW_TERMS_OF_SERVICE"
+          Category: "android.intent.category.DEFAULT"
+      android.intent.action.VOICE_COMMAND:
+        844873f com.google.android.googlequicksearchbox/com.google.android.voicesearch.handsfree.HandsFreeActivity filter 612fe8f
+          Action: "android.intent.action.VOICE_COMMAND"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.googlequicksearchbox.VOICE_SEARCH_DSP_HOTWORD:
+        1cf80c com.google.android.googlequicksearchbox/.DspHotwordVoiceSearchActivity filter c17a05
+          Action: "com.google.android.googlequicksearchbox.VOICE_SEARCH_DSP_HOTWORD"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.googlequicksearchbox.action.PRIVACY_SETTINGS:
+        5317555 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.velvet.ui.settings.PublicSettingsActivity filter 3b1524f
+          Action: "com.google.android.googlequicksearchbox.action.PRIVACY_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.googlequicksearchbox.GOOGLE_SEARCH:
+        66d2d6 com.google.android.googlequicksearchbox/.SearchActivity filter c324977
+          Action: "com.google.android.googlequicksearchbox.GOOGLE_SEARCH"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+      com.google.android.googlequicksearchbox.action.HOTWORD_DETECTION_SETTINGS:
+        5317555 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.velvet.ui.settings.PublicSettingsActivity filter 1ae4ddc
+          Action: "com.google.android.googlequicksearchbox.action.HOTWORD_DETECTION_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.googlequicksearchbox.LAUNCH_GSA:
+        66d2d6 com.google.android.googlequicksearchbox/.SearchActivity filter cd5b9e4
+          Action: "com.google.android.googlequicksearchbox.LAUNCH_GSA"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.googlequicksearchbox.action.ASSISTANT_SETTINGS:
+        4f388e5 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.assistant.settings.AssistantSettingsActivity filter cfd7233
+          Action: "com.google.android.googlequicksearchbox.action.ASSISTANT_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+      android.intent.action.SET_WALLPAPER:
+        c8d0b6a com.google.android.googlequicksearchbox/com.google.android.apps.gsa.launcher.GelWallpaperPickerActivity filter 4b87708
+          Action: "android.intent.action.SET_WALLPAPER"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.apps.gsa.opa.OPA_RESIZEABLE_OPT_IN:
+        f84585b com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.opa.setupwizard.ResizeableSetupWizardActivity filter f02772d
+          Action: "com.google.android.apps.gsa.opa.OPA_RESIZEABLE_OPT_IN"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.apps.gsa.opa.OPA_DEFERRED_UDC:
+        fa788f8 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.opa.setupwizard.SetupWizardDeferredUdc filter 7a1cf57
+          Action: "com.google.android.apps.gsa.opa.OPA_DEFERRED_UDC"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.googlequicksearchbox.SEARCH_GESTURE:
+        de111d1 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.search_gesture.GestureActivity filter a6caa5a
+          Action: "com.google.android.googlequicksearchbox.SEARCH_GESTURE"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.apps.gsa.opa.OPA_DEFERRED_HOTWORD:
+        4e87436 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.opa.setupwizard.SetupWizardDeferredHotword filter 15bfa44
+          Action: "com.google.android.apps.gsa.opa.OPA_DEFERRED_HOTWORD"
+          Category: "android.intent.category.DEFAULT"
+      android.speech.action.RECOGNIZE_SPEECH:
+        2261f37 com.google.android.googlequicksearchbox/com.google.android.voicesearch.intentapi.IntentApiActivity filter 27d1f20
+          Action: "android.speech.action.RECOGNIZE_SPEECH"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.apps.gsa.opa.START_ONBOARDING:
+        3483ca4 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.opa.AssistantOnboardingActivity filter e2aa462
+          Action: "com.google.android.apps.gsa.opa.START_ONBOARDING"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.apps.now.OPT_IN_1P:
+        313fa0d com.google.android.googlequicksearchbox/com.google.android.sidekick.main.optin.NowOptInFirstPartyActivity filter e4b181
+          Action: "com.google.android.apps.now.OPT_IN_1P"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.googlequicksearchbox.MY_PLACES:
+        702fe6b com.google.android.googlequicksearchbox/com.google.android.apps.gsa.velvet.ui.VelvetIntentDispatcher filter 6c06bc8
+          Action: "com.google.android.googlequicksearchbox.MY_PLACES"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+      com.google.android.googlequicksearchbox.action.VOICE_IME_SETTINGS:
+        5317555 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.velvet.ui.settings.PublicSettingsActivity filter 7185ee5
+          Action: "com.google.android.googlequicksearchbox.action.VOICE_IME_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.apps.gsa.opa.OPA_OPT_IN_WRAPPED:
+        8bf9dc2 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.opa.setupwizard.SetupWizardActivity filter 8250d6
+          Action: "com.google.android.apps.gsa.opa.OPA_OPT_IN_WRAPPED"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.googlequicksearchbox.MUSIC_SEARCH:
+        66d2d6 com.google.android.googlequicksearchbox/.SearchActivity filter ffbce4d
+          Action: "com.google.android.googlequicksearchbox.MUSIC_SEARCH"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.apps.now.GET_CURRENT_ACCOUNT:
+        1b377d3 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.sidekick.main.remoteservice.CurrentAccountActivity filter a3b1226
+          Action: "com.google.android.apps.now.GET_CURRENT_ACCOUNT"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.googlequicksearchbox.action.CLASSIC_GSA_VOICE_SEARCH:
+        66d2d6 com.google.android.googlequicksearchbox/.SearchActivity filter ebddf76
+          Action: "com.google.android.googlequicksearchbox.action.CLASSIC_GSA_VOICE_SEARCH"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "com.google.android.googlequicksearchbox.category.SEARCH_WIDGET"
+          Category: "com.google.android.googlequicksearchbox.category.RECENTS_SEARCH_WIDGET"
+      com.google.android.googlequicksearchbox.MY_REMINDERS:
+        702fe6b com.google.android.googlequicksearchbox/com.google.android.apps.gsa.velvet.ui.VelvetIntentDispatcher filter c685dba
+          Action: "com.google.android.googlequicksearchbox.MY_REMINDERS"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+      android.intent.action.SEARCH_LONG_PRESS:
+        66d2d6 com.google.android.googlequicksearchbox/.SearchActivity filter bfbb238
+          Action: "android.intent.action.SEARCH_LONG_PRESS"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.apps.opa.OPT_IN_1P:
+        81e7f10 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.projection.OpaAutoOptInActivity filter 3c23087
+          Action: "com.google.android.apps.opa.OPT_IN_1P"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.googlequicksearchbox.action.ASSISTANT_PAYMENTS_SETUP:
+        6132a09 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.opapayments.AssistantPaymentsSetupActivity filter c0a09f3
+          Action: "com.google.android.googlequicksearchbox.action.ASSISTANT_PAYMENTS_SETUP"
+          Category: "android.intent.category.DEFAULT"
+      com.google.assistant.actions.GET_UDC_CONSENT:
+        8edd40e com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.opa.errorui.UdcPuntCardActivity filter ff45e0a
+          Action: "com.google.assistant.actions.GET_UDC_CONSENT"
+          Category: "android.intent.category.DEFAULT"
+      android.search.action.SEARCH_SETTINGS:
+        5317555 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.velvet.ui.settings.PublicSettingsActivity filter 512a4ae
+          Action: "android.search.action.SEARCH_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.googlequicksearchbox.VIEW_PRIVACY_POLICY:
+        66d2d6 com.google.android.googlequicksearchbox/.SearchActivity filter b269050
+          Action: "com.google.android.googlequicksearchbox.VIEW_PRIVACY_POLICY"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.search.core.action.PROXY_VOICE_BUTTON:
+        844873f com.google.android.googlequicksearchbox/com.google.android.voicesearch.handsfree.HandsFreeActivity filter 3468525
+          Action: "com.google.android.search.core.action.PROXY_VOICE_BUTTON"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.search.core.action.PROXY_VOICE_CANCEL:
+        844873f com.google.android.googlequicksearchbox/com.google.android.voicesearch.handsfree.HandsFreeActivity filter 13626fa
+          Action: "com.google.android.search.core.action.PROXY_VOICE_CANCEL"
+          Category: "android.intent.category.DEFAULT"
+      android.intent.action.ASSIST:
+        66d2d6 com.google.android.googlequicksearchbox/.SearchActivity filter de50d4c
+          Action: "android.intent.action.ASSIST"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+        4b3be2f com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.opa.EnterOpaActivityFromAssist filter ebbfcf1
+          Action: "android.intent.action.ASSIST"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+      com.google.android.googlequicksearchbox.OPEN_ACCOUNT_CHOOSER:
+        66d2d6 com.google.android.googlequicksearchbox/.SearchActivity filter 3a07d02
+          Action: "com.google.android.googlequicksearchbox.OPEN_ACCOUNT_CHOOSER"
+          Category: "android.intent.category.DEFAULT"
+      android.speech.action.VOICE_SEARCH_HANDS_FREE:
+        844873f com.google.android.googlequicksearchbox/com.google.android.voicesearch.handsfree.HandsFreeActivity filter 140251c
+          Action: "android.speech.action.VOICE_SEARCH_HANDS_FREE"
+          Category: "android.intent.category.DEFAULT"
+      android.speech.action.WEB_SEARCH:
+        66d2d6 com.google.android.googlequicksearchbox/.SearchActivity filter 9c82211
+          Action: "android.speech.action.WEB_SEARCH"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.BROWSABLE"
+          Category: "com.google.android.googlequicksearchbox.category.SEARCH_WIDGET"
+          Category: "com.google.android.googlequicksearchbox.category.RECENTS_SEARCH_WIDGET"
+      android.content.pm.action.CONFIRM_PIN_SHORTCUT:
+        62ed75e com.google.android.googlequicksearchbox/com.android.launcher3.AddItemActivity filter e2fb8c6
+          Action: "android.content.pm.action.CONFIRM_PIN_SHORTCUT"
+          Action: "android.content.pm.action.CONFIRM_PIN_APPWIDGET"
+      android.intent.action.WEB_SEARCH:
+        bd47c3c com.google.android.googlequicksearchbox/com.google.android.search.core.google.GoogleSearch filter ef6a97f
+          Action: "android.intent.action.WEB_SEARCH"
+          Category: "android.intent.category.DEFAULT"
+      android.intent.action.CREATE_SHORTCUT:
+        9bb5dc5 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.soundsearchwidget.AddShortcutActivity filter a127e67
+          Action: "android.intent.action.CREATE_SHORTCUT"
+          Category: "android.intent.category.DEFAULT"
+      android.intent.action.VOICE_ASSIST:
+        5853fba com.google.android.googlequicksearchbox/com.google.android.apps.gsa.queryentry.QueryEntryActivity filter 3e1fbb4
+          Action: "android.intent.action.VOICE_ASSIST"
+          Category: "android.intent.category.DEFAULT"
+          Category: "com.google.android.googlequicksearchbox.category.SEARCH_WIDGET"
+
+  MIME Typed Actions:
+      android.service.wallpaper.CROP_AND_SET_WALLPAPER:
+        db5007b com.google.android.googlequicksearchbox/com.android.launcher3.WallpaperCropActivity filter eff4ea1
+          Action: "android.service.wallpaper.CROP_AND_SET_WALLPAPER"
+          Category: "android.intent.category.DEFAULT"
+          Type: "image"
+          mPriority=0, mOrder=0, mHasPartialTypes=true
+      com.google.android.googlequicksearchbox.VOICE_SEARCH_RECORDED_AUDIO:
+        f34c00a com.google.android.googlequicksearchbox/.RecordedVoiceSearchActivity filter 252f06f
+          Action: "com.google.android.googlequicksearchbox.VOICE_SEARCH_RECORDED_AUDIO"
+          Category: "android.intent.category.DEFAULT"
+          Type: "audio/l16"
+
+Receiver Resolver Table:
+  Schemes:
+      package:
+        6b7231a com.google.android.googlequicksearchbox/com.google.android.apps.gsa.googlequicksearchbox.GelStubAppWatcher filter 747955e
+          Action: "android.intent.action.PACKAGE_ADDED"
+          Action: "android.intent.action.PACKAGE_CHANGED"
+          Action: "android.intent.action.PACKAGE_REPLACED"
+          Action: "android.intent.action.PACKAGE_REMOVED"
+          Scheme: "package"
+        8c80e4b com.google.android.googlequicksearchbox/com.google.android.apps.gsa.search.core.GmsPackageWatcher filter 169a009
+          Action: "android.intent.action.PACKAGE_DATA_CLEARED"
+          Scheme: "package"
+          Ssp: "PatternMatcher{LITERAL: com.google.android.gms}"
+      content:
+        a8b2028 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.PreNCalendarBroadcastReceiver filter bc955e3
+          Action: "android.intent.action.PROVIDER_CHANGED"
+          Scheme: "content"
+          Authority: "com.android.calendar": -1
+
+  Non-Data Actions:
+      com.google.android.apps.gsa.smartspace.SETTINGS:
+        7f91141 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.PixelLauncherBroadcastReceiver filter fc8ea12
+          Action: "com.google.android.apps.dreamliner.ENABLE_UPDATE"
+          Action: "com.google.android.apps.dreamliner.DISABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.smartspace.ENABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.smartspace.CLICK_EVENT"
+          Action: "com.google.android.apps.gsa.smartspace.EXPIRE_EVENT"
+          Action: "com.google.android.apps.gsa.smartspace.SETTINGS"
+          Action: "com.google.android.apps.gsa.weatherwidget.ENABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.weatherwidget.WEATHER_CLICK"
+          Action: "com.google.android.systemui.smartspace.CLICK_EVENT"
+          Action: "com.google.android.systemui.smartspace.EXPIRE_EVENT"
+      android.hardware.usb.action.USB_DEVICE_ATTACHED:
+        19456e6 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.ExternalCommonBroadcastReceiver filter 5547c74
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR"
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR_INTERNAL"
+          Action: "android.bluetooth.device.action.ACL_CONNECTED"
+          Action: "android.bluetooth.device.action.ACL_DISCONNECTED"
+          Action: "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED"
+          Action: "android.bluetooth.device.action.UUID"
+          Action: "android.bluetooth.device.action.BOND_STATE_CHANGED"
+          Action: "android.intent.action.DOWNLOAD_COMPLETE"
+          Action: "android.location.PROVIDERS_CHANGED"
+          Action: "android.hardware.usb.action.USB_DEVICE_ATTACHED"
+          Action: "android.hardware.usb.action.USB_DEVICE_DETACHED"
+          Action: "org.chromium.chrome.browser.offlinepages.OFFLINE_PAGES_CHANGED"
+          Action: "com.google.android.apps.gsa.qsbplacement.LAYOUT_ACTIVATED"
+          Action: "com.google.android.apps.gsa.launcherexperiment.EXPERIMENT_REPORT"
+          Action: "com.google.android.apps.gsa.searchwidget.SHOW_WIDGET_CUSTOMIZATION"
+          Action: "com.google.android.apps.gsa.nowoverlayservice.PIXEL_DOODLE_QSB_SETTINGS"
+      com.google.android.apps.gsa.bisto.MAGIC_PAIR:
+        19456e6 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.ExternalCommonBroadcastReceiver filter 5547c74
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR"
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR_INTERNAL"
+          Action: "android.bluetooth.device.action.ACL_CONNECTED"
+          Action: "android.bluetooth.device.action.ACL_DISCONNECTED"
+          Action: "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED"
+          Action: "android.bluetooth.device.action.UUID"
+          Action: "android.bluetooth.device.action.BOND_STATE_CHANGED"
+          Action: "android.intent.action.DOWNLOAD_COMPLETE"
+          Action: "android.location.PROVIDERS_CHANGED"
+          Action: "android.hardware.usb.action.USB_DEVICE_ATTACHED"
+          Action: "android.hardware.usb.action.USB_DEVICE_DETACHED"
+          Action: "org.chromium.chrome.browser.offlinepages.OFFLINE_PAGES_CHANGED"
+          Action: "com.google.android.apps.gsa.qsbplacement.LAYOUT_ACTIVATED"
+          Action: "com.google.android.apps.gsa.launcherexperiment.EXPERIMENT_REPORT"
+          Action: "com.google.android.apps.gsa.searchwidget.SHOW_WIDGET_CUSTOMIZATION"
+          Action: "com.google.android.apps.gsa.nowoverlayservice.PIXEL_DOODLE_QSB_SETTINGS"
+      com.google.android.apps.gsa.sidekick.main.location.GPS_TIMEOUT:
+        a874427 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.search.core.location.ActivityDetectionReceiver filter 30333c5
+          Action: "com.google.android.apps.gsa.sidekick.main.location.GPS_TIMEOUT"
+      android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED:
+        f8616d4 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.languagepack.ZipDownloadReceiver filter d37cb55
+          Action: "android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.apps.dreamliner.ENABLE_UPDATE:
+        7f91141 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.PixelLauncherBroadcastReceiver filter fc8ea12
+          Action: "com.google.android.apps.dreamliner.ENABLE_UPDATE"
+          Action: "com.google.android.apps.dreamliner.DISABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.smartspace.ENABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.smartspace.CLICK_EVENT"
+          Action: "com.google.android.apps.gsa.smartspace.EXPIRE_EVENT"
+          Action: "com.google.android.apps.gsa.smartspace.SETTINGS"
+          Action: "com.google.android.apps.gsa.weatherwidget.ENABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.weatherwidget.WEATHER_CLICK"
+          Action: "com.google.android.systemui.smartspace.CLICK_EVENT"
+          Action: "com.google.android.systemui.smartspace.EXPIRE_EVENT"
+      android.intent.action.PACKAGE_FIRST_LAUNCH:
+        6b7231a com.google.android.googlequicksearchbox/com.google.android.apps.gsa.googlequicksearchbox.GelStubAppWatcher filter db16d3f
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.PRE_BOOT_COMPLETED"
+          Action: "android.intent.action.USER_INITIALIZE"
+          Action: "android.intent.action.MY_PACKAGE_REPLACED"
+          Action: "android.intent.action.PACKAGE_FIRST_LAUNCH"
+      android.hardware.usb.action.USB_DEVICE_DETACHED:
+        19456e6 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.ExternalCommonBroadcastReceiver filter 5547c74
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR"
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR_INTERNAL"
+          Action: "android.bluetooth.device.action.ACL_CONNECTED"
+          Action: "android.bluetooth.device.action.ACL_DISCONNECTED"
+          Action: "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED"
+          Action: "android.bluetooth.device.action.UUID"
+          Action: "android.bluetooth.device.action.BOND_STATE_CHANGED"
+          Action: "android.intent.action.DOWNLOAD_COMPLETE"
+          Action: "android.location.PROVIDERS_CHANGED"
+          Action: "android.hardware.usb.action.USB_DEVICE_ATTACHED"
+          Action: "android.hardware.usb.action.USB_DEVICE_DETACHED"
+          Action: "org.chromium.chrome.browser.offlinepages.OFFLINE_PAGES_CHANGED"
+          Action: "com.google.android.apps.gsa.qsbplacement.LAYOUT_ACTIVATED"
+          Action: "com.google.android.apps.gsa.launcherexperiment.EXPERIMENT_REPORT"
+          Action: "com.google.android.apps.gsa.searchwidget.SHOW_WIDGET_CUSTOMIZATION"
+          Action: "com.google.android.apps.gsa.nowoverlayservice.PIXEL_DOODLE_QSB_SETTINGS"
+      com.google.android.gms.udc.action.SETTING_CHANGED:
+        304807d com.google.android.googlequicksearchbox/com.google.android.apps.gsa.search.core.udc.UdcSettingBroadcastReceiver filter 9fad44b
+          Action: "com.google.android.gms.udc.action.SETTING_CHANGED"
+          Action: "com.google.android.gms.location.reporting.SETTINGS_CHANGED"
+      android.speech.action.GET_LANGUAGE_DETAILS:
+        5befb72 com.google.android.googlequicksearchbox/com.google.android.voicesearch.intentapi.IntentApiReceiver filter f89c537
+          Action: "android.speech.action.GET_LANGUAGE_DETAILS"
+      com.google.android.googlequicksearchbox.UPDATE_PREDICTIONS:
+        f19fbc3 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.reflection.ReflectionReceiver filter c9af236
+          Action: "com.android.launcher3.action.LAUNCH"
+          Action: "com.google.android.googlequicksearchbox.UPDATE_PREDICTIONS"
+          Action: "com.google.android.apps.gsa.reflection.APP_LAUNCH"
+          Action: "com.google.android.apps.gsa.reflection.CLEAR_DATA"
+      com.google.android.apps.gsa.weatherwidget.WEATHER_CLICK:
+        7f91141 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.PixelLauncherBroadcastReceiver filter fc8ea12
+          Action: "com.google.android.apps.dreamliner.ENABLE_UPDATE"
+          Action: "com.google.android.apps.dreamliner.DISABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.smartspace.ENABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.smartspace.CLICK_EVENT"
+          Action: "com.google.android.apps.gsa.smartspace.EXPIRE_EVENT"
+          Action: "com.google.android.apps.gsa.smartspace.SETTINGS"
+          Action: "com.google.android.apps.gsa.weatherwidget.ENABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.weatherwidget.WEATHER_CLICK"
+          Action: "com.google.android.systemui.smartspace.CLICK_EVENT"
+          Action: "com.google.android.systemui.smartspace.EXPIRE_EVENT"
+      com.google.android.gms.location.reporting.SETTINGS_CHANGED:
+        304807d com.google.android.googlequicksearchbox/com.google.android.apps.gsa.search.core.udc.UdcSettingBroadcastReceiver filter 9fad44b
+          Action: "com.google.android.gms.udc.action.SETTING_CHANGED"
+          Action: "com.google.android.gms.location.reporting.SETTINGS_CHANGED"
+      android.location.PROVIDERS_CHANGED:
+        19456e6 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.ExternalCommonBroadcastReceiver filter 5547c74
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR"
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR_INTERNAL"
+          Action: "android.bluetooth.device.action.ACL_CONNECTED"
+          Action: "android.bluetooth.device.action.ACL_DISCONNECTED"
+          Action: "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED"
+          Action: "android.bluetooth.device.action.UUID"
+          Action: "android.bluetooth.device.action.BOND_STATE_CHANGED"
+          Action: "android.intent.action.DOWNLOAD_COMPLETE"
+          Action: "android.location.PROVIDERS_CHANGED"
+          Action: "android.hardware.usb.action.USB_DEVICE_ATTACHED"
+          Action: "android.hardware.usb.action.USB_DEVICE_DETACHED"
+          Action: "org.chromium.chrome.browser.offlinepages.OFFLINE_PAGES_CHANGED"
+          Action: "com.google.android.apps.gsa.qsbplacement.LAYOUT_ACTIVATED"
+          Action: "com.google.android.apps.gsa.launcherexperiment.EXPERIMENT_REPORT"
+          Action: "com.google.android.apps.gsa.searchwidget.SHOW_WIDGET_CUSTOMIZATION"
+          Action: "com.google.android.apps.gsa.nowoverlayservice.PIXEL_DOODLE_QSB_SETTINGS"
+      com.google.android.systemui.smartspace.EXPIRE_EVENT:
+        7f91141 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.PixelLauncherBroadcastReceiver filter fc8ea12
+          Action: "com.google.android.apps.dreamliner.ENABLE_UPDATE"
+          Action: "com.google.android.apps.dreamliner.DISABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.smartspace.ENABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.smartspace.CLICK_EVENT"
+          Action: "com.google.android.apps.gsa.smartspace.EXPIRE_EVENT"
+          Action: "com.google.android.apps.gsa.smartspace.SETTINGS"
+          Action: "com.google.android.apps.gsa.weatherwidget.ENABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.weatherwidget.WEATHER_CLICK"
+          Action: "com.google.android.systemui.smartspace.CLICK_EVENT"
+          Action: "com.google.android.systemui.smartspace.EXPIRE_EVENT"
+      android.accounts.LOGIN_ACCOUNTS_CHANGED:
+        497cc40 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.search.core.google.gaia.changed.AccountsChangedReceiver filter 8b2120e
+          Action: "android.accounts.LOGIN_ACCOUNTS_CHANGED"
+          Action: "com.google.android.googlequicksearchbox.ACCOUNT_CREDENTIAL_UPDATE"
+      android.appwidget.action.APPWIDGET_UPDATE_OPTIONS:
+        e5da779 com.google.android.googlequicksearchbox/.SearchWidgetProvider filter f1f81c3
+          Action: "android.appwidget.action.APPWIDGET_UPDATE"
+          Action: "android.appwidget.action.APPWIDGET_UPDATE_OPTIONS"
+      com.android.vending.INSTALL_REFERRER:
+        77d5cbe com.google.android.googlequicksearchbox/com.google.android.apps.gsa.search.core.logging.eventprocessor.googletagmanager.ReferrerTrackingReceiver filter 181411a
+          Action: "com.android.vending.INSTALL_REFERRER"
+        b96911f com.google.android.googlequicksearchbox/com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver filter 6b1167d
+          Action: "com.android.vending.INSTALL_REFERRER"
+      com.google.android.apps.now.switch_account_broadcast:
+        c4d6c6c com.google.android.googlequicksearchbox/com.google.android.apps.gsa.sidekick.main.endpoints.SwitchAccountReceiver filter 1e254e6
+          Action: "com.google.android.apps.now.switch_account_broadcast"
+      com.google.android.apps.gsa.reflection.CLEAR_DATA:
+        f19fbc3 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.reflection.ReflectionReceiver filter c9af236
+          Action: "com.android.launcher3.action.LAUNCH"
+          Action: "com.google.android.googlequicksearchbox.UPDATE_PREDICTIONS"
+          Action: "com.google.android.apps.gsa.reflection.APP_LAUNCH"
+          Action: "com.google.android.apps.gsa.reflection.CLEAR_DATA"
+      android.intent.action.USER_INITIALIZE:
+        6b7231a com.google.android.googlequicksearchbox/com.google.android.apps.gsa.googlequicksearchbox.GelStubAppWatcher filter db16d3f
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.PRE_BOOT_COMPLETED"
+          Action: "android.intent.action.USER_INITIALIZE"
+          Action: "android.intent.action.MY_PACKAGE_REPLACED"
+          Action: "android.intent.action.PACKAGE_FIRST_LAUNCH"
+      android.bluetooth.device.action.UUID:
+        19456e6 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.ExternalCommonBroadcastReceiver filter 5547c74
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR"
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR_INTERNAL"
+          Action: "android.bluetooth.device.action.ACL_CONNECTED"
+          Action: "android.bluetooth.device.action.ACL_DISCONNECTED"
+          Action: "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED"
+          Action: "android.bluetooth.device.action.UUID"
+          Action: "android.bluetooth.device.action.BOND_STATE_CHANGED"
+          Action: "android.intent.action.DOWNLOAD_COMPLETE"
+          Action: "android.location.PROVIDERS_CHANGED"
+          Action: "android.hardware.usb.action.USB_DEVICE_ATTACHED"
+          Action: "android.hardware.usb.action.USB_DEVICE_DETACHED"
+          Action: "org.chromium.chrome.browser.offlinepages.OFFLINE_PAGES_CHANGED"
+          Action: "com.google.android.apps.gsa.qsbplacement.LAYOUT_ACTIVATED"
+          Action: "com.google.android.apps.gsa.launcherexperiment.EXPERIMENT_REPORT"
+          Action: "com.google.android.apps.gsa.searchwidget.SHOW_WIDGET_CUSTOMIZATION"
+          Action: "com.google.android.apps.gsa.nowoverlayservice.PIXEL_DOODLE_QSB_SETTINGS"
+      com.google.android.apps.gsa.nowoverlayservice.PIXEL_DOODLE_QSB_SETTINGS:
+        19456e6 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.ExternalCommonBroadcastReceiver filter 5547c74
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR"
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR_INTERNAL"
+          Action: "android.bluetooth.device.action.ACL_CONNECTED"
+          Action: "android.bluetooth.device.action.ACL_DISCONNECTED"
+          Action: "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED"
+          Action: "android.bluetooth.device.action.UUID"
+          Action: "android.bluetooth.device.action.BOND_STATE_CHANGED"
+          Action: "android.intent.action.DOWNLOAD_COMPLETE"
+          Action: "android.location.PROVIDERS_CHANGED"
+          Action: "android.hardware.usb.action.USB_DEVICE_ATTACHED"
+          Action: "android.hardware.usb.action.USB_DEVICE_DETACHED"
+          Action: "org.chromium.chrome.browser.offlinepages.OFFLINE_PAGES_CHANGED"
+          Action: "com.google.android.apps.gsa.qsbplacement.LAYOUT_ACTIVATED"
+          Action: "com.google.android.apps.gsa.launcherexperiment.EXPERIMENT_REPORT"
+          Action: "com.google.android.apps.gsa.searchwidget.SHOW_WIDGET_CUSTOMIZATION"
+          Action: "com.google.android.apps.gsa.nowoverlayservice.PIXEL_DOODLE_QSB_SETTINGS"
+      com.google.android.apps.gsa.reflection.APP_LAUNCH:
+        f19fbc3 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.reflection.ReflectionReceiver filter c9af236
+          Action: "com.android.launcher3.action.LAUNCH"
+          Action: "com.google.android.googlequicksearchbox.UPDATE_PREDICTIONS"
+          Action: "com.google.android.apps.gsa.reflection.APP_LAUNCH"
+          Action: "com.google.android.apps.gsa.reflection.CLEAR_DATA"
+      android.bluetooth.device.action.ACL_CONNECTED:
+        19456e6 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.ExternalCommonBroadcastReceiver filter 5547c74
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR"
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR_INTERNAL"
+          Action: "android.bluetooth.device.action.ACL_CONNECTED"
+          Action: "android.bluetooth.device.action.ACL_DISCONNECTED"
+          Action: "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED"
+          Action: "android.bluetooth.device.action.UUID"
+          Action: "android.bluetooth.device.action.BOND_STATE_CHANGED"
+          Action: "android.intent.action.DOWNLOAD_COMPLETE"
+          Action: "android.location.PROVIDERS_CHANGED"
+          Action: "android.hardware.usb.action.USB_DEVICE_ATTACHED"
+          Action: "android.hardware.usb.action.USB_DEVICE_DETACHED"
+          Action: "org.chromium.chrome.browser.offlinepages.OFFLINE_PAGES_CHANGED"
+          Action: "com.google.android.apps.gsa.qsbplacement.LAYOUT_ACTIVATED"
+          Action: "com.google.android.apps.gsa.launcherexperiment.EXPERIMENT_REPORT"
+          Action: "com.google.android.apps.gsa.searchwidget.SHOW_WIDGET_CUSTOMIZATION"
+          Action: "com.google.android.apps.gsa.nowoverlayservice.PIXEL_DOODLE_QSB_SETTINGS"
+      com.google.android.apps.gsa.weatherwidget.ENABLE_UPDATE:
+        7f91141 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.PixelLauncherBroadcastReceiver filter fc8ea12
+          Action: "com.google.android.apps.dreamliner.ENABLE_UPDATE"
+          Action: "com.google.android.apps.dreamliner.DISABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.smartspace.ENABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.smartspace.CLICK_EVENT"
+          Action: "com.google.android.apps.gsa.smartspace.EXPIRE_EVENT"
+          Action: "com.google.android.apps.gsa.smartspace.SETTINGS"
+          Action: "com.google.android.apps.gsa.weatherwidget.ENABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.weatherwidget.WEATHER_CLICK"
+          Action: "com.google.android.systemui.smartspace.CLICK_EVENT"
+          Action: "com.google.android.systemui.smartspace.EXPIRE_EVENT"
+      android.intent.action.LOCALE_CHANGED:
+        b884235 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.search.core.LocaleChangedReceiver filter 58d0d10
+          Action: "android.intent.action.LOCALE_CHANGED"
+      com.google.android.apps.gsa.smartspace.ENABLE_UPDATE:
+        7f91141 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.PixelLauncherBroadcastReceiver filter fc8ea12
+          Action: "com.google.android.apps.dreamliner.ENABLE_UPDATE"
+          Action: "com.google.android.apps.dreamliner.DISABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.smartspace.ENABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.smartspace.CLICK_EVENT"
+          Action: "com.google.android.apps.gsa.smartspace.EXPIRE_EVENT"
+          Action: "com.google.android.apps.gsa.smartspace.SETTINGS"
+          Action: "com.google.android.apps.gsa.weatherwidget.ENABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.weatherwidget.WEATHER_CLICK"
+          Action: "com.google.android.systemui.smartspace.CLICK_EVENT"
+          Action: "com.google.android.systemui.smartspace.EXPIRE_EVENT"
+      com.google.gservices.intent.action.GSERVICES_CHANGED:
+        72e86ca com.google.android.googlequicksearchbox/com.google.android.apps.gsa.search.core.GservicesBroadcastReceiver filter 8ab7dd3
+          Action: "com.google.gservices.intent.action.GSERVICES_CHANGED"
+      android.content.pm.action.SESSION_COMMITTED:
+        61d203b com.google.android.googlequicksearchbox/com.android.launcher3.PackageSessionCommitReceiver filter ef6c7d1
+          Action: "android.content.pm.action.SESSION_COMMITTED"
+      com.google.android.apps.gsa.smartspace.EXPIRE_EVENT:
+        7f91141 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.PixelLauncherBroadcastReceiver filter fc8ea12
+          Action: "com.google.android.apps.dreamliner.ENABLE_UPDATE"
+          Action: "com.google.android.apps.dreamliner.DISABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.smartspace.ENABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.smartspace.CLICK_EVENT"
+          Action: "com.google.android.apps.gsa.smartspace.EXPIRE_EVENT"
+          Action: "com.google.android.apps.gsa.smartspace.SETTINGS"
+          Action: "com.google.android.apps.gsa.weatherwidget.ENABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.weatherwidget.WEATHER_CLICK"
+          Action: "com.google.android.systemui.smartspace.CLICK_EVENT"
+          Action: "com.google.android.systemui.smartspace.EXPIRE_EVENT"
+      com.google.android.c2dm.intent.RECEIVE:
+        2dae358 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.gcm.GcmBroadcastReceiver filter 6c0de99
+          Action: "com.google.android.c2dm.intent.RECEIVE"
+          Category: "com.google.android.googlequicksearchbox"
+        687ccb1 com.google.android.googlequicksearchbox/com.google.firebase.iid.FirebaseInstanceIdReceiver filter feed972
+          Action: "com.google.android.c2dm.intent.RECEIVE"
+      com.google.android.apps.now.account_update_broadcast:
+        a164596 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.sidekick.main.endpoints.AccountsUpdateReceiver filter ce84741
+          Action: "com.google.android.apps.now.account_update_broadcast"
+      com.android.launcher3.action.LAUNCH:
+        f19fbc3 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.reflection.ReflectionReceiver filter c9af236
+          Action: "com.android.launcher3.action.LAUNCH"
+          Action: "com.google.android.googlequicksearchbox.UPDATE_PREDICTIONS"
+          Action: "com.google.android.apps.gsa.reflection.APP_LAUNCH"
+          Action: "com.google.android.apps.gsa.reflection.CLEAR_DATA"
+      com.android.launcher.action.INSTALL_SHORTCUT:
+        cb38517 com.google.android.googlequicksearchbox/com.android.launcher3.InstallShortcutReceiver filter 973a96a
+          Action: "com.android.launcher.action.INSTALL_SHORTCUT"
+      com.google.android.apps.sidekick.VEHICLE_EXIT_LOCATION:
+        1c6dd04 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.search.core.location.LocationReceiver filter a26242f
+          Action: "com.google.android.apps.sidekick.VEHICLE_EXIT_LOCATION"
+      android.text.style.SUGGESTION_PICKED:
+        e1b82ed com.google.android.googlequicksearchbox/com.google.android.apps.gsa.voiceime.alternates.SuggestionSpanBroadcastReceiver filter f3d9d79
+          Action: "android.text.style.SUGGESTION_PICKED"
+      com.google.android.apps.gsa.search.core.location.ACTIVITY_DETECTION:
+        a874427 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.search.core.location.ActivityDetectionReceiver filter c9dea3c
+          Action: "com.google.android.apps.gsa.search.core.location.ACTIVITY_DETECTION"
+      com.google.android.apps.gsa.qsbplacement.LAYOUT_ACTIVATED:
+        19456e6 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.ExternalCommonBroadcastReceiver filter 5547c74
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR"
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR_INTERNAL"
+          Action: "android.bluetooth.device.action.ACL_CONNECTED"
+          Action: "android.bluetooth.device.action.ACL_DISCONNECTED"
+          Action: "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED"
+          Action: "android.bluetooth.device.action.UUID"
+          Action: "android.bluetooth.device.action.BOND_STATE_CHANGED"
+          Action: "android.intent.action.DOWNLOAD_COMPLETE"
+          Action: "android.location.PROVIDERS_CHANGED"
+          Action: "android.hardware.usb.action.USB_DEVICE_ATTACHED"
+          Action: "android.hardware.usb.action.USB_DEVICE_DETACHED"
+          Action: "org.chromium.chrome.browser.offlinepages.OFFLINE_PAGES_CHANGED"
+          Action: "com.google.android.apps.gsa.qsbplacement.LAYOUT_ACTIVATED"
+          Action: "com.google.android.apps.gsa.launcherexperiment.EXPERIMENT_REPORT"
+          Action: "com.google.android.apps.gsa.searchwidget.SHOW_WIDGET_CUSTOMIZATION"
+          Action: "com.google.android.apps.gsa.nowoverlayservice.PIXEL_DOODLE_QSB_SETTINGS"
+      com.google.android.googlequicksearchbox.action.ACCEPT_GEL_TERMS:
+        3e92522 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.search.core.GelTermsAcceptedReceiver filter c1bfbc2
+          Action: "com.google.android.googlequicksearchbox.action.ACCEPT_GEL_TERMS"
+      com.google.android.apps.gsa.bisto.MAGIC_PAIR_INTERNAL:
+        19456e6 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.ExternalCommonBroadcastReceiver filter 5547c74
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR"
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR_INTERNAL"
+          Action: "android.bluetooth.device.action.ACL_CONNECTED"
+          Action: "android.bluetooth.device.action.ACL_DISCONNECTED"
+          Action: "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED"
+          Action: "android.bluetooth.device.action.UUID"
+          Action: "android.bluetooth.device.action.BOND_STATE_CHANGED"
+          Action: "android.intent.action.DOWNLOAD_COMPLETE"
+          Action: "android.location.PROVIDERS_CHANGED"
+          Action: "android.hardware.usb.action.USB_DEVICE_ATTACHED"
+          Action: "android.hardware.usb.action.USB_DEVICE_DETACHED"
+          Action: "org.chromium.chrome.browser.offlinepages.OFFLINE_PAGES_CHANGED"
+          Action: "com.google.android.apps.gsa.qsbplacement.LAYOUT_ACTIVATED"
+          Action: "com.google.android.apps.gsa.launcherexperiment.EXPERIMENT_REPORT"
+          Action: "com.google.android.apps.gsa.searchwidget.SHOW_WIDGET_CUSTOMIZATION"
+          Action: "com.google.android.apps.gsa.nowoverlayservice.PIXEL_DOODLE_QSB_SETTINGS"
+      android.intent.action.PRE_BOOT_COMPLETED:
+        6b7231a com.google.android.googlequicksearchbox/com.google.android.apps.gsa.googlequicksearchbox.GelStubAppWatcher filter db16d3f
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.PRE_BOOT_COMPLETED"
+          Action: "android.intent.action.USER_INITIALIZE"
+          Action: "android.intent.action.MY_PACKAGE_REPLACED"
+          Action: "android.intent.action.PACKAGE_FIRST_LAUNCH"
+      android.intent.action.BOOT_COMPLETED:
+        6b7231a com.google.android.googlequicksearchbox/com.google.android.apps.gsa.googlequicksearchbox.GelStubAppWatcher filter db16d3f
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.PRE_BOOT_COMPLETED"
+          Action: "android.intent.action.USER_INITIALIZE"
+          Action: "android.intent.action.MY_PACKAGE_REPLACED"
+          Action: "android.intent.action.PACKAGE_FIRST_LAUNCH"
+        de15bb3 com.google.android.googlequicksearchbox/com.android.launcher3.StartupReceiver filter 14a56f8
+          Action: "android.intent.action.BOOT_COMPLETED"
+        256c570 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.startup.StartUpReceiver filter 64f44d4
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.MY_PACKAGE_REPLACED"
+      com.google.android.apps.gsa.smartspace.CLICK_EVENT:
+        7f91141 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.PixelLauncherBroadcastReceiver filter fc8ea12
+          Action: "com.google.android.apps.dreamliner.ENABLE_UPDATE"
+          Action: "com.google.android.apps.dreamliner.DISABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.smartspace.ENABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.smartspace.CLICK_EVENT"
+          Action: "com.google.android.apps.gsa.smartspace.EXPIRE_EVENT"
+          Action: "com.google.android.apps.gsa.smartspace.SETTINGS"
+          Action: "com.google.android.apps.gsa.weatherwidget.ENABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.weatherwidget.WEATHER_CLICK"
+          Action: "com.google.android.systemui.smartspace.CLICK_EVENT"
+          Action: "com.google.android.systemui.smartspace.EXPIRE_EVENT"
+      android.appwidget.action.APPWIDGET_HOST_RESTORED:
+        3ba60e9 com.google.android.googlequicksearchbox/com.android.launcher3.AppWidgetsRestoredReceiver filter 5d99e5b
+          Action: "android.appwidget.action.APPWIDGET_HOST_RESTORED"
+      android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED:
+        19456e6 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.ExternalCommonBroadcastReceiver filter 5547c74
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR"
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR_INTERNAL"
+          Action: "android.bluetooth.device.action.ACL_CONNECTED"
+          Action: "android.bluetooth.device.action.ACL_DISCONNECTED"
+          Action: "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED"
+          Action: "android.bluetooth.device.action.UUID"
+          Action: "android.bluetooth.device.action.BOND_STATE_CHANGED"
+          Action: "android.intent.action.DOWNLOAD_COMPLETE"
+          Action: "android.location.PROVIDERS_CHANGED"
+          Action: "android.hardware.usb.action.USB_DEVICE_ATTACHED"
+          Action: "android.hardware.usb.action.USB_DEVICE_DETACHED"
+          Action: "org.chromium.chrome.browser.offlinepages.OFFLINE_PAGES_CHANGED"
+          Action: "com.google.android.apps.gsa.qsbplacement.LAYOUT_ACTIVATED"
+          Action: "com.google.android.apps.gsa.launcherexperiment.EXPERIMENT_REPORT"
+          Action: "com.google.android.apps.gsa.searchwidget.SHOW_WIDGET_CUSTOMIZATION"
+          Action: "com.google.android.apps.gsa.nowoverlayservice.PIXEL_DOODLE_QSB_SETTINGS"
+      android.intent.action.DOWNLOAD_COMPLETE:
+        d18716e com.google.android.googlequicksearchbox/com.google.android.apps.gsa.bloblobber.receiver.BlobDownloadedReceiver filter e2e9b86
+          Action: "android.intent.action.DOWNLOAD_COMPLETE"
+          Category: "android.intent.category.DEFAULT"
+        19456e6 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.ExternalCommonBroadcastReceiver filter 5547c74
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR"
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR_INTERNAL"
+          Action: "android.bluetooth.device.action.ACL_CONNECTED"
+          Action: "android.bluetooth.device.action.ACL_DISCONNECTED"
+          Action: "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED"
+          Action: "android.bluetooth.device.action.UUID"
+          Action: "android.bluetooth.device.action.BOND_STATE_CHANGED"
+          Action: "android.intent.action.DOWNLOAD_COMPLETE"
+          Action: "android.location.PROVIDERS_CHANGED"
+          Action: "android.hardware.usb.action.USB_DEVICE_ATTACHED"
+          Action: "android.hardware.usb.action.USB_DEVICE_DETACHED"
+          Action: "org.chromium.chrome.browser.offlinepages.OFFLINE_PAGES_CHANGED"
+          Action: "com.google.android.apps.gsa.qsbplacement.LAYOUT_ACTIVATED"
+          Action: "com.google.android.apps.gsa.launcherexperiment.EXPERIMENT_REPORT"
+          Action: "com.google.android.apps.gsa.searchwidget.SHOW_WIDGET_CUSTOMIZATION"
+          Action: "com.google.android.apps.gsa.nowoverlayservice.PIXEL_DOODLE_QSB_SETTINGS"
+        f8616d4 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.languagepack.ZipDownloadReceiver filter 18ee60c
+          Action: "android.intent.action.DOWNLOAD_COMPLETE"
+          Category: "android.intent.category.DEFAULT"
+      org.chromium.chrome.browser.offlinepages.OFFLINE_PAGES_CHANGED:
+        19456e6 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.ExternalCommonBroadcastReceiver filter 5547c74
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR"
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR_INTERNAL"
+          Action: "android.bluetooth.device.action.ACL_CONNECTED"
+          Action: "android.bluetooth.device.action.ACL_DISCONNECTED"
+          Action: "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED"
+          Action: "android.bluetooth.device.action.UUID"
+          Action: "android.bluetooth.device.action.BOND_STATE_CHANGED"
+          Action: "android.intent.action.DOWNLOAD_COMPLETE"
+          Action: "android.location.PROVIDERS_CHANGED"
+          Action: "android.hardware.usb.action.USB_DEVICE_ATTACHED"
+          Action: "android.hardware.usb.action.USB_DEVICE_DETACHED"
+          Action: "org.chromium.chrome.browser.offlinepages.OFFLINE_PAGES_CHANGED"
+          Action: "com.google.android.apps.gsa.qsbplacement.LAYOUT_ACTIVATED"
+          Action: "com.google.android.apps.gsa.launcherexperiment.EXPERIMENT_REPORT"
+          Action: "com.google.android.apps.gsa.searchwidget.SHOW_WIDGET_CUSTOMIZATION"
+          Action: "com.google.android.apps.gsa.nowoverlayservice.PIXEL_DOODLE_QSB_SETTINGS"
+      com.google.android.apps.gsa.backgroundretry.NOTIFICATION_TAPPED_ACTION:
+        f0c000f com.google.android.googlequicksearchbox/com.google.android.apps.gsa.search.core.backgroundretry.BackgroundRetryNotificationReceiver filter ecf100d
+          Action: "com.google.android.apps.gsa.backgroundretry.NOTIFICATION_TAPPED_ACTION"
+          Action: "com.google.android.apps.gsa.backgroundretry.NOTIFICATION_DISMISS_ACTION"
+      com.google.android.googlequicksearchbox.ACCOUNT_CREDENTIAL_UPDATE:
+        497cc40 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.search.core.google.gaia.changed.AccountsChangedReceiver filter 8b2120e
+          Action: "android.accounts.LOGIN_ACCOUNTS_CHANGED"
+          Action: "com.google.android.googlequicksearchbox.ACCOUNT_CREDENTIAL_UPDATE"
+      android.intent.action.GET_RESTRICTION_ENTRIES:
+        abac89c com.google.android.googlequicksearchbox/com.google.android.apps.gsa.shared.search.RestrictedProfileBroadcastReceiver filter 97d6e28
+          Action: "android.intent.action.GET_RESTRICTION_ENTRIES"
+      android.appwidget.action.APPWIDGET_UPDATE:
+        f4f22a5 com.google.android.googlequicksearchbox/com.google.android.apps.sidekick.widget.PredictiveCardsWidgetProvider filter 749eaa4
+          Action: "android.appwidget.action.APPWIDGET_UPDATE"
+        1de367a com.google.android.googlequicksearchbox/com.google.android.apps.gsa.soundsearchwidget.IntentWidgetProvider filter 3206a27
+          Action: "android.appwidget.action.APPWIDGET_UPDATE"
+        e5da779 com.google.android.googlequicksearchbox/.SearchWidgetProvider filter f1f81c3
+          Action: "android.appwidget.action.APPWIDGET_UPDATE"
+          Action: "android.appwidget.action.APPWIDGET_UPDATE_OPTIONS"
+        c928e2b com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.smartspace.widget.SmartspaceWidgetProvider filter 9c5da40
+          Action: "android.appwidget.action.APPWIDGET_UPDATE"
+      com.google.android.systemui.smartspace.CLICK_EVENT:
+        7f91141 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.PixelLauncherBroadcastReceiver filter fc8ea12
+          Action: "com.google.android.apps.dreamliner.ENABLE_UPDATE"
+          Action: "com.google.android.apps.dreamliner.DISABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.smartspace.ENABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.smartspace.CLICK_EVENT"
+          Action: "com.google.android.apps.gsa.smartspace.EXPIRE_EVENT"
+          Action: "com.google.android.apps.gsa.smartspace.SETTINGS"
+          Action: "com.google.android.apps.gsa.weatherwidget.ENABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.weatherwidget.WEATHER_CLICK"
+          Action: "com.google.android.systemui.smartspace.CLICK_EVENT"
+          Action: "com.google.android.systemui.smartspace.EXPIRE_EVENT"
+      com.google.android.apps.gsa.backgroundretry.NOTIFICATION_DISMISS_ACTION:
+        f0c000f com.google.android.googlequicksearchbox/com.google.android.apps.gsa.search.core.backgroundretry.BackgroundRetryNotificationReceiver filter ecf100d
+          Action: "com.google.android.apps.gsa.backgroundretry.NOTIFICATION_TAPPED_ACTION"
+          Action: "com.google.android.apps.gsa.backgroundretry.NOTIFICATION_DISMISS_ACTION"
+      android.intent.action.MY_PACKAGE_REPLACED:
+        6b7231a com.google.android.googlequicksearchbox/com.google.android.apps.gsa.googlequicksearchbox.GelStubAppWatcher filter db16d3f
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.PRE_BOOT_COMPLETED"
+          Action: "android.intent.action.USER_INITIALIZE"
+          Action: "android.intent.action.MY_PACKAGE_REPLACED"
+          Action: "android.intent.action.PACKAGE_FIRST_LAUNCH"
+        256c570 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.startup.StartUpReceiver filter 64f44d4
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.MY_PACKAGE_REPLACED"
+      android.bluetooth.headset.action.VENDOR_SPECIFIC_HEADSET_EVENT:
+        19456e6 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.ExternalCommonBroadcastReceiver filter 89c859d
+          Action: "android.bluetooth.headset.action.VENDOR_SPECIFIC_HEADSET_EVENT"
+          Category: "android.bluetooth.headset.intent.category.companyid.224"
+      com.google.android.apps.gsa.searchwidget.SHOW_WIDGET_CUSTOMIZATION:
+        19456e6 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.ExternalCommonBroadcastReceiver filter 5547c74
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR"
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR_INTERNAL"
+          Action: "android.bluetooth.device.action.ACL_CONNECTED"
+          Action: "android.bluetooth.device.action.ACL_DISCONNECTED"
+          Action: "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED"
+          Action: "android.bluetooth.device.action.UUID"
+          Action: "android.bluetooth.device.action.BOND_STATE_CHANGED"
+          Action: "android.intent.action.DOWNLOAD_COMPLETE"
+          Action: "android.location.PROVIDERS_CHANGED"
+          Action: "android.hardware.usb.action.USB_DEVICE_ATTACHED"
+          Action: "android.hardware.usb.action.USB_DEVICE_DETACHED"
+          Action: "org.chromium.chrome.browser.offlinepages.OFFLINE_PAGES_CHANGED"
+          Action: "com.google.android.apps.gsa.qsbplacement.LAYOUT_ACTIVATED"
+          Action: "com.google.android.apps.gsa.launcherexperiment.EXPERIMENT_REPORT"
+          Action: "com.google.android.apps.gsa.searchwidget.SHOW_WIDGET_CUSTOMIZATION"
+          Action: "com.google.android.apps.gsa.nowoverlayservice.PIXEL_DOODLE_QSB_SETTINGS"
+      android.bluetooth.device.action.ACL_DISCONNECTED:
+        19456e6 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.ExternalCommonBroadcastReceiver filter 5547c74
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR"
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR_INTERNAL"
+          Action: "android.bluetooth.device.action.ACL_CONNECTED"
+          Action: "android.bluetooth.device.action.ACL_DISCONNECTED"
+          Action: "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED"
+          Action: "android.bluetooth.device.action.UUID"
+          Action: "android.bluetooth.device.action.BOND_STATE_CHANGED"
+          Action: "android.intent.action.DOWNLOAD_COMPLETE"
+          Action: "android.location.PROVIDERS_CHANGED"
+          Action: "android.hardware.usb.action.USB_DEVICE_ATTACHED"
+          Action: "android.hardware.usb.action.USB_DEVICE_DETACHED"
+          Action: "org.chromium.chrome.browser.offlinepages.OFFLINE_PAGES_CHANGED"
+          Action: "com.google.android.apps.gsa.qsbplacement.LAYOUT_ACTIVATED"
+          Action: "com.google.android.apps.gsa.launcherexperiment.EXPERIMENT_REPORT"
+          Action: "com.google.android.apps.gsa.searchwidget.SHOW_WIDGET_CUSTOMIZATION"
+          Action: "com.google.android.apps.gsa.nowoverlayservice.PIXEL_DOODLE_QSB_SETTINGS"
+      com.google.android.apps.dreamliner.DISABLE_UPDATE:
+        7f91141 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.PixelLauncherBroadcastReceiver filter fc8ea12
+          Action: "com.google.android.apps.dreamliner.ENABLE_UPDATE"
+          Action: "com.google.android.apps.dreamliner.DISABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.smartspace.ENABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.smartspace.CLICK_EVENT"
+          Action: "com.google.android.apps.gsa.smartspace.EXPIRE_EVENT"
+          Action: "com.google.android.apps.gsa.smartspace.SETTINGS"
+          Action: "com.google.android.apps.gsa.weatherwidget.ENABLE_UPDATE"
+          Action: "com.google.android.apps.gsa.weatherwidget.WEATHER_CLICK"
+          Action: "com.google.android.systemui.smartspace.CLICK_EVENT"
+          Action: "com.google.android.systemui.smartspace.EXPIRE_EVENT"
+      com.google.android.gms.phenotype.UPDATE:
+        1f9d288 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.configuration.PhenotypeBroadcastReceiver filter d76ebe0
+          Action: "com.google.android.gms.phenotype.UPDATE"
+      com.google.android.apps.gsa.notificationlistener.NOTIFICATION_LISTENER_SERVICE_CONNECTED:
+        2b44421 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.CommonBroadcastReceiver filter cdf3c47
+          Action: "com.google.android.apps.gsa.notificationlistener.NOTIFICATION_LISTENER_SERVICE_CONNECTED"
+      com.google.android.apps.gsa.launcherexperiment.EXPERIMENT_REPORT:
+        19456e6 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.ExternalCommonBroadcastReceiver filter 5547c74
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR"
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR_INTERNAL"
+          Action: "android.bluetooth.device.action.ACL_CONNECTED"
+          Action: "android.bluetooth.device.action.ACL_DISCONNECTED"
+          Action: "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED"
+          Action: "android.bluetooth.device.action.UUID"
+          Action: "android.bluetooth.device.action.BOND_STATE_CHANGED"
+          Action: "android.intent.action.DOWNLOAD_COMPLETE"
+          Action: "android.location.PROVIDERS_CHANGED"
+          Action: "android.hardware.usb.action.USB_DEVICE_ATTACHED"
+          Action: "android.hardware.usb.action.USB_DEVICE_DETACHED"
+          Action: "org.chromium.chrome.browser.offlinepages.OFFLINE_PAGES_CHANGED"
+          Action: "com.google.android.apps.gsa.qsbplacement.LAYOUT_ACTIVATED"
+          Action: "com.google.android.apps.gsa.launcherexperiment.EXPERIMENT_REPORT"
+          Action: "com.google.android.apps.gsa.searchwidget.SHOW_WIDGET_CUSTOMIZATION"
+          Action: "com.google.android.apps.gsa.nowoverlayservice.PIXEL_DOODLE_QSB_SETTINGS"
+      android.bluetooth.device.action.BOND_STATE_CHANGED:
+        19456e6 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.broadcastreceiver.external.ExternalCommonBroadcastReceiver filter 5547c74
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR"
+          Action: "com.google.android.apps.gsa.bisto.MAGIC_PAIR_INTERNAL"
+          Action: "android.bluetooth.device.action.ACL_CONNECTED"
+          Action: "android.bluetooth.device.action.ACL_DISCONNECTED"
+          Action: "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED"
+          Action: "android.bluetooth.device.action.UUID"
+          Action: "android.bluetooth.device.action.BOND_STATE_CHANGED"
+          Action: "android.intent.action.DOWNLOAD_COMPLETE"
+          Action: "android.location.PROVIDERS_CHANGED"
+          Action: "android.hardware.usb.action.USB_DEVICE_ATTACHED"
+          Action: "android.hardware.usb.action.USB_DEVICE_DETACHED"
+          Action: "org.chromium.chrome.browser.offlinepages.OFFLINE_PAGES_CHANGED"
+          Action: "com.google.android.apps.gsa.qsbplacement.LAYOUT_ACTIVATED"
+          Action: "com.google.android.apps.gsa.launcherexperiment.EXPERIMENT_REPORT"
+          Action: "com.google.android.apps.gsa.searchwidget.SHOW_WIDGET_CUSTOMIZATION"
+          Action: "com.google.android.apps.gsa.nowoverlayservice.PIXEL_DOODLE_QSB_SETTINGS"
+
+Service Resolver Table:
+  Schemes:
+      app:
+        6094046 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.nowoverlayservice.DrawerOverlayService filter 9719835
+          Action: "com.android.launcher3.WINDOW_OVERLAY"
+          Scheme: "app"
+      wear:
+        fa9e207 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.clockwork.services.DispatchingWearableListenerService filter 7cd1abe
+          Action: "com.google.android.gms.wearable.CAPABILITY_CHANGED"
+          Action: "com.google.android.gms.wearable.DATA_CHANGED"
+          Action: "com.google.android.gms.wearable.MESSAGE_RECEIVED"
+          Scheme: "wear"
+
+  Non-Data Actions:
+      com.google.android.apps.gsa.sidekick.shared.remoteapi.INowService:
+        69d8f34 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.sidekick.main.remoteservice.NowService filter 55461b3
+          Action: "com.google.android.apps.gsa.sidekick.shared.remoteapi.INowService"
+      com.google.android.googlequicksearchbox.HOTWORD_SERVICE:
+        8f0015d com.google.android.googlequicksearchbox/com.google.android.hotword.service.HotwordService filter 8b082b1
+          Action: "com.google.android.googlequicksearchbox.HOTWORD_SERVICE"
+      android.intent.action.MAIN:
+        9891ad2 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.projection.CarAssistantService filter fbc24ca
+          Action: "android.intent.action.MAIN"
+          Category: "com.google.android.car.category.CAR_ASSISTANT"
+      com.google.firebase.INSTANCE_ID_EVENT:
+        5f897a3 com.google.android.googlequicksearchbox/com.google.firebase.iid.FirebaseInstanceIdService filter e245370
+          Action: "com.google.firebase.INSTANCE_ID_EVENT"
+          mPriority=-500, mOrder=0, mHasPartialTypes=false
+      com.google.android.ssb.action.SSB_SERVICE:
+        41e6aa0 com.google.android.googlequicksearchbox/com.google.android.ssb.service.SsbService filter 91998ed
+          Action: "com.google.android.ssb.action.SSB_SERVICE"
+      com.google.android.googlequicksearchbox.SEARCH_ACTION_VERIFICATION_SERVICE:
+        d305659 com.google.android.googlequicksearchbox/com.google.android.search.verification.api.SearchActionVerificationService filter 8e22b17
+          Action: "com.google.android.googlequicksearchbox.SEARCH_ACTION_VERIFICATION_SERVICE"
+      com.google.android.gms.reminders.BIND_LISTENER:
+        9ba121e com.google.android.googlequicksearchbox/com.google.android.apps.gsa.reminders.RemindersListenerService filter 1fcb158
+          Action: "com.google.android.gms.reminders.BIND_LISTENER"
+      android.speech.RecognitionService:
+        6f30aff com.google.android.googlequicksearchbox/com.google.android.voicesearch.serviceapi.GoogleRecognitionService filter cc8322
+          Action: "android.speech.RecognitionService"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.gms.gcm.ACTION_TASK_READY:
+        30f90cc com.google.android.googlequicksearchbox/com.google.android.apps.gsa.tasks.BackgroundTasksGcmService filter 1a9660f permission com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE
+          Action: "com.google.android.gms.gcm.ACTION_TASK_READY"
+      android.view.InputMethod:
+        586ff15 com.google.android.googlequicksearchbox/com.google.android.voicesearch.ime.VoiceInputMethodService filter f547a permission android.permission.BIND_INPUT_METHOD
+          Action: "android.view.InputMethod"
+      com.google.android.remotesearch.IRemoteSearchService:
+        b71322a com.google.android.googlequicksearchbox/com.google.android.remotesearch.RemoteSearchService filter dfc396
+          Action: "com.google.android.remotesearch.IRemoteSearchService"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.apps.gsa.GSA_FLUSH_LOGS:
+        2f7581b com.google.android.googlequicksearchbox/com.google.android.apps.gsa.eventlogger.EventLoggerService filter d6e771f permission com.google.android.googlequicksearchbox.permission.FLUSH_LOGS
+          Action: "com.google.android.apps.gsa.GSA_FLUSH_LOGS"
+          Action: "com.google.android.apps.gsa.ACTION_RECORD_GSA_CLIENT_EVENT"
+      com.google.android.apps.gsa.publicsearch.IPublicSearchService:
+        aedb8 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.publicsearch.PublicSearchService filter 48d663b
+          Action: "com.google.android.apps.gsa.publicsearch.IPublicSearchService"
+      com.google.android.sidekick.shared.remoteapi.IGoogleNowRemoteService:
+        d657791 com.google.android.googlequicksearchbox/com.google.android.sidekick.main.remoteservice.GoogleNowRemoteService filter c378b04
+          Action: "com.google.android.sidekick.shared.remoteapi.IGoogleNowRemoteService"
+      android.service.voice.VoiceInteractionService:
+        9c846f6 com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService filter d39f8a5 permission android.permission.BIND_VOICE_INTERACTION
+          Action: "android.service.voice.VoiceInteractionService"
+      android.service.notification.NotificationListenerService:
+        8295af7 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.notificationlistener.GsaNotificationListenerService filter 14e5a6c permission android.permission.BIND_NOTIFICATION_LISTENER_SERVICE
+          Action: "android.service.notification.NotificationListenerService"
+      com.google.android.apps.gsa.ACTION_RECORD_GSA_CLIENT_EVENT:
+        2f7581b com.google.android.googlequicksearchbox/com.google.android.apps.gsa.eventlogger.EventLoggerService filter d6e771f permission com.google.android.googlequicksearchbox.permission.FLUSH_LOGS
+          Action: "com.google.android.apps.gsa.GSA_FLUSH_LOGS"
+          Action: "com.google.android.apps.gsa.ACTION_RECORD_GSA_CLIENT_EVENT"
+      android.media.browse.MediaBrowserService:
+        55d2d64 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.mediabrowser.PodcastsMediaBrowserService filter f83d6e9
+          Action: "android.media.browse.MediaBrowserService"
+      com.google.android.apps.gsa.opa.APP_INTEGRATION_SERVICE:
+        bd8fbcd com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.opa.appintegration.service.AppIntegrationService filter 7d3af6e
+          Action: "com.google.android.apps.gsa.opa.APP_INTEGRATION_SERVICE"
+          Category: "android.intent.category.DEFAULT"
+      com.google.android.apps.gsa.UNIFIED_IME_SERVICE:
+        5a9dc82 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.unifiedime.UnifiedImeService filter d3369c
+          Action: "com.google.android.apps.gsa.UNIFIED_IME_SERVICE"
+          Category: "android.intent.category.DEFAULT"
+
+Permissions:
+  Permission [com.google.android.googlequicksearchbox.permission.C2D_MESSAGE] (90eaf93):
+    sourcePackage=com.google.android.googlequicksearchbox
+    uid=10061 gids=null type=0 prot=signature
+    perm=Permission{371bbd0 com.google.android.googlequicksearchbox.permission.C2D_MESSAGE}
+    packageSetting=PackageSetting{18687c9 com.google.android.googlequicksearchbox/10061}
+
+Permissions:
+  Permission [com.google.android.voicesearch.AUDIO_FILE_ACCESS] (21d3ece):
+    sourcePackage=com.google.android.googlequicksearchbox
+    uid=10061 gids=null type=0 prot=signature
+    perm=Permission{eab1ef com.google.android.voicesearch.AUDIO_FILE_ACCESS}
+    packageSetting=PackageSetting{18687c9 com.google.android.googlequicksearchbox/10061}
+
+Permissions:
+  Permission [com.google.android.apps.now.OPT_IN_WIZARD] (3fec4fc):
+    sourcePackage=com.google.android.googlequicksearchbox
+    uid=10061 gids=null type=0 prot=signature|privileged
+    perm=Permission{a66d785 com.google.android.apps.now.OPT_IN_WIZARD}
+    packageSetting=PackageSetting{18687c9 com.google.android.googlequicksearchbox/10061}
+
+Permissions:
+  Permission [com.google.android.googlequicksearchbox.permission.FINISH_GEL_ACTIVITY] (95279da):
+    sourcePackage=com.google.android.googlequicksearchbox
+    uid=10061 gids=null type=0 prot=signature
+    perm=Permission{1da7e0b com.google.android.googlequicksearchbox.permission.FINISH_GEL_ACTIVITY}
+    packageSetting=PackageSetting{18687c9 com.google.android.googlequicksearchbox/10061}
+
+Permissions:
+  Permission [com.google.android.googlequicksearchbox.permission.PAUSE_HOTWORD] (3f134e8):
+    sourcePackage=com.google.android.googlequicksearchbox
+    uid=10061 gids=null type=0 prot=signature|privileged
+    perm=Permission{f426701 com.google.android.googlequicksearchbox.permission.PAUSE_HOTWORD}
+    packageSetting=PackageSetting{18687c9 com.google.android.googlequicksearchbox/10061}
+
+Permissions:
+  Permission [com.google.android.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST] (66e59a6):
+    sourcePackage=com.google.android.googlequicksearchbox
+    uid=10061 gids=null type=0 prot=signature|privileged
+    perm=Permission{8b0efe7 com.google.android.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST}
+    packageSetting=PackageSetting{18687c9 com.google.android.googlequicksearchbox/10061}
+
+Permissions:
+  Permission [com.google.android.googlequicksearchbox.permission.FLUSH_LOGS] (18b794):
+    sourcePackage=com.google.android.googlequicksearchbox
+    uid=10061 gids=null type=0 prot=signature
+    perm=Permission{2ed723d com.google.android.googlequicksearchbox.permission.FLUSH_LOGS}
+    packageSetting=PackageSetting{18687c9 com.google.android.googlequicksearchbox/10061}
+
+Permissions:
+  Permission [com.google.android.apps.now.CURRENT_ACCOUNT_ACCESS] (166a32):
+    sourcePackage=com.google.android.googlequicksearchbox
+    uid=10061 gids=null type=0 prot=signature
+    perm=Permission{292a383 com.google.android.apps.now.CURRENT_ACCOUNT_ACCESS}
+    packageSetting=PackageSetting{18687c9 com.google.android.googlequicksearchbox/10061}
+
+Permissions:
+  Permission [com.google.android.launcher.permission.WRITE_SETTINGS] (93b900):
+    sourcePackage=com.google.android.googlequicksearchbox
+    uid=10061 gids=null type=0 prot=signature|privileged
+    perm=Permission{743f539 com.google.android.launcher.permission.WRITE_SETTINGS}
+    packageSetting=PackageSetting{18687c9 com.google.android.googlequicksearchbox/10061}
+
+Permissions:
+  Permission [com.google.android.launcher.permission.RECEIVE_LAUNCH_BROADCASTS] (fbcf77e):
+    sourcePackage=com.google.android.googlequicksearchbox
+    uid=10061 gids=null type=0 prot=signature
+    perm=Permission{51f4df com.google.android.launcher.permission.RECEIVE_LAUNCH_BROADCASTS}
+    packageSetting=PackageSetting{18687c9 com.google.android.googlequicksearchbox/10061}
+
+Permissions:
+  Permission [com.google.android.launcher.permission.READ_SETTINGS] (efb652c):
+    sourcePackage=com.google.android.googlequicksearchbox
+    uid=10061 gids=null type=0 prot=normal
+    perm=Permission{5e5abf5 com.google.android.launcher.permission.READ_SETTINGS}
+    packageSetting=PackageSetting{18687c9 com.google.android.googlequicksearchbox/10061}
+
+Permissions:
+  Permission [com.google.android.googlequicksearchbox.LAUNCH_FROM_DSP_HOTWORD] (1ad0d8a):
+    sourcePackage=com.google.android.googlequicksearchbox
+    uid=10061 gids=null type=0 prot=signature|privileged
+    perm=Permission{38afffb com.google.android.googlequicksearchbox.LAUNCH_FROM_DSP_HOTWORD}
+    packageSetting=PackageSetting{18687c9 com.google.android.googlequicksearchbox/10061}
+
+Permissions:
+  Permission [com.google.android.googlequicksearchbox.LAUNCH_WITH_RECORDED_AUDIO] (34fa818):
+    sourcePackage=com.google.android.googlequicksearchbox
+    uid=10061 gids=null type=0 prot=signature|privileged
+    perm=Permission{8b21271 com.google.android.googlequicksearchbox.LAUNCH_WITH_RECORDED_AUDIO}
+    packageSetting=PackageSetting{18687c9 com.google.android.googlequicksearchbox/10061}
+
+Registered ContentProviders:
+  com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.AfwInitializer:
+    Provider{9d67856 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.AfwInitializer}
+  com.google.android.googlequicksearchbox/com.google.android.apps.gsa.voiceinteraction.hotword.HotwordAudioProvider:
+    Provider{17fa0d7 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.voiceinteraction.hotword.HotwordAudioProvider}
+  com.google.android.googlequicksearchbox/com.google.android.apps.gsa.speech.audio.AudioProvider:
+    Provider{3a32dc4 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.speech.audio.AudioProvider}
+  com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.DefaultInitializer:
+    Provider{e0464ad com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.DefaultInitializer}
+  com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.CrashReportInitializer:
+    Provider{959c3e2 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.CrashReportInitializer}
+  com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.SearchInitializer:
+    Provider{7b37373 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.SearchInitializer}
+  com.google.android.googlequicksearchbox/com.google.android.search.core.google.GoogleSuggestionProvider:
+    Provider{2876230 com.google.android.googlequicksearchbox/com.google.android.search.core.google.GoogleSuggestionProvider}
+  com.google.android.googlequicksearchbox/com.google.android.apps.gsa.shared.util.debug.SelfDestructFileProvider:
+    Provider{4af9ea9 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.shared.util.debug.SelfDestructFileProvider}
+  com.google.android.googlequicksearchbox/com.google.android.apps.gsa.velvet.util.StateDumpProvider:
+    Provider{d43c2e com.google.android.googlequicksearchbox/com.google.android.apps.gsa.velvet.util.StateDumpProvider}
+  com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.CommonContentProvider:
+    Provider{e47d3cf com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.CommonContentProvider}
+  com.google.android.googlequicksearchbox/android.arch.lifecycle.ProcessLifecycleOwnerInitializer:
+    Provider{838715c com.google.android.googlequicksearchbox/android.arch.lifecycle.ProcessLifecycleOwnerInitializer}
+  com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.ManageSpaceInitializer:
+    Provider{bba7c65 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.ManageSpaceInitializer}
+  com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.AssistantInitializer:
+    Provider{b6bed3a com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.AssistantInitializer}
+  com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.publiccontent.GsaPublicContentProvider:
+    Provider{417ddeb com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.publiccontent.GsaPublicContentProvider}
+  com.google.android.googlequicksearchbox/com.google.android.apps.gsa.voiceinteraction.dump.StateDumpProvider:
+    Provider{2894748 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.voiceinteraction.dump.StateDumpProvider}
+  com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.InteractorInitializer:
+    Provider{1db79e1 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.InteractorInitializer}
+  com.google.android.googlequicksearchbox/com.android.launcher3.LauncherProvider:
+    Provider{e9ba306 com.google.android.googlequicksearchbox/com.android.launcher3.LauncherProvider}
+  com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.UiInitializer:
+    Provider{946dc7 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.UiInitializer}
+  com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.bisto.util.StreamedMessageContentProvider:
+    Provider{78f8ff4 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.bisto.util.StreamedMessageContentProvider}
+  com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.DevInitializer:
+    Provider{b4d31d com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.DevInitializer}
+  com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.opa.audio.OpaAudioProvider:
+    Provider{abee992 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.opa.audio.OpaAudioProvider}
+  com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.WallpaperChooserInitializer:
+    Provider{7601f63 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.WallpaperChooserInitializer}
+
+ContentProvider Authorities:
+  [com.google.android.apps.gsa.contentprovider.initializer.AssistantInitializer]:
+    Provider{b6bed3a com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.AssistantInitializer}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.googlequicksearchbox.ExternalExperimentInfoProvider]:
+    Provider{417ddeb com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.publiccontent.GsaPublicContentProvider}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.apps.gsa.voiceinteraction.dump.StateDumpProvider]:
+    Provider{2894748 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.voiceinteraction.dump.StateDumpProvider}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.apps.gsa.contentprovider.initializer.InteractorInitializer]:
+    Provider{1db79e1 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.InteractorInitializer}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.apps.gsa.contentprovider.initializer.UiInitializer]:
+    Provider{946dc7 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.UiInitializer}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.apps.gsa.staticplugins.bisto.util.StreamedMessageContentProvider]:
+    Provider{78f8ff4 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.bisto.util.StreamedMessageContentProvider}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.apps.gsa.contentprovider.initializer.DevInitializer]:
+    Provider{b4d31d com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.DevInitializer}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.googlequicksearchbox.lifecycle-trojan]:
+    Provider{838715c com.google.android.googlequicksearchbox/android.arch.lifecycle.ProcessLifecycleOwnerInitializer}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.apps.gsa.staticplugins.opa.audio.OpaAudioProvider]:
+    Provider{abee992 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.opa.audio.OpaAudioProvider}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.apps.gsa.contentprovider.initializer.WallpaperChooserInitializer]:
+    Provider{7601f63 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.WallpaperChooserInitializer}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.googlequicksearchbox.AudioProvider]:
+    Provider{3a32dc4 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.speech.audio.AudioProvider}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.apps.gsa.contentprovider.initializer.AfwInitializer]:
+    Provider{9d67856 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.AfwInitializer}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.apps.gsa.voiceinteraction.hotword.HotwordAudioProvider]:
+    Provider{17fa0d7 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.voiceinteraction.hotword.HotwordAudioProvider}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.apps.gsa.contentprovider.initializer.DefaultInitializer]:
+    Provider{e0464ad com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.DefaultInitializer}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.googlequicksearchbox.CommonContentProvider]:
+    Provider{e47d3cf com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.CommonContentProvider}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.apps.gsa.contentprovider.initializer.CrashReportInitializer]:
+    Provider{959c3e2 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.CrashReportInitializer}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.apps.gsa.contentprovider.initializer.SearchInitializer]:
+    Provider{7b37373 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.SearchInitializer}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.googlequicksearchbox.GsaPublicContentProvider]:
+    Provider{417ddeb com.google.android.googlequicksearchbox/com.google.android.apps.gsa.staticplugins.publiccontent.GsaPublicContentProvider}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.googlequicksearchbox.google]:
+    Provider{2876230 com.google.android.googlequicksearchbox/com.google.android.search.core.google.GoogleSuggestionProvider}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.launcher.settings]:
+    Provider{e9ba306 com.google.android.googlequicksearchbox/com.android.launcher3.LauncherProvider}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.velvet.util.statedumpprovider]:
+    Provider{d43c2e com.google.android.googlequicksearchbox/com.google.android.apps.gsa.velvet.util.StateDumpProvider}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.apps.gsa.contentprovider.initializer.ManageSpaceInitializer]:
+    Provider{bba7c65 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.contentprovider.initializer.ManageSpaceInitializer}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+  [com.google.android.nowdev.trustedtestprovider]:
+    Provider{4af9ea9 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.shared.util.debug.SelfDestructFileProvider}
+      applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+
+Key Set Manager:
+  [com.google.android.googlequicksearchbox]
+      Signing KeySets: 3
+
+Packages:
+  Package [com.google.android.googlequicksearchbox] (18687c9):
+    userId=10061
+    pkg=Package{fd08419 com.google.android.googlequicksearchbox}
+    codePath=/system/priv-app/Velvet
+    resourcePath=/system/priv-app/Velvet
+    legacyNativeLibraryDir=/system/priv-app/Velvet/lib
+    primaryCpuAbi=arm64-v8a
+    secondaryCpuAbi=armeabi-v7a
+    versionCode=300896601 minSdk=21 targetSdk=26
+    versionName=8.91.5.21.arm64
+    splits=[base]
+    apkSigningVersion=1
+    applicationInfo=ApplicationInfo{70fb760 com.google.android.googlequicksearchbox}
+    flags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP KILL_AFTER_RESTORE RESTORE_ANY_VERSION LARGE_HEAP ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE PRIVATE_FLAG_REQUEST_LEGACY_EXTERNAL_STORAGE HAS_DOMAIN_URLS PRIVILEGED ]
+    dataDir=/data/user/0/com.google.android.googlequicksearchbox
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesLibraries:
+      android.hidl.manager-V1.0-java
+      android.hidl.base-V1.0-java
+    usesOptionalLibraries:
+      com.google.android.chromeos
+      org.apache.http.legacy
+    usesLibraryFiles:
+      /system/framework/android.hidl.manager-V1.0-java.jar
+      /system/framework/android.hidl.base-V1.0-java.jar
+      /system/framework/org.apache.http.legacy.jar
+    timeStamp=2026-09-07 05:59:50
+    firstInstallTime=2026-09-07 05:59:50
+    lastUpdateTime=2026-09-07 05:59:50
+    signatures=PackageSignatures{85e0cde version:1, signatures:[e3ca78d8], past signatures:[]}
+    installPermissionsFixed=true
+    pkgFlags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP KILL_AFTER_RESTORE RESTORE_ANY_VERSION LARGE_HEAP ]
+    declared permissions:
+      com.google.android.voicesearch.AUDIO_FILE_ACCESS: prot=signature, INSTALLED
+      com.google.android.googlequicksearchbox.permission.FINISH_GEL_ACTIVITY: prot=signature, INSTALLED
+      com.google.android.apps.now.CURRENT_ACCOUNT_ACCESS: prot=signature, INSTALLED
+      com.google.android.googlequicksearchbox.LAUNCH_WITH_RECORDED_AUDIO: prot=signature|privileged, INSTALLED
+      com.google.android.googlequicksearchbox.LAUNCH_FROM_DSP_HOTWORD: prot=signature|privileged, INSTALLED
+      com.google.android.apps.now.OPT_IN_WIZARD: prot=signature|privileged, INSTALLED
+      com.google.android.googlequicksearchbox.permission.PAUSE_HOTWORD: prot=signature|privileged, INSTALLED
+      com.google.android.googlequicksearchbox.permission.C2D_MESSAGE: prot=signature, INSTALLED
+      com.google.android.googlequicksearchbox.permission.FLUSH_LOGS: prot=signature, INSTALLED
+      com.google.android.launcher.permission.READ_SETTINGS: prot=normal, INSTALLED
+      com.google.android.launcher.permission.WRITE_SETTINGS: prot=signature|privileged, INSTALLED
+      com.google.android.launcher.permission.RECEIVE_LAUNCH_BROADCASTS: prot=signature, INSTALLED
+      com.google.android.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST: prot=signature|privileged, INSTALLED
+      com.android.launcher.permission.INSTALL_SHORTCUT: prot=dangerous
+    requested permissions:
+      com.google.android.googlequicksearchbox.permission.FINISH_GEL_ACTIVITY
+      com.google.android.apps.now.CURRENT_ACCOUNT_ACCESS
+      com.google.android.googlequicksearchbox.permission.C2D_MESSAGE
+      com.google.android.c2dm.permission.RECEIVE
+      android.permission.GLOBAL_SEARCH
+      android.permission.READ_CONTACTS
+      android.permission.WRITE_CONTACTS
+      com.android.browser.permission.READ_HISTORY_BOOKMARKS
+      com.android.browser.permission.WRITE_HISTORY_BOOKMARKS
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.INTERNET
+      com.google.android.launcher.permission.CONTENT_REDIRECT
+      com.google.android.launcher.permission.READ_SETTINGS
+      com.google.android.launcher.permission.WRITE_SETTINGS
+      com.google.android.launcher.permission.RECEIVE_LAUNCH_BROADCASTS
+      com.google.android.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST
+      android.permission.USE_CREDENTIALS
+      android.permission.MANAGE_ACCOUNTS
+      android.permission.WRITE_SETTINGS
+      com.google.android.providers.settings.permission.READ_GSETTINGS
+      com.google.android.providers.settings.permission.WRITE_GSETTINGS
+      com.google.android.providers.gsf.permission.READ_GSERVICES
+      com.google.android.voicesearch.SHORTCUTS_ACCESS
+      com.google.android.voicesearch.ACCESS_SETTINGS
+      com.android.browser.permission.PRELOAD
+      com.google.android.ears.permission.WRITE
+      android.permission.BROADCAST_STICKY
+      android.permission.MEDIA_CONTENT_CONTROL
+      android.permission.INTERACT_ACROSS_USERS
+      android.permission.FOREGROUND_SERVICE
+      com.google.android.googlequicksearchbox.permission.PAUSE_HOTWORD
+      android.permission.GET_PACKAGE_SIZE
+      android.permission.ACCESS_WIFI_STATE
+      android.permission.ACCESS_NOTIFICATION_POLICY
+      android.permission.CHANGE_WIFI_STATE
+      android.permission.BLUETOOTH_ADMIN
+      android.permission.CHANGE_NETWORK_STATE
+      android.permission.READ_EXTERNAL_STORAGE: restricted=true
+      android.permission.RECEIVE_BOOT_COMPLETED
+      android.permission.WAKE_LOCK
+      com.google.android.gms.permission.ACTIVITY_RECOGNITION
+      android.permission.READ_PROFILE
+      com.google.googlenav.friend.permission.OPT_IN
+      com.google.android.apps.maps.permission.PREFETCH
+      com.google.android.apps.maps.permission.TIMELINE_POST_VISIT_BADGE
+      android.permission.ACCESS_COARSE_LOCATION
+      android.permission.ACCESS_FINE_LOCATION
+      android.permission.BLUETOOTH
+      android.permission.CALL_PHONE
+      android.permission.CALL_PRIVILEGED
+      android.permission.GET_ACCOUNTS
+      android.permission.MODIFY_AUDIO_SETTINGS
+      android.permission.READ_CALENDAR
+      android.permission.READ_CALL_LOG: restricted=true
+      android.permission.READ_SMS: restricted=true
+      android.permission.READ_PHONE_STATE
+      android.permission.READ_SYNC_SETTINGS
+      android.permission.RECORD_AUDIO
+      android.permission.SEND_SMS: restricted=true
+      android.permission.VIBRATE
+      android.permission.GET_TASKS
+      android.permission.REAL_GET_TASKS
+      android.permission.WRITE_CALENDAR
+      android.permission.WRITE_EXTERNAL_STORAGE: restricted=true
+      android.permission.WRITE_SMS
+      com.android.alarm.permission.SET_ALARM
+      com.google.android.apps.googlevoice.permission.AUTO_SEND
+      com.google.android.gm.permission.AUTO_SEND
+      com.google.android.gm.permission.READ_GMAIL
+      com.google.android.googleapps.permission.GOOGLE_AUTH.cp
+      com.google.android.googleapps.permission.GOOGLE_AUTH
+      com.google.android.hangouts.START_HANGOUT
+      com.google.android.voicesearch.AUDIO_FILE_ACCESS
+      android.permission.CAMERA
+      android.permission.FLASHLIGHT
+      android.permission.DOWNLOAD_WITHOUT_NOTIFICATION
+      android.permission.MANAGE_VOICE_KEYPHRASES
+      com.android.chrome.PRERENDER_URL
+      android.permission.CAPTURE_AUDIO_HOTWORD
+      android.permission.STOP_APP_SWITCHES
+      android.permission.SET_WALLPAPER
+      android.permission.SET_WALLPAPER_HINTS
+      android.permission.BIND_APPWIDGET
+      com.android.launcher.permission.INSTALL_SHORTCUT
+      android.permission.USE_FINGERPRINT
+      android.permission.CHANGE_WIFI_MULTICAST_STATE
+      android.permission.SYSTEM_ALERT_WINDOW
+      android.permission.SET_MEDIA_KEY_LISTENER
+      android.permission.SET_VOLUME_KEY_LONG_PRESS_LISTENER
+      android.permission.PACKAGE_USAGE_STATS
+      android.permission.ACCESS_BACKGROUND_LOCATION: restricted=true
+      android.permission.ACCESS_MEDIA_LOCATION
+    install permissions:
+      android.permission.REAL_GET_TASKS: granted=true
+      android.permission.DOWNLOAD_WITHOUT_NOTIFICATION: granted=true
+      android.permission.WRITE_SETTINGS: granted=true
+      com.google.android.googlequicksearchbox.permission.C2D_MESSAGE: granted=true
+      com.google.android.c2dm.permission.RECEIVE: granted=true
+      android.permission.USE_CREDENTIALS: granted=true
+      android.permission.MODIFY_AUDIO_SETTINGS: granted=true
+      android.permission.ACCESS_NOTIFICATION_POLICY: granted=true
+      com.google.android.providers.gsf.permission.READ_GSERVICES: granted=true
+      com.google.android.voicesearch.AUDIO_FILE_ACCESS: granted=true
+      android.permission.MANAGE_ACCOUNTS: granted=true
+      com.google.android.googleapps.permission.GOOGLE_AUTH.cp: granted=true
+      android.permission.SYSTEM_ALERT_WINDOW: granted=true
+      android.permission.SET_VOLUME_KEY_LONG_PRESS_LISTENER: granted=true
+      android.permission.MANAGE_VOICE_KEYPHRASES: granted=true
+      com.google.android.googlequicksearchbox.permission.FINISH_GEL_ACTIVITY: granted=true
+      android.permission.CALL_PRIVILEGED: granted=true
+      android.permission.CHANGE_NETWORK_STATE: granted=true
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      com.google.android.googleapps.permission.GOOGLE_AUTH: granted=true
+      com.google.android.providers.settings.permission.READ_GSETTINGS: granted=true
+      com.google.android.googlequicksearchbox.permission.PAUSE_HOTWORD: granted=true
+      android.permission.READ_PROFILE: granted=true
+      android.permission.BLUETOOTH: granted=true
+      android.permission.CHANGE_WIFI_MULTICAST_STATE: granted=true
+      com.android.alarm.permission.SET_ALARM: granted=true
+      android.permission.CAPTURE_AUDIO_HOTWORD: granted=true
+      android.permission.GET_TASKS: granted=true
+      android.permission.INTERNET: granted=true
+      com.android.browser.permission.READ_HISTORY_BOOKMARKS: granted=true
+      android.permission.BLUETOOTH_ADMIN: granted=true
+      android.permission.GET_PACKAGE_SIZE: granted=true
+      android.permission.BIND_APPWIDGET: granted=true
+      android.permission.STOP_APP_SWITCHES: granted=true
+      android.permission.PACKAGE_USAGE_STATS: granted=true
+      android.permission.BROADCAST_STICKY: granted=true
+      android.permission.WRITE_SMS: granted=true
+      com.google.android.providers.settings.permission.WRITE_GSETTINGS: granted=true
+      android.permission.CHANGE_WIFI_STATE: granted=true
+      android.permission.FLASHLIGHT: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      android.permission.INTERACT_ACROSS_USERS: granted=true
+      android.permission.SET_WALLPAPER: granted=true
+      com.google.android.gms.permission.ACTIVITY_RECOGNITION: granted=true
+      com.google.android.launcher.permission.RECEIVE_FIRST_LOAD_BROADCAST: granted=true
+      android.permission.USE_FINGERPRINT: granted=true
+      android.permission.GLOBAL_SEARCH: granted=true
+      android.permission.SET_WALLPAPER_HINTS: granted=true
+      android.permission.READ_SYNC_SETTINGS: granted=true
+      com.google.android.apps.now.CURRENT_ACCOUNT_ACCESS: granted=true
+      com.android.browser.permission.WRITE_HISTORY_BOOKMARKS: granted=true
+      android.permission.SET_MEDIA_KEY_LISTENER: granted=true
+      android.permission.VIBRATE: granted=true
+      android.permission.ACCESS_WIFI_STATE: granted=true
+      com.google.android.launcher.permission.WRITE_SETTINGS: granted=true
+      com.google.android.launcher.permission.RECEIVE_LAUNCH_BROADCASTS: granted=true
+      com.google.android.launcher.permission.READ_SETTINGS: granted=true
+      com.android.launcher.permission.INSTALL_SHORTCUT: granted=true
+      android.permission.WAKE_LOCK: granted=true
+      android.permission.MEDIA_CONTENT_CONTROL: granted=true
+    User 0: ceDataInode=644 installed=true hidden=false suspended=false stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      gids=[1005, 3002, 3003, 3001]
+      runtime permissions:
+        android.permission.READ_SMS: granted=true, flags=[ GRANTED_BY_DEFAULT|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.READ_CALENDAR: granted=true, flags=[ GRANTED_BY_DEFAULT|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+        android.permission.READ_CALL_LOG: granted=true, flags=[ GRANTED_BY_DEFAULT|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.ACCESS_FINE_LOCATION: granted=true, flags=[ GRANTED_BY_DEFAULT|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+        android.permission.READ_EXTERNAL_STORAGE: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.ACCESS_COARSE_LOCATION: granted=true, flags=[ GRANTED_BY_DEFAULT|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+        android.permission.READ_PHONE_STATE: granted=true, flags=[ GRANTED_BY_DEFAULT|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+        android.permission.SEND_SMS: granted=true, flags=[ GRANTED_BY_DEFAULT|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.CALL_PHONE: granted=true, flags=[ GRANTED_BY_DEFAULT|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+        android.permission.WRITE_CONTACTS: granted=true, flags=[ GRANTED_BY_DEFAULT|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+        android.permission.CAMERA: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+        android.permission.WRITE_CALENDAR: granted=true, flags=[ GRANTED_BY_DEFAULT|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+        android.permission.GET_ACCOUNTS: granted=true, flags=[ GRANTED_BY_DEFAULT|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+        android.permission.WRITE_EXTERNAL_STORAGE: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.RECORD_AUDIO: granted=true, flags=[ GRANTED_BY_DEFAULT|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+        android.permission.READ_CONTACTS: granted=true, flags=[ GRANTED_BY_DEFAULT|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+        android.permission.ACCESS_BACKGROUND_LOCATION: granted=true, flags=[ GRANTED_BY_DEFAULT|REVOKE_WHEN_REQUESTED|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.ACCESS_MEDIA_LOCATION: granted=false, flags=[ REVOKE_WHEN_REQUESTED|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+      disabledComponents:
+        com.android.launcher3.InstallShortcutReceiver
+        com.android.launcher3.PackageSessionCommitReceiver
+        com.android.launcher3.WallpaperCropActivity
+        com.google.android.libraries.flashmanagement.cleardatadetector.DummyReceiver
+        com.google.android.apps.gsa.reflection.ReflectionReceiver
+        com.android.launcher3.AddItemActivity
+        com.android.launcher3.StartupReceiver
+        com.google.android.apps.gsa.launcher.GelWallpaperPickerActivity
+        com.google.android.apps.gsa.staticplugins.opa.EnterOpaActivityFromLauncher
+        com.google.android.launcher.GEL
+      enabledComponents:
+        com.android.launcher3.LauncherProvider
+        com.google.android.apps.gsa.staticplugins.opa.EnterOpaActivityFromDeeplink
+        com.google.android.googlequicksearchbox.VoiceSearchActivity
+        com.google.android.apps.gsa.deeplink.EnterCollectionsFromDeeplink
+        com.google.android.googlequicksearchbox.SearchActivity
+        com.android.launcher3.AppWidgetsRestoredReceiver
+        com.google.android.apps.gsa.staticplugins.opa.hq.OpaHqActivity
+        com.google.android.apps.gsa.assistant.settings.hq.agentdirectory.AgentDirectoryActivity
+isSystemUserPackagesBlacklistSupported: false
+
+Package Changes:
+  Sequence number=38
+  User 0:
+    seq=0, package=com.android.carrierdefaultapp
+    seq=1, package=com.huawei.hwid
+    seq=14, package=com.google.android.googlequicksearchbox
+    seq=36, package=com.android.vending
+    seq=37, package=com.google.android.gms
+
+
+Dexopt state:
+  [com.google.android.googlequicksearchbox]
+    path: /system/priv-app/Velvet/Velvet.apk
+      arm: [status=quicken] [reason=first-boot]
+      arm64: [status=quicken] [reason=first-boot]
+
+
+Compiler stats:
+  [com.google.android.googlequicksearchbox]
+    (No recorded stats)
+
+Active APEX packages:
+
+
+Inactive APEX packages:
+
+
+Factory APEX packages:
+
+
+  APEX session state:

@@ -1,0 +1,10 @@
+--------- beginning of main
+--------- beginning of system
+   284.143  9039  9039 I K50GnssProbe: elapsed_ms=32 request provider_enabled=true
+   284.986  9039  9039 I K50GnssProbe: elapsed_ms=875 satellite_status count=12 used=0
+   285.984  9039  9039 I K50GnssProbe: elapsed_ms=1873 satellite_status count=12 used=0
+   286.986  9039  9039 I K50GnssProbe: elapsed_ms=2875 satellite_status count=12 used=0
+   303.986  9039  9039 I K50GnssProbe: elapsed_ms=19875 satellite_status count=12 used=0
+   323.986  9039  9039 I K50GnssProbe: elapsed_ms=39875 satellite_status count=12 used=0
+   343.986  9039  9039 I K50GnssProbe: elapsed_ms=59875 satellite_status count=12 used=0
+   363.986  9039  9039 I K50GnssProbe: elapsed_ms=79875 satellite_status count=12 used=0

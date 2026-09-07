@@ -1,0 +1,26 @@
+Active Hall / stylus-slot probe
+Captured: 2026-08-22 20:45 +02:00
+
+User action:
+  Remove and reinsert the bundled stylus, then move a magnet near the stylus
+  slot and handset edges.
+
+Interfaces:
+  status: /sys/devices/virtual/hall_info/hall_info_data/hall_status
+  input:  /dev/input/event4 (HALL_DEV; KEY_SLEEP / KEY_WAKEUP capability)
+
+Observed transitions (condensed):
+  initial=0
+  KEY_WAKEUP DOWN/UP; status 0 -> 1
+  KEY_WAKEUP DOWN/UP; status 1 -> 0
+  KEY_WAKEUP DOWN/UP; status 0 -> 1
+  KEY_WAKEUP DOWN/UP; status 1 -> 0
+  Further stylus/magnet actions repeated the same 0 <-> 1 transitions and
+  KEY_WAKEUP events.
+
+Interpretation:
+  The Hall path is real and functional, and is consistent with detecting the
+  stylus in its slot. It is not a phantom fingerprint/audiokey node. LineageOS
+  does not need the Stock stylus popup, sounds, apps, or feature declarations.
+  Keep the low-level Hall node during first bring-up; disable it separately only
+  if its KEY_WAKEUP behavior proves undesirable.

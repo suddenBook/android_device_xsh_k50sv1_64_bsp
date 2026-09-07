@@ -1,0 +1,7 @@
+{
+  "status": "FAIL_PRELAUNCH_BINDING_RESTORED",
+  "exit_code": 1,
+  "probe_started": false,
+  "cause": "RoleManager default grants restored the configured assistant after its package/component state changed. The immediate prelaunch binding guard rejected. Both original voice settings, Search availability and HOME were restored.",
+  "production_changed": false
+}

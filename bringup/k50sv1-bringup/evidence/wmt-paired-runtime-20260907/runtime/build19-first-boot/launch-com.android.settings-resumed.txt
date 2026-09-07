@@ -1,0 +1,5 @@
+host_adb_rc=0 __K50_ACTIVITY_RC__=0
+host_adb_rc=0 __K50_ACTIVITY_RC__=0     mResumedActivity: ActivityRecord{4b8e388 u0 com.android.settings/.Settings t4}
+host_adb_rc=0 __K50_ACTIVITY_RC__=0     mResumedActivity: ActivityRecord{4b8e388 u0 com.android.settings/.Settings t4}
+host_adb_rc=0 __K50_ACTIVITY_RC__=0     mResumedActivity: ActivityRecord{4b8e388 u0 com.android.settings/.Settings t4}
+

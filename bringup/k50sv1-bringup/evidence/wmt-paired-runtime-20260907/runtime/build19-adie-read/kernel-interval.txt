@@ -1,0 +1,18 @@
+[ 1100.878871] (2)[72:dlpt_notify_thr][Auxadc] [AUXADC] ch:0(1107, 6756, 1, 1)
+[ 1100.882148] (2)[72:dlpt_notify_thr][Auxadc] [AUXADC] ch:0(1107, 6757, 1, 1)
+[ 1100.882186] (2)[72:dlpt_notify_thr][PBM] [ma_to_mw] 4359(mV) * 5500(mA) = 23974(mW)
+[ 1100.882237] (2)[72:dlpt_notify_thr][DLPT_final] 5500,0,100,100,1,5500
+[ 1101.117839] (5)[11961:kworker/5:1][Auxadc] [AUXADC] ch:4(291, 5d9, 1, 1)
+[ 1101.246455] -(5)[1336:Binder:906_6]alarmtimer_enqueue, 1102666000000
+[ 1101.326282] (0)[253:wdtk-0][thread:253][RT:1101326247394] 2026-09-07 04:42:01.68055 UTC;android time 2026-09-07 06:42:01.68055
+[ 1101.346328] (5)[258:wdtk-5][WDK]: kick Ex WDT,RT[1101346313010]
+[ 1101.789928] (4)[12020:k50-wmt-adie-pr][HIF-SDIO][I]WMT_open:major 190 minor 0 (pid 12020)
+[ 1101.789992] (4)[12020:k50-wmt-adie-pr][HIF-SDIO][I]WMT_unlocked_ioctl:OPID(23) start
+[ 1101.790062] (4)[12020:k50-wmt-adie-pr][STP-PSM] [I]_stp_psm_do_wait: STP is waiting state for ACT, i=1, state = 2
+[ 1101.816254] (2)[12020:k50-wmt-adie-pr][STP-PSM] [I]_stp_psm_do_wait: +Total waits for ACT takes 26175 usec
+[ 1101.816707] (2)[430:mtk_wmtd][WMT-CORE][I]opfunc_adie_lpbk_test:get SOC A die chipid(0x6625)
+[ 1101.816799] (0)[12020:k50-wmt-adie-pr][HIF-SDIO][I]WMT_unlocked_ioctl:OPID(23) length(2) ok
+[ 1101.816848] (0)[12020:k50-wmt-adie-pr][HIF-SDIO][I]WMT_close:major 190 minor 0 (pid 12020)
+[ 1101.866310] (5)[11961:kworker/5:1][CPU_Thermal]set_adaptive_cpu_power_limit 1141 T=62000, 1091 T=64100, 1141 T=62000, 1091 T=64100, 1141 T=64300
+[ 1101.866394] (5)[11961:kworker/5:1][name:mt_ppm_main&][Power/PPM] (0x4b0)(1141)(1)[4L_LL]: (4)(3)(1)(3) (6)(3)(4)(4) 
+[ 1101.870274] (5)[11961:kworker/5:1][HPS] END :(0200)(4)(4) action end(624)(630)(0)(1) (3)(4)(1)(4) (0)(0)(0) (624)(2)(0) (0)(630)(2)(0)(630) (0)(3)(4)

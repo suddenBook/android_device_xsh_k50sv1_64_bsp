@@ -1,0 +1,35 @@
+success: 833
+fail: 498
+failed_freeze: 288
+failed_prepare: 0
+failed_suspend: 206
+failed_suspend_late: 1
+failed_suspend_noirq: 0
+failed_resume: 0
+failed_resume_early: 0
+failed_resume_noirq: 0
+failures:
+  last_failed_dev:	alarmtimer
+			alarmtimer
+  last_failed_errno:	-16
+			-16
+  last_failed_step:	freeze
+			freeze
+---
+********** RF clock buffer state (off) flightmode(FM)=0 **********
+CKBUF1_BB   SW(1)/HW(2) CTL: 0, Dis(0)/En(1) of FM=1:0, FM=0:0
+CKBUF2_CONN SW(1)/HW(2) CTL: 0, Dis(0)/En(1) of FM=1:0, FM=0:0
+CKBUF3_NFC  SW(1)/HW(2) CTL: 0, Dis(0)/En(1) of FM=1:0, FM=0:0
+CKBUF4_AUD  SW(1)/HW(2) CTL: 0, Dis(0)/En(1) of FM=1:0, FM=0:0
+********** PMIC clock buffer state (on) **********
+CKBUF1_BB   SW(1)/HW(2) CTL: 2, Dis(0)/En(1): 1
+CKBUF2_CONN SW(1)/HW(2) CTL: 1, Dis(0)/En(1): 1
+CKBUF3_NFC  SW(1)/HW(2) CTL: 1, Dis(0)/En(1): 0
+CKBUF4_RF   SW(1)/HW(2) CTL: 2, Dis(0)/En(1): 1
+
+********** clock buffer command help **********
+BSI  switch on/off: echo bsi en1 en2 en3 en4 > /sys/power/clk_buf/clk_buf_ctrl
+PMIC switch on/off: echo pmic en1 en2 en3 en4 > /sys/power/clk_buf/clk_buf_ctrl
+g_pmic_cw13_rg_val=0x8aaa, bblpm_cnt=0
+rf_drv_curr_vals=2 2 2 2, pmic_drv_curr_vals=2 2 2 2
+srcclkena_o1=0, pcm_reg13=0xe046000, MD1_PWR_CON=0xd, C2K_PWR_CON=0x12

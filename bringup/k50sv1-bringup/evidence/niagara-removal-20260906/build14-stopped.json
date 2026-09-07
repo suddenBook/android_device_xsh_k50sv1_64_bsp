@@ -1,0 +1,19 @@
+{
+  "status": "INTERRUPTED_NO_RECEIPT",
+  "observed_epoch": 1788726031.41018,
+  "live_build_processes": [],
+  "outputs_present": {
+    "boot.img": false,
+    "recovery.img": false,
+    "system.img": false,
+    "vendor.img": false,
+    "K50SV1-BUILD-RECEIPT": false
+  },
+  "log_sha256": "094987c69fe127357b990c75bb52faca5f1922c9adb5d8526d938cf8d071d042",
+  "log_last_lines": [
+    "[ 88% 97493/110566] //external/v8:v8_base clang++ src/objects/debug-objects.cc",
+    "[ 88% 97494/110566] //external/v8:v8_base clang++ src/objects/code.cc",
+    "[ 88% 97495/110566] //external/v8:v8_base clang++ src/objects/field-type.cc"
+  ],
+  "next_action": "Batch the reviewed kernel repairs and Niagara removal into a new clean build15; keep prior installed build13 as fallback"
+}

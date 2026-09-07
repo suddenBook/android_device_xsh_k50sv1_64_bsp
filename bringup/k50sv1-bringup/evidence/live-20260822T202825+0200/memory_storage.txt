@@ -1,0 +1,196 @@
+# captured_at: 2026-08-22T20:28:33+02:00
+# adb: adb (configured executable)
+# device_command: Magisk root shell over stdin: $'\necho "## meminfo";\ncat /proc/meminfo;\necho "## zoneinfo";\ncat /proc/zoneinfo;\necho "## block geometry";\nfor path in /sys/block/mmcblk0/size /sys/block/mmcblk0/queue/{logical_block_size,physical_block_size}; do\n    printf "%s: " "$path"; cat "$path" 2>&1;\ndone;\nblockdev --getsize64 /dev/block/mmcblk0 2>&1;\necho "## eMMC identity and health";\nfor path in /sys/class/mmc_host/mmc0/mmc0:*/{name,manfid,oemid,rev,date,cid,csd,life_time,pre_eol_info,serial}; do\n    [ -r "$path" ] || continue;\n    case "$path" in */serial) continue ;; esac;\n    printf "%s: " "$path"; cat "$path" 2>&1;\ndone;\necho "## filesystems";\ndf -k 2>&1;\n'
+
+uid=0(root) gid=0(root) groups=0(root) context=u:r:magisk:s0
+## meminfo
+MemTotal:        4194304 kB
+MemFree:          121892 kB
+MemAvailable:    2830439 kB
+Buffers:           38002 kB
+Cached:          2332455 kB
+SwapCached:            0 kB
+Active:          2068956 kB
+Inactive:         945996 kB
+Active(anon):     607720 kB
+Inactive(anon):   201040 kB
+Active(file):    1461236 kB
+Inactive(file):   744956 kB
+Unevictable:        1280 kB
+Mlocked:            1280 kB
+SwapTotal:       3336772 kB
+SwapFree:        3332268 kB
+Dirty:                52 kB
+Writeback:             0 kB
+AnonPages:        797712 kB
+Mapped:           845628 kB
+Shmem:             11176 kB
+Slab:             500364 kB
+SReclaimable:     396156 kB
+SUnreclaim:       104208 kB
+KernelStack:       29424 kB
+PageTables:        43488 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     5299580 kB
+Committed_AS:   55911888 kB
+VmallocTotal:   260046784 kB
+VmallocUsed:      264140 kB
+VmallocChunk:   259669344 kB
+## zoneinfo
+Node 0, zone      DMA
+  pages free     5119
+        min      1484
+        low      4204
+        high     4575
+        scanned  0
+        spanned  786432
+        present  781840
+        managed  735444
+    nr_free_pages 5119
+    nr_alloc_batch 392
+    nr_inactive_anon 29217
+    nr_active_anon 117373
+    nr_inactive_file 141212
+    nr_active_file 263367
+    nr_unevictable 216
+    nr_mlock     216
+    nr_anon_pages 144666
+    nr_mapped    156631
+    nr_file_pages 406710
+    nr_dirty     4
+    nr_writeback 0
+    nr_slab_reclaimable 99039
+    nr_slab_unreclaimable 26053
+    nr_page_table_pages 7503
+    nr_kernel_stack 1309
+    nr_unstable  0
+    nr_bounce    0
+    nr_vmscan_write 1114
+    nr_vmscan_immediate_reclaim 0
+    nr_writeback_temp 0
+    nr_isolated_anon 0
+    nr_isolated_file 0
+    nr_shmem     1924
+    nr_dirtied   92937
+    nr_written   93946
+    nr_pages_scanned 0
+    workingset_refault 13953
+    workingset_activate 13953
+    workingset_nodereclaim 0
+    nr_anon_transparent_hugepages 0
+    nr_free_cma  0
+        protection: (0, 960, 960)
+  pagesets
+    cpu: 4
+              count: 104
+              high:  186
+              batch: 31
+  vm stats threshold: 24
+    cpu: 5
+              count: 155
+              high:  186
+              batch: 31
+  vm stats threshold: 24
+    cpu: 6
+              count: 30
+              high:  186
+              batch: 31
+  vm stats threshold: 24
+  all_unreclaimable: 0
+  start_pfn:         262144
+  inactive_ratio:    4
+Node 0, zone   Normal
+  pages free     23305
+        min      496
+        low      1405
+        high     1529
+        scanned  0
+        spanned  262144
+        present  262144
+        managed  245961
+    nr_free_pages 23305
+    nr_alloc_batch 107
+    nr_inactive_anon 21043
+    nr_active_anon 34592
+    nr_inactive_file 45027
+    nr_active_file 101942
+    nr_unevictable 104
+    nr_mlock     104
+    nr_anon_pages 54785
+    nr_mapped    54784
+    nr_file_pages 147942
+    nr_dirty     9
+    nr_writeback 0
+    nr_slab_reclaimable 0
+    nr_slab_unreclaimable 0
+    nr_page_table_pages 3368
+    nr_kernel_stack 534
+    nr_unstable  0
+    nr_bounce    0
+    nr_vmscan_write 14
+    nr_vmscan_immediate_reclaim 0
+    nr_writeback_temp 0
+    nr_isolated_anon 0
+    nr_isolated_file 0
+    nr_shmem     870
+    nr_dirtied   32268
+    nr_written   32215
+    nr_pages_scanned 0
+    workingset_refault 4638
+    workingset_activate 4638
+    workingset_nodereclaim 0
+    nr_anon_transparent_hugepages 0
+    nr_free_cma  0
+        protection: (0, 0, 0)
+  pagesets
+    cpu: 4
+              count: 53
+              high:  186
+              batch: 31
+  vm stats threshold: 16
+    cpu: 5
+              count: 51
+              high:  186
+              batch: 31
+  vm stats threshold: 16
+    cpu: 6
+              count: 18
+              high:  186
+              batch: 31
+  vm stats threshold: 16
+  all_unreclaimable: 0
+  start_pfn:         1048576
+  inactive_ratio:    1
+## block geometry
+/sys/block/mmcblk0/size: 122142720
+/sys/block/mmcblk0/queue/logical_block_size: 512
+/sys/block/mmcblk0/queue/physical_block_size: 512
+62537072640
+## eMMC identity and health
+/sys/class/mmc_host/mmc0/mmc0:0001/name: S0J9F8
+/sys/class/mmc_host/mmc0/mmc0:0001/manfid: 0x000013
+/sys/class/mmc_host/mmc0/mmc0:0001/oemid: 0x014e
+/sys/class/mmc_host/mmc0/mmc0:0001/rev: 0x8
+/sys/class/mmc_host/mmc0/mmc0:0001/date: 01/2021
+/sys/class/mmc_host/mmc0/mmc0:0001/cid: 13014e53304a394638<redacted-unique-fields>
+/sys/class/mmc_host/mmc0/mmc0:0001/csd: d05f01328f5913ffffffffef964000a9
+/sys/class/mmc_host/mmc0/mmc0:0001/life_time: 0x01 0x01
+/sys/class/mmc_host/mmc0/mmc0:0001/pre_eol_info: 01
+## filesystems
+Filesystem            1K-blocks    Used Available Use% Mounted on
+tmpfs                   1962808    1596   1961212   1% /dev
+tmpfs                   1962808       0   1962808   0% /mnt
+tmpfs                   1962808       0   1962808   0% /apex
+/dev/block/mmcblk0p28   4063884 3613064    450820  89% /
+/dev/block/mmcblk0p27   2031964  612316   1419648  31% /vendor
+magisk                  1962808    2936   1959872   1% /sbin
+/dev/block/mmcblk0p29    412104     380    411724   1% /cache
+/dev/block/mmcblk0p8       3824      56      3768   2% /mnt/vendor/protect_f
+/dev/block/mmcblk0p9       8008      48      7960   1% /mnt/vendor/protect_s
+/dev/block/mmcblk0p6      27632    7404     20228  27% /mnt/vendor/nvdata
+/dev/block/dm-0        67108864 8257632  58851232  13% /data
+/data/media            67108864 8257632  58851232  13% /mnt/runtime/default/emulated
+
+# host_exit_status: 0

@@ -1,0 +1,636 @@
+{
+  "reviewed_revision": "372a643505f6b0aab0b3adbd150ecb9d9291d8d9",
+  "integrated_base": "0b3f7a10f39bff7c1e94d21956e88d0da797fa8e",
+  "standalone_probe_commit": "da0a099216d01913e1f57ee691eadafacbefa5c5",
+  "candidate_worktree": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-batch-kernel-work",
+  "clean_worktree": true,
+  "completed_utc": "2026-09-07T01:10:25.283540+00:00",
+  "scope": "MT6755 CONFIG_OF/CCF/nonlegacy-regulator lifecycle and integration with the existing callback barrier",
+  "outcome": "PASS: no finding with confidence >=80 in requested target scope",
+  "critical_findings": [],
+  "important_findings": [],
+  "production_sha256": {
+    "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c": "586458d8f51fa92949ac9b1e83f0bc717531c23b5eb7ac505acd4789666315c3",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c": "ceb42e2909bd2917a1658f59778a1b187e717b9b51db441b02db3bdab9e02913",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/platform/include/mtk_wcn_consys_hw.h": "2f9d4777b9fbde76e0b04513b4710ad012e91c31105d350b94991a809f825ab7"
+  },
+  "production_matches_author_commit": true,
+  "author_validation": {
+    "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/final-validation.json",
+    "sha256": "3ea9fb46a4abe668ceffeeb955aefd674b90e64abeba4ab5d7fe974efaffbe0f",
+    "size": 6331
+  },
+  "source_context": [
+    {
+      "path": "drivers/base/platform.c",
+      "sha256": "e0200d7d3ffc18e8d89d122dd5f2ce9c3c6d3ce20528010b3cd2d16cd6a62aa5",
+      "inclusive_line_ranges": [
+        [
+          522,
+          657
+        ]
+      ]
+    },
+    {
+      "path": "drivers/base/dd.c",
+      "sha256": "d2308b727ebabdf59312201fc8ec0e2b62c2b7fe5faae9a8f598f933a9512491",
+      "inclusive_line_ranges": [
+        [
+          286,
+          368
+        ],
+        [
+          522,
+          552
+        ]
+      ]
+    },
+    {
+      "path": "drivers/base/driver.c",
+      "sha256": "8d8eeb85ae151a2a2be48d1b1889b41f3b9ad36fe0e6597fa6acc8d6dcaf0217",
+      "inclusive_line_ranges": [
+        [
+          144,
+          192
+        ]
+      ]
+    },
+    {
+      "path": "drivers/base/devres.c",
+      "sha256": "868998883bf9cb7ec46f5cd2679b9fcd0f23b080e7775ed5f55a62367b1adcc7",
+      "inclusive_line_ranges": [
+        [
+          476,
+          517
+        ]
+      ]
+    },
+    {
+      "path": "drivers/base/power/common.c",
+      "sha256": "59d2ea8e9a4c3b5d041379df5ae85ab2d52f5af9565139ab60f282e033d8dd93",
+      "inclusive_line_ranges": [
+        [
+          131,
+          136
+        ]
+      ]
+    },
+    {
+      "path": "drivers/of/address.c",
+      "sha256": "56194986b232a5f6e053b72402a9cb465dd625e5893b3bdbf22ae2126cda32ad",
+      "inclusive_line_ranges": [
+        [
+          91,
+          95
+        ],
+        [
+          410,
+          457
+        ],
+        [
+          784,
+          838
+        ],
+        [
+          866,
+          875
+        ]
+      ]
+    },
+    {
+      "path": "arch/arm64/boot/dts/mt6755.dts",
+      "sha256": "cbc8f38fdd7b055a0438e8b2c5d60896eb67d60e4e0c64296224efdeae167f00",
+      "inclusive_line_ranges": [
+        [
+          351,
+          367
+        ],
+        [
+          2099,
+          2113
+        ]
+      ]
+    },
+    {
+      "path": "arch/arm64/boot/dts/k50sv1_64_bsp.dts",
+      "sha256": "8f9c120bdb63dd42028a8e1e469049cbf20f075f01ec318971893f45adad784c",
+      "inclusive_line_ranges": [
+        [
+          374,
+          413
+        ]
+      ]
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c",
+      "sha256": "586458d8f51fa92949ac9b1e83f0bc717531c23b5eb7ac505acd4789666315c3",
+      "inclusive_line_ranges": [
+        [
+          166,
+          350
+        ],
+        [
+          676,
+          727
+        ]
+      ]
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c",
+      "sha256": "ceb42e2909bd2917a1658f59778a1b187e717b9b51db441b02db3bdab9e02913",
+      "inclusive_line_ranges": [
+        [
+          160,
+          192
+        ],
+        [
+          976,
+          1120
+        ],
+        [
+          1170,
+          1201
+        ]
+      ]
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/wmt_plat_alps.c",
+      "sha256": "f898e27c63210005e29a4ba5cf3f87ad4a1d93ffe2ce4793f92a9a527e36d804",
+      "inclusive_line_ranges": [
+        [
+          357,
+          461
+        ]
+      ]
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c",
+      "sha256": "a844fbb553981ea2dd62ee34c27fce02e24887a87681835919213eb936e21698",
+      "inclusive_line_ranges": [
+        [
+          512,
+          533
+        ],
+        [
+          561,
+          608
+        ]
+      ]
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c",
+      "sha256": "77ec1040a15dbc8b3f3008c392b20613d66c35624192d4800210a0f81a14a5cf",
+      "inclusive_line_ranges": [
+        [
+          1976,
+          2007
+        ]
+      ]
+    }
+  ],
+  "source_context_artifact": {
+    "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/independent-review/E-source-context.txt",
+    "sha256": "3bcc62742e89d0dee5b6a82893670c8776b0565a9238636ca32f8b56145e959e",
+    "size": 40206
+  },
+  "reviewed_production_diff": {
+    "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/independent-review/reviewed-production.diff",
+    "sha256": "0849ece59505bac09269b82bd5ae251718a6a3926f5eb6c2a3b0050ece81695c",
+    "size": 17037
+  },
+  "target_config": {
+    "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/kernel-obj-build14-snapshot/.config",
+    "sha256": "ac35f0a14387ac96ae2955e6cde3747bd2dfa3cbc8a252cb5bcd68739b73c12a",
+    "size": 105587
+  },
+  "independent_checks": [
+    {
+      "name": "probe54-address",
+      "passed": 54,
+      "total": 54,
+      "sanitizer": "address,undefined",
+      "result": {
+        "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/independent-review/probe54-address/result.json",
+        "sha256": "c8285557c557a8d14c3e5f9172f9831298b3b79e63a876519153f5fd255961ab",
+        "size": 10991
+      }
+    },
+    {
+      "name": "extended-third-address",
+      "passed": 10,
+      "total": 10,
+      "sanitizer": "address,undefined",
+      "result": {
+        "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/independent-review/extended-third-address/result.json",
+        "sha256": "0cabdba81cbf0fc5b9413789aa977562041e76ba4752d26defe8159f507333aa",
+        "size": 13841
+      }
+    },
+    {
+      "name": "composed-thread",
+      "passed": 3,
+      "total": 3,
+      "sanitizer": "thread",
+      "result": {
+        "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/independent-review/composed-thread/result.json",
+        "sha256": "bdfa0699b9ae3ef59e8b0c2d0e2d7e0eff1f01bf8e4bf88998020b8779ec5504",
+        "size": 12930
+      }
+    },
+    {
+      "name": "composed-old-bridge-control",
+      "passed": 0,
+      "total": 3,
+      "sanitizer": "address,undefined",
+      "result": {
+        "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/independent-review/composed-old-bridge-control/result.json",
+        "sha256": "dcf8effaa70e476d4fbb2affe7e939633f5081b2ec25af72f30a10ac3fd42821",
+        "size": 13731
+      }
+    }
+  ],
+  "original_probe_function_bodies_preserved": [
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c",
+      "function": "consys_read_reg_from_dts",
+      "sha256": "573cf8ca36a07bdf1aca46ee59498dd5c2750e30f6ae5dcce94f548034ca1aa5"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c",
+      "function": "consys_clk_get_from_dts",
+      "sha256": "988e686037a3d3b9f043914942fe4c0434580eb6fa089624a0ac16013b7e8ff8"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c",
+      "function": "consys_pmic_get_from_dts",
+      "sha256": "aa8d721633934ff884c9a2b3331a15ad6454437e73f4c4df3cb46515e2a691ff"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c",
+      "function": "consys_emi_mpu_set_region_protection",
+      "sha256": "145f3732b83d5dbc1abd0228de7517dd6d2f715e845b636399fb94b1ad6f24bd"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c",
+      "function": "consys_emi_set_remapping_reg",
+      "sha256": "b8479e9dbb99eebe54ac54a214c167b10fc847e110e59d7b2ffdc03fa0f509d8"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c",
+      "function": "bt_wifi_share_v33_spin_lock_init",
+      "sha256": "e81b1bd3e43732ec16df1e6ffe959c84b09272cc65c92e80dd7f51d271a3ac45"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c",
+      "function": "consys_emi_coredump_remapping",
+      "sha256": "ef775383dee53e85c867b70e1016ffb59694cdd7b4b04746171b9f6b3e3f61a1"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c",
+      "function": "mtk_wcn_get_consys_ic_ops",
+      "sha256": "8f1cbfaa804d9410c3f33781254dbe832905850a562e381fd03d660e465c53a7"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c",
+      "function": "consys_probe_cleanup",
+      "sha256": "ce7f33737873f1868fd722de2be7f0973707ce82d7f290d5d83d554995a9ec3c"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c",
+      "function": "mtk_wmt_probe",
+      "sha256": "61714c1ff9dc459687c6429a0944f13de00b19cd0d64cea8efd26c6fa22fafe8"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c",
+      "function": "mtk_wmt_remove",
+      "sha256": "558393de0df5558d645672e6d01750f37a2f4961e940a10f2dbed6f7cfa5e9da"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c",
+      "function": "mtk_wcn_consys_hw_init",
+      "sha256": "3960f7ecaf88191d337ea79abd527a531ab09b853e37b3cb2f0197b6a04e96f7"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c",
+      "function": "mtk_wcn_consys_hw_deinit",
+      "sha256": "220ffc576f0d7ea44e59841df8f4d92428bd80922ba972d0240818b20987bfa3"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c",
+      "function": "mtk_wcn_consys_hw_restore",
+      "sha256": "7c445218516cf616396f5e072b8fe7c2d8872ac398d8dfeb64d9b961689c73fb"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c",
+      "function": "mtk_wmt_probe_cleanup",
+      "sha256": "6e2ac9155b526aba2dd7936c801d0a682654b45647323378e153336b6ba459c3"
+    },
+    {
+      "path": "lib/devres.c",
+      "function": "devm_ioremap_release",
+      "sha256": "9c305b54206b8274973a982e99f40c7e1099231a6cb3a8643c760c380d071100"
+    },
+    {
+      "path": "lib/devres.c",
+      "function": "devm_ioremap",
+      "sha256": "ceb40d4661ad9b50ac4e66e30aec289b490c8283540a620ad2c38dc2713fe274"
+    },
+    {
+      "path": "drivers/clk/clk-devres.c",
+      "function": "devm_clk_release",
+      "sha256": "1b8dd365b8955a3200f50a07deb5e01911465264f505283e05609e8265c02500"
+    },
+    {
+      "path": "drivers/clk/clk-devres.c",
+      "function": "devm_clk_get",
+      "sha256": "74afee927059a2519629cf8e0cfa183ea1ee66263ecf374e5b4f7879dcfd60af"
+    },
+    {
+      "path": "drivers/regulator/devres.c",
+      "function": "devm_regulator_release",
+      "sha256": "66b35c406574b7aa9486982c5c63077c1aca925f09bd289c529c5760f2d8e37d"
+    },
+    {
+      "path": "drivers/regulator/devres.c",
+      "function": "_devm_regulator_get",
+      "sha256": "00b662ef53a17e01e9f791658597f83379288c2eb9e45a0d4ad2811fc169b85b"
+    },
+    {
+      "path": "drivers/regulator/devres.c",
+      "function": "devm_regulator_get",
+      "sha256": "cf667b6b6bcf4550dd8bc29777f1d4d545fe4b2b430d46bd9d2040b8a67429ac"
+    },
+    {
+      "path": "drivers/pinctrl/core.c",
+      "function": "devm_pinctrl_release",
+      "sha256": "01425c1a25bfc02a1d2a004f90c0518550a82e5fae85de6dbaca24bf2980a1bc"
+    },
+    {
+      "path": "drivers/pinctrl/core.c",
+      "function": "devm_pinctrl_get",
+      "sha256": "ffe411307db02b23005a03107aac16394105e33047af8c8f4e9def21bd081ce9"
+    },
+    {
+      "path": "drivers/base/platform.c",
+      "function": "platform_drv_probe",
+      "sha256": "09c5beef0056b18715332daa6c2d812730cd8d6fc18eee12b1a8ea825bcf8be9"
+    },
+    {
+      "path": "drivers/base/platform.c",
+      "function": "platform_drv_probe_fail",
+      "sha256": "3b032003eefb0173d9e9f8b118583437178ed14a90a121c23fc9dd08d38e5fe2"
+    },
+    {
+      "path": "drivers/base/platform.c",
+      "function": "platform_drv_remove",
+      "sha256": "e0a86f94ac939a60c2f1ac73330cbd115a70d09a3a0bf20ca6d4d8da259593eb"
+    },
+    {
+      "path": "drivers/base/platform.c",
+      "function": "platform_driver_probe",
+      "sha256": "f9aba588aefdf8a5561aaacd739c46b94698158065ded5674cb40e2a3269446b"
+    }
+  ],
+  "added_production_fidelity": [
+    {
+      "first_line": "#ifdef MTK_WCN_REMOVE_KERNEL_MODULE",
+      "sha256": "199f525117b4091630ffdc88d3d0fa92460ad260515524f59aad5ff4560f1861"
+    },
+    {
+      "first_line": "#ifdef MTK_WCN_REMOVE_KERNEL_MODULE",
+      "sha256": "26699f69e6324bb20b22d99800ae9edadaba30e16b7ae733afe22c75a050d04b"
+    },
+    {
+      "first_line": "void _mtk_wcn_cmb_stub_clock_fail_dump(void)",
+      "sha256": "024a80dc92cd3583187f8b7fe2080a015ffad0863bb5ddd433ac05b970ddbf22"
+    },
+    {
+      "first_line": "int mtk_wcn_cmb_stub_reg(struct _CMB_STUB_CB_ *p_stub_cb)",
+      "sha256": "cb1242f6784dc0d1a6a72b8b4317d61a2686861ab73b2348a5deca55c626dd44"
+    },
+    {
+      "first_line": "int mtk_wcn_cmb_stub_unreg(void)",
+      "sha256": "8f6661cde27dba9f2e244935354a1963c821ec3e7e3657d887a052af7fae3302"
+    },
+    {
+      "first_line": "INT32 wmt_plat_init(P_PWR_SEQ_TIME pPwrSeqTime, UINT32 co_clock_type)",
+      "sha256": "ee9fc1e333a00809f120db145291978ba403ae84f755a19753bd6b85bb63dd7f"
+    },
+    {
+      "first_line": "INT32 wmt_plat_deinit(VOID)",
+      "sha256": "1e6957f790f3088f1ff8d1fa2cdb3168448400a87077c1dcc8f3e00028c687e4"
+    },
+    {
+      "first_line": "static long wmt_plat_thermal_ctrl(VOID)",
+      "sha256": "e11a4848cfabccf6b9b8d947e2f77a549aa0f0e9dced5be4d09a41fe9e77e1c8"
+    },
+    {
+      "first_line": "static INT32 wmt_plat_assert_ctrl(VOID)",
+      "sha256": "6fedac945ea7a22229b81b5e571f33fd29ad3b48441d8a6eab2d1ee6f23d42a9"
+    },
+    {
+      "first_line": "static VOID wmt_plat_clock_fail_dump(VOID)",
+      "sha256": "66122f511ed9460b17ef1d56c1b658f94de415478829fb844d7dae8e6e648203"
+    },
+    {
+      "first_line": "static UINT32 wmt_plat_soc_co_clock_flag_set(UINT32 flag)",
+      "sha256": "2d36be9c2ba79e166004a903a8bb67dfeb3931f28f8dee73971824bcb24c3981"
+    },
+    {
+      "first_line": "VOID wmt_plat_thermal_ctrl_cb_reg(thermal_query_ctrl_cb thermal_query_ctrl)",
+      "sha256": "a1d96adc919ac8ab94e1885cec9f4cd69e54ff117f50d7dde0981c01c72c3423"
+    },
+    {
+      "first_line": "VOID wmt_plat_trigger_assert_cb_reg(trigger_assert_cb trigger_assert)",
+      "sha256": "81e2bb087a7f3f0211f96353bd323333bf6382de2ea0f390a313d014d8cfb476"
+    },
+    {
+      "first_line": "VOID mtk_wcn_consys_clock_fail_dump(VOID)",
+      "sha256": "3a9ba14bebf75aa19df45172cfbcd1bf1d34091d8df6719cb2858aedf786e5fb"
+    },
+    {
+      "first_line": "INT32 mtk_wcn_consys_co_clock_type(VOID)",
+      "sha256": "67c24671d5361beade161388b99723b3bb535f079cce173479b6628703a554b8"
+    },
+    {
+      "first_line": "static struct wmt_platform_bridge bridge;",
+      "sha256": "18dda34601846c0a3317e1d949f1dfe4e730b4f1d70e1333f1f2ef12898cfe58"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c",
+      "function": "mtk_wmt_probe_cleanup",
+      "sha256": "6e2ac9155b526aba2dd7936c801d0a682654b45647323378e153336b6ba459c3"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c",
+      "function": "mtk_wmt_probe",
+      "sha256": "61714c1ff9dc459687c6429a0944f13de00b19cd0d64cea8efd26c6fa22fafe8"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c",
+      "function": "mtk_wmt_remove",
+      "sha256": "558393de0df5558d645672e6d01750f37a2f4961e940a10f2dbed6f7cfa5e9da"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c",
+      "function": "mtk_wcn_consys_hw_restore",
+      "sha256": "7c445218516cf616396f5e072b8fe7c2d8872ac398d8dfeb64d9b961689c73fb"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c",
+      "function": "mtk_wcn_consys_hw_init",
+      "sha256": "3960f7ecaf88191d337ea79abd527a531ab09b853e37b3cb2f0197b6a04e96f7"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c",
+      "function": "mtk_wcn_consys_hw_deinit",
+      "sha256": "220ffc576f0d7ea44e59841df8f4d92428bd80922ba972d0240818b20987bfa3"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c",
+      "function": "mtk_wcn_consys_co_clock_type",
+      "sha256": "67c24671d5361beade161388b99723b3bb535f079cce173479b6628703a554b8"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mtk_wcn_consys_hw.c",
+      "function": "mtk_wcn_consys_clock_fail_dump",
+      "sha256": "3a9ba14bebf75aa19df45172cfbcd1bf1d34091d8df6719cb2858aedf786e5fb"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c",
+      "function": "consys_emi_mpu_set_region_protection",
+      "sha256": "145f3732b83d5dbc1abd0228de7517dd6d2f715e845b636399fb94b1ad6f24bd"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c",
+      "function": "consys_emi_set_remapping_reg",
+      "sha256": "b8479e9dbb99eebe54ac54a214c167b10fc847e110e59d7b2ffdc03fa0f509d8"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c",
+      "function": "bt_wifi_share_v33_spin_lock_init",
+      "sha256": "e81b1bd3e43732ec16df1e6ffe959c84b09272cc65c92e80dd7f51d271a3ac45"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c",
+      "function": "consys_clk_get_from_dts",
+      "sha256": "988e686037a3d3b9f043914942fe4c0434580eb6fa089624a0ac16013b7e8ff8"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c",
+      "function": "consys_pmic_get_from_dts",
+      "sha256": "aa8d721633934ff884c9a2b3331a15ad6454437e73f4c4df3cb46515e2a691ff"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c",
+      "function": "consys_read_reg_from_dts",
+      "sha256": "573cf8ca36a07bdf1aca46ee59498dd5c2750e30f6ae5dcce94f548034ca1aa5"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c",
+      "function": "consys_probe_cleanup",
+      "sha256": "ce7f33737873f1868fd722de2be7f0973707ce82d7f290d5d83d554995a9ec3c"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c",
+      "function": "mtk_wcn_get_consys_ic_ops",
+      "sha256": "8f1cbfaa804d9410c3f33781254dbe832905850a562e381fd03d660e465c53a7"
+    },
+    {
+      "path": "drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c",
+      "function": "consys_emi_coredump_remapping",
+      "sha256": "ef775383dee53e85c867b70e1016ffb59694cdd7b4b04746171b9f6b3e3f61a1"
+    },
+    {
+      "path": "lib/devres.c",
+      "function": "devm_ioremap_release",
+      "sha256": "9c305b54206b8274973a982e99f40c7e1099231a6cb3a8643c760c380d071100"
+    },
+    {
+      "path": "lib/devres.c",
+      "function": "devm_ioremap",
+      "sha256": "ceb40d4661ad9b50ac4e66e30aec289b490c8283540a620ad2c38dc2713fe274"
+    },
+    {
+      "path": "drivers/clk/clk-devres.c",
+      "function": "devm_clk_release",
+      "sha256": "1b8dd365b8955a3200f50a07deb5e01911465264f505283e05609e8265c02500"
+    },
+    {
+      "path": "drivers/clk/clk-devres.c",
+      "function": "devm_clk_get",
+      "sha256": "74afee927059a2519629cf8e0cfa183ea1ee66263ecf374e5b4f7879dcfd60af"
+    },
+    {
+      "path": "drivers/regulator/devres.c",
+      "function": "devm_regulator_release",
+      "sha256": "66b35c406574b7aa9486982c5c63077c1aca925f09bd289c529c5760f2d8e37d"
+    },
+    {
+      "path": "drivers/regulator/devres.c",
+      "function": "_devm_regulator_get",
+      "sha256": "00b662ef53a17e01e9f791658597f83379288c2eb9e45a0d4ad2811fc169b85b"
+    },
+    {
+      "path": "drivers/regulator/devres.c",
+      "function": "devm_regulator_get",
+      "sha256": "cf667b6b6bcf4550dd8bc29777f1d4d545fe4b2b430d46bd9d2040b8a67429ac"
+    },
+    {
+      "path": "drivers/pinctrl/core.c",
+      "function": "devm_pinctrl_release",
+      "sha256": "01425c1a25bfc02a1d2a004f90c0518550a82e5fae85de6dbaca24bf2980a1bc"
+    },
+    {
+      "path": "drivers/pinctrl/core.c",
+      "function": "devm_pinctrl_get",
+      "sha256": "ffe411307db02b23005a03107aac16394105e33047af8c8f4e9def21bd081ce9"
+    },
+    {
+      "path": "drivers/base/platform.c",
+      "function": "platform_drv_probe",
+      "sha256": "09c5beef0056b18715332daa6c2d812730cd8d6fc18eee12b1a8ea825bcf8be9"
+    },
+    {
+      "path": "drivers/base/platform.c",
+      "function": "platform_drv_probe_fail",
+      "sha256": "3b032003eefb0173d9e9f8b118583437178ed14a90a121c23fc9dd08d38e5fe2"
+    },
+    {
+      "path": "drivers/base/platform.c",
+      "function": "platform_drv_remove",
+      "sha256": "e0a86f94ac939a60c2f1ac73330cbd115a70d09a3a0bf20ca6d4d8da259593eb"
+    },
+    {
+      "path": "drivers/base/platform.c",
+      "function": "platform_driver_probe",
+      "sha256": "f9aba588aefdf8a5561aaacd739c46b94698158065ded5674cb40e2a3269446b"
+    }
+  ],
+  "review_scripts": [
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/independent-review/run_extended_review.py",
+      "sha256": "79ec76be654885794a7a0e795a53a0b513bb92f7542dc5922a9d879762438117",
+      "size": 11783
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/independent-review/review_extension.c",
+      "sha256": "af38dd6d679295a63274df4028fd1dc863cdd6c01d1ab18c5b48f5aa5f1e1bc6",
+      "size": 9619
+    }
+  ],
+  "review_document": {
+    "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-probe-lifecycle-tests/independent-review/review.md",
+    "sha256": "55d33dcfbbc429c37f7fdaf6266bde23619570ebb51fcdeaecc3e80a748a5bab",
+    "size": 5559
+  },
+  "negative_control": "Only builtin bridge source comes from 54b; candidate platform/probe/stub stay unchanged; all three cases abort at active-callback/devres assertion, not compilation or timeout.",
+  "of_resource_flags_resolution": "This local of_iomap has no separate MEM check; default OF translation always uses IORESOURCE_MEM; target simple-bus memory resources match the reviewed ranges.",
+  "boundaries": [
+    "No production changes or ADB/device execution.",
+    "Serialized WMT owner and fixed already enumerated target device; no automatic deferred reprobe guarantee.",
+    "Other IC private resources and optional runtime-PM/dedicated-log/DEVAPC/reset callbacks excluded.",
+    "Host payload/resource/provider adapters do not model hardware MMIO, real thermal commands, EMI-MPU restoration, scheduler or runtime power-off.",
+    "Root-owned platform/callback regression and seven ARM64-unit compilation results are separate and were not repeated."
+  ]
+}

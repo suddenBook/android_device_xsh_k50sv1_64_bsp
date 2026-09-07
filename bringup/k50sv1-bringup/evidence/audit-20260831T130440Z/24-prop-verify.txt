@@ -1,0 +1,39 @@
+=== hardware-that-should-not-exist prop grep ===
+[init.svc.system_suspend]: [running]
+[ro.bootimage.build.fingerprint]: [XSH/lineage_k50sv1_64_bsp/k50sv1_64_bsp:10/QQ3A.200805.001/desmond08310354:userdebug/test-keys]
+[ro.boottime.system_suspend]: [2954759537]
+[ro.build.fingerprint]: [google/coral/coral:10/QQ3A.200805.001/6578210:user/release-keys]
+[ro.build.version.preview_sdk_fingerprint]: [REL]
+[ro.odm.build.fingerprint]: [XSH/lineage_k50sv1_64_bsp/k50sv1_64_bsp:10/QQ3A.200805.001/desmond08310354:userdebug/test-keys]
+[ro.system.build.fingerprint]: [XSH/lineage_k50sv1_64_bsp/k50sv1_64_bsp:10/QQ3A.200805.001/desmond08310354:userdebug/test-keys]
+[ro.vendor.build.fingerprint]: [XSH/lineage_k50sv1_64_bsp/k50sv1_64_bsp:10/QQ3A.200805.001/desmond08310354:userdebug/test-keys]
+=== ICCID prop selinux context (can an app read it?) ===
+u:object_r:ctl_default_prop:s0                                u:object_r:ctl_default_prop:s0
+u:object_r:default_prop:s0                                    u:object_r:default_prop:s0
+u:object_r:exported2_default_prop:s0                          u:object_r:exported2_default_prop:s0
+u:object_r:exported3_default_prop:s0                          u:object_r:exported3_default_prop:s0
+u:object_r:exported_default_prop:s0                           u:object_r:exported_default_prop:s0
+u:object_r:mtk_radio_config_prop:s0                           u:object_r:mtk_radio_config_prop:s0
+u:object_r:mtk_vendor_radio_prop:s0                           u:object_r:mtk_vendor_radio_prop:s0
+u:object_r:net_radio_prop:s0                                  u:object_r:net_radio_prop:s0
+u:object_r:radio_prop:s0                                      u:object_r:radio_prop:s0
+u:object_r:system_radio_prop:s0                               u:object_r:system_radio_prop:s0
+u:object_r:mtk_telephony_sensitive_prop:s0
+u:object_r:mtk_vendor_radio_prop:s0
+u:object_r:radio_prop:s0
+=== can an untrusted app read them? (run as shell, u:r:shell:s0) ===
+-r--r--r-- 1 root root u:object_r:vendor_default_prop:s0 131072 2026-08-31 04:48 /dev/__properties__/u:object_r:vendor_default_prop:s0
+=== hwui/gles actual ===
+EGL implementation : 1.4 Midgard-"r29p0-01dev0"
+GLES: ARM, Mali-T860, OpenGL ES 3.2 v1.r29p0-01dev0.fdc818043bcbbcd06e67ae82bfcda9b6
+RenderEngine last dataspace conversion: (Default) to (Default)
+=== egl libs present ===
+/vendor/lib/egl/:
+total 19556
+-rw-r--r-- 1 root root 20022064 2026-08-31 03:55 libGLES_mali.so
+
+/vendor/lib64/egl/:
+total 28304
+-rw-r--r-- 1 root root 29158608 2026-08-31 03:55 libGLES_mali.so
+=== frp block exists? ===
+lrwxrwxrwx 1 root root 20 2026-08-31 04:48 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/frp -> /dev/block/mmcblk0p4

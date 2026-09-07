@@ -1,0 +1,87 @@
+{
+  "status": "INSTALLED_AND_ADOPTED",
+  "build_incremental": "eng.desmon.20260906.194446",
+  "kernel_revision": "a87ec4a76bfd03d1760609a043b9b71e91d4254c",
+  "device_revision": "b1bb4d170db16e0c43cfb1cdd2b72709dcf3439b",
+  "vendor_revision": "af72cc5e335cee76e5745744ed743ae229286593",
+  "work_revision": "24a8a8101fdc659909068eb200cd9cbc13b965fb",
+  "build_receipt_sha256": "b36da5cf7a7731f2e776f06b14ee21de66604810524c2dca789c4713f3659ba3",
+  "flash_receipt_sha256": "9852fe5a8c91f2fd95f18e4cde61ce4e148781afb55d3d155ee4880038bcad50",
+  "four_images_flashed": true,
+  "erased": [
+    "userdata",
+    "metadata",
+    "cache"
+  ],
+  "boots": [
+    {
+      "phase": "first-boot",
+      "boot_id": "f81490ff-0014-4dfa-a9b2-90f47104486e",
+      "uname": "Linux localhost 3.18.119 #1 SMP PREEMPT Sun Sep 6 19:49:24 CEST 2026 aarch64",
+      "root_observed_uptime": 15.54,
+      "boot_completed_observed_uptime": 184.4,
+      "launcher_commands": [
+        [
+          "srh_patch",
+          "ok"
+        ]
+      ],
+      "source_loader_success": true
+    },
+    {
+      "phase": "normal-reboot",
+      "boot_id": "e462611a-b9c8-4ab7-93bb-50de8620aea5",
+      "uname": "Linux localhost 3.18.119 #1 SMP PREEMPT Sun Sep 6 19:49:24 CEST 2026 aarch64",
+      "root_observed_uptime": 7.12,
+      "boot_completed_observed_uptime": 28.07,
+      "launcher_commands": [
+        [
+          "srh_patch",
+          "ok"
+        ]
+      ],
+      "source_loader_success": true
+    }
+  ],
+  "checked_files": 29,
+  "files_changed_from_build11": [
+    "/vendor/lib/modules/wmt_drv.ko"
+  ],
+  "native_files_identical_to_build11": true,
+  "verifiers": [
+    {
+      "phase": "first-boot",
+      "passed": 224,
+      "failed": 0,
+      "unread": 5,
+      "evidence_fatal": 0,
+      "log_sha256": "d90a51f6e62e9415fe7ab3be2c1bbddbe40f71775ea5828bd27a3d7c0f187205",
+      "unread_checks": [
+        "????  modem IMS registration: +CIREG registered (could not read; check did not run)",
+        "????  framework IMS registration state (could not read; check did not run)",
+        "????  MMTEL voice capability (could not read; check did not run)",
+        "????  swapon failure (dmesg has already wrapped past boot; re-run sooner after a flash) (could not read; check did not run)",
+        "????  current ROM pstore proof pending one controlled reboot and lineage-predecessor rerun (could not read; check did not run)"
+      ],
+      "failed_checks": []
+    },
+    {
+      "phase": "normal-reboot",
+      "passed": 224,
+      "failed": 1,
+      "unread": 3,
+      "evidence_fatal": 0,
+      "log_sha256": "7a2c00fffc5050d36a14b6f5934bdfd5381a8e2b3e26bfbf2fdeaa4c1f952a97",
+      "unread_checks": [
+        "????  modem IMS registration: +CIREG registered (could not read; check did not run)",
+        "????  framework IMS registration state (could not read; check did not run)",
+        "????  MMTEL voice capability (could not read; check did not run)"
+      ],
+      "failed_checks": [
+        "FAIL  unexpected AVC: priv_app -> sysfs : file open | path=/sys/devices/soc/180f0000.wifi/net/wlan0/type dev=sysfs app=com.google.android.gms permissive=1"
+      ]
+    }
+  ],
+  "calendar_storage_grants": "explicit test preparation",
+  "remaining": "Existing GMS WLAN sysfs AVC, IMS network prerequisites, outdoor GNSS fix and untagged launcher reply generation are not established by these checks."
+}

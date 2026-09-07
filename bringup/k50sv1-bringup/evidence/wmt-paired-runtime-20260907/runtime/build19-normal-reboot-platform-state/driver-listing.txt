@@ -1,0 +1,4 @@
+total 0
+lrwxrwxrwx 1 root root    0 2026-09-07 06:24 18070000.consys -> ../../../../devices/soc/18070000.consys
+lrwxrwxrwx 1 root root    0 2026-09-07 06:24 module -> ../../../../module/wmt_drv
+--w------- 1 root root 4096 2026-09-07 06:24 uevent

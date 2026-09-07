@@ -1,0 +1,16 @@
+Bluetooth Status
+  enabled: false
+  state: OFF
+  address: 12:34:56:89:A9:2D
+  name: Pixel 4 XL
+
+Enable log:
+  09-07 06:23:55  Enabled  due to SYSTEM_BOOT by android
+  09-07 06:27:20 Disabled  due to APPLICATION_REQUEST by android
+  09-07 06:27:21 Disabled  due to APPLICATION_REQUEST by null
+
+Bluetooth crashed 0 times
+
+0 BLE appsregistered
+
+Bluetooth Service not connected

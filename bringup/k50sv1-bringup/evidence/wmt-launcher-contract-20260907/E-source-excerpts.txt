@@ -1,0 +1,1531 @@
+
+54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb:drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c
+90: #define WMT_IOC_MAGIC        0xa0
+91: #define WMT_IOCTL_SET_PATCH_NAME	_IOW(WMT_IOC_MAGIC, 4, char*)
+92: #define WMT_IOCTL_SET_STP_MODE		_IOW(WMT_IOC_MAGIC, 5, int)
+93: #define WMT_IOCTL_FUNC_ONOFF_CTRL	_IOW(WMT_IOC_MAGIC, 6, int)
+94: #define WMT_IOCTL_LPBK_POWER_CTRL	_IOW(WMT_IOC_MAGIC, 7, int)
+95: #define WMT_IOCTL_LPBK_TEST		_IOWR(WMT_IOC_MAGIC, 8, char*)
+96: #define WMT_IOCTL_GET_CHIP_INFO		_IOR(WMT_IOC_MAGIC, 12, int)
+97: #define WMT_IOCTL_SET_LAUNCHER_KILL	_IOW(WMT_IOC_MAGIC, 13, int)
+98: #define WMT_IOCTL_SET_PATCH_NUM		_IOW(WMT_IOC_MAGIC, 14, int)
+99: #define WMT_IOCTL_SET_PATCH_INFO	_IOW(WMT_IOC_MAGIC, 15, char*)
+100: #define WMT_IOCTL_PORT_NAME		_IOWR(WMT_IOC_MAGIC, 20, char*)
+101: #define WMT_IOCTL_WMT_CFG_NAME		_IOWR(WMT_IOC_MAGIC, 21, char*)
+102: #define WMT_IOCTL_WMT_QUERY_CHIPID	_IOR(WMT_IOC_MAGIC, 22, int)
+103: #define WMT_IOCTL_WMT_TELL_CHIPID	_IOW(WMT_IOC_MAGIC, 23, int)
+104: #define WMT_IOCTL_WMT_COREDUMP_CTRL	_IOW(WMT_IOC_MAGIC, 24, int)
+105: #define WMT_IOCTL_SEND_BGW_DS_CMD	_IOW(WMT_IOC_MAGIC, 25, char*)
+106: #define WMT_IOCTL_ADIE_LPBK_TEST	_IOWR(WMT_IOC_MAGIC, 26, char*)
+107: #define WMT_IOCTL_WMT_STP_ASSERT_CTRL	_IOW(WMT_IOC_MAGIC, 27, int)
+108: #define WMT_IOCTL_FW_DBGLOG_CTRL	_IOR(WMT_IOC_MAGIC, 29, int)
+109: #define WMT_IOCTL_DYNAMIC_DUMP_CTRL	_IOR(WMT_IOC_MAGIC, 30, char*)
+110: #define WMT_IOCTL_SET_ROM_PATCH_INFO	_IOW(WMT_IOC_MAGIC, 31, char*)
+111: #define WMT_IOCTL_GET_EMI_PHY_SIZE  _IOR(WMT_IOC_MAGIC, 33, unsigned int)
+112: #define WMT_IOCTL_FW_PATCH_UPDATE_RST	_IOR(WMT_IOC_MAGIC, 34, int)
+113: #define WMT_IOCTL_GET_VENDOR_PATCH_NUM		_IOW(WMT_IOC_MAGIC, 35, int)
+114: #define WMT_IOCTL_GET_VENDOR_PATCH_VERSION	_IOR(WMT_IOC_MAGIC, 36, char*)
+115: #define WMT_IOCTL_SET_VENDOR_PATCH_VERSION	_IOW(WMT_IOC_MAGIC, 37, char*)
+116: #define WMT_IOCTL_GET_CHECK_PATCH_STATUS	_IOR(WMT_IOC_MAGIC, 38, int)
+117: #define WMT_IOCTL_SET_CHECK_PATCH_STATUS	_IOW(WMT_IOC_MAGIC, 39, int)
+118: #define WMT_IOCTL_SET_ACTIVE_PATCH_VERSION	_IOR(WMT_IOC_MAGIC, 40, char*)
+119: #define WMT_IOCTL_GET_ACTIVE_PATCH_VERSION	_IOR(WMT_IOC_MAGIC, 41, char*)
+145: static INT32 gWmtInitStatus = WMT_INIT_NOT_START;
+146: static wait_queue_head_t gWmtInitWq;
+147: #ifdef CONFIG_MTK_COMBO_COMM_APO
+148: UINT32 always_pwr_on_flag = 1;
+149: #else
+150: UINT32 always_pwr_on_flag;
+151: #endif
+152: static P_WMT_PATCH_INFO pPatchInfo;
+153: static UINT32 pAtchNum;
+600: 		WMT_ERR_FUNC("invalid ppBufptr!\n");
+601: 		return -1;
+602: 	}
+603: 	*ppPatch = NULL;
+604: 	do {
+605: 		iRet = request_firmware((const struct firmware **)&fw, pPatchName, NULL);
+606: 		if (iRet == -EAGAIN) {
+607: 			WMT_ERR_FUNC("failed to open or read!(%s), retry again!\n", pPatchName);
+608: 			osal_sleep_ms(100);
+609: 		}
+610: 	} while (iRet == -EAGAIN);
+611: 	if (iRet != 0) {
+612: 		WMT_ERR_FUNC("failed to open or read!(%s)\n", pPatchName);
+613: 		release_firmware(fw);
+639: 	g_patch_info_seen = 0;
+640: 	pAtchNum = 0;
+641: 	kfree(pPatchInfo);
+642: 	pPatchInfo = NULL;
+643: 	mutex_unlock(&g_patch_info_lock);
+644: }
+645: 
+646: static INT32 wmt_dev_set_patch_num(ULONG num)
+647: {
+648: 	INT32 ret = 0;
+649: 	P_WMT_PATCH_INFO info;
+650: 
+651: 	if (!num || num > MAX_PATCH_NUM)
+652: 		return -EINVAL;
+653: 
+654: 	mutex_lock(&g_patch_info_lock);
+655: 	if (pAtchNum) {
+656: 		ret = -EBUSY;
+657: 		goto out;
+658: 	}
+659: 
+660: 	info = kcalloc(num, sizeof(*info), GFP_KERNEL);
+661: 	if (!info) {
+662: 		ret = -ENOMEM;
+663: 		goto out;
+664: 	}
+665: 
+666: 	pPatchInfo = info;
+667: 	pAtchNum = num;
+668: 	wmt_lib_set_patch_num(pAtchNum);
+669: out:
+670: 	mutex_unlock(&g_patch_info_lock);
+671: 	return ret;
+672: }
+673: 
+674: static INT32 wmt_dev_set_patch_info(const WMT_PATCH_INFO *info)
+675: {
+676: 	INT32 ret = 0;
+677: 	UINT32 seq = info->dowloadSeq;
+678: 
+679: 	if (!memchr(info->patchName, '\0', sizeof(info->patchName)))
+680: 		return -EINVAL;
+681: 
+682: 	mutex_lock(&g_patch_info_lock);
+683: 	if (!pPatchInfo) {
+684: 		ret = -ENOENT;
+685: 		goto out;
+686: 	}
+687: 	if (!seq || seq > pAtchNum) {
+688: 		ret = -EINVAL;
+689: 		goto out;
+690: 	}
+691: 
+692: 	memcpy(&pPatchInfo[seq - 1], info, sizeof(*info));
+693: 	g_patch_info_seen |= BIT(seq - 1);
+694: 	/* Repeated records may update a slot, but cannot fill a missing slot. */
+695: 	if (g_patch_info_seen == BIT(pAtchNum) - 1) {
+696: 		g_patch_info_ready = true;
+697: 		wmt_lib_set_patch_info(pPatchInfo);
+698: 	}
+699: out:
+700: 	mutex_unlock(&g_patch_info_lock);
+701: 	return ret;
+702: }
+703: 
+704: INT32 wmt_dev_get_patch_info(SIZE_T sequence, PUINT8 name, PUINT8 address)
+705: {
+706: 	INT32 ret = 0;
+707: 	P_WMT_PATCH_INFO info;
+708: 
+709: 	if (!name || !address)
+710: 		return -EINVAL;
+711: 
+712: 	mutex_lock(&g_patch_info_lock);
+713: 	if (!g_patch_info_ready) {
+714: 		ret = -ENOENT;
+715: 		goto out;
+716: 	}
+717: 	if (!sequence || sequence > pAtchNum) {
+718: 		ret = -EINVAL;
+719: 		goto out;
+720: 	}
+721: 
+722: 	info = &pPatchInfo[sequence - 1];
+723: 	osal_memcpy(name, info->patchName, sizeof(info->patchName));
+724: 	osal_memcpy(address, info->addRess, sizeof(info->addRess));
+725: out:
+726: 	mutex_unlock(&g_patch_info_lock);
+727: 	return ret;
+728: }
+729: 
+730: MTK_WCN_BOOL wmt_dev_is_file_exist(PUINT8 pFileName)
+731: {
+732: 	INT32 iRet = 0;
+733: 	osal_firmware *fw = NULL;
+734: 
+735: 	if (pFileName == NULL) {
+736: 		WMT_ERR_FUNC("invalid file name pointer(%p)\n", pFileName);
+737: 		return MTK_WCN_BOOL_FALSE;
+738: 	}
+1090: 				WMT_ERR_FUNC("pBuffer kmalloc memory fail\n");
+1091: 				return -ENOMEM;
+1092: 			}
+1093: 			if (copy_from_user(pBuffer, (PVOID)arg, NAME_MAX)) {
+1094: 				iRet = -EFAULT;
+1095: 				kfree(pBuffer);
+1096: 				break;
+1097: 			}
+1098: 			pBuffer[NAME_MAX] = '\0';
+1099: 			wmt_lib_set_patch_name(pBuffer);
+1100: 			kfree(pBuffer);
+1101: 		}
+1102: 		break;
+1103: 	case WMT_IOCTL_SET_STP_MODE:	/* stp/hif/fm mode */
+1104: 		/* set hif conf */
+1105: 		mutex_lock(&g_hif_lock);
+1106: 		do {
+1107: 			P_OSAL_OP pOp;
+1108: 			MTK_WCN_BOOL bRet;
+1109: 			P_OSAL_SIGNAL pSignal = NULL;
+1110: 			WMT_HIF_CONF config;
+1111: 
+1112: 			if (hif_info == 1) {
+1113: 				WMT_INFO_FUNC("hif_info had been set!\n");
+1114: 				break;
+1115: 			}
+1116: 
+1117: 			iRet = wmt_lib_parse_hif(arg, &config);
+1118: 			if (iRet != 0) {
+1119: 				WMT_INFO_FUNC("invalid hif configuration (%lu)\n", arg);
+1120: 				break;
+1121: 			}
+1122: 
+1123: 			pOp = wmt_lib_get_free_op();
+1124: 			if (!pOp) {
+1125: 				WMT_INFO_FUNC("get_free_lxop fail\n");
+1126: 				iRet = -ENOMEM;
+1127: 				break;
+1128: 			}
+1129: 			pSignal = &pOp->signal;
+1130: 			pOp->op.opId = WMT_OPID_HIF_CONF;
+1131: 
+1132: 			wmt_lib_set_hif(&config);
+1133: 			osal_memcpy(&pOp->op.au4OpData[0], &config, sizeof(config));
+1134: 			pOp->op.u4InfoBit = WMT_OP_HIF_BIT;
+1135: 			pSignal->timeoutValue = 0;
+1136: 
+1137: 			bRet = wmt_lib_put_act_op(pOp);
+1138: 			WMT_DBG_FUNC("WMT_OPID_HIF_CONF result(%d)\n", bRet);
+1139: 			iRet = (bRet == MTK_WCN_BOOL_FALSE) ? -EFAULT : 0;
+1140: 			if (iRet == 0) {
+1141: 				WMT_INFO_FUNC("luncher set STP mode success!\n");
+1142: 				hif_info = 1;
+1143: 
+1144: 				if (atomic_read(&g_late_pwr_on_for_blank) &&
+1145: 					atomic_read(&g_es_lr_flag_for_blank)) {
+1146: 					atomic_set(&g_late_pwr_on_for_blank, 0);
+1147: 					schedule_work(&gPwrOnOffWork);
+1148: 				}
+1149: 			}
+1150: 		} while (0);
+1151: 		mutex_unlock(&g_hif_lock);
+1152: 		break;
+1153: 	case WMT_IOCTL_FUNC_ONOFF_CTRL:	/* test turn on/off func */
+1154: #if WMT_DBG_SUPPORT
+1155: 		do {
+1156: 			MTK_WCN_BOOL bRet = MTK_WCN_BOOL_FALSE;
+1157: 
+1158: 			if (arg >> 4 == 0xBEEF000)
+1159: 				bRet = mtk_wcn_wmt_func_on(arg & 0xF);
+1160: 			else if (arg >> 4 == 0xDEAD000)
+1161: 				bRet = mtk_wcn_wmt_func_off(arg & 0xF);
+1162: 
+1163: 			iRet = (bRet == MTK_WCN_BOOL_FALSE) ? -EFAULT : 0;
+1164: 		} while (0);
+1165: #endif
+1166: 		break;
+1167: 	case WMT_IOCTL_LPBK_POWER_CTRL:
+1168: 		do {
+1169: 			MTK_WCN_BOOL bRet = MTK_WCN_BOOL_TRUE;
+1170: 
+1171: 			switch (arg) {
+1172: 			case 0:
+1173: 				if (always_pwr_on_flag)
+1174: 					bRet = mtk_wcn_wmt_func_off(WMTDRV_TYPE_LPBK);
+1175: 				break;
+1176: 			case 1:
+1177: 				if (always_pwr_on_flag)
+1178: 					bRet = mtk_wcn_wmt_func_on(WMTDRV_TYPE_LPBK);
+1179: 				break;
+1180: 			case 2:
+1181: 				bRet = mtk_wcn_wmt_func_on(WMTDRV_TYPE_LPBK);
+1182: 				break;
+1183: 			case 3:
+1184: 				bRet = mtk_wcn_wmt_func_off(WMTDRV_TYPE_LPBK);
+1185: 				break;
+1186: 			}
+1187: 			iRet = (bRet == MTK_WCN_BOOL_TRUE) ? 0 : -EFAULT;
+1188: 		} while (0);
+1189: 		break;
+1361: 	case WMT_IOCTL_GET_CHIP_INFO:
+1362: 		if (arg == 0)
+1363: 			return wmt_lib_get_icinfo(WMTCHIN_CHIPID);
+1364: 		else if (arg == 1)
+1365: 			return wmt_lib_get_icinfo(WMTCHIN_HWVER);
+1366: 		else if (arg == 2)
+1367: 			return wmt_lib_get_icinfo(WMTCHIN_FWVER);
+1368: 		else if (arg == 3)
+1369: 			return wmt_lib_get_icinfo(WMTCHIN_IPVER);
+1370: 		else if (arg == 4)
+1371: 			return wmt_detect_get_chip_type();
+1372: 		break;
+1373: 	case WMT_IOCTL_WMT_CFG_NAME:
+1374: 		{
+1375: 			INT8 cWmtCfgName[NAME_MAX + 1];
+1376: 
+1377: 			if (copy_from_user(cWmtCfgName, (void *)arg, NAME_MAX)) {
+1378: 				iRet = -EFAULT;
+1379: 				break;
+1380: 			}
+1381: 			cWmtCfgName[NAME_MAX] = '\0';
+1382: 			wmt_conf_set_cfg_file(cWmtCfgName);
+1383: 		}
+1384: 		break;
+1385: 	case WMT_IOCTL_SET_LAUNCHER_KILL:
+1386: 		if (arg == 1) {
+1387: 			WMT_INFO_FUNC("launcher may be killed,block abnormal stp tx.\n");
+1388: 			wmt_lib_set_stp_wmt_last_close(1);
+1389: 		} else
+1390: 			wmt_lib_set_stp_wmt_last_close(0);
+1391: 		break;
+1392: 	case WMT_IOCTL_SET_PATCH_NUM:
+1393: 		iRet = wmt_dev_set_patch_num(arg);
+1394: 		break;
+1395: 	case WMT_IOCTL_SET_PATCH_INFO:
+1396: 		do {
+1397: 			WMT_PATCH_INFO wMtPatchInfo;
+1398: 
+1399: 			if (copy_from_user(&wMtPatchInfo, (PVOID)arg, sizeof(WMT_PATCH_INFO))) {
+1400: 				WMT_ERR_FUNC("copy_from_user failed at %d\n", __LINE__);
+1401: 				iRet = -EFAULT;
+1402: 				break;
+1403: 			}
+1404: 			iRet = wmt_dev_set_patch_info(&wMtPatchInfo);
+1405: 			if (iRet)
+1406: 				break;
+1407: 
+1408: 			WMT_DBG_FUNC(
+1409: 				"patch dl seq %d,name %s,address info 0x%02x,0x%02x,0x%02x,0x%02x\n",
+1410: 			     wMtPatchInfo.dowloadSeq, wMtPatchInfo.patchName,
+1411: 			     wMtPatchInfo.addRess[0],
+1412: 			     wMtPatchInfo.addRess[1],
+1413: 			     wMtPatchInfo.addRess[2],
+1414: 			     wMtPatchInfo.addRess[3]);
+1415: 		} while (0);
+1416: 		break;
+1429: 	case WMT_IOCTL_WMT_QUERY_CHIPID:
+1430: 		iRet = mtk_wcn_wmt_chipid_query();
+1431: 		WMT_WARN_FUNC("chipid = 0x%x\n", iRet);
+1432: 		break;
+1433: 	case WMT_IOCTL_WMT_TELL_CHIPID:
+1434: 		{
+1435: #if !(DELETE_HIF_SDIO_CHRDEV)
+1436: 			iRet = mtk_wcn_hif_sdio_tell_chipid(arg);
+1437: #endif
+1438: 			if (0x6628 == arg || 0x6630 == arg || 0x6632 == arg)
+1439: 				wmt_lib_merge_if_flag_ctrl(1);
+1440: 			else
+1441: 				wmt_lib_merge_if_flag_ctrl(0);
+1442: 		}
+1530: 	case WMT_IOCTL_SET_ROM_PATCH_INFO:
+1531: 		do {
+1532: 			struct wmt_rom_patch_info wmtRomPatchInfo;
+1533: 
+1534: 			if (copy_from_user(&wmtRomPatchInfo, (PVOID)arg, sizeof(struct wmt_rom_patch_info))) {
+1535: 				WMT_ERR_FUNC("copy_from_user failed at %d\n", __LINE__);
+1536: 				iRet = -EFAULT;
+1537: 				break;
+1538: 			}
+1539: 
+1540: 			iRet = wmt_lib_set_rom_patch_info(&wmtRomPatchInfo, wmtRomPatchInfo.type);
+1541: 			if (iRet)
+1573: 	case WMT_IOCTL_GET_VENDOR_PATCH_NUM:
+1574: 		iRet = wmt_lib_get_vendor_patch_num();
+1575: 		break;
+1576: 	case WMT_IOCTL_SET_VENDOR_PATCH_VERSION:
+1577: 		do {
+1578: 			struct wmt_vendor_patch patch;
+1579: 
+1580: 			if (copy_from_user(&patch, (PVOID)arg,
+1581: 				sizeof(struct wmt_vendor_patch))) {
+1582: 				WMT_ERR_FUNC("copy_from_user failed at %d\n", __LINE__);
+1583: 				iRet = -EFAULT;
+1584: 				break;
+1585: 			}
+1586: 
+1587: 			iRet = wmt_lib_set_vendor_patch_version(&patch);
+1588: 			if (iRet) {
+1589: 				iRet = -EFAULT;
+1590: 				break;
+1591: 			}
+1592: 		} while (0);
+1593: 		break;
+1594: 	case WMT_IOCTL_GET_VENDOR_PATCH_VERSION:
+1595: 		do {
+1596: 			struct wmt_vendor_patch patch;
+1597: 
+1598: 			if (copy_from_user(&patch, (PVOID)arg, sizeof(struct wmt_vendor_patch))) {
+1599: 				WMT_ERR_FUNC("copy_from_user failed at %d\n", __LINE__);
+1600: 				iRet = -EFAULT;
+1601: 				break;
+1602: 			}
+1603: 
+1604: 			iRet = wmt_lib_get_vendor_patch_version(&patch);
+1605: 			if (iRet) {
+1606: 				iRet = -EFAULT;
+1607: 				break;
+1608: 			}
+1609: 
+1610: 			if (copy_to_user((PVOID)arg, &patch, sizeof(struct wmt_vendor_patch)))
+1611: 				iRet = -EFAULT;
+1612: 		} while (0);
+1613: 		break;
+1614: 	case WMT_IOCTL_SET_ACTIVE_PATCH_VERSION:
+1615: 		do {
+1616: 			struct wmt_vendor_patch patch;
+1617: 
+1618: 			if (copy_from_user(&patch, (PVOID)arg,
+1619: 				sizeof(struct wmt_vendor_patch))) {
+1620: 				WMT_ERR_FUNC("copy_from_user failed at %d\n", __LINE__);
+1621: 				iRet = -EFAULT;
+1622: 				break;
+1623: 			}
+1624: 
+1625: 			iRet = wmt_lib_set_active_patch_version(&patch);
+1626: 			WMT_ERR_FUNC("wmt_lib_set_active_patch_version ret = %d\n", iRet);
+1627: 			if (iRet) {
+1628: 				iRet = -EFAULT;
+1629: 				break;
+1630: 			}
+1631: 		} while (0);
+1632: 		break;
+
+54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb:drivers/misc/mediatek/connectivity/source/common/common_main/core/include/wmt_core.h
+427: typedef struct _WMT_PATCH {
+428: 	UINT8 ucDateTime[16];
+429: 	UINT8 ucPLat[4];
+430: 	UINT16 u2HwVer;
+431: 	UINT16 u2SwVer;
+432: 	UINT32 u4PatchVer;
+433: } WMT_PATCH, *P_WMT_PATCH;
+434: 
+435: struct wmt_rom_patch {
+436: 	UINT8 ucDateTime[16];
+437: 	UINT8 ucPLat[4];
+438: 	UINT16 u2HwVer;
+439: 	UINT16 u2SwVer;
+440: 	UINT32 u4PatchAddr;
+441: 	UINT32 u4PatchType;
+442: 	UINT32 u4CRC[4];
+443: };
+
+54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb:drivers/misc/mediatek/connectivity/source/common/common_main/core/include/wmt_lib.h
+166: typedef struct {
+167: 	UINT32 dowloadSeq;
+168: 	UINT8 addRess[4];
+169: 	UINT8 patchName[256];
+170: } WMT_PATCH_INFO, *P_WMT_PATCH_INFO;
+171: 
+172: struct wmt_rom_patch_info {
+173: 	UINT32 type;
+174: 	UINT8 addRess[4];
+175: 	UINT8 patchName[256];
+176: };
+
+54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb:drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_ctrl.c
+530: 
+531: 	osal_set_bit(WMT_STAT_STP_OPEN, &pDev->state);
+532: #if 0
+533: 	iRet = mtk_wcn_stp_lpbk_ctrl(1);
+534: #endif
+535: 
+536: 	return 0;
+537: }
+538: 
+539: 
+540: INT32 wmt_ctrl_patch_search(P_WMT_CTRL_DATA pWmtCtrlData)
+541: {
+542: 	P_DEV_WMT pDev = &gDevWmt;	/* single instance */
+543: 	INT32 iRet;
+544: 	UINT8 cmdStr[NAME_MAX + 1] = { 0 };
+545: 
+546: 	osal_snprintf(cmdStr, NAME_MAX, "srh_patch");
+547: 	iRet = wmt_ctrl_ul_cmd(pDev, cmdStr);
+548: 	if (iRet) {
+549: 		WMT_WARN_FUNC("wmt_ctrl_ul_cmd fail(%d)\n", iRet);
+550: 		return -1;
+551: 	}
+552: 	return 0;
+553: }
+554: 
+555: 
+556: INT32 wmt_ctrl_get_patch_num(P_WMT_CTRL_DATA pWmtCtrlData)
+557: {
+558: 	P_DEV_WMT pDev = &gDevWmt;	/* single instance */
+559: 
+560: 	if (!pWmtCtrlData)
+561: 		return -EINVAL;
+562: 	pWmtCtrlData->au4CtrlData[0] = READ_ONCE(pDev->patchNum);
+563: 	return 0;
+564: }
+565: 
+566: 
+567: INT32 wmt_ctrl_get_patch_info(P_WMT_CTRL_DATA pWmtCtrlData)
+568: {
+569: 	if (!pWmtCtrlData)
+570: 		return -EINVAL;
+571: 
+572: 	return wmt_dev_get_patch_info(pWmtCtrlData->au4CtrlData[0],
+573: 				      (PUINT8)pWmtCtrlData->au4CtrlData[1],
+574: 				      (PUINT8)pWmtCtrlData->au4CtrlData[2]);
+575: }
+576: 
+577: INT32 wmt_ctrl_get_rom_patch_info(P_WMT_CTRL_DATA pWmtCtrlData)
+578: {
+579: 	P_DEV_WMT pDev = &gDevWmt;	/* single instance */
+580: 	SIZE_T type;
+581: 	PUINT8 pNbuf = NULL;
+582: 	PUINT8 pAbuf = NULL;
+583: 	INT32 ret = 0;
+584: 	UINT8 cmdStr[NAME_MAX + 1] = { 0 };
+585: 
+586: 	if (!pWmtCtrlData)
+587: 		return -EINVAL;
+588: 	type = pWmtCtrlData->au4CtrlData[0];
+589: 	pNbuf = (PUINT8)pWmtCtrlData->au4CtrlData[1];
+590: 	pAbuf = (PUINT8)pWmtCtrlData->au4CtrlData[2];
+591: 	if (type >= WMTDRV_TYPE_ANT || !pNbuf || !pAbuf)
+592: 		return -EINVAL;
+593: 	pDev->ip_ver = pWmtCtrlData->au4CtrlData[3];
+594: 	pDev->fw_ver = pWmtCtrlData->au4CtrlData[4];
+595: 	WMT_DBG_FUNC("ip version is [%x] [%x]\n", pDev->ip_ver, pDev->fw_ver);
+596: 
+597: 	if (!READ_ONCE(pDev->pWmtRomPatchInfo[WMTDRV_TYPE_WMT])) {
+598: 		osal_snprintf(cmdStr, NAME_MAX, "srh_rom_patch");
+599: 		ret = wmt_ctrl_ul_cmd(pDev, cmdStr);
+600: 		if (ret) {
+601: 			WMT_WARN_FUNC("wmt_ctrl_ul_cmd fail(%d)\n", ret);
+602: 			return -1;
+603: 		}
+604: 	}
+605: 
+606: 	ret = wmt_lib_get_rom_patch_info(type, pNbuf, pAbuf);
+607: 	/* A missing optional ROM patch has historically returned one. */
+608: 	return ret == -ENOENT ? 1 : ret;
+609: }
+610: 
+611: INT32 wmt_ctrl_update_patch_version(P_WMT_CTRL_DATA pWmtCtrlData)
+612: {
+613: 	P_DEV_WMT pDev = &gDevWmt;	/* single instance */
+614: 	INT32 iRet;
+615: 	UINT8 cmdStr[NAME_MAX + 1] = { 0 };
+616: 
+617: 	osal_snprintf(cmdStr, NAME_MAX, "update_patch_version");
+618: 	iRet = wmt_ctrl_ul_cmd(pDev, cmdStr);
+619: 	if (iRet) {
+620: 		WMT_WARN_FUNC("wmt_ctrl_ul_cmd fail(%d)\n", iRet);
+621: 		return -1;
+622: 	}
+623: 	return 0;
+624: }
+625: 
+626: INT32 wmt_ctrl_soc_paldo_ctrl(P_WMT_CTRL_DATA pWmtCtrlData)
+627: {
+628: 	INT32 iRet = 0;
+829: INT32 wmt_ctrl_get_patch(P_WMT_CTRL_DATA pWmtCtrlData)
+830: {
+831: 	PUINT8 pFullPatchName = NULL;
+832: 	PUINT8 pDefPatchName = NULL;
+833: 	PPUINT8 ppBuf = (PPUINT8) pWmtCtrlData->au4CtrlData[2];
+834: 	PUINT32 pSize = (PUINT32) pWmtCtrlData->au4CtrlData[3];
+835: 	osal_firmware *pPatch = NULL;
+836: 
+837: 	pFullPatchName = (PUINT8) pWmtCtrlData->au4CtrlData[1];
+838: 	WMT_DBG_FUNC("BF get patch, pPatch(%p)\n", pPatch);
+839: 	if ((pFullPatchName != NULL)
+840: 	    && (wmt_dev_patch_get(pFullPatchName, &pPatch) == 0)) {
+841: 		/*get full name patch success */
+842: 		WMT_DBG_FUNC("get full patch name(%s) buf(0x%p) size(%zu)\n",
+843: 			     pFullPatchName, (pPatch)->data, (pPatch)->size);
+844: 		WMT_DBG_FUNC("AF get patch, pPatch(%p)\n", pPatch);
+845: 		*ppBuf = (PUINT8)(pPatch)->data;
+846: 		*pSize = (pPatch)->size;
+847: 		gDevWmt.pPatch = pPatch;
+848: 		return 0;
+849: 	}
+850: 
+851: 	pDefPatchName = (PUINT8) pWmtCtrlData->au4CtrlData[0];
+852: 	if ((pDefPatchName != NULL)
+853: 	    && (wmt_dev_patch_get(pDefPatchName, &pPatch) == 0)) {
+854: 		WMT_DBG_FUNC("get def patch name(%s) buf(0x%p) size(%zu)\n",
+855: 			     pDefPatchName, (pPatch)->data, (pPatch)->size);
+856: 		WMT_DBG_FUNC("AF get patch, pPatch(%p)\n", pPatch);
+857: 		/*get full name patch success */
+858: 		*ppBuf = (PUINT8)(pPatch)->data;
+859: 		*pSize = (pPatch)->size;
+860: 		gDevWmt.pPatch = pPatch;
+861: 		return 0;
+862: 	}
+863: 	return -1;
+864: 
+865: }
+866: 
+867: INT32 wmt_ctrl_host_baudrate_set(P_WMT_CTRL_DATA pWmtCtrlData)
+868: {
+869: 	INT32 iRet = -1;
+870: 	INT8 cmdStr[NAME_MAX + 1] = { 0 };
+871: 	UINT32 u4Baudrate = pWmtCtrlData->au4CtrlData[0];
+872: 	UINT32 u4FlowCtrl = pWmtCtrlData->au4CtrlData[1];
+873: 
+874: 	WMT_DBG_FUNC("baud(%d), flowctrl(%d)\n", u4Baudrate, u4FlowCtrl);
+875: 
+876: 	if (osal_test_bit(WMT_STAT_STP_OPEN, &gDevWmt.state)) {
+877: 		osal_snprintf(cmdStr, NAME_MAX, "baud_%d_%d", u4Baudrate, u4FlowCtrl);
+878: 		iRet = wmt_ctrl_ul_cmd(&gDevWmt, cmdStr);
+879: 		if (iRet)
+880: 			WMT_WARN_FUNC("CTRL_BAUDRATE baud(%d), flowctrl(%zu) fail(%d)\n",
+
+54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb:drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c
+337: 	pThread->pThreadData = (PVOID) pDevWmt;
+338: 	pThread->pThreadFunc = (PVOID) wmtd_thread;
+339: 	iRet = osal_thread_create(pThread);
+340: 	if (iRet) {
+341: 		WMT_ERR_FUNC("osal_thread_create(0x%p) fail(%d)\n", pThread, iRet);
+342: 		return -2;
+343: 	}
+344: 
+345: 	/* create worker timer */
+346: 	gDevWmt.worker_timer.timeoutHandler = wmt_lib_wmtd_worker_thread_timeout_handler;
+347: 	gDevWmt.worker_timer.timeroutHandlerData = 0;
+348: 	osal_timer_create(&gDevWmt.worker_timer);
+349: 	pWorkerThread = &gDevWmt.worker_thread;
+350: 	INIT_WORK(&pDevWmt->wmtd_worker_thread_work, wmt_lib_wmtd_worker_thread_work_handler);
+351: 	g_wmt_worker_timer_initialized = true;
+352: 
+353: 	/* Create wmtd_worker thread */
+354: 	osal_strncpy(pWorkerThread->threadName, "mtk_wmtd_worker", sizeof(pWorkerThread->threadName));
+355: 	pWorkerThread->pThreadData = (PVOID) pDevWmt;
+356: 	pWorkerThread->pThreadFunc = (PVOID) wmtd_worker_thread;
+357: 	iRet = osal_thread_create(pWorkerThread);
+358: 	if (iRet) {
+359: 		WMT_ERR_FUNC("osal_thread_create(0x%p) fail(%d)\n", pWorkerThread, iRet);
+360: 		return -2;
+361: 	}
+362: 
+363: 	/* init timer */
+364: 	pDevWmt->utc_sync_timer.timeoutHandler = wmt_lib_utc_sync_timeout_handler;
+365: 	osal_timer_create(&pDevWmt->utc_sync_timer);
+366: 	INIT_WORK(&pDevWmt->utcSyncWorker, wmt_lib_utc_sync_worker_handler);
+367: 	g_wmt_utc_timer_initialized = true;
+368: 	osal_timer_start(&pDevWmt->utc_sync_timer, UTC_SYNC_TIME);
+369: 
+370: 	/* 2. initialize */
+764: INT32 wmt_lib_parse_hif(ULONG hifconf, P_WMT_HIF_CONF config)
+765: {
+766: 	UINT32 val;
+767: 	WMT_HIF_CONF parsed = { 0 };
+768: 	P_WMT_HIF_CONF pHif = &parsed;
+769: 
+770: 	if (!config)
+771: 		return -EINVAL;
+772: 
+773: 	val = hifconf & 0xF;
+774: 	switch (val) {
+775: 	case STP_UART_FULL:
+776: 		pHif->hifType = WMT_HIF_UART;
+777: 		pHif->uartFcCtrl = ((hifconf & 0xc) >> 2);
+778: 		val = (hifconf >> 8);
+779: 		pHif->au4HifConf[0] = val;
+780: 		pHif->au4HifConf[1] = val;
+781: 		break;
+782: 	case STP_SDIO:
+783: 		pHif->hifType = WMT_HIF_SDIO;
+784: 		break;
+785: 	case STP_BTIF_FULL:
+786: 		pHif->hifType = WMT_HIF_BTIF;
+787: 		break;
+788: 	default:
+789: 		WMT_WARN_FUNC("invalid stp mode: %lu %u\n", hifconf, val);
+790: 		return -1;
+791: 	}
+792: 
+793: 	val = (hifconf & 0xF0) >> 4;
+794: 	if (val == WMT_FM_COMM) {
+795: 		pHif->au4StrapConf[0] = WMT_FM_COMM;
+796: 	} else if (val == WMT_FM_I2C) {
+797: 		pHif->au4StrapConf[0] = WMT_FM_I2C;
+798: 	} else {
+799: 		WMT_WARN_FUNC("invalid fm mode: %u\n", val);
+800: 		return -2;
+801: 	}
+802: 
+803: 	WMT_DBG_FUNC("new hifType:%d, fcCtrl:%d, baud:%d, fm:%d\n",
+804: 		      pHif->hifType, pHif->uartFcCtrl, pHif->au4HifConf[0], pHif->au4StrapConf[0]);
+805: 	*config = parsed;
+806: 	return 0;
+807: }
+808: 
+809: VOID wmt_lib_set_hif(const WMT_HIF_CONF *config)
+810: {
+3442: INT32 wmt_lib_get_vendor_patch_num(VOID)
+3443: {
+3444: 	return gDevWmt.patch_table.num;
+3445: }
+3446: 
+3447: INT32 wmt_lib_set_vendor_patch_version(struct wmt_vendor_patch *p)
+3448: {
+3449: 	struct vendor_patch_table *table = &(gDevWmt.patch_table);
+3450: 	struct wmt_vendor_patch *patch = table->patch;
+3451: 
+3452: 	if (patch == NULL) {
+3453: 		INT32 init_capacity = 5;
+3454: 
+3455: 		patch = (struct wmt_vendor_patch *)osal_malloc(
+3456: 			 sizeof(struct wmt_vendor_patch) * init_capacity);
+3457: 		if (patch == NULL) {
+3458: 			WMT_ERR_FUNC("[oom]set vendor patch version");
+3459: 			return -1;
+3460: 		}
+3461: 
+3462: 		table->patch = patch;
+3463: 		table->capacity = init_capacity;
+3464: 		table->num = 0;
+3465: 
+3466: 		table->active_version = (PUINT8 *)osal_malloc(sizeof(PUINT8) * init_capacity);
+3467: 		if (table->active_version == NULL) {
+3468: 			osal_free(table->patch);
+3469: 			table->patch = NULL;
+3470: 			WMT_ERR_FUNC("[oom]alloc active patch");
+3471: 			return -1;
+3472: 		}
+3473: 		osal_memset(table->active_version, 0, sizeof(PUINT8) * init_capacity);
+3474: 	}
+3475: 
+3476: 	if (table->capacity == table->num) {
+3477: 		WMT_ERR_FUNC("reach to limit");
+3478: 		return -1;
+3479: 	}
+3480: 
+3481: 	/* copy patch info to table */
+3482: 	patch = patch + table->num;
+3483: 	patch->type = p->type;
+3484: 	osal_strncpy(patch->file_name, p->file_name, sizeof(p->file_name));
+3485: 	osal_strncpy(patch->version, p->version, sizeof(p->version));
+3486: 
+3487: 	table->num++;
+3488: 	WMT_INFO_FUNC("set version %s %s %d",
+3489: 		patch->file_name, patch->version, patch->type);
+3490: 	return 0;
+3491: }
+3492: 
+3493: INT32 wmt_lib_get_vendor_patch_version(struct wmt_vendor_patch *p)
+3494: {
+3495: 	struct vendor_patch_table *table = &(gDevWmt.patch_table);
+3496: 
+3497: 	if (p->id >= table->num || p->id < 0) {
+3498: 		WMT_ERR_FUNC("id %d out of range", p->id);
+3499: 		return -1;
+3500: 	}
+3501: 
+3502: 	osal_memcpy(p, &table->patch[p->id], sizeof(struct wmt_vendor_patch));
+3503: 	WMT_INFO_FUNC("get version: %s %s t:%d",
+3504: 		p->file_name, p->version, p->type);
+3505: 	return 0;
+3506: }
+3507: 
+3508: INT32 wmt_lib_set_check_patch_status(INT32 status)
+3509: {
+3510: 	gDevWmt.patch_table.status = status;
+3511: 	return 0;
+3512: }
+3513: 
+3514: INT32 wmt_lib_get_check_patch_status(VOID)
+3515: {
+3516: 	return gDevWmt.patch_table.status;
+3517: }
+3518: 
+3519: INT32 wmt_lib_set_active_patch_version(struct wmt_vendor_patch *p)
+3520: {
+3521: 	struct vendor_patch_table *table = &(gDevWmt.patch_table);
+3522: 
+3523: 	if (p->id < 0 || p->id >= table->num) {
+3524: 		WMT_ERR_FUNC("patch id: %d is invalid. num = %d", p->id, table->num);
+3525: 		return -1;
+3526: 	}
+3527: 
+3528: 	if (table->active_version == NULL) {
+3529: 		WMT_ERR_FUNC("active version is NULL");
+3530: 		return -1;
+3531: 	}
+3532: 
+3533: 	if (table->active_version[p->id] == NULL) {
+3534: 		table->active_version[p->id] = osal_malloc(sizeof(UINT8) * (WMT_FIRMWARE_VERSION_LENGTH + 1));
+3535: 		if (table->active_version[p->id] == NULL) {
+3536: 			WMT_ERR_FUNC("oom when alloc active_version");
+3537: 			return -1;
+3538: 		}
+3539: 	} else if (osal_strcmp(p->version, table->active_version[p->id]) == 0)
+3540: 		return 0;
+3541: 
+3542: 	wmt_lib_set_need_update_patch_version(1);
+3543: 	osal_strncpy(table->active_version[p->id], p->version, WMT_FIRMWARE_VERSION_LENGTH + 1);
+3544: 	return 0;
+3545: }
+3546: 
+3547: INT32 wmt_lib_get_active_patch_version(struct wmt_vendor_patch *p)
+3548: {
+3549: 	struct vendor_patch_table *table = &(gDevWmt.patch_table);
+3550: 	INT32 id = p->id;
+3551: 
+3552: 	if (id >= table->num || id < 0) {
+3553: 		WMT_ERR_FUNC("id %d out of range", p->id);
+3554: 		return -1;
+3555: 	}
+3556: 	if (table->active_version[id] == NULL) {
+3557: 		WMT_ERR_FUNC("active_version is null: id = %d", id);
+3558: 		return -1;
+3559: 	}
+3560: 
+3561: 	osal_memcpy(p, &table->patch[id], sizeof(struct wmt_vendor_patch));
+3562: 	osal_strncpy(p->version, table->active_version[id],
+3563: 		WMT_FIRMWARE_VERSION_LENGTH + 1);
+3564: 	WMT_INFO_FUNC("get active version: %s %s t:%d id:%d",
+3565: 		p->file_name, p->version, p->type, id);
+3566: 	return 0;
+3567: }
+3568: 
+3569: INT32 wmt_lib_get_need_update_patch_version(VOID)
+3570: {
+3571: 	return gDevWmt.patch_table.need_update;
+3572: }
+3573: 
+3574: 
+3575: INT32 wmt_lib_set_need_update_patch_version(INT32 need)
+3576: {
+3577: 	gDevWmt.patch_table.need_update = need > 0 ? 1 : 0;
+3578: 	return 0;
+
+54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb:drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_ic_soc.c
+1216: 	/* 4 <3.2> start init for BTIF */
+1217: 	if (pWmtHifConf->hifType == WMT_HIF_BTIF) {
+1218: 
+1219: 		emiInfo = mtk_wcn_consys_soc_get_emi_phy_add();
+1220: 		if (!emiInfo) {
+1221: 			WMT_ERR_FUNC("get emi info fail!\n");
+1222: 			return -1;
+1223: 		}
+1224: 		/* non-PDA mode, enable full mode before patch download */
+1225: 		if (!emiInfo->pda_dl_patch_flag) {
+1226: 			iRet = _wmt_soc_mode_ctrl(MTKSTP_BTIF_FULL_MODE);
+1227: 			if (iRet)
+1228: 				return iRet;
+1229: 		}
+1230: 	}
+1231: 
+1232: 	/* Check whether need to update property of patch version.
+1233: 	 * If yes, notify stp_launcher to update.
+1234: 	 */
+1235: 	if (wmt_lib_get_need_update_patch_version()) {
+1236: 		wmt_lib_set_need_update_patch_version(0);
+1237: 		mtk_wcn_soc_update_patch_version();
+1238: 		WMT_INFO_FUNC("wmt update patch version\n");
+1239: 	}
+1240: 
+1241: #if CFG_WMT_POWER_ON_DLM
+1242: 	if (wmt_ic_ops_soc.icId != 0x6765 &&
+1243: 	    wmt_ic_ops_soc.icId != 0x3967 &&
+1244: 	    wmt_ic_ops_soc.icId != 0x6761 &&
+1245: 	    wmt_ic_ops_soc.icId != 0x6779 &&
+1246: 	    wmt_ic_ops_soc.icId != 0x6785 &&
+1247: 	    wmt_ic_ops_soc.icId != 0x8168) {
+1248: 		iRet = wmt_core_init_script(wmt_power_on_dlm_table,
+1249: 				osal_array_size(wmt_power_on_dlm_table));
+1250: 		if (iRet)
+1251: 			WMT_ERR_FUNC("wmt_power_on_dlm_table fail(%d)\n", iRet);
+1252: 		WMT_DBG_FUNC("wmt_power_on_dlm_table ok\n");
+1253: 	}
+1254: #endif
+1255: 	/* 6. download patch */
+1256: #if CFG_WMT_MULTI_PATCH
+1257: 	/* 6.1 Let launcher to search patch info */
+1258: 	/* 6.2 Read patch number */
+1259: 	/* If patch number is 0, it's first time connys power on */
+1260: 	patch_num = mtk_wcn_soc_get_patch_num();
+1261: 	if (patch_num == 0 || wmt_lib_get_patch_info() == NULL) {
+1262: 		iRet = mtk_wcn_soc_patch_info_prepare();
+1263: 		if (iRet) {
+1264: 			WMT_ERR_FUNC("patch info perpare fail(%d)\n", iRet);
+1265: 			return -6;
+1266: 		}
+1267: 		patch_num = mtk_wcn_soc_get_patch_num();
+1268: 	}
+1269: #if CFG_WMT_PATCH_DL_OPTM
+1270: 	if (wmt_ic_ops_soc.icId != 0x6765 &&
+1271: 	    wmt_ic_ops_soc.icId != 0x3967 &&
+1272: 	    wmt_ic_ops_soc.icId != 0x6761 &&
+1273: 	    wmt_ic_ops_soc.icId != 0x6768 &&
+1274: 	    wmt_ic_ops_soc.icId != 0x6779 &&
+1275: 	    wmt_ic_ops_soc.icId != 0x6785 &&
+1276: 	    wmt_ic_ops_soc.icId != 0x8168) {
+1277: 		if (wmt_ic_ops_soc.icId == 0x0279 ||
+1278: 		    wmt_ic_ops_soc.icId == 0x0507 ||
+1279: 		    wmt_ic_ops_soc.icId == 0x0713 ||
+1280: 		    wmt_ic_ops_soc.icId == 0x0788 ||
+1281: 		    wmt_ic_ops_soc.icId == 0x0688) {
+1282: 			iRet = wmt_core_init_script(set_mcuclk_table_3, osal_array_size(set_mcuclk_table_3));
+1283: 			if (iRet)
+1284: 				WMT_ERR_FUNC("set_mcuclk_table_3 fail(%d)\n", iRet);
+1285: 		} else {
+1286: 			iRet = wmt_core_init_script(set_mcuclk_table_1, osal_array_size(set_mcuclk_table_1));
+1287: 			if (iRet)
+1288: 				WMT_ERR_FUNC("set_mcuclk_table_1 fail(%d)\n", iRet);
+1289: 		}
+1290: 	}
+1291: #endif
+1292: 	/* 6.3 Multi-patch Patch download */
+1293: 	WMT_STEP_DO_ACTIONS_FUNC(STEP_TRIGGER_POINT_POWER_ON_BEFORE_SEND_DOWNLOAD_PATCH);
+1294: 	for (patch_index = 0; patch_index < patch_num; patch_index++) {
+1295: 		iRet = mtk_wcn_soc_patch_dwn(patch_index);
+1296: 		if (iRet) {
+1297: 			WMT_ERR_FUNC("patch dwn fail (%d),patch_index(%d)\n", iRet, patch_index);
+1298: 			return -7;
+2881: 	ULONG ctrlPa2 = 0;
+2882: 
+2883: 	wmt_core_ctrl(WMT_CTRL_GET_PATCH_NUM, &ctrlPa1, &ctrlPa2);
+2884: 	WMT_DBG_FUNC("patch total num = [%lu]\n", ctrlPa1);
+2885: 	return ctrlPa1;
+2886: }
+2887: 
+2888: static UINT32 mtk_wcn_soc_update_patch_version(VOID)
+2889: {
+2890: 	return wmt_core_ctrl(WMT_CTRL_UPDATE_PATCH_VERSION, NULL, NULL);
+2891: }
+2892: 
+3270: 
+3271: 	/* |<-BCNT_PATCH_BUF_HEADROOM(8) bytes dummy allocated->|<-patch file->| */
+3272: 	/* patch file with header:
+3273: 	 * |<-patch header: 28 Bytes->|<-patch body: X Bytes ----->|
+3274: 	 */
+3275: 	pPatchBuf = osal_malloc(patchSize);
+3276: 	if (pPatchBuf == NULL) {
+3277: 		WMT_ERR_FUNC("vmalloc pPatchBuf for patch download fail\n");
+3278: 		return -2;
+3279: 	}
+3280: 	osal_memcpy(pPatchBuf, pBuf, patchSize);
+3281: 	/* check patch file information */
+3282: 	patchHdr = (P_WMT_PATCH) pPatchBuf;
+3283: 
+3284: 	cDataTime = patchHdr->ucDateTime;
+3285: 	u2HwVer = patchHdr->u2HwVer;
+3286: 	u2SwVer = patchHdr->u2SwVer;
+3287: 	u4PatchVer = patchHdr->u4PatchVer;
+3288: 
+3289: 	cDataTime[15] = '\0';
+3290: 	if (index == 0) {
+3291: 		WMT_INFO_FUNC("[Patch]BuiltTime=%s,HVer=0x%x,SVer=0x%x,PhVer=0x%04x,Platform=%c%c%c%c\n",
+3292: 				cDataTime, ((u2HwVer & 0x00ff) << 8) | ((u2HwVer & 0xff00) >> 8),
+3293: 				((u2SwVer & 0x00ff) << 8) | ((u2SwVer & 0xff00) >> 8),
+3294: 				((u4PatchVer & 0xff000000) >> 24) | ((u4PatchVer & 0x00ff0000) >> 16),
+3295: 				patchHdr->ucPLat[0], patchHdr->ucPLat[1],
+3296: 				patchHdr->ucPLat[2], patchHdr->ucPLat[3]);
+3297: 	}
+3298: 	osal_memcpy(&gp_soc_patch_info, patchHdr, osal_sizeof(WMT_PATCH));
+3299: 
+3300: 	/* remove patch header:
+3301: 	 * |<-patch body: X Bytes (X=patchSize)--->|
+3302: 	 */
+3303: 	if (patchSize < sizeof(WMT_PATCH)) {
+3304: 		WMT_ERR_FUNC("error patch size\n");
+3305: 		iRet = -1;
+3306: 		goto done;
+3307: 	}
+3308: 	patchSize -= sizeof(WMT_PATCH);
+3309: 	pPatchBuf += sizeof(WMT_PATCH);
+3310: 
+3311: 	if (wmt_ic_ops_soc.icId == 0x6765 ||
+3312: 	    wmt_ic_ops_soc.icId == 0x3967 ||
+3313: 	    wmt_ic_ops_soc.icId == 0x6761 ||
+3314: 	    wmt_ic_ops_soc.icId == 0x6768 ||
+3315: 	    wmt_ic_ops_soc.icId == 0x6779 ||
+3316: 	    wmt_ic_ops_soc.icId == 0x6785 ||
+3317: 	    wmt_ic_ops_soc.icId == 0x8168) {
+3318: 		/* remove patch checksum:
+3319: 		 * |<-patch checksum: 2Bytes->|<-patch body: X Bytes (X=patchSize)--->|
+3320: 		 */
+3321: 		pPatchBuf += BCNT_PATCH_BUF_CHECKSUM;
+3322: 		patchSize -= BCNT_PATCH_BUF_CHECKSUM;
+3323: 	}
+3324: 
+3325: 	emiInfo = mtk_wcn_consys_soc_get_emi_phy_add();
+3326: 	if (!emiInfo) {
+3327: 		WMT_ERR_FUNC("get emi info fail!\n");
+3328: 		iRet = -1;
+3329: 		goto done;
+3330: 	}
+3331: 
+3332: 	if (emiInfo->pda_dl_patch_flag)
+3333: 		iRet = mtk_wcn_soc_pda_patch_dwn(pPatchBuf, patchSize, addressByte);
+3334: 	else
+3335: 		iRet = mtk_wcn_soc_normal_patch_dwn(pPatchBuf, patchSize, addressByte);
+3336: 
+3551: INT32 mtk_wcn_soc_rom_patch_dwn(UINT32 ip_ver, UINT32 fw_ver)
+3552: {
+3553: 	INT32 iRet = -1;
+3554: 	struct wmt_rom_patch *patchHdr = NULL;
+3555: 	PUINT8 pBuf = NULL;
+3556: 	PUINT8 pPatchBuf = NULL;
+3557: 	UINT32 patchSize;
+3558: 	UINT8 addressByte[4];
+3559: 	PINT8 cDataTime = NULL;
+3560: 	UINT16 u2HwVer = 0;
+3561: 	UINT16 u2SwVer = 0;
+3562: 	UINT32 u4PatchType = 0;
+3563: 	UINT32 type;
+3564: 	UINT32 patchEmiOffset;
+3565: 	PUINT8 patchAddr;
+3566: 	UINT32 patchBuildTimeOffset = 0;
+3567: 	PUINT8 patchBuildTimeAddr;
+3568: 	WMT_CTRL_DATA ctrlData;
+3569: 	P_CONSYS_EMI_ADDR_INFO emiInfo;
+3570: 
+3571: 	for (type = WMTDRV_TYPE_BT; type < WMTDRV_TYPE_ANT; type++) {
+3572: 		osal_memset(gFullPatchName, 0, osal_sizeof(gFullPatchName));
+3573: 
+3574: 		ctrlData.ctrlId = WMT_CTRL_GET_ROM_PATCH_INFO;
+3575: 		ctrlData.au4CtrlData[0] = type;
+3576: 		ctrlData.au4CtrlData[1] = (SIZE_T)&gFullPatchName;
+3577: 		ctrlData.au4CtrlData[2] = (SIZE_T)&addressByte;
+3578: 		ctrlData.au4CtrlData[3] = ip_ver;
+3579: 		ctrlData.au4CtrlData[4] = fw_ver;
+3580: 		iRet = wmt_ctrl(&ctrlData);
+3581: 		if (iRet > 0) {
+3582: 			WMT_INFO_FUNC("There is no need to download (%d) type patch!\n", type);
+3583: 			continue;
+3584: 		} else if (iRet < 0) {
+3585: 			WMT_ERR_FUNC("failed to get patch (type: %d, ret: %d)\n", type, iRet);
+3586: 			goto done;
+3587: 		}
+3588: 
+3589: 		/* <2.2> read patch content */
+3590: 		ctrlData.ctrlId = WMT_CTRL_GET_PATCH;
+3591: 		ctrlData.au4CtrlData[0] = (SIZE_T)NULL;
+3592: 		ctrlData.au4CtrlData[1] = (SIZE_T)&gFullPatchName;
+3593: 		ctrlData.au4CtrlData[2] = (SIZE_T)&pBuf;
+3594: 		ctrlData.au4CtrlData[3] = (SIZE_T)&patchSize;
+3595: 		iRet = wmt_ctrl(&ctrlData);
+3596: 		if (iRet) {
+3597: 			WMT_ERR_FUNC("wmt_core: WMT_CTRL_GET_PATCH fail:%d\n", iRet);
+3598: 			iRet = -1;
+3599: 			goto done;
+
+54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb:drivers/misc/mediatek/connectivity/source/common/common_main/platform/mt6755.c
+151: CONSYS_EMI_ADDR_INFO mtk_wcn_emi_addr_info = {
+152: 	.emi_phy_addr = CONSYS_EMI_FW_PHY_BASE,
+153: 	.paged_trace_off = CONSYS_EMI_PAGED_TRACE_OFFSET,
+154: 	.paged_dump_off = CONSYS_EMI_PAGED_DUMP_OFFSET,
+155: 	.full_dump_off = CONSYS_EMI_FULL_DUMP_OFFSET,
+156: 	.p_ecso = &mtk_wcn_emi_state_off,
+157: 	.emi_core_dump_offset = CONSYS_EMI_COREDUMP_OFFSET,
+158: };
+159: 
+160: WMT_CONSYS_IC_OPS consys_ic_ops = {
+161: 	.consys_ic_clock_buffer_ctrl = consys_clock_buffer_ctrl,
+162: 	.consys_ic_hw_reset_bit_set = consys_hw_reset_bit_set,
+163: 	.consys_ic_hw_spm_clk_gating_enable = consys_hw_spm_clk_gating_enable,
+164: 	.consys_ic_hw_power_ctrl = consys_hw_power_ctrl,
+165: 	.consys_ic_ahb_clock_ctrl = consys_ahb_clock_ctrl,
+166: 	.polling_consys_ic_chipid = polling_consys_chipid,
+167: 	.consys_ic_acr_reg_setting = consys_acr_reg_setting,
+168: 	.consys_ic_afe_reg_setting = consys_afe_reg_setting,
+169: 	.consys_ic_hw_vcn18_ctrl = consys_hw_vcn18_ctrl,
+170: 	.consys_ic_vcn28_hw_mode_ctrl = consys_vcn28_hw_mode_ctrl,
+171: 	.consys_ic_hw_vcn28_ctrl = consys_hw_vcn28_ctrl,
+172: 	.consys_ic_hw_wifi_vcn33_ctrl = consys_hw_wifi_vcn33_ctrl,
+173: 	.consys_ic_hw_bt_vcn33_ctrl = consys_hw_bt_vcn33_ctrl,
+174: 	.consys_ic_soc_chipid_get = consys_soc_chipid_get,
+175: 	.consys_ic_emi_mpu_set_region_protection = consys_emi_mpu_set_region_protection,
+176: 	.consys_ic_emi_set_remapping_reg = consys_emi_set_remapping_reg,
+177: 	.ic_bt_wifi_share_v33_spin_lock_init = bt_wifi_share_v33_spin_lock_init,
+178: 	.consys_ic_clk_get_from_dts = consys_clk_get_from_dts,
+179: 	.consys_ic_pmic_get_from_dts = consys_pmic_get_from_dts,
+180: 	.consys_ic_read_irq_info_from_dts = consys_read_irq_info_from_dts,
+181: 	.consys_ic_read_reg_from_dts = consys_read_reg_from_dts,
+182: 	.consys_ic_read_cpupcr = consys_read_cpupcr,
+183: 	.ic_force_trigger_assert_debug_pin = force_trigger_assert_debug_pin,
+184: 	.consys_ic_co_clock_type = consys_co_clock_type,
+185: 	.consys_ic_soc_get_emi_phy_add = consys_soc_get_emi_phy_add,
+186: 	.consys_ic_emi_coredump_remapping = consys_emi_coredump_remapping,
+187: 	.consys_ic_reset_emi_coredump = consys_reset_emi_coredump,
+188: };
+189: 
+190: /*******************************************************************************
+191: *                           P R I V A T E   D A T A
+192: ********************************************************************************
+193: */
+194: 
+195: /*******************************************************************************
+196: *                              F U N C T I O N S
+197: ********************************************************************************
+198: */
+199: UINT32 gJtagCtrl;
+200: #if CONSYS_ENALBE_SET_JTAG
+201: #define JTAG_ADDR1_BASE 0x10002000
+202: PINT8 jtag_addr1 = (PINT8)JTAG_ADDR1_BASE;
+203: #define JTAG1_REG_WRITE(addr, value)	\
+204: 	writel(value, ((PUINT32)(jtag_addr1+(addr-JTAG_ADDR1_BASE))))
+205: #define JTAG1_REG_READ(addr)			\
+206: 	readl(((PUINT32)(jtag_addr1+(addr-JTAG_ADDR1_BASE))))
+207: #endif
+208: 
+209: INT32 mtk_wcn_consys_jtag_set_for_mcu(VOID)
+210: {
+211: #if CONSYS_ENALBE_SET_JTAG
+212: 
+213: 	if (gJtagCtrl) {
+214: #if 0
+
+ef35f769d211a2942a6783410b58bd824dd363f9:mtdaemon.c
+1: #include <stdio.h>
+2: #include <stdlib.h>
+3: #include <string.h>
+4: #include <fcntl.h>
+5: #include <unistd.h>
+6: #include <limits.h>
+7: #include <errno.h>
+8: #include <signal.h>
+9: #include <pthread.h>
+10: #include <poll.h>
+11: #include <dirent.h>
+12: #include <sys/ioctl.h>
+13: 
+14: static const unsigned int VERSION_MAJOR = 0;
+15: static const unsigned int VERSION_MINOR = 1;
+16: 
+17: /* known (supported) chip IDs */
+18: /* 6620, 6628 and 6630 need further research */
+19: static int chipIDs[] = {
+20:     0x6571, 0x6572, 
+21:     0x6580, 0x6582, 
+22:     0x6592, 
+23:     0x6752, 0x6735, 
+24:     0x8127, 0x8163,
+25:     0x0321, 0x0335, 0x0337 // these are 0x6735
+26: };
+27: 
+28: typedef struct 
+29: {
+30:     int id;
+31:     const char* patch;
+32: } PatchEntry;
+33: 
+34: static PatchEntry patchNames[] = {
+35:     { 0x6571, "ROMv2_patch" },    { 0x6572, "ROMv1_patch" }, 
+36:     { 0x6580, "ROMv2_lm_patch" }, { 0x6582, "ROMv1_patch" }, 
+37:     { 0x6592, "ROMv1_patch" },
+38:     { 0x6752, "ROMv2_lm_patch" }, { 0x6735, "ROMv2_lm_patch" },
+39:     { 0x8127, "ROMv2_patch" },    { 0x8163, "ROMv2_lm_patch" }
+40: };
+41: static const int patchNamesSize = sizeof( patchNames ) / sizeof( PatchEntry );
+42: 
+43: static const char* WMT_DEVICE = "/dev/stpwmt";
+44: 
+45: static const char* DEFAULT_FIRMWARE_FOLDER = "/lib/firmware";
+46: 
+47: static const int POLLING_TIMEOUT = 2000; /* ms */
+48: 
+49: static const int MAX_COMMAND_LENGTH = NAME_MAX + 1;
+50: 
+51: typedef struct 
+52: {
+53:     const char* name;
+54:     int (*callback)();
+55: } CommandEntry;
+56: 
+57: /* drivers/misc/mediatek/connectivity/common/common_main/core/wmt_ctrl.c */
+58: int search_patch_callback();
+59: 
+60: static CommandEntry commandLookup[] = {
+61:     { "srh_patch", search_patch_callback }
+62: };
+63: static const int commandLookupSize = sizeof( commandLookup ) / sizeof( CommandEntry );
+64: 
+65: /* drivers/misc/mediatek/connectivity/common/common_main/linux/include/wmt_dev.h */
+66: enum STP_MODE
+67: {
+68:     UART_FULL = 0x01,
+69:     UART_MAND = 0x02,
+70:     BTIF_FULL = 0x03,
+71:     SDIO = 0x04
+72: };
+73: 
+74: enum FM_MODE
+75: {
+76:     I2C     = 0x01,
+77:     COMM_IF = 0x02
+78: };
+79: 
+80: /* drivers/misc/mediatek/connectivity/common/common_main/core/include/wmt_lib.h */
+81: typedef struct
+82: {
+83:     unsigned int downloadSeq;
+84:     char address[ 4 ];
+85:     char patchName[ 256 ];
+86: } WMT_PATCH_INFO;
+87: 
+88: /* ioctl commands */
+89: /* drivers/misc/mediatek/connectivity/common/common_main/linux/wmt_dev.c */
+90: #define WMT_IOCTL_SET_PATCH_NAME        _IOW(0xA0, 4, char*)
+91: #define WMT_IOCTL_SET_STP_MODE          _IOW(0xA0, 5, int)
+92: #define WMT_IOCTL_LPBK_POWER_CTRL       _IOW(0xA0, 7, int)
+93: #define WMT_IOCTL_GET_CHIP_INFO         _IOR(0xA0, 12, int)
+94: #define WMT_IOCTL_SET_LAUNCHER_KILL     _IOW(0xA0, 13, int)
+95: #define WMT_IOCTL_SET_PATCH_NUM         _IOW(0xA0, 14, int)
+96: #define WMT_IOCTL_SET_PATCH_INFO        _IOW(0xA0, 15, char*)
+97: #define WMT_IOCTL_WMT_QUERY_CHIPID      _IOR(0xA0, 22, int)
+98: 
+99: #define LOG_TAG "[mtdaemon]"
+100: #define LOG_DEBUG( fmt, ... )   fprintf( stdout, LOG_TAG "[dbg] " fmt "\n", ##__VA_ARGS__ )
+101: #define LOG_INFO( fmt, ... )    fprintf( stdout, LOG_TAG "[inf] " fmt "\n", ##__VA_ARGS__ )
+102: #define LOG_ERROR( fmt, ... )   fprintf( stderr, LOG_TAG "[err] " fmt "\n", ##__VA_ARGS__ )
+103: 
+104: /* globals are bad */
+105: static volatile sig_atomic_t running = 1;
+106: static int wmtFD = -1;
+107: char firmwareFolder[ PATH_MAX + 1 ] = { 0 };
+108: 
+109: static void signalHandler( int signal )
+110: {
+111:     ioctl( wmtFD, WMT_IOCTL_SET_LAUNCHER_KILL, 1 );
+112:     running = 0;
+113: }
+114: 
+115: void setupSignalHandlers()
+116: {
+117:     struct sigaction sa;
+118:     
+119:     memset( &sa, 0x00, sizeof( sa ) );
+120:     sa.sa_flags = SA_NOCLDSTOP;
+121:     sa.sa_handler = SIG_IGN;
+122:     sigaction( SIGCHLD, &sa, NULL );
+123:     sigaction( SIGPIPE, &sa, NULL );
+124:     sigaction( SIGHUP, &sa, NULL );
+125: 
+126:     sa.sa_handler = signalHandler;
+127:     sigaction( SIGTERM, &sa, NULL );
+128:     sigaction( SIGINT, &sa, NULL );    
+129: }
+130: 
+131: /* return the apropriate chip ID or -1 if unknown */
+132: int validateChipID( int chipID )
+133: {
+134:     int properChipID = -1;
+135: 
+136:     for ( int i = 0; i < sizeof( chipIDs ) / sizeof( int ); i++ )
+137:     {
+138:         if ( chipID == chipIDs[ i ] )
+139:         {
+140:             properChipID = chipID;
+141:             break;
+142:         }
+143:     }
+144: 
+145:     switch( properChipID )
+146:     {
+147:         case 0x0321:
+148:         case 0x0335:
+149:         case 0x0337:
+150:             properChipID = 0x6735;
+151:             break;
+152:         default:
+153:             break;
+154:     }
+155: 
+156:     return properChipID;
+157: }
+158: 
+159: void* powerOn( void* arg )
+160: {
+161:     /* turn off the chip first in case its already on s*/
+162:     ioctl( wmtFD, WMT_IOCTL_LPBK_POWER_CTRL, 0 );
+163: 
+164:     /* this triggers the driver to send commands to the main thread */
+165:     LOG_INFO( "trying to power on the chip" );
+166:     if ( ioctl( wmtFD, WMT_IOCTL_LPBK_POWER_CTRL, 1 ) )
+167:     {
+168:         /* if the commands fail then the chip fails to power on */
+169:         ioctl( wmtFD, WMT_IOCTL_LPBK_POWER_CTRL, 0 );
+170:         LOG_ERROR( "failed to power on the chip" );
+171:     }
+172:     else
+173:     {
+174:         LOG_INFO( "chip powered on!" );
+175:     }
+176: 
+177:     return NULL;
+178: }
+179: 
+180: int search_patch_callback()
+181: {
+182:     int chipID = ioctl( wmtFD, WMT_IOCTL_GET_CHIP_INFO, 0 );
+183:     int hardwareVersion = ioctl( wmtFD, WMT_IOCTL_GET_CHIP_INFO, 1 );
+184:     int firmwareVersion = ioctl( wmtFD, WMT_IOCTL_GET_CHIP_INFO, 2 );
+185: 
+186:     /* assume its valid at this point */
+187:     int properChipID = validateChipID( chipID );
+188: 
+189:     LOG_INFO( "chip ID: 0x%04x (0x%04x) hardware: 0x%04x firmware: 0x%04x", properChipID, chipID, hardwareVersion, firmwareVersion );
+190: 
+191:     const char* patchName = NULL;
+192:     for( int i = 0; i < patchNamesSize; i++ )
+193:     {
+194:         if ( patchNames[ i ].id == properChipID )
+195:         {
+196:             patchName = patchNames[ i ].patch;
+197:         }
+198:     }
+199: 
+200:     if ( patchName == NULL )
+201:     {
+202:         /* this shouldnt happen if both chip and patch arrays are in sync */
+203:         LOG_ERROR( "patch filename for chip ID is not set", properChipID );
+204:         return -2;
+205:     }
+206: 
+207:     LOG_INFO( "checking folder: %s", firmwareFolder );
+208: 
+209:     /* search the specified folder and locate the firmware files */
+210:     if ( access( firmwareFolder, F_OK ) )
+211:     {
+212:         LOG_ERROR( "folder not found: %s", firmwareFolder );
+213:         return -1;
+214:     }
+215: 
+216:     if ( access( firmwareFolder, R_OK ) )
+217:     {
+218:         LOG_ERROR( "insufficient read/write permission to access %s", firmwareFolder );
+219:         return -1;
+220:     }
+221: 
+222:     DIR* folder = opendir( firmwareFolder );
+223:     if ( folder == NULL )
+224:     {
+225:         LOG_ERROR( "failed to open %s", firmwareFolder );
+226:         LOG_ERROR( "errno: %d %s", errno, strerror( errno ) );
+227:         return -1;
+228:     }
+229: 
+230:     /* SET_PATCH_NUM needs to be called only once */
+231:     int patchNumberSet = 0;
+232:     unsigned int totalPatches = 0;
+233:     unsigned int setPatches = 0;
+234: 
+235:     struct dirent* entry = NULL;
+236:     while( ( entry = readdir( folder ) ) != NULL )
+237:     {
+238:         /* check all files starting with the expected patch name */
+239:         if ( !strncmp( entry->d_name, patchName, strlen( patchName ) ) )
+240:         {
+241:             /* build full path to the file */
+242:             char filePath[ PATH_MAX + 1 ];
+243:             memset( filePath, 0x00, sizeof( filePath ) );
+244: 
+245:             strncpy( filePath, firmwareFolder, PATH_MAX );
+246:             if ( filePath[ strlen( filePath ) ] != '/')
+247:             {
+248:                 strncat( filePath, "/", PATH_MAX - strlen( filePath ) );
+249:             }
+250:             strncat( filePath, entry->d_name, PATH_MAX - strlen( filePath ) );
+251: 
+252:             LOG_INFO( "checking patch file: %s", filePath );
+253: 
+254:             int patchFD = open( filePath, O_RDONLY );
+255:             if ( patchFD == -1 )
+256:             {
+257:                 LOG_ERROR( "failed to open file: %s", filePath );
+258:                 LOG_ERROR( "errno: %d %s", errno, strerror( errno ) );
+259:                 continue;
+260:             }
+261: 
+262:             /* read patch header and verify that the firmware version matches */
+263:             if ( lseek( patchFD, 22, SEEK_SET ) < 0 )
+264:             {
+265:                 LOG_ERROR( "failed to seek patch header" );
+266:                 LOG_ERROR( "errno: %d %s", errno, strerror( errno ) );
+267:                 close( patchFD );
+268:                 continue;
+269:             }
+270: 
+271:             unsigned short patchVersion = 0;
+272:             if ( read( patchFD, ( void* )&patchVersion, sizeof( patchVersion ) ) < sizeof( patchVersion ) )
+273:             {
+274:                 //error
+275:                 close( patchFD );
+276:                 continue;
+277:             }
+278: 
+279:             /* chip firmware version is big endian and patch file is little endian */
+280:             unsigned char chipFWMajor = ( firmwareVersion >> 8 ) & 0xFF;
+281:             unsigned char chipFWMinor = firmwareVersion & 0xFF;
+282:             unsigned char fileFWMajor = patchVersion & 0xFF;
+283:             unsigned char fileFWMinor = ( patchVersion >> 8 ) & 0xFF;
+284: 
+285:             patchVersion = ( ( unsigned short )fileFWMajor << 8 ) | fileFWMinor;
+286:             LOG_INFO( "patch version: 0x%04x", patchVersion );
+287: 
+288:             /* FIXME is it required to match both major and minor versions? */
+289:             if ( ( chipFWMajor == fileFWMajor ) && ( chipFWMinor == fileFWMinor ) )
+290:             {
+291:                 WMT_PATCH_INFO patchInfo;
+292:                 if ( read( patchFD, patchInfo.address, sizeof( patchInfo.address ) ) < sizeof( patchInfo.address ) )
+293:                 {
+294:                     // error
+295:                 }
+296: 
+297:                 /* tell the driver how many patches there are, then push them one by one */
+298:                 if ( !patchNumberSet )
+299:                 {    
+300:                     totalPatches = ( patchInfo.address[ 0 ] & 0xF0 ) >> 4;
+301:                     ioctl( wmtFD, WMT_IOCTL_SET_PATCH_NUM, totalPatches );
+302:                     LOG_INFO( "total number of patches: %u", totalPatches );
+303:                     patchNumberSet = 1;
+304:                 }
+305: 
+306:                 patchInfo.downloadSeq = patchInfo.address[ 0 ] & 0x0F;
+307:                 LOG_INFO( "patch file sequence: %u/%u", patchInfo.downloadSeq, totalPatches );
+308: 
+309:                 patchInfo.address[ 0 ] = 0x00; /* remove sequence data */
+310: 
+311:                 /* 
+312:                     FIXME on Android the full path is copied, but Linux needs the relative path
+313:                     from its defined firmware folder. So is it fine this way?
+314:                  */
+315:                 strncpy( patchInfo.patchName, entry->d_name, sizeof( patchInfo.patchName ) );
+316:                 ioctl( wmtFD, WMT_IOCTL_SET_PATCH_INFO, &patchInfo );
+317:                 setPatches++;
+318:             }
+319: 
+320:             close( patchFD );
+321:         }
+322:     }
+323:     closedir( folder );
+324:     
+325:     if ( patchNumberSet )
+326:     {
+327:         if ( setPatches != totalPatches )
+328:         {
+329:             LOG_ERROR( "number of set patches differs from the expected: %u of %u", setPatches, totalPatches );
+330:             return -3;
+331:         }
+332: 
+333:         LOG_INFO( "patches set: %u of %u", setPatches, totalPatches );
+334:     }
+335:     else
+336:     {
+337:         LOG_ERROR( "no firmware files found" );
+338:         return -3;
+339:     }
+340: 
+341:     return 0;
+342: }
+343: 
+344: int main( int argc, char* argv[] )
+345: {
+346:     LOG_INFO( "Open MT Tools - mtdaemon v%u.%u", VERSION_MAJOR, VERSION_MINOR );
+347: 
+348:     strncpy( firmwareFolder, DEFAULT_FIRMWARE_FOLDER, PATH_MAX );
+349: 
+350:     int stpMode = BTIF_FULL;
+351:     int fmMode = COMM_IF;
+352: 
+353:     /* process parameters */
+354:     /* FIXME n, d, b and c are missing */
+355:     const char* parameters = "m:p:n:d:b:c:?";
+356:     opterr = 0; /* disable error messages */
+357:     int parameter = -1;
+358:     do {
+359:         switch( parameter )
+360:         {
+361:             case -1: break;
+362:             
+363:             case 'p': /* custom firmware folder path */
+364:                 strncpy( firmwareFolder, optarg, PATH_MAX );
+365:                 break;
+366:             case 'm': /* STP mode */
+367:                 stpMode = atoi( optarg );
+368:                 break;
+369:             case '?': /* usage */
+370:                 LOG_INFO( "usage: mtdaemon [-m <stp mode>] [-p <firmware folder path>] ");
+371:                 return 0;
+372:             break;
+373:             default:
+374:                 LOG_ERROR( "option %c is not implemented (yet)", (char)parameter );
+375:         }
+376:         parameter = getopt( argc, argv, parameters );
+377:     } while( parameter != -1 );
+378: 
+379:     LOG_INFO( "initialization started" );
+380: 
+381:     /* find and open the WMT device */
+382:     if ( access( WMT_DEVICE, F_OK ) )
+383:     {
+384:         LOG_ERROR( "WMT device not found: %s", WMT_DEVICE );
+385:         return 0;
+386:     }
+387: 
+388:     if ( access( WMT_DEVICE, R_OK | W_OK ) )
+389:     {
+390:         LOG_ERROR( "insufficient read/write permission to access %s", WMT_DEVICE );
+391:         return 0;
+392:     }
+393: 
+394:     wmtFD = open( WMT_DEVICE, O_RDWR | O_NOCTTY );
+395:     if ( wmtFD < 0 )
+396:     {
+397:         LOG_ERROR( "failed to open %s", WMT_DEVICE );
+398:         LOG_ERROR( "errno: %d %s", errno, strerror( errno ) );
+399:         return -1;
+400:     }
+401: 
+402:     LOG_INFO( "WMT device open: %s", WMT_DEVICE );
+403: 
+404:     /* retrieve and validate chip ID */
+405:     int chipID = ioctl( wmtFD, WMT_IOCTL_WMT_QUERY_CHIPID, NULL );
+406:     int properChipID = validateChipID( chipID );
+407: 
+408:     if ( properChipID == -1 )
+409:     {
+410:         LOG_ERROR( "unknown chip ID. this code may need some updates" );
+411:         close( wmtFD );
+412:         return 0;
+413:     }
+414: 
+415:     LOG_INFO( "the chip ID is 0x%04x (0x%04x)", properChipID, chipID );
+416: 
+417:     /* reset patch name */
+418:     char patchName[ NAME_MAX + 1 ];
+419:     memset( patchName, 0x00, sizeof( patchName ) );
+420:     ioctl( wmtFD, WMT_IOCTL_SET_PATCH_NAME, patchName );
+421:     
+422:     /* TODO: UART mode is not supported yet */
+423:     if ( stpMode != BTIF_FULL )
+424:     {
+425:         LOG_ERROR( "mode %d is not implemented (yet)", stpMode );
+426:         close( wmtFD );
+427:         return 0;
+428:     }
+429: 
+430:     int mode = ( ( fmMode & 0x0F ) << 4 ) | ( stpMode & 0x0F );
+431:     ioctl( wmtFD, WMT_IOCTL_SET_STP_MODE, mode );
+432:     
+433:     ioctl( wmtFD, WMT_IOCTL_SET_LAUNCHER_KILL, 0);
+434: 
+435:     setupSignalHandlers();
+436: 
+437:     LOG_INFO( "initialization finished" );
+438: 
+439:     /* 
+440:         command loop needs to execute while the power ioctl blocks,
+441:         so they cannot run synchronously
+442:     */
+443:     pthread_t powerThread;
+444:     if ( pthread_create( &powerThread, NULL, powerOn, NULL ) )
+445:     {
+446:         LOG_ERROR( "failed to create secondary thread" );
+447:     }
+448:     

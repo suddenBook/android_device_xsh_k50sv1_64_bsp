@@ -1,0 +1,26 @@
+{
+  "scope": "Offline Tier-1 four-image build and static inspection; no flash, target execution or performance measurement",
+  "project_root": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project",
+  "stage_path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/tier1-candidate",
+  "build_command": "K50SV1_BUILD_TIER=1 K50_BUILD_JOBS=32 ./work/k50sv1-bringup/tools/run-lineage-build.sh",
+  "command_workdir": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/project",
+  "build_exit_code": 0,
+  "clean_output": true,
+  "full_build_log": {
+    "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/android-build.log",
+    "bytes": 19009770,
+    "sha256": "63bd867abce161e004ee8fc7365f67622d45df56cd240aabae61c4600e41f0fe"
+  },
+  "kernel_baseline_bytes": 7356726,
+  "kernel_candidate_bytes": 7551588,
+  "kernel_growth_bytes": 194862,
+  "boot_partition_bytes": 16777216,
+  "boot_image_bytes": 8432936,
+  "recovery_partition_bytes": 16777216,
+  "recovery_image_bytes": 14763308,
+  "recovery_spare_bytes": 2013908,
+  "inspection_method": "unpack_bootimg; gzip/newc CPIO parsing; simg2img and debugfs for vendor fstab; readelf for actual recovery AArch64 PT_INTERP and recursive DT_NEEDED entries",
+  "inspection_results": "inspection.json",
+  "receipts_are_unmodified_copies": true,
+  "image_binaries_retained_in_stage_only": true
+}

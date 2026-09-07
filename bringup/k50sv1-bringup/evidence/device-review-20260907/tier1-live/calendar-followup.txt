@@ -1,0 +1,4 @@
+First launch requested WRITE_EXTERNAL_STORAGE for Calendar export/import.
+Accepted the visible runtime permission prompt after waking/unlocking the display.
+    mResumedActivity: ActivityRecord{a5eead9 u0 org.lineageos.etar/com.android.calendar.AllInOneActivity t33}
+PASS Calendar resumed

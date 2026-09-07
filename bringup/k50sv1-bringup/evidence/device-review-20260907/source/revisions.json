@@ -1,0 +1,68 @@
+{
+  "device": {
+    "base": "c270801a1f214b3c56b16efda5742eb0947b0c37",
+    "candidate": "a76fb0bb3296065a879b378cfbd71c9c8792f6e9",
+    "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/device-review-20260907/device",
+    "patches": [
+      "0001-init-give-wfca-the-AOSP-wakelock-group-for-sysfs-acc.patch",
+      "0002-sepolicy-label-physical-WLAN-network-attributes-with.patch",
+      "0003-sepolicy-correct-wfca-credential-and-DAC-diagnosis-c.patch",
+      "0004-sepolicy-permit-audio-capture-worker-scheduling.patch",
+      "0005-init-own-modem-RIL-sockets-and-omit-unused-endpoints.patch",
+      "0006-device-install-the-owned-modem-RIL-init-configuratio.patch",
+      "0007-ril-reserve-timed-out-replay-tokens-until-vendor-com.patch",
+      "0008-ril-isolate-modem-implementation-version-in-vendor-n.patch",
+      "0009-sepolicy-allow-Power-HAL-to-verify-camera-hint-owner.patch",
+      "0010-sepolicy-distinguish-service-discovery-from-Java-acc.patch",
+      "0011-power-let-hint-owner-checks-see-live-proc-directorie.patch",
+      "0012-ril-remove-obsolete-blob-fixup-for-source-owned-init.patch",
+      "0013-sepolicy-document-the-GED-driver-requirement-for-ioc.patch",
+      "0014-sepolicy-document-isolated-modem-version-diagnostics.patch",
+      "0015-sepolicy-correct-the-observed-fuel-gauge-socket-prot.patch",
+      "0016-camera-constrain-IMX145-still-sizes-to-the-native-re.patch",
+      "0017-sepolicy-authorize-camera-EGL-GPU-and-configstore-ac.patch",
+      "0018-fstab-exclude-calibration-stores-from-vold-trim-in-e.patch",
+      "0019-camera-trim-oversized-GC5025-picture-entry-during-ex.patch",
+      "0020-ims-authorize-WFO-Binder-transactions-with-phone-per.patch",
+      "0021-ims-document-the-WFO-permission-boundary-and-service.patch",
+      "0022-fstab-keep-comments-focused-on-current-storage-polic.patch",
+      "0023-camera-omit-picture-modes-with-mismatched-JPEG-dimen.patch",
+      "0024-ims-require-phone-permissions-for-mtkIms-transaction.patch",
+      "0025-ims-document-both-service-entry-permission-checks.patch",
+      "0026-sepolicy-distinguish-production-modem-controls-from-.patch",
+      "0027-init-describe-current-connectivity-readiness-depende.patch",
+      "0028-Preserve-signed-APKs-and-install-bundled-JNI-separat.patch"
+    ]
+  },
+  "vendor": {
+    "base": "2fafa3bef7124ae951b816b98cc5698cd5f6bd33",
+    "candidate": "65d72117206b01190b39b1963038483a3499d7f4",
+    "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/device-review-20260907/vendor",
+    "patches": [
+      "0001-vendor-stop-extracting-the-superseded-modem-RIL-init.patch",
+      "0002-vendor-regenerate-modem-RIL-implementation-property-.patch",
+      "0003-ril-refresh-extraction-checksums-for-source-owned-se.patch",
+      "0004-camera-apply-the-IMX145-native-picture-size-limit.patch",
+      "0005-camera-regenerate-parameter-blob-with-native-front-p.patch",
+      "0006-ims-regenerate-WFO-jar-with-Binder-permission-checks.patch",
+      "0007-camera-drop-the-two-JPEG-size-mismatches-from-parame.patch",
+      "0008-ims-regenerate-service-APK-with-mtkIms-authorization.patch"
+    ]
+  },
+  "kernel": {
+    "base": "4192fb6ae88e057bb2abb0f464cf6b4cb64697de",
+    "candidate": "ef8238aca4c6f3d3eba764313320e30b24250e4e",
+    "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/device-review-20260907/kernel",
+    "patches": [
+      "0001-power-make-current_cmd-reads-report-status-without-s.patch",
+      "0002-power-release-seq_file-allocations-for-battery-comma.patch",
+      "0003-ged-bind-bridge-dispatch-to-the-authorized-ioctl-com.patch",
+      "0004-media-restore-IMX145-BU6424AF-selection-and-propagat.patch",
+      "0005-Restore-K50-MT6353-ISINK-flash-and-serialize-timeout.patch",
+      "0006-media-report-BU6424AF-shutdown-transfer-failures.patch",
+      "0007-flashlight-declare-the-platform-device-in-the-public.patch",
+      "0008-flashlight-reject-incomplete-arguments-and-clear-cal.patch",
+      "0009-wmt-drain-connectivity-callbacks-before-final-power-.patch"
+    ]
+  }
+}

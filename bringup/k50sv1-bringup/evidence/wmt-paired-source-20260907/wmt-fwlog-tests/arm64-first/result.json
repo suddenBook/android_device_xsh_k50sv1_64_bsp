@@ -1,0 +1,15 @@
+{
+  "source": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-fwlog-kernel-work/drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dbg.c",
+  "source_sha256": "117849622ef70cd56a1b27be5bccb89b735bacb3099adee26c40827014b04827",
+  "retained_command": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/kernel-obj-build14-snapshot/drivers/misc/mediatek/connectivity/source/common/common_main/linux/.wmt_dbg.o.cmd",
+  "retained_command_sha256": "59cf2989d7fff9087ae1f1eb70c22b9db6d16c1993c41991eeb2d54bec42d10a",
+  "snapshot_config_sha256": "ac35f0a14387ac96ae2955e6cde3747bd2dfa3cbc8a252cb5bcd68739b73c12a",
+  "command_sha256": "cc7ff00777183ae05303252df1486aebc32ab4dcc04ce08f1b3c6b9afb144d7a",
+  "cwd": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-fwlog-tests/arm64-first",
+  "compiler": "real-aarch64-linux-android-gcc (GCC) 4.9.x 20150123 (prerelease)\nCopyright (C) 2014 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "returncode": 0,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "object_sha256": "26143a1aa38ea94e33218d8ef2734507ab8705e6f7153b659eec65726c77b0f9",
+  "full_kernel_build": false
+}

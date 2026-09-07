@@ -1,0 +1,11 @@
+[ 1542.200438] (0)[233:hps_main][HPS] END :(0200)(4)(0) action end(147)(145)(0)(1) (4)(0)(1)(0) (147)(1)(1) (147)(1)(0) (0)(145)(1)(0)(145) (0)(2)(0)
+[ 1542.230936] (1)[9193:cat][STP-PSM] [I]_stp_psm_do_wait: STP is waiting state for ACT, i=1, state = 2
+[ 1542.256230] (1)[9193:cat][STP-PSM] [I]_stp_psm_do_wait: +Total waits for ACT takes 25298 usec
+[ 1542.259641] (0)[9193:cat][HIF-SDIO][I]wmt_dev_tm_temp_query:[Thermal] current_temp = 0x25
+[ 1542.278536] (0)[233:hps_main][HPS] END :(0200)(2)(0) action end(47)(49)(0)(1) (4)(0)(1)(0) (148)(2)(2) (47)(2)(0) (0)(49)(2)(0)(49) (0)(1)(0)
+[ 1542.356575] -(1)[0:swapper/1]Detected VIPT I-cache on CPU1
+[ 1542.357466] (1)[233:hps_main][HPS] END :(0020)(1)(0) action end(100)(132)(0)(1) (4)(0)(1)(0) (97)(1)(1) (0)(0)(0) (1)(132)(2)(0)(132) (0)(2)(0)
+[ 1542.396589] -(2)[0:swapper/2]Detected VIPT I-cache on CPU2
+[ 1542.397744] -(3)[0:swapper/3]Detected VIPT I-cache on CPU3
+[ 1542.398639] (0)[233:hps_main][HPS] END :(0020)(2)(0) action end(199)(311)(0)(1) (4)(0)(1)(0) (0)(0)(0) (0)(0)(0) (1)(311)(1)(0)(311) (0)(4)(0)
+[ 1542.538195] (2)[286:hwservicemanage]binder: 286:286 ioctl c018620c 7fd52e2480 returned -22

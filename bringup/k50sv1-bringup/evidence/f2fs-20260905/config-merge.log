@@ -1,0 +1,57 @@
+Using arch/arm64/configs/k50sv1_64_bsp_stock_defconfig as base
+Merging arch/arm64/configs/k50sv1_64_bsp_source.fragment
+Value of CONFIG_FRAME_WARN is redefined by fragment arch/arm64/configs/k50sv1_64_bsp_source.fragment:
+Previous value: CONFIG_FRAME_WARN=1600
+New value: CONFIG_FRAME_WARN=1700
+
+Value of CONFIG_CUSTOM_KERNEL_LCM is redefined by fragment arch/arm64/configs/k50sv1_64_bsp_source.fragment:
+Previous value: CONFIG_CUSTOM_KERNEL_LCM="ft8057s_inx_hdplus1560 ilip6h87_dsi_vdo_hdplus1560 ft8057s_ivo_hdplus1560"
+New value: CONFIG_CUSTOM_KERNEL_LCM="ft8057s_inx_hdplus1560"
+
+Value of CONFIG_CUSTOM_KERNEL_ALSPS is redefined by fragment arch/arm64/configs/k50sv1_64_bsp_source.fragment:
+Previous value: CONFIG_CUSTOM_KERNEL_ALSPS=y
+New value: # CONFIG_CUSTOM_KERNEL_ALSPS is not set
+
+Value of CONFIG_CUSTOM_KERNEL_IMGSENSOR is redefined by fragment arch/arm64/configs/k50sv1_64_bsp_source.fragment:
+Previous value: CONFIG_CUSTOM_KERNEL_IMGSENSOR="imx145_mipi_raw sp2508_mipi_raw ov5670_mipi_raw imx135_mipi_raw gc2355_mipi_raw gc5025main_mipi_raw gc5025_mipi_raw imx278_mipi_raw s5k5e2ya_mipi_raw gc2235_mipi_raw"
+New value: CONFIG_CUSTOM_KERNEL_IMGSENSOR="imx145_mipi_raw gc5025_mipi_raw"
+
+Value of CONFIG_MTK_LENS_DUMMYLENS_SUPPORT is redefined by fragment arch/arm64/configs/k50sv1_64_bsp_source.fragment:
+Previous value: CONFIG_MTK_LENS_DUMMYLENS_SUPPORT=y
+New value: # CONFIG_MTK_LENS_DUMMYLENS_SUPPORT is not set
+
+Value of CONFIG_MTK_LENS_AD5820AF_SUPPORT is redefined by fragment arch/arm64/configs/k50sv1_64_bsp_source.fragment:
+Previous value: CONFIG_MTK_LENS_AD5820AF_SUPPORT=y
+New value: # CONFIG_MTK_LENS_AD5820AF_SUPPORT is not set
+
+Value of CONFIG_MTK_LENS_BU6424AF_SUPPORT is redefined by fragment arch/arm64/configs/k50sv1_64_bsp_source.fragment:
+Previous value: CONFIG_MTK_LENS_BU6424AF_SUPPORT=y
+New value: # CONFIG_MTK_LENS_BU6424AF_SUPPORT is not set
+
+Value of CONFIG_MTK_LENS_BU6429AF_SUPPORT is redefined by fragment arch/arm64/configs/k50sv1_64_bsp_source.fragment:
+Previous value: CONFIG_MTK_LENS_BU6429AF_SUPPORT=y
+New value: # CONFIG_MTK_LENS_BU6429AF_SUPPORT is not set
+
+Value of CONFIG_MTK_LENS_DW9714AF_SUPPORT is redefined by fragment arch/arm64/configs/k50sv1_64_bsp_source.fragment:
+Previous value: CONFIG_MTK_LENS_DW9714AF_SUPPORT=y
+New value: # CONFIG_MTK_LENS_DW9714AF_SUPPORT is not set
+
+Value of CONFIG_MTK_LENS_LC898212AF_SUPPORT is redefined by fragment arch/arm64/configs/k50sv1_64_bsp_source.fragment:
+Previous value: CONFIG_MTK_LENS_LC898212AF_SUPPORT=y
+New value: # CONFIG_MTK_LENS_LC898212AF_SUPPORT is not set
+
+Value of CONFIG_MTK_LENS_LC898214AF_SUPPORT is redefined by fragment arch/arm64/configs/k50sv1_64_bsp_source.fragment:
+Previous value: CONFIG_MTK_LENS_LC898214AF_SUPPORT=y
+New value: # CONFIG_MTK_LENS_LC898214AF_SUPPORT is not set
+
+Value of CONFIG_GATOR is redefined by fragment arch/arm64/configs/k50sv1_64_bsp_source.fragment:
+Previous value: CONFIG_GATOR=m
+New value: # CONFIG_GATOR is not set
+
+Value of CONFIG_F2FS_FS is redefined by fragment arch/arm64/configs/k50sv1_64_bsp_source.fragment:
+Previous value: # CONFIG_F2FS_FS is not set
+New value: CONFIG_F2FS_FS=y
+
+#
+# merged configuration written to /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/kernel-out/.config (needs make)
+#

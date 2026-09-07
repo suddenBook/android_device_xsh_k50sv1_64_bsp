@@ -1,0 +1,444 @@
+54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb:drivers/thermal/thermal_core.c:421
+int thermal_zone_get_temp(struct thermal_zone_device *tz, unsigned long *temp)
+{
+	int ret = -EINVAL;
+#ifdef CONFIG_THERMAL_EMULATION
+	int count;
+	unsigned long crit_temp = -1UL;
+	enum thermal_trip_type type;
+#endif
+
+	if (!tz || IS_ERR(tz) || !tz->ops->get_temp)
+		goto exit;
+
+	mutex_lock(&tz->lock);
+
+	ret = tz->ops->get_temp(tz, temp);
+#ifdef CONFIG_THERMAL_EMULATION
+	if (!tz->emul_temperature)
+		goto skip_emul;
+
+	for (count = 0; count < tz->trips; count++) {
+		ret = tz->ops->get_trip_type(tz, count, &type);
+		if (!ret && type == THERMAL_TRIP_CRITICAL) {
+			ret = tz->ops->get_trip_temp(tz, count, &crit_temp);
+			break;
+		}
+	}
+
+	if (ret)
+		goto skip_emul;
+
+	if (*temp < crit_temp)
+		*temp = tz->emul_temperature;
+skip_emul:
+#endif
+	mutex_unlock(&tz->lock);
+exit:
+	return ret;
+}
+
+54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb:drivers/thermal/thermal_core.c:536
+temp_show(struct device *dev, struct device_attribute *attr, char *buf)
+{
+	struct thermal_zone_device *tz = to_thermal_zone(dev);
+	long temperature;
+	int ret;
+
+	ret = thermal_zone_get_temp(tz, &temperature);
+
+	if (ret)
+		return ret;
+
+	return sprintf(buf, "%ld\n", temperature);
+}
+
+54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb:drivers/misc/mediatek/thermal/mtk_thermal_monitor.c:1791
+static int mtk_thermal_wrapper_get_temp
+(struct thermal_zone_device *thermal, unsigned long *temperature) {
+	int ret = 0;
+	struct thermal_zone_device_ops *ops;
+	int nTemperature;
+	unsigned long raw_temp = 0;
+#if MTK_THERMAL_MONITOR_MEASURE_GET_TEMP_OVERHEAD
+	long int t = _get_current_time_us();
+	long int dur = 0;
+#endif
+
+	ops = getClientZoneOps(thermal);
+
+	if (!ops) {
+		THRML_ERROR_LOG("[.get_temp] tz: %s unregistered.\n", thermal->type);
+		return 1;
+	}
+#ifndef CONFIG_MTK_THERMAL_EXT_CONTROL
+	if (ops->get_temp)
+		ret = ops->get_temp(thermal, &raw_temp);
+#else
+	if (mtk_thermal_ext_get_temp(thermal, &raw_temp) < 0) {
+		if (ops->get_temp)
+			ret = ops->get_temp(thermal, &raw_temp);
+	}
+#endif
+
+	nTemperature = (int)raw_temp;	/* /< Long cast to INT. */
+
+
+#if defined(CONFIG_MTK_THERMAL_TIME_BASE_PROTECTION)
+	/* if batt temp raw data < 60C, release wake lock */
+	if ((tz_last_values[MTK_THERMAL_SENSOR_BATTERY] != NULL) &&	/* batt TZ is registered */
+	    (&(thermal->temperature) == tz_last_values[MTK_THERMAL_SENSOR_BATTERY])) {	/* get batt temp this time */
+		if (wake_lock_active(&mtm_wake_lock)) {
+			nTemperature = mtk_thermal_force_get_batt_temp() * 100;
+			raw_temp = nTemperature;
+			THRML_ERROR_LOG("[.get_temp] tz: %s wake_lock_active() batt temp=%d\n",
+					thermal->type, nTemperature);
+		}
+
+		if (nTemperature < 59000 && wake_lock_active(&mtm_wake_lock)) {
+			/* unlock when only batt temp below 60C */
+			THRML_ERROR_LOG("[.get_temp] tz: %s wake_unlock()\n", thermal->type);
+			wake_unlock(&mtm_wake_lock);
+		}
+
+		last_batt_raw_temp = nTemperature;
+	}
+#endif
+
+	if (0 == ret) {
+		*temperature = _mtkthermal_update_and_get_sma(thermal->devdata, raw_temp);
+		/* No strong type cast... */
+	} else {
+		THRML_ERROR_LOG("[.get_temp] tz: %s invalid temp\n", thermal->type);
+		*temperature = nTemperature;
+	}
+
+	/* Monitor Temperature to StoreLogger */
+	THRML_STORAGE_LOG(THRML_LOGGER_MSG_ZONE_TEMP, get_temp, thermal->type, (int)*temperature);
+	THRML_LOG("[.get_temp] tz: %s raw: %d sma: %ld\n", thermal->type, nTemperature,
+		  (long)*temperature);
+
+#if MTK_THERMAL_MONITOR_MEASURE_GET_TEMP_OVERHEAD
+	dur = _get_current_time_us() - t;
+	if (dur > 10000)	/* over 10msec, log it */
+		THRML_ERROR_LOG("[.get_temp] tz: %s dur: %ld\n", thermal->type, dur);
+#endif
+
+	return ret;
+}
+
+54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb:drivers/misc/mediatek/thermal/common/thermal_zones/mtk_ts_wmt.c:85
+#define NR_TS_SENSORS		4
+static int (*ts_get_temp_wrap[4]) (void) = {
+	mtk_wcn_cmb_stub_query_ctrl,	/* 0 is for WMT sensor */
+mtkts_get_ts1_temp, mtkts_get_ts2_temp, mtkts_get_ts3_temp};
+
+
+54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb:drivers/misc/mediatek/thermal/common/thermal_zones/mtk_ts_wmt.c:255
+static int sensor_select = 3;	/* select TS,0=WMT,1=TS1,2=TS2,3=TS3 */
+
+54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb:drivers/misc/mediatek/thermal/common/thermal_zones/mtk_ts_wmt.c:164
+static int wmt_thz_get_temp(struct thermal_zone_device *, unsigned long *);
+static int wmt_thz_get_mode(struct thermal_zone_device *, enum thermal_device_mode *);
+static int wmt_thz_set_mode(struct thermal_zone_device *, enum thermal_device_mode);
+static int wmt_thz_get_trip_type(struct thermal_zone_device *, int, enum thermal_trip_type *);
+static int wmt_thz_get_trip_temp(struct thermal_zone_device *, int, unsigned long *);
+static int wmt_thz_get_crit_temp(struct thermal_zone_device *, unsigned long *);
+static int wmt_cl_get_max_state(struct thermal_cooling_device *, unsigned long *);
+static int wmt_cl_get_cur_state(struct thermal_cooling_device *, unsigned long *);
+static int wmt_cl_set_cur_state(struct thermal_cooling_device *, unsigned long);
+
+static int wmt_cl_pa1_get_max_state(struct thermal_cooling_device *, unsigned long *);
+static int wmt_cl_pa1_get_cur_state(struct thermal_cooling_device *, unsigned long *);
+static int wmt_cl_pa1_set_cur_state(struct thermal_cooling_device *, unsigned long);
+
+static int wmt_cl_pa2_get_max_state(struct thermal_cooling_device *, unsigned long *);
+static int wmt_cl_pa2_get_cur_state(struct thermal_cooling_device *, unsigned long *);
+static int wmt_cl_pa2_set_cur_state(struct thermal_cooling_device *, unsigned long);
+static int wmt_send_signal(int level);
+
+#ifdef NEVER
+static int wmt_cl_pa3_get_max_state(struct thermal_cooling_device *, unsigned long *);
+static int wmt_cl_pa3_get_cur_state(struct thermal_cooling_device *, unsigned long *);
+static int wmt_cl_pa3_set_cur_state(struct thermal_cooling_device *, unsigned long);
+#endif				/* NEVER */
+
+static struct thermal_zone_device_ops wmt_thz_dev_ops = {
+	.bind = wmt_thz_bind,
+	.unbind = wmt_thz_unbind,
+	.get_temp = wmt_thz_get_temp,
+	.get_mode = wmt_thz_get_mode,
+	.set_mode = wmt_thz_set_mode,
+	.get_trip_type = wmt_thz_get_trip_type,
+	.get_trip_temp = wmt_thz_get_trip_temp,
+	.get_crit_temp = wmt_thz_get_crit_temp,
+}
+
+54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb:drivers/misc/mediatek/thermal/common/thermal_zones/mtk_ts_wmt.c:1757
+#define DEFAULT_POLL_TIME 0	/*Default disable, turn on by thermal policy */
+
+54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb:drivers/misc/mediatek/connectivity/common/wmt_build_in_adapter.c:89
+int mtk_wcn_cmb_stub_query_ctrl(void)
+{
+	CONNADP_DBG_FUNC("\n");
+	if (unlikely(!bridge.thermal_query_cb)) {
+		CONNADP_WARN_FUNC("Thermal query not registered\n");
+		return -1;
+	} else
+		return bridge.thermal_query_cb();
+}
+
+54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb:drivers/misc/mediatek/connectivity/source/common/common_detect/mtk_wcn_stub_alps.c:177
+int mtk_wcn_cmb_stub_reg(struct _CMB_STUB_CB_ *p_stub_cb)
+{
+#ifndef MTK_WCN_REMOVE_KERNEL_MODULE
+	struct wmt_platform_bridge pbridge;
+
+	memset(&pbridge, 0, sizeof(struct wmt_platform_bridge));
+#endif
+
+	if ((!p_stub_cb)
+	    || (p_stub_cb->size != sizeof(struct _CMB_STUB_CB_))) {
+		CMB_STUB_LOG_PR_WARN("[cmb_stub] invalid p_stub_cb:0x%p size(%d)\n",
+				  p_stub_cb, (p_stub_cb) ? p_stub_cb->size : 0);
+		return -1;
+	}
+
+	CMB_STUB_LOG_PR_DBG("[cmb_stub] registered, p_stub_cb:0x%p size(%d)\n",
+			p_stub_cb, p_stub_cb->size);
+
+	cmb_stub_aif_ctrl_cb = p_stub_cb->aif_ctrl_cb;
+	cmb_stub_func_ctrl_cb = p_stub_cb->func_ctrl_cb;
+	cmb_stub_thermal_ctrl_cb = p_stub_cb->thermal_query_cb;
+	cmb_stub_trigger_assert_cb = p_stub_cb->trigger_assert_cb;
+	cmb_stub_deep_idle_ctrl_cb = p_stub_cb->deep_idle_ctrl_cb;
+	cmb_stub_do_reset_cb = p_stub_cb->wmt_do_reset_cb;
+	cmb_stub_clock_fail_dump_cb = p_stub_cb->clock_fail_dump_cb;
+
+#ifndef MTK_WCN_REMOVE_KERNEL_MODULE
+	pbridge.thermal_query_cb = _mtk_wcn_cmb_stub_query_ctrl;
+	pbridge.trigger_assert_cb = _mtk_wcn_cmb_stub_trigger_assert;
+	pbridge.clock_fail_dump_cb = _mtk_wcn_cmb_stub_clock_fail_dump;
+	wmt_export_platform_bridge_register(&pbridge);
+#endif
+
+	return 0;
+}
+
+54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb:drivers/misc/mediatek/connectivity/source/common/common_detect/mtk_wcn_stub_alps.c:157
+static int _mtk_wcn_cmb_stub_query_ctrl(void);
+static int _mtk_wcn_cmb_stub_trigger_assert(void);
+static void _mtk_wcn_cmb_stub_clock_fail_dump(void);
+#endif /* MTK_WCN_REMOVE_KERNEL_MODULE */
+
+/*******************************************************************************
+*                              F U N C T I O N S
+********************************************************************************
+*/
+/*!
+ * \brief A registration function for WMT-PLAT to register itself to CMB-STUB.
+ *
+ * An MTK-WCN-CMB-STUB registration function provided to WMT-PLAT to register
+ * itself and related callback functions when driver being loaded into kernel.
+ *
+ * \param p_stub_cb a pointer carrying CMB_STUB_CB information
+ *
+ * \retval 0 operation success
+ * \retval -1 invalid parameters
+ */
+int mtk_wcn_cmb_stub_reg(struct _CMB_STUB_CB_ *p_stub_cb)
+{
+#ifndef MTK_WCN_REMOVE_KERNEL_MODULE
+	struct wmt_platform_bridge pbridge;
+
+	memset(&pbridge, 0, sizeof(struct wmt_platform_bridge));
+#endif
+
+	if ((!p_stub_cb)
+	    || (p_stub_cb->size != sizeof(struct _CMB_STUB_CB_))) {
+		CMB_STUB_LOG_PR_WARN("[cmb_stub] invalid p_stub_cb:0x%p size(%d)\n",
+				  p_stub_cb, (p_stub_cb) ? p_stub_cb->size : 0);
+		return -1;
+	}
+
+	CMB_STUB_LOG_PR_DBG("[cmb_stub] registered, p_stub_cb:0x%p size(%d)\n",
+			p_stub_cb, p_stub_cb->size);
+
+	cmb_stub_aif_ctrl_cb = p_stub_cb->aif_ctrl_cb;
+	cmb_stub_func_ctrl_cb = p_stub_cb->func_ctrl_cb;
+	cmb_stub_thermal_ctrl_cb = p_stub_cb->thermal_query_cb;
+	cmb_stub_trigger_assert_cb = p_stub_cb->trigger_assert_cb;
+	cmb_stub_deep_idle_ctrl_cb = p_stub_cb->deep_idle_ctrl_cb;
+	cmb_stub_do_reset_cb = p_stub_cb->wmt_do_reset_cb;
+	cmb_stub_clock_fail_dump_cb = p_stub_cb->clock_fail_dump_cb;
+
+#ifndef MTK_WCN_REMOVE_KERNEL_MODULE
+	pbridge.thermal_query_cb = _mtk_wcn_cmb_stub_query_ctrl;
+	pbridge.trigger_assert_cb = _mtk_wcn_cmb_stub_trigger_assert;
+	pbridge.clock_fail_dump_cb = _mtk_wcn_cmb_stub_clock_fail_dump;
+	wmt_export_platform_bridge_register(&pbridge);
+#endif
+
+	return 0;
+}
+
+54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb:drivers/misc/mediatek/connectivity/source/common/common_main/platform/wmt_plat_alps.c:255
+static long wmt_plat_thermal_ctrl(VOID)
+{
+	long temp = 0;
+
+	if (wmt_plat_thermal_query_ctrl_cb)
+		temp = (*wmt_plat_thermal_query_ctrl_cb)();
+
+	return temp;
+}
+
+54bdf406ee9963e3b926d8f19fc2bb4c1a3975eb:drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c:853
+LONG wmt_dev_tm_temp_query(VOID)
+{
+#define HISTORY_NUM       3
+#define REFRESH_TIME    300	/* sec */
+
+	static INT32 s_temp_table[HISTORY_NUM] = { 99 };	/* not query yet. */
+	static INT32 s_idx_temp_table;
+	static struct timeval s_query_time;
+
+	INT32 temp_table[HISTORY_NUM];
+	INT32 idx_temp_table;
+	struct timeval query_time;
+
+	struct timeval now_time;
+	INT32 current_temp = 0;
+	INT32 index = 0;
+	LONG return_temp = 0;
+	INT8 query_cond = 0;
+
+	/* Let us work on the copied version of function static variables */
+	osal_lock_unsleepable_lock(&g_temp_query_spinlock);
+	osal_memcpy(temp_table, s_temp_table, sizeof(s_temp_table));
+	osal_memcpy(&query_time, &s_query_time, sizeof(struct timeval));
+	idx_temp_table = s_idx_temp_table;
+	osal_unlock_unsleepable_lock(&g_temp_query_spinlock);
+
+	/* Query condition 1: */
+	/* If we have the high temperature records on the past, we continue to query/monitor */
+	/* the real temperature until cooling */
+	for (index = 0; index < HISTORY_NUM; index++) {
+		if (temp_table[index] >= gTemperatureThreshold) {
+			query_cond = 1;
+			WMT_DBG_FUNC
+				("temperature table is still initial value, we should query temp temperature..\n");
+		}
+	}
+
+	do_gettimeofday(&now_time);
+#if 1
+	/* Query condition 2: */
+	/* Moniter the bus activity to decide if we have the need to query temperature. */
+	if (!query_cond) {
+		if (wmt_dev_tra_poll() == 0) {
+			query_cond = 1;
+			WMT_DBG_FUNC("traffic , we must query temperature..\n");
+		} else if (temp_table[idx_temp_table] >= gTemperatureThreshold) {
+			WMT_INFO_FUNC("temperature maybe greater than %d, query temperature\n", gTemperatureThreshold);
+			query_cond = 1;
+		} else
+			WMT_DBG_FUNC("idle traffic ....\n");
+
+		/* only WIFI tx power might make temperature varies largely */
+#if 0
+		if (!query_cond) {
+			last_access_time = wmt_dev_tra_uart_poll();
+			if (jiffies_to_msecs(last_access_time) < TIME_THRESHOLD_TO_TEMP_QUERY) {
+				query_cond = 1;
+				WMT_DBG_FUNC("uart busy traffic , we must query temperature..\n");
+			} else {
+				WMT_DBG_FUNC("uart still idle traffic , we don't query temp temperature..\n");
+			}
+		}
+#endif
+	}
+#endif
+	/* Query condition 3: */
+	/* If the query time exceeds the a certain of period, refresh temp table. */
+	/*  */
+	if (!query_cond) {
+		/* time overflow, we refresh temp table again for simplicity! */
+		if ((now_time.tv_sec < query_time.tv_sec) ||
+		    ((now_time.tv_sec > query_time.tv_sec) &&
+			(now_time.tv_sec - query_time.tv_sec) > REFRESH_TIME)) {
+			query_cond = 1;
+
+			WMT_INFO_FUNC
+				("It is long time (prev(%lu), now(%lu), > %d sec) not to query, query temp again..\n",
+				 query_time.tv_sec, now_time.tv_sec, REFRESH_TIME);
+			for (index = 0; index < HISTORY_NUM; index++)
+				temp_table[index] = 99;
+
+		}
+	}
+
+	if (query_cond) {
+		/* update the temperature record */
+		mtk_wcn_wmt_therm_ctrl(WMTTHERM_ENABLE);
+		current_temp = mtk_wcn_wmt_therm_ctrl(WMTTHERM_READ);
+		mtk_wcn_wmt_therm_ctrl(WMTTHERM_DISABLE);
+
+		/* Only update temperature if our index hasn't been modified by the concurrent thread */
+		osal_lock_unsleepable_lock(&g_temp_query_spinlock);
+		if (idx_temp_table == s_idx_temp_table) {
+			osal_memcpy(s_temp_table, temp_table, sizeof(s_temp_table));
+			s_idx_temp_table = (s_idx_temp_table + 1) % HISTORY_NUM;
+			s_temp_table[s_idx_temp_table] = current_temp;
+			do_gettimeofday(&s_query_time);
+			index = -1;
+		} else {
+			index = s_idx_temp_table;
+		}
+		osal_unlock_unsleepable_lock(&g_temp_query_spinlock);
+
+		if (index == -1) {
+			WMT_INFO_FUNC("[Thermal] current_temp = 0x%x\n", (current_temp & 0xFF));
+		} else {
+			WMT_ERR_FUNC("Temperature(0x%x) update failed due to modified idx_temp_table(%d, %d)",
+				(current_temp & 0xFF), idx_temp_table, index);
+		}
+	} else {
+		/* Only update temperature if our index hasn't been modified by the concurrent thread */
+		osal_lock_unsleepable_lock(&g_temp_query_spinlock);
+		if (idx_temp_table == s_idx_temp_table) {
+			current_temp = s_temp_table[s_idx_temp_table];
+			s_idx_temp_table = (s_idx_temp_table + 1) % HISTORY_NUM;
+			s_temp_table[s_idx_temp_table] = current_temp;
+			index = -1;
+		} else {
+			/* Return the last valid temperature which has just been modified by the concurrent thread */
+			current_temp = s_temp_table[s_idx_temp_table];
+			index = s_idx_temp_table;
+		}
+		osal_unlock_unsleepable_lock(&g_temp_query_spinlock);
+		if (index != -1) {
+			WMT_DBG_FUNC("Use last valid temperature (0x%x) due to modified idx_temp_table(%d, %d)",
+				(current_temp & 0xFF), idx_temp_table, index);
+		}
+	}
+
+	/*  */
+	/* Dump information */
+	/*  */
+	if (gWmtDbgLvl >= WMT_LOG_DBG) {
+		osal_lock_unsleepable_lock(&g_temp_query_spinlock);
+		WMT_DBG_FUNC("[Thermal] s_idx_temp_table = %d, idx_temp_table = %d\n",
+			s_idx_temp_table, idx_temp_table);
+		WMT_DBG_FUNC("[Thermal] now.time = %lu, s_query.time = %lu, query.time = %lu, REFRESH_TIME = %d\n",
+			now_time.tv_sec, s_query_time.tv_sec, query_time.tv_sec, REFRESH_TIME);
+
+		WMT_DBG_FUNC("[0] = %d, [1] = %d, [2] = %d\n----\n",
+			s_temp_table[0], s_temp_table[1], s_temp_table[2]);
+		osal_unlock_unsleepable_lock(&g_temp_query_spinlock);
+	}
+
+	return_temp = ((current_temp & 0x80) == 0x0) ? current_temp : (-1) * (current_temp & 0x7f);
+
+	return return_temp;
+}

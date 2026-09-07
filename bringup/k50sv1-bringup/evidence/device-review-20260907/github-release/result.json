@@ -1,0 +1,91 @@
+{
+  "status": "PASS",
+  "checked_at_utc": "2026-09-07T18:09:43.177618+00:00",
+  "release_url": "https://github.com/suddenBook/android_device_xsh_k50sv1_64_bsp/releases/tag/v1.0.0",
+  "release_id": 384251041,
+  "tag": "v1.0.0",
+  "published_at": "2026-09-07T18:09:05Z",
+  "draft": false,
+  "prerelease": false,
+  "is_latest": true,
+  "public_unauthenticated_checksum_download_matches": true,
+  "assets": [
+    {
+      "name": "boot.img",
+      "bytes": 8408198,
+      "sha256": "a7410ab4249f94aa4a5250e9622a0c1806aa9b9111a840f94147ff0ec28a2897",
+      "url": "https://github.com/suddenBook/android_device_xsh_k50sv1_64_bsp/releases/download/v1.0.0/boot.img"
+    },
+    {
+      "name": "build-provenance.tar.xz",
+      "bytes": 34580,
+      "sha256": "cfdbe81e15d87eb57a0fce9422b445a00266695a8e52a97f34a2228f7d176fd3",
+      "url": "https://github.com/suddenBook/android_device_xsh_k50sv1_64_bsp/releases/download/v1.0.0/build-provenance.tar.xz"
+    },
+    {
+      "name": "FLASHING.md",
+      "bytes": 3238,
+      "sha256": "0e2b066bfa0982f26b9255810c23501d94e1e58965c36928f4576f078c10652c",
+      "url": "https://github.com/suddenBook/android_device_xsh_k50sv1_64_bsp/releases/download/v1.0.0/FLASHING.md"
+    },
+    {
+      "name": "logo.img",
+      "bytes": 8388608,
+      "sha256": "c6fe4ebef6f316982d926c4220d0f25460d79e7bc98dff2743d17abe55714e74",
+      "url": "https://github.com/suddenBook/android_device_xsh_k50sv1_64_bsp/releases/download/v1.0.0/logo.img"
+    },
+    {
+      "name": "recovery.img",
+      "bytes": 14636170,
+      "sha256": "fdbe19607d15f472aef911e80502df651087cf1dd6e2a072c7f06870beb572d8",
+      "url": "https://github.com/suddenBook/android_device_xsh_k50sv1_64_bsp/releases/download/v1.0.0/recovery.img"
+    },
+    {
+      "name": "RELEASE-MANIFEST.json",
+      "bytes": 4776,
+      "sha256": "1dbc453cfca7498d9d16c977f31bbeef26d32b6900bf0da9d45687a2d3e20b73",
+      "url": "https://github.com/suddenBook/android_device_xsh_k50sv1_64_bsp/releases/download/v1.0.0/RELEASE-MANIFEST.json"
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 383,
+      "sha256": "2105d84834adf5b25bf136cb66466e1e566e945f6e29a68adfeb66f6e48e4974",
+      "url": "https://github.com/suddenBook/android_device_xsh_k50sv1_64_bsp/releases/download/v1.0.0/SHA256SUMS"
+    },
+    {
+      "name": "system.img",
+      "bytes": 1901736540,
+      "sha256": "a8bff48ca554ff95fd9fd967b33022a832274d80d2e3ac818dfdde6db6504a4e",
+      "url": "https://github.com/suddenBook/android_device_xsh_k50sv1_64_bsp/releases/download/v1.0.0/system.img"
+    },
+    {
+      "name": "vendor.img",
+      "bytes": 162988276,
+      "sha256": "cb4f219825541b635d52ba1d9d0cd67813395dfaa8d87be14ac16051b5f4a512",
+      "url": "https://github.com/suddenBook/android_device_xsh_k50sv1_64_bsp/releases/download/v1.0.0/vendor.img"
+    }
+  ],
+  "source_repositories": {
+    "device": {
+      "repository": "https://github.com/suddenBook/android_device_xsh_k50sv1_64_bsp",
+      "commit": "5d3e1ea296d71fc2a6b976cd67a404b67447fecb",
+      "tree": "3133f2154b738a2fc942b6f75aac7e684300f491",
+      "tag": "v1.0.0",
+      "history": "Existing local history retained"
+    },
+    "vendor": {
+      "repository": "https://github.com/suddenBook/android_vendor_xsh_k50sv1_64_bsp",
+      "commit": "fde9f3850b2460ae9b95673729ea158306c21863",
+      "tree": "24935ce2873afbf1720ec1efaeac75838715135f",
+      "tag": "v1.0.0",
+      "history": "Existing local history retained"
+    },
+    "kernel": {
+      "repository": "https://github.com/suddenBook/android_kernel_xsh_k50sv1_64_bsp",
+      "commit": "3c03dab12d0b92b6f4bb285ade60be1e59359345",
+      "tree": "a8e0196020615fb65d98dfa0c1d6acdf2c0604cf",
+      "tag": "v1.0.0",
+      "history": "Complete current-source snapshot"
+    }
+  }
+}

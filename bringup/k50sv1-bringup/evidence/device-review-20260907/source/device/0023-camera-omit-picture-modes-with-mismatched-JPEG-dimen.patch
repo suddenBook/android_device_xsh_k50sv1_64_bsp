@@ -1,0 +1,61 @@
+From 8f289d9553777c659e4d35bc9ac6960acfc512fb Mon Sep 17 00:00:00 2001
+From: Huixiaqing Liu <huixiaqingliu@outlook.com>
+Date: Mon, 7 Sep 2026 10:48:54 +0200
+Subject: [PATCH 23/25] camera: omit picture modes with mismatched JPEG
+ dimensions
+
+---
+ device.mk        |  7 ++++---
+ extract-files.sh | 11 ++++++-----
+ 2 files changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/device.mk b/device.mk
+index 3c0f5ae..07df0f3 100644
+--- a/device.mk
++++ b/device.mk
+@@ -513,9 +513,10 @@ PRODUCT_PACKAGES += \
+ #
+ # Snap sets LOCAL_OVERRIDES_PACKAGES := Camera2 (packages/apps/Snap/Android.mk:
+ # 49), so listing it here also removes Camera2 and its privapp whitelist.
+-# extract-files.sh limits the 32-bit picture tables to native/crop sizes:
+-# IMX145 keeps 13 (largest 3264x2448); GC5025 keeps 12 (largest 2592x1944).
+-# It removes the rear 3600x2160/3840x2176 and front 2864x1600 upscaled entries.
++# extract-files.sh keeps 12 rear sizes (largest 3264x2448) and 11 front sizes
++# (largest 2560x1920). It removes the upscaled entries and the two modes whose
++# JPEG dimensions differ from the request: 3264x1836 and 2592x1944 encode as
++# 3264x1840 and 2592x1952, respectively, in the vendor image-transform path.
+ # HAL defaults remain 3264x2448 rear and 2560x1920 front; focus is unchanged.
+ PRODUCT_PACKAGES += \
+     Snap
+diff --git a/extract-files.sh b/extract-files.sh
+index a85a053..9045f1c 100755
+--- a/extract-files.sh
++++ b/extract-files.sh
+@@ -821,9 +821,10 @@ function blob_fixup() {
+             fi
+             ;;
+         vendor/lib/libcam.paramsmgr.so)
+-            # Limit the production 32-bit picture tables to sensor-native
+-            # widths: IMX145 keeps 13 entries; GC5025 keeps 12, including
+-            # 2592x1944. Both defaults and all focus metadata stay intact.
++            # Limit the picture tables to 12 IMX145 and 11 GC5025 entries.
++            # JPEG dimensions of the removed 3264x1836 and 2592x1944 modes
++            # are 3264x1840 and 2592x1952, respectively.
++            # Both defaults and all focus metadata stay intact.
+             python3 - "$2" <<'CAMERASIZEEOF' || exit 1
+ import hashlib
+ from pathlib import Path
+@@ -832,8 +833,8 @@ import sys
+ 
+ path = Path(sys.argv[1])
+ input_sha = "c718ded972a72928e293e40f0079dd50834955f9948d003a98033f331bb79f64"
+-output_sha = "2f39358d81dba05992202069729b9ea1d3095b047cc23f617bc7ace8f38d47f8"
+-count_updates = {0x48748: 13, 0x8c9d4: 12}  # Thumb movs r3, #count
++output_sha = "25fe4a83ce842d4b532a6f77ae223a8aa526652eb623d018b126f6aae2365f02"
++count_updates = {0x48748: 12, 0x8c9d4: 11}  # Thumb movs r3, #count
+ sizes = (
+     "320x240", "640x480", "1024x768", "1280x720", "1280x768",
+     "1280x960", "1600x1200", "1920x1088", "2048x1536", "2560x1440",
+-- 
+2.55.0
+

@@ -1,0 +1,12 @@
+--- run-build19-gnss-before-explicit-search-component.py
++++ run-build19-gnss.py
+@@ -21,7 +21,8 @@
+  package_before=sh('search-package-before','dumpsys package '+search_package)
+  search_user=re.search(r'^\s*User 0:.*\bstopped=(true|false)\b',package_before,re.M)
+  assert search_user, 'Search package stopped state is unavailable'
+- resolved=sh('search-launcher-component','cmd package resolve-activity --brief --user 0 -a android.intent.action.MAIN -c android.intent.category.LAUNCHER -p '+search_package).strip().splitlines()
++ assert search_package+'/.SearchActivity filter ' in package_before
++ resolved=sh('search-launcher-component','cmd package resolve-activity --brief --user 0 -n '+search_package+'/.SearchActivity').strip().splitlines()
+  assert resolved and re.fullmatch(r'[A-Za-z0-9_.$]+/[A-Za-z0-9_.$]+',resolved[-1])
+  search_component=resolved[-1]
+  assert search_component.startswith(search_package+'/')

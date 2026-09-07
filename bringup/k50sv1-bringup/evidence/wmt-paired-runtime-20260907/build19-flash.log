@@ -1,0 +1,91 @@
+  boot.img     8430888 /   16777216 bytes
+  recovery.img   14763308 /   16777216 bytes
+  system.img 1931502172 / 4294967296 bytes
+  vendor.img  167575796 / 2147483648 bytes
+boot/recovery headers and receipt-bound source-kernel/stock-DT payloads verified
+sparse image structures and expanded sizes verified
+image digests verified
+private flash snapshot verified from /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/tier1-source-stack-20260907-wmt-command-v2-clang
+rebooting 0123456789ABCDEF into the bootloader
+waiting for fastboot serial 0123456789ABCDEF
+fastboot device 0123456789ABCDEF
+bootloader reports product=k50sv1_64_bsp
+product matches the recorded expectation
+private flash snapshot revalidated immediately before wipes
+
+== resolving wipe partition sizes from the bootloader ==
+  userdata   55372135936 bytes (bootloader)
+  metadata      33554432 bytes (bootloader)
+  cache        452984832 bytes (bootloader)
+
+== wiping userdata ==
+******** Did you mean to fastboot format this ext4 partition?
+Erasing 'userdata'                                 OKAY [  3.090s]
+Finished. Total time: 3.091s
+
+== wiping metadata ==
+Erasing 'metadata'                                 OKAY [  0.054s]
+Finished. Total time: 0.054s
+
+== wiping cache ==
+******** Did you mean to fastboot format this ext4 partition?
+Erasing 'cache'                                    OKAY [  0.079s]
+Finished. Total time: 0.080s
+
+== flashing boot ==
+Sending 'boot' (8233 KB)                           OKAY [  0.316s]
+Writing 'boot'                                     OKAY [  0.208s]
+Finished. Total time: 0.527s
+
+== flashing recovery ==
+Sending 'recovery' (14417 KB)                      OKAY [  0.477s]
+Writing 'recovery'                                 OKAY [  0.375s]
+Finished. Total time: 0.855s
+
+== flashing system ==
+Warning: skip copying system image avb footer due to sparse image.
+Sending sparse 'system' 1/15 (130120 KB)           OKAY [  3.591s]
+Writing 'system'                                   OKAY [  3.505s]
+Sending sparse 'system' 2/15 (127992 KB)           OKAY [  3.623s]
+Writing 'system'                                   OKAY [  3.345s]
+Sending sparse 'system' 3/15 (129028 KB)           OKAY [  3.595s]
+Writing 'system'                                   OKAY [  3.439s]
+Sending sparse 'system' 4/15 (127992 KB)           OKAY [  3.602s]
+Writing 'system'                                   OKAY [  3.327s]
+Sending sparse 'system' 5/15 (129028 KB)           OKAY [  3.678s]
+Writing 'system'                                   OKAY [  3.437s]
+Sending sparse 'system' 6/15 (127992 KB)           OKAY [  3.605s]
+Writing 'system'                                   OKAY [  3.345s]
+Sending sparse 'system' 7/15 (129028 KB)           OKAY [  3.680s]
+Writing 'system'                                   OKAY [  3.442s]
+Sending sparse 'system' 8/15 (127992 KB)           OKAY [  3.630s]
+Writing 'system'                                   OKAY [  3.343s]
+Sending sparse 'system' 9/15 (129028 KB)           OKAY [  3.680s]
+Writing 'system'                                   OKAY [  3.437s]
+Sending sparse 'system' 10/15 (127992 KB)          OKAY [  3.645s]
+Writing 'system'                                   OKAY [  3.345s]
+Sending sparse 'system' 11/15 (129020 KB)          OKAY [  3.676s]
+Writing 'system'                                   OKAY [  3.367s]
+Sending sparse 'system' 12/15 (129020 KB)          OKAY [  3.677s]
+Writing 'system'                                   OKAY [  3.367s]
+Sending sparse 'system' 13/15 (129020 KB)          OKAY [  3.678s]
+Writing 'system'                                   OKAY [  3.358s]
+Sending sparse 'system' 14/15 (129020 KB)          OKAY [  3.682s]
+Writing 'system'                                   OKAY [  3.369s]
+Sending sparse 'system' 15/15 (83960 KB)           OKAY [  2.430s]
+Writing 'system'                                   OKAY [  5.925s]
+Finished. Total time: 106.829s
+
+== flashing vendor ==
+Warning: skip copying vendor image avb footer due to sparse image.
+Sending sparse 'vendor' 1/2 (129276 KB)            OKAY [  3.689s]
+Writing 'vendor'                                   OKAY [  8.908s]
+Sending sparse 'vendor' 2/2 (34372 KB)             OKAY [  1.054s]
+Writing 'vendor'                                   OKAY [  1.344s]
+Finished. Total time: 14.997s
+
+all four images written and userdata/metadata/cache wiped
+first boot no longer runs cryptfs enablecrypto: userdata is unencrypted
+Rebooting                                          OKAY [  0.000s]
+Finished. Total time: 0.050s
+atomic flash receipt: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/source-stack-wmt-command-v2-clang-flash-receipt.txt (sha256=46becefe3543e4438411f9f2aaf6f6613240b9a6d064be6613d37ae118f55c07)

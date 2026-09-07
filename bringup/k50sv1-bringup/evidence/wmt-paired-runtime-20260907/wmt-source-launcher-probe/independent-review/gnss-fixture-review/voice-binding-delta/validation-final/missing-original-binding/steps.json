@@ -1,0 +1,26 @@
+[
+  {
+    "step": "search-package-before",
+    "exit_code": 0
+  },
+  {
+    "step": "search-launcher-component",
+    "exit_code": 0
+  },
+  {
+    "step": "wake-before-isolation",
+    "exit_code": 0
+  },
+  {
+    "step": "original-voice_recognition_service",
+    "exit_code": 0
+  },
+  {
+    "step": "original-voice_interaction_service",
+    "exit_code": 0
+  },
+  {
+    "step": "restore-home-after-gnss",
+    "exit_code": 0
+  }
+]

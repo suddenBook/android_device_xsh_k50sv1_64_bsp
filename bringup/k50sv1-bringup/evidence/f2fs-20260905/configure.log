@@ -1,0 +1,35 @@
+  HOSTCC  scripts/basic/fixdep
+  GEN     ./Makefile
+  HOSTCC  scripts/kconfig/conf.o
+  SHIPPED scripts/kconfig/zconf.tab.c
+  SHIPPED scripts/kconfig/zconf.lex.c
+  SHIPPED scripts/kconfig/zconf.hash.c
+  HOSTCC  scripts/kconfig/zconf.tab.o
+In file included from scripts/kconfig/zconf.tab.c:2536:
+In function ‘dep_stack_insert’,
+    inlined from ‘sym_check_print_recursive’ at /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/kernel/scripts/kconfig/symbol.c:1090:3,
+    inlined from ‘sym_check_deps’ at /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/kernel/scripts/kconfig/symbol.c:1261:3:
+/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/kernel/scripts/kconfig/symbol.c:1066:19: warning: storing the address of local variable ‘cv_stack’ in ‘check_top’ [-Wdangling-pointer=]
+ 1066 |         check_top = stack;
+      |         ~~~~~~~~~~^~~~~~~
+/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/kernel/scripts/kconfig/symbol.c: In function ‘sym_check_deps’:
+/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/kernel/scripts/kconfig/symbol.c:1087:26: note: ‘cv_stack’ declared here
+ 1087 |         struct dep_stack cv_stack;
+      |                          ^~~~~~~~
+/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/f2fs-assessment-20260905/kernel/scripts/kconfig/symbol.c:1057:4: note: ‘check_top’ declared here
+ 1057 | } *check_top;
+      |    ^~~~~~~~~
+  HOSTLD  scripts/kconfig/conf
+scripts/kconfig/conf --olddefconfig Kconfig
+drivers/input/touchscreen/mediatek/GT1151/Kconfig:4:warning: ignoring type redefinition of 'TOUCHSCREEN_MTK_GT1151' from 'boolean' to 'tristate'
+drivers/input/touchscreen/mediatek/nt36672/Kconfig:6:warning: ignoring type redefinition of 'TOUCHSCREEN_NT36xxx' from 'tristate' to 'boolean'
+drivers/input/touchscreen/mediatek/nt36672/Kconfig:6:warning: ignoring type redefinition of 'TOUCHSCREEN_NT36xxx' from 'tristate' to 'boolean'
+drivers/input/touchscreen/mediatek/NT36xxx/Kconfig:6:warning: ignoring type redefinition of 'TOUCHSCREEN_NT36xxx' from 'tristate' to 'boolean'
+drivers/nfc/samsung/Kconfig:23:warning: choice value used outside its choice group
+drivers/nfc/samsung/Kconfig:25:warning: choice value used outside its choice group
+drivers/nfc/samsung/Kconfig:32:warning: choice value used outside its choice group
+drivers/nfc/samsung/Kconfig:34:warning: choice value used outside its choice group
+drivers/nfc/samsung/Kconfig:36:warning: choice value used outside its choice group
+#
+# configuration written to .config
+#

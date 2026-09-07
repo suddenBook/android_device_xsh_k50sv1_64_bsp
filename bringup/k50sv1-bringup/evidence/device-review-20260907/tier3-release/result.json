@@ -1,0 +1,110 @@
+{
+  "status": "SIGNED_USER_RELEASE_LOCAL_RUNTIME_AND_FINAL_ADB_OFF_PASS; peer/carrier/owner-fixture limits retained",
+  "build": "24",
+  "tier": 3,
+  "variant": "user",
+  "stage_name": "k50sv1_64_bsp-tier3-20260907_150739-FEkfpc",
+  "build_receipt_sha256": "f50f41a4f6f88e575492da3feb1a44fca206fd286760100e7387af6137a98e6d",
+  "stage_contract_sha256": "bfc474bdc19638a7f86269effb82ccf1502fd810f67d6361aae1fcbce5b26d27",
+  "image_sha256": {
+    "boot.img": "a7410ab4249f94aa4a5250e9622a0c1806aa9b9111a840f94147ff0ec28a2897",
+    "recovery.img": "fdbe19607d15f472aef911e80502df651087cf1dd6e2a072c7f06870beb572d8",
+    "system.img": "a8bff48ca554ff95fd9fd967b33022a832274d80d2e3ac818dfdde6db6504a4e",
+    "vendor.img": "cb4f219825541b635d52ba1d9d0cd67813395dfaa8d87be14ac16051b5f4a512"
+  },
+  "frozen_sources": {
+    "work": "34dfd230898156c631565eb34e66b53e0f98448c",
+    "device": "a76fb0bb3296065a879b378cfbd71c9c8792f6e9",
+    "vendor": "65d72117206b01190b39b1963038483a3499d7f4",
+    "kernel": "ef8238aca4c6f3d3eba764313320e30b24250e4e"
+  },
+  "independent_artifact_audit": {
+    "projects": 786,
+    "source_state_matches": true,
+    "presigned_apks_match": 3,
+    "jni_libraries_match": 14
+  },
+  "flash": {
+    "four_images_and_wipes_exit": 0,
+    "os_receipt_sha256": "1dd9db7c33bfbfba638fa9a3d90955faf787fe1db702764d6ab3a93148bb0634",
+    "fixture_receipt_sha256": "1bf6ab9aeb6f0b0abdae71501688efa40cf3836d8c0cbf9ccc3b2fd18b0b2f61",
+    "userdata_image_sha256": "e2e77429e0767be6bd0a99ee580279c8e59ba4d6ef22e2a8e7c53f79a89e3c12",
+    "userdata_logical_bytes": 55372132352,
+    "actual_lk_bytes": 55372135936
+  },
+  "initial_boot": {
+    "boot_id": "035f1376-0802-45da-aee0-a957531fddcf",
+    "uname": "Linux localhost 3.18.119 #1 SMP PREEMPT Mon Sep 7 17:12:50 CEST 2026 aarch64",
+    "build_incremental": "eng.desmon.20260907.170801",
+    "system_fingerprint": "XSH/lineage_k50sv1_64_bsp/k50sv1_64_bsp:10/QQ3A.200805.001/desmond09071707:user/release-keys",
+    "properties": {
+      "ro.build.type": "user",
+      "ro.build.tags": "release-keys",
+      "ro.debuggable": "0",
+      "ro.secure": "1",
+      "ro.adb.secure": "1",
+      "sys.boot_completed": "1"
+    },
+    "shell_uid": 2000,
+    "shell_context": "u:r:shell:s0",
+    "selinux": "Enforcing",
+    "adb_root_request_rejected": true,
+    "uid_after_root_request": 2000,
+    "installed_source_byte_matches": {
+      "apk": 3,
+      "jni": 14
+    }
+  },
+  "limits": [
+    "Signed OS default-off checks are separate from this explicitly ADB-enabled userdata fixture.",
+    "No untouched default-off first boot, AVB, hardware attestation or carrier IMS registration is claimed.",
+    "P2P peer transfer was not established; carrier IMS and physical/owner-assisted acceptance remain outside the passing local runtime checks."
+  ],
+  "core_probes": {
+    "camera": {
+      "preview_pass": 2,
+      "preview_callbacks": [
+        30,
+        50
+      ],
+      "jpeg_dimensions": [
+        "3264x2448",
+        "2560x1920"
+      ],
+      "jpeg_pass": 2
+    },
+    "accelerometer": {
+      "samples": [
+        101,
+        31
+      ],
+      "callbacks_after_stop": 0,
+      "monotonic": true
+    },
+    "graphics_cpu_32bit": {
+      "frames": 24,
+      "pixelcopy": "PASS"
+    },
+    "graphics_egl_32bit": {
+      "renderer": "Mali-T860",
+      "frames": 24,
+      "pixel_checks": 3,
+      "release": "PASS"
+    },
+    "p2p_local": {
+      "formed": true,
+      "removed": true,
+      "cleanup_pending": false,
+      "peer_transfer": false
+    }
+  },
+  "probe_apk_sha256": {
+    "camera": "5d8520a740db878ea68d0e9b5f1934cdc6d2f5396f9b24c5dcaf4234310aae78",
+    "sensors": "30edb11830b23c3764cd755ec85d67ba12a4da9d620e5a5e913923e493855b73",
+    "graphics": "c4eef1d960ee8ba63de46b938d477395b58985cf78e3ec618835f2eb06e514ae",
+    "p2p": "0dbe0a93f149c12518d05823da564af57297d5bab0c3869bb969eaab201aebe5"
+  },
+  "runtime_record": "runtime.json",
+  "main_adoption": "../source/main-adoption.json",
+  "final_adb_off": true
+}

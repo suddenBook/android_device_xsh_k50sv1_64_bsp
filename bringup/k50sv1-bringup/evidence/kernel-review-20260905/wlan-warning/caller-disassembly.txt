@@ -1,0 +1,126 @@
+
+/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/kernel-review-20260905/build-project/lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/lib/modules/wlan_drv_gen2.ko:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+00000000000403c0 <wlanSubModInit+0xab8>:
+   403c0:	aa1803e0 	mov	x0, x24
+   403c4:	11000b9c 	add	w28, w28, #0x2
+   403c8:	91000b7b 	add	x27, x27, #0x2
+   403cc:	94000000 	bl	5d3b8 <kalCfgDataRead16>
+			403cc: R_AARCH64_CALL26	kalCfgDataRead16
+   403d0:	7103139f 	cmp	w28, #0xc4
+   403d4:	54ffff21 	b.ne	403b8 <wlanSubModInit+0xab0>
+   403d8:	aa1803e0 	mov	x0, x24
+   403dc:	528018c1 	mov	w1, #0xc6                  	// #198
+   403e0:	910283a2 	add	x2, x29, #0xa0
+   403e4:	94000000 	bl	5d3b8 <kalCfgDataRead16>
+			403e4: R_AARCH64_CALL26	kalCfgDataRead16
+   403e8:	394283a0 	ldrb	w0, [x29,#160]
+   403ec:	390a9340 	strb	w0, [x26,#676]
+   403f0:	350017c0 	cbnz	w0, 406e8 <wlanSubModInit+0xde0>
+   403f4:	aa1803e0 	mov	x0, x24
+   403f8:	52801941 	mov	w1, #0xca                  	// #202
+   403fc:	910283a2 	add	x2, x29, #0xa0
+   40400:	94000000 	bl	5d3b8 <kalCfgDataRead16>
+			40400: R_AARCH64_CALL26	kalCfgDataRead16
+   40404:	394283a0 	ldrb	w0, [x29,#160]
+   40408:	b902ab40 	str	w0, [x26,#680]
+   4040c:	7100081f 	cmp	w0, #0x2
+   40410:	394287a0 	ldrb	w0, [x29,#161]
+   40414:	390ab340 	strb	w0, [x26,#684]
+   40418:	54001380 	b.eq	40688 <wlanSubModInit+0xd80>
+   4041c:	52802101 	mov	w1, #0x108                 	// #264
+   40420:	910283a2 	add	x2, x29, #0xa0
+   40424:	aa1803e0 	mov	x0, x24
+   40428:	94000000 	bl	5d3b8 <kalCfgDataRead16>
+			40428: R_AARCH64_CALL26	kalCfgDataRead16
+   4042c:	394283a0 	ldrb	w0, [x29,#160]
+   40430:	52802141 	mov	w1, #0x10a                 	// #266
+   40434:	390b8f40 	strb	w0, [x26,#739]
+   40438:	910283a2 	add	x2, x29, #0xa0
+   4043c:	394287a0 	ldrb	w0, [x29,#161]
+   40440:	390b9340 	strb	w0, [x26,#740]
+   40444:	aa1803e0 	mov	x0, x24
+   40448:	94000000 	bl	5d3b8 <kalCfgDataRead16>
+			40448: R_AARCH64_CALL26	kalCfgDataRead16
+   4044c:	394287a4 	ldrb	w4, [x29,#161]
+   40450:	52803a81 	mov	w1, #0x1d4                 	// #468
+   40454:	394283a0 	ldrb	w0, [x29,#160]
+   40458:	52800022 	mov	w2, #0x1                   	// #1
+   4045c:	390b9b44 	strb	w4, [x26,#742]
+   40460:	910283a3 	add	x3, x29, #0xa0
+   40464:	390b9740 	strb	w0, [x26,#741]
+   40468:	aa1803e0 	mov	x0, x24
+   4046c:	94000000 	bl	5d368 <kalCfgDataRead>
+			4046c: R_AARCH64_CALL26	kalCfgDataRead
+   40470:	394283a0 	ldrb	w0, [x29,#160]
+   40474:	91207e83 	add	x3, x20, #0x81f
+   40478:	52802181 	mov	w1, #0x10c                 	// #268
+   4047c:	52801902 	mov	w2, #0xc8                  	// #200
+   40480:	390ebf40 	strb	w0, [x26,#943]
+   40484:	aa1803e0 	mov	x0, x24
+   40488:	94000000 	bl	5d368 <kalCfgDataRead>
+			40488: R_AARCH64_CALL26	kalCfgDataRead
+   4048c:	52801f81 	mov	w1, #0xfc                  	// #252
+   40490:	910283a2 	add	x2, x29, #0xa0
+   40494:	aa1803e0 	mov	x0, x24
+   40498:	94000000 	bl	5d3b8 <kalCfgDataRead16>
+			40498: R_AARCH64_CALL26	kalCfgDataRead16
+   4049c:	394283a1 	ldrb	w1, [x29,#160]
+   404a0:	aa1803e0 	mov	x0, x24
+   404a4:	394287a2 	ldrb	w2, [x29,#161]
+   404a8:	390ec341 	strb	w1, [x26,#944]
+   404ac:	52801fc1 	mov	w1, #0xfe                  	// #254
+   404b0:	390ecb42 	strb	w2, [x26,#946]
+   404b4:	910283a2 	add	x2, x29, #0xa0
+   404b8:	94000000 	bl	5d3b8 <kalCfgDataRead16>
+			404b8: R_AARCH64_CALL26	kalCfgDataRead16
+   404bc:	394283a1 	ldrb	w1, [x29,#160]
+   404c0:	390ec741 	strb	w1, [x26,#945]
+   404c4:	39400260 	ldrb	w0, [x19]
+   404c8:	394287a1 	ldrb	w1, [x29,#161]
+   404cc:	390ecf41 	strb	w1, [x26,#947]
+   404d0:	362fcbc0 	tbz	w0, #5, 3fe48 <wlanSubModInit+0x540>
+   404d4:	58003620 	ldr	x0, 40b98 <wlanSubModInit+0x1290>
+   404d8:	52807702 	mov	w2, #0x3b8                 	// #952
+   404dc:	f94033a1 	ldr	x1, [x29,#96]
+   404e0:	94000000 	bl	168 <dumpMemory8IEOneLine>
+			404e0: R_AARCH64_CALL26	dumpMemory8IEOneLine
+   404e4:	17fffe59 	b	3fe48 <wlanSubModInit+0x540>
+   404e8:	b9451a61 	ldr	w1, [x19,#1304]
+   404ec:	f94012c0 	ldr	x0, [x22,#32]
+   404f0:	11000421 	add	w1, w1, #0x1
+   404f4:	f9028a7b 	str	x27, [x19,#1296]
+   404f8:	b9051a61 	str	w1, [x19,#1304]
+   404fc:	94000000 	bl	0 <register_netdev>
+			404fc: R_AARCH64_CALL26	register_netdev
+   40500:	2a0003e2 	mov	w2, w0
+   40504:	37f81082 	tbnz	w2, #31, 40714 <wlanSubModInit+0xe0c>
+   40508:	910c835a 	add	x26, x26, #0x320
+   4050c:	52800020 	mov	w0, #0x1                   	// #1
+   40510:	3935a340 	strb	w0, [x26,#3432]
+   40514:	94000000 	bl	5d328 <wlanRegisterNotifier>
+			40514: R_AARCH64_CALL26	wlanRegisterNotifier
+   40518:	39400260 	ldrb	w0, [x19]
+   4051c:	37201fa0 	tbnz	w0, #4, 40910 <wlanSubModInit+0x1008>
+   40520:	aa1803e0 	mov	x0, x24
+   40524:	94000000 	bl	5f660 <procCreateFsEntry>
+			40524: R_AARCH64_CALL26	procCreateFsEntry
+   40528:	2a0003fb 	mov	w27, w0
+   4052c:	37f8093b 	tbnz	w27, #31, 40650 <wlanSubModInit+0xd48>
+   40530:	aa1803e0 	mov	x0, x24
+   40534:	94000000 	bl	5f928 <cfgCreateProcEntry>
+			40534: R_AARCH64_CALL26	cfgCreateProcEntry
+   40538:	2a0003fb 	mov	w27, w0
+   4053c:	37f8109b 	tbnz	w27, #31, 4074c <wlanSubModInit+0xe44>
+   40540:	3926431f 	strb	wzr, [x24,#2448]
+   40544:	aa1803e0 	mov	x0, x24
+   40548:	3922c31f 	strb	wzr, [x24,#2224]
+   4054c:	94000000 	bl	49c78 <glRegisterAmpc>
+			4054c: R_AARCH64_CALL26	glRegisterAmpc
+   40550:	39400260 	ldrb	w0, [x19]
+   40554:	37201700 	tbnz	w0, #4, 40834 <wlanSubModInit+0xf2c>
+   40558:	f9432300 	ldr	x0, [x24,#1600]
+   4055c:	52800022 	mov	w2, #0x1                   	// #1

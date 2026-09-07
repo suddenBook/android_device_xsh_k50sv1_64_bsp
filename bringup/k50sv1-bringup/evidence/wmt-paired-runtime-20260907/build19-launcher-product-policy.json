@@ -1,0 +1,673 @@
+{
+  "mode": "product",
+  "status": "PASS",
+  "tool_sha256": "3df45addd8003022c9d6430930ee805fee2abcc98f452a01ae13280281ff7ba1",
+  "scanned_trees": [
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build-project/lineage-17.1/out/target/product/k50sv1_64_bsp/system",
+      "text_files": 209
+    },
+    {
+      "path": "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/build-project/lineage-17.1/out/target/product/k50sv1_64_bsp/vendor",
+      "text_files": 209
+    }
+  ],
+  "apks": [
+    {
+      "path": "system/app/Backgrounds/Backgrounds.apk",
+      "package": "org.lineageos.backgrounds"
+    },
+    {
+      "path": "system/app/BasicDreams/BasicDreams.apk",
+      "package": "com.android.dreams.basic"
+    },
+    {
+      "path": "system/app/Bluetooth/Bluetooth.apk",
+      "package": "com.android.bluetooth"
+    },
+    {
+      "path": "system/app/BluetoothMidiService/BluetoothMidiService.apk",
+      "package": "com.android.bluetoothmidiservice"
+    },
+    {
+      "path": "system/app/BookmarkProvider/BookmarkProvider.apk",
+      "package": "com.android.bookmarkprovider"
+    },
+    {
+      "path": "system/app/BuiltInPrintService/BuiltInPrintService.apk",
+      "package": "com.android.bips"
+    },
+    {
+      "path": "system/app/CaptivePortalLogin/CaptivePortalLogin.apk",
+      "package": "com.android.captiveportallogin"
+    },
+    {
+      "path": "system/app/CarrierDefaultApp/CarrierDefaultApp.apk",
+      "package": "com.android.carrierdefaultapp"
+    },
+    {
+      "path": "system/app/CertInstaller/CertInstaller.apk",
+      "package": "com.android.certinstaller"
+    },
+    {
+      "path": "system/app/CompanionDeviceManager/CompanionDeviceManager.apk",
+      "package": "com.android.companiondevicemanager"
+    },
+    {
+      "path": "system/app/CtsShimPrebuilt/CtsShimPrebuilt.apk",
+      "package": "com.android.cts.ctsshim"
+    },
+    {
+      "path": "system/app/EasterEgg/EasterEgg.apk",
+      "package": "com.android.egg"
+    },
+    {
+      "path": "system/app/ExtShared/ExtShared.apk",
+      "package": "android.ext.shared"
+    },
+    {
+      "path": "system/app/GoogleCalendarSyncAdapter/GoogleCalendarSyncAdapter.apk",
+      "package": "com.google.android.syncadapters.calendar"
+    },
+    {
+      "path": "system/app/GoogleContactsSyncAdapter/GoogleContactsSyncAdapter.apk",
+      "package": "com.google.android.syncadapters.contacts"
+    },
+    {
+      "path": "system/app/HTMLViewer/HTMLViewer.apk",
+      "package": "com.android.htmlviewer"
+    },
+    {
+      "path": "system/app/KeyChain/KeyChain.apk",
+      "package": "com.android.keychain"
+    },
+    {
+      "path": "system/app/LiveWallpapersPicker/LiveWallpapersPicker.apk",
+      "package": "com.android.wallpaper.livepicker"
+    },
+    {
+      "path": "system/app/MarkupGoogle/MarkupGoogle.apk",
+      "package": "com.google.android.markup"
+    },
+    {
+      "path": "system/app/OsuLogin/OsuLogin.apk",
+      "package": "com.android.hotspot2"
+    },
+    {
+      "path": "system/app/PacProcessor/PacProcessor.apk",
+      "package": "com.android.pacprocessor"
+    },
+    {
+      "path": "system/app/PrintRecommendationService/PrintRecommendationService.apk",
+      "package": "com.android.printservice.recommendation"
+    },
+    {
+      "path": "system/app/PrintSpooler/PrintSpooler.apk",
+      "package": "com.android.printspooler"
+    },
+    {
+      "path": "system/app/Profiles/Profiles.apk",
+      "package": "org.lineageos.profiles"
+    },
+    {
+      "path": "system/app/SecureElement/SecureElement.apk",
+      "package": "com.android.se"
+    },
+    {
+      "path": "system/app/SimAppDialog/SimAppDialog.apk",
+      "package": "com.android.simappdialog"
+    },
+    {
+      "path": "system/app/Stk/Stk.apk",
+      "package": "com.android.stk"
+    },
+    {
+      "path": "system/app/Terminal/Terminal.apk",
+      "package": "com.android.terminal"
+    },
+    {
+      "path": "system/app/Traceur/Traceur.apk",
+      "package": "com.android.traceur"
+    },
+    {
+      "path": "system/app/WAPPushManager/WAPPushManager.apk",
+      "package": "com.android.smspush"
+    },
+    {
+      "path": "system/app/WallpaperBackup/WallpaperBackup.apk",
+      "package": "com.android.wallpaperbackup"
+    },
+    {
+      "path": "system/framework/framework-res.apk",
+      "package": "android"
+    },
+    {
+      "path": "system/framework/org.lineageos.platform-res.apk",
+      "package": "lineageos.platform"
+    },
+    {
+      "path": "system/priv-app/AndroidMigratePrebuilt/AndroidMigratePrebuilt.apk",
+      "package": "com.google.android.apps.pixelmigrate"
+    },
+    {
+      "path": "system/priv-app/AudioFX/AudioFX.apk",
+      "package": "org.lineageos.audiofx"
+    },
+    {
+      "path": "system/priv-app/BackupRestoreConfirmation/BackupRestoreConfirmation.apk",
+      "package": "com.android.backupconfirm"
+    },
+    {
+      "path": "system/priv-app/BlockedNumberProvider/BlockedNumberProvider.apk",
+      "package": "com.android.providers.blockednumber"
+    },
+    {
+      "path": "system/priv-app/CalendarProvider/CalendarProvider.apk",
+      "package": "com.android.providers.calendar"
+    },
+    {
+      "path": "system/priv-app/CallLogBackup/CallLogBackup.apk",
+      "package": "com.android.calllogbackup"
+    },
+    {
+      "path": "system/priv-app/CellBroadcastReceiver/CellBroadcastReceiver.apk",
+      "package": "com.android.cellbroadcastreceiver"
+    },
+    {
+      "path": "system/priv-app/ContactsProvider/ContactsProvider.apk",
+      "package": "com.android.providers.contacts"
+    },
+    {
+      "path": "system/priv-app/CtsShimPrivPrebuilt/CtsShimPrivPrebuilt.apk",
+      "package": "com.android.cts.priv.ctsshim"
+    },
+    {
+      "path": "system/priv-app/DocumentsUI/DocumentsUI.apk",
+      "package": "com.android.documentsui"
+    },
+    {
+      "path": "system/priv-app/DownloadProvider/DownloadProvider.apk",
+      "package": "com.android.providers.downloads"
+    },
+    {
+      "path": "system/priv-app/DownloadProviderUi/DownloadProviderUi.apk",
+      "package": "com.android.providers.downloads.ui"
+    },
+    {
+      "path": "system/priv-app/DynamicSystemInstallationService/DynamicSystemInstallationService.apk",
+      "package": "com.android.dynsystem"
+    },
+    {
+      "path": "system/priv-app/ExtServices/ExtServices.apk",
+      "package": "android.ext.services"
+    },
+    {
+      "path": "system/priv-app/ExternalStorageProvider/ExternalStorageProvider.apk",
+      "package": "com.android.externalstorage"
+    },
+    {
+      "path": "system/priv-app/FusedLocation/FusedLocation.apk",
+      "package": "com.android.location.fused"
+    },
+    {
+      "path": "system/priv-app/GoogleFeedback/GoogleFeedback.apk",
+      "package": "com.google.android.feedback"
+    },
+    {
+      "path": "system/priv-app/GooglePartnerSetup/GooglePartnerSetup.apk",
+      "package": "com.google.android.partnersetup"
+    },
+    {
+      "path": "system/priv-app/GoogleServicesFramework/GoogleServicesFramework.apk",
+      "package": "com.google.android.gsf"
+    },
+    {
+      "path": "system/priv-app/ImsService/ImsService.apk",
+      "package": "com.mediatek.ims"
+    },
+    {
+      "path": "system/priv-app/InputDevices/InputDevices.apk",
+      "package": "com.android.inputdevices"
+    },
+    {
+      "path": "system/priv-app/LineageParts/LineageParts.apk",
+      "package": "org.lineageos.lineageparts"
+    },
+    {
+      "path": "system/priv-app/LineageSettingsProvider/LineageSettingsProvider.apk",
+      "package": "org.lineageos.lineagesettings"
+    },
+    {
+      "path": "system/priv-app/LineageSetupWizard/LineageSetupWizard.apk",
+      "package": "org.lineageos.setupwizard"
+    },
+    {
+      "path": "system/priv-app/LocalTransport/LocalTransport.apk",
+      "package": "com.android.localtransport"
+    },
+    {
+      "path": "system/priv-app/ManagedProvisioning/ManagedProvisioning.apk",
+      "package": "com.android.managedprovisioning"
+    },
+    {
+      "path": "system/priv-app/MediaProvider/MediaProvider.apk",
+      "package": "com.android.providers.media"
+    },
+    {
+      "path": "system/priv-app/MmsService/MmsService.apk",
+      "package": "com.android.mms.service"
+    },
+    {
+      "path": "system/priv-app/MtpDocumentsProvider/MtpDocumentsProvider.apk",
+      "package": "com.android.mtp"
+    },
+    {
+      "path": "system/priv-app/NetworkPermissionConfig/NetworkPermissionConfig.apk",
+      "package": "com.android.networkstack.permissionconfig"
+    },
+    {
+      "path": "system/priv-app/NetworkStack/NetworkStack.apk",
+      "package": "com.android.networkstack"
+    },
+    {
+      "path": "system/priv-app/ONS/ONS.apk",
+      "package": "com.android.ons"
+    },
+    {
+      "path": "system/priv-app/PackageInstaller/PackageInstaller.apk",
+      "package": "com.android.packageinstaller"
+    },
+    {
+      "path": "system/priv-app/PermissionController/PermissionController.apk",
+      "package": "com.android.permissioncontroller"
+    },
+    {
+      "path": "system/priv-app/Phonesky/Phonesky.apk",
+      "package": "com.android.vending"
+    },
+    {
+      "path": "system/priv-app/PrebuiltGmsCore/PrebuiltGmsCore.apk",
+      "package": "com.google.android.gms"
+    },
+    {
+      "path": "system/priv-app/ProxyHandler/ProxyHandler.apk",
+      "package": "com.android.proxyhandler"
+    },
+    {
+      "path": "system/priv-app/Seedvault/Seedvault.apk",
+      "package": "com.stevesoltys.seedvault"
+    },
+    {
+      "path": "system/priv-app/SettingsProvider/SettingsProvider.apk",
+      "package": "com.android.providers.settings"
+    },
+    {
+      "path": "system/priv-app/SetupWizardPrebuilt/SetupWizardPrebuilt.apk",
+      "package": "com.google.android.setupwizard"
+    },
+    {
+      "path": "system/priv-app/SharedStorageBackup/SharedStorageBackup.apk",
+      "package": "com.android.sharedstoragebackup"
+    },
+    {
+      "path": "system/priv-app/Shell/Shell.apk",
+      "package": "com.android.shell"
+    },
+    {
+      "path": "system/priv-app/StatementService/StatementService.apk",
+      "package": "com.android.statementservice"
+    },
+    {
+      "path": "system/priv-app/TeleService/TeleService.apk",
+      "package": "com.android.phone"
+    },
+    {
+      "path": "system/priv-app/Telecom/Telecom.apk",
+      "package": "com.android.server.telecom"
+    },
+    {
+      "path": "system/priv-app/TelephonyProvider/TelephonyProvider.apk",
+      "package": "com.android.providers.telephony"
+    },
+    {
+      "path": "system/priv-app/Updater/Updater.apk",
+      "package": "org.lineageos.updater"
+    },
+    {
+      "path": "system/priv-app/UserDictionaryProvider/UserDictionaryProvider.apk",
+      "package": "com.android.providers.userdictionary"
+    },
+    {
+      "path": "system/priv-app/Velvet/Velvet.apk",
+      "package": "com.google.android.googlequicksearchbox"
+    },
+    {
+      "path": "system/priv-app/VpnDialogs/VpnDialogs.apk",
+      "package": "com.android.vpndialogs"
+    },
+    {
+      "path": "system/product/app/AppGallery/AppGallery.apk",
+      "package": "com.huawei.appmarket"
+    },
+    {
+      "path": "system/product/app/DeskClock/DeskClock.apk",
+      "package": "com.android.deskclock"
+    },
+    {
+      "path": "system/product/app/Email/Email.apk",
+      "package": "com.android.email"
+    },
+    {
+      "path": "system/product/app/Etar/Etar.apk",
+      "package": "org.lineageos.etar"
+    },
+    {
+      "path": "system/product/app/ExactCalculator/ExactCalculator.apk",
+      "package": "com.android.calculator2"
+    },
+    {
+      "path": "system/product/app/Exchange2/Exchange2.apk",
+      "package": "com.android.exchange"
+    },
+    {
+      "path": "system/product/app/HMSCore/HMSCore.apk",
+      "package": "com.huawei.hwid"
+    },
+    {
+      "path": "system/product/app/Jelly/Jelly.apk",
+      "package": "org.lineageos.jelly"
+    },
+    {
+      "path": "system/product/app/K50sv1IconPack/K50sv1IconPack.apk",
+      "package": "org.lineageos.iconpack.k50sv1"
+    },
+    {
+      "path": "system/product/app/LatinIME/LatinIME.apk",
+      "package": "com.android.inputmethod.latin"
+    },
+    {
+      "path": "system/product/app/LineageThemesStub/LineageThemesStub.apk",
+      "package": "org.lineageos.customization"
+    },
+    {
+      "path": "system/product/app/ModuleMetadata/ModuleMetadata.apk",
+      "package": "com.android.modulemetadata"
+    },
+    {
+      "path": "system/product/app/PhotoTable/PhotoTable.apk",
+      "package": "com.android.dreams.phototable"
+    },
+    {
+      "path": "system/product/app/Recorder/Recorder.apk",
+      "package": "org.lineageos.recorder"
+    },
+    {
+      "path": "system/product/app/WebViewGoogle/WebViewGoogle.apk",
+      "package": "com.google.android.webview"
+    },
+    {
+      "path": "system/product/app/messaging/messaging.apk",
+      "package": "com.android.messaging"
+    },
+    {
+      "path": "system/product/overlay/AccentColorBlack/AccentColorBlackOverlay.apk",
+      "package": "com.android.theme.color.black"
+    },
+    {
+      "path": "system/product/overlay/AccentColorCinnamon/AccentColorCinnamonOverlay.apk",
+      "package": "com.android.theme.color.cinnamon"
+    },
+    {
+      "path": "system/product/overlay/AccentColorGreen/AccentColorGreenOverlay.apk",
+      "package": "com.android.theme.color.green"
+    },
+    {
+      "path": "system/product/overlay/AccentColorOcean/AccentColorOceanOverlay.apk",
+      "package": "com.android.theme.color.ocean"
+    },
+    {
+      "path": "system/product/overlay/AccentColorOrchid/AccentColorOrchidOverlay.apk",
+      "package": "com.android.theme.color.orchid"
+    },
+    {
+      "path": "system/product/overlay/AccentColorPurple/AccentColorPurpleOverlay.apk",
+      "package": "com.android.theme.color.purple"
+    },
+    {
+      "path": "system/product/overlay/AccentColorSpace/AccentColorSpaceOverlay.apk",
+      "package": "com.android.theme.color.space"
+    },
+    {
+      "path": "system/product/overlay/DisplayCutoutEmulationCorner/DisplayCutoutEmulationCornerOverlay.apk",
+      "package": "com.android.internal.display.cutout.emulation.corner"
+    },
+    {
+      "path": "system/product/overlay/DisplayCutoutEmulationDouble/DisplayCutoutEmulationDoubleOverlay.apk",
+      "package": "com.android.internal.display.cutout.emulation.double"
+    },
+    {
+      "path": "system/product/overlay/DisplayCutoutEmulationTall/DisplayCutoutEmulationTallOverlay.apk",
+      "package": "com.android.internal.display.cutout.emulation.tall"
+    },
+    {
+      "path": "system/product/overlay/FontNotoSerifSource/FontNotoSerifSourceOverlay.apk",
+      "package": "com.android.theme.font.notoserifsource"
+    },
+    {
+      "path": "system/product/overlay/IconPackCircularAndroid/IconPackCircularAndroidOverlay.apk",
+      "package": "com.android.theme.icon_pack.circular.android"
+    },
+    {
+      "path": "system/product/overlay/IconPackCircularLauncher/IconPackCircularLauncherOverlay.apk",
+      "package": "com.android.theme.icon_pack.circular.launcher"
+    },
+    {
+      "path": "system/product/overlay/IconPackCircularSettings/IconPackCircularSettingsOverlay.apk",
+      "package": "com.android.theme.icon_pack.circular.settings"
+    },
+    {
+      "path": "system/product/overlay/IconPackCircularSystemUI/IconPackCircularSystemUIOverlay.apk",
+      "package": "com.android.theme.icon_pack.circular.systemui"
+    },
+    {
+      "path": "system/product/overlay/IconPackCircularThemePicker/IconPackCircularThemePickerOverlay.apk",
+      "package": "com.android.theme.icon_pack.circular.themepicker"
+    },
+    {
+      "path": "system/product/overlay/IconPackFilledAndroid/IconPackFilledAndroidOverlay.apk",
+      "package": "com.android.theme.icon_pack.filled.android"
+    },
+    {
+      "path": "system/product/overlay/IconPackFilledLauncher/IconPackFilledLauncherOverlay.apk",
+      "package": "com.android.theme.icon_pack.filled.launcher"
+    },
+    {
+      "path": "system/product/overlay/IconPackFilledSettings/IconPackFilledSettingsOverlay.apk",
+      "package": "com.android.theme.icon_pack.filled.settings"
+    },
+    {
+      "path": "system/product/overlay/IconPackFilledSystemUI/IconPackFilledSystemUIOverlay.apk",
+      "package": "com.android.theme.icon_pack.filled.systemui"
+    },
+    {
+      "path": "system/product/overlay/IconPackFilledThemePicker/IconPackFilledThemePickerOverlay.apk",
+      "package": "com.android.theme.icon_pack.filled.themepicker"
+    },
+    {
+      "path": "system/product/overlay/IconPackRoundedAndroid/IconPackRoundedAndroidOverlay.apk",
+      "package": "com.android.theme.icon_pack.rounded.android"
+    },
+    {
+      "path": "system/product/overlay/IconPackRoundedLauncher/IconPackRoundedLauncherOverlay.apk",
+      "package": "com.android.theme.icon_pack.rounded.launcher"
+    },
+    {
+      "path": "system/product/overlay/IconPackRoundedSettings/IconPackRoundedSettingsOverlay.apk",
+      "package": "com.android.theme.icon_pack.rounded.settings"
+    },
+    {
+      "path": "system/product/overlay/IconPackRoundedSystemUI/IconPackRoundedSystemUIOverlay.apk",
+      "package": "com.android.theme.icon_pack.rounded.systemui"
+    },
+    {
+      "path": "system/product/overlay/IconPackRoundedThemePicker/IconPackRoundedThemePickerOverlay.apk",
+      "package": "com.android.theme.icon_pack.rounded.themepicker"
+    },
+    {
+      "path": "system/product/overlay/IconShapeRoundedRect/IconShapeRoundedRectOverlay.apk",
+      "package": "com.android.theme.icon.roundedrect"
+    },
+    {
+      "path": "system/product/overlay/IconShapeSquircle/IconShapeSquircleOverlay.apk",
+      "package": "com.android.theme.icon.squircle"
+    },
+    {
+      "path": "system/product/overlay/IconShapeTeardrop/IconShapeTeardropOverlay.apk",
+      "package": "com.android.theme.icon.teardrop"
+    },
+    {
+      "path": "system/product/overlay/K50sv1HarmonyOSSansFont/K50sv1HarmonyOSSansFont.apk",
+      "package": "org.lineageos.overlay.font.harmonyos"
+    },
+    {
+      "path": "system/product/overlay/LineageBlackAccent/LineageBlackAccent.apk",
+      "package": "org.lineageos.overlay.accent.black"
+    },
+    {
+      "path": "system/product/overlay/LineageBlackTheme/LineageBlackTheme.apk",
+      "package": "org.lineageos.overlay.customization.blacktheme"
+    },
+    {
+      "path": "system/product/overlay/LineageBlueAccent/LineageBlueAccent.apk",
+      "package": "org.lineageos.overlay.accent.blue"
+    },
+    {
+      "path": "system/product/overlay/LineageBrownAccent/LineageBrownAccent.apk",
+      "package": "org.lineageos.overlay.accent.brown"
+    },
+    {
+      "path": "system/product/overlay/LineageCyanAccent/LineageCyanAccent.apk",
+      "package": "org.lineageos.overlay.accent.cyan"
+    },
+    {
+      "path": "system/product/overlay/LineageGreenAccent/LineageGreenAccent.apk",
+      "package": "org.lineageos.overlay.accent.green"
+    },
+    {
+      "path": "system/product/overlay/LineageLatoFont/LineageLatoFont.apk",
+      "package": "org.lineageos.overlay.font.lato"
+    },
+    {
+      "path": "system/product/overlay/LineageNavigationBarNoHint/LineageNavigationBarNoHint.apk",
+      "package": "org.lineageos.overlay.customization.navbar.nohint"
+    },
+    {
+      "path": "system/product/overlay/LineageOrangeAccent/LineageOrangeAccent.apk",
+      "package": "org.lineageos.overlay.accent.orange"
+    },
+    {
+      "path": "system/product/overlay/LineagePinkAccent/LineagePinkAccent.apk",
+      "package": "org.lineageos.overlay.accent.pink"
+    },
+    {
+      "path": "system/product/overlay/LineagePurpleAccent/LineagePurpleAccent.apk",
+      "package": "org.lineageos.overlay.accent.purple"
+    },
+    {
+      "path": "system/product/overlay/LineageRedAccent/LineageRedAccent.apk",
+      "package": "org.lineageos.overlay.accent.red"
+    },
+    {
+      "path": "system/product/overlay/LineageRubikFont/LineageRubikFont.apk",
+      "package": "org.lineageos.overlay.font.rubik"
+    },
+    {
+      "path": "system/product/overlay/LineageYellowAccent/LineageYellowAccent.apk",
+      "package": "org.lineageos.overlay.accent.yellow"
+    },
+    {
+      "path": "system/product/overlay/NavigationBarMode2Button/NavigationBarMode2ButtonOverlay.apk",
+      "package": "com.android.internal.systemui.navbar.twobutton"
+    },
+    {
+      "path": "system/product/overlay/NavigationBarMode3Button/NavigationBarMode3ButtonOverlay.apk",
+      "package": "com.android.internal.systemui.navbar.threebutton"
+    },
+    {
+      "path": "system/product/overlay/NavigationBarModeGestural/NavigationBarModeGesturalOverlay.apk",
+      "package": "com.android.internal.systemui.navbar.gestural"
+    },
+    {
+      "path": "system/product/overlay/NavigationBarModeGesturalExtraWideBack/NavigationBarModeGesturalOverlayExtraWideBack.apk",
+      "package": "com.android.internal.systemui.navbar.gestural_extra_wide_back"
+    },
+    {
+      "path": "system/product/overlay/NavigationBarModeGesturalNarrowBack/NavigationBarModeGesturalOverlayNarrowBack.apk",
+      "package": "com.android.internal.systemui.navbar.gestural_narrow_back"
+    },
+    {
+      "path": "system/product/overlay/NavigationBarModeGesturalWideBack/NavigationBarModeGesturalOverlayWideBack.apk",
+      "package": "com.android.internal.systemui.navbar.gestural_wide_back"
+    },
+    {
+      "path": "system/product/priv-app/CarrierConfig/CarrierConfig.apk",
+      "package": "com.android.carrierconfig"
+    },
+    {
+      "path": "system/product/priv-app/Contacts/Contacts.apk",
+      "package": "com.android.contacts"
+    },
+    {
+      "path": "system/product/priv-app/Dialer/Dialer.apk",
+      "package": "com.android.dialer"
+    },
+    {
+      "path": "system/product/priv-app/Eleven/Eleven.apk",
+      "package": "org.lineageos.eleven"
+    },
+    {
+      "path": "system/product/priv-app/EmergencyInfo/EmergencyInfo.apk",
+      "package": "com.android.emergency"
+    },
+    {
+      "path": "system/product/priv-app/Gallery2/Gallery2.apk",
+      "package": "com.android.gallery3d"
+    },
+    {
+      "path": "system/product/priv-app/OneTimeInitializer/OneTimeInitializer.apk",
+      "package": "com.android.onetimeinitializer"
+    },
+    {
+      "path": "system/product/priv-app/Settings/Settings.apk",
+      "package": "com.android.settings"
+    },
+    {
+      "path": "system/product/priv-app/SettingsIntelligence/SettingsIntelligence.apk",
+      "package": "com.android.settings.intelligence"
+    },
+    {
+      "path": "system/product/priv-app/Snap/Snap.apk",
+      "package": "org.lineageos.snap"
+    },
+    {
+      "path": "system/product/priv-app/StorageManager/StorageManager.apk",
+      "package": "com.android.storagemanager"
+    },
+    {
+      "path": "system/product/priv-app/SystemUI/SystemUI.apk",
+      "package": "com.android.systemui"
+    },
+    {
+      "path": "system/product/priv-app/ThemePicker/ThemePicker.apk",
+      "package": "com.android.wallpaper"
+    },
+    {
+      "path": "system/product/priv-app/TrebuchetQuickStep/TrebuchetQuickStep.apk",
+      "package": "com.android.launcher3"
+    },
+    {
+      "path": "system/product/priv-app/WallpaperCropper/WallpaperCropper.apk",
+      "package": "com.android.wallpapercropper"
+    }
+  ]
+}

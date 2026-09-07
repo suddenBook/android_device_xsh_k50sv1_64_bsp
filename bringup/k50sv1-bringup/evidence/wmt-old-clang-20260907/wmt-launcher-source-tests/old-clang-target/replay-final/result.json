@@ -1,0 +1,61 @@
+{
+  "status": "PASS",
+  "rows": [
+    {
+      "label": "baseline",
+      "file": "main.c",
+      "exit_code": 0,
+      "stripped_object_sha256": "360daec1c873f2273687dd0c62ef979c5867eaa570d5feeed2025a79916f5922",
+      "original_object_matches": true
+    },
+    {
+      "label": "baseline",
+      "file": "firmware.c",
+      "exit_code": 0,
+      "stripped_object_sha256": "f2901d266597139f3c9b2c7a95a9fcb310ec839eb52e514254f1ee8d715103a0",
+      "original_object_matches": true
+    },
+    {
+      "label": "baseline",
+      "file": "protocol.c",
+      "exit_code": 0,
+      "stripped_object_sha256": "235adee002de8eab31da77a13da88350ad36ca6440da5d96728121f2b08f1d94",
+      "original_object_matches": true
+    },
+    {
+      "label": "baseline",
+      "file": "patch.c",
+      "exit_code": 0,
+      "stripped_object_sha256": "7e91c44ca497a6a15da19a04ca0f3782b8235e5872be0b657f191556b0db410f",
+      "original_object_matches": true
+    },
+    {
+      "label": "candidate",
+      "file": "main.c",
+      "exit_code": 0,
+      "stripped_object_sha256": "360daec1c873f2273687dd0c62ef979c5867eaa570d5feeed2025a79916f5922",
+      "original_object_matches": true
+    },
+    {
+      "label": "candidate",
+      "file": "firmware.c",
+      "exit_code": 0,
+      "stripped_object_sha256": "f2901d266597139f3c9b2c7a95a9fcb310ec839eb52e514254f1ee8d715103a0",
+      "original_object_matches": true
+    },
+    {
+      "label": "candidate",
+      "file": "protocol.c",
+      "exit_code": 0,
+      "stripped_object_sha256": "235adee002de8eab31da77a13da88350ad36ca6440da5d96728121f2b08f1d94",
+      "original_object_matches": true
+    },
+    {
+      "label": "candidate",
+      "file": "patch.c",
+      "exit_code": 0,
+      "stripped_object_sha256": "7e91c44ca497a6a15da19a04ca0f3782b8235e5872be0b657f191556b0db410f",
+      "original_object_matches": true
+    }
+  ]
+}

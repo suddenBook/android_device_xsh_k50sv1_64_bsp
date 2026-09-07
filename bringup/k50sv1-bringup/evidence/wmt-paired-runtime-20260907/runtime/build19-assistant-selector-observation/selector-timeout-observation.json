@@ -1,0 +1,17 @@
+{
+  "status": "OBSERVATION_RECORDED",
+  "evidence_type": "Root transcription of completed host exec result; not a raw adb stdout file",
+  "host_exec_session": 28085,
+  "host_exec_result_chunk": "78fac4",
+  "host_python_exit_code": 1,
+  "command": "am start -W -a android.intent.action.MANAGE_DEFAULT_APP -e android.intent.extra.ROLE_NAME android.app.role.ASSISTANT",
+  "observed_exception": "subprocess.TimeoutExpired",
+  "timeout_seconds": 60,
+  "selection_performed": false,
+  "limitation": "The observation helper raised before writing selector.txt; the subsequent foreground/UI snapshots document the opened activity and no setting selection was issued.",
+  "subsequent_observation_sha256": {
+    "role-live.txt": "72cfd864d4a5db3d3713eb0de9823695709a4d0425b4a9d8879e601f68d9f357",
+    "foreground.txt": "1586a01ecbef4b828e8bc53e3d5d06b66a9a5d49c07cec6f971c89db8d522c42",
+    "ui.txt": "5962e5b638d5688648201c348d8a70f344c2e4c120f50a1a97bedd381f73d47b"
+  }
+}

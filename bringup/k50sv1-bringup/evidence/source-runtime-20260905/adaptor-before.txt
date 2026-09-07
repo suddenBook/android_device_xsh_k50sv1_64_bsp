@@ -1,0 +1,9 @@
+test: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/adaptor-tests/file-buffer-qwhapo5w/test.c:104: int main(void): Assertion `run(command, prefix_length + excess) == -EMSGSIZE' failed.
+Traceback (most recent call last):
+  File "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/adaptor-kernel-work/tools/testing/connectivity/file-buffer-length.py", line 99, in <module>
+    subprocess.run([str(executable)], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/adaptor-tests/file-buffer-qwhapo5w/test']' died with <Signals.SIGABRT: 6>.

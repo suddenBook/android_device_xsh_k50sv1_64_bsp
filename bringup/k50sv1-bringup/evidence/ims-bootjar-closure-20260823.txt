@@ -1,0 +1,57 @@
+IMS boot-jar closure against the real built bootclasspath
+audited_at=2026-08-23T14:55:00+02:00
+
+Question: Stock puts nine MTK jars on BOOTCLASSPATH (mediatek-telephony-base,
+mediatek-telephony-common, mediatek-common, mediatek-framework,
+OPCommonTelephony, mediatek-ims-common, mediatek-ims-base,
+mediatek-telecom-common), and every published MT6755/MT6763/MT6768 Q device
+tree ships seven. This port ships two. Is that enough, or does IMS die with
+NoClassDefFoundError on first bind?
+
+Method: enumerate the dex type table of the whole shipped IMS closure, subtract
+everything that closure defines itself, then subtract every class defined by
+the bootclasspath this product actually builds. Multi-dex matters -- reading
+only classes.dex from framework.jar understates the platform by ~7,500 classes
+and produces hundreds of false positives.
+
+  closure    = ImsService.apk + mediatek-common.jar + mediatek-ims-base.jar
+  platform   = framework, telephony-common, ims-common, voip-common, ext,
+               android.test.base, and the runtime / conscrypt / media APEX jars,
+               every classes*.dex of each
+
+Results:
+
+  classes defined by the closure                      2,903
+  distinct external type references                     871
+  ... of which outside an AOSP namespace                  0   (only the nine
+                                                              JNI primitive
+                                                              descriptors
+                                                              B C D F I J S V Z)
+  platform classes indexed                           26,737
+  external references NOT satisfied by the platform       1
+
+The single unsatisfied reference is:
+
+  android.annotation.ProductApi
+
+which is an annotation type, not code. It does not exist in AOSP Q;
+android.annotation.* annotations carry SOURCE or CLASS retention and are absent
+at runtime by design, and ART only faults on an unresolvable annotation if
+something reflectively reads it. Nothing in the closure does.
+
+Conclusion: the two-jar PRODUCT_BOOT_JARS set is sufficient. In particular the
+closure references com.android.ims.*, com.android.ims.internal.*,
+com.android.internal.telephony.SmsMessageBase, the cdma/gsm SmsMessage classes,
+com.android.internal.util.StateMachine and android.telephony.ims.* -- all of
+which AOSP Q defines, so none of mediatek-framework, mediatek-ims-common,
+mediatek-telephony-*, mediatek-telecom-common or OPCommonTelephony is needed.
+
+This is a static closure over the dex type table. It proves no class is
+missing; it does not prove that every *method* and *field* signature the
+closure expects exists on the AOSP versions of those classes, and it says
+nothing about operator provisioning or registration.
+
+Reproduce:
+  SM=prebuilts/tools-lineage/common/smali/baksmali.jar
+  java -jar $SM list types <closure member> | sed 's/;$//;s/^L//' | tr '/' '.'
+  java -jar $SM list classes <jar>/classes<N>.dex   # every dex, not just the first

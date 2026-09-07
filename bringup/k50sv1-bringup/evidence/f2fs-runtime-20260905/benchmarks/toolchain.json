@@ -1,0 +1,25 @@
+{
+  "fio_version": "3.42",
+  "fio_commit": "ab77643023f5d7e3c1b71a7576a564f368bf577a",
+  "fio_source_clean": true,
+  "compiler": "/home/desmond/Android/Sdk/ndk/30.0.15729638/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android29-clang",
+  "android_api": 29,
+  "source_and_binary_paths_relative_to": "outer work directory",
+  "files": {
+    "fio_binary": {
+      "path": ".capture-staging/f2fs-runtime-20260905/fio/fio",
+      "bytes": 4863848,
+      "sha256": "d5744fe91c4dbd4b2bd50ea1cc461b6b5d8c563a982909f0fc4d5dadeac6935f"
+    },
+    "job_file": {
+      "path": "k50sv1-bringup/experiments/f2fs/io-comparison.fio",
+      "bytes": 956,
+      "sha256": "3611f4d640304c67e18349fe81a741105ebaccffaf60f2d70fda587c5ff8be42"
+    },
+    "v2_harness": {
+      "path": ".capture-staging/f2fs-runtime-20260905/run-bench.py",
+      "bytes": 5211,
+      "sha256": "e5edaac74e1a333518054b8b977e659f84d45e916d56fe843a11ffb47ededaea"
+    }
+  }
+}

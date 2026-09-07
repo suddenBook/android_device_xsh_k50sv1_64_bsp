@@ -1,0 +1,29 @@
+=== vibrator ===
+Vibrator Service:
+  mCurrentVibration=null
+  mCurrentExternalVibration=null
+  mVibratorUnderExternalControl=false
+  mLowPowerMode=false
+  mHapticFeedbackIntensity=2
+  mNotificationIntensity=2
+  mRingIntensity=2
+
+  Previous ring vibrations:
+  Previous notification vibrations:
+  Previous alarm vibrations:
+  Previous vibrations:
+    startTime: Aug 31, 2026, 2:13:40 PM, effect: Prebaked{mEffectId=0, mEffectStrength=1, mFallback=true}, originalEffect: null, attrs: AudioAttributes: usage=USAGE_ASSISTANCE_SONIFICATION content=CONTENT_TYPE_SONIFICATION flags=0x800 tags= bundle=null, uid: 10119, opPkg: com.android.inputmethod.latin, reason: null
+    startTime: Aug 31, 2026, 2:13:41 PM, effect: Prebaked{mEffectId=0, mEffectStrength=1, mFallback=true}, originalEffect: null, attrs: AudioAttributes: usage=USAGE_ASSISTANCE_SONIFICATION content=CONTENT_TYPE_SONIFICATION flags=0x800 tags= bundle=null, uid: 10119, opPkg: com.android.inputmethod.latin, reason: null
+    startTime: Aug 31, 2026, 2:13:41 PM, effect: Prebaked{mEffectId=0, mEffectStrength=1, mFallback=true}, originalEffect: null, attrs: AudioAttributes: usage=USAGE_ASSISTANCE_SONIFICATION content=CONTENT_TYPE_SONIFICATION flags=0x800 tags= bundle=null, uid: 10119, opPkg: com.android.inputmethod.latin, reason: null
+    startTime: Aug 31, 2026, 2:13:41 PM, effect: Prebaked{mEffectId=0, mEffectStrength=1, mFallback=true}, originalEffect: null, attrs: AudioAttributes: usage=USAGE_ASSISTANCE_SONIFICATION content=CONTENT_TYPE_SONIFICATION flags=0x800 tags= bundle=null, uid: 10119, opPkg: com.android.inputmethod.latin, reason: null
+    startTime: Aug 31, 2026, 2:13:42 PM, effect: Prebaked{mEffectId=0, mEffectStrength=1, mFallback=true}, originalEffect: null, attrs: AudioAttributes: usage=USAGE_ASSISTANCE_SONIFICATION content=CONTENT_TYPE_SONIFICATION flags=0x800 tags= bundle=null, uid: 10119, opPkg: com.android.inputmethod.latin, reason: null
+    startTime: Aug 31, 2026, 2:13:42 PM, effect: Prebaked{mEffectId=0, mEffectStrength=1, mFallback=true}, originalEffect: null, attrs: AudioAttributes: usage=USAGE_ASSISTANCE_SONIFICATION content=CONTENT_TYPE_SONIFICATION flags=0x800 tags= bundle=null, uid: 10119, opPkg: com.android.inputmethod.latin, reason: null
+    startTime: Aug 31, 2026, 2:13:43 PM, effect: Prebaked{mEffectId=0, mEffectStrength=1, mFallback=true}, originalEffect: null, attrs: AudioAttributes: usage=USAGE_ASSISTANCE_SONIFICATION content=CONTENT_TYPE_SONIFICATION flags=0x800 tags= bundle=null, uid: 10119, opPkg: com.android.inputmethod.latin, reason: null
+
+=== where is ro.product.first_api_level set? ===
+
+=== ro.build.version.security_patch source ===
+/system/build.prop:30:ro.build.version.security_patch=2023-02-05
+/vendor/build.prop:3:ro.vendor.build.security_patch=2020-08-05
+
+=== lineagehardware capabilities ===

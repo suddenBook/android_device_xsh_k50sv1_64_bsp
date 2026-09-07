@@ -1,0 +1,2 @@
+Source launcher ready on session=1
+test: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-paired-integration-tests/service_bridge.c:124: int power_commands(void): Assertion `result == -ECANCELED' failed.

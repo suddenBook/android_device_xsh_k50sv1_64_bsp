@@ -1,0 +1,63 @@
+{
+  "compile_command": [
+    "/usr/bin/clang",
+    "-std=gnu11",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsanitize=address,undefined",
+    "-fno-sanitize-recover=all",
+    "-fno-omit-frame-pointer",
+    "-pthread",
+    "-I",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/service-review/host-include",
+    "-I",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/service-review/initial-sources/include",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/service-review/characterize.c",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/service-review/initial-sources/protocol.c",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/service-review/initial-sources/patch.c",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/service-review/initial-sources/firmware.c",
+    "-Wl,--wrap=ioctl",
+    "-Wl,--wrap=poll",
+    "-Wl,--wrap=read",
+    "-o",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/service-review/characterize"
+  ],
+  "compile_returncode": 0,
+  "tested_main_sha256": "8e3183760c80208b42d475b17f1fe7d3367151f9c7bd7f7a6c6d87583dfa5623",
+  "run_command": [
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-launcher-source-tests/service-review/characterize"
+  ],
+  "test_returncode": 0,
+  "options": {
+    "ASAN_OPTIONS": "detect_leaks=1:halt_on_error=1:abort_on_error=1",
+    "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1"
+  },
+  "cases": [
+    {
+      "case": "held-enable-then-disable",
+      "enable_calls": 1,
+      "disable_calls": 0,
+      "worker_finished": false,
+      "desired": "no",
+      "cached": "yes",
+      "bug_reproduced": true
+    },
+    {
+      "case": "read-retirement",
+      "errno": 11,
+      "loop_result": 0,
+      "poll_calls": 2,
+      "session_loop_survives": true
+    },
+    {
+      "case": "read-retirement",
+      "errno": 110,
+      "loop_result": -110,
+      "poll_calls": 1,
+      "session_loop_survives": false
+    }
+  ]
+}

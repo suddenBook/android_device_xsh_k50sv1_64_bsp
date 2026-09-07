@@ -1,0 +1,15 @@
+{
+  "boot_id": "d158c364-bb76-43e3-afb7-3962a6a3dfbb",
+  "apk_sha256": "4c05c313b80ea3caab92036fe8c2f164dc0bc943e56c35d9996a1cb6964cedfb",
+  "summary": [
+    "09-06 19:04:04.835  7586  7586 I K50GnssProbe: elapsed_ms=125044 summary started=true stopped=true fixes=0 status_callbacks=124 max_satellites=21 max_used=0"
+  ],
+  "log": "--------- beginning of main\n--------- beginning of system\n09-06 19:01:59.823  7586  7586 I K50GnssProbe: elapsed_ms=31 request provider_enabled=true\n09-06 19:02:00.232  7586  7586 I K50GnssProbe: elapsed_ms=440 satellite_status count=21 used=0\n09-06 19:02:00.234  7586  7586 I K50GnssProbe: elapsed_ms=442 gnss_started\n09-06 19:02:00.724  7586  7586 I K50GnssProbe: elapsed_ms=932 satellite_status count=21 used=0\n09-06 19:02:01.226  7586  7586 I K50GnssProbe: elapsed_ms=1434 satellite_status count=21 used=0\n09-06 19:02:15.724  7586  7586 I K50GnssProbe: elapsed_ms=15932 satellite_status count=21 used=0\n09-06 19:02:35.724  7586  7586 I K50GnssProbe: elapsed_ms=35932 satellite_status count=21 used=0\n09-06 19:02:55.724  7586  7586 I K50GnssProbe: elapsed_ms=55932 satellite_status count=21 used=0\n09-06 19:03:15.725  7586  7586 I K50GnssProbe: elapsed_ms=75934 satellite_status count=21 used=0\n09-06 19:03:35.724  7586  7586 I K50GnssProbe: elapsed_ms=95932 satellite_status count=21 used=0\n09-06 19:03:55.723  7586  7586 I K50GnssProbe: elapsed_ms=115932 satellite_status count=21 used=0\n09-06 19:03:59.830  7586  7586 I K50GnssProbe: elapsed_ms=120038 location_request_removed\n09-06 19:03:59.856  7586  7586 I K50GnssProbe: elapsed_ms=120064 gnss_stopped\n09-06 19:04:04.835  7586  7586 I K50GnssProbe: elapsed_ms=125044 summary started=true stopped=true fixes=0 status_callbacks=124 max_satellites=21 max_used=0\n",
+  "kernel_interval": [
+    255.52,
+    391.34
+  ],
+  "kernel_records": 2675,
+  "new_faults": [],
+  "final_identity": "d158c364-bb76-43e3-afb7-3962a6a3dfbb\n0\n391.34 2269.49\n"
+}

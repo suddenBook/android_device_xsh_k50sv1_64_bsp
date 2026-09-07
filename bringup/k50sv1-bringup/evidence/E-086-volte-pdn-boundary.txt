@@ -1,0 +1,119 @@
+E-086 artifact: VoLTE with a Dutch home SIM in slot 0 -- where it actually stops
+================================================================================
+
+Pinned inputs
+-------------
+libmal_datamngr_so_sha256=25c45f781d8e210264fecf914dea83b2c266546e90b64f8d627c4adff14a5b79
+mtk_ril_so_sha256=60b82ed7682dd882dff90c6bfc196c4abd861d2006b88d2c94d6d1a77a3d02d6
+mtk_rilproxy_so_sha256=6c89be16bb309055f58469387a6580217777930690d0465342b02cbd10c8e23c
+
+Fixture: slot 0 = Vodafone NL (20404), HOME, not roaming; slot 1 = CMCC 46000
+roaming on KPN. The E-084 Tier-1 image. This is the first time this port has
+been measured with a home SIM on the main-capability phone, which is the only
+slot where IMS can run on this build.
+
+1. Every precondition is met, and this time the network is the SIM's own
+---------------------------------------------------------------------------
+  NetworkRegistrationInfo{ domain=CS ... registrationState=HOME
+      roamingType=NOT_ROAMING accessNetworkTechnology=LTE
+      availableServices=[VOICE,SMS,VIDEO] mAlphaLong=vodafone NL }
+  NetworkRegistrationInfo{ domain=PS ... registrationState=HOME
+      LteVopsSupportInfo : mVopsSupport = 3 mEmcBearerSupport = 3 }
+
+  ImsManager: isVolteEnabledByPlatform = true, isVolteProvisionedOnDevice = true,
+              isEnhanced4gLteModeSettingEnabledByUser = true
+  RIL-IMS  : volte setting is enable and AT+EIMSVOLTE=1 is sent
+  AT> AT+EIMS=1     AT< +EIMS: 1
+  AT> AT+EAPNSYNC=0,"live.vodafone.com",0
+  AT> AT+EAPNSYNC=1,"ims",0
+  AT> AT+EAPNSYNC=2,"sos",0
+
+2. The IMS PDN comes up, correctly, with the operator's P-CSCF
+--------------------------------------------------------------
+MediaTek's own ImsAdapter drives it, exactly as the md_auto_setup_ims=0 design
+intends: IMCB asks IMSM, IMSM asks IMSPA, IMSPA (in com.mediatek.ims) calls
+requestNetwork, and AOSP's DcTracker sets the call up.
+
+  DC-ims : [0] start requestNetwork for ims
+  DC-ims : [0] refreshNwLostCallBack nwRequest: NetworkRequest
+           [ Transports: CELLULAR Capabilities: IMS&TRUSTED&NOT_VPN ... ]
+  RP_DC  : [0] [onPreviewSetupDataCallMessage] apnName: ims, interfaceId: 5, profile: 2
+  RILJ   : [0433]> SETUP_DATA_CALL ... DataProfile=-1/2/0/ims///0/0/0/0/true/64/2/...
+  RILJ   : [0433]< SETUP_DATA_CALL DataCallResponse: { cause=0 retry=0 cid=4
+             linkStatus=2 ifname=ccmni4 addresses=[100.75.110.60/32]
+             gateways=[/100.75.110.60]
+             pcscf=[/10.36.170.137, /10.36.184.9] mtu=1500 }
+  RIL-DATA: [0][bindPdnToIntf] activatedPdnNum: 1, interfaceId: 4 E
+
+Nothing above the modem is missing. The PDN exists, on ccmni4, with Vodafone
+NL's two P-CSCF addresses.
+
+3. Where it stops: one refusal inside MediaTek's MAL data manager
+-----------------------------------------------------------------
+  MAL-IMSM    : receive MSG_ID_WRAP_IMSPA_IMSM_PDN_ACT_ACK_RESP,
+                transaction_id = 7, network_id = 100, if_name = ccmni4
+  MFI-DATAMNGR: get pdn info for sim_id 0 ifname ccmni4
+  MAL-DATAMNGR: (dm_get_ims_pdn_req, 1742)
+                [DMGR-ERR] sim_id 0 interface id 4 for IMS in wrong state 1
+  MAL-IMSM    : Can't get pdn info, ret = 0, ril_status = 0, resp status = 1
+  MAL-IMSM    : send MSG_ID_WRAP_IMSA_IMCB_PDN_ACT_REJ_RSP,
+                transaction_id = 7, cause = 31
+  VoLTE IMCB-2: ENTER imcb_bearer_recv_imsa_pdn_act_rej_rsp()
+
+IMCB then retries every ~12 s, forever, with a new transaction id. All six
+volte_ua registration accounts stay Disconnect, no SIP REGISTER is emitted,
+and +CIREGU never leaves 0.
+
+4. Why the state is wrong: MAL is never told the IMS PDN went active
+---------------------------------------------------------------------
+mtkrild dlopens libmal.so and resolves all 24 MAL APIs successfully, including
+the two that would register a data call:
+
+  RIL-MAL: Dlopen api success: mal_datamngr_set_data_call_info
+  RIL-MAL: Dlopen api success: mal_datamngr_set_data_call_info_tlv
+  RIL-MAL: [initMalApi] Dlopen mal APIs success
+
+Neither is ever called. mtk-ril.so carries the success log strings
+"[%s] Call mal_datamngr_set_data_call_info success" and
+"[%s] Call mal_datamngr_set_data_call_info_tlv success"; both have ZERO
+occurrences in a full boot capture. The only thing MAL is told about data calls
+is the AOSP list, and that list does not contain the IMS PDN:
+
+  mal_datamngr_notify_data_call_list: notify data call list change for
+      sim_id 0 num_pdn 1
+  RILJ: [UNSL]< UNSOL_DATA_CALL_LIST_CHANGED [{... .cid = 0, .ifname = ccmni0 ...}]
+
+num_pdn 1, cid 0, ccmni0. The IMS PDN on ccmni4 is deliberately kept out of the
+AOSP data-call list by MediaTek's RIL, and the private channel that should
+carry it to MAL is not exercised. So MAL's per-interface IMS state for ccmni4
+stays at 1 and dm_get_ims_pdn_req refuses.
+
+5. What is NOT the cause (checked, so it is not re-checked)
+------------------------------------------------------------
+- The APN. The IMS APN for 20404 exists in the runtime database
+  (apn=ims, type=ims, protocol=IPV4V6) and IS synced to the modem before the
+  first PDN request (AT+EAPNSYNC=1,"ims",0 at T+36.961, the request at T+37.828).
+- The carrier gate. carrier_volte_available_bool is true for both subscriptions
+  and isVolteEnabledByPlatform is true without any persist.dbg override.
+- Roaming. This SIM is on its own network, registrationState=HOME.
+- VoPS. The serving cell reports mVopsSupport = 3.
+- The MAL socket. mtkmal, rilproxy and mtkrild are all connected; MAL issues
+  and receives requests normally throughout.
+- MAL RDS's Epdgs gate (E-085 section 4). It is still blocked, but it sits on a
+  different path: the RIL sends AT+EIMSVOLTE=1 itself at init.
+- ro.vendor.md_auto_setup_ims=1. Tested on the handset by editing
+  /vendor/build.prop and rebooting. It removes the AP-driven PDN path entirely
+  -- no "wrong state", no PDN_ACT_REJ_RSP -- and +CIREGU STILL stays 0, while
+  reintroducing the UT/801 teardown loop that vendor.prop's long comment
+  documents (809 matching lines in one boot). Reverted. The existing comment in
+  vendor.prop is now backed by a measurement rather than by reasoning.
+
+6. What this leaves
+-------------------
+The remaining gap is entirely inside MediaTek's closed data path: something has
+to make mtk-ril call mal_datamngr_set_data_call_info for an IMS PDN that the AP
+set up. The most likely shape, by analogy with E-085's WifiOffloadService, is a
+MediaTek FRAMEWORK component this port does not run -- stock ships MtkTeleService
+as com.android.phone with its own DcTracker and IwlanDataService, and this port
+runs AOSP's. That is a hypothesis, not a finding: the call site in mtk-ril.so
+has not been located or its predicate read.

@@ -1,0 +1,299 @@
+waiting for first-boot dexopt to settle
+  [32mPASS[0m  first-boot dexopt settled
+
+== identity ==
+  [32mPASS[0m  fingerprint  google/coral/coral:10/QQ3A.200805.001/6578210:user/release-keys
+  [32mPASS[0m  ro.product.brand=google
+  [32mPASS[0m  ro.product.name=coral
+  [32mPASS[0m  ro.product.device=coral
+  [32mPASS[0m  ro.product.manufacturer=Google
+  [32mPASS[0m  ro.product.model=Pixel 4 XL
+  [32mPASS[0m  ro.build.id=QQ3A.200805.001
+  [32mPASS[0m  ro.build.display.id=QQ3A.200805.001
+  [32mPASS[0m  ro.build.description=coral-user 10 QQ3A.200805.001 6578210 release-keys
+  [32mPASS[0m  ro.build.product=k50sv1_64_bsp
+  [32mPASS[0m  ro.build.version.release=10
+  [32mPASS[0m  ro.build.version.sdk=29
+  [32mPASS[0m  ro.lineage.build.version=17.1
+  [32mPASS[0m  ro.lineage.device=k50sv1_64_bsp
+  [32mPASS[0m  ro.product.system.brand=XSH
+  [32mPASS[0m  ro.product.system.name=lineage_k50sv1_64_bsp
+  [32mPASS[0m  ro.product.system.device=k50sv1_64_bsp
+  [32mPASS[0m  ro.product.system.manufacturer=XSH
+  [32mPASS[0m  ro.product.system.model=F212
+  [32mPASS[0m  ro.product.vendor.brand=XSH
+  [32mPASS[0m  ro.product.vendor.name=lineage_k50sv1_64_bsp
+  [32mPASS[0m  ro.product.vendor.device=k50sv1_64_bsp
+  [32mPASS[0m  ro.product.vendor.manufacturer=XSH
+  [32mPASS[0m  ro.product.vendor.model=F212
+  [32mPASS[0m  ro.product.board=k50sv1_64_bsp
+  [32mPASS[0m  ro.board.platform=mt6755
+  [32mPASS[0m  ro.product.first_api_level=26
+  [32mPASS[0m  ro.build.version.security_patch=2023-02-05
+  [32mPASS[0m  ro.vendor.build.security_patch=2020-08-05
+  [32mPASS[0m  exact staged system partition fingerprint: XSH/lineage_k50sv1_64_bsp/k50sv1_64_bsp:10/QQ3A.200805.001/desmond09070316:userdebug/test-keys
+  [32mPASS[0m  vendor fingerprint matches the exact clean system build: XSH/lineage_k50sv1_64_bsp/k50sv1_64_bsp:10/QQ3A.200805.001/desmond09070316:userdebug/test-keys
+  [32mPASS[0m  bootimage fingerprint matches the exact clean system build: XSH/lineage_k50sv1_64_bsp/k50sv1_64_bsp:10/QQ3A.200805.001/desmond09070316:userdebug/test-keys
+  [32mPASS[0m  ro.product.build.fingerprint is absent (this A-only target has no product image)
+  [32mPASS[0m  ro.build.version.incremental=eng.desmon.20260907.031627
+  [32mPASS[0m  ro.system.build.version.incremental=eng.desmon.20260907.031627
+  [32mPASS[0m  ro.vendor.build.version.incremental=eng.desmon.20260907.031627
+  [32mPASS[0m  ro.mtk_gmo_ram_optimize=<unset> (Mali's device-name branch remains inactive)
+  [32mPASS[0m  /vendor mounted ro (ro,seclabel,relatime)
+  [32mPASS[0m  build type: userdebug
+  [32mPASS[0m  ro.debuggable=1
+  [32mPASS[0m  root adb shell
+  [32mPASS[0m  ro.adb.secure=0
+  [32mPASS[0m  service.adb.root=1
+  [32mPASS[0m  USB config exposes adb: adb
+  [32mPASS[0m  SELinux permissive (Tier 1)
+  [32mPASS[0m  privapp mode=log (Tier 1)
+  ....  ro.boot.selinux=permissive
+
+== input: every device must resolve to its own key layout ==
+  [32mPASS[0m  mtk-kpd -> /vendor/usr/keylayout/mtk-kpd.kl
+  [32mPASS[0m  ACCDET -> /vendor/usr/keylayout/ACCDET.kl
+  [32mPASS[0m  fts_ts advertises no keys (Classes=0x00000014); no key layout is loaded, as expected
+  [32mPASS[0m  HALL_DEV -> /vendor/usr/keylayout/HALL_DEV.kl
+  ....  keys down now: 0 device(s) with a key held
+
+== memory: the Dalvik heap was previously unset entirely ==
+  [32mPASS[0m  dalvik.vm.heapstartsize: 8m
+  [32mPASS[0m  dalvik.vm.heapgrowthlimit: 192m
+  [32mPASS[0m  dalvik.vm.heapsize: 512m
+  [32mPASS[0m  dalvik.vm.heaptargetutilization: 0.6
+  [32mPASS[0m  ro.config.per_app_memcg: false
+
+== cgroups: placeholder dirs must be gone, and quiet ==
+  [32mPASS[0m  /dev/stune removed
+  [32mPASS[0m  /dev/cpuset removed
+  [32mPASS[0m  /dev/memcg removed
+  [32mPASS[0m  /dev/cg2_bpf removed
+
+== features added this session ==
+  [32mPASS[0m  android.hardware.bluetooth_le
+  [32mPASS[0m  android.hardware.opengles.aep
+  [32mPASS[0m  android.hardware.usb.accessory
+  [32mPASS[0m  android.hardware.wifi.direct
+  [32mPASS[0m  android.software.midi
+  [32mPASS[0m  android.hardware.telephony.ims
+  [32mPASS[0m  android.hardware.sensor.compass correctly absent
+  [32mPASS[0m  android.hardware.fingerprint correctly absent
+  [32mPASS[0m  android.hardware.nfc correctly absent
+  [32mPASS[0m  android.hardware.sensor.light correctly absent
+  [32mPASS[0m  android.hardware.sensor.proximity correctly absent
+  [32mPASS[0m  android.software.nfc.beam correctly absent
+  [32mPASS[0m  Lineage SDK shared library registered
+
+== storage and partitions ==
+  [32mPASS[0m  /mnt/vendor/protect_f mounted
+  [32mPASS[0m  /mnt/vendor/protect_s mounted
+  [32mPASS[0m  /mnt/vendor/nvdata mounted
+  [32mPASS[0m  nvdata online discard disabled
+  [32mPASS[0m  crypto state: unsupported (userdata unencrypted by design)
+  [32mPASS[0m  /mnt/sdcard symlink present
+
+== usb ==
+  [32mPASS[0m  sys.usb.ffs.ready: 1
+  [32mPASS[0m  sys.usb.state: adb
+  [32mPASS[0m  /dev/usb-ffs/adb present
+
+== ims / volte ==
+  [32mPASS[0m  persist.dbg.volte_avail_ovr=<unset> (the debug short circuit stayed removed)
+  [32mPASS[0m  persist.vendor.volte_support=1
+  [32mPASS[0m  ro.vendor.mtk_ril_mode=c6m_3rild
+  [32mPASS[0m  com.mediatek.ims installed
+  [32mPASS[0m  cu-slot0-cmcc-slot1 radio control settled after 0s
+  [32mPASS[0m  both current fixture SIMs loaded
+  [32mPASS[0m  SIM layout: China Unicom slot 0, China Mobile slot 1
+  [32mPASS[0m  both current fixture SIMs roaming
+  [32mPASS[0m  visited operators: Vodafone NL 20404, KPN 20408
+  [32mPASS[0m  slot 0 China Unicom voice/data registered while roaming on LTE
+  [32mPASS[0m  slot 1 China Mobile voice registered while roaming on GSM
+  [32mPASS[0m  persist.vendor.radio.mtk_dsbp_support=1
+  [32mPASS[0m  persist.vendor.radio.mtk_ps2_rat=W/G
+  [32mPASS[0m  RIL internal VSIM-named socket ABI intact
+
+== gapps ==
+  [32mPASS[0m  com.google.android.gms
+  [32mPASS[0m  com.android.vending
+  [32mPASS[0m  com.google.android.gsf
+  [32mPASS[0m  com.google.android.setupwizard
+  [32mPASS[0m  com.google.android.googlequicksearchbox
+  [32mPASS[0m  com.google.android.partnersetup
+  [32mPASS[0m  com.google.android.feedback
+  [32mPASS[0m  com.google.android.apps.pixelmigrate
+  [32mPASS[0m  com.google.android.markup
+  [32mPASS[0m  com.google.android.syncadapters.calendar
+  [32mPASS[0m  com.google.android.syncadapters.contacts
+  [32mPASS[0m  com.android.inputmethod.latin
+  [32mPASS[0m  com.google.android.inputmethod.latin not a system package
+  [32mPASS[0m  com.google.android.dialer not a system package
+  [32mPASS[0m  com.google.android.contacts not a system package
+  [32mPASS[0m  com.google.android.apps.messaging not a system package
+  [32mPASS[0m  com.google.android.apps.photos not a system package
+  [32mPASS[0m  com.google.android.gm.exchange not a system package
+  [32mPASS[0m  LineageSetupWizard completed
+  [32mPASS[0m  Niagara package, declared permissions, configuration and components are absent
+  [32mPASS[0m  post-setup HOME role and resolver select Trebuchet
+  [32mPASS[0m  default dialer: com.android.dialer
+  [32mPASS[0m  WebView provider: com.google.android.webview
+  [32mPASS[0m  default IME: exact AOSP LatinIME service
+  [32mPASS[0m  AOSP LatinIME registered
+  [32mPASS[0m  AOSP LatinIME enabled
+  [32mPASS[0m  /system/lib/libjni_latinimegoogle.so
+  [32mPASS[0m  /system/lib64/libjni_latinimegoogle.so
+  [32mPASS[0m  Settings opens and remains resumed (com.android.settings)
+  [32mPASS[0m  PlayStore opens and remains resumed (com.android.vending)
+  [32mPASS[0m  Clock opens and remains resumed (com.android.deskclock)
+  [32mPASS[0m  Calendar opens and remains resumed (org.lineageos.etar)
+  [32mPASS[0m  no privileged-permission allowlist violations
+
+== power: the boost path must actually be reachable ==
+  [32mPASS[0m  /proc/ppm/mode system:system 660
+  [32mPASS[0m  /proc/ppm/policy/userlimit_min_cpu_freq system:system 660
+  [32mPASS[0m  /proc/ppm/policy/userlimit_min_cpu_core system:system 660
+  [32mPASS[0m  /proc/perfmgr/perf_ioctl system:system 660
+  [32mPASS[0m  /proc/perfmgr/legacy/perfserv_freq system:system 660
+  [32mPASS[0m  /proc/hps/up_threshold system:system 660
+  ....  cluster0 OPPs: 1001000 910000 819000 689000 598000 494000 338000 156000 
+  ....  cluster1 OPPs: 1508000 1430000 1352000 1196000 1027000 871000 663000 286000 
+  [32mPASS[0m  every powerscntbl frequency exists in the DVFS tables
+  [32mPASS[0m  interactive go_hispeed_load=85
+  [32mPASS[0m  interactive io_is_busy=1
+  [32mPASS[0m  mmcblk0 scheduler noop [deadline] cfq 
+  [32mPASS[0m  read_ahead_kb restored to 128 after boot
+  [32mPASS[0m  boot-time CPU pin released on all 2 cluster(s)
+
+== media: hardware codec must not be seccomp-killed ==
+  [32mPASS[0m  /vendor/etc/seccomp_policy/mediacodec.policy installed
+  ....  /dev/MTK_SMI media:media 660 (the OMX service needs the 'media' supplementary group)
+  [32mPASS[0m  hardware AVC encode: 16879 bytes, H.264 320x640, MTK frames
+  [32mPASS[0m  screenrecord created no new or changed tombstone
+
+== input: the keypad must survive suspend ==
+  [32mPASS[0m  kpd_call_state=0 (source kernel keeps KP_EN; the =2 hatch is retired)
+  [32mPASS[0m  'KEYPAD is disabled' never logged
+  ....  suspend cycles so far: 0 (0 is expected while USB is attached)
+
+== drm ==
+  [32mPASS[0m  /vendor/lib/mediadrm/libwvdrmengine.so
+  [32mPASS[0m  /vendor/lib64/mediadrm/libwvdrmengine.so
+  ....  widevine level: 
+
+== full android: Go mode is gone ==
+  [32mPASS[0m  ro.config.low_ram unset
+  [32mPASS[0m  ram.low not declared
+  [32mPASS[0m  feature picture_in_picture
+  [32mPASS[0m  feature managed_users
+  [32mPASS[0m  feature voice_recognizers
+  [32mPASS[0m  feature activities_on_secondary_displays
+  [32mPASS[0m  ART runtime APEX: release
+
+== telephony: the VoLTE teardown loop must be gone ==
+  [32mPASS[0m  mediatek-common.jar present
+  [32mPASS[0m  mediatek-ims-base.jar present
+  [32mPASS[0m  mediatek-ims-common.jar present
+  [32mPASS[0m  mediatek-ims-extension-plugin.jar present
+  [32mPASS[0m  mediatek-ims-legacy.jar present
+  [32mPASS[0m  mediatek-telecom-common.jar present
+  [32mPASS[0m  mediatek-telephony-base.jar present
+  [32mPASS[0m  mediatek-telephony-common.jar present
+  [32mPASS[0m  mtk_telephony_add_on_policy=0
+  [32mPASS[0m  MTK IMS extension and legacy implementation factories loaded
+  [32mPASS[0m  no ImsManager notifyReady exception
+  [32mPASS[0m  no stopListeningForCalls teardown
+  [32mPASS[0m  rilproxy has no VSIM-channel reconnect loop
+  ....  slot 0 is not CS/WWAN registered HOME (    mServiceState={mVoiceRegState=0(IN_SERVICE), mDataRegState=0(IN_SERVICE), mChannelNumber=2147483647, duplexMode()=0, mCellBandwidths=[], mVoiceOperatorAlphaLong=vodafone NL, mVoiceOperatorAlphaShort=vodafone NL, mDataOperatorAlphaLong=vodafone NL, mDataOperatorAlphaShort=vodafone NL, isManualNetworkSelection=false(automatic), getRilVoiceRadioTechnology=14(LTE), getRilDataRadioTechnology=14(LTE), mCssIndicator=unsupported, mNetworkId=-1, mSystemId=-1, mCdmaRoamingIndicator=-1, mCdmaDefaultRoamingIndicator=-1, mIsEmergencyOnly=false, isUsingCarrierAggregation=false, mLteEarfcnRsrpBoost=0, mNetworkRegistrationInfos=[NetworkRegistrationInfo{ domain=CS transportType=WWAN registrationState=ROAMING roamingType=INTERNATIONAL accessNetworkTechnology=LTE rejectCause=0 emergencyEnabled=false availableServices=[VOICE,SMS,VIDEO] cellIdentity=CellIdentityLte:{ mCi=25619980 mPci=2147483647 mTac=21515 mEarfcn=2147483647 mBandwidth=2147483647 mMcc=204 mMnc=04 mAlphaLong=vodafone NL mAlphaShort=vodafone NL} voiceSpecificInfo=VoiceSpecificRegistrationInfo { mCssSupported=false mRoamingIndicator=1 mSystemIsInPrl=0 mDefaultRoamingIndicator=0} dataSpecificInfo=null nrState=NONE}, NetworkRegistrationInfo{ domain=PS transportType=WWAN registrationState=ROAMING roamingType=INTERNATIONAL accessNetworkTechnology=LTE rejectCause=0 emergencyEnabled=false availableServices=[DATA] cellIdentity=CellIdentityLte:{ mCi=25619980 mPci=0 mTac=21515 mEarfcn=2147483647 mBandwidth=2147483647 mMcc=204 mMnc=04 mAlphaLong=vodafone NL mAlphaShort=vodafone NL} voiceSpecificInfo=null dataSpecificInfo=android.telephony.DataSpecificRegistrationInfo :{ maxDataCalls = 9 isDcNrRestricted = false isNrAvailable = false isEnDcAvailable = false LteVopsSupportInfo :  mVopsSupport = 3 mEmcBearerSupport = 3 mIsUsingCarrierAggregation = false } nrState=NONE}], mNrFrequencyRange=-1, mOperatorAlphaLongRaw=vodafone NL, mOperatorAlphaShortRaw=vodafone NL, mIsIwlanPreferred=false}); IMS provisioning cannot be required on a visited network
+  [33m????[0m  modem IMS registration: +CIREG registered (could not read; check did not run)
+  [33m????[0m  framework IMS registration state (could not read; check did not run)
+  [33m????[0m  MMTEL voice capability (could not read; check did not run)
+
+== net: tethering must be offerable ==
+  [32mPASS[0m  tetherableUsbRegexs: [rndis\d]
+  [32mPASS[0m  tetherableWifiRegexs: [wlan\d, softap\d, ap\d]
+  [32mPASS[0m  tetherableBluetoothRegexs: [bt-pan]
+
+== storage: swap must come up exactly once ==
+  [33m????[0m  swapon failure (dmesg has already wrapped past boot; re-run sooner after a flash) (could not read; check did not run)
+  [32mPASS[0m  zram0 active
+
+== stability ==
+  ....  boot reason: reboot (HW_reboot is this bootloader's normal warm-reboot value, not a fault)
+  [32mPASS[0m  pstore predecessor has one ordered reboot trail and no recognized fault signature
+  [33m????[0m  current ROM pstore proof pending one controlled reboot and lineage-predecessor rerun (could not read; check did not run)
+  ....  preflash-predecessor covers the prior ROM and intentionally cannot complete current-ROM pstore proof
+
+-- session 6 additions --
+  [32mPASS[0m  HarmonyOS Sans installed: /product/fonts/HarmonyOSSans-Regular.ttf
+  [32mPASS[0m  harmonyos family declared
+  [32mPASS[0m  Styles font overlay present: [ ] org.lineageos.overlay.font.harmonyos
+  [32mPASS[0m  installed APN digest matches staged merge: 749e1ce3aaebabde06f7f766734bec191499e5551586035226447778ebddf4b5
+  [32mPASS[0m  APN marker occurs exactly once: k50sv1: Vodafone NL IMS
+  [32mPASS[0m  APN marker occurs exactly once: k50sv1: China Telecom MVNO IMS
+  [32mPASS[0m  APN marker occurs exactly once: k50sv1: China Mobile 46000 IMS
+  [32mPASS[0m  APN marker occurs exactly once: k50sv1: China Mobile 46002 IMS
+  [32mPASS[0m  APN marker occurs exactly once: k50sv1: China Mobile 46004 IMS
+  [32mPASS[0m  APN marker occurs exactly once: k50sv1: China Mobile 46007 IMS
+  [32mPASS[0m  APN marker occurs exactly once: k50sv1: China Mobile 46008 IMS
+  [32mPASS[0m  APN marker occurs exactly once: k50sv1: China Unicom 46001 IMS
+  [32mPASS[0m  APN marker occurs exactly once: k50sv1: China Unicom 46006 IMS
+  [32mPASS[0m  APN marker occurs exactly once: k50sv1: China Unicom 46009 IMS
+  [32mPASS[0m  TelephonyProvider contains exactly 10 device-owned APN rows
+  [32mPASS[0m  TelephonyProvider APN identity/masks/protocols: k50sv1: Vodafone NL IMS
+  [32mPASS[0m  TelephonyProvider APN identity/masks/protocols: k50sv1: China Telecom MVNO IMS
+  [32mPASS[0m  TelephonyProvider APN identity/masks/protocols: k50sv1: China Mobile 46000 IMS
+  [32mPASS[0m  TelephonyProvider APN identity/masks/protocols: k50sv1: China Mobile 46002 IMS
+  [32mPASS[0m  TelephonyProvider APN identity/masks/protocols: k50sv1: China Mobile 46004 IMS
+  [32mPASS[0m  TelephonyProvider APN identity/masks/protocols: k50sv1: China Mobile 46007 IMS
+  [32mPASS[0m  TelephonyProvider APN identity/masks/protocols: k50sv1: China Mobile 46008 IMS
+  [32mPASS[0m  TelephonyProvider APN identity/masks/protocols: k50sv1: China Unicom 46001 IMS
+  [32mPASS[0m  TelephonyProvider APN identity/masks/protocols: k50sv1: China Unicom 46006 IMS
+  [32mPASS[0m  TelephonyProvider APN identity/masks/protocols: k50sv1: China Unicom 46009 IMS
+  [32mPASS[0m  no device-owned APN database identity retained a zero transport mask
+  [32mPASS[0m  com.huawei.appmarket installed: package:com.huawei.appmarket
+  [32mPASS[0m  com.huawei.appmarket is an ordinary product app
+  [32mPASS[0m  com.huawei.appmarket has no PRIVILEGED package flag
+  [32mPASS[0m  com.huawei.appmarket has none of the forbidden platform/pre-granted permissions
+  [32mPASS[0m  com.huawei.hwid installed: package:com.huawei.hwid
+  [32mPASS[0m  com.huawei.hwid is an ordinary product app
+  [32mPASS[0m  com.huawei.hwid has no PRIVILEGED package flag
+  [32mPASS[0m  com.huawei.hwid has none of the forbidden platform/pre-granted permissions
+  [32mPASS[0m  no Huawei privapp/default-permission exception is installed
+  [32mPASS[0m  carrier_use_ims_first_for_emergency_bool = false on all 2 slot(s) (WI-020 fix live)
+  [32mPASS[0m  phone 0 home 46001: carrier VoLTE available (VoLTE switch shown)
+  [32mPASS[0m  phone 0 home 46001: carrier WFC available (Wi-Fi calling switch shown)
+  [32mPASS[0m  phone 1 home 46000: carrier VoLTE available (VoLTE switch shown)
+  [32mPASS[0m  phone 1 home 46000: carrier WFC available (Wi-Fi calling switch shown)
+  [32mPASS[0m  init.svc.wlan_assistant=running
+  [32mPASS[0m  wlan_assistant completed its NVRAM push
+  [32mPASS[0m  wlan0 has the factory NVRAM MAC
+  [32mPASS[0m  5 GHz band present (31 channels listed)
+  [32mPASS[0m  migrated: libtinyxml.so: /vendor/lib/libtinyxml.so
+  [32mPASS[0m  migrated: libalsautils.so: /vendor/lib/libalsautils.so
+  [32mPASS[0m  migrated: libnbaio_mono.so: /vendor/lib/libnbaio_mono.so
+  [32mPASS[0m  migrated: libsensorndkbridge.so: /vendor/lib/libsensorndkbridge.so
+  [32mPASS[0m  migrated: hw/audio.usb.default.so: /vendor/lib/hw/audio.usb.default.so
+  [32mPASS[0m  migrated: hw/audio.r_submix.default.so: /vendor/lib/hw/audio.r_submix.default.so
+  [32mPASS[0m  migrated: hw/android.hardware.audio.effect@5.0-impl.so: /vendor/lib/hw/android.hardware.audio.effect@5.0-impl.so
+  [32mPASS[0m  audio effect HAL registered
+
+== selinux denials ==
+  ....  denial lines across continuous plus boundary dmesg/logcat: 140
+  ....  expected AVC: init -> kernel : system module_request | permissive=1
+  ....  expected AVC: mediaprovider -> shell_data_file : dir getattr | path=/data/local/tmp dev=mmcblk0p30 app=com.android.providers.media permissive=1
+  ....  expected AVC: priv_app -> sysfs : file getattr | path=/sys/devices/soc/180f0000.wifi/net/wlan0/address dev=sysfs app=com.google.android.gms permissive=1
+  ....  expected AVC: priv_app -> sysfs : file open | path=/sys/devices/soc/180f0000.wifi/net/wlan0/address dev=sysfs app=com.google.android.gms permissive=1
+  ....  expected AVC: vold -> mnt_vendor_file : dir ioctl | path=/mnt/vendor/protect_f dev=mmcblk0p8 ioctlcmd=5879 permissive=1
+  ....  expected AVC: vold -> mnt_vendor_file : dir open | path=/mnt/vendor/protect_f dev=mmcblk0p8 permissive=1
+  ....  expected AVC: vold -> mnt_vendor_file : dir read | dev=mmcblk0p8 name=/ permissive=1
+  ....  expected AVC: vold -> mtk_nvdata_file : dir ioctl | path=/mnt/vendor/nvdata dev=mmcblk0p6 ioctlcmd=5879 permissive=1
+  ....  expected AVC: vold -> mtk_nvdata_file : dir open | path=/mnt/vendor/nvdata dev=mmcblk0p6 permissive=1
+  ....  expected AVC: vold -> mtk_nvdata_file : dir read | dev=mmcblk0p6 name=/ permissive=1
+  ....  expected AVC: wfca -> wfca : capability dac_override | permissive=1
+  [32mPASS[0m  no unexpected AVC record (11 qualified of 140 denial line(s))
+
+== summary: 226 passed, 0 failed, 5 unread, 0 evidence-fatal, 22 informational ==
+verified evidence capture: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/runtime/build17-first-boot
+NOTE: 5 check(s) could not read the handset and did not run. That is not
+      a pass. Re-run once the device is idle before drawing conclusions.

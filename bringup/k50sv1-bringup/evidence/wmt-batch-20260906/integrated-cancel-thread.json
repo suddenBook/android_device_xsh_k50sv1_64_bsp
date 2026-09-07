@@ -1,0 +1,44 @@
+{
+  "passed": 2,
+  "total": 2,
+  "cases": [
+    {
+      "case": "cancel-during-consumer-writes",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "case": "active-pointer-reuse",
+      "exit_code": 0,
+      "passed": true
+    }
+  ],
+  "source_sha256": {
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c": "b4139f4044c2d8f07286721bf163ff9aa86611d0cd701b83bbf9a64962b4573f",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/include/osal.h": "1f0164f2fd5a3cd6b1805314f43ae51cce1850832f7911e4c7a6491a1906a1ad"
+  },
+  "runner_sha256": "1c0a2473a3d4347eacde58ae86f7211a5239e1d76abec7a1e2a35cb783c59f6e",
+  "imported_runner_sha256": "b66c94d950f59287ec3674568988164f8a43fbadead01e859fd99ac88269e0bf",
+  "fixture_sha256": "4165e29668c21d11ed4d3acd1f16aac3d9d9474b832f8609de6d57d57c546034",
+  "compiler": [
+    "cc",
+    "-std=gnu11",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-function",
+    "-Wno-unused-variable",
+    "-Wno-unused-but-set-variable",
+    "-pthread",
+    "-fsanitize=thread",
+    "-no-pie",
+    "-fno-omit-frame-pointer",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-batch-tests/cancel-thread/test.c",
+    "-o",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-batch-tests/cancel-thread/test"
+  ],
+  "sanitizer": "thread",
+  "thread_fixture_sha256": "e1b68dd859b18f6a44f50e3e111a594a3ca26d6a29245e616ae3c714b0e542fe"
+}

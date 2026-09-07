@@ -1,0 +1,316 @@
+{
+  "purpose": "Legacy ABI boundary characterization, not verification of a production fix",
+  "production_fix": false,
+  "matched": 20,
+  "total": 20,
+  "cases": [
+    {
+      "case": "production-normal-command",
+      "exit_code": 0,
+      "expected_observation_matched": true,
+      "observation": {
+        "affinity_model": false,
+        "scenario": 10,
+        "first_result": 0,
+        "second_result": -999,
+        "stale_reply_result": -999,
+        "genuine_reply_result": 2,
+        "stale_reply_accepted": false
+      }
+    },
+    {
+      "case": "production-timeout-late-reply-other-open",
+      "exit_code": 0,
+      "expected_observation_matched": true,
+      "observation": {
+        "affinity_model": false,
+        "scenario": 11,
+        "first_result": -110,
+        "second_result": 0,
+        "stale_reply_result": 2,
+        "genuine_reply_result": -22,
+        "stale_reply_accepted": true
+      }
+    },
+    {
+      "case": "production-timeout-late-reply-same-open",
+      "exit_code": 0,
+      "expected_observation_matched": true,
+      "observation": {
+        "affinity_model": false,
+        "scenario": 12,
+        "first_result": -110,
+        "second_result": 0,
+        "stale_reply_result": 2,
+        "genuine_reply_result": -22,
+        "stale_reply_accepted": true
+      }
+    },
+    {
+      "case": "production-completed-duplicate-after-next-read-same-open",
+      "exit_code": 0,
+      "expected_observation_matched": true,
+      "observation": {
+        "affinity_model": false,
+        "scenario": 13,
+        "first_result": 0,
+        "second_result": 0,
+        "stale_reply_result": 2,
+        "genuine_reply_result": -22,
+        "stale_reply_accepted": true
+      }
+    },
+    {
+      "case": "production-cancel-late-reply-other-open",
+      "exit_code": 0,
+      "expected_observation_matched": true,
+      "observation": {
+        "affinity_model": false,
+        "scenario": 14,
+        "first_result": -125,
+        "second_result": 0,
+        "stale_reply_result": 2,
+        "genuine_reply_result": -22,
+        "stale_reply_accepted": true
+      }
+    },
+    {
+      "case": "production-cancel-late-reply-same-open",
+      "exit_code": 0,
+      "expected_observation_matched": true,
+      "observation": {
+        "affinity_model": false,
+        "scenario": 15,
+        "first_result": -125,
+        "second_result": 0,
+        "stale_reply_result": 2,
+        "genuine_reply_result": -22,
+        "stale_reply_accepted": true
+      }
+    },
+    {
+      "case": "production-short-read-and-efault-retry",
+      "exit_code": 0,
+      "expected_observation_matched": true,
+      "observation": {
+        "affinity_model": false,
+        "scenario": 16,
+        "first_result": 0,
+        "second_result": -999,
+        "stale_reply_result": -999,
+        "genuine_reply_result": 2,
+        "stale_reply_accepted": false
+      }
+    },
+    {
+      "case": "production-write-efault-retry",
+      "exit_code": 0,
+      "expected_observation_matched": true,
+      "observation": {
+        "affinity_model": false,
+        "scenario": 17,
+        "first_result": 0,
+        "second_result": -999,
+        "stale_reply_result": -999,
+        "genuine_reply_result": 2,
+        "stale_reply_accepted": false
+      }
+    },
+    {
+      "case": "production-normal-error-response",
+      "exit_code": 0,
+      "expected_observation_matched": true,
+      "observation": {
+        "affinity_model": false,
+        "scenario": 18,
+        "first_result": -1,
+        "second_result": -999,
+        "stale_reply_result": -999,
+        "genuine_reply_result": 4,
+        "stale_reply_accepted": false
+      }
+    },
+    {
+      "case": "production-duplicate-before-next-command",
+      "exit_code": 0,
+      "expected_observation_matched": true,
+      "observation": {
+        "affinity_model": false,
+        "scenario": 19,
+        "first_result": 0,
+        "second_result": -999,
+        "stale_reply_result": -999,
+        "genuine_reply_result": 2,
+        "stale_reply_accepted": false
+      }
+    },
+    {
+      "case": "affinity-model-normal-command",
+      "exit_code": 0,
+      "expected_observation_matched": true,
+      "observation": {
+        "affinity_model": true,
+        "scenario": 10,
+        "first_result": 0,
+        "second_result": -999,
+        "stale_reply_result": -999,
+        "genuine_reply_result": 2,
+        "stale_reply_accepted": false
+      }
+    },
+    {
+      "case": "affinity-model-timeout-late-reply-other-open",
+      "exit_code": 0,
+      "expected_observation_matched": true,
+      "observation": {
+        "affinity_model": true,
+        "scenario": 11,
+        "first_result": -110,
+        "second_result": -1,
+        "stale_reply_result": -116,
+        "genuine_reply_result": 4,
+        "stale_reply_accepted": false
+      }
+    },
+    {
+      "case": "affinity-model-timeout-late-reply-same-open",
+      "exit_code": 0,
+      "expected_observation_matched": true,
+      "observation": {
+        "affinity_model": true,
+        "scenario": 12,
+        "first_result": -110,
+        "second_result": 0,
+        "stale_reply_result": 2,
+        "genuine_reply_result": -116,
+        "stale_reply_accepted": true
+      }
+    },
+    {
+      "case": "affinity-model-completed-duplicate-after-next-read-same-open",
+      "exit_code": 0,
+      "expected_observation_matched": true,
+      "observation": {
+        "affinity_model": true,
+        "scenario": 13,
+        "first_result": 0,
+        "second_result": 0,
+        "stale_reply_result": 2,
+        "genuine_reply_result": -116,
+        "stale_reply_accepted": true
+      }
+    },
+    {
+      "case": "affinity-model-cancel-late-reply-other-open",
+      "exit_code": 0,
+      "expected_observation_matched": true,
+      "observation": {
+        "affinity_model": true,
+        "scenario": 14,
+        "first_result": -125,
+        "second_result": -1,
+        "stale_reply_result": -116,
+        "genuine_reply_result": 4,
+        "stale_reply_accepted": false
+      }
+    },
+    {
+      "case": "affinity-model-cancel-late-reply-same-open",
+      "exit_code": 0,
+      "expected_observation_matched": true,
+      "observation": {
+        "affinity_model": true,
+        "scenario": 15,
+        "first_result": -125,
+        "second_result": 0,
+        "stale_reply_result": 2,
+        "genuine_reply_result": -116,
+        "stale_reply_accepted": true
+      }
+    },
+    {
+      "case": "affinity-model-short-read-and-efault-retry",
+      "exit_code": 0,
+      "expected_observation_matched": true,
+      "observation": {
+        "affinity_model": true,
+        "scenario": 16,
+        "first_result": 0,
+        "second_result": -999,
+        "stale_reply_result": -999,
+        "genuine_reply_result": 2,
+        "stale_reply_accepted": false
+      }
+    },
+    {
+      "case": "affinity-model-write-efault-retry",
+      "exit_code": 0,
+      "expected_observation_matched": true,
+      "observation": {
+        "affinity_model": true,
+        "scenario": 17,
+        "first_result": 0,
+        "second_result": -999,
+        "stale_reply_result": -999,
+        "genuine_reply_result": 2,
+        "stale_reply_accepted": false
+      }
+    },
+    {
+      "case": "affinity-model-normal-error-response",
+      "exit_code": 0,
+      "expected_observation_matched": true,
+      "observation": {
+        "affinity_model": true,
+        "scenario": 18,
+        "first_result": -1,
+        "second_result": -999,
+        "stale_reply_result": -999,
+        "genuine_reply_result": 4,
+        "stale_reply_accepted": false
+      }
+    },
+    {
+      "case": "affinity-model-duplicate-before-next-command",
+      "exit_code": 0,
+      "expected_observation_matched": true,
+      "observation": {
+        "affinity_model": true,
+        "scenario": 19,
+        "first_result": 0,
+        "second_result": -999,
+        "stale_reply_result": -999,
+        "genuine_reply_result": 2,
+        "stale_reply_accepted": false
+      }
+    }
+  ],
+  "source_sha256": {
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_lib.c": "b4139f4044c2d8f07286721bf163ff9aa86611d0cd701b83bbf9a64962b4573f",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/core/wmt_ctrl.c": "6da54fed31854565de606dd3684fde1d40b87f74b237d0a4ac4b76835a983a25",
+    "drivers/misc/mediatek/connectivity/source/common/common_main/linux/wmt_dev.c": "6b1c2064039d7df5da266c4c10ead58cd9eec097594da389301bfa9d3082a8f5"
+  },
+  "runner_sha256": "fa60a2fc22a71ec7d6d304d67a9228279a16a26caf5c3c52a3c09cb017cc5b75",
+  "imported_runner_sha256": "8049f57c18a45c7804a5956a896aa366a32b88d910d78f360860d3a22cafbdf2",
+  "fixture_sha256": "c9abf6ae1828b6fe491de4943e5129fc1fae942076def98ed2c3ade403101079",
+  "compiler": [
+    "cc",
+    "-std=gnu11",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-pointer-sign",
+    "-Wno-unused-parameter",
+    "-Wno-unused-function",
+    "-Wno-unused-but-set-variable",
+    "-fno-omit-frame-pointer",
+    "-no-pie",
+    "-pthread",
+    "-fsanitize=address,undefined",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-identity-tests/final/test.c",
+    "-o",
+    "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-command-identity-tests/final/test"
+  ]
+}

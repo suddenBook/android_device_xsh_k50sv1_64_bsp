@@ -1,0 +1,34 @@
+From 3060c6b335eeb677e9fe455588e4b99edd0834f0 Mon Sep 17 00:00:00 2001
+From: Huixiaqing Liu <huixiaqingliu@outlook.com>
+Date: Mon, 7 Sep 2026 09:26:56 +0200
+Subject: [PATCH 5/8] camera: regenerate parameter blob with native front
+ picture sizes
+
+---
+ proprietary/SHA256SUMS                     | Bin 50709 -> 50709 bytes
+ proprietary/vendor/lib/libcam.paramsmgr.so | Bin 634264 -> 634264 bytes
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+diff --git a/proprietary/SHA256SUMS b/proprietary/SHA256SUMS
+index b32aa3252450ce52d32dcdff8063cad503c9349f..5dd4556ec5a009bbef6661f1d45f1efba0e24aba 100644
+GIT binary patch
+delta 83
+zcmbQ*!#uTzd4qSJgHf8XrLn0+iiKfHQlf#WrKORPfsuikrMZ!1l4WY5VT!SVrD>9Z
+niFtCek#U-tp?OlWd17*^MVhfiiivre#pHvzVw)G{m4pKT{X-dA
+
+delta 86
+zcmbQ*!#uTzd4qSJeX^l}g+ZEeYKobeVVb46sik?6v2n76v8jcLaaxLrg=wm#g-N1?
+qS(1^3X_|>eN?MXxim91Nib-;Ea$;iI<i>R2$pyJAn-}JlgaZIzfEx7x
+
+diff --git a/proprietary/vendor/lib/libcam.paramsmgr.so b/proprietary/vendor/lib/libcam.paramsmgr.so
+index 68719b28d1c99b182c2c40ccc371054e52e8bba3..9b6097471f35343f3c8771cd65f424c59e1d88ab 100644
+GIT binary patch
+delta 33
+pcmbPnTW!W|wT2eP7N!>F7M2#)7Pc1lEgV-)GV*M{dXnStV*ucr4b%Vt
+
+delta 33
+pcmbPnTW!W|wT2eP7N!>F7M2#)7Pc1lEgV-)GV*S}dXnStV*ucy4b=bu
+
+-- 
+2.55.0
+

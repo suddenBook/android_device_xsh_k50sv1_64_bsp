@@ -1,0 +1,124 @@
+K50SV1 Android 10 low-memory contract
+Observed: 2026-08-23T06:22:31+02:00
+
+SUPERSEDED IN PART BY E-019.  Three of the "do not" instructions below were
+reversed later the same day, on evidence, and the tree now does all three:
+the AOSP Go product IS inherited (lineage_k50sv1_64_bsp.mk:26,
+go_defaults_common.mk), Dalvik heap values ARE set, and four ro.lmk.* ship as
+a side effect of that inherit.  The lmkd path analysis in this file is still
+correct and is still the reason none of those ro.lmk.* values do anything.
+
+Decision
+========
+
+Keep the Stock 3.18 in-kernel lowmemorykiller path and declare the Android
+framework low-RAM behavior explicitly:
+
+  ro.config.low_ram=true
+  ro.config.per_app_memcg=false
+
+Do not enable PSI/userspace lmkd properties, do not inherit the entire AOSP Go
+product, and do not guess new minfree, Dalvik heap, or zram values before a
+post-flash workload trace.
+
+Official Android 10 requirements
+================================
+
+Source: https://source.android.com/docs/core/perf/lmkd
+
+Android 9+ userspace lmkd requires all of:
+
+  CONFIG_ANDROID_LOW_MEMORY_KILLER=n
+  CONFIG_MEMCG=y
+  CONFIG_MEMCG_SWAP=y
+
+PSI monitoring additionally requires CONFIG_PSI=y.  Android documents
+ro.config.low_ram as the selector for low-memory versus high-performance kill
+strategy.  The Android 10 source first tests whether the writable in-kernel
+minfree interface exists and, when it does, does not initialize PSI or
+vmpressure monitors.
+
+This device's immutable kernel contract
+=======================================
+
+From factory_image_unpacked/live_captured/config:
+
+  CONFIG_ANDROID_LOW_MEMORY_KILLER=y
+  CONFIG_ANDROID_LOW_MEMORY_KILLER_AUTODETECT_OOM_ADJ_VALUES=y
+  # CONFIG_MEMCG is not set
+  # CONFIG_CPUSETS is not set
+  # CONFIG_BLK_CGROUP is not set
+  CONFIG_PSI is absent from this 3.18 configuration
+
+Live Tier 1, before this source change:
+
+  total-ram: 4019834880
+  low-ram: false
+  MemTotal: 3925620 kB
+  /proc/pressure/memory: absent
+  mounted cgroups: cpu at /dev/cpuctl, cpuacct at /acct; no memory controller
+  /sys/module/lowmemorykiller/parameters/adj: writable, 0,100,200,250,900,950
+  /sys/module/lowmemorykiller/parameters/minfree: writable,
+      18432,23040,27648,32256,55296,80640 pages
+  /dev/block/zram0: 1962804 kB active
+
+Therefore the modern userspace/PSI implementation is not a property-only
+option.  It would require a kernel source recovery and substantial backport,
+then replacement of a currently functioning Stock LMK path.  That is outside
+this prebuilt-kernel bring-up and is higher risk than the requested fallback.
+
+Property placement and compatibility
+====================================
+
+Android Q's build/make/target/product/go_defaults_common.mk places
+ro.config.low_ram in PRODUCT_PROPERTY_OVERRIDES.  On this full-Treble product,
+BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED routes it to /vendor/build.prop.  Init
+loads that read-only public property before boot actions and framework static
+caches are initialized.
+
+The targeted Tier 1 vendor build produced exactly one normal-boot copy:
+
+  out/target/product/k50sv1_64_bsp/vendor/build.prop:
+    ro.config.low_ram=true
+    ro.config.per_app_memcg=false
+
+The second property is deliberate.  Android Q otherwise defaults
+per_app_memcg to the low_ram value.  The kernel has no memory cgroup controller;
+false keeps process accounting on the existing cpuacct fallback and prevents
+Zygote/framework code from claiming a nonexistent per-app memory controller.
+It does not change the kernel LMK thresholds.
+
+The entire AOSP Go product is not inherited.  It would also change dexpreopt,
+boot image profiles, NetworkStack packaging, hardware feature XML, Scudo, and
+debug information.  The owner requested lightweight Go GMS plus the low-RAM
+fallback, not that broader product conversion.
+
+Build verification
+==================
+
+Command:
+
+  K50SV1_BUILD_TIER=1 K50_BUILD_JOBS=32 \
+    tools/run-lineage-build.sh \
+    out/target/product/k50sv1_64_bsp/vendor/build.prop
+
+Result: success.  The normal-boot product output contains one low_ram=true and
+one per_app_memcg=false, both in vendor/build.prop.  Recovery's stale targeted
+intermediate is not a release artifact; the required final build starts after
+deleting out completely.
+
+Post-flash acceptance
+=====================
+
+  getprop ro.config.low_ram                       -> true
+  getprop ro.config.per_app_memcg                 -> false
+  am get-config --device                          -> low-ram: true
+  test ! -e /proc/pressure/memory                 -> success
+  test -w /sys/module/lowmemorykiller/parameters/minfree -> success as root
+  cat /proc/swaps                                 -> zram0 remains active
+  cat /sys/module/lowmemorykiller/parameters/{adj,minfree}
+  getprop sys.lmk.minfree_levels
+
+The property is boot-time/static framework state and cannot be accepted by a
+runtime setprop test.  Post-flash memory pressure, app relaunch latency, kernel
+LMK logs, and zram use must be observed before any threshold tuning.

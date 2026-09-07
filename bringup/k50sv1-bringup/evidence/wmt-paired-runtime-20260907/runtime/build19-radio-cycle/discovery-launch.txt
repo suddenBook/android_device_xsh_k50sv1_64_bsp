@@ -1,0 +1,7 @@
+Starting: Intent { act=android.bluetooth.devicepicker.action.LAUNCH }
+Status: ok
+LaunchState: WARM
+Activity: com.android.settings/.bluetooth.DevicePickerActivity
+TotalTime: 61
+WaitTime: 62
+Complete

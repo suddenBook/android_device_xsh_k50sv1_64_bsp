@@ -1,0 +1,1 @@
+-rw------- 1 system system u:object_r:wifi_data_file:s0 2644 2026-09-07 06:22 /data/misc/wifi/WifiConfigStore.xml

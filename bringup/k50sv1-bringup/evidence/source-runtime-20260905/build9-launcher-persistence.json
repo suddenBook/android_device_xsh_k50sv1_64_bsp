@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "boot_id_before": "99548c91-dc1f-4dee-81e7-ef82e7a72d70",
+  "home_holders_before": [
+    "bitpit.launcher"
+  ],
+  "home_resolver_before": "priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=true\nbitpit.launcher/.ui.HomeActivity",
+  "contacts_before": [
+    "android.permission.READ_CONTACTS: granted=false, flags=[ USER_SET|GRANTED_BY_DEFAULT|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]"
+  ],
+  "choice_method": "Android Settings UI",
+  "revoke_method": "PermissionController Settings UI, including pregrant warning confirmation",
+  "boot_id_after": "8dff3916-76ed-4623-a164-ac9db8b5768a",
+  "home_holders_after": [
+    "bitpit.launcher"
+  ],
+  "home_resolver_after": "priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=true\nbitpit.launcher/.ui.HomeActivity",
+  "contacts_after": [
+    "android.permission.READ_CONTACTS: granted=false, flags=[ USER_SET|GRANTED_BY_DEFAULT|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]"
+  ],
+  "home_choice_survived": true,
+  "user_revocation_survived": true,
+  "final_home_holders": [
+    "com.android.launcher3"
+  ],
+  "final_home_resolver": "priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=true\ncom.android.launcher3/.lineage.LineageLauncher",
+  "final_permissions": {
+    "BIND_APPWIDGET": true,
+    "PACKAGE_USAGE_STATS": true,
+    "ACCESS_COARSE_LOCATION": true,
+    "READ_CALENDAR": true,
+    "READ_CONTACTS": true
+  },
+  "restore_method": "Android Settings UI"
+}

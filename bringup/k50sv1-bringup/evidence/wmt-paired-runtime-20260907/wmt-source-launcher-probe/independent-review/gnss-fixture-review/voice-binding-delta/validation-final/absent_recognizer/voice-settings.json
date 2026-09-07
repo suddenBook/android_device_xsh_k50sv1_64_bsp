@@ -1,0 +1,7 @@
+{
+  "status": "PREPARED",
+  "original": {
+    "voice_recognition_service": "null",
+    "voice_interaction_service": "com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService"
+  }
+}

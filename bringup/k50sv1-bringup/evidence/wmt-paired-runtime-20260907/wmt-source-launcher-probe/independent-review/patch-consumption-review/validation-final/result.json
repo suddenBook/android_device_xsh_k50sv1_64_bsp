@@ -1,0 +1,288 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "name": "frozen_input_integrity",
+      "status": "PASS",
+      "detail": {
+        "files": 41
+      }
+    },
+    {
+      "name": "first-boot_actual_capture_exact_replay",
+      "status": "PASS",
+      "detail": {
+        "boot_id": "5707e604-68f3-4f50-ab7f-0aa6e0fb23e6",
+        "records": 42706,
+        "first_sequence": 0,
+        "last_sequence": 42705,
+        "body_bytes": [
+          318380,
+          179671
+        ],
+        "accepted_uptime_upper_bound": 392.28,
+        "readback_rows": 30
+      }
+    },
+    {
+      "name": "normal-reboot_actual_capture_exact_replay",
+      "status": "PASS",
+      "detail": {
+        "boot_id": "617ecc06-c2fc-404f-9af7-57a370fc85ce",
+        "records": 10354,
+        "first_sequence": 0,
+        "last_sequence": 10353,
+        "body_bytes": [
+          318380,
+          179671
+        ],
+        "accepted_uptime_upper_bound": 52.15,
+        "readback_rows": 30
+      }
+    },
+    {
+      "name": "original_filename_order_rejected_actual_capture",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "missing_sequence_zero",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "interior_sequence_gap",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "duplicate_sequence",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "out_of_order_sequence",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "missing_first_start",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "missing_first_terminal",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "nonzero_transport_result",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "failure_terminal",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "mismatched_fragment_count",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "wrong_body_size",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "cutoff_during_second_download",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "only_one_complete_download",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "installed_firmware_hash_mismatch",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "duplicate_header_sequence",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "wrong_header_count",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "passed": 19,
+  "total": 19,
+  "method": "Unmodified pure firmware/record AST nodes extracted from both frozen collectors; process launch audit hook enabled; actual readback evidence checked independently.",
+  "process_launches": 0,
+  "adb_calls": 0,
+  "blocks": {
+    "current": {
+      "firmware": [
+        {
+          "line": 44,
+          "end_line": 45,
+          "sha256": "990df07224c95dcb34c93cd06236e54a64cf725ca20e06d0962ffc3619ff660e"
+        },
+        {
+          "line": 52,
+          "end_line": 52,
+          "sha256": "020254e5b8d5f79272d6fb94d23ecc3623e324cf96ab872e5e5c22ddeb9c1583"
+        },
+        {
+          "line": 53,
+          "end_line": 58,
+          "sha256": "88213b3695506beba72ede0bf74887455110a2cf081361a3ecf900efcb47ac64"
+        },
+        {
+          "line": 59,
+          "end_line": 59,
+          "sha256": "e168a970cd47c1033f56b6d5a7f362424bbe62f48bcd4ab556c1d1e4615343ce"
+        },
+        {
+          "line": 60,
+          "end_line": 60,
+          "sha256": "207ea68459454d9bcdc71cc99940e277123a4713f6a3e24a475a3a23c85f723d"
+        },
+        {
+          "line": 63,
+          "end_line": 63,
+          "sha256": "e1fa51f87f1bab259c1f4c2e38e713b364b165b9065d4671311c2cc4d81d8217"
+        }
+      ],
+      "records": [
+        {
+          "line": 92,
+          "end_line": 92,
+          "sha256": "a64af9ff557d1eaf5f2f1c4e902158c4d5c5ca34b57b416c75028a29b0640d37"
+        },
+        {
+          "line": 93,
+          "end_line": 97,
+          "sha256": "bc1794bbaf181ebb53427fa800444e4b0a0acf884d08e182892c7836116c45ba"
+        },
+        {
+          "line": 98,
+          "end_line": 98,
+          "sha256": "d1aa8d53ca290a8443122f5598942e382e84d966644be5dfbefb831ff9c0cde2"
+        },
+        {
+          "line": 99,
+          "end_line": 99,
+          "sha256": "f99b0d9866ba1ddbec2c7d89aa701e27c264cded415959562f97000b35292c25"
+        },
+        {
+          "line": 100,
+          "end_line": 100,
+          "sha256": "346750c8f513334bd7bbae575d96e25c6ce0c5ce3941efa4ec2748f3aa71fd37"
+        },
+        {
+          "line": 101,
+          "end_line": 101,
+          "sha256": "05169a23b88e7fb0fcc09d33cabeae01abf7c18b69c91df3bddf404c077e7dd4"
+        },
+        {
+          "line": 102,
+          "end_line": 102,
+          "sha256": "4d47ca2bfcd53e9f77249a5aa46ddf011f6f17b3736b686667cab1fb7ef50aec"
+        },
+        {
+          "line": 103,
+          "end_line": 113,
+          "sha256": "51b15206501ceaae68c357832fbf59ca9b8a96c2d3e44e59071f7d9d02de1a19"
+        },
+        {
+          "line": 114,
+          "end_line": 114,
+          "sha256": "365d6ef24b9c9bb8dc1b53c50c9d1a8458a0ed859d2ec5b72359d5fb7f558dd2"
+        },
+        {
+          "line": 115,
+          "end_line": 115,
+          "sha256": "53fb2b5e0fe2bac06860af512e5c32f31531530f66ff32522277691202d22826"
+        }
+      ]
+    },
+    "before_order_fix": {
+      "firmware": [
+        {
+          "line": 44,
+          "end_line": 45,
+          "sha256": "990df07224c95dcb34c93cd06236e54a64cf725ca20e06d0962ffc3619ff660e"
+        },
+        {
+          "line": 52,
+          "end_line": 52,
+          "sha256": "020254e5b8d5f79272d6fb94d23ecc3623e324cf96ab872e5e5c22ddeb9c1583"
+        },
+        {
+          "line": 53,
+          "end_line": 57,
+          "sha256": "6057947a399e220c6525bba82594f11346a0aab12c85f3a1f13263936ce5b807"
+        }
+      ],
+      "records": [
+        {
+          "line": 73,
+          "end_line": 73,
+          "sha256": "a64af9ff557d1eaf5f2f1c4e902158c4d5c5ca34b57b416c75028a29b0640d37"
+        },
+        {
+          "line": 74,
+          "end_line": 78,
+          "sha256": "bc1794bbaf181ebb53427fa800444e4b0a0acf884d08e182892c7836116c45ba"
+        },
+        {
+          "line": 79,
+          "end_line": 79,
+          "sha256": "d1aa8d53ca290a8443122f5598942e382e84d966644be5dfbefb831ff9c0cde2"
+        },
+        {
+          "line": 80,
+          "end_line": 80,
+          "sha256": "f99b0d9866ba1ddbec2c7d89aa701e27c264cded415959562f97000b35292c25"
+        },
+        {
+          "line": 81,
+          "end_line": 81,
+          "sha256": "346750c8f513334bd7bbae575d96e25c6ce0c5ce3941efa4ec2748f3aa71fd37"
+        },
+        {
+          "line": 82,
+          "end_line": 82,
+          "sha256": "05169a23b88e7fb0fcc09d33cabeae01abf7c18b69c91df3bddf404c077e7dd4"
+        },
+        {
+          "line": 83,
+          "end_line": 83,
+          "sha256": "4d47ca2bfcd53e9f77249a5aa46ddf011f6f17b3736b686667cab1fb7ef50aec"
+        },
+        {
+          "line": 84,
+          "end_line": 94,
+          "sha256": "51b15206501ceaae68c357832fbf59ca9b8a96c2d3e44e59071f7d9d02de1a19"
+        },
+        {
+          "line": 95,
+          "end_line": 95,
+          "sha256": "365d6ef24b9c9bb8dc1b53c50c9d1a8458a0ed859d2ec5b72359d5fb7f558dd2"
+        },
+        {
+          "line": 96,
+          "end_line": 96,
+          "sha256": "53fb2b5e0fe2bac06860af512e5c32f31531530f66ff32522277691202d22826"
+        }
+      ]
+    }
+  }
+}

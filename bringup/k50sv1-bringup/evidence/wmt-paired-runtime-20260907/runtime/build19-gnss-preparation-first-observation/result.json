@@ -1,0 +1,7 @@
+{
+  "status": "FAIL_HOST_AMBIGUOUS_SEARCH_RESOLVER",
+  "exit_code": 1,
+  "search_force_stop_called": false,
+  "probe_started": false,
+  "cause": "The Google package exports multiple MAIN/LAUNCHER activities, so implicit resolution returns ResolverActivity. The concrete SearchActivity is present in the saved package dump and is selected explicitly in the corrected preflight."
+}

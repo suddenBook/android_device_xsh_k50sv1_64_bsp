@@ -1,0 +1,25 @@
+{
+  "kernel_head": "2fa898562dbe6b41893e99f7dc1bc68b414b3813",
+  "images": {
+    "boot": {
+      "sha256": "5e7e7a6eff6299227a4f23f288fc2860acd1c2c31d9868bfc7573b2d235b85ee",
+      "bytes": 8432936,
+      "preserved_components": {
+        "ramdisk": "ddab0ddc121d25c9a25e3207c0485c35bfd69dabdc1865f52e37765cc7060739",
+        "dtb": "3bf76b640714efc8df9547c5a10f71b3623e4c9c7f01e145ff8cb3cc1b1e2907"
+      },
+      "kernel_sha256": "8c16906e0aa8e82608522e930da2d40ba80f7833a703830cf23010c93c5f5845"
+    },
+    "recovery": {
+      "sha256": "50f9c2a5fa643b67678c199835d1ce016d1a07049338cff13238f31393ce84f2",
+      "bytes": 14763308,
+      "preserved_components": {
+        "ramdisk": "7048ada27bf36a2499447dd3b35e3e91c49ac81666e99c146f2e042045211716",
+        "recovery_dtbo": "21c8f45333222c3dd4adcd18f91178492de6fe28512eb009f47891d30c3d2db6",
+        "dtb": "3bf76b640714efc8df9547c5a10f71b3623e4c9c7f01e145ff8cb3cc1b1e2907"
+      },
+      "kernel_sha256": "8c16906e0aa8e82608522e930da2d40ba80f7833a703830cf23010c93c5f5845"
+    }
+  },
+  "config_diff": "--- build/config-before\t2026-09-05 19:44:11.773502115 +0200\n+++ /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/kernel-review-20260905/build-project/lineage-17.1/out/target/product/k50sv1_64_bsp/obj/KERNEL_OBJ/.config\t2026-09-05 19:44:46.897359759 +0200\n@@ -918,7 +918,7 @@\n # CONFIG_CFG80211_CERTIFICATION_ONUS is not set\n # CONFIG_CFG80211_DEFAULT_PS is not set\n # CONFIG_CFG80211_DEBUGFS is not set\n-CONFIG_CFG80211_INTERNAL_REGDB=y\n+# CONFIG_CFG80211_INTERNAL_REGDB is not set\n # CONFIG_CFG80211_WEXT is not set\n # CONFIG_LIB80211 is not set\n # CONFIG_MAC80211 is not set\n"
+}

@@ -1,0 +1,59 @@
+From b311805f61880d6fff76090ad357a60dd25ff564 Mon Sep 17 00:00:00 2001
+From: Huixiaqing Liu <huixiaqingliu@outlook.com>
+Date: Mon, 7 Sep 2026 08:06:55 +0200
+Subject: [PATCH 3/8] ged: bind bridge dispatch to the authorized ioctl command
+
+---
+ drivers/misc/mediatek/gpu/ged/src/ged_main.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/misc/mediatek/gpu/ged/src/ged_main.c b/drivers/misc/mediatek/gpu/ged/src/ged_main.c
+index f746110ad84..c5c0c6efb65 100755
+--- a/drivers/misc/mediatek/gpu/ged/src/ged_main.c
++++ b/drivers/misc/mediatek/gpu/ged/src/ged_main.c
+@@ -101,7 +101,8 @@ static ssize_t ged_write(struct file *filp, const char __user *buf, size_t count
+ 	return 0;
+ }
+ 
+-static long ged_dispatch(struct file *pFile, GED_BRIDGE_PACKAGE *psBridgePackageKM)
++static long ged_dispatch(struct file *pFile, unsigned int ioctlCmd,
++			 GED_BRIDGE_PACKAGE *psBridgePackageKM)
+ {
+ 	int ret = -EFAULT;
+ 	void *pvIn = NULL, *pvOut = NULL;
+@@ -109,6 +110,14 @@ static long ged_dispatch(struct file *pFile, GED_BRIDGE_PACKAGE *psBridgePackage
+ 	ged_bridge_func_type* pFunc = NULL;
+ 	int bridge_id = -1;
+ 
++	/* SELinux checks ioctlCmd, not the command stored in the user payload.
++	 * Both libged ABIs put the same full ioctl value in ui32FunctionID.
++	 * Bind dispatch to that checked value before copying any command data.
++	 */
++	if (_IOC_TYPE(ioctlCmd) != GED_MAGIC ||
++		psBridgePackageKM->ui32FunctionID != ioctlCmd)
++		return -EINVAL;
++
+ 	/* We make sure the both size are GE 0 integer.
+ 	 */
+ 	bridge_id = GED_GET_BRIDGE_ID(psBridgePackageKM->ui32FunctionID);
+@@ -260,7 +269,7 @@ static long ged_ioctl(struct file *pFile, unsigned int ioctlCmd, unsigned long a
+ 		goto unlock_and_return;
+ 	}
+ 
+-	ret = ged_dispatch(pFile, psBridgePackageKM);
++	ret = ged_dispatch(pFile, ioctlCmd, psBridgePackageKM);
+ 
+ unlock_and_return:
+ 
+@@ -299,7 +308,7 @@ static long ged_ioctl_compat(struct file *pFile, unsigned int ioctlCmd, unsigned
+ 	sBridgePackageKM64.i32InBufferSize = psBridgePackageKM32->i32InBufferSize;
+ 	sBridgePackageKM64.i32OutBufferSize = psBridgePackageKM32->i32OutBufferSize;
+ 
+-	ret = ged_dispatch(pFile, &sBridgePackageKM64);
++	ret = ged_dispatch(pFile, ioctlCmd, &sBridgePackageKM64);
+ 
+ unlock_and_return:
+ 
+-- 
+2.55.0
+

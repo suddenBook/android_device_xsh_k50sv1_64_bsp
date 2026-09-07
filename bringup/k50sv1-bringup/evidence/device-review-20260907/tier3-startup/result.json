@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "build": "Tier 3 build24",
+  "result": "No startup blocker observed in the bounded capture; nonfatal warnings retained.",
+  "artifact_and_user_build_evidence": "E-210",
+  "runtime_window": {
+    "start_at_utc": "2026-09-07T16:10:53.387476+00:00",
+    "end_at_utc": "2026-09-07T16:15:53.387631+00:00",
+    "intended_seconds": 300,
+    "actual_host_seconds": 300.000155,
+    "start_byte_inclusive": 11283876,
+    "end_byte_exclusive": 19144784,
+    "bytes": 7860908,
+    "sha256": "adac1c04d1d3ab4f690aebf72ff392da7f1a1ddf2742e37de3960bbaee58afc6"
+  },
+  "boundary_method": "Host UTC and append-only log byte offsets; device wall-clock timezone changed earlier during startup.",
+  "sampling_offsets_seconds": [
+    0,
+    150,
+    300
+  ],
+  "retained_process_pids_at_all_three_snapshots": {
+    "vendor.mediatek.hardware.wfo@1.0-service": 381,
+    "vendor.mediatek.hardware.imsa@1.0-service": 374,
+    "mtkmal": 398,
+    "volte_stack": 3921,
+    "volte_ua": 3923,
+    "volte_imcb": 3924,
+    "com.mediatek.ims": 2326,
+    "system_server": 852,
+    "com.android.phone": 1871
+  },
+  "legacy_wfc_exclusion": {
+    "device_source_commit": "a76fb0bb3296065a879b378cfbd71c9c8792f6e9",
+    "source_contract": "device/xsh/k50sv1_64_bsp/legacy-vowifi-vendor-filter.mk and device.mk",
+    "excluded_vendor_file_count": 29,
+    "excluded_vendor_files": [
+      "vendor/bin/charon",
+      "vendor/bin/epdg_wod",
+      "vendor/bin/starter",
+      "vendor/bin/stroke",
+      "vendor/bin/wfca",
+      "vendor/lib/libmal_epdga.so",
+      "vendor/lib/libwo.so",
+      "vendor/lib64/libcharon-ss.so",
+      "vendor/lib64/libcrypto-ss.so",
+      "vendor/lib64/libcurl-ss.so",
+      "vendor/lib64/libhydra.so",
+      "vendor/lib64/libsimaka.so",
+      "vendor/lib64/libssl-ss.so",
+      "vendor/lib64/libstrongswan.so",
+      "vendor/lib64/libwo.so",
+      "vendor/etc/ipsec/ipsec.conf",
+      "vendor/etc/ipsec/ipsec.d/cacerts/Entrust.net_Certification_Authority_2048.cer",
+      "vendor/etc/ipsec/ipsec.d/cacerts/GeoTrust_PCA_G3_Root.der",
+      "vendor/etc/ipsec/ipsec.d/cacerts/GeoTrust_Primary_CA.der",
+      "vendor/etc/ipsec/ipsec.d/cacerts/GeoTrust_Primary_CA_G2_ECC.der",
+      "vendor/etc/ipsec/ipsec.d/cacerts/VeriSignClass3G4.der",
+      "vendor/etc/ipsec/ipsec.d/cacerts/VeriSignClass3G5.der",
+      "vendor/etc/ipsec/ipsec.d/cacerts/VeriSignUniversalRootCertification.der",
+      "vendor/etc/ipsec/ipsec.d/cacerts/gold.cer",
+      "vendor/etc/ipsec/ipsec.d/cacerts/thawte.der",
+      "vendor/etc/ipsec/ssl/openssl.cnf",
+      "vendor/etc/ipsec/strongswan.conf",
+      "vendor/etc/ipsec/wod_cust.conf",
+      "vendor/etc/ipsec/wod_optr.conf"
+    ],
+    "excluded_init_file_count": 2,
+    "excluded_init_files": [
+      "vendor/etc/init/init.wfca.rc",
+      "vendor/etc/init/init.epdg_wod.rc"
+    ],
+    "excluded_executables": [
+      "charon",
+      "epdg_wod",
+      "starter",
+      "stroke",
+      "wfca"
+    ],
+    "process_matches_in_each_snapshot": 0,
+    "observed_legacy_socket_retry_records_in_runtime_window": 0,
+    "observed_legacy_binary_or_socket_mentions_in_runtime_window": 0,
+    "build24_merged_framework_wfc_available": false,
+    "framework_wfc_availability_overrides_at_all_snapshots": {
+      "persist.dbg.wfc_avail_ovr": "0",
+      "persist.dbg.wfc_avail_ovr0": "0",
+      "persist.dbg.wfc_avail_ovr1": "0"
+    },
+    "retained_components": "WFO, IMSA, IMS, MAL/RDS and volte_* remain; WFC-named RIL build gates are retained in source.",
+    "vendor_property_readability": "UID 2000 getprop did not expose the retained vendor IMS/WFC-build properties; their runtime values are not asserted here."
+  },
+  "runtime_warnings": {
+    "mal_epdgs_not_ready_records": 5,
+    "pid": 398,
+    "tid": 629,
+    "sim_index": 1,
+    "observed_device_time_range": [
+      "18:13:57.063",
+      "18:13:59.629"
+    ],
+    "context": "Clustered during Wi-Fi-state updates with adjacent SIM 1 records; WFC is off. Adjacent SIM 0 profile shows VoLTE on and WFC off.",
+    "interpretation": "These readiness warnings are separate from removed-daemon socket retries; a fixed periodic retry loop is not established.",
+    "mal_rat_error_records": 0,
+    "volte_interprocess_socket_retry_error_records": 0,
+    "wfo_provisioning_config_error_records": 0
+  },
+  "runtime_selinux": {
+    "raw_avc_records": 54,
+    "unique_audit_ids": 32,
+    "categories": [
+      {
+        "permission": "read",
+        "source": "u:r:shell:s0",
+        "target": "u:object_r:device_config_runtime_native_boot_prop:s0",
+        "object_class": "file",
+        "unique_events": 31
+      },
+      {
+        "permission": "syslog_read",
+        "source": "u:r:system_server:s0",
+        "target": "u:r:kernel:s0",
+        "object_class": "system",
+        "unique_events": 1
+      }
+    ],
+    "system_server_event_context": "One syslog_read denial adjacent to wifi-jni reporting no kernel logs."
+  },
+  "crash_observations": {
+    "runtime_fatal_exception_records": 0,
+    "runtime_native_fatal_signal_records": 0,
+    "runtime_am_crash_records": 0,
+    "runtime_anr_records": 0,
+    "os_or_app_crash_events_observed_in_reviewed_startup_and_runtime": 0,
+    "earlier_diagnostic_crash": {
+      "fatal_exception_records": 1,
+      "pid": 1104,
+      "component": "uiautomator DumpCommand / UiAutomation.connect",
+      "reason": "Coordinator attempted a UI dump before SystemReady.",
+      "classification": "Diagnostic fixture failure, excluded from OS/app crash count."
+    },
+    "dropbox_crash_anr_watchdog_entries_at_both_endpoints": 0,
+    "nonfatal_startup_wtf_records": {
+      "TrustManager_user_handle": 1,
+      "SystemUI_unprotected_demo_broadcast": 2,
+      "phone_SystemConfig_access": 3
+    }
+  },
+  "startup_prefix_context": {
+    "raw_avc_records": 68,
+    "unique_audit_ids": 41,
+    "mal_epdgs_not_ready_records": 9,
+    "volte_interprocess_socket_retry_error_records": 15,
+    "wfo_provisioning_config_error_records": 2
+  },
+  "private_audit_result_sha256": "f5ad6807aef7a8426600492d578e2e145644c3eb5e112986caa695cb42ec07cf",
+  "limits": [
+    "Counts cover observed records in the stated capture; logcat suppression can hide repetitions.",
+    "PID stability is established at three snapshots, not continuous process tracing.",
+    "This audit does not establish IMS registration, call acceptance or absence of future crashes."
+  ]
+}

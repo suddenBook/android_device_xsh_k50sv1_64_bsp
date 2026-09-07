@@ -1,0 +1,24 @@
+[
+  {
+    "arch": "arm",
+    "bytes": 19392,
+    "sha256": "8b30f1b6b242dfa430a1aaf2181c659f44acae8331c2b18f229ba2f3754d390e",
+    "source_output_equals_installed": true,
+    "soname": "libtinycompress.so",
+    "required_vendor_functions": 13,
+    "missing": [],
+    "layout_and_ioctl_assertions_pass": true,
+    "signal_header": "bionic/libc/kernel/uapi/asm-arm/asm/sigcontext.h"
+  },
+  {
+    "arch": "arm64",
+    "bytes": 23400,
+    "sha256": "16218ab6a2b9f8304c51cb2c127ba7eb08bedb412e72d754d2d9fe53d0f453d5",
+    "source_output_equals_installed": true,
+    "soname": "libtinycompress.so",
+    "required_vendor_functions": 13,
+    "missing": [],
+    "layout_and_ioctl_assertions_pass": true,
+    "signal_header": "bionic/libc/kernel/uapi/asm-arm64/asm/sigcontext.h"
+  }
+]

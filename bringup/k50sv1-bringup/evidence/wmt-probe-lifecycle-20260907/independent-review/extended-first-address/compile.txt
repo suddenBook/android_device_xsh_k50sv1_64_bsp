@@ -1,0 +1,177 @@
+extended-first-address/fixture.c:1576:7: error: extra tokens at end of ‘#endif’ directive [-Werror=endif-labels]
+ 1576 | #endif;
+      |       ^
+extended-first-address/fixture.c: In function ‘_mtk_wcn_cmb_stub_query_ctrl’:
+extended-first-address/fixture.c:1581:7: error: extra tokens at end of ‘#endif’ directive [-Werror=endif-labels]
+ 1581 | #endif;
+      |       ^
+extended-first-address/fixture.c:1582:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘void’
+ 1582 | void _mtk_wcn_cmb_stub_clock_fail_dump(void);
+      | ^~~~
+extended-first-address/fixture.c:1587:13: error: storage class specified for parameter ‘wmt_plat_thermal_ctrl’
+ 1587 | static long wmt_plat_thermal_ctrl(VOID);
+      |             ^~~~~~~~~~~~~~~~~~~~~
+extended-first-address/fixture.c:1588:14: error: storage class specified for parameter ‘wmt_plat_assert_ctrl’
+ 1588 | static INT32 wmt_plat_assert_ctrl(VOID);
+      |              ^~~~~~~~~~~~~~~~~~~~
+extended-first-address/fixture.c:1589:13: error: storage class specified for parameter ‘wmt_plat_clock_fail_dump’
+ 1589 | static VOID wmt_plat_clock_fail_dump(VOID);
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~
+extended-first-address/fixture.c:1590:15: error: storage class specified for parameter ‘wmt_plat_soc_co_clock_flag_set’
+ 1590 | static UINT32 wmt_plat_soc_co_clock_flag_set(UINT32 flag);
+      |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+extended-first-address/fixture.c:1596:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1596 | { return 0; }
+      | ^
+extended-first-address/fixture.c:1599:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1599 | {}
+      | ^
+extended-first-address/fixture.c:1602:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1602 | { return 0; }
+      | ^
+extended-first-address/fixture.c:1604:58: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1604 | static ENUM_WMT_CHIP_TYPE wmt_detect_get_chip_type(void) { return WMT_CHIP_TYPE_SOC; }
+      |                                                          ^
+extended-first-address/fixture.c:1607:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1607 | {
+      | ^
+extended-first-address/fixture.c:1621:41: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1621 | static int review_thermal_payload(void) { return review_payload(); }
+      |                                         ^
+extended-first-address/fixture.c:1623:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1623 | { assert(type == WMTDRV_TYPE_WMT && reason == 45); return review_payload(); }
+      | ^
+extended-first-address/fixture.c:1626:35: error: storage class specified for parameter ‘bridge’
+ 1626 | static struct wmt_platform_bridge bridge;
+      |                                   ^~~~~~
+extended-first-address/fixture.c:1627:24: error: storage class specified for parameter ‘bridge_lock’
+ 1627 | static DEFINE_SPINLOCK(bridge_lock);
+      |                        ^~~~~~~~~~~
+extended-first-address/fixture.c:1446:47: note: in definition of macro ‘DEFINE_SPINLOCK’
+ 1446 | #define DEFINE_SPINLOCK(name) pthread_mutex_t name = PTHREAD_MUTEX_INITIALIZER
+      |                                               ^~~~
+extended-first-address/fixture.c:1627:1: error: parameter ‘bridge_lock’ is initialized
+ 1627 | static DEFINE_SPINLOCK(bridge_lock);
+      | ^~~~~~
+extended-first-address/fixture.c:1628:21: error: storage class specified for parameter ‘bridge_update_lock’
+ 1628 | static DEFINE_MUTEX(bridge_update_lock);
+      |                     ^~~~~~~~~~~~~~~~~~
+extended-first-address/fixture.c:1447:44: note: in definition of macro ‘DEFINE_MUTEX’
+ 1447 | #define DEFINE_MUTEX(name) pthread_mutex_t name = PTHREAD_MUTEX_INITIALIZER
+      |                                            ^~~~
+extended-first-address/fixture.c:1628:1: error: parameter ‘bridge_update_lock’ is initialized
+ 1628 | static DEFINE_MUTEX(bridge_update_lock);
+      | ^~~~~~
+extended-first-address/fixture.c:1629:32: error: storage class specified for parameter ‘bridge_idle’
+ 1629 | static DECLARE_WAIT_QUEUE_HEAD(bridge_idle);
+      |                                ^~~~~~~~~~~
+extended-first-address/fixture.c:1453:64: note: in definition of macro ‘DECLARE_WAIT_QUEUE_HEAD’
+ 1453 | #define DECLARE_WAIT_QUEUE_HEAD(name) struct review_wait_queue name = { PTHREAD_MUTEX_INITIALIZER, PTHREAD_COND_INITIALIZER }
+      |                                                                ^~~~
+extended-first-address/fixture.c:1453:46: error: parameter ‘bridge_idle’ is initialized
+ 1453 | #define DECLARE_WAIT_QUEUE_HEAD(name) struct review_wait_queue name = { PTHREAD_MUTEX_INITIALIZER, PTHREAD_COND_INITIALIZER }
+      |                                              ^~~~~~~~~~~~~~~~~
+extended-first-address/fixture.c:1629:8: note: in expansion of macro ‘DECLARE_WAIT_QUEUE_HEAD’
+ 1629 | static DECLARE_WAIT_QUEUE_HEAD(bridge_idle);
+      |        ^~~~~~~~~~~~~~~~~~~~~~~
+extended-first-address/fixture.c:1630:17: error: storage class specified for parameter ‘bridge_users’
+ 1630 | static atomic_t bridge_users = ATOMIC_INIT(0);
+      |                 ^~~~~~~~~~~~
+extended-first-address/fixture.c:1630:1: error: parameter ‘bridge_users’ is initialized
+ 1630 | static atomic_t bridge_users = ATOMIC_INIT(0);
+      | ^~~~~~
+extended-first-address/fixture.c:1634:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1634 | {
+      | ^
+extended-first-address/fixture.c:1648:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1648 | {
+      | ^
+extended-first-address/fixture.c:1655:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1655 | {
+      | ^
+extended-first-address/fixture.c:1665:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1665 | {
+      | ^
+extended-first-address/fixture.c:1678:51: error: expected declaration specifiers before ‘;’ token
+ 1678 | EXPORT_SYMBOL(wmt_export_platform_bridge_register);
+      |                                                   ^
+extended-first-address/fixture.c:1681:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1681 | {
+      | ^
+extended-first-address/fixture.c:1687:53: error: expected declaration specifiers before ‘;’ token
+ 1687 | EXPORT_SYMBOL(wmt_export_platform_bridge_unregister);
+      |                                                     ^
+extended-first-address/fixture.c:1690:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1690 | {
+      | ^
+extended-first-address/fixture.c:1707:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1707 | {
+      | ^
+extended-first-address/fixture.c:1726:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1726 | {
+      | ^
+extended-first-address/fixture.c:1746:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1746 | {
+      | ^
+extended-first-address/fixture.c:1762:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1762 | {
+      | ^
+extended-first-address/fixture.c:1774:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1774 | {
+      | ^
+extended-first-address/fixture.c:1782:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1782 | {
+      | ^
+extended-first-address/fixture.c:1818:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1818 | {
+      | ^
+extended-first-address/fixture.c:1836:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1836 | {
+      | ^
+extended-first-address/fixture.c:1911:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1911 | {
+      | ^
+extended-first-address/fixture.c:1938:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1938 | {
+      | ^
+extended-first-address/fixture.c:1948:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1948 | {
+      | ^
+extended-first-address/fixture.c:1958:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1958 | {
+      | ^
+extended-first-address/fixture.c:1963:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1963 | {
+      | ^
+extended-first-address/fixture.c:1969:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1969 | {
+      | ^
+extended-first-address/fixture.c:1974:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1974 | {
+      | ^
+extended-first-address/fixture.c:1979:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1979 | {
+      | ^
+extended-first-address/fixture.c:1986:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1986 | {
+      | ^
+extended-first-address/fixture.c:1998:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 1998 | {
+      | ^
+extended-first-address/fixture.c:2009:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 2009 | {
+      | ^
+extended-first-address/fixture.c:2019:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 2019 | {
+      | ^
+extended-first-address/fixture.c:2029:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ 2029 | {
+      | ^
+extended-first-address/fixture.c:1575:12: error: old-style parameter declarations in prototyped function definition
+ 1575 | static int _mtk_wcn_cmb_stub_query_ctrl(void)
+      |            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+extended-first-address/fixture.c:2111: error: expected ‘{’ at end of input
+extended-first-address/fixture.c:2110:1: error: no return statement in function returning non-void [-Werror=return-type]
+ 2110 | }
+      | ^
+cc1: all warnings being treated as errors

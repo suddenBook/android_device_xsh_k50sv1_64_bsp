@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "search_restore_required": true,
+  "voice_restore_required": true,
+  "errors": [],
+  "restored_voice_settings": {
+    "voice_recognition_service": "null",
+    "voice_interaction_service": "com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService"
+  }
+}
