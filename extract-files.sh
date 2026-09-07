@@ -727,11 +727,9 @@ function blob_fixup() {
             fi
             ;;
         vendor/lib/libcam.paramsmgr.so)
-            # The production camera provider is 32-bit. Its IMX145 feature
-            # table ends with two interpolated picture sizes above the native
-            # readout width. Limit only this table's count to its first 13
-            # entries, retaining 3264x2448 and 3264x1836. Other sensor tables,
-            # shared strings and the unused 64-bit blob are unchanged.
+            # Limit the production 32-bit picture tables to sensor-native
+            # widths: IMX145 keeps 13 entries; GC5025 keeps 12, including
+            # 2592x1944. Both defaults and all focus metadata stay intact.
             python3 - "$2" <<'CAMERASIZEEOF' || exit 1
 import hashlib
 from pathlib import Path
@@ -740,13 +738,14 @@ import sys
 
 path = Path(sys.argv[1])
 input_sha = "c718ded972a72928e293e40f0079dd50834955f9948d003a98033f331bb79f64"
-output_sha = "c1080f3ed661f97597b33c835843fd485e984a86b285f48dfb6d564d4cccaaf9"
-count_offset = 0x48748  # IMX145 function 0x484e4 + 0x264: movs r3, #15
+output_sha = "2f39358d81dba05992202069729b9ea1d3095b047cc23f617bc7ace8f38d47f8"
+count_updates = {0x48748: 13, 0x8c9d4: 12}  # Thumb movs r3, #count
 sizes = (
     "320x240", "640x480", "1024x768", "1280x720", "1280x768",
     "1280x960", "1600x1200", "1920x1088", "2048x1536", "2560x1440",
     "2560x1920", "3264x2448", "3264x1836", "3600x2160", "3840x2176",
 )
+front_sizes = sizes[:11] + ("2592x1944", "2864x1600")
 with path.open("r+b") as blob:
     original = blob.read()
     if hashlib.sha256(original).hexdigest() != input_sha:
@@ -756,26 +755,40 @@ with path.open("r+b") as blob:
         raise SystemExit("Unexpected camera parameter ELF layout")
     if original[0x48744:0x48752] != bytes.fromhex("48 46 f8 c1 0f 23 73 49 79 44 d6 f7 13 ff"):
         raise SystemExit("Unexpected IMX145 picture-size count instruction")
+    if original[0x8c9ce:0x8c9e2] != bytes.fromhex("90 e8 f8 00 f8 c1 0d 23 6c 49 1a af 38 46 79 44 92 f7 cb fd"):
+        raise SystemExit("Unexpected GC5025 picture-size count instruction")
 
     # Thumb PC-relative literals select this picture table and its default.
     table_offset = struct.unpack_from("<i", original, 0x48914)[0] + 0x4873a
     default_offset = struct.unpack_from("<i", original, 0x48918)[0] + 0x48750
     if table_offset != 0x97768:
         raise SystemExit("Unexpected IMX145 picture-size table reference")
-    pointers = struct.unpack_from("<15I", original, table_offset)
-    for pointer, size in zip(pointers, sizes):
-        if original[pointer:pointer + len(size) + 1] != size.encode("ascii") + b"\0":
-            raise SystemExit("Unexpected IMX145 picture-size table entry")
     if default_offset != 0x129e0 or original[default_offset:default_offset + 10] != b"3264x2448\0":
         raise SystemExit("Unexpected IMX145 default picture size")
 
+    front_table_offset = struct.unpack_from("<i", original, 0x8cb84)[0] + 0x8c9c8
+    front_default_offset = struct.unpack_from("<i", original, 0x8cb88)[0] + 0x8c9e0
+    if front_table_offset != 0x98548:
+        raise SystemExit("Unexpected GC5025 picture-size table reference")
+    if front_default_offset != 0x14349 or original[front_default_offset:front_default_offset + 10] != b"2560x1920\0":
+        raise SystemExit("Unexpected GC5025 default picture size")
+
+    for sensor, offset, entries in (("IMX145", table_offset, sizes),
+                                     ("GC5025", front_table_offset, front_sizes)):
+        pointers = struct.unpack_from(f"<{len(entries)}I", original, offset)
+        for pointer, size in zip(pointers, entries):
+            if original[pointer:pointer + len(size) + 1] != size.encode("ascii") + b"\0":
+                raise SystemExit(f"Unexpected {sensor} picture-size table entry")
+
     patched = bytearray(original)
-    patched[count_offset] = 13
+    for offset, count in count_updates.items():
+        patched[offset] = count
     if hashlib.sha256(patched).hexdigest() != output_sha:
         raise SystemExit("Camera picture-size fixup is not reproducible")
-    blob.seek(count_offset)
-    if blob.write(patched[count_offset:count_offset + 1]) != 1:
-        raise SystemExit("Failed to write the camera picture-size count")
+    for offset in count_updates:
+        blob.seek(offset)
+        if blob.write(patched[offset:offset + 1]) != 1:
+            raise SystemExit("Failed to write a camera picture-size count")
 CAMERASIZEEOF
             ;;
         vendor/lib/libmal.so|vendor/lib/libmal_epdga.so|\

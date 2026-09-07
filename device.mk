@@ -513,10 +513,10 @@ PRODUCT_PACKAGES += \
 #
 # Snap sets LOCAL_OVERRIDES_PACKAGES := Camera2 (packages/apps/Snap/Android.mk:
 # 49), so listing it here also removes Camera2 and its privapp whitelist.
-# extract-files.sh limits the production 32-bit IMX145 picture table to its
-# 13 native/crop sizes. It excludes interpolated 3600x2160 and 3840x2176 above
-# the 3280x2464 readout width, so a fresh Snap preference selects 3264x2448 as
-# the largest advertised size. The HAL default and 3264x1836 crop are retained.
+# extract-files.sh limits the 32-bit picture tables to native/crop sizes:
+# IMX145 keeps 13 (largest 3264x2448); GC5025 keeps 12 (largest 2592x1944).
+# It removes the rear 3600x2160/3840x2176 and front 2864x1600 upscaled entries.
+# HAL defaults remain 3264x2448 rear and 2560x1920 front; focus is unchanged.
 PRODUCT_PACKAGES += \
     Snap
 
