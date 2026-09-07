@@ -1,0 +1,115 @@
+{
+  "description": "Build and verification support used for the first Tier-3 release; copied without code changes.",
+  "source_work_commit": "34dfd230898156c631565eb34e66b53e0f98448c",
+  "files": [
+    {
+      "path": "tools/run-lineage-build.sh",
+      "sha256": "dc28ae880314839be32c099731f61de433fd218f6fc09e64635af9ac5fdc3d8a"
+    },
+    {
+      "path": "tools/apply-upstream-patches.sh",
+      "sha256": "07359c98afcc7263cc1e5615f79a177e621da8b66db846addef1a2d2582855bf"
+    },
+    {
+      "path": "tools/capture-build-input-state.sh",
+      "sha256": "29dd80d0c96dd99de39c0e1143c666b6d276ec92865db1140b7314b3d664378a"
+    },
+    {
+      "path": "tools/stage-tier-images.sh",
+      "sha256": "01a67c938f17cf19650f786c95eaa63238c76d26a1bf472bd2a7d88e4caa4ae8"
+    },
+    {
+      "path": "tools/verify-stage-contract.sh",
+      "sha256": "fa4e06072a73308c742c1a5bd52d76babf9a3d79f005c675742f3cbcb722230c"
+    },
+    {
+      "path": "tools/prepare-tier3-keyset.sh",
+      "sha256": "5b14b621398b84fed4fcc5806808687ecee2f528768159cc892e13fa113be05a"
+    },
+    {
+      "path": "tools/verify-tier3-signed-properties.sh",
+      "sha256": "5fd6d93dd9e026520025b0cceef2deab506179aab8f7ce36e6339d90d05ac829"
+    },
+    {
+      "path": "tools/verify-tier3-keyset-manifest.sh",
+      "sha256": "5a2a45e4968897cb0fa5f11764c7c688475dbdc1c224f39d1507b64f0c04d139"
+    },
+    {
+      "path": "tools/verify-presigned-apk-signers.sh",
+      "sha256": "02a542c57e863f888a00924cceaba0e724eb390e46fb943f3071eecac0d25403"
+    },
+    {
+      "path": "tools/check-carrier-config-overlay.py",
+      "sha256": "caf93773242dd1e580dd714ba3eed0d57648aa79f1d3b7e7c17742548a0d72f7"
+    },
+    {
+      "path": "tools/check-pixel-identity.py",
+      "sha256": "aff01a33ef63ea6bd589a08e5fc36a5324b9502a0c1d8930e2096e2a0d828879"
+    },
+    {
+      "path": "tools/check-launcher-policy.py",
+      "sha256": "3df45addd8003022c9d6430930ee805fee2abcc98f452a01ae13280281ff7ba1"
+    },
+    {
+      "path": "tools/check-wfc-framework-resource.sh",
+      "sha256": "fc75ca57fca781437a4f3b4c0552c8c5355efbda27f84fd1b86da0727a297642"
+    },
+    {
+      "path": "tools/check-tinycompress-kernel-headers.py",
+      "sha256": "ae2cd49ca843b28a369fd9197ed277a7d33f140db3eef865b22a1bdf0d1f9fb4"
+    },
+    {
+      "path": "tools/check-home-role-source.py",
+      "sha256": "e02868a8eeb1cb917a77e59d8b239d4faf2da8f84c8f87ce9102d9cb7b1ebd6e"
+    },
+    {
+      "path": "tools/kernel/check-module-abi.sh",
+      "sha256": "2cfb2e811d0afe98618c90bb6ff9946298174c5ba8496d21be111183348ab782"
+    },
+    {
+      "path": "tools/flash-tier-images.sh",
+      "sha256": "0a16e9f86ac00ade634a80e71bae2a1f93b58f25eb0d7e785321f5f6e09b394d"
+    },
+    {
+      "path": "tools/verify-post-flash.sh",
+      "sha256": "6c13affa61273273d083bcf624044311f47ab72183bd073de93660931f1934b5"
+    },
+    {
+      "path": "tools/classify-avc-denials.sh",
+      "sha256": "4def1714489dbbda40545be75d6990393aadabb7e351369c898ac1827904ef2a"
+    },
+    {
+      "path": "tools/classify-pstore.sh",
+      "sha256": "198a60d5690c47daf24689bd6ed65d43b2cfab953c02088d9d5dc5fbab461ef1"
+    },
+    {
+      "path": "tools/expected-avc-tuples.txt",
+      "sha256": "d06151487df803ab428ea587d76ab83928201415d48d2bee7c32c3ce9beefe81"
+    },
+    {
+      "path": "tools/.expected-fastboot-product",
+      "sha256": "56e682c13c4ad0420ce1ef0740a4e65bd354a30bff42cceec6272aed41b79d7c"
+    },
+    {
+      "path": "upstream/fonts_customization.xml.patch",
+      "sha256": "4ecbbc94bfeb6e52b8c97739884df3e260dfd3eacbcc1e865e3489fb891557ad"
+    },
+    {
+      "path": "upstream/apns-conf.xml.patch",
+      "sha256": "3e4219f9947fd934c829e7369ed4c6be9b047753d46f3394197eec38c2be968d"
+    },
+    {
+      "path": "upstream/tinycompress-kernel-headers.patch",
+      "sha256": "31befe20969450f1ded3b772de95a0d35c8c1e3a742ec672507686c28a2bde8e"
+    },
+    {
+      "path": "evidence/E-074-console-SHA256SUMS.txt",
+      "sha256": "925734a4654b91f1fa8450cf8354909fb9dc970fc97adde06d0a1ff0954620f6"
+    }
+  ],
+  "archive": {
+    "path": "k50sv1-build-support.tar.xz",
+    "sha256": "862274cdad8b181f9a67c29438cc7e023a0b51603efe42f91318cf686c7c0ca1",
+    "bytes": 119932
+  }
+}

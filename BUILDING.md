@@ -34,7 +34,8 @@ empty placeholder repository is not an equivalent input.
 
 The release's `K50SV1-BUILD-SOURCE-STATE` and
 `K50SV1-ANDROID-REPO-MANIFEST.xml` record the source revisions used for its
-images. Use those records when comparing a rebuild with the published release;
+images; both are included in the release asset `build-provenance.tar.xz`.
+Use those records when comparing a rebuild with the published release;
 the current `main` branches also contain publication documentation. Support
 file provenance and hashes are recorded in
 [build-support/SOURCE.json](build-support/SOURCE.json).
