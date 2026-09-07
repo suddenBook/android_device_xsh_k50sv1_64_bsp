@@ -206,9 +206,17 @@ PRODUCT_COPY_FILES += \
 # the many signature/privileged ones these APKs also request
 # (INSTALL_PACKAGES, MANAGE_APPOPS, MASTER_CLEAR, READ_PRIVILEGED_PHONE_STATE,
 # ...) are NOT granted and cannot be from here. Granting those would mean
-# moving both APKs into priv-app and whitelisting each one; on Q a priv-app
-# holding an unwhitelisted privileged permission fails the boot-time
-# privapp-permissions check, so that is a deliberate non-goal.
+# moving both APKs into priv-app and whitelisting each one in
+# privapp-permissions, which vendor/huawei/hms/Android.mk declines on purpose:
+# it would hand third-party Huawei-signed code package/user/telephony/Wi-Fi/
+# reset powers that its app-store and account features do not need.
+#
+# That is a policy choice, not a technical wall, and the earlier version of
+# this comment overstated it. PermissionManagerService.systemReady() does throw
+# on an unwhitelisted privileged permission, but only when
+# RoSystemProperties.CONTROL_PRIVAPP_PERMISSIONS_ENFORCE is set; this product
+# builds ro.control_privapp_permissions=log, under which the same violation is
+# logged and the permission denied, with no effect on boot.
 #
 # sysconfig must land on /system: SystemConfig only honours
 # allow-in-power-save from directories registered with ALLOW_ALL, and the
