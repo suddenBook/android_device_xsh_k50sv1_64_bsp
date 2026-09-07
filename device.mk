@@ -22,6 +22,17 @@ $(call inherit-product-if-exists, vendor/xsh/k50sv1_64_bsp/k50sv1_64_bsp-vendor.
 # chromium-webview's `webview`, which is what media_product.mk asks for.
 $(call inherit-product-if-exists, vendor/google_webview/webview.mk)
 
+# Preserve the signed source APKs and install their JNI beside them. The Q
+# generic prebuilt paths rewrite these three APKs; see presigned-apks/README.md.
+PRODUCT_PACKAGES += \
+    K50CtsShimPrivPrebuilt
+
+ifneq ($(wildcard vendor/gapps/arm64/arm64-vendor.mk),)
+PRODUCT_PACKAGES += \
+    K50SetupWizardPrebuilt \
+    K50Velvet
+endif
+
 # The Stock IMS APK directly references the first two MTK contracts. Its
 # absolute-path extension plugin imports ims-common plus MTK telephony/telecom
 # classes. These six are the complete MTK type closure and must be boot jars so
