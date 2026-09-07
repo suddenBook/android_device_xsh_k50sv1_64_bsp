@@ -1,20 +1,8 @@
-# Single-instance voice-MMTEL connection-broker service (VoLTE and VoWiFi).
-#
-# Derived from Stock /vendor/etc/init/init.volte_imcb.rc (itself a copy of
-# device/mediatek/common/init.volte.rc). Owned here rather than extracted and
-# sed-patched during extraction, so the one difference from Stock is visible in
-# a diff instead of buried in extract-files.sh.
-#
-# That difference: Stock declares five control sockets, one per IMS entity it
-# can host. This product runs one voice MMTEL stack, so only volte_imsa1 is
-# kept. The four dropped ones are volte_imsa2 (second IMS instance),
-# volte_imsvt1 and volte_imsvt2 (video telephony) and volte_ut (UT/XCAP
-# supplementary services) -- all three features are excluded from this port, and
-# an unused `socket` line still costs init a bound, world-reachable AF_UNIX
-# endpoint in /dev/socket with no reader.
-#
-# volte_imcb is started by volte_imsm.so over ctl.start, not by init directly,
-# hence `disabled`.
+# Single-instance voice-MMTEL connection broker (VoLTE and VoWiFi).
+# Init binds each declared control socket and passes its fd to the process;
+# this service instance consumes only volte_imsa1. Its 0660 mode limits access
+# to root/radio, with SELinux applying additional restrictions.
+# volte_imsm.so requests startup through ctl.start, hence disabled.
 
 service vendor.volte_imcb /vendor/bin/volte_imcb
     class core
