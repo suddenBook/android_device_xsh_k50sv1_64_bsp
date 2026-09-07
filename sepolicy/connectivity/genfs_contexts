@@ -1,0 +1,5 @@
+# Physical WLAN interfaces live below the platform device, outside AOSP's
+# /devices/virtual/net label. Use the standard type for the entire net subtree
+# so its existing network clients can read type/address/mtu without generic
+# sysfs access. The surrounding Wi-Fi driver controls keep their own labels.
+genfscon sysfs /devices/soc/180f0000.wifi/net u:object_r:sysfs_net:s0
