@@ -7,17 +7,25 @@ on early-init
     # keep a minimum core count online so the parallel parts of boot (package
     # scanning, dexopt, the Zygote preload) are not waiting on MTK's hotplug
     # governor to notice the load. Released in full at sys.boot_completed=1
-    # below; PPM's thermal policy sits at priority 4, above USER_LIMIT at 6,
-    # so this cannot override thermal protection.
+    # below. Thermal protection still applies during boot: PPM's THERMAL policy
+    # is left enabled here and is only turned off at boot_completed, and a
+    # policy can never raise a minimum past a ceiling another policy set --
+    # ppm_main_update_limit() ends in
+    #     if (min_cpufreq_idx < max_cpufreq_idx) min_cpufreq_idx = max_cpufreq_idx;
+    # so the ceiling always wins over this floor.
     #
     # Values are OPPs that exist on this part:
     #   cluster 0 (cpu0-3): 1001000 910000 819000 689000 598000 494000 338000 156000
-    #   cluster 1 (cpu4-7): 1508000 1430000 1352000 1196000 1027000 871000 663000 286000
-    # Stock's own early-init pins "1 1508000", which is right; Stock's powerscntbl.xml
-    # asks for 1950000, which is not -- the file shipped from configs/ is
-    # already corrected. See configs/powerscntbl.xml.
+    #   cluster 1 (cpu4-7): 1807000 1651000 1495000 1196000 1027000 871000 663000 286000
+    # Cluster 1 is the CPU_LEVEL_1 table. The kernel used to select CPU_LEVEL_0
+    # (1508000 top) for this board; see the comment on _mt_cpufreq_get_cpu_level()
+    # in mt_cpufreq.c for why that was a PMIC-branch default and not the bin.
+    # Stock's early-init pins "1 1508000" and its powerscntbl.xml asks for
+    # 1950000; neither is an OPP now. Do not leave a stale 1508000 here --
+    # ppm_main_freq_to_idx() resolves with CPUFREQ_RELATION_L, so it would
+    # silently land on 1651000 instead of the top of the table.
     write /proc/ppm/policy/userlimit_min_cpu_freq "0 1001000"
-    write /proc/ppm/policy/userlimit_min_cpu_freq "1 1508000"
+    write /proc/ppm/policy/userlimit_min_cpu_freq "1 1807000"
     write /proc/ppm/policy/userlimit_min_cpu_core "0 4"
     write /proc/ppm/policy/userlimit_min_cpu_core "1 2"
 
@@ -235,7 +243,7 @@ on post-fs
     # This kernel exposes ONE global tunable set at
     # /sys/devices/system/cpu/cpufreq/interactive/, shared by both policies, so
     # every value below has to be sane for a 156000-1001000 cluster and a
-    # 286000-1508000 one at the same time.
+    # 286000-1807000 one at the same time.
     #
     # As shipped by the kernel this governor is unusually lazy for a part this
     # slow: go_hispeed_load 99 means it will not jump to hispeed_freq until a
@@ -251,7 +259,7 @@ on post-fs
     #                           this makes the governor drop back sooner, which
     #                           is the opposite of what is wanted here
     #   timer_slack 80000, boostpulse_duration 80000
-    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1508000
+    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1807000
     write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 85
     write /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay 20000
     write /sys/devices/system/cpu/cpufreq/interactive/target_loads "70 663000:75 1027000:85"
@@ -496,6 +504,26 @@ on property:ro.persistent_properties.ready=true
 # and put read-ahead back to the default. Stock releases the frequency pin here
 # too; it does not release read-ahead.
 on property:sys.boot_completed=1
+    # Release PPM's thermal throttle for this chassis.
+    #
+    # Stock's userspace thermal daemon programs cpu_adaptive_0/1 at 61C/58C
+    # (/proc/driver/thermal/tzcpu) and PPM_POLICY_THERMAL turns the resulting
+    # budget -- measured at 1119 mW -- into max_cpufreq_idx 3, i.e. 1196000, so
+    # the big cluster never holds its top OPP under sustained load. This handset
+    # has a liquid-metal TIM and a vapour chamber, which the stock trip points
+    # predate.
+    #
+    # The index is the enum order in /proc/ppm/policy_status, where THERMAL is
+    # 4. It is NOT the position THERMAL occupies in /proc/ppm/dump_policy_list,
+    # which is sorted by priority and shows it at 6; writing "6 0" disables
+    # USER_LIMIT instead and looks like it worked.
+    #
+    # This is deliberately at boot_completed, not early-init: boot runs both
+    # clusters pinned at their top OPP, and that is exactly when the stock
+    # trips are worth keeping. The kernel trip that actually protects the part,
+    # trip_0 = 108000 mtktscpu-sysrst, is independent of PPM and stays armed.
+    write /proc/ppm/policy_status "4 0"
+
     write /proc/ppm/policy/userlimit_min_cpu_freq "0 -1"
     write /proc/ppm/policy/userlimit_min_cpu_freq "1 -1"
     write /proc/ppm/policy/userlimit_min_cpu_core "0 -1"

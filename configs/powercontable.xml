@@ -16,7 +16,7 @@
 
     * PERF_RES_POWER_CPUFREQ_HISPEED_FREQ carried MaxValue 1950000, an OPP
       that does not exist on this part. The clamp is now the real cluster 1
-      maximum, 1508000, taken from /proc/ppm/dump_cluster_1_dvfs_table.
+      maximum, 1807000, taken from /proc/ppm/dump_cluster_1_dvfs_table.
 
     * PERF_RES_POWER_CPUFREQ_MIN_SAMPLE_TIME allowed up to 800000 us. On a
       part this slow an 800 ms floor on the governor's sample time is a
@@ -45,7 +45,7 @@
         <Entry path="/sys/devices/system/cpu/cpufreq/interactive/hispeed_freq"></Entry>
         <LegacyCmdID>12</LegacyCmdID>
         <Compare>more</Compare>
-        <MaxValue>1508000</MaxValue>
+        <MaxValue>1807000</MaxValue>
         <MinValue>0</MinValue>
     </CMD>
     <CMD name="PERF_RES_POWER_CPUFREQ_MIN_SAMPLE_TIME" id="0X01C04000">
