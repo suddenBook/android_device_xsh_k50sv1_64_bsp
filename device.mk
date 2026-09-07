@@ -490,7 +490,7 @@ PRODUCT_PACKAGES += \
 # Camera app: LineageOS Snap, which drives the MediaTek HAL1 through the
 # Camera1 API. Without this line the product falls back to AOSP Camera2
 # (build/make/target/product/handheld_product.mk:27), and that app was the
-# whole "camera quality" defect (E-171):
+# source of the exposure and JPEG recompression defects diagnosed in E-171:
 #
 #   * Camera2 (com.android.camera2) only uses the Camera2 API, which on this
 #     device@1.0 HAL is frameworks/base's LEGACY shim. The shim's request
@@ -513,10 +513,10 @@ PRODUCT_PACKAGES += \
 #
 # Snap sets LOCAL_OVERRIDES_PACKAGES := Camera2 (packages/apps/Snap/Android.mk:
 # 49), so listing it here also removes Camera2 and its privapp whitelist.
-# Known residual, not fixable here: both apps default to the largest area,
-# 3840x2176, which the HAL interpolates above the sensor's 3280x2464 readout
-# (MtkCam/ParamsManager "[updateDefaultParams2_ByQuery] cap(3280,2464)");
-# pick 3264x2448 in Snap's settings (E-171, WI-086).
+# extract-files.sh limits the production 32-bit IMX145 picture table to its
+# 13 native/crop sizes. It excludes interpolated 3600x2160 and 3840x2176 above
+# the 3280x2464 readout width, so a fresh Snap preference selects 3264x2448 as
+# the largest advertised size. The HAL default and 3264x1836 crop are retained.
 PRODUCT_PACKAGES += \
     Snap
 
