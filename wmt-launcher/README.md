@@ -1,11 +1,37 @@
 # MT6755 launcher source candidate
 
-This directory currently contains the patch-header decoder and metadata-set
-assembly for the E-201 paired launcher/kernel repair. No executable or product
-module is enabled yet. Command transport, startup, properties, filesystem I/O
-and the complete replacement still need implementation and validation.
+This service targets this product's MT6755 SoC, BTIF and current firmware
+inventory. The `wmt_launcher` vendor module replaces the retained executable
+under the existing init service and SELinux domain. The candidate requires the
+paired version-2 command broker and bounded firmware-log ioctl; full product
+build and handset validation remain required before adoption.
 
-The contract comes from the retained launcher ELF, paired source kernel and
+Startup keeps the product's `-p /vendor/firmware/ -o 1` invocation. It waits for
+`vendor.connsys.driver.ready=yes`, verifies the cached or queried chip ID, binds
+a command session, selects HIF `0x23`, clears the kill flag and publishes launcher
+readiness before the power worker starts. `-o 1` uses the original scalar power
+argument 2; `-o 0` uses 1. A failed attempt is followed by cleanup, with at most
+20 attempts. The command loop runs separately so patch searches can satisfy a
+blocked power operation. Readiness describes the service, not a completed
+firmware download.
+
+The command broker must negotiate the exact version-2 limits. Each reply carries
+its session and transaction identity and contains the complete normal or ROM
+metadata set. Legacy untagged writes and metadata-setter ioctls are not used.
+Expired reads can retry; expired replies are discarded without publishing
+properties. Unknown commands receive a tagged `-EOPNOTSUPP` reply. In particular,
+the old executable did not implement `update_patch_version`, and this service
+does not claim support for that separate optional producer.
+
+Shutdown withdraws the command session before joining the power worker. Firmware
+logging uses repeated bounded ioctl passes in a separate worker; stopping joins
+that worker before the final disable, including when it has not started yet.
+Dynamic dump input is zero-padded to the kernel's 109-byte copy requirement.
+Normal, Wi-Fi and Bluetooth version properties are published only after the
+kernel accepts metadata. Normal patch version selection is deterministic by
+sequence, instead of the old directory-order, pre-validation publication.
+
+The contract comes from offline analysis of the retained launcher ELF, paired source kernel and
 existing MT6755 firmware headers. Its detailed addresses and input hashes are
 recorded in the bring-up work repository's E-201 evidence. The decoder preserves
 the original low-eight-bit firmware match, 15-byte published build version,
@@ -21,6 +47,21 @@ Compile `patch.c` and `test_patch.c` together with ASan/UBSan, then pass the two
 firmware paths. The first hash-bound result is retained in the trial directory
 at `wmt-launcher-source-tests/patch-first/result.json`.
 
-These tests cover pure decoding and set assembly. They do not establish command
-identity, metadata commit lifetime, original executable equivalence or handset
-behavior.
+`README_protocol.md` covers the wire format and 18 codec test groups.
+`README_firmware.md` covers filesystem failure handling and 60 firmware cases,
+including synthetic ROM headers because this product has no ROM patch files.
+`test_launcher.py --firmware-dir /path/to/vendor/firmware --output /new/output`
+runs the complete service with actual pthreads and filesystem discovery against
+bounded host device/property adapters. Twenty-five service cases pass ASan/UBSan,
+and seven concurrency/stop cases pass TSan. These adapters assert independent
+literal ioctl numbers and wire identities. They cover normal/empty-ROM/unknown
+commands, chip and readiness failures, old kernels, power retries and exhaustion,
+copy/transport errors, stale replies, read expiry, optional controls and firmware
+worker stop ordering. Kernel broker and firmware-log source tests remain separate
+evidence; a passing host adapter is not proof of the paired kernel behavior.
+
+The service also compiles and links against Android API 29 for ARM64 and ARM.
+Only ARM64 is selected by this product; ARM compilation checks the shared ioctl
+layout. Build artifacts and raw test results are hash-bound in the trial's
+`wmt-launcher-source-tests/`. No real version-2 handset execution has occurred
+at this candidate stage.

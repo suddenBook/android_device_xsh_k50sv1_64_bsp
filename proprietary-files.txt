@@ -442,7 +442,7 @@ vendor/lib/vendor.mediatek.hardware.power@1.1.so
 vendor/bin/hw/android.hardware.wifi@1.0-service-lazy-mediatek
 vendor/bin/hw/hostapd
 vendor/bin/hw/wpa_supplicant
-vendor/bin/wmt_launcher
+# wmt_launcher is built from device-owned source in wmt-launcher/.
 # wmt_loader is built from device-owned source in wmt-loader/.
 # android.hardware.wifi@1.0-service-lazy-mediatek.rc is NOT extracted. It is
 # device-owned under rootdir/etc/init/, with the three missing `interface` lines

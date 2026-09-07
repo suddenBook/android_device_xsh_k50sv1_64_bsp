@@ -139,6 +139,7 @@ PRODUCT_PACKAGES += \
     libtinyxml \
     sensors.mt6755 \
     wlan_assistant \
+    wmt_launcher \
     wmt_loader
 
 PRODUCT_COPY_FILES += \
