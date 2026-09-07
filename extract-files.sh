@@ -708,26 +708,6 @@ function blob_fixup() {
                 exit 1
             fi
             ;;
-        vendor/etc/init/mtkrild.rc)
-            # These names look like an optional VSIM feature, but rilproxy
-            # opens rild-vsim unconditionally and retries once per second when
-            # it is absent. They are a private channel in the two-stage vendor
-            # RIL ABI, not a declaration that this chassis offers virtual SIM.
-            # Preserve all three stock endpoints and grant only rild's stock
-            # sock_file write edge in device policy.
-            if [[ "$(sha256sum "$2" | awk '{ print $1 }')" != \
-                  "3c5d36df6d1b8b6ff8157bde278b914521c345ca278dacb3725c68d55af1e7cd" ]]; then
-                echo "Refusing to patch an unknown mtkrild.rc" >&2
-                exit 1
-            fi
-            local vsim_socket_count
-            vsim_socket_count=$(LC_ALL=C grep -Ec \
-                '^[[:space:]]+socket rild-vsim(2|3)? stream 660 root radio$' "$2")
-            if [[ "${vsim_socket_count}" -ne 3 ]]; then
-                echo "Unexpected mtkrild.rc VSIM socket count: ${vsim_socket_count}" >&2
-                exit 1
-            fi
-            ;;
         vendor/lib64/librilmtk.so)
             # This modem-side library publishes getVersion() on private RIL
             # connection setup. Keep it in the vendor property namespace;
