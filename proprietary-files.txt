@@ -511,7 +511,6 @@ vendor/etc/init/gsm0710muxd.rc
 # removed -- this chassis has no CDMA radio and vendor.ccci3_fsd was a
 # permanently blocked resident process. Their headers carry the measurements.
 vendor/etc/init/init.cccirpcd.rc
-vendor/etc/init/mtkrild.rc
 vendor/etc/init/muxreport.rc
 vendor/etc/init/nvram_daemon.rc
 # rilproxy.rc is REWRITTEN at extraction (extract-files.sh blob_fixup) to load
