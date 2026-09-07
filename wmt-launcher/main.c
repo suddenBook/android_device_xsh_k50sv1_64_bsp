@@ -202,14 +202,16 @@ static void check_optional_controls(int fd, struct optional_controls *controls)
     char dump[DYNAMIC_DUMP_BYTES + 1] = {0};
 
     property_get(FWLOG_PROPERTY, fwlog, "");
-    if (strcmp(fwlog, controls->fwlog)) {
-        if (strcmp(fwlog, "yes")) {
-            int result = stop_firmware_log(fd, &controls->log);
-            if (result)
-                ERROR("Cannot disable firmware logging: %d", result);
+    if (!strcmp(fwlog, "yes")) {
+        if (controls->log.created && atomic_load(&controls->log.finished)) {
+            /* Reap a failed worker before this poll iteration retries it. */
+            int error = pthread_join(controls->log.thread, NULL);
+            if (error)
+                ERROR("Cannot join firmware log worker: %s", strerror(error));
             else
-                memcpy(controls->fwlog, fwlog, sizeof(controls->fwlog));
-        } else {
+                controls->log.created = false;
+        }
+        if (!controls->log.created) {
             controls->log.fd = fd;
             controls->log.enabled = 1;
             atomic_store(&controls->log.stopping, false);
@@ -222,12 +224,19 @@ static void check_optional_controls(int fd, struct optional_controls *controls)
                 memcpy(controls->fwlog, fwlog, sizeof(controls->fwlog));
             }
         }
+    } else if (strcmp(fwlog, controls->fwlog)) {
+        int result = stop_firmware_log(fd, &controls->log);
+        if (result)
+            ERROR("Cannot disable firmware logging: %d", result);
+        else
+            memcpy(controls->fwlog, fwlog, sizeof(controls->fwlog));
     }
     property_get(DUMP_PROPERTY, dump, "");
     if (strcmp(dump, controls->dump)) {
         if (ioctl(fd, WMT_DYNAMIC_DUMP, (unsigned long)dump) < 0)
             ERROR("Dynamic dump control failed: %s", strerror(errno));
-        memcpy(controls->dump, dump, sizeof(controls->dump));
+        else
+            memcpy(controls->dump, dump, sizeof(controls->dump));
     }
 }
 
@@ -448,7 +457,8 @@ out:
         if (error)
             ERROR("Cannot join power worker: %s", strerror(error));
     }
-    if (controls.log.created) {
+    /* A reaped worker still needs a final disable if its replacement failed. */
+    if (controls.log.created || !strcmp(controls.fwlog, "yes")) {
         int error = stop_firmware_log(fd, &controls.log);
         if (error)
             ERROR("Cannot stop firmware logging: %d", error);

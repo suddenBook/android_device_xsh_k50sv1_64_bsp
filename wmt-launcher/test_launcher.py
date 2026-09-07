@@ -13,6 +13,9 @@ CASES = [
     'thread-failure', 'power-default', 'power-retry', 'power-exhausted', 'stale-reply',
     'short-write', 'bad-request', 'read-failure', 'write-failure', 'write-interrupted',
     'poll-interrupted', 'optional-controls', 'read-expired', 'fw-late-start', 'fw-inflight-stop',
+    'dump-retry-same', 'dump-retry-repeated', 'fw-enable-retry', 'fw-repeated-failure',
+    'fw-disable-after-failure', 'fw-retry-toggle', 'fw-retry-create-failure',
+    'fw-retry-shutdown-create-failure', 'fw-retry-late-start', 'fw-disable-retry',
 ]
 FIRMWARE = {
     'ROMv2_lm_patch_1_0_hdr.bin': '7a58e99fdcab239f133be92da999f8733878617191bb1f5caa1096d91ad8e1a2',

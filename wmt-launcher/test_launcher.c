@@ -37,6 +37,7 @@ static int host_property_set(const char *key, const char *value);
 static int host_sigaction(int signal, const struct sigaction *action, struct sigaction *old);
 static int host_thread_create(pthread_t *thread, const pthread_attr_t *attr,
                               void *(*start)(void *), void *argument);
+static int host_thread_join(pthread_t thread, void **result);
 
 #define main launcher_entry
 #define open host_open
@@ -50,6 +51,7 @@ static int host_thread_create(pthread_t *thread, const pthread_attr_t *attr,
 #define property_set host_property_set
 #define sigaction(...) host_sigaction(__VA_ARGS__)
 #define pthread_create host_thread_create
+#define pthread_join host_thread_join
 #include "main.c"
 #undef main
 #undef open
@@ -63,6 +65,7 @@ static int host_thread_create(pthread_t *thread, const pthread_attr_t *attr,
 #undef property_set
 #undef sigaction
 #undef pthread_create
+#undef pthread_join
 
 static const uint64_t test_session = UINT64_C(0x0102030405060708);
 static pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
@@ -74,7 +77,11 @@ static struct {
     unsigned reads, delivered, frame_done, poll_calls, post_polls, fwlog_calls, dump_calls;
     unsigned ready_yes, ready_no, errors, interrupted_writes, expired_reads;
     unsigned log_enables, log_disables;
+    unsigned optional_scans, log_create_attempts, log_creates, log_joins;
+    unsigned last_create_scan, last_dump_scan, log_failures, dump_failures;
     bool owner, powered_waiting, power_released, power_created;
+    bool log_joinable;
+    pthread_t log_thread;
     unsigned long power_argument, fwlog_argument;
     struct power_task *power;
     struct log_task *log;
@@ -84,6 +91,19 @@ static struct {
 static bool scenario(const char *name)
 {
     return !strcmp(mode, name);
+}
+
+static bool log_retry_case(void)
+{
+    return scenario("fw-enable-retry") || scenario("fw-repeated-failure") ||
+        scenario("fw-disable-after-failure") || scenario("fw-retry-toggle") ||
+        scenario("fw-retry-create-failure") || scenario("fw-retry-shutdown-create-failure") ||
+        scenario("fw-retry-late-start") || scenario("fw-disable-retry");
+}
+
+static bool dump_retry_case(void)
+{
+    return scenario("dump-retry-same") || scenario("dump-retry-repeated");
 }
 
 static unsigned commands(void)
@@ -151,6 +171,8 @@ static int host_close(int fd)
 {
     assert(fd == 73 && !state.owner);
     assert(!state.power_created || atomic_load(&state.power->finished));
+    assert(!state.log_joinable && state.log_creates == state.log_joins);
+    assert(!state.log_creates || state.fwlog_argument == 0);
     state.closes++;
     return 0;
 }
@@ -178,10 +200,21 @@ static int host_property_get(const char *key, char *value, const char *fallback)
     } else if (!strcmp(key, CHIP_PROPERTY)) {
         text = scenario("chip-fallback") || scenario("unsupported-chip") ? "invalid" : "0x6755";
     } else if (!strcmp(key, FWLOG_PROPERTY)) {
+        state.optional_scans++;
         text = scenario("fw-late-start") || scenario("fw-inflight-stop") ? "yes" :
             (scenario("optional-controls") ? (state.post_polls < 2 ? "yes" : "no") : "");
+        if (log_retry_case()) {
+            text = "yes";
+            if (((scenario("fw-disable-after-failure") || scenario("fw-disable-retry")) &&
+                 state.optional_scans >= 2) ||
+                (scenario("fw-retry-toggle") &&
+                 (state.optional_scans == 3 || state.optional_scans >= 6)))
+                text = "no";
+        }
     } else if (!strcmp(key, DUMP_PROPERTY)) {
         text = scenario("optional-controls") && state.post_polls < 2 ? "0x1/0x2/" : "";
+        if (dump_retry_case())
+            text = "0x1/0x2/";
     } else {
         assert(!"unexpected property");
     }
@@ -242,14 +275,50 @@ static int host_thread_create(pthread_t *thread, const pthread_attr_t *attr,
             return EAGAIN;
     }
     if (start == set_firmware_log) {
+        pthread_mutex_lock(&lock);
+        assert(!state.log_joinable && state.last_create_scan < state.optional_scans);
+        state.last_create_scan = state.optional_scans;
+        state.log_create_attempts++;
         state.log = argument;
-        if (scenario("fw-late-start"))
-            return pthread_create(thread, attr, delayed_log_start, argument);
+        if ((scenario("fw-retry-create-failure") || scenario("fw-retry-shutdown-create-failure")) &&
+            state.log_create_attempts == 2) {
+            pthread_mutex_unlock(&lock);
+            return EAGAIN;
+        }
+        if (scenario("fw-late-start") ||
+            (scenario("fw-retry-late-start") && state.log_create_attempts == 2))
+            start = delayed_log_start;
+        int result = pthread_create(thread, attr, start, argument);
+        if (!result) {
+            state.log_creates++;
+            state.log_thread = *thread;
+            state.log_joinable = true;
+        }
+        pthread_mutex_unlock(&lock);
+        return result;
     }
     int result = pthread_create(thread, attr, start, argument);
     if (start == power_on && !result)
         state.power_created = true;
     return result;
+}
+
+static int host_thread_join(pthread_t thread, void **result)
+{
+    pthread_mutex_lock(&lock);
+    bool log_worker = state.log_joinable && pthread_equal(thread, state.log_thread);
+    if (log_worker)
+        assert(atomic_load(&state.log->stopping) || atomic_load(&state.log->finished));
+    pthread_mutex_unlock(&lock);
+    int error = pthread_join(thread, result);
+    if (log_worker && !error) {
+        pthread_mutex_lock(&lock);
+        assert(atomic_load(&state.log->finished));
+        state.log_joinable = false;
+        state.log_joins++;
+        pthread_mutex_unlock(&lock);
+    }
+    return error;
 }
 
 static int host_ioctl(int fd, unsigned long request, ...)
@@ -334,28 +403,45 @@ static int host_ioctl(int fd, unsigned long request, ...)
         result = argument ? 0x8a00 : 0x6755;
     } else if (request == 0x8004a01dUL) {
         assert((scenario("optional-controls") || scenario("fw-late-start") ||
-                scenario("fw-inflight-stop")) && argument <= 1);
+                scenario("fw-inflight-stop") || log_retry_case()) && argument <= 1);
         state.fwlog_calls++;
         state.fwlog_argument = argument;
+        result = argument ? 0 : 1;
         if (argument) {
             state.log_enables++;
             pthread_cond_broadcast(&changed);
-            if (scenario("fw-inflight-stop"))
+            if (log_retry_case() && !scenario("fw-disable-retry") &&
+                (state.log_enables == 1 || scenario("fw-repeated-failure"))) {
+                state.log_failures++;
+                errno = EIO;
+                result = -1;
+            } else if (scenario("fw-inflight-stop") || log_retry_case()) {
                 while (!atomic_load(&state.log->stopping))
                     wait_briefly();
+            }
         } else {
-            assert(!state.log || atomic_load(&state.log->finished));
+            assert(!state.log_joinable && state.log_creates == state.log_joins);
             state.log_disables++;
+            if (scenario("fw-disable-retry") && state.log_disables == 1) {
+                errno = EIO;
+                result = -1;
+            }
         }
-        result = argument ? 0 : 1;
         pthread_cond_broadcast(&changed);
     } else if (request == 0x8008a01eUL) {
-        assert(scenario("optional-controls"));
+        assert(scenario("optional-controls") || dump_retry_case());
         const char *data = (void *)argument;
-        assert(!strcmp(data, state.dump_calls ? "" : "0x1/0x2/"));
+        assert(!strcmp(data, dump_retry_case() || !state.dump_calls ? "0x1/0x2/" : ""));
         for (size_t i = strlen(data); i < 109; i++)
             assert(data[i] == 0);
+        assert(state.last_dump_scan < state.optional_scans);
+        state.last_dump_scan = state.optional_scans;
         state.dump_calls++;
+        if (dump_retry_case() && (state.dump_calls == 1 || scenario("dump-retry-repeated"))) {
+            state.dump_failures++;
+            errno = EIO;
+            result = -1;
+        }
     } else {
         assert(!"unexpected or legacy metadata ioctl");
     }
@@ -381,15 +467,31 @@ static int host_poll(struct pollfd *items, nfds_t count, int timeout)
     }
     if (state.power && atomic_load(&state.power->finished) && state.frame_done >= commands()) {
         state.post_polls++;
-        if (scenario("optional-controls") && state.post_polls == 2) {
-            while (state.fwlog_calls < 1)
-                wait_briefly();
+        if (log_retry_case() || dump_retry_case()) {
+            bool late_start = scenario("fw-retry-late-start") && state.log_creates == 2;
+            if (state.log_joinable && !late_start) {
+                while (state.log_enables < state.log_creates)
+                    wait_briefly();
+                if (!scenario("fw-disable-retry") &&
+                    (state.log_creates == 1 || scenario("fw-repeated-failure")))
+                    while (!atomic_load(&state.log->finished))
+                        wait_briefly();
+            }
+            unsigned limit = scenario("fw-retry-toggle") ? 7 :
+                scenario("fw-retry-shutdown-create-failure") ? 2 : 4;
+            if (state.optional_scans >= limit)
+                stop_requested = 1;
+        } else {
+            if (scenario("optional-controls") && state.post_polls == 2) {
+                while (state.fwlog_calls < 1)
+                    wait_briefly();
+            }
+            if (scenario("fw-inflight-stop") && state.post_polls == 2)
+                while (!state.log_enables)
+                    wait_briefly();
+            if (state.post_polls >= (scenario("optional-controls") ? 4U : 2U))
+                stop_requested = 1;
         }
-        if (scenario("fw-inflight-stop") && state.post_polls == 2)
-            while (!state.log_enables)
-                wait_briefly();
-        if (state.post_polls >= (scenario("optional-controls") ? 4U : 2U))
-            stop_requested = 1;
     } else {
         wait_briefly();
     }
@@ -527,7 +629,37 @@ int main(int argc, char **argv)
         assert(state.log_enables == 0 && state.log_disables == 1);
     if (scenario("fw-inflight-stop"))
         assert(state.log_enables == 1 && state.log_disables == 1);
+    if (scenario("dump-retry-same"))
+        assert(state.dump_calls == 2 && state.dump_failures == 1);
+    if (scenario("dump-retry-repeated"))
+        assert(state.dump_calls == 4 && state.dump_failures == 4);
+    if (scenario("fw-enable-retry"))
+        assert(state.log_creates == 2 && state.log_enables == 2 && state.log_failures == 1 &&
+               state.log_disables == 1);
+    if (scenario("fw-repeated-failure"))
+        assert(state.log_creates == 4 && state.log_enables == 4 && state.log_failures == 4 &&
+               state.log_disables == 1);
+    if (scenario("fw-disable-after-failure"))
+        assert(state.log_creates == 1 && state.log_failures == 1 && state.log_disables == 1);
+    if (scenario("fw-retry-toggle"))
+        assert(state.log_creates == 3 && state.log_enables == 3 && state.log_failures == 1 &&
+               state.log_disables == 2);
+    if (scenario("fw-retry-create-failure"))
+        assert(state.log_create_attempts == 3 && state.log_creates == 2 && state.log_enables == 2 &&
+               state.log_failures == 1 && state.log_disables == 1);
+    if (scenario("fw-retry-shutdown-create-failure"))
+        assert(state.log_create_attempts == 2 && state.log_creates == 1 && state.log_failures == 1 &&
+               state.log_disables == 1);
+    if (scenario("fw-retry-late-start"))
+        assert(state.log_creates == 2 && state.log_enables == 1 && state.log_disables == 1);
+    if (scenario("fw-disable-retry"))
+        assert(state.log_creates == 1 && state.log_enables == 1 && state.log_disables == 2);
     printf("PASS %s writes=%u accepted=%u version_publications=%u power_calls=%u\n",
            mode, state.writes, state.accepted, state.patch_versions, state.power_calls);
+    if (log_retry_case() || dump_retry_case())
+        printf("optional_scans=%u dump_calls=%u dump_failures=%u log_create_attempts=%u "
+               "log_creates=%u log_joins=%u log_enables=%u log_failures=%u log_disables=%u\n",
+               state.optional_scans, state.dump_calls, state.dump_failures, state.log_create_attempts,
+               state.log_creates, state.log_joins, state.log_enables, state.log_failures, state.log_disables);
     return 0;
 }
