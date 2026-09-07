@@ -108,7 +108,7 @@ static int read_patch(int fd, const struct stat *status, const char *name,
 int wmt_firmware_search(const char *directory, uint16_t firmware,
                         struct wmt_firmware_result *output)
 {
-    struct wmt_firmware_result found = {0};
+    struct wmt_firmware_result found = {.patches = {0}};
     int error;
 
     if (!directory || !directory[0] || !output)
