@@ -6,6 +6,11 @@ vndbinder_use(hal_audio_default)
 allow hal_audio_default mtk_audiohal_data_file:dir create_dir_perms;
 allow hal_audio_default mtk_audiohal_data_file:file create_file_perms;
 
+# The capture HAL's readThread0 raises its scheduling priority. The service
+# already carries SYS_NICE in init; build19 records the missing SELinux check
+# when microphone capture starts. Restrict the grant to this audio HAL.
+allow hal_audio_default self:global_capability_class_set sys_nice;
+
 # Per-stream runtime state; see vendor/property.te for why this needs a device
 # type rather than falling through to vendor_default_prop.
 set_prop(hal_audio_default, mtk_audiohal_prop)
