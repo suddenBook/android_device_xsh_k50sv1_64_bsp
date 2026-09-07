@@ -573,14 +573,9 @@ IA_PIN_OFFSET(mvnoMatchData);
 #endif
 
 /*
- * How long a re-issued request may stay in flight before the worker takes its
- * single-flight slot back. The vendor RIL completes these in milliseconds; ten
- * seconds is far outside the normal distribution and is a fault, not a slow
- * path. Recovering is strictly better than the alternative, because the slot
- * is never handed back by anything else: completeHook is the only writer that
- * clears it, so one uncompleted request used to stop every later re-send for
- * the rest of the boot -- silently, with IA_HOOKS_ACTIVE still published and
- * not one line logged.
+ * End the worker's single-flight wait after ten seconds. This does not cancel
+ * the vendor request: its token remains reserved until completion. One missing
+ * callback must not prevent recovery through another free token.
  */
 #ifndef REISSUE_INFLIGHT_TIMEOUT_NS
 #define REISSUE_INFLIGHT_TIMEOUT_NS (10L * 1000L * 1000L * 1000L)
@@ -619,17 +614,12 @@ static _Atomic int sIaHookState = IA_HOOKS_DISABLED;
  * collide with a real RequestInfo *, and the address of a file-static object
  * cannot.
  *
- * A RING, not one object, because the in-flight slot is released on a timeout
- * as well as on a completion (iaWorker below). With a single token that
- * recovery broke its own invariant: the worker released the slot at 10 s
- * WITHOUT cancelling request A, issued B under the same token, and then A's
- * late completion cleared the flag while B was still outstanding - so a third
- * request went out and two or more were live in the vendor RIL under one
- * identical token. Each token now identifies exactly one issue, so a stale
- * completion is still swallowed but no longer releases anyone else's slot.
- *
- * The ring must be long enough that it cannot wrap back onto a token that the
- * timeout has not yet given up on; the static assert below pins that.
+ * Reserve each token until the vendor completes that request, including after
+ * our wait times out. A circular sequence can alias an arbitrarily late
+ * callback after wrapping, so elapsed time never makes a token reusable.
+ * If all tokens are outstanding, reject that replay and allow the next reset
+ * indication to try again after a completion frees capacity. Normal framework
+ * requests still pass through; the pool bounds only shim-generated requests.
  *
  * Each element is a whole cache line rather than an int, and that is not
  * padding for its own sake: librilproxy's RIL_onRequestComplete is known to
@@ -638,10 +628,6 @@ static _Atomic int sIaHookState = IA_HOOKS_DISABLED;
  * object rather than on unrelated shim statics.
  */
 #define REISSUE_TOKEN_SLOTS 16
-_Static_assert((long)REISSUE_TOKEN_SLOTS * REISSUE_MIN_INTERVAL_NS >
-                       REISSUE_INFLIGHT_TIMEOUT_NS,
-               "the token ring can wrap onto a request the in-flight timeout "
-               "has not yet released");
 
 typedef struct {
     char opaque[64];
@@ -649,7 +635,8 @@ typedef struct {
 
 static ReissueToken sReissueTokens[REISSUE_TOKEN_SLOTS] __attribute__((aligned(16)));
 /* Index of the most recently issued token. Written and read under sIaLock. */
-static unsigned sIaTokenSeq;
+static unsigned sIaCurrentTokenIndex;
+static bool sIaTokenOutstanding[REISSUE_TOKEN_SLOTS];
 
 #define REISSUE_TOKEN_AT(i) ((RIL_Token)&sReissueTokens[(i) % REISSUE_TOKEN_SLOTS])
 
@@ -828,6 +815,8 @@ static void completeHook(RIL_Token t, RIL_Errno e, void *response,
 
     if (isReissueToken(t)) {
         bool current;
+        bool outstanding;
+        unsigned index = (ReissueToken *)t - sReissueTokens;
 
         /*
          * Ours. Swallow it: librilproxy's RIL_onRequestComplete dereferences
@@ -842,14 +831,19 @@ static void completeHook(RIL_Token t, RIL_Errno e, void *response,
          * signal would release whatever went out in its place.
          */
         pthread_mutex_lock(&sIaLock);
-        current = (t == REISSUE_TOKEN_AT(sIaTokenSeq));
+        outstanding = sIaTokenOutstanding[index];
+        current = outstanding && sIaRequestInFlight &&
+                  index == sIaCurrentTokenIndex;
+        sIaTokenOutstanding[index] = false;
         if (current) {
             sIaRequestInFlight = false;
             sIaInFlightDeadlineNs = 0;
             pthread_cond_signal(&sIaWake);
         }
         pthread_mutex_unlock(&sIaLock);
-        if (current) {
+        if (!outstanding) {
+            RLOGE("completion of an inactive attach-APN token ignored");
+        } else if (current) {
             RLOGI("re-issued SET_INITIAL_ATTACH_APN completed, e=%d", (int)e);
         } else {
             RLOGI("late completion of a timed-out re-issued "
@@ -946,6 +940,7 @@ static void *iaWorker(void *unused)
         RIL_Token token;
         int socketId = -1;
         int offset;
+        int tokenIndex = -1;
         int64_t waitUntilNs = 0;
         bool relativeSleep = false;
 
@@ -1041,6 +1036,32 @@ static void *iaWorker(void *unused)
             continue;
         }
 
+        for (offset = 1; offset <= REISSUE_TOKEN_SLOTS; ++offset) {
+            unsigned index = (sIaCurrentTokenIndex + offset) %
+                             REISSUE_TOKEN_SLOTS;
+            if (!sIaTokenOutstanding[index]) {
+                tokenIndex = (int)index;
+                break;
+            }
+        }
+        if (tokenIndex < 0) {
+            /* A missing completion is not cancellation. Do not create an
+             * alias or accumulate unbounded requests. Reject this coalesced
+             * replay; a later reset indication rechecks the pool. Charge the
+             * rejection to the rate limiter to bound logs during URC storms. */
+            sIaPending[socketId] = false;
+            if (clock_gettime(CLOCK_MONOTONIC, &sIaLastIssue) == 0) {
+                sIaLastIssueValid = true;
+            } else {
+                sIaLastIssueValid = false;
+            }
+            pthread_mutex_unlock(&sIaLock);
+            RLOGE("attach-APN replay rejected: all %d tokens await vendor "
+                  "completion; a later reset indication can retry",
+                  REISSUE_TOKEN_SLOTS);
+            continue;
+        }
+
         if (!copyIa(&outgoing, &sIaCache[socketId])) {
             /*
              * Charge the failed attempt to the rate limiter before releasing
@@ -1062,7 +1083,8 @@ static void *iaWorker(void *unused)
         }
         sIaPending[socketId] = false;
         sIaRequestInFlight = true;
-        sIaTokenSeq++;
+        sIaCurrentTokenIndex = (unsigned)tokenIndex;
+        sIaTokenOutstanding[tokenIndex] = true;
         {
             struct timespec issuedAt;
 
@@ -1078,7 +1100,7 @@ static void *iaWorker(void *unused)
                 sIaInFlightDeadlineNs = 0;
             }
         }
-        token = REISSUE_TOKEN_AT(sIaTokenSeq);
+        token = REISSUE_TOKEN_AT(sIaCurrentTokenIndex);
         sIaNextSocket = (socketId + 1) % SIM_COUNT;
         if (clock_gettime(CLOCK_MONOTONIC, &sIaLastIssue) == 0) {
             sIaLastIssueValid = true;
