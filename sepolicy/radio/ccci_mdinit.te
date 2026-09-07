@@ -4,19 +4,14 @@ type ccci_mdinit_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(ccci_mdinit)
 wakelock_use(ccci_mdinit)
 
-# Start only services present in this device's production init configuration.
-# init synthesises the permission check name as "ctl." + the VALUE passed to
-# ctl.start/ctl.stop (property_service.cpp CheckControlPropertyPerms), so the
-# service name has to appear as a literal in the binary. ccci_mdinit carries
-# ctl.start and ctl.stop plus exactly these targets: vendor.ccci_fsd,
-# vendor.ccci3_fsd, vendor.gsm0710muxd, vendor.ril-daemon-mtk, vendor.ril-proxy.
-# vendor.ccci3_fsd is no longer among the granted set: the MD3 service is gone
-# from this tree's init.cccifsd.rc, so `ctl.vendor.ccci3_fsd` now names nothing
-# and init would refuse it whatever its label. The binary still carries the
-# literal; that is a fact about the blob, not a requirement.
-# ctl_mtk_ccci_rpcd_prop is NOT among them -- the binary contains no
-# "ccci_rpcd" string at all, so that set_prop was dead and has been dropped.
-# vendor.ccci_rpcd is started from init.mt6755.rc, not by this daemon.
+# Control only the installed production services: vendor.ccci_fsd,
+# vendor.gsm0710muxd, vendor.ril-daemon-mtk and vendor.ril-proxy.
+# The binary also retains vendor.ccci3_fsd and modem-logger targets whose
+# services are absent. Its observed emdlogger1 attempt has no required wait;
+# denial is followed by successful muxd and modem startup. These literals do
+# not justify control grants or installing diagnostic loggers.
+# vendor.ccci_rpcd is started by init.mt6755.rc; this daemon has no ccci_rpcd
+# literal and does not need its control property.
 set_prop(ccci_mdinit, ctl_mtk_ccci_fsd_prop)
 set_prop(ccci_mdinit, ctl_mtk_gsm0710muxd_prop)
 set_prop(ccci_mdinit, ctl_mtkrild_prop)
