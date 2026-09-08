@@ -1,2 +1,0 @@
-init_ret=0 expected=0 register=1 unregister=0 rollback=0 probe=1 remove=0
-fixture: ../wmt-probe-lifecycle-tests/baseline-final/fixture.c:552: iounmap: Assertion `address != pEmibaseaddr' failed.

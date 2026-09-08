@@ -1,4 +1,0 @@
-PASS legal payload lengths and complete firmware command fields
-PASS oversized, undersized and missing payload attributes
-PASS complete attribute framing and stop requires a valid index
-PASS allocation and firmware-call failure release ownership

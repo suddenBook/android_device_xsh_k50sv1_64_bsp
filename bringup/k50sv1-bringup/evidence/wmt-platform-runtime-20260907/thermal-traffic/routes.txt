@@ -1,6 +1,0 @@
-default via 192.168.1.1 table wlan0 proto static 
-192.168.1.0/24 table wlan0 proto static scope link 
-192.168.1.0/24 proto kernel scope link src 192.168.1.251 
-broadcast 192.168.1.0 table local proto kernel scope link src 192.168.1.251 
-local 192.168.1.251 table local proto kernel scope host src 192.168.1.251 
-broadcast 192.168.1.255 table local proto kernel scope link src 192.168.1.251 

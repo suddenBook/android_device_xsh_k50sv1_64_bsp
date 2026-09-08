@@ -1,4 +1,0 @@
-PASS platform-rejects-deferred-probe: real platform init/deinit, bridge/stub and probe devres; releases=2
-withdrawn=1 maps=4 devres=4 bound=0
-result=-517 expected=-517 registered=0 bound=0 maps=4
-withdrawn=1 maps=10 devres=10 bound=1

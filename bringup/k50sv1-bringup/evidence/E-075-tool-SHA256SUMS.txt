@@ -1,6 +1,0 @@
-645b7de1862bed726767bdf9c9870ebbbbfe24ce8c15ea34b975f9ab7c601bd9  tools/classify-pstore.sh
-07fbdf7c961904588da2aef4d7894f356f7896a3364062fe87dcddaf85216c2a  tools/test-pstore-classifier.sh
-bf21f3eb88700cb984feaf543aab105832b7ae975a93665a8e078659b1d79078  tools/stage-tier-images.sh
-f406ec6a1d61469c80c75bc63e58c5a2b3d5c956fffedd03f556dc8fdcfe9769  tools/flash-tier-images.sh
-c4cf2f0297dc2d2e8a1a92dc80c1bdf32d71d69c8a43d43092455dab8e0b9652  tools/verify-e072-build.sh
-d506d3c0ebd270e03fa38c3375827406bd31f1602e93aca050b8b58fc2ae83f8  tools/verify-post-flash.sh

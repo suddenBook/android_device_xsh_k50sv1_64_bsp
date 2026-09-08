@@ -1,9 +1,0 @@
-logo sha256: c6fe4ebef6f316982d926c4220d0f25460d79e7bc98dff2743d17abe55714e74  work/.capture-staging/device-review-20260907/logo-review/logo-repaired.bin
-waiting up to 120 s for fastboot serial 0123456789ABCDEF
-flashing logo on verified 0123456789ABCDEF (k50sv1_64_bsp)
-Sending 'logo' (8192 KB)                           OKAY [  0.324s]
-Writing 'logo'                                     OKAY [  0.223s]
-Finished. Total time: 0.549s
-logo written; rebooting verified device
-Rebooting                                          OKAY [  0.000s]
-Finished. Total time: 0.051s

@@ -1,1 +1,0 @@
-line 366: run_ioctl(WMT_IOCTL_SET_PATCH_NAME, (ULONG)name) == -ENOMEM

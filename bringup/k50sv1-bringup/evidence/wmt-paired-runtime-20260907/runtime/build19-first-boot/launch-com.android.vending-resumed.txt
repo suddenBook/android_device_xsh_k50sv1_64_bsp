@@ -1,4 +1,0 @@
-host_adb_rc=0 __K50_ACTIVITY_RC__=0     mResumedActivity: ActivityRecord{f1fda14 u0 com.android.vending/.AssetBrowserActivity t5}
-host_adb_rc=0 __K50_ACTIVITY_RC__=0     mResumedActivity: ActivityRecord{eb9a5d1 u0 com.android.vending/com.google.android.finsky.unauthenticated.UnauthenticatedMainActivity t6}
-host_adb_rc=0 __K50_ACTIVITY_RC__=0     mResumedActivity: ActivityRecord{eb9a5d1 u0 com.android.vending/com.google.android.finsky.unauthenticated.UnauthenticatedMainActivity t6}
-

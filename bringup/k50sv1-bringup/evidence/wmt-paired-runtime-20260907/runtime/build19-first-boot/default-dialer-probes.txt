@@ -1,1 +1,0 @@
-default_dialer=com.android.dialer

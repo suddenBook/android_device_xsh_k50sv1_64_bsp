@@ -1,8 +1,0 @@
-{
-  "status": "PASS",
-  "build_receipt_sha256": "9eabfa131c25ca5e80f07bcb2a635860c6394580f3bb1df2174dc85ff8f95113",
-  "permissioncontroller_apk_sha256": "c8166d38ed947fa9783bb2759cada5813c2aeb813b1f466ce5d3d527c4fcff0a",
-  "resource": "    resource 0x7f11007f string/config_defaultHome\n      () \"com.android.launcher3\"",
-  "native_files_byte_identical_to_build8": true,
-  "native_file_count": 21
-}

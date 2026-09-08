@@ -1,1 +1,0 @@
-/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/kernel-review-20260905/build-project/lineage-17.1/vendor/xsh/k50sv1_64_bsp/proprietary/vendor/lib/modules/wlan_drv_gen2.ko: ELF 64-bit LSB relocatable, ARM aarch64, version 1 (SYSV), BuildID[sha1]=46254f8ea1460dc7f9aacd4e1343b0e09eadbbd6, not stripped

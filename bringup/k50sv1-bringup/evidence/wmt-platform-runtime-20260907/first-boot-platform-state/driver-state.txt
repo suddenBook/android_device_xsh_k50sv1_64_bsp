@@ -1,4 +1,0 @@
-bound	18070000.consys	/sys/bus/platform/drivers/mtk_wmt
-attribute	bind	0
-attribute	unbind	0
-/sys/bus/platform/drivers/mtk_wmt/module

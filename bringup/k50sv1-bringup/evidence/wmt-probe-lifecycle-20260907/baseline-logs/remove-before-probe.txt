@@ -1,1 +1,0 @@
-../wmt-probe-lifecycle-tests/baseline-final/fixture.c:1088:23: runtime error: member access within null pointer of type 'struct _WMT_CONSYS_IC_OPS_'

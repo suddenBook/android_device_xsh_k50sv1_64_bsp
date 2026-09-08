@@ -1,2 +1,0 @@
-PASS fw-retry-create-failure writes=1 accepted=1 version_publications=1 power_calls=1
-optional_scans=4 dump_calls=0 dump_failures=0 log_create_attempts=3 log_creates=2 log_joins=2 log_enables=2 log_failures=1 log_disables=1

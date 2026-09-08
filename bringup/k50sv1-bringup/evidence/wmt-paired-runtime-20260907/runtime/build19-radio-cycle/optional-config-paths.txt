@@ -1,2 +1,0 @@
-ABSENT /vendor/firmware/wifi.cfg
-ABSENT /vendor/firmware/wifi_fw.cfg

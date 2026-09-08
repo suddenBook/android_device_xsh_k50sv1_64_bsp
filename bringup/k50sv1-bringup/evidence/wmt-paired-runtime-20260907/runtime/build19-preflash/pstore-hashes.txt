@@ -1,3 +1,0 @@
-404ffd16015bae1d8b87095fcd19cb99e09b152b7ec0699a5eaeb0ba4a32cda8  /sys/fs/pstore/pmsg-ramoops-0
-503a4f1c134ca2b0b6e4fc8689ac057fb2db433ca8227d2e3fcc5a1b1693fed5  /sys/fs/pstore/console-ramoops-2
-7091d627edd715f423124ded12d22ab4e2b106a0c6d5417c98173a6b4b7a1062  /sys/fs/pstore/console-ramoops

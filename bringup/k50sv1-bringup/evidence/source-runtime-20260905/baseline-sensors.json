@@ -1,6 +1,0 @@
-{
-  "apk_sha256": "30edb11830b23c3764cd755ec85d67ba12a4da9d620e5a5e913923e493855b73",
-  "boot_id": "d0f6a7a5-850b-4b61-bb05-89725c55c597",
-  "pass": true,
-  "log": "--------- beginning of system\n--------- beginning of main\n09-06 13:00:00.518 29234 29234 I K50SensorProbe: START pid=29234 accelerometers=1\n09-06 13:00:00.520 29234 29234 I K50SensorProbe: REGISTER phase=0 period_us=20000 result=true\n09-06 13:00:02.522 29234 29234 I K50SensorProbe: STOP phase=0 events=102\n09-06 13:00:02.925 29234 29234 I K50SensorProbe: REGISTER phase=1 period_us=100000 result=true\n09-06 13:00:04.925 29234 29234 I K50SensorProbe: STOP phase=1 events=31\n09-06 13:00:05.326 29234 29234 I K50SensorProbe: SUMMARY result=PASS phase0=102 phase1=31 callbacks_after_stop=0 valid_monotonic=true min_norm=9.796807394699542 max_norm=9.806651140772722\n"
-}

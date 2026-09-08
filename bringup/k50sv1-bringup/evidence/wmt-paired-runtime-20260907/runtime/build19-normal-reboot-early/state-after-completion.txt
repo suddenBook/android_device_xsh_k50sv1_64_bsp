@@ -1,8 +1,0 @@
-1
-1
-0
-Current lock settings service state:
-SP Enabled = false
-    User 0
-        SP Handle = 0
-        SID = 0

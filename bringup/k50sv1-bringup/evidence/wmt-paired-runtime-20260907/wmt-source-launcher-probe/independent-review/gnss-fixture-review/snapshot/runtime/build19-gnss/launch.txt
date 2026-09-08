@@ -1,7 +1,0 @@
-Starting: Intent { cmp=local.k50.gnssprobe/.ProbeActivity }
-Status: ok
-LaunchState: COLD
-Activity: local.k50.gnssprobe/.ProbeActivity
-TotalTime: 455
-WaitTime: 457
-Complete

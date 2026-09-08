@@ -1,4 +1,0 @@
-0x6755
-yes
-stopped
-running

@@ -1,1 +1,0 @@
-{"status":"PASS","operation":"read_adie_chip_id","ioctl":3221790746,"returned_bytes":2,"errno":0,"output_offset":8,"chip_id_le":26149,"guards_unchanged":true,"close_result":0}

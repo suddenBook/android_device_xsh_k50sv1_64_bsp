@@ -1,1 +1,0 @@
-line 520: set_count(2) == 0

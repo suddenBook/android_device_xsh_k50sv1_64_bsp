@@ -1,8 +1,0 @@
-{
-  "status": "PASS",
-  "before": "6bf146744374c1e7ad97eb33fab73d9947a007a0",
-  "after": "a87ec4a76bfd03d1760609a043b9b71e91d4254c",
-  "branch": "k50sv1-source-recovery",
-  "boot_id": "e462611a-b9c8-4ab7-93bb-50de8620aea5",
-  "clean": true
-}

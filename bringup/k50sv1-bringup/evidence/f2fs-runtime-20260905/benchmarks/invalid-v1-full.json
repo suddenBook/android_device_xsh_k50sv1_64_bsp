@@ -1,8 +1,0 @@
-{
-  "status": "invalid/incomplete, excluded from performance comparisons",
-  "requested_filler_bytes": 51539607552,
-  "completed_before_intentional_SIGTERM": 29428285440,
-  "reason": "The filler was stopped before the original 20-minute host limit. The attempted resume requested file extension; fio default write layout unlinked the temporary file before allow_file_create=0 refused recreation. No high-occupancy benchmark completed.",
-  "filesystem_error_reported_by_filler": false,
-  "next_attempt": "Use v2, fresh formats, a 2-hour host observation limit, no resume, and require exact full filler io_bytes."
-}

@@ -1,2 +1,0 @@
-13147d29addc0eba0ce2af3add292edaf4b14414c79384db927783ff380e7d77  /system/priv-app/ImsService/ImsService.apk
-ed8cb4e0d19e9624600fd36fda245f42d3ae587c78663a29636f7dd79663d017  /system/framework/mediatek-wfo-legacy.jar

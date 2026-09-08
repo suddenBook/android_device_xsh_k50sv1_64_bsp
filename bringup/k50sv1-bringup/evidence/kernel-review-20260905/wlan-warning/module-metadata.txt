@@ -1,9 +1,0 @@
-
-String dump of section '.modinfo':
-  [     0]  license=GPL
-  [     c]  description=NIC_DESC
-  [    21]  author=NIC_AUTHOR
-  [    38]  srcversion=533BB7E5866E52F63B9ACCB
-  [    60]  depends=wmt_drv,wmt_chrdev_wifi
-  [    80]  vermagic=3.18.119 SMP preempt mod_unload modversions aarch64
-

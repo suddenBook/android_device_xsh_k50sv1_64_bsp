@@ -1,5 +1,0 @@
-gps_drv 49553 0 - Live 0x0000000000000000
-bt_drv 24055 1 - Live 0x0000000000000000
-wlan_drv_gen2 1464049 0 - Live 0x0000000000000000
-wmt_chrdev_wifi 20006 1 wlan_drv_gen2, Live 0x0000000000000000
-wmt_drv 1397645 5 gps_drv,bt_drv,wlan_drv_gen2,wmt_chrdev_wifi, Live 0x0000000000000000

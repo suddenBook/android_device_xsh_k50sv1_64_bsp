@@ -1,7 +1,0 @@
-Starting: Intent { cmp=com.google.android.googlequicksearchbox/.SearchActivity }
-Status: ok
-LaunchState: COLD
-Activity: com.google.android.googlequicksearchbox/.SearchActivity
-TotalTime: 951
-WaitTime: 963
-Complete

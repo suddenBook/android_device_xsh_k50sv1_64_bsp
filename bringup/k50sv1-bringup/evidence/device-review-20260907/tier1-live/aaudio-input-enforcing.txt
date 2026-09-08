@@ -1,6 +1,0 @@
-requested=1 actual=1 rate=16000 channels=1 format=1 device=11
-preset=1 frames=48000 zero=1106 clipped=0 peak=97 rms=19.48 xruns=0
-preset=1 lifecycle=PASS
-requested=7 actual=7 rate=16000 channels=1 format=1 device=11
-preset=7 frames=48000 zero=751 clipped=0 peak=445 rms=102.38 xruns=0
-preset=7 lifecycle=PASS

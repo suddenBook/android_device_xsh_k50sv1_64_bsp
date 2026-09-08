@@ -1,1 +1,0 @@
-line 314: memcmp(&before, &gDevWmt.rWmtHifConf, sizeof(before)) == 0

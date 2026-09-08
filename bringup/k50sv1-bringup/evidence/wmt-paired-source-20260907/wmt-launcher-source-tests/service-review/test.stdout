@@ -1,3 +1,0 @@
-{"case":"held-enable-then-disable","enable_calls":1,"disable_calls":0,"worker_finished":false,"desired":"no","cached":"yes","bug_reproduced":true}
-{"case":"read-retirement","errno":11,"loop_result":0,"poll_calls":2,"session_loop_survives":true}
-{"case":"read-retirement","errno":110,"loop_result":-110,"poll_calls":1,"session_loop_survives":false}

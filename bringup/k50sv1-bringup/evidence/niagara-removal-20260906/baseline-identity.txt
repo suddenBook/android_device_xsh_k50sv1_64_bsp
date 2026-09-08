@@ -1,6 +1,0 @@
-uid=0(root) gid=0(root) groups=0(root),1004(input),1007(log),1011(adb),1015(sdcard_rw),1028(sdcard_r),3001(net_bt_admin),3002(net_bt),3003(inet),3006(net_bw_stats),3009(readproc),3011(uhid) context=u:r:su:s0
-Linux localhost 3.18.119 #1 SMP PREEMPT Sun Sep 6 20:27:15 CEST 2026 aarch64
-eng.desmon.20260906.202226
-73c967b4-8c96-480c-b265-b9c54d8fbd77
-0
-2416.85 7320.43

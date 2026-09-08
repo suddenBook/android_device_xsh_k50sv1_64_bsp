@@ -1,9 +1,0 @@
-{
-  "calibration_fstab_flags_verified": true,
-  "trim_targets": [
-    "/data",
-    "/cache"
-  ],
-  "command_exit": 0,
-  "status": "PASS"
-}

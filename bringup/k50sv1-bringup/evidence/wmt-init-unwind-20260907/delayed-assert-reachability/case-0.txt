@@ -1,1 +1,0 @@
-{"scenario":0,"actual_call_arguments":false,"type":3,"reason":222,"keyword":"first-assert","coherent_request":false,"second_work_pending":true}

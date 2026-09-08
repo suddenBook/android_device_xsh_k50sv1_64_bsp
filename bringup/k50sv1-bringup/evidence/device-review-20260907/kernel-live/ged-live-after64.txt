@@ -1,6 +1,0 @@
-pointer_bits=64 package_size=40 expected_mismatch=EINVAL
-PASS matched-query outer=0xc0286705 inner=0xc0286705 result=0 errno=0 loading=0
-PASS ge-outer-query-inner outer=0xc0286764 inner=0xc0286705 result=-1 errno=22 loading=18446744073709551615
-PASS wrong-magic-query outer=0xc0286805 inner=0xc0286805 result=-1 errno=22 loading=18446744073709551615
-PASS installed-libged query result=0 loading=0
-4/4 passed

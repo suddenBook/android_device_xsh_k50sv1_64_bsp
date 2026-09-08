@@ -1,8 +1,0 @@
-{
-  "status": "PASS",
-  "source_function_sha256": "3c410b2edeb2dcf1ca1c546518453d39b0bb3a8e29c94f62f0122a081cbd3301",
-  "verifier_sha256": "7e54b59b2bf00d4227f7b7c6a5e16e401a67be06ab63ce1f21886c251d7a5057",
-  "exit_code": 0,
-  "output": "PASS Clock opens and remains resumed (com.android.deskclock)\nINFO Calendar launch diagnostic: Warning: Activity not started, its current task has been brought to the front\nPASS Calendar opens and remains resumed (org.lineageos.etar)\nSUMMARY passed=2 failed=0 unread=0",
-  "boundary": "The actual launch_package function with real adb, cold-started Clock then Calendar; no permission grant or package-data clear."
-}

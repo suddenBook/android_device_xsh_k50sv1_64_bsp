@@ -1,2 +1,0 @@
-PASS dump-retry-same writes=1 accepted=1 version_publications=1 power_calls=1
-optional_scans=4 dump_calls=2 dump_failures=1 log_create_attempts=0 log_creates=0 log_joins=0 log_enables=0 log_failures=0 log_disables=0

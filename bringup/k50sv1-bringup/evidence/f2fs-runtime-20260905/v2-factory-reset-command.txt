@@ -1,2 +1,0 @@
---wipe_data
---reason=f2fs-v2-runtime-validation

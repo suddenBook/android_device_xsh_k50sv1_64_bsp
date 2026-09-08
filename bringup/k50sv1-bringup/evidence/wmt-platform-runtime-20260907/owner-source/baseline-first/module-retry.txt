@@ -1,1 +1,0 @@
-test: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wmt-platform-owner-tests/baseline-first/test.c:137: void run_probe(struct platform_driver *, struct module *, _Bool, int): Assertion `driver->driver.owner == owner' failed.

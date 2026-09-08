@@ -1,1 +1,0 @@
-line 338: inner_result < 0 && event_calls == 1 && result == 0 (first=0 second=9 response=2 inner=-2)

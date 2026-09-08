@@ -1,9 +1,0 @@
-{
-  "README.md": "a51f093bacf29951afe1f64009184e14bf73f3b56361e823e4a5f2934e62d67c",
-  "SHA256SUMS": "8dc77d9dad6083f231ca1d887258acdeb9db3c28d569b9b781f9e515fff93ac4",
-  "offline-signal-command.sh.txt": "943f3b7750462fbc131a7ac6c9f4dab70207c951938646803c0750db4ff7dffb",
-  "offline-validation.json": "737a483bb54a25ffd64086d0049be3e8368878eb4d2867a2a2961b4860aa06f6",
-  "offline-validation.log": "d111a3133b92c04eb434b6ae717e15831facfc073c471718447adfb761c92c84",
-  "offline_validate.py": "2bb9733256ac510f4e08c522af7740537db5f9fb62415111d1170cab8a979768",
-  "run.py": "f24e5657c3638dd12ef0d599b1928d168dd54df5ed5a93083e4b0da04afa25d2"
-}

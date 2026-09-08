@@ -1,4 +1,0 @@
-PASS: register=2 unregister=2 rollback=0 probe=2 remove=2 release_checks=2
-init_ret=0 expected=0 register=1 unregister=0 rollback=0 probe=1 remove=0
-withdrawn=1 maps=9 devres=9 bound=1
-withdrawn=1 maps=10 devres=10 bound=1

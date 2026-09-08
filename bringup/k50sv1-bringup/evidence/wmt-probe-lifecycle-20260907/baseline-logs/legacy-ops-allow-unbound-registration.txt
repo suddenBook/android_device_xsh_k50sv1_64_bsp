@@ -1,2 +1,0 @@
-init_ret=0 expected=0 register=1 unregister=0 rollback=0 probe=0 remove=0
-fixture: ../wmt-probe-lifecycle-tests/baseline-final/fixture.c:711: platform_driver_unregister: Assertion `driver_registered' failed.

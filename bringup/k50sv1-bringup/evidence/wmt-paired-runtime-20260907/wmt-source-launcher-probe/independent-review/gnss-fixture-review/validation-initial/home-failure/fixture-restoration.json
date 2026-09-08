@@ -1,5 +1,0 @@
-{
-  "status": "FAIL",
-  "search_restore_required": true,
-  "error": "RuntimeError('Injected command failure at restore-home-after-gnss')"
-}

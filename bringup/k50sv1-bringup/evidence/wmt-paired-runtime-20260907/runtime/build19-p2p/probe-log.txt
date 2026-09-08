@@ -1,6 +1,0 @@
---------- beginning of main
---------- beginning of system
-   531.738  9226  9226 I K50P2pProbe: create_accepted
-   532.248  9226  9226 I K50P2pProbe: formed=true owner=true clients=0
-   536.770  9226  9226 I K50P2pProbe: remove_accepted
-   537.779  9226  9226 I K50P2pProbe: RESULT PASS reason=group_removed formed=true cleanup_pending=false

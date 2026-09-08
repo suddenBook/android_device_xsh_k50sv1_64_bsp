@@ -1,3 +1,0 @@
-[ 1001.491838] -(0)[0:swapper/0]Power/swap DP: No enter --- SODI3: No enter --- SODI: No enter --- 
-[ 1001.656333] (0)[270:kworker/0:1][name:mt_ppm_main&][Power/PPM] (0x4b0)(1143)(0)[4LL_L]: (4)(4)(4)(4) (6)(4)(1)(4) 
-[ 1001.806598] (0)[270:kworker/0:1][name:mt_ppm_main&][Power/PPM] (0x4b0)(1193)(0)[4LL_L]: (4)(3)(4)(4) (6)(3)(1)(4) 

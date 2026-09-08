@@ -1,1 +1,0 @@
-create: size=256 blocks=1 uid=10236 gid=10236

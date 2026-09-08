@@ -1,1 +1,0 @@
-line 325: first_read == 0 && second_read == 9 && result == 0 (first=0 second=0 response=2 inner=0)

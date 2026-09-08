@@ -1,7 +1,0 @@
-{
-  "status": "PREPARED",
-  "original": {
-    "voice_recognition_service": "com.google.android.googlequicksearchbox/com.google.android.voicesearch.serviceapi.GoogleRecognitionService",
-    "voice_interaction_service": "com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService"
-  }
-}

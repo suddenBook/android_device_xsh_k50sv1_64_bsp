@@ -1,8 +1,0 @@
-/sys/class/thermal/thermal_zone0	mtktsbattery
-/sys/class/thermal/thermal_zone1	mtktscpu
-/sys/class/thermal/thermal_zone2	mtktspa
-/sys/class/thermal/thermal_zone3	mtktspmic
-/sys/class/thermal/thermal_zone4	mtktswmt
-/sys/class/thermal/thermal_zone5	battery
-/sys/class/thermal/thermal_zone6	mtktsAP
-/sys/class/thermal/thermal_zone7	mtktsbtsmdpa

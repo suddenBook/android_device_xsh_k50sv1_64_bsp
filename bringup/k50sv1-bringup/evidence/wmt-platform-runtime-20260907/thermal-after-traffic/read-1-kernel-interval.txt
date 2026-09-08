@@ -1,2 +1,0 @@
-[  998.031485] (0)[270:kworker/0:1][HIF-SDIO][I]wmt_dev_tm_temp_query:[Thermal] current_temp = 0x32
-[  998.097911] (0)[270:kworker/0:1][Auxadc] [AUXADC] ch:4(297, 5e6, 1, 1)

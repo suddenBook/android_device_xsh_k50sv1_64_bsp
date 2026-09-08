@@ -1,4 +1,0 @@
-PASS framework-clock-enomem: real platform init/deinit, bridge/stub and probe devres; releases=2
-withdrawn=1 maps=0 devres=0 bound=0
-result=-19 expected=-19 registered=0 bound=0 maps=0
-withdrawn=1 maps=10 devres=10 bound=1

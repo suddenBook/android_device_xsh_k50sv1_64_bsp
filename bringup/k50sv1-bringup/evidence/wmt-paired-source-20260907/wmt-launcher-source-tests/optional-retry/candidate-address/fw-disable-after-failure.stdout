@@ -1,2 +1,0 @@
-PASS fw-disable-after-failure writes=1 accepted=1 version_publications=1 power_calls=1
-optional_scans=4 dump_calls=0 dump_failures=0 log_create_attempts=1 log_creates=1 log_joins=1 log_enables=1 log_failures=1 log_disables=1

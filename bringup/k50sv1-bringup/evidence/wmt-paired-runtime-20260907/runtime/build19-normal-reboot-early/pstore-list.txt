@@ -1,4 +1,0 @@
-total 0
--r--r----- 1 system log  262132 2026-09-07 06:23 console-ramoops
--r--r--r-- 1 root   root    579 2026-09-07 06:23 console-ramoops-2
--r--r----- 1 system log   65524 2026-09-07 06:23 pmsg-ramoops-0

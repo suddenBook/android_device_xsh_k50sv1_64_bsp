@@ -1,6 +1,0 @@
-2: ccmni0    inet 10.13.136.81/8 scope global ccmni0\       valid_lft forever preferred_lft forever
-6: ccmni4    inet6 2a02:a420:2fcc:b02e:5757:56bc:d16:5512/64 scope global dynamic mngtmpaddr \       valid_lft forever preferred_lft forever
-6: ccmni4    inet6 fe80::5757:56bc:d16:5512/64 scope link \       valid_lft forever preferred_lft forever
---- ping ---
-3 packets transmitted, 3 received, 0% packet loss, time 2003ms
-rtt min/avg/max/mdev = 22.426/25.003/27.255/1.989 ms

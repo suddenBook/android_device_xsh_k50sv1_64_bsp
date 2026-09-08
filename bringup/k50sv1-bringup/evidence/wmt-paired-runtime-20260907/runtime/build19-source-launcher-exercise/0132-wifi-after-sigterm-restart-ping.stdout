@@ -1,9 +1,0 @@
-PING 1.1.1.1 (1.1.1.1) from 192.168.1.251 wlan0: 56(84) bytes of data.
-64 bytes from 1.1.1.1: icmp_seq=1 ttl=248 time=27.4 ms
-64 bytes from 1.1.1.1: icmp_seq=2 ttl=248 time=21.8 ms
-64 bytes from 1.1.1.1: icmp_seq=3 ttl=248 time=19.8 ms
-64 bytes from 1.1.1.1: icmp_seq=4 ttl=248 time=18.4 ms
-
---- 1.1.1.1 ping statistics ---
-4 packets transmitted, 4 received, 0% packet loss, time 603ms
-rtt min/avg/max/mdev = 18.488/21.883/27.424/3.413 ms

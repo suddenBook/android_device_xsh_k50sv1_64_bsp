@@ -1,5 +1,0 @@
-captured_at=2026-08-22T20:28:51+02:00
-adb=adb (configured executable)
-adb_version=Android Debug Bridge version 1.0.41
-device_state=device
-capture_policy=read-only device commands; host-only artifact writes; no SSID, MAC, IMEI, phone number, or device serial collection

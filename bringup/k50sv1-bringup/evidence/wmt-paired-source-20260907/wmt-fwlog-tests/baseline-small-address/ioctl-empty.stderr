@@ -1,2 +1,0 @@
-expected result 0, observed -40
-failed line 324: result_is(invoke(0, 1, 0), 0)

@@ -1,1 +1,0 @@
-PASS: clears=4 tasks_joined=2 core=1 platform=1 ps=1 idc=1

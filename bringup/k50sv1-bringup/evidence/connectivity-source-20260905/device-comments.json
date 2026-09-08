@@ -1,7 +1,0 @@
-{
-  "device_head": "45453dde8579b7393e5bd2c34397e5b8aeb27c58",
-  "non_comment_content_identical": {
-    "overlay/frameworks/base/core/res/res/values/config.xml": true,
-    "sepolicy/vendor/init.te": true
-  }
-}

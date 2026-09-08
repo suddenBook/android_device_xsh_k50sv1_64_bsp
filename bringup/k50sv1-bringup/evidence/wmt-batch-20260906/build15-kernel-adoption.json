@@ -1,9 +1,0 @@
-{
-  "status": "PASS",
-  "before": "5ca689a77fa203a80125dea949a627171ab69e25",
-  "after": "5f2194a7f8cb2b8f3e87c113f779352e1d0e0873",
-  "worktree_clean": true,
-  "installed_incremental": "eng.desmon.20260906.223008",
-  "normal_boot_id": "e08a5833-8066-4e5f-99a6-1daa632da88f",
-  "basis": "Fresh/normal boot, corrected launcher checks,29-file readback at three phases,radio/GNSS/P2P,19 calibration hashes,continuous kernel captures; raw verifier failures retained with scoped explanations"
-}

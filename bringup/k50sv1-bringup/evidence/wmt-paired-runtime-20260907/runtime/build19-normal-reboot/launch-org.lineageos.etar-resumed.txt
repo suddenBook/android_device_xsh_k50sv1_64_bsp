@@ -1,4 +1,0 @@
-host_adb_rc=0 __K50_ACTIVITY_RC__=0     mResumedActivity: ActivityRecord{ac825c5 u0 org.lineageos.etar/com.android.calendar.AllInOneActivity t14}
-host_adb_rc=0 __K50_ACTIVITY_RC__=0     mResumedActivity: ActivityRecord{ac825c5 u0 org.lineageos.etar/com.android.calendar.AllInOneActivity t14}
-host_adb_rc=0 __K50_ACTIVITY_RC__=0     mResumedActivity: ActivityRecord{ac825c5 u0 org.lineageos.etar/com.android.calendar.AllInOneActivity t14}
-

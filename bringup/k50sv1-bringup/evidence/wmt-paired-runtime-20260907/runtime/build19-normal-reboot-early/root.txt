@@ -1,1 +1,0 @@
-adbd is already running as root

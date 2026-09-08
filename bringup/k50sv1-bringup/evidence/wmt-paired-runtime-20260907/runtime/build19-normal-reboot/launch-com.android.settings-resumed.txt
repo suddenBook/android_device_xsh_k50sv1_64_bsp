@@ -1,5 +1,0 @@
-host_adb_rc=0 __K50_ACTIVITY_RC__=0
-host_adb_rc=0 __K50_ACTIVITY_RC__=0     mResumedActivity: ActivityRecord{52ce1c9 u0 com.android.settings/.Settings t10}
-host_adb_rc=0 __K50_ACTIVITY_RC__=0     mResumedActivity: ActivityRecord{52ce1c9 u0 com.android.settings/.Settings t10}
-host_adb_rc=0 __K50_ACTIVITY_RC__=0     mResumedActivity: ActivityRecord{52ce1c9 u0 com.android.settings/.Settings t10}
-

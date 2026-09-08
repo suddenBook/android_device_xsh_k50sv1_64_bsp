@@ -1,4 +1,0 @@
-host_adb_rc=0 __K50_ACTIVITY_RC__=0     mResumedActivity: ActivityRecord{f5fb4a7 u0 com.android.deskclock/.DeskClock t13}
-host_adb_rc=0 __K50_ACTIVITY_RC__=0     mResumedActivity: ActivityRecord{f5fb4a7 u0 com.android.deskclock/.DeskClock t13}
-host_adb_rc=0 __K50_ACTIVITY_RC__=0     mResumedActivity: ActivityRecord{f5fb4a7 u0 com.android.deskclock/.DeskClock t13}
-

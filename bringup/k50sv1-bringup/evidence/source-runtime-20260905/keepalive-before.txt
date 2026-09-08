@@ -1,9 +1,0 @@
-test: /home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/keepalive-tests/keepalive-52xhnk0_/test.c:459: void invalid(void): Assertion `start() == -EINVAL' failed.
-Traceback (most recent call last):
-  File "/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/wlan-vendor-kernel-work/tools/testing/connectivity/keepalive-validation.py", line 203, in <module>
-    subprocess.run([str(executable)], check=True)
-    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.14/subprocess.py", line 578, in run
-    raise CalledProcessError(retcode, process.args,
-                             output=stdout, stderr=stderr)
-subprocess.CalledProcessError: Command '['/home/desmond/Downloads/k50sv1_64_bsp/work/.capture-staging/source-replacement-20260905/keepalive-tests/keepalive-52xhnk0_/test']' died with <Signals.SIGABRT: 6>.

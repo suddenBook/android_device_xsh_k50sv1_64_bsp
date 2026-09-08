@@ -1,7 +1,0 @@
--rw-r--r-- 1 root root  448 2026-09-06 20:42 /system/etc/default-permissions/default-permissions-niagara.xml
--rw-r--r-- 1 root root  358 2026-09-06 20:42 /system/etc/permissions/privapp-permissions-niagara.xml
-
-/system/priv-app/NiagaraLauncher:
-total 13512
--rw-r--r-- 1 root root 13890459 2026-09-06 20:22 NiagaraLauncher.apk
-1

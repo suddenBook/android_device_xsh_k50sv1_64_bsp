@@ -1,8 +1,0 @@
---------- beginning of main
---------- beginning of system
-09-07 11:01:38.903  5431  5431 I K50SensorProbe: START pid=5431 accelerometers=1
-09-07 11:01:38.906  5431  5431 I K50SensorProbe: REGISTER phase=0 period_us=20000 result=true
-09-07 11:01:40.908  5431  5431 I K50SensorProbe: STOP phase=0 events=101
-09-07 11:01:41.310  5431  5431 I K50SensorProbe: REGISTER phase=1 period_us=100000 result=true
-09-07 11:01:43.311  5431  5431 I K50SensorProbe: STOP phase=1 events=31
-09-07 11:01:43.712  5431  5431 I K50SensorProbe: SUMMARY result=PASS phase0=101 phase1=31 callbacks_after_stop=0 valid_monotonic=true min_norm=9.804950644438383 max_norm=9.965301086878362
