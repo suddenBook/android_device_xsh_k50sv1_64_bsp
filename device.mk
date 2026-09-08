@@ -556,6 +556,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libril-k50sv1-shim
 
+# Preserve the command prefix when Power HAL initializes the HICA policy.
+PRODUCT_PACKAGES += \
+    libpowerhal-k50sv1-shim
+
 # PRODUCT_PACKAGES enforcement. This lives here, not in BoardConfig.mk, because
 # it is a product variable in every sense except the one that matters to
 # product.mk: main.mk:1292-1293 reads the bare globals

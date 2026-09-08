@@ -31,6 +31,8 @@ TARGET_SCREEN_DENSITY := 320
 # shipping API also changes property-trigger enforcement; review vendor init first.
 BOARD_VNDK_VERSION := current
 BOARD_SYSTEMSDK_VERSIONS := 28
+# Fix the vendor Power HAL's scalar HICA initialization through its exported ABI.
+TARGET_LD_SHIM_LIBS += /vendor/lib64/libpowerhal.so|libpowerhal-k50sv1-shim.so
 # Do not add a framework compatibility matrix solely for private MTK HALs:
 # Q would enforce that every manifest entry has a corresponding matrix entry.
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
