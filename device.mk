@@ -23,9 +23,12 @@ $(call inherit-product, vendor/google_webview/webview.mk)
 # Keep the original CTS APK signature and its compressed JNI intact.
 PRODUCT_PACKAGES += K50CtsShimPrivPrebuilt
 
-# Q signature|privileged additions requested by the updated GMS/Search APKs.
+# Google privileged permissions, owner-selected runtime grants and background
+# exemptions. Keep runtime grants separate from signature|privileged allowlists.
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/permissions/privapp-permissions-google-updates.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-google-updates.xml
+    $(LOCAL_PATH)/permissions/privapp-permissions-google-updates.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-google-updates.xml \
+    $(LOCAL_PATH)/permissions/default-permissions-google.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/default-permissions/default-permissions-google.xml \
+    $(LOCAL_PATH)/sysconfig/google-apps.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/google-apps.xml
 
 # The Stock IMS APK directly references the first two MTK contracts. Its
 # absolute-path extension plugin imports ims-common plus MTK telephony/telecom
@@ -192,10 +195,11 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/mtk-kpd.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/mtk-kpd.kl \
     $(LOCAL_PATH)/permissions/privapp-permissions-mtk-ims.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-mtk-ims.xml
 
-# Huawei APKs are product privileged apps. Q requires their privileged
-# permission allowlist on the same partition; runtime grants use normal UI.
+# Huawei's privileged allowlist belongs on product with its APKs. The owner
+# requests all declared Q runtime permissions and background exemptions too.
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/permissions/privapp-permissions-huawei.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-huawei.xml \
+    $(LOCAL_PATH)/permissions/default-permissions-huawei.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/default-permissions/default-permissions-huawei.xml \
     $(LOCAL_PATH)/sysconfig/huawei.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/huawei.xml
 
 
