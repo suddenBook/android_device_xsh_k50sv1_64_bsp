@@ -1,0 +1,13 @@
+cc_library_shared {
+    name: "libpowerhal-k50sv1-shim",
+    srcs: ["k50sv1_power_shim.c"],
+    c_std: "gnu11",
+    stl: "none",
+    shared_libs: ["libdl", "liblog"],
+    cflags: ["-Wall", "-Wextra", "-Werror", "-fvisibility=hidden"],
+    // The blob defines this symbol itself. A normal local dependency would
+    // lose lookup to that definition; Q searches DF_1_GLOBAL objects first.
+    ldflags: ["-Wl,-z,global"],
+    vendor: true,
+    compile_multilib: "64",
+}
