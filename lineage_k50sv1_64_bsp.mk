@@ -103,6 +103,9 @@ ifeq ($(K50SV1_BUILD_TIER),1)
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.control_privapp_permissions=log
 endif
 
+# Owner-selected app set; declare these before Lineage adds its default apps.
+TARGET_EXCLUDES_AUDIOFX := true
+TARGET_EXCLUDES_EMAIL := true
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
 # MTG's Android 10 framework/services plus the supplied current Google APKs.
@@ -113,14 +116,8 @@ $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 # already includes LineageSetupWizard, which also overrides AOSP Provision.
 $(call inherit-product, vendor/gapps/arm64/arm64-vendor.mk)
 
-# Optional application bundle. The current bring-up inputs contain Google
-# applications; Huawei services can be selected when their payload is supplied.
-ifeq ($(WITH_HUAWEI_SERVICES),true)
-ifeq ($(wildcard vendor/huawei/hms/products/huawei.mk),)
-$(error WITH_HUAWEI_SERVICES requires vendor/huawei/hms/products/huawei.mk)
-endif
+# Required owner-supplied AppGallery and HMS Core payload.
 $(call inherit-product, vendor/huawei/hms/products/huawei.mk)
-endif
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     keyguard.no_require_sim=true

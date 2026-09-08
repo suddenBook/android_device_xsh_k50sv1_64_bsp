@@ -192,29 +192,11 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/mtk-kpd.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/mtk-kpd.kl \
     $(LOCAL_PATH)/permissions/privapp-permissions-mtk-ims.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-mtk-ims.xml
 
-# Preinstalled Huawei payload, installed as privileged product apps.
-#
-# vendor/huawei/hms/Android.mk installs both APKs, and their separately
-# installed JNI libraries, to /product/priv-app. All three files below must
-# therefore land on /product rather than /system, and for the whitelist that is
-# a correctness requirement rather than tidiness: PermissionManagerService
-# selects the privileged whitelist by partition, and pkg.isProduct() only ever
-# consults the map SystemConfig fills from /product/etc/permissions
-# (SystemConfig.java:874). A copy under /system parses into the wrong map and
-# is silently never applied. The other two are read from both trees; keeping
-# them together with the packages they configure is what makes the set legible.
-#
-# What each file can and cannot do is bounded by the platform, not by taste:
-# default-permissions carries only `dangerous` permissions,
-# privapp-permissions only `signature|privileged` ones, and the plain
-# `signature` permissions both APKs also request stay denied because only the
-# platform signature grants those. Each file states its own boundary.
-ifeq ($(WITH_HUAWEI_SERVICES),true)
+# Huawei APKs are product privileged apps. Q requires their privileged
+# permission allowlist on the same partition; runtime grants use normal UI.
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/permissions/privapp-permissions-huawei.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-huawei.xml \
-    $(LOCAL_PATH)/permissions/default-permissions-huawei.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/default-permissions/default-permissions-huawei.xml \
     $(LOCAL_PATH)/sysconfig/huawei.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/huawei.xml
-endif
 
 
 # Diagnostics retain the legacy MediaTek ePDG stack for controlled WFC

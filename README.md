@@ -55,10 +55,10 @@ previous proprietary files and generated makefiles. `-n`/`-s` preserve unselecte
 blobs but still use this recovery mechanism. Standalone makefile generation
 validates its temporary outputs before replacing the existing files.
 
-The product requires the locally imported Android 10 Google application and
-Google WebView payloads. Google SetupWizard is excluded; LineageSetupWizard
-owns initial setup. Huawei services default off and require an explicit
-`WITH_HUAWEI_SERVICES=true` selection plus their separate payload.
+The product requires the locally imported Google apps, Google WebView,
+AppGallery and HMS Core. LineageSetupWizard owns initial setup; Google
+SetupWizard is excluded. Chrome replaces Jelly and Photos replaces Gallery2.
+AudioFX, Email and its Exchange2 service are omitted from this app set.
 
 The owner deliberately selects 1.807 GHz, removes PPM thermal throttling at
 boot completion, runs all cores at maximum while the display is on, and keeps
