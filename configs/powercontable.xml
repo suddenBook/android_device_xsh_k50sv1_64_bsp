@@ -16,13 +16,15 @@
 
     * PERF_RES_POWER_CPUFREQ_HISPEED_FREQ carried MaxValue 1950000, an OPP
       that does not exist on this part. The clamp is now the real cluster 1
-      maximum, 1508000, from the selected MT6353 CPU_LEVEL_0 table.
+      maximum, 1807000, taken from /proc/ppm/dump_cluster_1_dvfs_table.
 
     * PERF_RES_POWER_CPUFREQ_MIN_SAMPLE_TIME allowed up to 800000 us. On a
-      scenario can request at most 200000 us here; the governor default is
-      80000 us. Keep this separate from timer_rate, the sampling interval.
+      part this slow an 800 ms floor on the governor's sample time is a
+      third of a second of unresponsiveness per step; the ceiling is now
+      200000, which is still eight times the boot value set in
+      init.mt6755.rc and well above anything a scenario asks for.
 
-  These paths were present in the recorded Android hardware baseline.
+  Every path below was confirmed present on the running handset.
 -->
 <CONTABLE>
     <CMD name="PERF_RES_POWER_HPS_THRESH_UP" id="0X01C10000">
@@ -43,7 +45,7 @@
         <Entry path="/sys/devices/system/cpu/cpufreq/interactive/hispeed_freq"></Entry>
         <LegacyCmdID>12</LegacyCmdID>
         <Compare>more</Compare>
-        <MaxValue>1508000</MaxValue>
+        <MaxValue>1807000</MaxValue>
         <MinValue>0</MinValue>
     </CMD>
     <CMD name="PERF_RES_POWER_CPUFREQ_MIN_SAMPLE_TIME" id="0X01C04000">
