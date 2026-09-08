@@ -113,35 +113,12 @@
         <value>35</value>
     </array>
 
-    <!-- cpu4-7: measured OPPs; currents interpolated from the Vivo curve,
-         except the top three.
-
-         The kernel moved this cluster from CPU_LEVEL_0 (1508000 top) to
-         CPU_LEVEL_1, so 1508000/1430000/1352000 no longer exist and
-         1807000/1651000/1495000 took their place. The donor curve has no
-         data above 1508000, and extending it the way the rest of this file
-         was built, linear in frequency, would be wrong here: these three
-         OPPs also raise Vproc, and core power goes as f*V^2, not as f.
-
-         So the three new values are the old top-of-table current, 177.1 mA
-         at 1508000, scaled by the f*V^2 ratio against it. Voltages are the
-         EEM-calibrated ones this part actually runs, read from
-         /proc/cpufreq/MT_CPU_DVFS_BIG/cpufreq_oppidx, not the static table:
-
-             1807000 @ 1.09375 V   ratio 1.364   177.1 -> 241.6
-             1651000 @ 1.06250 V   ratio 1.176   177.1 -> 208.3
-             1495000 @ 1.02500 V   ratio 0.991   177.1 -> 175.6
-
-         The five OPPs below 1495000 are unchanged in both frequency and
-         voltage, so their donor-derived currents stand as they were.
-
-         These are BatteryStats accounting numbers. Nothing here selects a
-         frequency; getting them wrong misattributes battery blame and
-         nothing else. -->
+    <!-- cpu4-7: kernel CPU_LEVEL_0 OPPs for the MT6353 board. Currents are
+         the original Vivo-curve estimates, not measurements of this cell. -->
     <array name="cpu.core_speeds.cluster1">
-        <value>1807000</value>
-        <value>1651000</value>
-        <value>1495000</value>
+        <value>1508000</value>
+        <value>1430000</value>
+        <value>1352000</value>
         <value>1196000</value>
         <value>1027000</value>
         <value>871000</value>
@@ -149,9 +126,9 @@
         <value>286000</value>
     </array>
     <array name="cpu.core_power.cluster1">
-        <value>241.6</value>
-        <value>208.3</value>
-        <value>175.6</value>
+        <value>177.1</value>
+        <value>166.8</value>
+        <value>155.2</value>
         <value>132.5</value>
         <value>111.4</value>
         <value>97.4</value>
