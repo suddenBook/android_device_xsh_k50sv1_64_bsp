@@ -121,14 +121,14 @@ $(error Missing vendor/gapps/arm64/arm64-vendor.mk; run tools/import-mindthegapp
 endif
 $(call inherit-product, vendor/gapps/arm64/arm64-vendor.mk)
 
-# Huawei AppGallery and HMS Core, at the owner's request. Guarded the same way
-# as the GMS payload above: the tree carries the makefile, the binaries live in
-# their own repository, and a missing import should fail the build loudly rather
-# than silently produce an image without them.
+# Optional application bundle. The current bring-up inputs contain Google
+# applications; Huawei services can be selected when their payload is supplied.
+ifeq ($(WITH_HUAWEI_SERVICES),true)
 ifeq ($(wildcard vendor/huawei/hms/products/huawei.mk),)
-$(error Missing vendor/huawei/hms/products/huawei.mk; import the Huawei payload first)
+$(error WITH_HUAWEI_SERVICES requires vendor/huawei/hms/products/huawei.mk)
 endif
 $(call inherit-product, vendor/huawei/hms/products/huawei.mk)
+endif
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     keyguard.no_require_sim=true

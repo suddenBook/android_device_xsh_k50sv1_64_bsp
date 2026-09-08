@@ -215,10 +215,12 @@ PRODUCT_COPY_FILES += \
 # privapp-permissions only `signature|privileged` ones, and the plain
 # `signature` permissions both APKs also request stay denied because only the
 # platform signature grants those. Each file states its own boundary.
+ifeq ($(WITH_HUAWEI_SERVICES),true)
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/permissions/privapp-permissions-huawei.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-huawei.xml \
     $(LOCAL_PATH)/permissions/default-permissions-huawei.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/default-permissions/default-permissions-huawei.xml \
     $(LOCAL_PATH)/sysconfig/huawei.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/huawei.xml
+endif
 
 
 # Diagnostics retain the legacy MediaTek ePDG stack for controlled WFC
