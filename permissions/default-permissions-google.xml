@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 10 runtime permissions requested by the bundled APKs.
+     fixed=false keeps these grants revocable in Settings. On this Q branch,
+     whitelisted=true reapplies the requested defaults when the default-grant
+     policy runs, including over prior user denials. Device-policy decisions
+     remain authoritative. The default-grant policy sets SYSTEM_EXEMPT before
+     granting hard/soft restricted permissions; no separate XML flag is needed.
+     Foreground location precedes background location for the matching AppOps.
+     Regenerate against the APK manifests when the payload changes. -->
+<exceptions>
+
+    <!-- Chrome 152.0.7977.82 -->
+    <exception package="com.android.chrome">
+        <permission name="android.permission.ACCESS_COARSE_LOCATION" fixed="false" whitelisted="true" />
+        <permission name="android.permission.ACCESS_FINE_LOCATION" fixed="false" whitelisted="true" />
+        <permission name="android.permission.CAMERA" fixed="false" whitelisted="true" />
+        <permission name="android.permission.GET_ACCOUNTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_CONTACTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_EXTERNAL_STORAGE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.RECORD_AUDIO" fixed="false" whitelisted="true" />
+        <permission name="android.permission.WRITE_EXTERNAL_STORAGE" fixed="false" whitelisted="true" />
+    </exception>
+
+    <!-- Phonesky 52.9.21-29 [0] [PR] 968642861 -->
+    <exception package="com.android.vending">
+        <permission name="android.permission.ACCESS_COARSE_LOCATION" fixed="false" whitelisted="true" />
+        <permission name="android.permission.ACCESS_FINE_LOCATION" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_CONTACTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_EXTERNAL_STORAGE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_PHONE_STATE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_SMS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.RECEIVE_SMS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.RECORD_AUDIO" fixed="false" whitelisted="true" />
+        <permission name="android.permission.SEND_SMS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.WRITE_EXTERNAL_STORAGE" fixed="false" whitelisted="true" />
+    </exception>
+
+    <!-- GooglePhotos 7.91.0.973540846 -->
+    <exception package="com.google.android.apps.photos">
+        <permission name="android.permission.ACCESS_COARSE_LOCATION" fixed="false" whitelisted="true" />
+        <permission name="android.permission.ACCESS_FINE_LOCATION" fixed="false" whitelisted="true" />
+        <permission name="android.permission.ACCESS_MEDIA_LOCATION" fixed="false" whitelisted="true" />
+        <permission name="android.permission.CAMERA" fixed="false" whitelisted="true" />
+        <permission name="android.permission.GET_ACCOUNTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_CALENDAR" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_CONTACTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_PHONE_STATE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.RECORD_AUDIO" fixed="false" whitelisted="true" />
+        <permission name="android.permission.WRITE_CALENDAR" fixed="false" whitelisted="true" />
+        <permission name="android.permission.WRITE_EXTERNAL_STORAGE" fixed="false" whitelisted="true" />
+    </exception>
+
+    <!-- AndroidMigratePrebuilt 1.0.214934184 -->
+    <exception package="com.google.android.apps.pixelmigrate">
+        <permission name="android.permission.READ_CALL_LOG" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_CONTACTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_EXTERNAL_STORAGE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_PHONE_NUMBERS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.RECEIVE_SMS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.WRITE_CALL_LOG" fixed="false" whitelisted="true" />
+        <permission name="android.permission.WRITE_CONTACTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.WRITE_EXTERNAL_STORAGE" fixed="false" whitelisted="true" />
+    </exception>
+
+    <!-- CalendarGoogle 2026.34.1-975609621-release -->
+    <exception package="com.google.android.calendar">
+        <permission name="android.permission.ACCESS_COARSE_LOCATION" fixed="false" whitelisted="true" />
+        <permission name="android.permission.CALL_PHONE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_CALENDAR" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_CONTACTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.WRITE_CALENDAR" fixed="false" whitelisted="true" />
+    </exception>
+
+    <!-- GoogleFeedback 10 -->
+    <!-- com.google.android.feedback requests no Android 10 runtime permissions. -->
+
+    <!-- PrebuiltGmsCore 26.33.60 (100400-966210346) -->
+    <exception package="com.google.android.gms">
+        <permission name="android.permission.ACCESS_COARSE_LOCATION" fixed="false" whitelisted="true" />
+        <permission name="android.permission.ACCESS_FINE_LOCATION" fixed="false" whitelisted="true" />
+        <permission name="android.permission.ACCESS_MEDIA_LOCATION" fixed="false" whitelisted="true" />
+        <permission name="android.permission.ACTIVITY_RECOGNITION" fixed="false" whitelisted="true" />
+        <permission name="android.permission.BODY_SENSORS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.CALL_PHONE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.CAMERA" fixed="false" whitelisted="true" />
+        <permission name="android.permission.GET_ACCOUNTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.PROCESS_OUTGOING_CALLS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_CALL_LOG" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_CONTACTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_EXTERNAL_STORAGE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_PHONE_STATE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_SMS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.RECEIVE_MMS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.RECEIVE_SMS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.RECORD_AUDIO" fixed="false" whitelisted="true" />
+        <permission name="android.permission.SEND_SMS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.WRITE_CALL_LOG" fixed="false" whitelisted="true" />
+        <permission name="android.permission.WRITE_CONTACTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.WRITE_EXTERNAL_STORAGE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.ACCESS_BACKGROUND_LOCATION" fixed="false" whitelisted="true" />
+    </exception>
+
+    <!-- Velvet 16.49.68.sa.arm64 -->
+    <exception package="com.google.android.googlequicksearchbox">
+        <permission name="android.permission.ACCESS_COARSE_LOCATION" fixed="false" whitelisted="true" />
+        <permission name="android.permission.ACCESS_FINE_LOCATION" fixed="false" whitelisted="true" />
+        <permission name="android.permission.ANSWER_PHONE_CALLS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.CALL_PHONE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.CAMERA" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_CALENDAR" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_CALL_LOG" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_CONTACTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_EXTERNAL_STORAGE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_PHONE_STATE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_SMS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.RECORD_AUDIO" fixed="false" whitelisted="true" />
+        <permission name="android.permission.SEND_SMS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.WRITE_CALENDAR" fixed="false" whitelisted="true" />
+        <permission name="android.permission.WRITE_CONTACTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.WRITE_EXTERNAL_STORAGE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.ACCESS_BACKGROUND_LOCATION" fixed="false" whitelisted="true" />
+    </exception>
+
+    <!-- GoogleServicesFramework 10 -->
+    <exception package="com.google.android.gsf">
+        <permission name="android.permission.GET_ACCOUNTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_CONTACTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_PHONE_STATE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.WRITE_CONTACTS" fixed="false" whitelisted="true" />
+    </exception>
+
+    <!-- MarkupGoogle 9 -->
+    <exception package="com.google.android.markup">
+        <permission name="android.permission.WRITE_EXTERNAL_STORAGE" fixed="false" whitelisted="true" />
+    </exception>
+
+    <!-- GooglePartnerSetup 10 -->
+    <!-- com.google.android.partnersetup requests no Android 10 runtime permissions. -->
+
+    <!-- GoogleContactsSyncAdapter 10 -->
+    <exception package="com.google.android.syncadapters.contacts">
+        <permission name="android.permission.GET_ACCOUNTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_CONTACTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.WRITE_CONTACTS" fixed="false" whitelisted="true" />
+    </exception>
+
+    <!-- GoogleWebView 153.0.8010.27 -->
+    <!-- com.google.android.webview requests no Android 10 runtime permissions. -->
+
+    <!-- YouTube 21.35.448 -->
+    <exception package="com.google.android.youtube">
+        <permission name="android.permission.ACCESS_COARSE_LOCATION" fixed="false" whitelisted="true" />
+        <permission name="android.permission.ACCESS_FINE_LOCATION" fixed="false" whitelisted="true" />
+        <permission name="android.permission.CAMERA" fixed="false" whitelisted="true" />
+        <permission name="android.permission.GET_ACCOUNTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_CONTACTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_PHONE_STATE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.RECORD_AUDIO" fixed="false" whitelisted="true" />
+        <permission name="android.permission.WRITE_EXTERNAL_STORAGE" fixed="false" whitelisted="true" />
+    </exception>
+</exceptions>

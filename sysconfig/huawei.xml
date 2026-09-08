@@ -3,7 +3,7 @@
 
      Installed to /product/etc/sysconfig, beside the packages it configures.
      SystemConfig registers that directory with ALLOW_ALL (SystemConfig.java:404),
-     which is what makes both tags below legal here; the vendor and odm
+     which is what makes these tags legal here; the vendor and odm
      sysconfig directories are not ALLOW_ALL and would reject them.
 -->
 <config>
@@ -13,6 +13,10 @@
          user-visible one, it survives a /data wipe. -->
     <allow-in-power-save package="com.huawei.hwid" />
     <allow-in-power-save package="com.huawei.appmarket" />
+
+    <!-- Both packages are privileged, as required for Q Data Saver defaults. -->
+    <allow-in-data-usage-save package="com.huawei.hwid" />
+    <allow-in-data-usage-save package="com.huawei.appmarket" />
 
     <!-- Non-SDK interface exemption. Both APKs target far past this platform
          (HMS Core SDK 31, AppGallery SDK 34) and were built against Huawei's

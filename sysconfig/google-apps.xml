@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Battery and background-data defaults for the bundled Google APKs.
+     Installed to /system/etc/sysconfig. Q accepts full Doze exemptions for
+     system apps, but its Data Saver defaults require privileged placement. -->
+<config>
+    <!-- Full Doze and App Standby exemption for all 14 Google packages. -->
+    <allow-in-power-save package="com.android.chrome" />
+    <allow-in-power-save package="com.android.vending" />
+    <allow-in-power-save package="com.google.android.apps.photos" />
+    <allow-in-power-save package="com.google.android.apps.pixelmigrate" />
+    <allow-in-power-save package="com.google.android.calendar" />
+    <allow-in-power-save package="com.google.android.feedback" />
+    <allow-in-power-save package="com.google.android.gms" />
+    <allow-in-power-save package="com.google.android.googlequicksearchbox" />
+    <allow-in-power-save package="com.google.android.gsf" />
+    <allow-in-power-save package="com.google.android.markup" />
+    <allow-in-power-save package="com.google.android.partnersetup" />
+    <allow-in-power-save package="com.google.android.syncadapters.contacts" />
+    <allow-in-power-save package="com.google.android.webview" />
+    <allow-in-power-save package="com.google.android.youtube" />
+
+    <!-- Q skips non-privileged packages in allow-in-data-usage-save. -->
+    <allow-in-data-usage-save package="com.android.vending" />
+    <allow-in-data-usage-save package="com.google.android.apps.pixelmigrate" />
+    <allow-in-data-usage-save package="com.google.android.feedback" />
+    <allow-in-data-usage-save package="com.google.android.gms" />
+    <allow-in-data-usage-save package="com.google.android.googlequicksearchbox" />
+    <allow-in-data-usage-save package="com.google.android.gsf" />
+    <allow-in-data-usage-save package="com.google.android.partnersetup" />
+</config>

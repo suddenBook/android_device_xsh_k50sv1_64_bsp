@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 10 runtime permissions requested by the bundled APKs.
+     fixed=false keeps these grants revocable in Settings. On this Q branch,
+     whitelisted=true reapplies the requested defaults when the default-grant
+     policy runs, including over prior user denials. Device-policy decisions
+     remain authoritative. The default-grant policy sets SYSTEM_EXEMPT before
+     granting hard/soft restricted permissions; no separate XML flag is needed.
+     Foreground location precedes background location for the matching AppOps.
+     Regenerate against the APK manifests when the payload changes. -->
+<exceptions>
+
+    <!-- HuaweiAppGallery 16.6.1.300 -->
+    <exception package="com.huawei.appmarket">
+        <permission name="android.permission.READ_EXTERNAL_STORAGE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_PHONE_STATE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.WRITE_EXTERNAL_STORAGE" fixed="false" whitelisted="true" />
+    </exception>
+
+    <!-- HuaweiHMSCore 6.16.2.342 -->
+    <exception package="com.huawei.hwid">
+        <permission name="android.permission.ACCESS_COARSE_LOCATION" fixed="false" whitelisted="true" />
+        <permission name="android.permission.ACCESS_FINE_LOCATION" fixed="false" whitelisted="true" />
+        <permission name="android.permission.ACTIVITY_RECOGNITION" fixed="false" whitelisted="true" />
+        <permission name="android.permission.CAMERA" fixed="false" whitelisted="true" />
+        <permission name="android.permission.GET_ACCOUNTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_CALENDAR" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_CONTACTS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_EXTERNAL_STORAGE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_PHONE_STATE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.READ_SMS" fixed="false" whitelisted="true" />
+        <permission name="android.permission.WRITE_CALENDAR" fixed="false" whitelisted="true" />
+        <permission name="android.permission.WRITE_EXTERNAL_STORAGE" fixed="false" whitelisted="true" />
+        <permission name="android.permission.ACCESS_BACKGROUND_LOCATION" fixed="false" whitelisted="true" />
+    </exception>
+</exceptions>
