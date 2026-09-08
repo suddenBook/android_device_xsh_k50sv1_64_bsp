@@ -127,6 +127,8 @@
         <permission name="android.permission.READ_CONTACTS" fixed="false" whitelisted="true" />
         <permission name="android.permission.READ_PHONE_STATE" fixed="false" whitelisted="true" />
         <permission name="android.permission.WRITE_CONTACTS" fixed="false" whitelisted="true" />
+        <permission name="com.google.android.providers.talk.permission.READ_ONLY" fixed="false" whitelisted="true" />
+        <permission name="com.google.android.providers.talk.permission.WRITE_ONLY" fixed="false" whitelisted="true" />
     </exception>
 
     <!-- MarkupGoogle 9 -->

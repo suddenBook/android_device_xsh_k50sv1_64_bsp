@@ -29,7 +29,8 @@
 
        * SYSTEM_ALERT_WINDOW and WRITE_SETTINGS, which need no entry at all.
          Their protectionLevel carries preinstalled, so shipping on the system
-         image already grants them.
+         image grants the PackageManager permission. Their separate AppOps
+         still control effective access and must be checked independently.
 
      Tier 2 enforces the privileged allowlist. Keep this file matched to the
      imported APK manifests so a missing entry cannot prevent system startup.
