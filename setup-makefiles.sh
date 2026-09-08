@@ -6,35 +6,53 @@ DEVICE=k50sv1_64_bsp
 VENDOR=xsh
 INITIAL_COPYRIGHT_YEAR=2026
 
-MY_DIR="${BASH_SOURCE%/*}"
-if [[ ! -d "${MY_DIR}" ]]; then
-    MY_DIR="${PWD}"
+[[ $# -le 1 ]] || { echo "Usage: $0 [Android source root]" >&2; exit 2; }
+if [[ "${1:-}" == -h || "${1:-}" == --help ]]; then
+    echo "Usage: $0 [Android source root]"
+    exit 0
 fi
+ANDROID_ROOT_ARG="${1:-${ANDROID_BUILD_TOP:-}}"
 
-LINEAGE_ROOT="${MY_DIR}/../../.."
+# Keep the invocation path while locating the checkout: it may pass through
+# device/xsh/<device> in a different checkout than the physical repository.
+MY_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [[ -n "${ANDROID_ROOT_ARG}" ]]; then
+    ROOT_CANDIDATES=("${ANDROID_ROOT_ARG}")
+else
+    ROOT_CANDIDATES=("${MY_DIR}/../../.." "${MY_DIR}/../../lineage-17.1")
+fi
+LINEAGE_ROOT=
+for candidate in "${ROOT_CANDIDATES[@]}"; do
+    if candidate="$(cd -L "${candidate}" 2>/dev/null && pwd -P)" &&
+            [[ -f "${candidate}/vendor/lineage/build/tools/extract_utils.sh" ]]; then
+        LINEAGE_ROOT="${candidate}"
+        break
+    fi
+done
+if [[ -z "${LINEAGE_ROOT}" ]]; then
+    echo "Unable to find extract_utils.sh; pass an Android source root or set ANDROID_BUILD_TOP." >&2
+    exit 2
+fi
+MY_DIR="$(cd "${MY_DIR}" && pwd -P)"
 HELPER="${LINEAGE_ROOT}/vendor/lineage/build/tools/extract_utils.sh"
-
-if [[ ! -f "${HELPER}" ]]; then
-    echo "Unable to find extract_utils.sh at ${HELPER}" >&2
-    exit 1
-fi
 
 # shellcheck source=/dev/null
 source "${HELPER}"
 
 setup_vendor "${DEVICE}" "${VENDOR}" "${LINEAGE_ROOT}"
+# Generate and validate the complete set before updating the existing files.
+MAKEFILE_OUTPUTS=("${ANDROIDMK}" "${BOARDMK}" "${PRODUCTMK}" "${ANDROIDBP}")
+SETUP_STAGE="$(mktemp -d "${LINEAGE_ROOT}/${OUTDIR}/.setup-makefiles.XXXXXX")"
+trap 'rm -rf -- "${SETUP_STAGE}"; cleanup' EXIT
+ANDROIDMK="${SETUP_STAGE}/${ANDROIDMK##*/}"
+BOARDMK="${SETUP_STAGE}/${BOARDMK##*/}"
+PRODUCTMK="${SETUP_STAGE}/${PRODUCTMK##*/}"
+ANDROIDBP="${SETUP_STAGE}/${ANDROIDBP##*/}"
+
 write_headers
 write_makefiles "${MY_DIR}/proprietary-files.txt"
 
-# Close the vendor Android.mk's `ifeq` BEFORE the Soong patch below, not after.
-# write_headers appends `ifeq ($(TARGET_DEVICE),k50sv1_64_bsp)` to $ANDROIDMK
-# (extract_utils.sh write_headers) and write_footers appends the matching
-# `endif` (extract_utils.sh write_footers); nothing between them touches
-# $ANDROIDMK. The patch below has three `die` paths, and under `set -e` any of
-# them would abort the script with $ANDROIDMK left unterminated -- every later
-# lunch/make then fails inside the vendor tree with an error that points nowhere
-# near the cause. Ordering it this way makes that impossible rather than
-# recoverable.
+# Finish the staged Android.mk before validating the generated Soong modules.
 write_footers
 
 # The generated vendor product owns all blob copies. Append one stable include
@@ -103,3 +121,7 @@ PERL
     chmod --reference="${ANDROIDBP}" "${patched_bp}"
     mv -f -- "${patched_bp}" "${ANDROIDBP}"
 )
+
+for output in "${MAKEFILE_OUTPUTS[@]}"; do
+    mv -f -- "${SETUP_STAGE}/${output##*/}" "${output}"
+done

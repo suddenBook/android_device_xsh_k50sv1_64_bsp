@@ -46,6 +46,15 @@ logs live in the sibling `bringup/` repository (`bringup/BUILDING.md`). The Q
 Soong integration needs the reviewed `ALLOW_BP_UNDER_SYMLINKS` backport for
 this linked layout.
 
+The extraction scripts accept `ANDROID_BUILD_TOP`; `extract-files.sh` also accepts
+`--android-root ROOT`, and `setup-makefiles.sh` accepts an optional root argument.
+Without an override they resolve the checkout link or the sibling `lineage-17.1`
+workspace. Use `./extract-files.sh --android-root /path/to/lineage-17.1 /path/to/dump`.
+Extraction, fixup or makefile-generation failure restores the
+previous proprietary files and generated makefiles. `-n`/`-s` preserve unselected
+blobs but still use this recovery mechanism. Standalone makefile generation
+validates its temporary outputs before replacing the existing files.
+
 The product requires the locally imported Android 10 Google application and
 Google WebView payloads. Google SetupWizard is excluded; LineageSetupWizard
 owns initial setup. Huawei services default off and require an explicit

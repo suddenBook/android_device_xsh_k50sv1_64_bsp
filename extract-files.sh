@@ -1,34 +1,69 @@
 #!/bin/bash
-#
-# OPERATIONAL WARNING, because the recovery path is not obvious: a FAILED run of
-# this script destroys the previous extraction. extract_utils' `extract()` moves
-# the whole existing vendor/xsh/k50sv1_64_bsp/proprietary/ into $TMPDIR when
-# CLEAN_VENDOR is true, and the EXIT trap rm -rf's $TMPDIR. Every blob_fixup
-# path below deliberately `exit 1`s on a mismatch (that is the point of the
-# pins), so one firing pin leaves the vendor tree half-populated AND takes the
-# last good copy with it. Pass -n to keep the existing tree instead of cleaning
-# it; that is the flag to use when re-running after a fixup change. HANDOFF trap
-# 27 is the other half of this: after any failed extraction, re-run to
-# completion and check the file count against proprietary-files.txt before
-# concluding anything about the list.
+# Failed extraction or fixups restore the previous vendor data and makefiles.
+# Usage: extract-files.sh [--android-root ROOT] [-n] [-k] [-s SECTION] [SOURCE]
 
 set -e
 
 DEVICE=k50sv1_64_bsp
 VENDOR=xsh
 
-MY_DIR="${BASH_SOURCE%/*}"
-if [[ ! -d "${MY_DIR}" ]]; then
-    MY_DIR="${PWD}"
-fi
+ANDROID_ROOT_ARG="${ANDROID_BUILD_TOP:-}"
+CLEAN_VENDOR=true
+SECTION=
+KANG=
+SRC=
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --android-root | -s | --section)
+            [[ $# -ge 2 && -n "$2" ]] || {
+                echo "Missing value for $1" >&2
+                exit 2
+            }
+            if [[ "$1" == --android-root ]]; then
+                ANDROID_ROOT_ARG="$2"
+            else
+                SECTION="$2"
+                CLEAN_VENDOR=false
+            fi
+            shift
+            ;;
+        -n | --no-cleanup) CLEAN_VENDOR=false ;;
+        -k | --kang) KANG="--kang" ;;
+        -h | --help)
+            echo "Usage: $0 [--android-root ROOT] [-n] [-k] [-s SECTION] [SOURCE]"
+            exit 0
+            ;;
+        -*) echo "Unknown option: $1" >&2; exit 2 ;;
+        *)
+            [[ -z "${SRC}" ]] || { echo "Only one extraction source is accepted" >&2; exit 2; }
+            SRC="$1"
+            ;;
+    esac
+    shift
+done
 
-LINEAGE_ROOT="${MY_DIR}/../../.."
+# Keep the invocation path while locating the checkout: it may pass through
+# device/xsh/<device> in a different checkout than the physical repository.
+MY_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [[ -n "${ANDROID_ROOT_ARG}" ]]; then
+    ROOT_CANDIDATES=("${ANDROID_ROOT_ARG}")
+else
+    ROOT_CANDIDATES=("${MY_DIR}/../../.." "${MY_DIR}/../../lineage-17.1")
+fi
+LINEAGE_ROOT=
+for candidate in "${ROOT_CANDIDATES[@]}"; do
+    if candidate="$(cd -L "${candidate}" 2>/dev/null && pwd -P)" &&
+            [[ -f "${candidate}/vendor/lineage/build/tools/extract_utils.sh" ]]; then
+        LINEAGE_ROOT="${candidate}"
+        break
+    fi
+done
+if [[ -z "${LINEAGE_ROOT}" ]]; then
+    echo "Unable to find extract_utils.sh; pass an Android source root or set ANDROID_BUILD_TOP." >&2
+    exit 2
+fi
+MY_DIR="$(cd "${MY_DIR}" && pwd -P)"
 HELPER="${LINEAGE_ROOT}/vendor/lineage/build/tools/extract_utils.sh"
-
-if [[ ! -f "${HELPER}" ]]; then
-    echo "Unable to find extract_utils.sh at ${HELPER}" >&2
-    exit 1
-fi
 
 # shellcheck source=/dev/null
 source "${HELPER}"
@@ -1089,31 +1124,6 @@ CAMERASIZEEOF
     esac
 }
 
-CLEAN_VENDOR=true
-SECTION=
-KANG=
-SRC=
-
-while [[ $# -gt 0 ]]; do
-    case "$1" in
-        -n | --no-cleanup)
-            CLEAN_VENDOR=false
-            ;;
-        -k | --kang)
-            KANG="--kang"
-            ;;
-        -s | --section)
-            shift
-            SECTION="$1"
-            CLEAN_VENDOR=false
-            ;;
-        *)
-            SRC="$1"
-            ;;
-    esac
-    shift
-done
-
 # Resolve -s/--section against the section tags in proprietary-files.txt.
 #
 # extract_utils turns --section into
@@ -1193,14 +1203,71 @@ fi
 
 setup_vendor "${DEVICE}" "${VENDOR}" "${LINEAGE_ROOT}" false "${CLEAN_VENDOR}"
 
-extract "${MY_DIR}/proprietary-files.txt" "${SRC}" ${KANG} --section "${SECTION}"
+VENDOR_OUTPUT="$(cd "${LINEAGE_ROOT}/${OUTDIR}" && pwd -P)"
+PROPRIETARY_ROOT="${VENDOR_OUTPUT}/proprietary"
+[[ ! -L "${PROPRIETARY_ROOT}" ]] || {
+    echo "Refusing to extract through a symlinked proprietary directory: ${PROPRIETARY_ROOT}" >&2
+    exit 1
+}
+BACKUP_DIR="$(mktemp -d "${VENDOR_OUTPUT}/.extract-backup.XXXXXX")"
+BACKUP_READY=false
+BACKUP_FILES=(proprietary Android.bp Android.mk BoardConfigVendor.mk "${DEVICE}-vendor.mk")
 
-PROPRIETARY_ROOT="${LINEAGE_ROOT}/vendor/${VENDOR}/${DEVICE}/proprietary"
+# extract_utils moves the previous clean payload into its disposable TMPDIR.
+# Keep an independent snapshot, including generated files, until all steps pass.
+finish_extraction() {
+    local status=$1
+    trap - EXIT
+    if [[ "${status}" -ne 0 && "${BACKUP_READY}" == true ]]; then
+        for name in "${BACKUP_FILES[@]}"; do
+            if ! rm -rf -- "${VENDOR_OUTPUT}/${name}" ||
+                    { [[ -e "${BACKUP_DIR}/${name}" || -L "${BACKUP_DIR}/${name}" ]] &&
+                      ! mv -- "${BACKUP_DIR}/${name}" "${VENDOR_OUTPUT}/${name}"; }; then
+                echo "Restore failed; previous vendor data remains in ${BACKUP_DIR}" >&2
+                cleanup
+                exit 1
+            fi
+        done
+        echo "Extraction failed; previous vendor payload and makefiles restored." >&2
+    fi
+    rm -rf -- "${BACKUP_DIR}"
+    cleanup
+    exit "${status}"
+}
+trap 'finish_extraction "$?"' EXIT
+trap 'exit 129' HUP
+trap 'exit 130' INT
+trap 'exit 143' TERM
+for name in "${BACKUP_FILES[@]}"; do
+    if [[ -e "${VENDOR_OUTPUT}/${name}" || -L "${VENDOR_OUTPUT}/${name}" ]]; then
+        cp -a --reflink=auto -- "${VENDOR_OUTPUT}/${name}" "${BACKUP_DIR}/${name}"
+    fi
+done
+BACKUP_READY=true
+
+extract "${MY_DIR}/proprietary-files.txt" "${SRC}" ${KANG} --section "${SECTION}"
+# The helper briefly disables errexit and treats missing source files as skips.
+extract_status=$?
+set -e
+[[ "${extract_status}" -eq 0 ]] || exit "${extract_status}"
+[[ $(( ${#PRODUCT_COPY_FILES_LIST[@]} + ${#PRODUCT_PACKAGES_LIST[@]} )) -gt 0 ]] || {
+    echo "No proprietary files selected" >&2
+    exit 1
+}
+for spec in "${PRODUCT_COPY_FILES_LIST[@]}" "${PRODUCT_PACKAGES_LIST[@]}"; do
+    output="${PROPRIETARY_ROOT}/$(target_file "${spec}")"
+    if [[ "$(target_args "${spec}")" == rootfs ]]; then
+        output="${PROPRIETARY_ROOT}/rootfs/$(target_file "${spec}")"
+    fi
+    [[ -f "${output}" ]] || { echo "Missing extracted file: ${output}" >&2; exit 1; }
+done
+
 (
+    set -o pipefail
     cd "${PROPRIETARY_ROOT}"
     find . \( -type f -o -type l \) ! -name SHA256SUMS -print0 \
         | LC_ALL=C sort -z \
         | xargs -0 sha256sum >SHA256SUMS
 )
 
-"${MY_DIR}/setup-makefiles.sh"
+"${MY_DIR}/setup-makefiles.sh" "${LINEAGE_ROOT}"
