@@ -1,4 +1,6 @@
-LOCAL_PATH := $(call my-dir)
+# Sources and init belong to different trees. Resolve both from the Android root
+# without traversing parents of the linked device checkout.
+LOCAL_PATH := .
 
 include $(CLEAR_VARS)
 
@@ -8,8 +10,8 @@ LOCAL_MODULE := android.hardware.audio@5.0-service-mediatek
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_PROPRIETARY_MODULE := true
 LOCAL_MULTILIB := 32
-LOCAL_INIT_RC := ../rootdir/etc/init/android.hardware.audio@5.0-service-mediatek.rc
-LOCAL_SRC_FILES := ../../../../hardware/interfaces/audio/common/all-versions/default/service/service.cpp
+LOCAL_INIT_RC := $(TARGET_DEVICE_DIR)/rootdir/etc/init/android.hardware.audio@5.0-service-mediatek.rc
+LOCAL_SRC_FILES := hardware/interfaces/audio/common/all-versions/default/service/service.cpp
 LOCAL_CFLAGS := -Wall -Werror
 LOCAL_SHARED_LIBRARIES := \
     libcutils \

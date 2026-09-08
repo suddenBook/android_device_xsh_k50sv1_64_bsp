@@ -1,4 +1,5 @@
-LOCAL_PATH := $(call my-dir)
+# Anchor borrowed sources in the Android checkout, outside the linked device tree.
+LOCAL_PATH := external/tinyxml
 
 include $(CLEAR_VARS)
 
@@ -7,10 +8,10 @@ LOCAL_MODULE := libmtktinyxml
 LOCAL_PROPRIETARY_MODULE := true
 LOCAL_MULTILIB := 64
 LOCAL_SRC_FILES := \
-    ../../../../external/tinyxml/tinyxml.cpp \
-    ../../../../external/tinyxml/tinyxmlparser.cpp \
-    ../../../../external/tinyxml/tinyxmlerror.cpp \
-    ../../../../external/tinyxml/tinystr.cpp
+    tinyxml.cpp \
+    tinyxmlparser.cpp \
+    tinyxmlerror.cpp \
+    tinystr.cpp
 LOCAL_CFLAGS := \
     -Wno-implicit-fallthrough \
     -Wno-logical-op-parentheses \
