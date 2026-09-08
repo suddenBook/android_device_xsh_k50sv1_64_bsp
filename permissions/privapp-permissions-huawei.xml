@@ -31,9 +31,8 @@
          Their protectionLevel carries preinstalled, so shipping on the system
          image already grants them.
 
-     ro.control_privapp_permissions is set to log on this product, so a
-     permission that is requested but missing from this file is logged by
-     PermissionManagerService and denied, and does not affect boot.
+     Tier 2 enforces the privileged allowlist. Keep this file matched to the
+     imported APK manifests so a missing entry cannot prevent system startup.
 -->
 <permissions>
     <!-- HMS Core 6.16.2.342 - 22 privileged permissions -->
@@ -62,7 +61,7 @@
         <permission name="android.permission.WRITE_SECURE_SETTINGS" />
     </privapp-permissions>
 
-    <!-- AppGallery 16.5.1.301 - 16 privileged permissions -->
+    <!-- AppGallery 16.6.1.300 - 16 privileged permissions -->
     <privapp-permissions package="com.huawei.appmarket">
         <permission name="android.permission.ALLOCATE_AGGRESSIVE" />
         <permission name="android.permission.DELETE_PACKAGES" />
