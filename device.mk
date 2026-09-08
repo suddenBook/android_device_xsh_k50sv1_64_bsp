@@ -339,16 +339,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.software.midi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.midi.xml
 
-# Radio. Lineage's existing APN module merges this four-row device fragment
-# into its clean product APN list; do not add a second destination writer.
-#
-# Lives here rather than in BoardConfig.mk because it is a product-level global,
-# not a board variable: its only reader is the apns-conf.xml prebuilt in
-# vendor/lineage/prebuilt/common/Android.mk:23-31, which branches on `ifdef
-# CUSTOM_APNS_FILE` and runs vendor/lineage/tools/custom_apns.py to merge this
-# fragment into DEFAULT_APNS_FILE. Nothing about it describes the board.
-CUSTOM_APNS_FILE := $(LOCAL_PATH)/configs/apns-conf.xml
-
 # Overlay priority is list order: Soong reverses the list so later,
 # lower-priority directories reach aapt2 first. Tier 3's narrow false value is
 # therefore listed before the ordinary diagnostic overlay's true capability.
