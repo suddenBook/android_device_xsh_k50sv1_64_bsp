@@ -2,15 +2,15 @@
 
 Android 10 device support for the XSH F212 / RUNSUI_B64 board, sold under a
 falsified “S26 Ultra” identity. This tree describes the hardware verified on the
-tested handset. Its Android compatibility properties do not identify genuine
-Samsung or Google hardware and do not confer Play certification.
+tested handset. Product properties and fingerprints are generated from the real XSH device
+and Lineage build. This does not confer Play certification.
 
 ## Hardware
 
 | Component | Verified configuration |
 | --- | --- |
 | Platform | MediaTek MT6755 BSP/ABI; MT6750-class E2 performance bin |
-| CPU | Eight Cortex-A53 cores, up to approximately 1.5 GHz; arm64 with 32-bit application support |
+| CPU | Eight Cortex-A53 cores; owner-selected 1.807 GHz big cluster, ARM64 and ARM32 userspace |
 | GPU | Mali-T860, Midgard r29p0 driver; OpenGL ES 3.2 |
 | Memory | 4 GiB LPDDR3 nominal |
 | Storage | Micron S0J9F8 eMMC 5.1; 62,537,072,640-byte raw user area, 64 GB class |
@@ -39,52 +39,41 @@ Place the three repositories in an Android source checkout as follows:
 | [Proprietary vendor files](https://github.com/suddenBook/android_vendor_xsh_k50sv1_64_bsp) | `vendor/xsh/k50sv1_64_bsp` |
 | [Kernel source](https://github.com/suddenBook/android_kernel_xsh_k50sv1_64_bsp) | `kernel/xsh/k50sv1_64_bsp` |
 
-See [BUILDING.md](BUILDING.md) for the required workspace layout, additional
-application repositories, existing Android patches and release-signing tools.
-The three device repositories alone are not a complete Android build input set.
+Use the `lineage-17.1` branch of all three repositories. In the owner's
+workspace they remain under `device/android_{device,vendor,kernel}_xsh_k50sv1_64_bsp`
+and are linked into the Android checkout. Current build/import/replay tools and
+logs live in the sibling `bringup/` repository (`bringup/BUILDING.md`). The Q
+Soong integration needs the reviewed `ALLOW_BP_UNDER_SYMLINKS` backport for
+this linked layout.
 
-## Release and installation
+The product requires the locally imported Android 10 Google application and
+Google WebView payloads. Google SetupWizard is excluded; LineageSetupWizard
+owns initial setup. Huawei services default off and require an explicit
+`WITH_HUAWEI_SERVICES=true` selection plus their separate payload.
 
-Download matching images and checksums from
-[Releases](https://github.com/suddenBook/android_device_xsh_k50sv1_64_bsp/releases).
-Follow [FLASHING.md](FLASHING.md) for the exact board, partition checks and clean
-installation procedure. The first release contains `boot.img`, `recovery.img`,
-`system.img`, `vendor.img` and the tested `logo.img`. It is a fastboot image
-release; there is no recovery-installable OTA ZIP.
+The owner deliberately selects 1.807 GHz, removes PPM thermal throttling at
+boot completion, runs all cores at maximum while the display is on, and keeps
+one little core in display-off standby. Preserve this policy during maintenance.
 
-The release uses Tier 3: an Android `user` build signed with external release
-keys, SELinux enforcing, and ADB disabled by default. USB defaults to MTP;
-authenticated non-root debugging can be enabled in Settings. The bootloader
-remains unlocked, verified boot and rollback protection are not provided, and
-userdata is deliberately unencrypted. Signing does not change those properties.
-Historical development keys are revoked; see [security/README.md](security/README.md).
+## Current bring-up and historical release
 
-## Tested status
+The 2026-09-08 restart is restoring Android from SailfishOS. Current work is
+Tier 1/2; fresh-image runtime acceptance is pending. The earlier v1.0.0 Tier-3
+build and its hardware captures describe their own revisions only. They do
+not verify newer Google payloads, upstream fixes or a stable-kernel upgrade.
 
-The final Tier-3 images passed the clean-build signing and source-kernel ABI
-gates and were flashed together with a userdata wipe. Runtime checks confirmed
-SELinux enforcing, release properties, rejection of `adb root`, and successful
-setup completion to the launcher. Authenticated diagnostic ADB was used during
-acceptance checks and disabled at the end.
-
-| Area | Observed result and scope |
-| --- | --- |
-| Display / graphics / input | Display, touch, accelerometer, 32-bit Surface and Mali EGL probes passed |
-| Cameras / recording | Rear and front still capture, 1080p video with AAC audio, and changing screen-recorded frames were verified |
-| Wi-Fi / Internet | Wi-Fi association, IPv4, DNS and HTTPS worked; Google application UI was exercised |
-| Bluetooth audio | Stereo AAC capture at 44.1 kHz met the existing tone-frequency tolerance; the full controller run retained a failure in its late post-playback route check |
-| GNSS | Start/status/stop callbacks and satellite reports observed; an outdoor position fix has not been accepted |
-| Recovery / accessories | Display, touch and keys, USB-C analog headset audio/microphone/buttons, and read-only USB OTG storage were checked during bring-up |
+The factory LK reports userdata as ext4, while Android uses F2FS. Never use
+`fastboot -w` or `fastboot format userdata`. For a clean install erase userdata,
+metadata and cache explicitly, flash matching boot/recovery/system/vendor
+images, and let Android's formattable F2FS fstab create `/data`. Instructions
+for the current workspace are in `bringup/FLASHING.md`.
 
 ## Known limitations
 
-- The older Google setup wizard can fail with some modern Wi-Fi encryption
-  modes. Skip Wi-Fi during setup and connect through Settings afterward. Setup
-  can also remove its saved network and turn Wi-Fi off before completion.
 - Play Store reports the device as uncertified. This is an accepted condition
   of the build.
-- A rare launcher failure during a setup transition remains unresolved. The
-  final normal setup-to-home transition completed successfully.
+- The HOME-transition receiver fix passes its host regression; the new
+  LineageSetupWizard-to-Trebuchet transition still needs fresh-image testing.
 - Carrier calls and IMS/VoLTE have not completed home-carrier acceptance.
   Tier 3 omits the legacy ePDG tunnel and disables Wi-Fi calling; the remaining
   cellular IMS components do not establish carrier compatibility by themselves.
@@ -102,6 +91,5 @@ acceptance checks and disabled at the end.
 | 3 | `user` | Enforcing | Disabled by default; authenticated non-root when enabled | External release keys |
 
 Tiers 1 and 2 are diagnostic configurations. They retain legacy Wi-Fi calling
-components for controlled investigation. Use the wrapper documented in
-[BUILDING.md](BUILDING.md); Tier 3 requires its complete signing and verification
-pipeline.
+components for controlled investigation. Use `bringup/build.sh` for the current diagnostic tiers. Tier 3 requires
+future owner authorization and its separate signing workflow.
