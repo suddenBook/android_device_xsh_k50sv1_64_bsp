@@ -105,20 +105,12 @@ endif
 
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
-# Google Mobile Services: MindTheGapps, the package LineageOS points its own
-# users at. WITH_GMS is deliberately NOT set. That flag exists to reach
-# vendor/partner_gms (vendor/lineage/config/partner_gms.mk:13), which is
-# Google's real partner payload and is not what this device ships; setting it
-# for a tree without that repository would be an inherit-product-if-exists that
-# silently does nothing. The payload is inherited by name instead, so a missing
-# import is a build error rather than a GMS-free image.
-#
-# vendor/gapps is MindTheGapps' own repository layout, with a newer released
-# payload than its checked-in blobs. Nothing in it is hand-edited; see
-# vendor/gapps/README.md and work/k50sv1-bringup/tools/import-mindthegapps.sh.
-ifeq ($(wildcard vendor/gapps/arm64/arm64-vendor.mk),)
-$(error Missing vendor/gapps/arm64/arm64-vendor.mk; run tools/import-mindthegapps.sh first)
-endif
+# MTG's Android 10 framework/services plus the supplied current Google APKs.
+# WITH_GMS is for vendor/partner_gms and does not apply to this local payload.
+# Recreate vendor/gapps and vendor/google_webview with
+# bringup/k50sv1-bringup/tools/import-mindthegapps.sh; both are required.
+# The generated payload excludes Google SetupWizard. common_full_phone.mk
+# already includes LineageSetupWizard, which also overrides AOSP Provision.
 $(call inherit-product, vendor/gapps/arm64/arm64-vendor.mk)
 
 # Optional application bundle. The current bring-up inputs contain Google

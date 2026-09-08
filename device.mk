@@ -17,21 +17,15 @@ include $(LOCAL_PATH)/build_tiers.mk
 
 $(call inherit-product-if-exists, vendor/xsh/k50sv1_64_bsp/k50sv1_64_bsp-vendor.mk)
 
-# Google's Android System WebView in place of AOSP's. Optional by construction:
-# without vendor/google_webview the product falls back to external/
-# chromium-webview's `webview`, which is what media_product.mk asks for.
-$(call inherit-product-if-exists, vendor/google_webview/webview.mk)
+# Required Google WebView payload, generated together with the Google apps.
+$(call inherit-product, vendor/google_webview/webview.mk)
 
-# Preserve the signed source APKs and install their JNI beside them. The Q
-# generic prebuilt paths rewrite these three APKs; see presigned-apks/README.md.
-PRODUCT_PACKAGES += \
-    K50CtsShimPrivPrebuilt
+# Keep the original CTS APK signature and its compressed JNI intact.
+PRODUCT_PACKAGES += K50CtsShimPrivPrebuilt
 
-ifneq ($(wildcard vendor/gapps/arm64/arm64-vendor.mk),)
-PRODUCT_PACKAGES += \
-    K50SetupWizardPrebuilt \
-    K50Velvet
-endif
+# Q signature|privileged additions requested by the updated GMS/Search APKs.
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/permissions/privapp-permissions-google-updates.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-google-updates.xml
 
 # The Stock IMS APK directly references the first two MTK contracts. Its
 # absolute-path extension plugin imports ims-common plus MTK telephony/telecom
