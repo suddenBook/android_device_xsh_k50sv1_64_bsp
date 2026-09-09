@@ -68,7 +68,7 @@ one little core in display-off standby. Preserve this policy during maintenance.
 
 Android has been restored from SailfishOS, and Tier 1/2 runtime checks are
 recorded. Linux 3.18.140 has passed both-tier compilation, module ABI and final-image
-checks; stepwise handset testing has reached 3.18.136. See the
+checks; stepwise handset testing has reached 3.18.140. See the
 [current workspace handoff](../../bringup/k50sv1-bringup/notes/HANDOFF.md) for
 image-bound results and remaining validation. The earlier v1.0.0 Tier-3 build
 and its hardware captures describe their own revisions only.
