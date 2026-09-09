@@ -21,7 +21,7 @@ and Lineage build. This does not confer Play certification.
 | Sensors / input | MIR3DA accelerometer, Hall/stylus-slot switch; passive capacitive stylus |
 | Other fitted hardware | Rear flash LED and ERM vibrator |
 | Battery | Cell marked 3.8 V, 12.16 Wh, 3200 mAh; charge curves remain uncalibrated |
-| Kernel | Source-built Linux 3.18.119 with retained stock DT payloads |
+| Kernel | Source-built Linux 3.18.140 with retained stock DT payloads; validation scope below |
 | Partition layout | A-only static GPT, separate boot and recovery; F2FS userdata and ext4 cache |
 
 There is no fitted fingerprint reader, NFC, infrared transmitter, wireless
@@ -66,10 +66,12 @@ one little core in display-off standby. Preserve this policy during maintenance.
 
 ## Current bring-up and historical release
 
-The 2026-09-08 restart is restoring Android from SailfishOS. Current work is
-Tier 1/2; fresh-image runtime acceptance is pending. The earlier v1.0.0 Tier-3
-build and its hardware captures describe their own revisions only. They do
-not verify newer Google payloads, upstream fixes or a stable-kernel upgrade.
+Android has been restored from SailfishOS, and Tier 1/2 runtime checks are
+recorded. Linux 3.18.140 has passed both-tier compilation, module ABI and final-image
+checks; stepwise handset testing has reached 3.18.136. See the
+[current workspace handoff](../../bringup/k50sv1-bringup/notes/HANDOFF.md) for
+image-bound results and remaining validation. The earlier v1.0.0 Tier-3 build
+and its hardware captures describe their own revisions only.
 
 The factory LK reports userdata as ext4, while Android uses F2FS. Never use
 `fastboot -w` or `fastboot format userdata`. For a clean install erase userdata,
