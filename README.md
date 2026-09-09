@@ -73,6 +73,10 @@ checks; stepwise handset testing has reached 3.18.140. See the
 image-bound results and remaining validation. The earlier v1.0.0 Tier-3 build
 and its hardware captures describe their own revisions only.
 
+The final enforcing checks cover all 121 effective Google/Huawei runtime
+permissions, requested background and power exemptions, recovery/F2FS, and
+MTK video capture and ordinary-app PixelCopy after the graphics policy fixes.
+
 The factory LK reports userdata as ext4, while Android uses F2FS. Never use
 `fastboot -w` or `fastboot format userdata`. For a clean install erase userdata,
 metadata and cache explicitly, flash matching boot/recovery/system/vendor
@@ -83,8 +87,15 @@ for the current workspace are in `bringup/FLASHING.md`.
 
 - Play Store reports the device as uncertified. This is an accepted condition
   of the build.
-- The HOME-transition receiver fix passes its host regression; the new
-  LineageSetupWizard-to-Trebuchet transition still needs fresh-image testing.
+- The HOME-transition receiver fix passes its host regression. The current
+  workspace also records the fresh Android installation and owner-completed
+  Lineage setup; the receiver edge cases are covered by the host test.
+- Front-camera exposure still needs a confirmed lit, unobstructed scene;
+  successful preview/JPEG delivery alone does not establish image quality.
+- Google/Huawei authentication and synchronization remain untested. HMS
+  secondary-dex AOT mitigated startup provider timeouts in repeated boots,
+  but the original SCREEN_OFF ANR is not proven eliminated. The compilation
+  cache may need rebuilding after application-data or dynamic-kit changes.
 - Carrier calls and IMS/VoLTE have not completed home-carrier acceptance.
   Tier 3 omits the legacy ePDG tunnel and disables Wi-Fi calling; the remaining
   cellular IMS components do not establish carrier compatibility by themselves.
