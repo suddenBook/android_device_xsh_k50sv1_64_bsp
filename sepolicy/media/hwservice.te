@@ -1,5 +1,6 @@
 type mtk_hal_gpu_hwservice, hwservice_manager_type;
-type mtk_hal_mms_hwservice, hwservice_manager_type;
+# The remote MMS interface serves GPUAUX buffer conversion in ordinary apps.
+type mtk_hal_mms_hwservice, hwservice_manager_type, untrusted_app_visible_hwservice_violators;
 type mtk_hal_pq_hwservice, hwservice_manager_type;
 
 # HwBinder calls, returned references, callbacks and transferred buffer FDs.

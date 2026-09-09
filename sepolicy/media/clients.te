@@ -8,17 +8,21 @@ hal_client_domain(hal_graphics_composer_default, hal_mtk_pq)
 hal_client_domain(hal_camera_default, hal_mtk_pq)
 hal_client_domain(mediacodec, hal_mtk_pq)
 
-# Do not reproduce Stock's exposure of MMS to every app domain. Retain only
-# clients proven by a direct binary path or by live Binder/FD evidence.
+# MMS consumers in the graphics and media stack.
 hal_client_domain(surfaceflinger, hal_mtk_mms)
 hal_client_domain(hal_camera_default, hal_mtk_mms)
 hal_client_domain(mediacodec, hal_mtk_mms)
 
-# Settings' RenderThread reaches IMms through the Mali GLES -> libgpu_aux path
-# and submits a client-owned dma-buf for the AUX blit. system_app is the
-# narrowest existing domain boundary; a Settings-only domain would require
-# re-deriving the application's complete platform policy.
+# App RenderThreads use GPUAUX's remote MMS path to convert private YUV
+# buffers. Match the stock app client set for HwBinder calls and transfers
+# of source and destination buffer FDs through the existing MMS HAL rules.
+hal_client_domain(ephemeral_app, hal_mtk_mms)
+hal_client_domain(platform_app, hal_mtk_mms)
+hal_client_domain(priv_app, hal_mtk_mms)
 hal_client_domain(system_app, hal_mtk_mms)
+hal_client_domain(untrusted_app, hal_mtk_mms)
+hal_client_domain(untrusted_app_27, hal_mtk_mms)
+hal_client_domain(untrusted_app_25, hal_mtk_mms)
 
 # NO hal_mtk_codecservice clients at all any more, and the HAL itself is now a
 # closed loop.

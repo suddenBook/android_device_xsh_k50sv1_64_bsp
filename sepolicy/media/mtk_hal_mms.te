@@ -1,4 +1,6 @@
-type mtk_hal_mms, domain;
+# Pair Android Q app visibility with the remote MMS hwservice: GPUAUX clients
+# send their source and destination buffer FDs to this process over HwBinder.
+type mtk_hal_mms, domain, untrusted_app_visible_halserver_violators;
 type mtk_hal_mms_exec, exec_type, vendor_file_type, file_type;
 
 init_daemon_domain(mtk_hal_mms)
