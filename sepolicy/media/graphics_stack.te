@@ -64,16 +64,16 @@ allow {
     surfaceflinger
 } mtk_cmdq_device:chr_file { ioctl open read };
 
-# sw_sync timeline producers. Splitting /dev/sw_sync out of graphics_device
-# (media/file.te) removes the access the composer previously inherited from
-# system/sepolicy/public/hal_graphics_composer.te:23, so it is restated here
-# for the two processes that actually hold the node open on the handset.
-# Stock grants sw_sync_device rw to mtk_hal_camera, mtk_hal_mms and mediacodec
-# as well; none of those three has it open here, so they are left out.
+# Composer and MMS produce software fence timelines for MTK display work.
 allow {
     hal_graphics_composer_default
     mtk_hal_mms
 } mtk_sw_sync_device:chr_file rw_file_perms;
+
+# SurfaceFlinger's MTK YUV capture conversion also creates and advances a
+# timeline. Denying this path leaves DpSync with fd=-1 and captures green video.
+allow surfaceflinger mtk_sw_sync_device:chr_file { ioctl open read };
+allowxperm surfaceflinger mtk_sw_sync_device:chr_file ioctl { 0x5700 0x5701 };
 
 # The proprietary composer uses vendor Binder for its MTK extension service
 # and listens for hotplug uevents.

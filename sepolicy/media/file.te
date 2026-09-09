@@ -15,16 +15,7 @@ type debugfs_mtk_ion_clients_summary, fs_type, debugfs_type;
 # writer, and the node steers DRAM bandwidth arbitration for the whole SoC.
 type sysfs_mtk_concurrency_scenario, fs_type, sysfs_type;
 
-# /dev/sw_sync is the sw_sync timeline *producer* node -- opening it creates a
-# fence timeline, which is a different privilege from talking to the display
-# manager. It used to share AOSP's graphics_device with /dev/mtk_disp_mgr,
-# which meant every holder of graphics_device (AOSP grants it to
-# surfaceflinger, hal_graphics_composer, gpuservice, healthd, charger,
-# recovery, slideshow) implicitly got a timeline producer too. Stock keeps them
-# apart as sw_sync_device vs mtk_disp_mgr; so does this tree now.
-#
-# Live openers on the handset (ls -l /proc/*/fd | grep sw_sync):
-#   /vendor/bin/hw/android.hardware.graphics.composer@2.1-service
-#   /vendor/bin/hw/vendor.mediatek.hardware.mms@1.5-service
-# and nothing else -- not surfaceflinger, not camera, not mediacodec.
+# Opening /dev/sw_sync creates a software fence timeline. Keep this producer
+# separate from the display manager; its clients include composer, MMS and
+# SurfaceFlinger's MTK private-YUV capture conversion.
 type mtk_sw_sync_device, dev_type;
